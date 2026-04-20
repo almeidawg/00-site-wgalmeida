@@ -28,7 +28,7 @@ describe("Button Component", () => {
   it("deve renderizar variante default corretamente", () => {
     render(<Button variant="default">Default</Button>);
     const button = screen.getByRole("button");
-    expect(button).toHaveClass("bg-primary");
+    expect(button).toHaveClass("bg-wg-orange");
   });
 
   it("deve renderizar variante outline corretamente", () => {
@@ -52,7 +52,7 @@ describe("Button Component", () => {
   it("deve renderizar tamanho large corretamente", () => {
     render(<Button size="lg">Large</Button>);
     const button = screen.getByRole("button");
-    expect(button).toHaveClass("h-11");
+    expect(button).toHaveClass("h-12");
   });
 
   it("deve aplicar classes customizadas", () => {

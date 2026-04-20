@@ -6,20 +6,32 @@ const WG_VISUAL_PROFILE = {
 };
 
 const STOPWORDS = new Set([
-  'a', 'ao', 'aos', 'as', 'da', 'das', 'de', 'do', 'dos', 'e', 'em', 'na', 'nas', 'no', 'nos', 'o', 'os', 'para', 'por', 'sem', 'com', 'um', 'uma', 'the', 'for', 'and', 'del', 'la', 'las', 'los', 'el', 'en', 'un', 'una', 'y', 'site', 'blog', 'guia', 'complete', 'completo', 'completa', 'como', 'funciona', 'sobre', 'que', 'qual', 'mais', 'menos', 'ou', 'vs', 'via', 'wg', 'almeida', 'grupo'
+  'a', 'ao', 'aos', 'as', 'da', 'das', 'de', 'do', 'dos', 'e', 'em', 'na', 'nas', 'no', 'nos', 'o', 'os', 'para', 'por', 'sem', 'com', 'um', 'uma', 'the', 'for', 'and', 'del', 'la', 'las', 'los', 'el', 'en', 'un', 'una', 'y', 'site', 'blog', 'guia', 'complete', 'completo', 'completa', 'como', 'funciona', 'sobre', 'que', 'qual', 'mais', 'menos', 'ou', 'vs', 'via', 'wg', 'almeida', 'grupo', 'nomes', 'nome', 'licoes', 'licao', 'famosos', 'famoso', 'famous'
 ]);
 
 const TOKEN_MAP = {
   // Arquitetura e design
+  arquiteto: 'architect',
+  arquitetos: 'architect',
   arquitetura: 'architecture',
   arquitectonica: 'architectural',
   architectura: 'architecture',
+  brasileiro: 'brazilian',
+  brasileiros: 'brazilian',
   arquiteturaresidencial: 'residential architecture',
   decoracao: 'decor',
   decoracion: 'decor',
   interiores: 'interiors',
   interior: 'interior',
   design: 'design',
+  marca: 'brand',
+  marcas: 'brand',
+  cidade: 'city',
+  cidades: 'city',
+  pais: 'country',
+  paises: 'country',
+  país: 'country',
+  países: 'country',
   lighting: 'lighting',
   iluminacao: 'lighting',
   iluminacion: 'lighting',
@@ -248,14 +260,32 @@ const TOKEN_MAP = {
 
 const CATEGORY_HINTS = {
   arquitetura: 'architecture',
+  'arquitetura internacional': 'international architecture',
   projetos: 'architecture',
   design: 'interior design',
   engenharia: 'engineering',
   marcenaria: 'custom carpentry',
+  'mercado-imobiliario': 'real estate',
   tecnologia: 'smart home',
   tendencias: 'design trends',
   dicas: 'interior design',
 };
+
+const PEOPLE_REFERENCE_TOKENS = new Set([
+  'architect',
+  'oscar niemeyer architecture',
+  'le corbusier architecture',
+  'zaha hadid architecture',
+  'frank gehry architecture',
+  'tadao ando architecture',
+  'tadao ando concrete architecture',
+  'renzo piano architecture',
+  'rem koolhaas architecture',
+  'norman foster architecture',
+  'herzog de meuron architecture',
+  'mies van der rohe architecture',
+  'bauhaus design',
+]);
 
 const INTENT_RULES = [
   { intent: 'lighting', match: ['lighting', 'light'] },
@@ -281,6 +311,14 @@ const LOCATION_TOKENS = new Set([
 ]);
 
 const SEARCH_LIBRARY = {
+  person: {
+    hero: ['architect portrait', 'brazilian architect portrait', 'architect studio portrait', 'modernist architect portrait', 'design master portrait'],
+    card: ['iconic architecture facade', 'modernist building detail', 'signature building exterior', 'architectural landmark detail', 'historical architecture archive'],
+  },
+  brand: {
+    hero: ['luxury brand showroom interior', 'premium product editorial', 'designer brand environment', 'brand identity interior', 'luxury retail interior'],
+    card: ['premium product detail', 'brand logo detail', 'luxury showroom detail', 'editorial product close up', 'material finish premium'],
+  },
   architecture: {
     hero: ['modern architecture exterior', 'minimalist facade design', 'neutral architecture photography', 'clean residential facade', 'soft light exterior'],
     card: ['architectural facade detail', 'modern facade material', 'clean geometry facade', 'neutral exterior detail', 'architectural lines detail'],
@@ -368,6 +406,26 @@ const detectIntent = (tokens, category) => {
   return match?.intent || (category === 'engenharia' ? 'construction' : 'decor');
 };
 
+const inferEditorialEntityType = (tokens, category = '') => {
+  if (tokens.some((token) => PEOPLE_REFERENCE_TOKENS.has(token))) {
+    return 'person';
+  }
+
+  if (tokens.includes('brand')) {
+    return 'brand';
+  }
+
+  if (category.includes('internacional') && detectLocation(tokens)) {
+    return 'city';
+  }
+
+  if (tokens.includes('country')) {
+    return 'country';
+  }
+
+  return '';
+};
+
 const detectLocation = (tokens) => tokens.find((token) => LOCATION_TOKENS.has(token)) || '';
 
 const detectYear = (tokens) => tokens.find((token) => /^20\d{2}$/.test(token)) || '';
@@ -399,6 +457,57 @@ const buildLocationAwareMainQuery = (themePhrase, location, year, intent) => {
 const buildLibraryTerms = (intent, slot) =>
   SEARCH_LIBRARY[intent]?.[slot] || SEARCH_LIBRARY.decor[slot] || [];
 
+const buildEntityAwarePayload = ({ entityType, slot, location, tokens, year }) => {
+  const suffix = year ? ` ${year}` : '';
+  const nationality = tokens.includes('brazilian') ? 'brazilian ' : '';
+
+  if (entityType === 'person') {
+    return {
+      intent: 'person',
+      mainQuery: slot === 'hero'
+        ? `${nationality}architect portrait${suffix}`.trim()
+        : `${nationality}iconic architecture${suffix}`.trim(),
+      searchTerms: buildLibraryTerms('person', slot),
+    };
+  }
+
+  if (entityType === 'brand') {
+    return {
+      intent: 'brand',
+      mainQuery: slot === 'hero'
+        ? `luxury brand editorial${suffix}`.trim()
+        : `premium brand product detail${suffix}`.trim(),
+      searchTerms: buildLibraryTerms('brand', slot),
+    };
+  }
+
+  if (entityType === 'city' && location) {
+    return {
+      intent: 'architecture',
+      mainQuery: slot === 'hero'
+        ? `${location} skyline architecture${suffix}`.trim()
+        : `${location} landmark architecture detail${suffix}`.trim(),
+      searchTerms: slot === 'hero'
+        ? unique([`${location} city skyline`, `${location} architecture exterior`, `${location} urban landmark`, ...buildLibraryTerms('architecture', slot)]).slice(0, 5)
+        : unique([`${location} architectural detail`, `${location} iconic facade`, `${location} urban landmark detail`, ...buildLibraryTerms('architecture', slot)]).slice(0, 5),
+    };
+  }
+
+  if (entityType === 'country' && location) {
+    return {
+      intent: 'architecture',
+      mainQuery: slot === 'hero'
+        ? `${location} iconic architecture${suffix}`.trim()
+        : `${location} cultural landmark detail${suffix}`.trim(),
+      searchTerms: slot === 'hero'
+        ? unique([`${location} architecture landmark`, `${location} monument exterior`, `${location} cultural architecture`, ...buildLibraryTerms('architecture', slot)]).slice(0, 5)
+        : unique([`${location} monument detail`, `${location} cultural symbol architecture`, `${location} landmark detail`, ...buildLibraryTerms('architecture', slot)]).slice(0, 5),
+    };
+  }
+
+  return null;
+};
+
 const adaptTermsToTheme = (terms, themePhrase, location) => {
   if (!themePhrase && !location) return terms;
 
@@ -419,12 +528,15 @@ export const buildWgImageSearchPayload = (theme, options = {}) => {
   const { category = '', slot = 'hero' } = options;
   const tokens = tokenizeTheme(theme);
   const intent = detectIntent(tokens, category);
+  const entityType = inferEditorialEntityType(tokens, category);
   const location = detectLocation(tokens);
   const year = detectYear(tokens);
   const themePhrase = buildThemePhrase(tokens, category, intent);
-  const mainQuery = buildLocationAwareMainQuery(themePhrase, location, year, intent);
+  const entityAwarePayload = buildEntityAwarePayload({ entityType, slot, location, tokens, year });
+  const resolvedIntent = entityAwarePayload?.intent || intent;
+  const mainQuery = entityAwarePayload?.mainQuery || buildLocationAwareMainQuery(themePhrase, location, year, resolvedIntent);
   const searchTerms = unique(
-    adaptTermsToTheme(buildLibraryTerms(intent, slot), themePhrase, location)
+    (entityAwarePayload?.searchTerms || adaptTermsToTheme(buildLibraryTerms(resolvedIntent, slot), themePhrase, location))
       .map((term) => term.trim())
       .filter((term) => term && term.toLowerCase() !== mainQuery.toLowerCase())
   ).slice(0, 5);
@@ -433,7 +545,8 @@ export const buildWgImageSearchPayload = (theme, options = {}) => {
     theme,
     category,
     slot,
-    intent,
+    intent: resolvedIntent,
+    entityType,
     mainQuery,
     searchTerms,
     visualProfile: WG_VISUAL_PROFILE,
@@ -441,14 +554,20 @@ export const buildWgImageSearchPayload = (theme, options = {}) => {
 };
 
 export const buildWgEditorialSearchPlan = (post) => ({
-  hero: buildWgImageSearchPayload(post.title || post.slug || '', {
-    category: post.category || '',
-    slot: 'hero',
-  }),
-  card: buildWgImageSearchPayload(post.title || post.slug || '', {
-    category: post.category || '',
-    slot: 'card',
-  }),
+  hero: buildWgImageSearchPayload(
+    [post.title || post.slug || '', post.slug || '', ...(Array.isArray(post.tags) ? post.tags : [])].filter(Boolean).join(' '),
+    {
+      category: post.category || '',
+      slot: 'hero',
+    }
+  ),
+  card: buildWgImageSearchPayload(
+    [post.title || post.slug || '', post.slug || '', ...(Array.isArray(post.tags) ? post.tags : [])].filter(Boolean).join(' '),
+    {
+      category: post.category || '',
+      slot: 'card',
+    }
+  ),
 });
 
 export const formatWgImageSearchJson = (payload) =>
