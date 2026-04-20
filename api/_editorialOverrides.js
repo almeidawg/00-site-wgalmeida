@@ -4,6 +4,12 @@ import { pathToFileURL } from 'node:url';
 
 const BLOG_OVERRIDES_PATH = path.join(process.cwd(), 'src', 'data', 'blogImageOverrides.generated.js');
 const PAGE_OVERRIDES_PATH = path.join(process.cwd(), 'src', 'data', 'publicPageImageOverrides.generated.js');
+const CONTEXT_SLOT_NAMES = ['context1', 'context2', 'context3', 'context4'];
+const UNSPLASH_VARIANT_SIZES = {
+  hero: { width: 1600, height: 900 },
+  card: { width: 960, height: 640 },
+  context: { width: 1280, height: 720 },
+};
 
 const isNonEmptyString = (value) => typeof value === 'string' && value.trim().length > 0;
 
@@ -66,11 +72,80 @@ const cleanFields = (value) => {
   );
 };
 
-export const buildBlogOverrideEntry = (slots = {}) => {
-  const hero = cleanFields(normalizeSlotOverride(slots.hero));
-  const card = cleanFields(normalizeSlotOverride(slots.card));
-  const context = ['context1', 'context2', 'context3', 'context4']
-    .map((slotName) => cleanFields(normalizeSlotOverride(slots[slotName])))
+const normalizeUnsplashSelectionValue = (value) => {
+  if (!value) return { id: '', alt: '' };
+  if (typeof value === 'string') return { id: value.trim(), alt: '' };
+  if (typeof value === 'object') {
+    return {
+      id: isNonEmptyString(value.id) ? value.id.trim() : '',
+      alt: isNonEmptyString(value.alt) ? value.alt.trim() : '',
+      caption: isNonEmptyString(value.caption) ? value.caption.trim() : '',
+      sectionTitle: isNonEmptyString(value.sectionTitle) ? value.sectionTitle.trim() : '',
+      sectionId: isNonEmptyString(value.sectionId) ? value.sectionId.trim() : '',
+      page: isNonEmptyString(value.page) ? value.page.trim() : '',
+      pageUrl: isNonEmptyString(value.pageUrl) ? value.pageUrl.trim() : '',
+    };
+  }
+  return { id: '', alt: '' };
+};
+
+const buildUnsplashPhotoPageUrl = (photoId) =>
+  photoId ? `https://unsplash.com/photos/${encodeURIComponent(photoId)}` : '';
+
+const buildUnsplashDownloadUrl = (photoId, variant = 'card') => {
+  if (!photoId) return '';
+  const size = UNSPLASH_VARIANT_SIZES[variant] || UNSPLASH_VARIANT_SIZES.card;
+  return `https://unsplash.com/photos/${encodeURIComponent(photoId)}/download?force=true&w=${size.width}&h=${size.height}&fit=crop`;
+};
+
+const extractSlotMetadata = (slotValue = {}) => cleanFields({
+  alt: isNonEmptyString(slotValue.alt) ? slotValue.alt.trim() : '',
+  page: isNonEmptyString(slotValue.page) ? slotValue.page.trim() : '',
+  pageUrl: isNonEmptyString(slotValue.pageUrl) ? slotValue.pageUrl.trim() : '',
+  caption: isNonEmptyString(slotValue.caption) ? slotValue.caption.trim() : '',
+  sectionTitle: isNonEmptyString(slotValue.sectionTitle) ? slotValue.sectionTitle.trim() : '',
+  sectionId: isNonEmptyString(slotValue.sectionId) ? slotValue.sectionId.trim() : '',
+});
+
+const buildUnsplashSelectionOverride = (selectionValue, slotName, metadataFallback = {}) => {
+  const selection = normalizeUnsplashSelectionValue(selectionValue);
+  if (!selection.id) return null;
+
+  const variant = /^context\d+$/.test(slotName) ? 'context' : slotName === 'hero' ? 'hero' : 'card';
+  return cleanFields({
+    source: 'unsplash',
+    src: buildUnsplashDownloadUrl(selection.id, variant),
+    alt: metadataFallback.alt || selection.alt || '',
+    page: metadataFallback.page || metadataFallback.pageUrl || selection.page || selection.pageUrl || buildUnsplashPhotoPageUrl(selection.id),
+    caption: metadataFallback.caption || selection.caption || '',
+    sectionTitle: metadataFallback.sectionTitle || selection.sectionTitle || '',
+    sectionId: metadataFallback.sectionId || selection.sectionId || '',
+  });
+};
+
+const getUnsplashContextSelection = (slotName, unsplashSelections = {}) => {
+  const directSelection = unsplashSelections?.[slotName];
+  if (directSelection) return directSelection;
+
+  const slotIndex = CONTEXT_SLOT_NAMES.indexOf(slotName);
+  if (slotIndex < 0) return null;
+
+  const contextArray = Array.isArray(unsplashSelections?.context) ? unsplashSelections.context : [];
+  return contextArray[slotIndex] || null;
+};
+
+export const buildBlogOverrideEntry = (slots = {}, unsplashSelections = {}) => {
+  const hero = cleanFields(normalizeSlotOverride(slots.hero))
+    || buildUnsplashSelectionOverride(unsplashSelections.hero, 'hero', extractSlotMetadata(slots.hero));
+  const card = cleanFields(normalizeSlotOverride(slots.card))
+    || buildUnsplashSelectionOverride(unsplashSelections.card, 'card', extractSlotMetadata(slots.card));
+  const context = CONTEXT_SLOT_NAMES
+    .map((slotName) => cleanFields(normalizeSlotOverride(slots[slotName]))
+      || buildUnsplashSelectionOverride(
+        getUnsplashContextSelection(slotName, unsplashSelections),
+        slotName,
+        extractSlotMetadata(slots[slotName]),
+      ))
     .filter(Boolean);
 
   if (!hero && !card && context.length === 0) return null;
@@ -122,6 +197,7 @@ const loadGeneratedModule = async (filePath, exportName) => {
 
 export async function syncEditorialOverrides({
   uploads = {},
+  unsplashSelections = {},
   managedBlogSlugs = [],
   managedPageSlugs = [],
   source = 'admin-editorial-sync',
@@ -140,7 +216,7 @@ export async function syncEditorialOverrides({
   const managedPageSet = new Set(managedPageSlugs.filter(isNonEmptyString));
 
   managedBlogSet.forEach((slug) => {
-    const nextEntry = buildBlogOverrideEntry(uploads?.[slug] || {});
+    const nextEntry = buildBlogOverrideEntry(uploads?.[slug] || {}, unsplashSelections?.[slug] || {});
     if (nextEntry) {
       nextBlogSlugs[slug] = nextEntry;
       return;

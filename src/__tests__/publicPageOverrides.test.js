@@ -71,4 +71,60 @@ describe('syncEditorialOverrides', () => {
     expect(pageOutput).toContain('"buildtech"');
     expect(pageOutput).toContain('"publicId": "editorial/pages/buildtech/hero"');
   });
+
+  it('publishes unsplash-only editorial selections when no upload src exists yet', async () => {
+    const tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), 'wg-editorial-overrides-'));
+    const dataDir = path.join(tempRoot, 'src', 'data');
+    await fs.mkdir(dataDir, { recursive: true });
+    await fs.writeFile(
+      path.join(dataDir, 'blogImageOverrides.generated.js'),
+      'const BLOG_IMAGE_OVERRIDES = { generatedAt: "", source: "test", slugs: {} };\nexport default BLOG_IMAGE_OVERRIDES;\n',
+      'utf8'
+    );
+    await fs.writeFile(
+      path.join(dataDir, 'publicPageImageOverrides.generated.js'),
+      'const PUBLIC_PAGE_IMAGE_OVERRIDES = { generatedAt: "", source: "test", pages: {} };\nexport default PUBLIC_PAGE_IMAGE_OVERRIDES;\n',
+      'utf8'
+    );
+
+    process.chdir(tempRoot);
+
+    const helper = await import(`${pathToFileURL(helperModulePath).href}?test=${Date.now()}`);
+    const result = await helper.syncEditorialOverrides({
+      uploads: {
+        'post-unsplash': {
+          hero: {
+            alt: 'Hero editorial',
+          },
+          context1: {
+            caption: 'Bloco com contexto',
+            sectionTitle: 'Oscar Niemeyer (1907-2012)',
+          },
+        },
+      },
+      unsplashSelections: {
+        'post-unsplash': {
+          hero: {
+            id: 'abcd1234',
+            alt: 'Retrato editorial',
+          },
+          context1: {
+            id: 'wxyz9876',
+            alt: 'Imagem contextual',
+          },
+        },
+      },
+      managedBlogSlugs: ['post-unsplash'],
+      source: 'vitest-unsplash',
+    });
+
+    expect(result.ok).toBe(true);
+
+    const blogOutput = await fs.readFile(path.join(dataDir, 'blogImageOverrides.generated.js'), 'utf8');
+    expect(blogOutput).toContain('"post-unsplash"');
+    expect(blogOutput).toContain('https://unsplash.com/photos/abcd1234/download');
+    expect(blogOutput).toContain('"caption": "Bloco com contexto"');
+    expect(blogOutput).toContain('"sectionTitle": "Oscar Niemeyer (1907-2012)"');
+    expect(blogOutput).toContain('https://unsplash.com/photos/wxyz9876/download');
+  });
 });

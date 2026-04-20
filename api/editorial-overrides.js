@@ -53,6 +53,7 @@ export default async function handler(req, res) {
   try {
     const result = await syncEditorialOverrides({
       uploads: body.uploads || {},
+      unsplashSelections: body.unsplashSelections || {},
       managedBlogSlugs: body.managedBlogSlugs || [],
       managedPageSlugs: body.managedPageSlugs || [],
       source: body.source || 'admin-editorial-sync',

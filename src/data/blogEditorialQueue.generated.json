@@ -75,32 +75,31 @@
     "slots": [
       {
         "slot": "hero",
-        "mainQuery": "arquitetos brasileiros famosos 12",
+        "mainQuery": "brazilian architect portrait",
         "searchTerms": [
-          "modern renovation interior",
-          "arquitetos brasileiros famosos 12 site detail",
-          "architectural renovation",
-          "clean material palette",
-          "high-end construction"
+          "architect portrait",
+          "architect studio portrait",
+          "modernist architect portrait",
+          "design master portrait"
         ],
-        "searchQuery": "arquitetos brasileiros famosos 12",
-        "intent": "construction",
+        "searchQuery": "brazilian architect portrait",
+        "intent": "person",
         "targetLocalFile": "public/images/blog/arquitetos-brasileiros-famosos-legado/hero.webp",
         "targetCloudinaryId": "editorial/blog/arquitetos-brasileiros-famosos-legado/hero",
         "orientation": "landscape"
       },
       {
         "slot": "card",
-        "mainQuery": "arquitetos brasileiros famosos 12",
+        "mainQuery": "brazilian iconic architecture",
         "searchTerms": [
-          "construction material detail",
-          "arquitetos brasileiros famosos 12 detail interior",
-          "architectural finish detail",
-          "clean building texture",
-          "engineering detail"
+          "iconic architecture facade",
+          "modernist building detail",
+          "signature building exterior",
+          "architectural landmark detail",
+          "historical architecture archive"
         ],
-        "searchQuery": "arquitetos brasileiros famosos 12",
-        "intent": "construction",
+        "searchQuery": "brazilian iconic architecture",
+        "intent": "person",
         "targetLocalFile": "public/images/blog/arquitetos-brasileiros-famosos-legado/card.webp",
         "targetCloudinaryId": "editorial/blog/arquitetos-brasileiros-famosos-legado/card",
         "orientation": "landscape"

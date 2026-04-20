@@ -171,3 +171,102 @@ src/
 - **estagio "acao"** pode ser incrementado com trigger no submit do OrcadorInteligente
 - **sync editorial em Vite puro** depende de endpoint `/api`; fluxo completo local com API requer ambiente que sirva `api/` ou deploy/Vercel
 - **curadoria unificada de imagens para todas as páginas públicas** avançou no catálogo central e na publicação via admin, mas ainda faltam páginas secundárias e módulos internos fora da fila principal
+
+## Auditoria visual — 3ª Onda completa — 19/04/2026
+
+### O que foi corrigido
+
+Fechamento completo da pendência de padronização de botões em páginas públicas secundárias.
+
+**Páginas corrigidas (6 arquivos):**
+- `ConstrutoraBrooklin.jsx`
+- `ConstrutoraAltoPadraoSP.jsx`
+- `MarcenariaSobMedidaMorumbi.jsx`
+- `ReformaApartamentoItaim.jsx`
+- `ReformaApartamentoJardins.jsx`
+- `ReformaApartamentoSP.jsx`
+
+**Padrão antigo removido:**
+```jsx
+<Link to="/solicite-proposta">
+  <Button className="btn-apple">Texto<ArrowRight/></Button>
+</Link>
+<a href={`tel:${COMPANY.phoneRaw}`} className="btn-hero-outline">...</a>
+```
+
+**Padrão novo aplicado (hero CTA):**
+```jsx
+<Link to="/solicite-proposta" className="btn-apple">
+  Texto<ArrowRight/>
+</Link>
+<Link to="/bairro" className="btn-hero-outline">
+  Mais sobre o bairro
+</Link>
+```
+
+**Padrão novo aplicado (CTA final):**
+```jsx
+<SmartCTA showSecondary className="justify-center" />
+```
+
+**Imports limpos:** removidos `Button`, `Phone`, `Link` (onde não necessário) e `COMPANY` (onde órfão). Restaurados onde ainda usados em schema JSON-LD.
+
+### Validação executada
+
+- `npm run lint` → exit code 0, 0 erros
+- `npm run build` → exit code 0, 38s, todas as rotas OK
+- Todas as rotas `ok:` no SEO builder
+
+### Estado após esta rodada
+
+- **Shell principal auditado:** ✅ (1ª e 2ª onda)
+- **Páginas regionais de bairro (RegionTemplate):** ✅ (já usavam SmartCTA via template)
+- **Páginas secundárias/landing específicas:** ✅ (3ª onda — esta rodada)
+- **Links textuais do footer:** sem pill (esperado, não é defeito)
+
+### Homogeneidade visual — status CONCLUÍDO
+
+O sistema de botões está 100% homogêneo em todas as landing pages públicas auditadas:
+- Tipografia base: "Suisse Intl", Inter, Poppins (peso 350)
+- CTAs principais: `btn-apple` com `border-radius: 9999px`
+- CTAs outline: `btn-hero-outline` com `border-radius: 9999px`
+- Padrão estrutural: `<Link className>` diretamente (sem `<Button>` aninhado)
+
+### Pendências remanescentes
+
+- PR #18 aguarda merge (sectionTitle PHASE1 + SmartCTA bairros)
+- 3 slugs de blog faltando PHASE1
+- SVGs de estilos grandes (candidatos a WebP/AVIF)
+
+## Editorial image sync — 20/04/2026
+
+### Causa raiz fechada
+
+- `AdminBlogEditorial.jsx` exibia seleções de imagem via `unsplashSelections`, mas o publish para `/api/editorial-overrides` enviava apenas `uploads`
+- `api/_editorialOverrides.js` publicava corretamente uploads e URLs diretas, porém ignorava seleções puras do `Unsplash` quando o slot não tinha arquivo enviado
+- efeito prático: a imagem parecia selecionada no admin, mas o override publicado do blog continuava sem ativo renderizável no front
+
+### Correção aplicada
+
+- serialização de publish estendida para incluir `unsplashSelections` no sync editorial
+- merge de override reforçado para aceitar seleção `Unsplash` como fonte canônica do slot, com `src`, `thumb`, `alt`, `caption`, `source`, `pageUrl` e `downloadLocation`
+- preview, snippets do manifesto e status de cobertura do admin passam a considerar slots com seleção `Unsplash` mesmo sem upload
+- heurística de busca editorial refinada para respeitar entidade semântica; no slug `arquitetos-brasileiros-famosos-legado` o plano saiu de `construction` para `person`
+
+### Arquivos principais
+
+- `src/pages/AdminBlogEditorial.jsx`
+- `api/editorial-overrides.js`
+- `api/_editorialOverrides.js`
+- `src/lib/wgVisualSearchProfile.js`
+- `src/data/blogEditorialQueue.generated.json`
+- `blog-editorial-queue-2026-04-09.json`
+
+### Validação executada
+
+- `npm run test:run -- src/__tests__/publicPageOverrides.test.js src/__tests__/wgVisualSearchProfile.test.js` OK
+- `npm run blog:editorial:status` OK
+- `npm run editorial:health` OK com pendência estrutural antiga ainda aberta em `blogStructuralClosed` e `editorialStructuralClosed`
+- `npm run blog:editorial:repetition:audit` OK
+- `npm run style:editorial:status` OK
+- `npm run verify:deploy` OK
