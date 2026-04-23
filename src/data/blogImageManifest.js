@@ -6,6 +6,9 @@ import { withBasePath } from '../utils/assetPaths.js';
 
 const STORAGE_KEY = 'wg_blog_editorial_uploads_v1';
 const UNSPLASH_STORAGE_KEY = 'wg_blog_editorial_unsplash_v1';
+// Chaves de overrides publicados — escritas pelo botão "Publicar" do admin, lidas por todas as páginas
+const PUBLISHED_UPLOADS_KEY = 'wg_blog_editorial_published_uploads_v1';
+const PUBLISHED_UNSPLASH_KEY = 'wg_blog_editorial_published_unsplash_v1';
 
 export const BLOG_IMAGE_MANIFEST = {
   slugs: {
@@ -654,9 +657,14 @@ const readLocalStorageJson = (key) => {
 
 const shouldUseEditorialSessionOverrides = () => {
   if (typeof window === 'undefined') return false;
+  // Admin page: usa rascunho (STORAGE_KEY / UNSPLASH_STORAGE_KEY)
+  // Demais páginas: usa versão publicada (PUBLISHED_UPLOADS_KEY / PUBLISHED_UNSPLASH_KEY)
+  return true;
+};
 
-  const pathname = window.location?.pathname || '';
-  return pathname.startsWith('/admin/blog-editorial');
+const isAdminEditorialPage = () => {
+  if (typeof window === 'undefined') return false;
+  return window.location?.pathname?.startsWith('/admin/blog-editorial') ?? false;
 };
 
 const normalizeUnsplashSelectionValue = (value) => {
@@ -770,6 +778,30 @@ const buildRemoteAssetUrl = (src, variant = 'card') => {
 };
 
 const buildRemoteAsset = (value, variant = 'card') => {
+  if (!value) return null;
+
+  // Handle cloudinary publicId objects produced by admin editorial sync
+  if (typeof value === 'object' && typeof value.publicId === 'string' && value.publicId) {
+    const resolvedSrc = (typeof value.src === 'string' && value.src)
+      ? value.src
+      : buildCloudinaryBlogImageUrl(value.publicId, variant);
+    return {
+      kind: 'cloudinary',
+      source: 'cloudinary',
+      publicId: value.publicId,
+      src: resolvedSrc,
+      alt: value.alt || '',
+      caption: value.caption || '',
+      sectionTitle: value.sectionTitle || '',
+      sectionId: value.sectionId || '',
+      photographer: '',
+      photographerUrl: '',
+      photoPageUrl: value.page || value.pageUrl || '',
+      downloadLocation: '',
+      sourceLabel: 'Cloudinary',
+    };
+  }
+
   if (!isRemoteAsset(value)) return null;
 
   const rawSource = (value.source || (isUnsplashImageUrl(value.src) ? 'unsplash' : 'remote')).toLowerCase();
@@ -851,7 +883,9 @@ const sanitizeGenericOverrideEntry = (overrideEntry, curatedEntry) => {
 const buildLocalUploadManifestEntry = (slug) => {
   if (!shouldUseEditorialSessionOverrides()) return null;
 
-  const localUploads = readLocalStorageJson(STORAGE_KEY);
+  // Admin usa rascunho; outras páginas usam overrides publicados
+  const storageKey = isAdminEditorialPage() ? STORAGE_KEY : PUBLISHED_UPLOADS_KEY;
+  const localUploads = readLocalStorageJson(storageKey);
   const slotMap = localUploads?.[slug];
   if (!slotMap || typeof slotMap !== 'object') return null;
 
@@ -908,7 +942,8 @@ const buildLocalUploadManifestEntry = (slug) => {
 const buildLocalUnsplashSelectionEntry = (slug) => {
   if (!shouldUseEditorialSessionOverrides()) return null;
 
-  const localSelections = readLocalStorageJson(UNSPLASH_STORAGE_KEY);
+  const selectionKey = isAdminEditorialPage() ? UNSPLASH_STORAGE_KEY : PUBLISHED_UNSPLASH_KEY;
+  const localSelections = readLocalStorageJson(selectionKey);
   const slotMap = localSelections?.[slug];
   if (!slotMap || typeof slotMap !== 'object') return null;
 
@@ -1067,5 +1102,20 @@ export const hasCloudinaryBlogImage = ({ slug, category } = {}) =>
 
 export const hasBlogImageAsset = ({ slug, category, variant = 'card' } = {}) =>
   Boolean(getBlogImageAsset({ slug, category, variant }));
+
+// Publica overrides do admin para todas as páginas de blog via localStorage.
+// Chamado pelo botão "Publicar overrides" no AdminBlogEditorial.
+export const publishEditorialOverridesToBlog = (uploads = {}, unsplashSelections = {}) => {
+  if (typeof window === 'undefined') return;
+  try {
+    window.localStorage.setItem(PUBLISHED_UPLOADS_KEY, JSON.stringify(uploads));
+    window.localStorage.setItem(PUBLISHED_UNSPLASH_KEY, JSON.stringify(unsplashSelections));
+  } catch {
+    // localStorage indisponível
+  }
+};
+
+export const EDITORIAL_PUBLISHED_UPLOADS_KEY = PUBLISHED_UPLOADS_KEY;
+export const EDITORIAL_PUBLISHED_UNSPLASH_KEY = PUBLISHED_UNSPLASH_KEY;
 
 export default BLOG_IMAGE_MANIFEST;

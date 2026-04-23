@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { HERO_MEDIA } from '@/utils/cloudinaryMedia';
+import { HERO_MEDIA, getHeroVideoProfile, selectHeroVideoSrc } from '@/utils/cloudinaryMedia';
 import { withBasePath } from '@/utils/assetPaths';
 
 const HERO_POSTER_SRCSET = [
@@ -13,7 +13,11 @@ const HeroVideo = () => {
   const [allowVideo, setAllowVideo] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
   const [isVideoReady, setIsVideoReady] = useState(false);
-  const [isMobileViewport, setIsMobileViewport] = useState(false);
+  const [viewportProfile, setViewportProfile] = useState(() =>
+    typeof window === 'undefined'
+      ? 'desktopLandscape'
+      : getHeroVideoProfile({ width: window.innerWidth, height: window.innerHeight })
+  );
   const videoRef = useRef(null);
 
   const bindMediaQueryChange = (mq, fn) => {
@@ -38,10 +42,18 @@ const HeroVideo = () => {
   }, []);
 
   useEffect(() => {
-    const mobileQuery = window.matchMedia('(max-width: 767px)');
-    const syncViewport = () => setIsMobileViewport(mobileQuery.matches);
+    const syncViewport = () =>
+      setViewportProfile(
+        getHeroVideoProfile({ width: window.innerWidth, height: window.innerHeight })
+      );
+
     syncViewport();
-    return bindMediaQueryChange(mobileQuery, syncViewport);
+    window.addEventListener('resize', syncViewport);
+    window.addEventListener('orientationchange', syncViewport);
+    return () => {
+      window.removeEventListener('resize', syncViewport);
+      window.removeEventListener('orientationchange', syncViewport);
+    };
   }, []);
 
   useEffect(() => {
@@ -64,7 +76,11 @@ const HeroVideo = () => {
     if (playPromise && typeof playPromise.catch === 'function') {
       playPromise.catch(() => setShouldLoadVideo(false));
     }
-  }, [shouldLoadVideo, isMuted, isMobileViewport]);
+  }, [shouldLoadVideo, isMuted, viewportProfile]);
+
+  useEffect(() => {
+    setIsVideoReady(false);
+  }, [viewportProfile]);
 
   const toggleMute = () => {
     const video = videoRef.current;
@@ -75,7 +91,7 @@ const HeroVideo = () => {
   };
 
   const canPlay = allowVideo;
-  const activeVideoSrc = isMobileViewport ? HERO_MEDIA.mobile : HERO_MEDIA.desktop;
+  const activeVideoSrc = HERO_MEDIA.profiles[viewportProfile] || selectHeroVideoSrc({ width: 0, height: 0 });
 
   return (
     <div className="absolute inset-0 z-0 w-full h-full overflow-hidden bg-wg-black">

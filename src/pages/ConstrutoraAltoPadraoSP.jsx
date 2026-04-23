@@ -12,9 +12,8 @@ import {
   Users,
   Award,
   MapPin,
-  Phone
 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import SmartCTA from '@/components/SmartCTA';
 import { buildUnsplashSrcSet, normalizeUnsplashImageUrl } from '@/lib/unsplash';
 import { COMPANY } from '@/data/company';
 
@@ -155,16 +154,12 @@ const ConstrutoraAltoPadraoSP = () => {
               O valor não está só em entregar a obra. Está em proteger a tese do ativo com execução real, governança técnica e uma leitura mais defensável do que está sendo criado ou preservado.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/solicite-proposta">
-                <Button className="btn-apple">
-                  Solicitar proposta guiada
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
+              <Link to="/solicite-proposta" className="btn-apple">
+                Solicitar proposta guiada
+                <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
-              <Link to="/projetos">
-                <Button className="btn-hero-outline">
-                  Ver projetos realizados
-                </Button>
+              <Link to="/projetos" className="btn-hero-outline">
+                Ver projetos realizados
               </Link>
             </div>
           </motion.div>
@@ -311,18 +306,7 @@ const ConstrutoraAltoPadraoSP = () => {
             <p className="text-white/80 mb-8 text-lg">
               Solicite uma proposta sem compromisso e descubra como transformamos sua obra em uma experiência mais fluida, guiada e previsível.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/solicite-proposta">
-                <Button className="btn-apple">
-                  Solicitar proposta agora
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
-              </Link>
-              <a href={`tel:${COMPANY.phoneRaw}`} className="btn-hero-outline">
-                <Phone className="w-5 h-5" />
-                {COMPANY.phone}
-              </a>
-            </div>
+            <SmartCTA showSecondary className="justify-center" />
           </motion.div>
         </div>
       </section>

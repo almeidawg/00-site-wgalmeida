@@ -42,6 +42,7 @@ const normalizeSlotOverride = (slotValue) => {
     return {
       source: 'cloudinary',
       publicId,
+      src,
       alt,
       page,
       caption,
@@ -246,13 +247,24 @@ export async function syncEditorialOverrides({
     pages: nextPages,
   };
 
-  await fs.writeFile(BLOG_OVERRIDES_PATH, serializeJsModule('BLOG_IMAGE_OVERRIDES', blogPayload), 'utf8');
-  await fs.writeFile(PAGE_OVERRIDES_PATH, serializeJsModule('PUBLIC_PAGE_IMAGE_OVERRIDES', pagePayload), 'utf8');
+  // Escrita no FS pode falhar em ambientes read-only (ex: Vercel serverless).
+  // Retorna sucesso parcial para o cliente publicar via localStorage de qualquer forma.
+  let fsWriteOk = true;
+  let fsWriteNote = '';
+  try {
+    await fs.writeFile(BLOG_OVERRIDES_PATH, serializeJsModule('BLOG_IMAGE_OVERRIDES', blogPayload), 'utf8');
+    await fs.writeFile(PAGE_OVERRIDES_PATH, serializeJsModule('PUBLIC_PAGE_IMAGE_OVERRIDES', pagePayload), 'utf8');
+  } catch {
+    fsWriteOk = false;
+    fsWriteNote = 'FS read-only (Vercel). Overrides publicados via localStorage no cliente.';
+  }
 
   return {
     ok: true,
     generatedAt,
     source,
+    fsWriteOk,
+    fsWriteNote,
     blog: {
       target: BLOG_OVERRIDES_PATH,
       synced: Object.keys(nextBlogSlugs).length,

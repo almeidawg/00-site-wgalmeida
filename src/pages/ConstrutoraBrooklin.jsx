@@ -12,9 +12,8 @@ import {
   Clock,
   Award,
   Target,
-  Phone,
 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import SmartCTA from '@/components/SmartCTA';
 import { COMPANY } from '@/data/company';
 import { getPublicPageImageSrc } from '@/data/publicPageImageCatalog';
 
@@ -146,16 +145,12 @@ const ConstrutoraBrooklin = () => {
               e comerciais próximas à Berrini, com leitura guiada da execução, prazo mais claro e menos coordenação manual.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/solicite-proposta">
-                <Button className="btn-apple">
-                  Solicitar proposta Brooklin
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
+              <Link to="/solicite-proposta" className="btn-apple">
+                Solicitar proposta Brooklin
+                <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
-              <Link to="/brooklin">
-                <Button className="btn-hero-outline">
-                  Mais sobre o Brooklin
-                </Button>
+              <Link to="/brooklin" className="btn-hero-outline">
+                Mais sobre o Brooklin
               </Link>
             </div>
           </motion.div>
@@ -350,18 +345,7 @@ const ConstrutoraBrooklin = () => {
             <p className="text-white/80 mb-8 text-lg">
               Receba um orçamento personalizado e descubra como transformamos seu projeto com qualidade premium e prazo garantido.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/solicite-proposta">
-                <Button className="btn-apple">
-                  Solicitar Orçamento Grátis
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
-              </Link>
-              <a href={`tel:${COMPANY.phoneRaw}`} className="btn-hero-outline">
-                <Phone className="w-5 h-5" />
-                {COMPANY.phone}
-              </a>
-            </div>
+            <SmartCTA showSecondary className="justify-center" />
           </motion.div>
         </div>
       </section>

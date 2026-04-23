@@ -1,11 +1,11 @@
 import SEO from '@/components/SEO'
-import { Button } from '@/components/ui/button'
+import SmartCTA from '@/components/SmartCTA'
+import { Link } from 'react-router-dom'
 import { motion } from '@/lib/motion-lite'
 import { withBasePath } from '@/utils/assetPaths'
-import { ArrowRight, CheckCircle, Clock, DollarSign, Home, Phone } from 'lucide-react'
-import { Link } from 'react-router-dom'
-import { COMPANY } from '@/data/company';
+import { ArrowRight, CheckCircle, Clock, DollarSign, Home } from 'lucide-react'
 import { getPublicPageImageSrc } from '@/data/publicPageImageCatalog'
+import { COMPANY } from '@/data/company'
 
 const REFORMA_SP_HERO_IMAGE = getPublicPageImageSrc('reformaApartamentoSP', withBasePath('/images/banners/ARQ.webp'))
 
@@ -161,18 +161,12 @@ const ReformaApartamentoSP = () => {
               execução e entrega com uma experiência mais simples, prazo mais claro e orçamento transparente.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/solicite-proposta">
-                <Button className="btn-apple">
-                  Solicitar proposta guiada
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
+              <Link to="/solicite-proposta" className="btn-apple">
+                Solicitar proposta guiada
+                <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
-              <Link to="/projetos">
-                <Button
-                  className="btn-hero-outline"
-                >
-                  Ver apartamentos reformados
-                </Button>
+              <Link to="/projetos" className="btn-hero-outline">
+                Ver apartamentos reformados
               </Link>
             </div>
           </motion.div>
@@ -342,21 +336,7 @@ const ReformaApartamentoSP = () => {
               Receba uma proposta detalhada e descubra como transformamos seu apartamento com
               qualidade, leitura guiada da obra e prazo mais previsível.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/solicite-proposta">
-                <Button className="btn-apple">
-                  Solicitar proposta grátis
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
-              </Link>
-              <a
-                href={`tel:${COMPANY.phoneRaw}`}
-                className="btn-hero-outline"
-              >
-                <Phone className="w-5 h-5" />
-                {COMPANY.phone}
-              </a>
-            </div>
+            <SmartCTA showSecondary className="justify-center" />
           </motion.div>
         </div>
       </section>

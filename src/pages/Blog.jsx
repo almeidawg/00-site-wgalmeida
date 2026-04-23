@@ -456,18 +456,8 @@ const toAbsoluteSiteUrl = (value) => {
 };
 
 const ICCRI_DATASET_SLUG = 'tabela-precos-reforma-2026-iccri';
-const PHASE1_EDITORIAL_ROLLOUT_SLUGS = new Set([
-  'como-calcular-custo-de-obra',
-  'arquitetos-brasileiros-famosos-legado',
-  'custo-marcenaria-planejada',
-  'custo-reforma-m2-sao-paulo',
-  'quanto-custa-reforma-apartamento-100m2',
-  'quanto-tempo-leva-reforma-completa-alto-padrao',
-  'quanto-valoriza-apartamento-apos-reforma',
-  'evf-estudo-viabilidade-financeira',
-  'tabela-precos-reforma-2026-iccri',
-  'marcas-luxo-internacionais-moveis-design',
-]);
+// Layout editorial aprovado é universal — alternância esquerda/direita para todas as matérias
+// com imagens de contexto vinculadas a pessoas, assuntos, marcas, cidades e países.
 
 const HIDE_READER_CARD_SLUGS = new Set([]);
 
@@ -689,21 +679,10 @@ const ContextImageGallery = ({ assets = [], fallbackSrc, fallbackAlt = '' }) => 
   );
 };
 
-const SINGLE_CONTEXT_IMAGE_SLUGS = new Set([
-  'arquitetos-brasileiros-famosos-legado',
-]);
-
-const groupContextImagesForLayout = (images = [], slug = '') => {
-  if (SINGLE_CONTEXT_IMAGE_SLUGS.has(slug)) {
-    return images.map((image) => [image]);
-  }
-
-  const groups = [];
-  for (let index = 0; index < images.length; index += 2) {
-    groups.push(images.slice(index, index + 2));
-  }
-  return groups;
-};
+// Cada imagem de contexto ocupa sua própria seção (alternância E/D universal).
+// Regra: pessoas, assuntos, marcas, referências, cidades e países = uma imagem por entrada.
+const groupContextImagesForLayout = (images = []) =>
+  images.map((image) => [image]);
 
 const DEFAULT_CONTEXT_SECTION_TARGETS = {
   'como-calcular-custo-de-obra': {
@@ -714,7 +693,7 @@ const DEFAULT_CONTEXT_SECTION_TARGETS = {
 
 const buildSectionImageInsertions = (sections = [], images = [], slug = '') => {
   const insertionMap = new Map();
-  const imageGroups = groupContextImagesForLayout(images, slug);
+  const imageGroups = groupContextImagesForLayout(images);
   const sectionsCount = sections.length;
   if (sectionsCount <= 0 || imageGroups.length === 0) return insertionMap;
 
@@ -1216,7 +1195,7 @@ const Blog = () => {
     const articleHeroCredit = artigoAtual.imageHeroAttribution || artigoAtual.imageCardAttribution || null;
     const articleHeroSummary = artigoAtual.subtitle || artigoAtual.excerpt;
     const isComoCalcularCostArticle = artigoAtual.slug === 'como-calcular-custo-de-obra';
-    const usesApprovedEditorialLayout = PHASE1_EDITORIAL_ROLLOUT_SLUGS.has(artigoAtual.slug);
+    const usesApprovedEditorialLayout = true;
     const articleReaderCardTitle =
       isComoCalcularCostArticle
         ? artigoAtual.excerpt

@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from '@/lib/motion-lite';
 import { useTranslation, Trans } from 'react-i18next';
 import { withBasePath } from '@/utils/assetPaths';
 import { PREMIUM_INTRO_PORTFOLIO_IMAGES } from '@/utils/cloudinaryProjectPortfolio';
-import { HERO_MEDIA } from '@/utils/cloudinaryMedia';
+import { HERO_MEDIA, getHeroVideoProfile } from '@/utils/cloudinaryMedia';
 
 /**
  * ABERTURA CINEMATOGRÁFICA PREMIUM - WG ALMEIDA
@@ -17,7 +17,6 @@ import { HERO_MEDIA } from '@/utils/cloudinaryMedia';
 const WG_LOGO = withBasePath('/images/logo-192.webp');
 const PROJECTS_FALLBACK_IMAGE = withBasePath('/images/banners/PROJETOS.webp');
 const INTRO_VIDEO_POSTER = withBasePath('/images/hero-poster-640.webp');
-const INTRO_VIDEO_CAPTIONS = withBasePath('/videos/hero/descricao.vtt');
 
 // Cores da marca WG
 const WG_COLORS = {
@@ -879,8 +878,10 @@ const PremiumCinematicIntro = ({ onComplete }) => {
     return Date.now() - startTimeRef.current >= TOTAL_DURATION;
   });
   // Inicializa isMobile sincronamente para evitar flip de src no primeiro render
-  const [isMobile, setIsMobile] = useState(
-    () => typeof window !== 'undefined' && window.innerWidth < 768
+  const [introVideoProfile, setIntroVideoProfile] = useState(
+    () => typeof window === 'undefined'
+      ? 'desktopLandscape'
+      : getHeroVideoProfile({ width: window.innerWidth, height: window.innerHeight })
   );
   const [elapsed, setElapsed] = useState(() => Date.now() - startTimeRef.current);
   const videoRef = useRef(null);
@@ -888,9 +889,17 @@ const PremiumCinematicIntro = ({ onComplete }) => {
 
   // Detectar mobile
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    const syncVideoProfile = () =>
+      setIntroVideoProfile(
+        getHeroVideoProfile({ width: window.innerWidth, height: window.innerHeight })
+      );
+
+    window.addEventListener('resize', syncVideoProfile);
+    window.addEventListener('orientationchange', syncVideoProfile);
+    return () => {
+      window.removeEventListener('resize', syncVideoProfile);
+      window.removeEventListener('orientationchange', syncVideoProfile);
+    };
   }, []);
 
   // Timeline principal
@@ -977,6 +986,8 @@ const PremiumCinematicIntro = ({ onComplete }) => {
 
   if (isComplete) return null;
 
+  const introVideoSrc = HERO_MEDIA.profiles[introVideoProfile] || HERO_MEDIA.desktop;
+
   return (
     <div className="fixed inset-0 z-[100] overflow-hidden bg-black">
       {/* Vídeo de fundo */}
@@ -984,7 +995,8 @@ const PremiumCinematicIntro = ({ onComplete }) => {
         <video
           ref={videoRef}
           className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-70 w-full h-full object-cover"
-          src={isMobile ? HERO_MEDIA.mobile : HERO_MEDIA.desktop}
+          src={introVideoSrc}
+          key={introVideoProfile}
           autoPlay
           muted
           loop
@@ -992,9 +1004,7 @@ const PremiumCinematicIntro = ({ onComplete }) => {
           preload="auto"
           poster={INTRO_VIDEO_POSTER}
           aria-hidden="true"
-        >
-          <track kind="captions" src={INTRO_VIDEO_CAPTIONS} srcLang="pt-BR" label="Português" default />
-        </video>
+        />
 
         {/* Overlay gradiente - mais leve */}
         <div

@@ -11,9 +11,8 @@ import {
   Building2,
   Clock,
   Award,
-  Phone,
 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import SmartCTA from '@/components/SmartCTA';
 import { COMPANY } from '@/data/company';
 import { getPublicPageImageSrc } from '@/data/publicPageImageCatalog';
 
@@ -137,16 +136,12 @@ const ReformaApartamentoJardins = () => {
               com respeito à história e excelência no resultado.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/solicite-proposta">
-                <Button className="btn-apple">
-                  Solicitar Orçamento Jardins
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
+              <Link to="/solicite-proposta" className="btn-apple">
+                Solicitar Orçamento Jardins
+                <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
-              <Link to="/jardins">
-                <Button className="btn-hero-outline">
-                  Mais sobre os Jardins
-                </Button>
+              <Link to="/jardins" className="btn-hero-outline">
+                Mais sobre os Jardins
               </Link>
             </div>
           </motion.div>
@@ -302,18 +297,7 @@ const ReformaApartamentoJardins = () => {
             <p className="text-white/80 mb-8 text-lg">
               Receba um orçamento personalizado e descubra como unimos tradição e contemporaneidade em projetos de excelência.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/solicite-proposta">
-                <Button className="btn-apple">
-                  Solicitar Orçamento Grátis
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
-              </Link>
-              <a href={`tel:${COMPANY.phoneRaw}`} className="btn-hero-outline">
-                <Phone className="w-5 h-5" />
-                {COMPANY.phone}
-              </a>
-            </div>
+            <SmartCTA showSecondary className="justify-center" />
           </motion.div>
         </div>
       </section>
