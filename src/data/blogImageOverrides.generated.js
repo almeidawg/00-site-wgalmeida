@@ -91,34 +91,36 @@ const BLOG_IMAGE_OVERRIDES = {
     "automacao-residencial-2026-guia": {
       "hero": {
         "source": "unsplash",
-        "src": "https://plus.unsplash.com/premium_photo-1727509754856-dfb3ff9bcbb4?w=720&auto=format&fit=crop&q=80&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fEF1dG9tYSVDMyVBNyVDMyVBM28lMjBSZXNpZGVuY2lhbHxlbnwwfHwwfHx8MA%3D%3D&h=480"
+        "src": "https://images.unsplash.com/photo-1519558260268-cde7e03a0152?auto=format&fit=crop&w=1600&h=900&q=80",
+        "alt": "Google Home Mini e smartphone — automação residencial inteligente",
+        "page": "https://unsplash.com/photos/turned-on-charcoal-google-home-mini-and-smartphone-anapPhJFRhM"
       },
       "seo": {
         "source": "unsplash",
-        "src": "https://plus.unsplash.com/premium_photo-1727509754856-dfb3ff9bcbb4?w=720&auto=format&fit=crop&q=80&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fEF1dG9tYSVDMyVBNyVDMyVBM28lMjBSZXNpZGVuY2lhbHxlbnwwfHwwfHx8MA%3D%3D&h=480"
+        "src": "https://images.unsplash.com/photo-1519558260268-cde7e03a0152?auto=format&fit=crop&w=1200&h=630&q=80",
+        "alt": "Google Home Mini e smartphone — automação residencial inteligente"
       },
       "card": {
         "source": "unsplash",
-        "src": "https://images.unsplash.com/photo-1713857297379-6fc26e70f581?w=720&auto=format&fit=crop&q=80&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8QXV0b21hJUMzJUE3JUMzJUEzbyUyMFJlc2lkZW5jaWFsfGVufDB8fDB8fHww&h=480"
+        "src": "https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=960&h=640&q=80",
+        "alt": "Controle de acesso residencial com iPhone — smart home",
+        "page": "https://unsplash.com/photos/gold-apple-iphone-smartphone-held-at-the-door-IJkSskfEqrM"
       },
       "thumb": {
         "source": "unsplash",
-        "src": "https://images.unsplash.com/photo-1713857297379-6fc26e70f581?w=720&auto=format&fit=crop&q=80&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8QXV0b21hJUMzJUE3JUMzJUEzbyUyMFJlc2lkZW5jaWFsfGVufDB8fDB8fHww&h=480"
+        "src": "https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=720&h=480&q=80",
+        "alt": "Controle de acesso residencial com iPhone — smart home"
       },
       "square": {
         "source": "unsplash",
-        "src": "https://images.unsplash.com/photo-1713857297379-6fc26e70f581?w=720&auto=format&fit=crop&q=80&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8QXV0b21hJUMzJUE3JUMzJUEzbyUyMFJlc2lkZW5jaWFsfGVufDB8fDB8fHww&h=480"
+        "src": "https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=720&h=720&q=80",
+        "alt": "Controle de acesso residencial com iPhone — smart home"
       },
       "default": {
         "source": "unsplash",
-        "src": "https://plus.unsplash.com/premium_photo-1727509754856-dfb3ff9bcbb4?w=720&auto=format&fit=crop&q=80&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fEF1dG9tYSVDMyVBNyVDMyVBM28lMjBSZXNpZGVuY2lhbHxlbnwwfHwwfHx8MA%3D%3D&h=480"
-      },
-      "context": [
-        {
-          "source": "unsplash",
-          "src": "https://plus.unsplash.com/premium_photo-1727509754856-dfb3ff9bcbb4?w=720&auto=format&fit=crop&q=80&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fEF1dG9tYSVDMyVBNyVDMyVBM28lMjBSZXNpZGVuY2lhbHxlbnwwfHwwfHx8MA%3D%3D&h=480"
-        }
-      ]
+        "src": "https://images.unsplash.com/photo-1519558260268-cde7e03a0152?auto=format&fit=crop&w=1600&h=900&q=80",
+        "alt": "Google Home Mini e smartphone — automação residencial inteligente"
+      }
     },
     "bim-construcao-civil-como-funciona": {
       "hero": {
@@ -1142,12 +1144,47 @@ const BLOG_IMAGE_OVERRIDES = {
       "default": { "source": "local", "src": "/og-home-1200x630.jpg" }
     },
     "profissionais-capacitados-obra": {
-      "hero": { "source": "local", "src": "/og-engenharia-1200x630.jpg" },
-      "seo": { "source": "local", "src": "/og-engenharia-1200x630.jpg" },
-      "card": { "source": "local", "src": "/images/banners/ENGENHARIA.webp" },
-      "thumb": { "source": "local", "src": "/images/banners/ENGENHARIA.webp" },
-      "square": { "source": "local", "src": "/images/banners/ENGENHARIA.webp" },
-      "default": { "source": "local", "src": "/og-engenharia-1200x630.jpg" }
+      "hero": {
+        "source": "unsplash",
+        "src": "https://images.unsplash.com/photo-1563166423-482a8c14b2d6?auto=format&fit=crop&w=1600&h=900&q=80",
+        "alt": "Profissional de construção civil em canteiro de obra residencial",
+        "page": "https://unsplash.com/photos/man-kneeling-on-unfinished-building-during-daytime-04rZ7R1fKhY"
+      },
+      "seo": {
+        "source": "unsplash",
+        "src": "https://images.unsplash.com/photo-1563166423-482a8c14b2d6?auto=format&fit=crop&w=1200&h=630&q=80",
+        "alt": "Profissional de construção civil em canteiro de obra residencial"
+      },
+      "card": {
+        "source": "unsplash",
+        "src": "https://images.unsplash.com/photo-1738248427115-3489f1aaa337?auto=format&fit=crop&w=960&h=640&q=80",
+        "alt": "Profissional de construção trabalhando em obra",
+        "page": "https://unsplash.com/photos/a-man-working-on-a-construction-site-dDxUFedOx-4"
+      },
+      "thumb": {
+        "source": "unsplash",
+        "src": "https://images.unsplash.com/photo-1738248427115-3489f1aaa337?auto=format&fit=crop&w=720&h=480&q=80",
+        "alt": "Profissional de construção trabalhando em obra"
+      },
+      "square": {
+        "source": "unsplash",
+        "src": "https://images.unsplash.com/photo-1738248427115-3489f1aaa337?auto=format&fit=crop&w=720&h=720&q=80",
+        "alt": "Profissional de construção trabalhando em obra"
+      },
+      "default": {
+        "source": "unsplash",
+        "src": "https://images.unsplash.com/photo-1563166423-482a8c14b2d6?auto=format&fit=crop&w=1600&h=900&q=80",
+        "alt": "Profissional de construção civil em canteiro de obra residencial"
+      },
+      "context": [
+        {
+          "source": "unsplash",
+          "src": "https://images.unsplash.com/photo-1664809479650-d52650c04ce8?auto=format&fit=crop&w=1280&h=720&q=80",
+          "alt": "Profissional subindo escada em canteiro de obra",
+          "page": "https://unsplash.com/photos/a-person-climbing-a-ladder-t8rdlLi-OD8",
+          "caption": "Capacitação e segurança do trabalho em obra: profissionais treinados garantem qualidade e segurança na execução."
+        }
+      ]
     },
     "projeto-executivo-o-que-e": {
       "hero": { "source": "local", "src": "/og-engenharia-1200x630.jpg" },

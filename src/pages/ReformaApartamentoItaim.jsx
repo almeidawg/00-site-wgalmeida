@@ -12,9 +12,8 @@ import {
   Clock,
   Award,
   TrendingUp,
-  Phone,
 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import SmartCTA from '@/components/SmartCTA';
 import { COMPANY } from '@/data/company';
 import { getPublicPageImageSrc } from '@/data/publicPageImageCatalog';
 
@@ -158,16 +157,12 @@ const ReformaApartamentoItaim = () => {
               Quando a reforma entra bem organizada, ela deixa de ser só obra e passa a reforçar a defesa do investimento, do uso e da valorização do ativo com base em execução real.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/solicite-proposta">
-                <Button className="btn-apple">
-                  Solicitar proposta no Itaim
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
+              <Link to="/solicite-proposta" className="btn-apple">
+                Solicitar proposta no Itaim
+                <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
-              <Link to="/itaim">
-                <Button className="btn-hero-outline">
-                  Mais sobre o Itaim
-                </Button>
+              <Link to="/itaim" className="btn-hero-outline">
+                Mais sobre o Itaim
               </Link>
             </div>
           </motion.div>
@@ -358,18 +353,7 @@ const ReformaApartamentoItaim = () => {
             <p className="text-white/80 mb-8 text-lg">
               Receba uma proposta personalizada e descubra como transformamos seu apartamento com qualidade premium, leitura guiada da obra e prazo mais previsível.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/solicite-proposta">
-                <Button className="btn-apple">
-                  Solicitar proposta grátis
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
-              </Link>
-              <a href={`tel:${COMPANY.phoneRaw}`} className="btn-hero-outline">
-                <Phone className="w-5 h-5" />
-                {COMPANY.phone}
-              </a>
-            </div>
+            <SmartCTA showSecondary className="justify-center" />
           </motion.div>
         </div>
       </section>

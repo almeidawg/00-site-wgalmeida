@@ -130,8 +130,8 @@
 		<meta name="apple-mobile-web-app-title" content="WG Almeida" />
 
 
-		<!-- Preload do primeiro painel do hero (LCP) -->
-		<link rel="preload" as="image" href="/images/banners/foto-obra-1.jpg" fetchpriority="high" />
+		<!-- foto-obra-1.jpg não é preloaded globalmente: o hero só aparece na home
+		     e o preload global gerava warnings em todas as outras rotas (admin, blog, etc.) -->
 
 		<!-- DNS prefetch for third-party services (loaded on interaction) -->
 		<link rel="dns-prefetch" href="https://www.googletagmanager.com" />

@@ -1,6 +1,118 @@
 # RETURN-POINT — site-wgalmeida
 **Atualizado:** 18/04/2026
 
+## Ajuste responsivo do hero video — 23/04/2026
+
+### Problema atacado
+
+- o hero video diferenciava apenas `mobile` e `desktop`
+- celular, tablet e desktop não tinham perfis próprios
+- vídeos verticais e horizontais ainda caíam no mesmo corte horizontal em parte da experiência
+- a intro premium também dependia do contrato antigo
+
+### Correção aplicada
+
+- `src/utils/cloudinaryMedia.js`
+  - contrato expandido para perfis:
+    - `phonePortrait`
+    - `phoneLandscape`
+    - `tabletPortrait`
+    - `tabletLandscape`
+    - `desktopPortrait`
+    - `desktopLandscape`
+  - seleção centralizada por viewport com `getHeroVideoProfile()` e `selectHeroVideoSrc()`
+  - fonte canônica do hero passou a usar o par local já existente:
+    - `/videos/hero/hero-mobile.mp4`
+    - `/videos/hero/hero-desktop.mp4`
+  - Cloudinary ficou apenas como fallback técnico
+- `src/components/HeroVideo.jsx`
+  - troca de `mobile/desktop` simples por seleção orientada por largura + altura do viewport
+  - atualização automática em `resize` e `orientationchange`
+- `src/components/PremiumCinematicIntro.jsx`
+  - mesma lógica aplicada para não deixar a intro usando o contrato antigo
+- `src/__tests__/cloudinaryMedia.test.js`
+  - testes cobrindo celular/tablet/desktop e vertical/horizontal
+
+### Validação executada
+
+- `npm run lint` OK
+- `npm run test:run -- src/__tests__/cloudinaryMedia.test.js` OK
+- `npm run build` OK
+- preview local + Playwright OK:
+  - celular vertical -> `hero-mobile.mp4`
+  - tablet vertical -> `hero-mobile.mp4`
+  - tablet horizontal -> `hero-desktop.mp4`
+  - desktop horizontal -> `hero-desktop.mp4`
+
+## Hotfix de header/menu bloqueado — 23/04/2026
+
+### Problema confirmado
+
+- em produção, o botão do menu na faixa intermediária/mobile estava visível
+- porém o clique era interceptado por um overlay do hero
+- evidência validada com Playwright:
+  - `Clique do menu bloqueado por overlay (DIV absolute inset-0)`
+
+### Causa real
+
+- `src/pages/Home.jsx`
+  - overlay do hero:
+    - `absolute inset-0 z-10 bg-gradient-to-b ...`
+  - estava aceitando ponteiro mesmo sendo apenas camada visual
+
+### Correção aplicada
+
+- `src/pages/Home.jsx`
+  - overlay do hero passou a usar:
+    - `pointer-events-none`
+
+### Impacto esperado
+
+- menu volta a receber clique normalmente
+- header deixa de perder interação no topo da home
+- bloqueio visual deixa de aparecer na auditoria complementar da Liz
+
+## Auditoria de normalização ponta a ponta — 20/04/2026
+
+### Status do bloco
+
+- normalização de CTAs públicos concluída nas páginas de serviço:
+  - `ConstrutoraAltoPadraoSP.jsx`
+  - `ConstrutoraBrooklin.jsx`
+  - `MarcenariaSobMedidaMorumbi.jsx`
+  - `ReformaApartamentoItaim.jsx`
+  - `ReformaApartamentoJardins.jsx`
+  - `ReformaApartamentoSP.jsx`
+- ruído isolado de `public/sitemap.xml` foi descartado e não entrou em commit
+- commit aplicado para o bloco:
+  - `037a28b` — `refactor(ui): standardize CTA system across service pages`
+- nesta rodada, o site permanece estável e sem novo refactor funcional obrigatório
+- próximas mudanças no `site-wgalmeida` devem seguir apenas por:
+  - governança editorial
+  - consistência admin -> publicação
+  - higiene de commit/deploy antes de merge e Vercel
+
+### Validação executada
+
+- `npm run lint` OK
+- `npm run build` OK
+- `npm run verify:deploy` OK
+
+### Leitura de normalização do projeto
+
+- `site-wgalmeida` já está alinhado no eixo de site inteligente, SmartCTA e consistência visual pública
+- o próximo padrão transversal aqui não é auth, e sim:
+  - governança editorial
+  - consistência entre admin e publicação
+  - higiene de repositório antes de deploy
+- quando houver automação de governança, ela deve entrar como ferramenta separada do runtime do site
+
+### Regra operacional fixada
+
+- `Repo Guardian System v4` fica aprovado como direção de produto interno para auditoria de commit/deploy
+- essa ferramenta não deve ser embutida no bundle do site nem misturada ao runtime público
+- a adoção correta é em repositório/pacote próprio, consumido por CLI, GitHub Action e gate de PR
+
 ## Auditoria visual/editorial — 18/04/2026
 
 - padronização do sistema de botões concluída em `src/components/ui/button.jsx` e `src/index.css`

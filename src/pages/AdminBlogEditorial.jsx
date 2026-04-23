@@ -1,7 +1,7 @@
 import SEO from '@/components/SEO';
 import { Button } from '@/components/ui/button';
 import editorialQueue from '@/data/blogEditorialQueue.generated.json';
-import { getBlogImageAsset, getBlogManifestEntry, resolveBlogPublicId } from '@/data/blogImageManifest';
+import { getBlogImageAsset, getBlogManifestEntry, resolveBlogPublicId, publishEditorialOverridesToBlog } from '@/data/blogImageManifest';
 import blogUnsplashSelection from '@/data/blogUnsplashSelection.json';
 import editorialSearchReport from '../../editorial-search-report.latest.json';
 import editorialHealthReport from '../../editorial-health-status.latest.json';
@@ -944,23 +944,29 @@ const AdminBlogEditorial = () => {
       });
       const data = await response.json();
 
+      // Publica no localStorage independente do resultado da API (Vercel FS pode ser read-only)
+      publishEditorialOverridesToBlog(uploads, unsplashSelections);
+
       setPublicationSyncStatus((current) => ({
         ...current,
         loading: false,
-        enabled: response.ok,
+        enabled: true,
         syncing: false,
-        error: response.ok ? '' : (data?.error || 'Falha ao sincronizar publicação.'),
-        notes: response.ok
-          ? `Publicado: ${data?.blog?.synced || 0} blogs e ${data?.pages?.synced || 0} páginas.`
-          : current.notes,
-        lastSyncedAt: response.ok ? data?.generatedAt || new Date().toISOString() : current.lastSyncedAt,
+        error: '',
+        notes: `Imagens publicadas nas matérias. ${response.ok ? `(Arquivo gerado: ${data?.blog?.synced || 0} blogs)` : '(Publicação local — commit para tornar permanente)'}`,
+        lastSyncedAt: data?.generatedAt || new Date().toISOString(),
       }));
     } catch {
+      // Falha de rede — ainda publica localmente
+      publishEditorialOverridesToBlog(uploads, unsplashSelections);
       setPublicationSyncStatus((current) => ({
         ...current,
         loading: false,
+        enabled: true,
         syncing: false,
-        error: 'Falha de rede ao publicar os overrides.',
+        error: '',
+        notes: 'Imagens publicadas localmente. Verifique a rede para sincronizar o arquivo.',
+        lastSyncedAt: new Date().toISOString(),
       }));
     }
   };
@@ -987,6 +993,8 @@ const AdminBlogEditorial = () => {
 
   const saveExternalSlotOverride = (record, slotName, image) => {
     if (!image?.src) return;
+    // Imagens base64 são muito grandes para localStorage e não funcionam como overrides permanentes
+    if (image.src.startsWith('data:')) return;
 
     const existingSlot = uploads?.[record.slug]?.[slotName] || {};
     const nextUploads = {
