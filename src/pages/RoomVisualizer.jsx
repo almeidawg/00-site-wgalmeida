@@ -194,7 +194,7 @@ const RoomVisualizerContent = () => {
               </Link>
               <Link
                 to="/buildtech"
-                className="inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-3 text-sm text-white transition-colors hover:bg-white/10"
+                className="wg-overlay-button-dark rounded-full"
               >
                 Ver frente BuildTech
               </Link>

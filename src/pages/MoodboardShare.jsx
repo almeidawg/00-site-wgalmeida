@@ -74,10 +74,10 @@ const MoodboardShare = () => {
 
                 <div className="relative z-10 flex h-full min-h-[440px] flex-col justify-between">
                   <div className="flex flex-wrap items-center justify-between gap-3">
-                    <span className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-[11px] uppercase tracking-[0.22em] text-white/72">
+                    <span className="wg-overlay-chip-dark-subtle px-4 py-2 text-[11px] uppercase tracking-[0.22em] text-white/72">
                       WG Almeida
                     </span>
-                    <span className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-[11px] uppercase tracking-[0.22em] text-white/72">
+                    <span className="wg-overlay-chip-dark-subtle px-4 py-2 text-[11px] uppercase tracking-[0.22em] text-white/72">
                       Guia de estilo publico
                     </span>
                   </div>

@@ -74,7 +74,7 @@ const Store = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="mt-7"
           >
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-5 py-3.5 text-sm backdrop-blur-sm md:px-6">
+            <span className="wg-overlay-chip-dark md:px-6 md:py-3.5">
               <ShoppingBag className="w-4 h-4" />
               {t('storePage.hero.badge')}
             </span>

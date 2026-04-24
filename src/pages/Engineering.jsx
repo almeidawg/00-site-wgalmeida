@@ -133,7 +133,7 @@ const Engineering = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="mt-7"
           >
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-5 py-3.5 text-sm backdrop-blur-sm md:px-6">
+            <span className="wg-overlay-chip-dark md:px-6 md:py-3.5">
               <Wrench className="w-4 h-4" />
               {t('engineeringPage.hero.badge')}
             </span>
@@ -400,7 +400,7 @@ const Engineering = () => {
                   'Briefing mais claro para compatibilização, aprovações e sequência executiva.',
                   'Entrada assistida para pré-venda, retrofit ou reforma de ticket mais alto.',
                 ].map((item) => (
-                  <div key={item} className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <div key={item} className="wg-overlay-panel-dark flex items-start gap-3 p-4">
                     <Sparkles className="w-5 h-5 text-white flex-shrink-0 mt-0.5" />
                     <p className="text-sm text-white/80 font-light leading-relaxed">{item}</p>
                   </div>
@@ -415,7 +415,7 @@ const Engineering = () => {
                   </Link>
                   <Link
                     to="/room-visualizer"
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-white/15 text-white rounded-lg hover:bg-white/5 transition-colors duration-300"
+                    className="wg-overlay-button-dark"
                   >
                     Ver visualização assistida
                   </Link>

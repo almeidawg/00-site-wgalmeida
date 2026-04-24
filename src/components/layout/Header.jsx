@@ -245,7 +245,7 @@ const iconButtonClass = isScrolled
                                   {subItem.description}
                                 </p>
 
-                                <div className="mt-6 inline-flex w-fit items-center rounded-full border border-white/[0.14] bg-white/[0.08] px-4 py-2 text-[11px] uppercase tracking-[0.22em] text-white/[0.86] backdrop-blur-sm">
+                                <div className="wg-overlay-chip-dark-subtle mt-6 w-fit px-4 py-2 text-[11px] uppercase tracking-[0.22em] text-white/[0.86]">
                                   Explorar unidade
                                 </div>
                               </div>
@@ -381,7 +381,7 @@ const iconButtonClass = isScrolled
                 </div>
                 <Link
                   to={MANAGEMENT_URL}
-                  className="flex items-center justify-center gap-2 w-full px-4 py-3 border border-white/[0.18] text-white rounded-lg font-light hover:bg-white/10 transition-all"
+                  className="wg-overlay-button-dark w-full"
                 >
                   <Globe className="h-4 w-4" />
                   <span>Área de Gestão</span>
@@ -390,7 +390,7 @@ const iconButtonClass = isScrolled
                   href={OBRA_EASY_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 w-full px-4 py-3 border border-white/[0.18] text-white rounded-lg font-light hover:bg-white/10 transition-all"
+                  className="wg-overlay-button-dark w-full"
                 >
                   <HardHat className="h-5 w-5" />
                   <span>ObraEasy · Gestão de Obras</span>
