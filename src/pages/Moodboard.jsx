@@ -40,7 +40,7 @@ const MoodboardContent = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-center"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 text-white/70 mb-6 text-sm">
+            <div className="wg-overlay-chip-dark-subtle mb-6 px-4 py-2 text-sm">
               Sistema de experiência estética
             </div>
             <h1 className="text-4xl md:text-5xl font-light mb-4">
@@ -217,7 +217,7 @@ const MoodboardContent = () => {
               </Link>
               <Link
                 to="/solicite-proposta?service=Sistema%20de%20Experi%C3%AAncia%20Visual&context=moodboard"
-                className="inline-flex items-center gap-3 px-8 py-4 border border-white/20 text-white rounded-xl font-light text-lg hover:bg-white/10 transition-colors"
+                className="wg-overlay-button-dark rounded-xl px-8 py-4 text-lg"
               >
                 Levar para proposta
               </Link>

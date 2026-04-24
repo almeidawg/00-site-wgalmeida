@@ -1718,19 +1718,19 @@ const AdminBlogEditorial = () => {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   placeholder="Título, slug ou categoria..."
-                  className="w-48 rounded-xl border border-[#D7D1C5] bg-[#FBF8F2] px-3 py-2 text-sm text-[#1E2A3A] outline-none focus:border-[#B89E73]"
+                  className="w-48 rounded-xl border border-[#D7D1C5] bg-[#FBF8F2] px-3 py-2 text-sm text-[#1E2A3A] outline-none transition-colors focus:border-wg-blue/45 focus:ring-2 focus:ring-wg-blue/12"
                 />
               </label>
               <label className="flex flex-col gap-1 text-xs text-[#5B6470]">
                 Categoria
-                <select value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)} className="rounded-xl border border-[#D7D1C5] bg-[#FBF8F2] px-3 py-2 text-sm text-[#1E2A3A] outline-none focus:border-[#B89E73]">
+                <select value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)} className="rounded-xl border border-[#D7D1C5] bg-[#FBF8F2] px-3 py-2 text-sm text-[#1E2A3A] outline-none transition-colors focus:border-wg-blue/45 focus:ring-2 focus:ring-wg-blue/12">
                   <option value="todos">Todas</option>
                   {categoryOptions.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
                 </select>
               </label>
               <label className="flex flex-col gap-1 text-xs text-[#5B6470]">
                 Tipo
-                <select value={contentTypeFilter} onChange={(e) => setContentTypeFilter(e.target.value)} className="rounded-xl border border-[#D7D1C5] bg-[#FBF8F2] px-3 py-2 text-sm text-[#1E2A3A] outline-none focus:border-[#B89E73]">
+                <select value={contentTypeFilter} onChange={(e) => setContentTypeFilter(e.target.value)} className="rounded-xl border border-[#D7D1C5] bg-[#FBF8F2] px-3 py-2 text-sm text-[#1E2A3A] outline-none transition-colors focus:border-wg-blue/45 focus:ring-2 focus:ring-wg-blue/12">
                   <option value="todos">Tudo</option>
                   <option value="blog">Blog</option>
                   <option value="style">Estilos</option>
@@ -1739,7 +1739,7 @@ const AdminBlogEditorial = () => {
               </label>
               <label className="flex flex-col gap-1 text-xs text-[#5B6470]">
                 Status
-                <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="rounded-xl border border-[#D7D1C5] bg-[#FBF8F2] px-3 py-2 text-sm text-[#1E2A3A] outline-none focus:border-[#B89E73]">
+                <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="rounded-xl border border-[#D7D1C5] bg-[#FBF8F2] px-3 py-2 text-sm text-[#1E2A3A] outline-none transition-colors focus:border-wg-blue/45 focus:ring-2 focus:ring-wg-blue/12">
                   <option value="todos">Todos</option>
                   <option value="pendentes">Pendentes</option>
                   <option value="prontos">Prontos</option>
@@ -2030,7 +2030,7 @@ const AdminBlogEditorial = () => {
                             onChange={(e) => setSearchQueryBySlug((c) => ({ ...c, [record.slug]: e.target.value }))}
                             onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); runInlineUnsplashSearch(record.slug); } }}
                             placeholder="Ex.: minimalist interior, japandi bedroom..."
-                            className="w-full rounded-xl border border-[#D7D1C5] bg-white px-4 py-2 text-sm text-[#1E2A3A] outline-none focus:border-[#B89E73]"
+                            className="w-full rounded-xl border border-[#D7D1C5] bg-white px-4 py-2 text-sm text-[#1E2A3A] outline-none transition-colors focus:border-wg-blue/45 focus:ring-2 focus:ring-wg-blue/12"
                           />
                           <Button type="button" onClick={() => runInlineUnsplashSearch(record.slug)} disabled={panelResult.loading || !panelQuery.trim()} className="shrink-0 bg-[#1E2A3A] text-sm text-white hover:bg-[#24354C] disabled:opacity-50">
                             {panelResult.loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Search className="mr-2 h-4 w-4" />}Unsplash
@@ -2165,7 +2165,7 @@ const AdminBlogEditorial = () => {
                         onChange={(e) => { setUrlInputBySlug((c) => ({ ...c, [record.slug]: e.target.value })); setUrlErrorBySlug((c) => ({ ...c, [record.slug]: '' })); }}
                         onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addExternalImageFromInput(record); } }}
                         placeholder="Colar URL de imagem (opcional)"
-                        className="w-full rounded-xl border border-[#D7D1C5] bg-[#FAFAF8] px-3 py-2 text-sm text-[#1E2A3A] outline-none focus:border-[#B89E73]"
+                        className="w-full rounded-xl border border-[#D7D1C5] bg-[#FAFAF8] px-3 py-2 text-sm text-[#1E2A3A] outline-none transition-colors focus:border-wg-blue/45 focus:ring-2 focus:ring-wg-blue/12"
                       />
                       <Button type="button" variant="outline" onClick={() => addExternalImageFromInput(record)} className="shrink-0 border-[#D7D1C5] bg-white text-sm text-[#1E2A3A] hover:bg-[#F7F3EB]" title="Adicionar URL">
                         <ImagePlus className="h-4 w-4" />
@@ -2225,21 +2225,21 @@ const AdminBlogEditorial = () => {
                               {record.kind === 'blog' && (
                                 <label className="flex flex-col gap-1 text-xs text-[#5B6470]">
                                   Unsplash ID
-                                  <input value={unsplashSlotState.id} onChange={(e) => updateUnsplashSelection(record.slug, slot.slot, 'id', e.target.value)} placeholder="Ex.: ChSZETOal-I" className="rounded-lg border border-[#D7D1C5] bg-white px-3 py-2 text-xs text-[#1E2A3A] outline-none focus:border-[#B89E73]" />
+                                  <input value={unsplashSlotState.id} onChange={(e) => updateUnsplashSelection(record.slug, slot.slot, 'id', e.target.value)} placeholder="Ex.: ChSZETOal-I" className="rounded-lg border border-[#D7D1C5] bg-white px-3 py-2 text-xs text-[#1E2A3A] outline-none transition-colors focus:border-wg-blue/45 focus:ring-2 focus:ring-wg-blue/12" />
                                 </label>
                               )}
                               <label className="flex flex-col gap-1 text-xs text-[#5B6470]">
                                 Alt
-                                <input value={slotState.alt || ''} onChange={(e) => updateLocalSlotMetadata(record, slot.slot, 'alt', e.target.value)} placeholder="Descrição editorial" className="rounded-lg border border-[#D7D1C5] bg-white px-3 py-2 text-xs text-[#1E2A3A] outline-none focus:border-[#B89E73]" />
+                                <input value={slotState.alt || ''} onChange={(e) => updateLocalSlotMetadata(record, slot.slot, 'alt', e.target.value)} placeholder="Descrição editorial" className="rounded-lg border border-[#D7D1C5] bg-white px-3 py-2 text-xs text-[#1E2A3A] outline-none transition-colors focus:border-wg-blue/45 focus:ring-2 focus:ring-wg-blue/12" />
                               </label>
                               <label className="flex flex-col gap-1 text-xs text-[#5B6470]">
                                 Legenda
-                                <input value={slotState.caption || ''} onChange={(e) => updateLocalSlotMetadata(record, slot.slot, 'caption', e.target.value)} placeholder="Texto curto" className="rounded-lg border border-[#D7D1C5] bg-white px-3 py-2 text-xs text-[#1E2A3A] outline-none focus:border-[#B89E73]" />
+                                <input value={slotState.caption || ''} onChange={(e) => updateLocalSlotMetadata(record, slot.slot, 'caption', e.target.value)} placeholder="Texto curto" className="rounded-lg border border-[#D7D1C5] bg-white px-3 py-2 text-xs text-[#1E2A3A] outline-none transition-colors focus:border-wg-blue/45 focus:ring-2 focus:ring-wg-blue/12" />
                               </label>
                               {record.kind === 'blog' && isContextSlot(slot.slot) && (
                                 <label className="flex flex-col gap-1 text-xs text-[#5B6470]">
                                   Bloco vinculado
-                                  <select value={slotState.sectionId || ''} onChange={(e) => { const nextId = e.target.value; const nextOpt = sectionTargetOptions.find((o) => o.id === nextId); updateLocalSlotMetadata(record, slot.slot, 'sectionId', nextId); updateLocalSlotMetadata(record, slot.slot, 'sectionTitle', nextOpt?.title || ''); }} className="rounded-lg border border-[#D7D1C5] bg-white px-3 py-2 text-xs text-[#1E2A3A] outline-none focus:border-[#B89E73]">
+                                  <select value={slotState.sectionId || ''} onChange={(e) => { const nextId = e.target.value; const nextOpt = sectionTargetOptions.find((o) => o.id === nextId); updateLocalSlotMetadata(record, slot.slot, 'sectionId', nextId); updateLocalSlotMetadata(record, slot.slot, 'sectionTitle', nextOpt?.title || ''); }} className="rounded-lg border border-[#D7D1C5] bg-white px-3 py-2 text-xs text-[#1E2A3A] outline-none transition-colors focus:border-wg-blue/45 focus:ring-2 focus:ring-wg-blue/12">
                                     <option value="">Sem vínculo</option>
                                     {sectionTargetOptions.map((o) => <option key={`${record.slug}-${slot.slot}-${o.id}`} value={o.id}>{o.title}</option>)}
                                   </select>

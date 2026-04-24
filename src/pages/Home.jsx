@@ -395,6 +395,9 @@ const Home = () => {
       {/* ========== HERO SECTION COM VÍDEO ========== */}
       <section className="wg-page-hero wg-page-hero--full hero-under-header bg-wg-black">
         <HeroVideo />
+        <div className="pointer-events-none absolute inset-0 z-[8] opacity-80 mix-blend-screen">
+          <AnimatedStrokes variant="beams" opacity={0.32} count={4} duration={3.8} />
+        </div>
         <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-wg-black/40 via-wg-black/60 to-wg-black/80"></div>
 
         <div className="container-custom">
@@ -1059,7 +1062,7 @@ const Home = () => {
                 </Button>
                 <Link
                   to="/solicite-proposta?service=Sistema%20de%20Experi%C3%AAncia%20Visual&context=moodboard"
-                  className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 px-6 py-3 text-sm text-white transition-colors hover:bg-white/10"
+                  className="wg-overlay-button-dark rounded-full"
                 >
                   Levar para projeto
                 </Link>
@@ -1115,7 +1118,7 @@ const Home = () => {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.3 }}
-                  className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20"
+                  className="wg-overlay-panel-dark p-6"
                 >
                   <div className="flex items-center gap-3 mb-3">
                     <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center">
@@ -1159,25 +1162,25 @@ const Home = () => {
 
               <div className="grid grid-cols-2 gap-4 mb-8">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center">
+                  <div className="wg-overlay-icon-dark h-8 w-8">
                     <CheckCircle2 className="w-4 h-4 text-wg-orange" />
                   </div>
                   <span className="text-sm text-white/90">{t('home.turnKeyBlock.benefits.0')}</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center">
+                  <div className="wg-overlay-icon-dark h-8 w-8">
                     <CheckCircle2 className="w-4 h-4 text-wg-orange" />
                   </div>
                   <span className="text-sm text-white/90">{t('home.turnKeyBlock.benefits.1')}</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center">
+                  <div className="wg-overlay-icon-dark h-8 w-8">
                     <CheckCircle2 className="w-4 h-4 text-wg-orange" />
                   </div>
                   <span className="text-sm text-white/90">{t('home.turnKeyBlock.benefits.2')}</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center">
+                  <div className="wg-overlay-icon-dark h-8 w-8">
                     <CheckCircle2 className="w-4 h-4 text-wg-orange" />
                   </div>
                   <span className="text-sm text-white/90">{t('home.turnKeyBlock.benefits.3')}</span>

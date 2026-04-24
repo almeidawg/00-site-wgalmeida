@@ -1041,11 +1041,20 @@ export const getBlogManifestEntry = (slug) => {
   const remoteEntry = BLOG_UNSPLASH_MANIFEST.slugs[slug] || null;
   const cloudinaryEntry = BLOG_IMAGE_MANIFEST.slugs[slug] || null;
   const curatedEntry = mergeManifestEntries(cloudinaryEntry, remoteEntry);
+  const generatedOverrideEntry = BLOG_IMAGE_OVERRIDES?.slugs?.[slug] || null;
+  const canonicalOverrideEntry = BLOG_IMAGE_OVERRIDES_CANONICAL?.slugs?.[slug] || null;
   const sourceOverrideEntryRaw = mergeManifestEntries(
-    BLOG_IMAGE_OVERRIDES_CANONICAL?.slugs?.[slug] || null,
-    BLOG_IMAGE_OVERRIDES?.slugs?.[slug] || null,
+    canonicalOverrideEntry,
+    generatedOverrideEntry,
   );
-  const sourceOverrideEntry = sanitizeGenericOverrideEntry(sourceOverrideEntryRaw, curatedEntry);
+  const sourceOverrideReferenceEntry = mergeManifestEntries(
+    generatedOverrideEntry,
+    curatedEntry,
+  );
+  const sourceOverrideEntry = sanitizeGenericOverrideEntry(
+    sourceOverrideEntryRaw,
+    sourceOverrideReferenceEntry,
+  );
   const localUnsplashEntry = buildLocalUnsplashSelectionEntry(slug);
   const localUploadEntry = buildLocalUploadManifestEntry(slug);
   const persistedEntry = mergeManifestEntries(

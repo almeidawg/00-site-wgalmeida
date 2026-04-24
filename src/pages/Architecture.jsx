@@ -111,7 +111,7 @@ const Architecture = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="mt-7"
           >
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-5 py-3.5 text-sm backdrop-blur-sm md:px-6">
+            <span className="wg-overlay-chip-dark md:px-6 md:py-3.5">
               <PenTool className="w-4 h-4" />
               {t('architecturePage.hero.badge')}
             </span>
@@ -308,7 +308,7 @@ const Architecture = () => {
                   'Reduz retrabalho em briefing, referências desconexas e aprovações subjetivas.',
                   'Cria ponte direta entre moodboard, visualização e proposta assistida.',
                 ].map((item) => (
-                  <div key={item} className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <div key={item} className="wg-overlay-panel-dark flex items-start gap-3 p-4">
                     <Sparkles className="w-5 h-5 text-wg-green flex-shrink-0 mt-0.5" />
                     <p className="text-sm text-white/80 font-light leading-relaxed">{item}</p>
                   </div>
