@@ -453,7 +453,8 @@
   }
 
   .wg-overlay-chip-dark-subtle {
-    @apply inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-light text-white/78 backdrop-blur-md;
+    @apply inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-light backdrop-blur-md;
+    color: rgba(255, 255, 255, 0.78);
     border: 1px solid rgba(255, 255, 255, 0.18);
     background: rgba(15, 23, 42, 0.36);
     box-shadow: 0 10px 28px rgba(10, 15, 26, 0.14);
