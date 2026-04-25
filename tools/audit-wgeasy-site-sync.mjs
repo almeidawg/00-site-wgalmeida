@@ -49,6 +49,12 @@ function addFinding(severity, label, details) {
   findings.push({ severity, label, details })
 }
 
+function stripWrappingQuotes(value) {
+  const startsQuoted = value.startsWith('"') || value.startsWith("'")
+  const endsQuoted = value.endsWith('"') || value.endsWith("'")
+  return startsQuoted && endsQuoted ? value.slice(1, -1) : value
+}
+
 function loadEnvFile(filePath) {
   if (!fs.existsSync(filePath)) return
   const lines = fs.readFileSync(filePath, 'utf8').split(/\r?\n/)
@@ -60,7 +66,7 @@ function loadEnvFile(filePath) {
     const key = trimmed.slice(0, separator).trim()
     const rawValue = trimmed.slice(separator + 1).trim()
     if (!key || process.env[key]) continue
-    process.env[key] = rawValue.replace(/^['"]|['"]$/g, '')
+    process.env[key] = stripWrappingQuotes(rawValue)
   }
 }
 
@@ -98,23 +104,24 @@ function scanStalePublicPrices() {
   }
 }
 
-async function auditSupabase() {
-  const url = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY
+function getSupabaseCredentials() {
+  return {
+    url: process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL,
+    key: process.env.SUPABASE_SERVICE_ROLE_KEY
     || process.env.SUPABASE_SERVICE_KEY
     || process.env.VITE_SUPABASE_SERVICE_ROLE_KEY
     || process.env.VITE_SUPABASE_ANON_KEY
-    || process.env.SUPABASE_ANON_KEY
-
-  if (!url || !key) {
-    addFinding(strict ? 'error' : 'warning', 'Supabase não validado', 'Defina SUPABASE_URL/VITE_SUPABASE_URL e uma chave Supabase para comparar com WGEasy.')
-    return
+    || process.env.SUPABASE_ANON_KEY,
   }
+}
 
-  const supabase = createClient(url, key, {
+function createSupabaseClient(url, key) {
+  return createClient(url, key, {
     auth: { persistSession: false, autoRefreshToken: false },
   })
+}
 
+async function fetchActivePlans(supabase) {
   const { data: planRows, error: planError } = await supabase
     .from('saas_planos')
     .select('nome,valor_mensal,ativo,saas_produtos(slug,nome)')
@@ -122,47 +129,75 @@ async function auditSupabase() {
 
   if (planError) {
     addFinding('error', 'Falha ao consultar saas_planos', planError.message)
-  } else {
-    const byProduct = new Map()
-    for (const row of planRows || []) {
-      const product = row.saas_produtos
-      const slug = product?.slug
-      if (!slug) continue
-      if (!byProduct.has(slug)) byProduct.set(slug, new Map())
-      byProduct.get(slug).set(row.nome, formatMoneyBRL(row.valor_mensal))
-    }
-
-    for (const [productSlug, plans] of Object.entries(expectedPlans)) {
-      const activePlans = byProduct.get(productSlug)
-      if (!activePlans) {
-        addFinding('error', 'Produto SaaS sem planos ativos', productSlug)
-        continue
-      }
-      for (const [planName, expectedPrice] of Object.entries(plans)) {
-        const dbPrice = activePlans.get(planName)
-        if (!dbPrice) {
-          addFinding('error', 'Plano SaaS ativo ausente', `${productSlug} / ${planName}`)
-          continue
-        }
-        if (dbPrice !== expectedPrice) {
-          addFinding('error', 'Preço público divergente do WGEasy', `${productSlug} / ${planName}: site=${expectedPrice}; WGEasy=${dbPrice}`)
-        }
-      }
-    }
+    return null
   }
 
-  for (const item of criticalTables) {
-    let query = supabase.from(item.table).select('*', { count: 'exact', head: true })
-    if (item.activeColumn) query = query.eq(item.activeColumn, true)
-    const { count, error } = await query
-    if (error) {
-      addFinding('error', `Falha ao consultar ${item.table}`, error.message)
+  const byProduct = new Map()
+  for (const row of planRows || []) {
+    const slug = row.saas_produtos?.slug
+    if (!slug) continue
+    if (!byProduct.has(slug)) byProduct.set(slug, new Map())
+    byProduct.get(slug).set(row.nome, formatMoneyBRL(row.valor_mensal))
+  }
+  return byProduct
+}
+
+function compareExpectedPlans(byProduct) {
+  if (!byProduct) return
+
+  for (const [productSlug, plans] of Object.entries(expectedPlans)) {
+    const activePlans = byProduct.get(productSlug)
+    if (!activePlans) {
+      addFinding('error', 'Produto SaaS sem planos ativos', productSlug)
       continue
     }
-    if (!Number.isFinite(count) || count < item.min) {
-      addFinding('error', `Tabela crítica sem dados suficientes`, `${item.table}: ${count ?? 'sem contagem'}`)
+    compareProductPlans(productSlug, plans, activePlans)
+  }
+}
+
+function compareProductPlans(productSlug, expectedProductPlans, activePlans) {
+  for (const [planName, expectedPrice] of Object.entries(expectedProductPlans)) {
+    const dbPrice = activePlans.get(planName)
+    if (!dbPrice) {
+      addFinding('error', 'Plano SaaS ativo ausente', `${productSlug} / ${planName}`)
+      continue
+    }
+    if (dbPrice !== expectedPrice) {
+      addFinding('error', 'Preço público divergente do WGEasy', `${productSlug} / ${planName}: site=${expectedPrice}; WGEasy=${dbPrice}`)
     }
   }
+}
+
+async function auditCriticalTable(supabase, item) {
+  let query = supabase.from(item.table).select('*', { count: 'exact', head: true })
+  if (item.activeColumn) query = query.eq(item.activeColumn, true)
+  const { count, error } = await query
+  if (error) {
+    addFinding('error', `Falha ao consultar ${item.table}`, error.message)
+    return
+  }
+  if (!Number.isFinite(count) || count < item.min) {
+    addFinding('error', 'Tabela crítica sem dados suficientes', `${item.table}: ${count ?? 'sem contagem'}`)
+  }
+}
+
+async function auditCriticalTables(supabase) {
+  for (const item of criticalTables) {
+    await auditCriticalTable(supabase, item)
+  }
+}
+
+async function auditSupabase() {
+  const { url, key } = getSupabaseCredentials()
+  if (!url || !key) {
+    addFinding(strict ? 'error' : 'warning', 'Supabase não validado', 'Defina SUPABASE_URL/VITE_SUPABASE_URL e uma chave Supabase para comparar com WGEasy.')
+    return
+  }
+
+  const supabase = createSupabaseClient(url, key)
+  const activePlans = await fetchActivePlans(supabase)
+  compareExpectedPlans(activePlans)
+  await auditCriticalTables(supabase)
 }
 
 function printResult() {

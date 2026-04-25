@@ -1,4 +1,4 @@
-import SEO from '@/components/SEO'
+import Seo from '@/components/SEO'
 import { Button } from '@/components/ui/button'
 import { motion } from '@/lib/motion-lite'
 import { withBasePath } from '@/utils/assetPaths'
@@ -174,7 +174,7 @@ const ObraEasyLanding = () => {
 
   return (
     <>
-      <SEO
+      <Seo
         pathname="/obraeasy"
         title="ObraEasy · Gerencie sua Obra do Orçamento à Entrega"
         description="Plataforma de gestão de obras com EVF, cronograma, contratos e financeiro. Para clientes, corretores e construtoras. Grátis para começar."
@@ -334,7 +334,7 @@ const ObraEasyLanding = () => {
           </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {publicoAlvo.map((p, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15 }}
+              <motion.div key={p.perfil} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15 }}
                 className="bg-wg-gray-light rounded-2xl p-8 text-center">
                 <p.icone className="w-12 h-12 text-wg-orange mx-auto mb-4" />
                 <h3 className="text-xl font-inter text-wg-black mb-3">{p.perfil}</h3>
@@ -356,7 +356,7 @@ const ObraEasyLanding = () => {
           </motion.div>
           <div className="max-w-4xl mx-auto space-y-6">
             {comoFunciona.map((etapa, i) => (
-              <motion.div key={i} initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+              <motion.div key={etapa.numero} initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
                 className="bg-white rounded-2xl p-6 shadow-sm flex items-start gap-6">
                 <div className="flex-shrink-0 w-16 h-16 bg-wg-orange rounded-full flex items-center justify-center">
                   <span className="text-white text-xl">{etapa.numero}</span>
@@ -391,7 +391,7 @@ const ObraEasyLanding = () => {
           </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {funcionalidades.map((f, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+              <motion.div key={f.titulo} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
                 className="bg-wg-gray-light rounded-2xl p-6">
                 <f.icon className="w-10 h-10 text-wg-orange mb-4" />
                 <h3 className="text-lg font-inter text-wg-black mb-2">{f.titulo}</h3>
@@ -414,7 +414,7 @@ const ObraEasyLanding = () => {
           </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {planos.map((plano, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15 }}
+              <motion.div key={plano.id} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15 }}
                 className={`rounded-2xl p-8 relative ${plano.destaque ? 'bg-wg-black text-white ring-2 ring-wg-orange' : 'bg-white'}`}>
                 {plano.destaque && (
                   <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-wg-orange text-white text-xs px-4 py-1 rounded-full uppercase tracking-wider">
@@ -428,8 +428,8 @@ const ObraEasyLanding = () => {
                   <span className={`text-sm ${plano.destaque ? 'text-white/50' : 'text-wg-gray'}`}>{plano.period}</span>
                 </div>
                 <ul className="space-y-3 mb-8">
-                  {plano.features.map((f, j) => (
-                    <li key={j} className="flex items-center gap-2">
+                  {plano.features.map((f) => (
+                    <li key={f} className="flex items-center gap-2">
                       <CheckCircle className="w-4 h-4 flex-shrink-0" style={{ color: plano.cor }} />
                       <span className={`text-sm font-light ${plano.destaque ? 'text-white/80' : 'text-wg-gray'}`}>{f}</span>
                     </li>
@@ -456,7 +456,7 @@ const ObraEasyLanding = () => {
               { num: 'SINAPI', label: 'base oficial de preços' },
               { num: 'Digital', label: 'fluxo online, sem papelada operacional' },
             ].map((stat, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
+              <motion.div key={stat.num} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
                 <div className="text-3xl md:text-4xl font-inter font-light text-wg-orange mb-2">{stat.num}</div>
                 <div className="text-wg-gray text-sm font-light">{stat.label}</div>
               </motion.div>

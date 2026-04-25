@@ -688,6 +688,14 @@ O sistema de botões está 100% homogêneo em todas as landing pages públicas a
   - `/easy-real-state`: contem `R$ 0`, `R$ 79,90`, `R$ 149,90`; nao contem `R$ 49`, `R$ 297` ou `R$ 797`.
 - `git grep` inicial confirmou que o SSoT ObraEasy e checkouts reais usavam `R$ 29,90` e `R$ 59,90`, enquanto a base WGEasy estava divergente em `R$ 297` e `R$ 797`.
 - `git grep` em `src` para `OBRAEASY_PRECOS.solo`, `OBRAEASY_PRECOS.completo`, `EASYREALSTATE_PRECOS.proCorretor` e `EASYREALSTATE_PRECOS.imobiliaria`: sem ocorrencias.
+- Pesquisa externa rapida em 2026-04-25 manteve a estrategia defensavel:
+  - ObraEasy `R$ 29,90`/`R$ 59,90` fica como entrada agressiva para escala frente a concorrentes de gestao de obras.
+  - EasyRealState `R$ 79,90`/`R$ 149,90` fica dentro da faixa de CRM/site imobiliario para corretor e operacao.
+  - `R$ 97,90` permanece apenas como hipotese futura; nao foi aplicado porque nao existe fonte ativa em SSoT, checkout ou WGEasy normalizado.
+- Sonar PR #39 apontou complexidade no auditor novo e chaves por indice nas landings. Correcoes locais aplicadas:
+  - `tools/audit-wgeasy-site-sync.mjs` quebrado em funcoes menores.
+  - `ObraEasyLanding.jsx` e `EasyRealStateLanding.jsx` ajustadas para usar chaves estaveis e alias `Seo`.
+  - `EasyRealStateLanding.jsx` limpou imports/ternario redundante.
 
 ### Pendencias abertas
 

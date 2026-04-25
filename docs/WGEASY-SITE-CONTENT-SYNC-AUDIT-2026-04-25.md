@@ -20,9 +20,28 @@ Auditar conteúdo público do site que depende de dados vivos do ecossistema WGE
 
 ## Benchmark externo rapido
 
-- ConstruApp publica planos de gestao de obras em `R$ 49,90/mês`, `R$ 79,90/mês` e `R$ 139,90/mês`.
-- ImobiBrasil publica CRM/site imobiliario a partir de `R$ 54,99/mês`, com faixas `R$ 74,99`, `R$ 119,99` e `R$ 249,99`.
+Fontes consultadas em 2026-04-25:
+
+- ConstruApp (`https://constru.app.br`) publica planos de gestao de obras em `R$ 49,90/mês`, `R$ 79,90/mês` e `R$ 139,90/mês`.
+- ImobiBrasil (`https://www.imobibrasil.com.br/planos.php`) publica CRM/site imobiliario a partir de `R$ 54,99/mês`, com plano superior em `R$ 249,99/mês`.
 - Leitura estrategica: ObraEasy em `R$ 29,90`/`R$ 59,90` e EasyRealState em `R$ 79,90`/`R$ 149,90` ficam coerentes como precificacao de entrada para escala, aquisição e validação, sem usar a ancoragem inflada `R$ 297`/`R$ 797`.
+- O valor `R$ 97,90` nao deve ser aplicado agora: nao foi encontrado em checkout real, SSoT local ou base WGEasy normalizada. Ele pode ser reservado como hipotese futura de teste para upgrade, mas so depois de ajuste coordenado em `saas_planos`, checkout e site.
+
+## Matriz de precificacao validada
+
+### ObraEasy para consumidor/cliente final
+
+- Gratuito: `R$ 0`, entrada de aquisicao para conhecer EVF/metodologia.
+- Pro: `R$ 29,90/mês`, plano individual para profissional/autonomo ou cliente final com ate 5 projetos. A estrategia fica abaixo de concorrentes de gestao de obras para reduzir friccao de entrada.
+- Business: `R$ 59,90/mês`, plano de escala para escritorio, pequena construtora ou operacao recorrente. Fica competitivo contra faixas de mercado em torno de `R$ 79,90+` sem quebrar o checkout atual.
+- Parceiro Solo e Parceiro Completo nao devem aparecer como planos do ObraEasy publico; pertencem a EasyRealState/parceria imobiliaria.
+
+### Easy Real State por modelo
+
+- Calculo Publico: `R$ 0`, aquisicao e demonstracao de valor sem login/cartao.
+- Solo: `R$ 79,90/mês`, corretor autonomo com AVM, pipeline, EVF e links rastreaveis.
+- Completo: `R$ 149,90/mês`, operacao imobiliaria com clientes ilimitados, site profissional, SEO local e suporte superior.
+- Aliases legados `Pro Corretor` e `Imobiliaria` devem continuar apenas como compatibilidade interna enquanto houver historico, sem reaparecer como copia publica antiga.
 
 ## Correções imediatas aplicadas
 
@@ -58,8 +77,8 @@ Auditar conteúdo público do site que depende de dados vivos do ecossistema WGE
 ### Blog EVF
 
 - Corrigido CTA antigo em `src/content/blog/evf-estudo-viabilidade-financeira.md`.
-- Texto antigo removido: `Planos a partir de R$ 29,90/mês`.
-- Texto atual: plano gratuito para conhecer a experiência e planos pagos do ObraEasy a partir de `R$ 297/mês`, conforme WGEasy.
+- Texto antigo removido quando ainda podia conflitar com a base divergente.
+- Texto atual: plano gratuito para conhecer a experiência e planos pagos do ObraEasy a partir de `R$ 29,90/mês`, conforme SSoT/checkouts/WGEasy normalizado.
 
 ## Validação automatizada criada
 
