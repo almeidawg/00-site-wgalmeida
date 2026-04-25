@@ -30,8 +30,6 @@ convert-to-webp.cjs
 deploy-*.py
 ESTRUTURA-MIDIA.md
 GOOGLE-REVIEWS-UPDATE.md
-INSTRUCOES-DEPLOY.md
-INSTRUCOES-DEPLOY-VERCEL.md
 
 # Videos grandes (excede limite 100MB da Vercel)
 public/videos/videosobrenos.mp4

@@ -13,10 +13,6 @@ const HERO_VIEWPORT_BREAKPOINTS = {
   phoneMax: 767,
   tabletMax: 1199,
 };
-const HERO_LOCAL_VIDEO_SOURCES = {
-  vertical: '/videos/hero/hero-mobile.mp4',
-  horizontal: '/videos/hero/hero-desktop.mp4',
-};
 
 const joinTransformations = (transformations = []) =>
   transformations.filter(Boolean).join('/');
@@ -37,24 +33,19 @@ const buildHeroVideoProfile = (transformations = []) =>
     ...transformations,
   ]);
 
+const HERO_CLOUDINARY_VIDEO_PROFILES = {
+  phonePortrait: buildHeroVideoProfile(['ar_9:16', 'w_720', 'h_1280']),
+  phoneLandscape: buildHeroVideoProfile(['ar_16:9', 'w_1280']),
+  tabletPortrait: buildHeroVideoProfile(['ar_3:4', 'w_1080', 'h_1440']),
+  tabletLandscape: buildHeroVideoProfile(['ar_4:3', 'w_1600', 'h_1200']),
+  desktopPortrait: buildHeroVideoProfile(['ar_4:5', 'w_1440', 'h_1800']),
+  desktopLandscape: buildHeroVideoProfile(['ar_16:9', 'w_1920']),
+};
+
 export const HERO_MEDIA = {
   poster: '/images/hero-poster-1280.webp',
-  profiles: {
-    phonePortrait: buildHeroVideoProfile(['ar_9:16', 'w_720', 'h_1280']),
-    phoneLandscape: buildHeroVideoProfile(['ar_16:9', 'w_1280']),
-    tabletPortrait: buildHeroVideoProfile(['ar_3:4', 'w_1080', 'h_1440']),
-    tabletLandscape: buildHeroVideoProfile(['ar_4:3', 'w_1600', 'h_1200']),
-    desktopPortrait: buildHeroVideoProfile(['ar_4:5', 'w_1440', 'h_1800']),
-    desktopLandscape: buildHeroVideoProfile(['ar_16:9', 'w_1920']),
-  },
-  fallbackProfiles: {
-    phonePortrait: HERO_LOCAL_VIDEO_SOURCES.vertical,
-    phoneLandscape: HERO_LOCAL_VIDEO_SOURCES.horizontal,
-    tabletPortrait: HERO_LOCAL_VIDEO_SOURCES.vertical,
-    tabletLandscape: HERO_LOCAL_VIDEO_SOURCES.horizontal,
-    desktopPortrait: HERO_LOCAL_VIDEO_SOURCES.vertical,
-    desktopLandscape: HERO_LOCAL_VIDEO_SOURCES.horizontal,
-  },
+  profiles: HERO_CLOUDINARY_VIDEO_PROFILES,
+  fallbackProfiles: HERO_CLOUDINARY_VIDEO_PROFILES,
 };
 
 HERO_MEDIA.mobile = HERO_MEDIA.profiles.phonePortrait;

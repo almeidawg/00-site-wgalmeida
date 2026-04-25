@@ -42,7 +42,7 @@ Este AGENTS deve ser usado em conjunto com:
 - Para fechar saude estrutural de imagens/editorial: `npm run editorial:health`
 
 ## REGRAS DE MIDIA, BLOG E PRODUCAO
-- Hero video nao deve depender de MP4 local grande como fonte primaria de producao sem validacao direta no dominio final. Preferir CDN/Cloudinary para fonte primaria e manter local apenas como fallback tecnico.
+- Hero video nao deve depender de MP4 local grande em producao. Cloudinary/CDN e a fonte canonica; `/public/videos/hero/*.mp4` e copias locais antigas nao devem voltar ao repo.
 - Ao alterar video, validar em producao:
   - `video.currentSrc`
   - `video.readyState`
