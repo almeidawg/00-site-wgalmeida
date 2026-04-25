@@ -580,3 +580,15 @@ O sistema de botões está 100% homogêneo em todas as landing pages públicas a
 
 - Refazer login OAuth com escopo Search Console ou adicionar uma service account autorizada na propriedade do Search Console.
 - Depois executar `sites.list`, `urlInspection.index.inspect` e `sitemaps.submit` para `https://wgalmeida.com.br/sitemap.xml`.
+
+### Producao validada apos atualizacao
+
+- PR #33 mergeado em `main`: `bb3fcc6 docs(site): record google key validation`.
+- Deploy Vercel Production: `dpl_nquZNxGFrEhrdD86ixSKPXfSif6v`.
+- Alias publico validado: `https://wgalmeida.com.br`.
+- `VITE_GOOGLE_IMAGE_SEARCH_API_KEY` criada em Vercel Production sem valor commitado.
+- Rotas validadas com HTTP 200: `/`, `/robots.txt`, `/sitemap.xml`, `/admin/blog-editorial`.
+- Bundle publicado do admin: `AdminBlogEditorial-2RlW838_.js`, contendo `image_search`, `googleApiKey`, `searchBySites` e chave compilada.
+- Video hero em producao carregou com `readyState=4`, `videoWidth=1920`, `videoHeight=1080`.
+- Blog validado: `/blog/arquitetos-brasileiros-famosos-legado`; apos rolagem completa, 13 imagens, 0 quebradas, 0 pendentes, 0 responses de imagem com erro >= 400.
+- Auditoria visual renderizada desktop/mobile salva em `.codex/tmp/audit-home-desktop` e `.codex/tmp/audit-home-mobile`.
