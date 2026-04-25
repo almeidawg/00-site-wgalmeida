@@ -17,7 +17,14 @@ describe('hero video media selection', () => {
   it('maps the selected profile to the expected video url', () => {
     expect(selectHeroVideoSrc({ width: 390, height: 844 })).toBe(HERO_MEDIA.profiles.phonePortrait);
     expect(selectHeroVideoSrc({ width: 1366, height: 768 })).toBe(HERO_MEDIA.profiles.desktopLandscape);
-    expect(HERO_MEDIA.profiles.phonePortrait).toContain('/videos/hero/hero-mobile.mp4');
-    expect(HERO_MEDIA.profiles.desktopLandscape).toContain('/videos/hero/hero-desktop.mp4');
+    expect(HERO_MEDIA.profiles.phonePortrait).toContain('res.cloudinary.com');
+    expect(HERO_MEDIA.profiles.phonePortrait).toContain('/video/upload/');
+    expect(HERO_MEDIA.profiles.desktopLandscape).toContain('res.cloudinary.com');
+    expect(HERO_MEDIA.profiles.desktopLandscape).toContain('/video/upload/');
+  });
+
+  it('keeps local videos only as fallback assets', () => {
+    expect(HERO_MEDIA.fallbackProfiles.phonePortrait).toContain('/videos/hero/hero-mobile.mp4');
+    expect(HERO_MEDIA.fallbackProfiles.desktopLandscape).toContain('/videos/hero/hero-desktop.mp4');
   });
 });

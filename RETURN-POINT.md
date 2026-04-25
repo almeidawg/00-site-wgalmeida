@@ -1,6 +1,43 @@
 # RETURN-POINT — site-wgalmeida
 **Atualizado:** 25/04/2026
 
+## Hotfix hero video e imagens Admin Blog — 25/04/2026
+
+### Problema confirmado
+
+- produção em `https://wgalmeida.com.br` retornava `404` para:
+  - `/videos/hero/hero-desktop.mp4`
+  - `/videos/hero/hero-mobile.mp4`
+- por isso o elemento `<video>` do hero ficava sem metadata carregada em produção
+- imagens escolhidas no Admin Blog para páginas públicas ainda dependiam apenas do manifest gerado/commitado, então a seleção publicada no navegador do admin não aparecia imediatamente na página pública
+
+### Correção aplicada
+
+- `src/utils/cloudinaryMedia.js`
+  - perfis principais do hero voltaram a usar Cloudinary com transformações responsivas
+  - MP4 locais ficaram apenas como fallback técnico
+- `src/data/publicPageImageCatalog.js`
+  - páginas públicas passam a ler também as seleções publicadas pelo Admin Blog em `localStorage`
+  - prioridade de imagem pública:
+    - upload publicado no Admin
+    - Unsplash publicado no Admin
+    - override gerado/commitado
+    - imagem base do catálogo
+- testes adicionados/atualizados:
+  - `src/__tests__/cloudinaryMedia.test.js`
+  - `src/__tests__/publicPageImageCatalog.test.js`
+
+### Validação executada
+
+- `npm run lint` OK
+- `npm run test:run -- src/__tests__/cloudinaryMedia.test.js src/__tests__/publicPageImageCatalog.test.js src/__tests__/publicPageOverrides.test.js` OK
+- `npm run verify:deploy` OK:
+  - 8 arquivos de teste
+  - 52 testes
+  - build Vite
+  - geração SEO/OG/sitemap
+  - validações de deploy
+
 ## Correção SEO, auditoria visual e Admin Blog — 25/04/2026
 
 ### Escopo

@@ -1,6 +1,9 @@
 import PUBLIC_PAGE_IMAGE_OVERRIDES from './publicPageImageOverrides.generated.js';
 import { buildCloudinaryEditorialUrl } from '@/utils/cloudinaryEditorial';
 
+const PUBLISHED_UPLOADS_KEY = 'wg_blog_editorial_published_uploads_v1';
+const PUBLISHED_UNSPLASH_KEY = 'wg_blog_editorial_published_unsplash_v1';
+
 export const PUBLIC_PAGE_IMAGE_CATALOG = {
   about: {
     title: 'Sobre',
@@ -213,13 +216,72 @@ const normalizePageAsset = (asset) => {
   };
 };
 
+const readLocalStorageJson = (key) => {
+  if (typeof window === 'undefined') return null;
+  try {
+    return JSON.parse(window.localStorage.getItem(key) || '{}');
+  } catch {
+    return null;
+  }
+};
+
+const buildUnsplashPhotoPageUrl = (photoId) =>
+  photoId ? `https://unsplash.com/photos/${encodeURIComponent(photoId)}` : '';
+
+const buildUnsplashDownloadUrl = (photoId) =>
+  photoId ? `https://unsplash.com/photos/${encodeURIComponent(photoId)}/download?force=true&w=1600&h=900&fit=crop` : '';
+
+const normalizeUnsplashSelection = (selection) => {
+  if (!selection) return null;
+  if (typeof selection === 'string') {
+    const id = selection.trim();
+    return id ? { id, alt: '', src: '', page: '' } : null;
+  }
+  if (typeof selection !== 'object') return null;
+  const id = typeof selection.id === 'string' ? selection.id.trim() : '';
+  const src = typeof selection.src === 'string'
+    ? selection.src.trim()
+    : typeof selection.downloadUrl === 'string'
+      ? selection.downloadUrl.trim()
+      : '';
+  if (!id && !src) return null;
+  return {
+    id,
+    src,
+    alt: typeof selection.alt === 'string' ? selection.alt : '',
+    page: typeof selection.page === 'string'
+      ? selection.page
+      : typeof selection.photoPage === 'string'
+        ? selection.photoPage
+        : '',
+  };
+};
+
+const getPublishedPageUploadAsset = (pageKey) => {
+  const slot = readLocalStorageJson(PUBLISHED_UPLOADS_KEY)?.[pageKey]?.hero;
+  return normalizePageAsset(slot);
+};
+
+const getPublishedPageUnsplashAsset = (pageKey) => {
+  const selection = normalizeUnsplashSelection(readLocalStorageJson(PUBLISHED_UNSPLASH_KEY)?.[pageKey]?.hero);
+  if (!selection) return null;
+  return normalizePageAsset({
+    source: 'unsplash',
+    src: selection.src || buildUnsplashDownloadUrl(selection.id),
+    alt: selection.alt,
+    page: selection.page || buildUnsplashPhotoPageUrl(selection.id),
+  });
+};
+
 export const getPublicPageImageEntry = (pageKey) => PUBLIC_PAGE_IMAGE_CATALOG[pageKey] || null;
 
 export const getPublicPageImageAsset = (pageKey) => {
   const entry = getPublicPageImageEntry(pageKey);
   const baseAsset = normalizePageAsset(entry?.image);
   const overrideAsset = normalizePageAsset(PUBLIC_PAGE_IMAGE_OVERRIDES?.pages?.[pageKey]?.hero);
-  const resolved = overrideAsset || baseAsset;
+  const publishedUploadAsset = getPublishedPageUploadAsset(pageKey);
+  const publishedUnsplashAsset = getPublishedPageUnsplashAsset(pageKey);
+  const resolved = publishedUploadAsset || publishedUnsplashAsset || overrideAsset || baseAsset;
   if (!resolved) return null;
   if (resolved.publicId) {
     return {
