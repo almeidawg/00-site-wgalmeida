@@ -305,10 +305,10 @@ const Contact = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.3 }}
-                  className="flex items-start gap-4 rounded-2xl border border-[#eadbc9] bg-[#fdf7ef] p-5 transition-all hover:shadow-[0_14px_30px_rgba(139,94,60,0.16)]"
+                  className="flex items-start gap-4 rounded-2xl border border-[#DCE3EE] bg-[#F8FAFC] p-5 transition-all hover:shadow-[0_14px_30px_rgba(43,69,128,0.14)]"
                 >
-                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-[#f4e9da]">
-                    <Clock className="w-5 h-5 text-wg-brown" />
+                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-[#EAF0F7]">
+                    <Clock className="w-5 h-5 text-wg-black" />
                   </div>
                   <div>
                     <p className="mb-1 text-base font-inter font-light text-wg-black">

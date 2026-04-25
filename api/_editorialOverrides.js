@@ -175,8 +175,9 @@ export const buildBlogOverrideEntry = (slots = {}, unsplashSelections = {}) => {
   return entry;
 };
 
-export const buildPageOverrideEntry = (slots = {}) => {
-  const hero = cleanFields(normalizeSlotOverride(slots.hero));
+export const buildPageOverrideEntry = (slots = {}, unsplashSelections = {}) => {
+  const hero = cleanFields(normalizeSlotOverride(slots.hero))
+    || buildUnsplashSelectionOverride(unsplashSelections.hero, 'hero', extractSlotMetadata(slots.hero));
   if (!hero) return null;
   return { hero };
 };
@@ -226,7 +227,7 @@ export async function syncEditorialOverrides({
   });
 
   managedPageSet.forEach((slug) => {
-    const nextEntry = buildPageOverrideEntry(uploads?.[slug] || {});
+    const nextEntry = buildPageOverrideEntry(uploads?.[slug] || {}, unsplashSelections?.[slug] || {});
     if (nextEntry) {
       nextPages[slug] = nextEntry;
       return;

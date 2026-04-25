@@ -1,14 +1,14 @@
 {
   "summary": {
-    "generatedAt": "2026-04-16T16:57:09.924Z",
+    "generatedAt": "2026-04-25T03:18:25.033Z",
     "totalPosts": 78,
     "coverage": {
       "published-manifest": 78
     },
     "manifestTypes": {
-      "two-slot": 57,
+      "two-slot": 51,
       "single": 13,
-      "variant": 8
+      "variant": 14
     },
     "queueTracked": 78,
     "queueReadyForTwoSlotEditorial": 4,
@@ -177,7 +177,7 @@
       "queueTracked": true,
       "queueReadyForTwoSlotEditorial": false,
       "coverage": "published-manifest",
-      "manifestType": "two-slot",
+      "manifestType": "variant",
       "queueReady": false
     },
     {
@@ -639,7 +639,7 @@
       "queueTracked": true,
       "queueReadyForTwoSlotEditorial": false,
       "coverage": "published-manifest",
-      "manifestType": "two-slot",
+      "manifestType": "variant",
       "queueReady": false
     },
     {
@@ -661,7 +661,7 @@
       "queueTracked": true,
       "queueReadyForTwoSlotEditorial": false,
       "coverage": "published-manifest",
-      "manifestType": "two-slot",
+      "manifestType": "variant",
       "queueReady": false
     },
     {
@@ -716,7 +716,7 @@
       "queueTracked": true,
       "queueReadyForTwoSlotEditorial": false,
       "coverage": "published-manifest",
-      "manifestType": "two-slot",
+      "manifestType": "variant",
       "queueReady": false
     },
     {
@@ -749,7 +749,7 @@
       "queueTracked": true,
       "queueReadyForTwoSlotEditorial": false,
       "coverage": "published-manifest",
-      "manifestType": "two-slot",
+      "manifestType": "variant",
       "queueReady": false
     },
     {
@@ -815,7 +815,7 @@
       "queueTracked": true,
       "queueReadyForTwoSlotEditorial": false,
       "coverage": "published-manifest",
-      "manifestType": "two-slot",
+      "manifestType": "variant",
       "queueReady": false
     },
     {

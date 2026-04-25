@@ -1,5 +1,87 @@
 # RETURN-POINT — site-wgalmeida
-**Atualizado:** 18/04/2026
+**Atualizado:** 25/04/2026
+
+## Correção SEO, auditoria visual e Admin Blog — 25/04/2026
+
+### Escopo
+
+- screenshots revisados em `C:\Users\Atendimento\Documents\Pictures\Screenshots\site-wg`
+- correções priorizadas para SEO, limpeza visual, botões, contornos/cores e fluxo Admin Blog -> imagens públicas
+- branch de trabalho limpa criada a partir de `origin/main`:
+  - `fix/seo-visual-cleanup-2026-04-24`
+
+### Correções aplicadas
+
+- SEO global em `index.html` e `src/data/seoConfig.js` corrigido com acentos e textos canônicos:
+  - São Paulo
+  - excelência
+  - alto padrão
+  - Vila Nova Conceição
+  - execução, gestão, mobiliário e Construção Civil
+- textos principais da Home revisados para evitar concatenação visual em auditoria:
+  - `Do projeto à entrega, sem ruídos.`
+  - `Grupo WG Almeida. Onde ideias ganham forma, processos ganham controle e espaços ganham alma.`
+- ícones decorativos `Sparkles` removidos de `src` e substituídos por ícones funcionais (`CheckCircle2`, `Palette`, `Wand2`)
+- usos visíveis de `text-wg-brown` e `border-yellow` removidos de `src`
+- páginas/admin com tons amarelados e marrons neutralizados para cinza/azul de marca
+- botões capturados na Home ajustados para `type="button"`, inclusive:
+  - Núcleos
+  - carrinho
+  - menu mobile
+  - Pular
+  - Ativar som
+- estatística base de revestimentos ajustada para `3898`
+- `public/sitemap.xml` regenerado com `lastmod` de 2026-04-25
+
+### Correção Admin Blog -> imagens públicas
+
+- causa confirmada:
+  - páginas públicas usavam slot fixo `cover` no Admin Blog, mas o catálogo público espera `hero`
+  - seleções Unsplash de páginas não entravam no estado efetivo quando não eram posts de blog
+  - `api/_editorialOverrides.js` não publicava seleções Unsplash-only para `publicPageImageOverrides.generated.js`
+- correção:
+  - Admin Blog agora usa `getPrimarySlotNames(record)` para páginas públicas
+  - `getEffectiveSlotState` considera Unsplash também para páginas/estilos
+  - `buildPageOverrideEntry` serializa seleção Unsplash-only de `hero`
+- teste adicionado:
+  - `publishes unsplash-only page selections to public page overrides`
+
+### Validação executada
+
+- `npm run lint` OK
+- `npm run test:run -- src/__tests__/publicPageOverrides.test.js` OK
+- `npm run blog:editorial:status` OK:
+  - 78 posts
+  - 78 publicados com manifest
+  - 0 fallback genérico
+- `npm run verify:deploy` OK:
+  - lint
+  - check-imports
+  - audit-consistency normal e strict
+  - 7 arquivos de teste / 49 testes
+  - audit-public-claims strict
+  - build Vite
+  - geração SEO/OG
+  - sitemap com 158 rotas
+  - `seo-audit`
+  - `seo-validate-dist`
+- auditoria com `wg-browser-audit`:
+  - Home desktop: `tmp/audit-home-desktop-final`
+  - Home mobile: `tmp/audit-home-mobile`
+  - Blog post: `tmp/audit-blog-post`
+  - Admin Blog: `tmp/audit-admin-blog-editorial`
+- validação direta de imagens do post:
+  - hero/card editorial renderizando com `naturalWidth > 0`
+  - produtos relacionados carregam após `scrollIntoViewIfNeeded`
+  - 0 imagem visível quebrada depois do carregamento lazy
+
+### Observações
+
+- `/admin/blog-editorial` redireciona para `/login` em navegador sem sessão, como esperado; validação do bug de publicação foi feita por teste unitário/API e pelo carregamento público das imagens renderizadas.
+- alguns conteúdos antigos de blog ainda têm títulos/textos sem acento nos próprios markdowns e filas editoriais. Isso não bloqueou deploy porque o foco imediato foi SEO global, renderização de imagem e higiene visual, mas é backlog editorial separado.
+- commit/PR/produção:
+  - commit local: `fix(site): apply SEO visual and editorial image cleanup` no branch `fix/seo-visual-cleanup-2026-04-24`
+  - PR/produção: pendente neste ponto do registro; preencher após push/merge/deploy.
 
 ## Ajuste responsivo do hero video — 23/04/2026
 

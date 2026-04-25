@@ -2560,10 +2560,10 @@ Responda como consultor experiente:
             )}
           </motion.div>
 
-          <div className="rounded-3xl border border-[#E7DCCA] bg-gradient-to-br from-[#FBF7EF] via-white to-[#F4EBDD] p-6 shadow-sm">
+          <div className="rounded-3xl border border-[#DCE3EE] bg-gradient-to-br from-[#F8FAFC] via-white to-[#EAF0F7] p-6 shadow-sm">
             <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
               <div className="space-y-3">
-                <span className="inline-flex rounded-full bg-[#E8E0D1] px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-[#7A5B2F]">
+                <span className="inline-flex rounded-full bg-[#EAF0F7] px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-[#1E2A3A]">
                   Curadoria editorial
                 </span>
                 <div>
@@ -2578,25 +2578,25 @@ Responda como consultor experiente:
               </div>
 
               <div className="grid grid-cols-2 gap-3 lg:min-w-[320px]">
-                <div className="rounded-2xl border border-[#D7D1C5] bg-white/80 p-4">
+                <div className="rounded-2xl border border-[#DCE3EE] bg-white/80 p-4">
                   <p className="text-xs uppercase tracking-[0.16em] text-[#7C7C7C]">Posts</p>
                   <p className="mt-2 text-2xl font-semibold text-[#1E2A3A]">
                     {BLOG_EDITORIAL_SUMMARY.total}
                   </p>
                 </div>
-                <div className="rounded-2xl border border-[#D7D1C5] bg-[#F1F8F4] p-4">
+                <div className="rounded-2xl border border-[#DCE3EE] bg-[#F1F8F4] p-4">
                   <p className="text-xs uppercase tracking-[0.16em] text-[#5E7F63]">Prontos</p>
                   <p className="mt-2 text-2xl font-semibold text-[#244A35]">
                     {BLOG_EDITORIAL_SUMMARY.ready}
                   </p>
                 </div>
-                <div className="rounded-2xl border border-[#D7D1C5] bg-[#FFF8EC] p-4">
-                  <p className="text-xs uppercase tracking-[0.16em] text-[#A36B12]">Pendentes</p>
-                  <p className="mt-2 text-2xl font-semibold text-[#7A5415]">
+                <div className="rounded-2xl border border-[#DCE3EE] bg-[#F8FAFC] p-4">
+                  <p className="text-xs uppercase tracking-[0.16em] text-[#2B4580]">Pendentes</p>
+                  <p className="mt-2 text-2xl font-semibold text-[#1E2A3A]">
                     {BLOG_EDITORIAL_SUMMARY.pending}
                   </p>
                 </div>
-                <div className="rounded-2xl border border-[#D7D1C5] bg-[#FFF2F2] p-4">
+                <div className="rounded-2xl border border-[#DCE3EE] bg-[#FFF2F2] p-4">
                   <p className="text-xs uppercase tracking-[0.16em] text-[#A24A4A]">Texto pesado</p>
                   <p className="mt-2 text-2xl font-semibold text-[#7B2D2D]">
                     {BLOG_EDITORIAL_SUMMARY.needsCopyNormalization}
@@ -2605,11 +2605,11 @@ Responda como consultor experiente:
               </div>
             </div>
 
-            <div className="mt-5 flex flex-col gap-3 border-t border-[#E7DCCA] pt-5 md:flex-row md:items-center md:justify-between">
+            <div className="mt-5 flex flex-col gap-3 border-t border-[#DCE3EE] pt-5 md:flex-row md:items-center md:justify-between">
               <p className="text-sm leading-6 text-[#5B6470]">
                 Use o painel para abrir Unsplash e Google Imagens com a query pronta, subir cada slot
                 no Cloudinary e copiar o bloco consolidado para
-                <code className="mx-1 rounded bg-white px-1.5 py-0.5 text-xs text-[#7A5B2F]">
+                <code className="mx-1 rounded bg-white px-1.5 py-0.5 text-xs text-[#1E2A3A]">
                   src/data/blogImageManifest.js
                 </code>
                 .

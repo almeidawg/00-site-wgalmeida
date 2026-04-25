@@ -132,6 +132,7 @@ const HeroVideo = () => {
 
       {canPlay && shouldLoadVideo && (
         <button
+          type="button"
           onClick={toggleMute}
           aria-label={isMuted ? 'Ativar som' : 'Desativar som'}
           title={isMuted ? 'Ativar som' : 'Desativar som'}

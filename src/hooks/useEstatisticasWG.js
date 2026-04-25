@@ -15,7 +15,7 @@ export function useEstatisticasWG(options = {}) {
   // Valores fallback renderizam imediatamente (não bloqueia LCP)
   const [estatisticas, setEstatisticas] = useState(() => ({
     clientesAtendidos: 400,
-    metrosRevestimentos: 3588,
+    metrosRevestimentos: 3898,
     projetosAndamento: 7,
     horasProjetando: Math.floor((Date.now() - new Date("2011-10-28").getTime()) / 3600000),
     anosExperiencia: Math.max(Math.floor((Date.now() - new Date("2011-10-28").getTime()) / (365.25 * 86400000)), ANOS_MERCADO_BASE),
@@ -75,7 +75,7 @@ export function useEstatisticasWG(options = {}) {
         const clientesAtendidos = todosContratos?.length || 400;
 
         // Somar metros de revestimentos
-        let metrosRevestimentos = 3588; // Base historica validada para a vitrine
+        let metrosRevestimentos = 3898; // Base historica validada para a vitrine
         if (itensContratos && itensContratos.length > 0) {
           const somaMetros = itensContratos.reduce((acc, item) => {
             return acc + (item.quantidade || 0);
@@ -93,7 +93,7 @@ export function useEstatisticasWG(options = {}) {
 
         setEstatisticas({
           clientesAtendidos: Math.max(clientesAtendidos, 400), // Mínimo vitrine homologado
-          metrosRevestimentos: Math.max(metrosRevestimentos, 3588), // Mínimo histórico validado
+          metrosRevestimentos: Math.max(metrosRevestimentos, 3898), // Mínimo histórico validado
           projetosAndamento: projetosAndamento + 1, // +1 conforme solicitado
           horasProjetando,
           anosExperiencia,

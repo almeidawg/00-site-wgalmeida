@@ -1,7 +1,7 @@
 import React from 'react';
 import SEO from '@/components/SEO';
 import { motion } from '@/lib/motion-lite';
-import { Bot, Cpu, Zap, BarChart, ArrowRight, ShieldCheck, Rocket, LayoutDashboard, Sparkles, Users } from 'lucide-react';
+import { Bot, Cpu, Zap, BarChart, ArrowRight, ShieldCheck, Rocket, LayoutDashboard, CheckCircle2, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ResponsiveWebpImage from '@/components/ResponsiveWebpImage';
 import { getPublicPageImageSrc } from '@/data/publicPageImageCatalog';
@@ -156,7 +156,7 @@ const BuildTech = () => {
           >
             {[
               {
-                icon: Sparkles,
+                icon: CheckCircle2,
                 title: 'Para clientes finais',
                 text: 'Experiências que reduzem indecisão e aproximam inspiração de uma escolha concreta.',
               },

@@ -216,7 +216,7 @@ const Account = () => {
       key: 'Marcenaria',
       slug: 'marcenaria',
       icon: Hammer,
-      color: 'text-wg-brown',
+      color: 'text-wg-black',
       bgColor: 'bg-wg-brown/10',
       label: t('accountPage.nucleos.carpentry.label'),
       description: t('accountPage.nucleos.carpentry.description'),

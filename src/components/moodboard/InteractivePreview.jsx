@@ -9,7 +9,6 @@ import {
   Maximize2,
   X,
   Palette,
-  Sparkles,
 } from 'lucide-react';
 import { normalizeUnsplashImageUrl } from '@/lib/unsplash';
 
@@ -180,7 +179,7 @@ const InteractivePreview = ({ colors = [], styles = [] }) => {
       <div className="p-4 border-b border-gray-100">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-light text-gray-800 flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-wg-orange" />
+            <Palette className="w-5 h-5 text-wg-orange" />
             Preview Interativo
           </h3>
           {hasColors && (

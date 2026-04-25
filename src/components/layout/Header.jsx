@@ -98,8 +98,8 @@ const Header = () => {
       description: t('header.units.carpentry'),
       tagline: 'Mobiliário sob medida, precisão e acabamento fino.',
       borderHoverClass: 'hover:border-wg-brown',
-      iconClass: 'text-wg-brown',
-      hoverTextClass: 'group-hover:text-wg-brown',
+      iconClass: 'text-wg-black',
+      hoverTextClass: 'group-hover:text-wg-black',
       accent: 'var(--wg-brown)',
       accentSoft: 'rgba(139, 94, 60, 0.18)',
     },
@@ -177,6 +177,7 @@ const iconButtonClass = isScrolled
                 onMouseLeave={() => setUnitsMenuOpen(false)}
               >
                 <button
+                  type="button"
                   className={`flex items-center gap-1 whitespace-nowrap transition-all duration-300 font-suisse font-light ${navLinkClass}`}
                 >
                   <span>{t('header.unitsLabel')}</span>
@@ -281,6 +282,7 @@ const iconButtonClass = isScrolled
 
               {/* Carrinho */}
               <button
+                type="button"
                 onClick={() => setIsCartOpen(true)}
                 aria-label={t('header.cartAria')}
                 className={`relative flex items-center justify-center rounded-full border transition-all ${iconButtonClass}`}
@@ -330,6 +332,7 @@ const iconButtonClass = isScrolled
               </a>
 
               <button
+                type="button"
                 className={`xl:hidden transition-colors ${isScrolled ? 'text-wg-black' : 'text-white'}`}
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 aria-label={isMobileMenuOpen ? t('header.closeMenu') : t('header.openMenu')}

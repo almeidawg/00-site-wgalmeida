@@ -432,7 +432,7 @@ const getEffectiveSlotState = (record, slot, uploads, unsplashSelections = {}) =
       ''
     )
     : '';
-  const unsplashSlotState = !localUpload?.publicId && !localSessionUrl && record.kind === 'blog'
+  const unsplashSlotState = !localUpload?.publicId && !localSessionUrl
     ? getEffectiveUnsplashSlotState(record.slug, slot.slot, unsplashSelections)
     : null;
   const localPublicId = typeof localUpload?.publicId === 'string' ? localUpload.publicId.trim() : '';
@@ -1666,18 +1666,18 @@ const AdminBlogEditorial = () => {
         noindex
       />
 
-      <div className="min-h-screen bg-[#F4F2EC] pb-16 pt-8 text-[#1E2A3A]">
+      <div className="min-h-screen bg-[#F6F8FA] pb-16 pt-8 text-[#1E2A3A]">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-5 px-4 md:px-6">
 
           {/* ── HEADER ─────────────────────────────────────────────────── */}
-          <header className="rounded-[28px] border border-[#D7D1C5] bg-white p-5 shadow-sm md:p-6">
+          <header className="rounded-[28px] border border-[#DCE3EE] bg-white p-5 shadow-sm md:p-6">
             <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
               <div className="space-y-2">
                 <Link to="/admin" className="inline-flex items-center gap-2 text-sm text-[#5B6470] hover:text-[#1E2A3A] transition-colors">
                   <ArrowLeft className="h-4 w-4" />Voltar ao painel
                 </Link>
                 <div>
-                  <span className="inline-flex rounded-full bg-[#E8E0D1] px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-[#7A5B2F]">
+                  <span className="inline-flex rounded-full bg-[#EAF0F7] px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-[#1E2A3A]">
                     Curadoria visual
                   </span>
                   <h1 className="mt-2 text-2xl font-semibold tracking-[-0.02em] text-[#1E2A3A]">Editorial Visual</h1>
@@ -1688,11 +1688,11 @@ const AdminBlogEditorial = () => {
               </div>
               <div className="grid grid-cols-4 gap-2 lg:min-w-[440px]">
                 {[
-                  { label: 'Total', value: summary.total, bg: 'bg-[#FBF8F2]', textC: 'text-[#7C7C7C]', valC: 'text-[#1E2A3A]', onClick: resetQueueFilters },
+                  { label: 'Total', value: summary.total, bg: 'bg-[#F8FAFC]', textC: 'text-[#7C7C7C]', valC: 'text-[#1E2A3A]', onClick: resetQueueFilters },
                   { label: 'Prontos', value: summary.ready, bg: 'bg-[#F1F8F4]', textC: 'text-[#5E7F63]', valC: 'text-[#244A35]', onClick: () => setStatusFilter('prontos') },
                   { label: 'Pendentes', value: summary.pending, bg: 'bg-[#FFF2F2]', textC: 'text-[#A24A4A]', valC: 'text-[#7B2D2D]', onClick: () => setStatusFilter('pendentes') },
                 ].map(({ label, value, bg, textC, valC, onClick }) => (
-                  <button key={label} type="button" onClick={onClick} className={`rounded-2xl border border-[#D7D1C5] ${bg} p-3 text-left transition hover:border-[#B89E73]`}>
+                  <button key={label} type="button" onClick={onClick} className={`rounded-2xl border border-[#DCE3EE] ${bg} p-3 text-left transition hover:border-[#2B4580]`}>
                     <p className={`text-[10px] uppercase tracking-[0.14em] ${textC}`}>{label}</p>
                     <p className={`mt-1 text-2xl font-semibold ${valC}`}>{value}</p>
                   </button>
@@ -1700,7 +1700,7 @@ const AdminBlogEditorial = () => {
                 <button
                   type="button"
                   onClick={() => setStatusFilter((s) => s === 'pendentes' ? 'todos' : 'pendentes')}
-                  className={`rounded-2xl border p-3 text-left transition ${statusFilter === 'pendentes' ? 'border-[#1E2A3A] bg-[#1E2A3A] text-white' : 'border-[#D7D1C5] bg-white text-[#1E2A3A] hover:border-[#1E2A3A]'}`}
+                  className={`rounded-2xl border p-3 text-left transition ${statusFilter === 'pendentes' ? 'border-[#1E2A3A] bg-[#1E2A3A] text-white' : 'border-[#DCE3EE] bg-white text-[#1E2A3A] hover:border-[#1E2A3A]'}`}
                 >
                   <p className={`text-[10px] uppercase tracking-[0.14em] ${statusFilter === 'pendentes' ? 'text-white/60' : 'text-[#7C7C7C]'}`}>Produção</p>
                   <p className="mt-1 text-sm font-semibold">{statusFilter === 'pendentes' ? '● Ativo' : 'Modo'}</p>
@@ -1710,7 +1710,7 @@ const AdminBlogEditorial = () => {
           </header>
 
           {/* ── FILTROS ──────────────────────────────────────────────────── */}
-          <section className="rounded-[24px] border border-[#D7D1C5] bg-white px-5 py-4 shadow-sm">
+          <section className="rounded-[24px] border border-[#DCE3EE] bg-white px-5 py-4 shadow-sm">
             <div className="flex flex-wrap items-end gap-3">
               <label className="flex flex-col gap-1 text-xs text-[#5B6470]">
                 Buscar
@@ -1718,19 +1718,19 @@ const AdminBlogEditorial = () => {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   placeholder="Título, slug ou categoria..."
-                  className="w-48 rounded-xl border border-[#D7D1C5] bg-[#FBF8F2] px-3 py-2 text-sm text-[#1E2A3A] outline-none transition-colors focus:border-wg-blue/45 focus:ring-2 focus:ring-wg-blue/12"
+                  className="w-48 rounded-xl border border-[#DCE3EE] bg-[#F8FAFC] px-3 py-2 text-sm text-[#1E2A3A] outline-none transition-colors focus:border-wg-blue/45 focus:ring-2 focus:ring-wg-blue/12"
                 />
               </label>
               <label className="flex flex-col gap-1 text-xs text-[#5B6470]">
                 Categoria
-                <select value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)} className="rounded-xl border border-[#D7D1C5] bg-[#FBF8F2] px-3 py-2 text-sm text-[#1E2A3A] outline-none transition-colors focus:border-wg-blue/45 focus:ring-2 focus:ring-wg-blue/12">
+                <select value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)} className="rounded-xl border border-[#DCE3EE] bg-[#F8FAFC] px-3 py-2 text-sm text-[#1E2A3A] outline-none transition-colors focus:border-wg-blue/45 focus:ring-2 focus:ring-wg-blue/12">
                   <option value="todos">Todas</option>
                   {categoryOptions.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
                 </select>
               </label>
               <label className="flex flex-col gap-1 text-xs text-[#5B6470]">
                 Tipo
-                <select value={contentTypeFilter} onChange={(e) => setContentTypeFilter(e.target.value)} className="rounded-xl border border-[#D7D1C5] bg-[#FBF8F2] px-3 py-2 text-sm text-[#1E2A3A] outline-none transition-colors focus:border-wg-blue/45 focus:ring-2 focus:ring-wg-blue/12">
+                <select value={contentTypeFilter} onChange={(e) => setContentTypeFilter(e.target.value)} className="rounded-xl border border-[#DCE3EE] bg-[#F8FAFC] px-3 py-2 text-sm text-[#1E2A3A] outline-none transition-colors focus:border-wg-blue/45 focus:ring-2 focus:ring-wg-blue/12">
                   <option value="todos">Tudo</option>
                   <option value="blog">Blog</option>
                   <option value="style">Estilos</option>
@@ -1739,7 +1739,7 @@ const AdminBlogEditorial = () => {
               </label>
               <label className="flex flex-col gap-1 text-xs text-[#5B6470]">
                 Status
-                <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="rounded-xl border border-[#D7D1C5] bg-[#FBF8F2] px-3 py-2 text-sm text-[#1E2A3A] outline-none transition-colors focus:border-wg-blue/45 focus:ring-2 focus:ring-wg-blue/12">
+                <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="rounded-xl border border-[#DCE3EE] bg-[#F8FAFC] px-3 py-2 text-sm text-[#1E2A3A] outline-none transition-colors focus:border-wg-blue/45 focus:ring-2 focus:ring-wg-blue/12">
                   <option value="todos">Todos</option>
                   <option value="pendentes">Pendentes</option>
                   <option value="prontos">Prontos</option>
@@ -1748,13 +1748,13 @@ const AdminBlogEditorial = () => {
               <div className="ml-auto flex flex-wrap items-center gap-2">
                 <span className="text-xs text-[#7C7C7C]">{filteredQueue.length} item{filteredQueue.length !== 1 ? 's' : ''}</span>
                 {hasActiveFilters && (
-                  <Button variant="outline" onClick={resetQueueFilters} className="border-[#D7D1C5] bg-white text-xs text-[#1E2A3A] hover:bg-[#F7F3EB]">Limpar filtros</Button>
+                  <Button variant="outline" onClick={resetQueueFilters} className="border-[#DCE3EE] bg-white text-xs text-[#1E2A3A] hover:bg-[#F1F5F9]">Limpar filtros</Button>
                 )}
                 {pinnedOrder.length > 0 && (
-                  <Button variant="outline" onClick={resetPinnedOrder} className="border-[#D7D1C5] bg-white text-xs text-[#7A5B2F] hover:bg-[#F7F3EB]">↺ Resetar ordem</Button>
+                  <Button variant="outline" onClick={resetPinnedOrder} className="border-[#DCE3EE] bg-white text-xs text-[#1E2A3A] hover:bg-[#F1F5F9]">↺ Resetar ordem</Button>
                 )}
-                <Button variant="outline" onClick={clearAllLocalEditorialData} className="border-[#D7D1C5] bg-white text-xs text-[#1E2A3A] hover:bg-[#F7F3EB]">Limpar sessão</Button>
-                <Button variant="outline" onClick={() => setCompactMode((v) => !v)} className="border-[#D7D1C5] bg-white text-xs text-[#1E2A3A] hover:bg-[#F7F3EB]">{compactMode ? 'Detalhado' : 'Compacto'}</Button>
+                <Button variant="outline" onClick={clearAllLocalEditorialData} className="border-[#DCE3EE] bg-white text-xs text-[#1E2A3A] hover:bg-[#F1F5F9]">Limpar sessão</Button>
+                <Button variant="outline" onClick={() => setCompactMode((v) => !v)} className="border-[#DCE3EE] bg-white text-xs text-[#1E2A3A] hover:bg-[#F1F5F9]">{compactMode ? 'Detalhado' : 'Compacto'}</Button>
               </div>
             </div>
           </section>
@@ -1762,15 +1762,15 @@ const AdminBlogEditorial = () => {
           {/* ── FILA PRINCIPAL ───────────────────────────────────────────── */}
           <section className="space-y-4">
             {filteredQueue.length === 0 && (
-              <div className="rounded-[24px] border border-[#D7D1C5] bg-white p-10 text-center text-sm text-[#5B6470] shadow-sm">
+              <div className="rounded-[24px] border border-[#DCE3EE] bg-white p-10 text-center text-sm text-[#5B6470] shadow-sm">
                 Nenhum item com os filtros atuais.{' '}
-                {hasActiveFilters && <button type="button" onClick={resetQueueFilters} className="text-[#7A5B2F] underline">Limpar filtros</button>}
+                {hasActiveFilters && <button type="button" onClick={resetQueueFilters} className="text-[#1E2A3A] underline">Limpar filtros</button>}
               </div>
             )}
 
             {sortedFilteredQueue.map((record) => {
               const primarySlotNames = getPrimarySlotNames(record);
-              const recordTargetSlots = record.kind === 'blog' ? ['hero', 'card', ...CONTEXT_SLOT_NAMES] : ['cover'];
+              const recordTargetSlots = record.kind === 'blog' ? ['hero', 'card', ...CONTEXT_SLOT_NAMES] : getPrimarySlotNames(record);
               const slotStatesByName = Object.fromEntries(
                 recordTargetSlots.map((slotName) => [slotName, getEffectiveSlotState(record, { slot: slotName }, uploads, unsplashSelections)])
               );
@@ -1797,24 +1797,24 @@ const AdminBlogEditorial = () => {
                   onDrop={(e) => { if (dragImagePayload) return; handleDrop(e, record.slug); }}
                   onDragEnd={handleDragEnd}
                   className={`overflow-hidden rounded-[24px] border bg-white shadow-sm transition-all duration-150 ${
-                    isDragging ? 'opacity-40 scale-[0.98] border-[#B89E73]' : isDragOver ? 'border-[#7A5B2F] ring-2 ring-[#B89E73]/40' : 'border-[#D7D1C5]'
+                    isDragging ? 'opacity-40 scale-[0.98] border-[#2B4580]' : isDragOver ? 'border-[#1E2A3A] ring-2 ring-[#2B4580]/40' : 'border-[#DCE3EE]'
                   }`}
                 >
 
                   {/* Card header */}
-                  <div className="flex flex-col gap-3 border-b border-[#EEE8DD] p-4 lg:flex-row lg:items-start lg:justify-between md:p-5">
+                  <div className="flex flex-col gap-3 border-b border-[#E8EEF6] p-4 lg:flex-row lg:items-start lg:justify-between md:p-5">
                     <div className="min-w-0 space-y-1.5">
                       {/* Drag handle */}
-                      <div className="mb-1 -ml-1 flex cursor-grab items-center gap-1 text-[#C5C0BA] active:cursor-grabbing" title="Arrastar para reordenar">
+                      <div className="mb-1 -ml-1 flex cursor-grab items-center gap-1 text-[#C7D0DD] active:cursor-grabbing" title="Arrastar para reordenar">
                         <GripVertical className="h-4 w-4" />
                       </div>
                       <div className="flex flex-wrap items-center gap-1.5">
-                        <span className={`rounded-full px-2.5 py-0.5 text-[10px] uppercase tracking-[0.14em] ${record.kind === 'style' ? 'bg-[#EEF4EF] text-[#2E7D5A]' : 'bg-[#E8E0D1] text-[#7A5B2F]'}`}>
+                        <span className={`rounded-full px-2.5 py-0.5 text-[10px] uppercase tracking-[0.14em] ${record.kind === 'style' ? 'bg-[#EEF4EF] text-[#2E7D5A]' : 'bg-[#EAF0F7] text-[#1E2A3A]'}`}>
                           {record.kindLabel}
                         </span>
-                        <span className="rounded-full bg-[#F4F2EC] px-2.5 py-0.5 text-[10px] uppercase tracking-[0.14em] text-[#5B6470]">{record.categoryLabel}</span>
+                        <span className="rounded-full bg-[#F6F8FA] px-2.5 py-0.5 text-[10px] uppercase tracking-[0.14em] text-[#5B6470]">{record.categoryLabel}</span>
                         {/* Coverage dots */}
-                        <span className="flex items-center gap-0.5 rounded-full border border-[#E3DDCF] bg-[#FAFAF8] px-2 py-0.5">
+                        <span className="flex items-center gap-0.5 rounded-full border border-[#DCE3EE] bg-[#F8FAFC] px-2 py-0.5">
                           {recordTargetSlots.map((slotName) => (
                             <span key={slotName} className={`inline-block h-1.5 w-1.5 rounded-full ${slotStatesByName[slotName]?.previewUrl || slotStatesByName[slotName]?.publicId ? 'bg-[#2E7D5A]' : 'bg-[#DDD7CE]'}`} title={`${getSlotLabel(slotName)}: ${slotStatesByName[slotName]?.previewUrl ? 'OK' : 'pendente'}`} />
                           ))}
@@ -1830,10 +1830,10 @@ const AdminBlogEditorial = () => {
                         )}
                       </div>
                       <h2 className="text-lg font-semibold tracking-[-0.02em] text-[#1E2A3A]">{record.title}</h2>
-                      <p className="text-[11px] text-[#9B9791]">{record.slug}</p>
+                      <p className="text-[11px] text-[#667085]">{record.slug}</p>
                     </div>
                     <div className="flex shrink-0 flex-wrap items-center gap-2">
-                      <Button variant="outline" asChild className="border-[#D7D1C5] bg-white text-sm text-[#1E2A3A] hover:bg-[#F7F3EB]">
+                      <Button variant="outline" asChild className="border-[#DCE3EE] bg-white text-sm text-[#1E2A3A] hover:bg-[#F1F5F9]">
                         <a href={withBasePath(record.routePath || `/blog/${record.slug}`)} target="_blank" rel="noreferrer">
                           <ExternalLink className="mr-1.5 h-3.5 w-3.5" />{record.kind === 'style' ? 'Guia' : 'Artigo'}
                         </a>
@@ -1851,7 +1851,7 @@ const AdminBlogEditorial = () => {
                   </div>
 
                   {/* Slot image previews */}
-                  <div className={`grid border-b border-[#EEE8DD] ${record.kind === 'blog' ? 'grid-cols-[2fr_1fr_1fr]' : 'grid-cols-1'}`}>
+                  <div className={`grid border-b border-[#E8EEF6] ${record.kind === 'blog' ? 'grid-cols-[2fr_1fr_1fr]' : 'grid-cols-1'}`}>
                     {/* Hero / Cover */}
                     {(() => {
                       const mainSlot = primarySlotNames[0];
@@ -1861,7 +1861,7 @@ const AdminBlogEditorial = () => {
                       const isDropTarget = dragImagePayload && dragOverSlot === slotKey;
                       return (
                         <div
-                          className={`relative border-r border-[#EEE8DD] transition-all duration-100 ${isDropTarget ? 'ring-2 ring-inset ring-[#B89E73] brightness-95' : ''}`}
+                          className={`relative border-r border-[#E8EEF6] transition-all duration-100 ${isDropTarget ? 'ring-2 ring-inset ring-[#2B4580] brightness-95' : ''}`}
                           onDragOver={(e) => handleSlotDragOver(e, record.slug, mainSlot)}
                           onDrop={(e) => handleSlotDrop(e, record, mainSlot)}
                           onDragLeave={handleSlotDragLeave}
@@ -1869,14 +1869,14 @@ const AdminBlogEditorial = () => {
                           {mainState?.previewUrl ? (
                             <img src={mainState.previewUrl} alt={`${record.title} - ${getSlotLabel(mainSlot)}`} className={`w-full object-cover ${record.kind === 'blog' ? 'h-32' : 'h-24'}`} loading="lazy" />
                           ) : (
-                            <div className={`flex items-center justify-center bg-[#F4F2EC] ${record.kind === 'blog' ? 'h-32' : 'h-24'}`}>
+                            <div className={`flex items-center justify-center bg-[#F6F8FA] ${record.kind === 'blog' ? 'h-32' : 'h-24'}`}>
                               <div className="text-center">
-                                <ImagePlus className="mx-auto h-5 w-5 text-[#C5C0BA]" />
-                                <p className="mt-0.5 text-[9px] uppercase tracking-[0.1em] text-[#C5C0BA]">{isDropTarget ? 'Soltar aqui' : 'Sem imagem'}</p>
+                                <ImagePlus className="mx-auto h-5 w-5 text-[#C7D0DD]" />
+                                <p className="mt-0.5 text-[9px] uppercase tracking-[0.1em] text-[#C7D0DD]">{isDropTarget ? 'Soltar aqui' : 'Sem imagem'}</p>
                               </div>
                             </div>
                           )}
-                          {isDropTarget && <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-[#B89E73]/20"><span className="rounded-lg bg-white/90 px-3 py-1 text-xs font-medium text-[#7A5B2F]">Soltar → {getSlotLabel(mainSlot)}</span></div>}
+                          {isDropTarget && <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-[#2B4580]/20"><span className="rounded-lg bg-white/90 px-3 py-1 text-xs font-medium text-[#1E2A3A]">Soltar → {getSlotLabel(mainSlot)}</span></div>}
                           <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between bg-gradient-to-t from-black/50 to-transparent px-2 pb-1 pt-3">
                             <span className="text-[9px] uppercase tracking-[0.12em] text-white/80">{getSlotLabel(mainSlot)}</span>
                             {hasOverride && (
@@ -1897,7 +1897,7 @@ const AdminBlogEditorial = () => {
                       const isDropTarget = dragImagePayload && dragOverSlot === slotKey;
                       return (
                         <div
-                          className={`relative border-r border-[#EEE8DD] transition-all duration-100 ${isDropTarget ? 'ring-2 ring-inset ring-[#B89E73] brightness-95' : ''}`}
+                          className={`relative border-r border-[#E8EEF6] transition-all duration-100 ${isDropTarget ? 'ring-2 ring-inset ring-[#2B4580] brightness-95' : ''}`}
                           onDragOver={(e) => handleSlotDragOver(e, record.slug, 'card')}
                           onDrop={(e) => handleSlotDrop(e, record, 'card')}
                           onDragLeave={handleSlotDragLeave}
@@ -1905,11 +1905,11 @@ const AdminBlogEditorial = () => {
                           {cardState?.previewUrl ? (
                             <img src={cardState.previewUrl} alt={`${record.title} - Card`} className="h-32 w-full object-cover" loading="lazy" />
                           ) : (
-                            <div className="flex h-32 items-center justify-center bg-[#F4F2EC]">
-                              {isDropTarget ? <span className="text-xs text-[#7A5B2F]">Soltar aqui</span> : <ImagePlus className="h-5 w-5 text-[#C5C0BA]" />}
+                            <div className="flex h-32 items-center justify-center bg-[#F6F8FA]">
+                              {isDropTarget ? <span className="text-xs text-[#1E2A3A]">Soltar aqui</span> : <ImagePlus className="h-5 w-5 text-[#C7D0DD]" />}
                             </div>
                           )}
-                          {isDropTarget && <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-[#B89E73]/20"><span className="rounded-lg bg-white/90 px-3 py-1 text-xs font-medium text-[#7A5B2F]">Soltar → Card</span></div>}
+                          {isDropTarget && <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-[#2B4580]/20"><span className="rounded-lg bg-white/90 px-3 py-1 text-xs font-medium text-[#1E2A3A]">Soltar → Card</span></div>}
                           <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between bg-gradient-to-t from-black/50 to-transparent px-2 pb-1 pt-3">
                             <span className="text-[9px] uppercase tracking-[0.12em] text-white/80">Card</span>
                             {hasOverride && (
@@ -1934,7 +1934,7 @@ const AdminBlogEditorial = () => {
                           return (
                             <div
                               key={slotName}
-                              className={`relative transition-all duration-100 ${idx % 2 === 0 ? 'border-r border-[#EEE8DD]' : ''} ${idx < 2 ? 'border-b border-[#EEE8DD]' : ''} ${isDropTarget ? 'ring-2 ring-inset ring-[#B89E73] brightness-95' : ''}`}
+                              className={`relative transition-all duration-100 ${idx % 2 === 0 ? 'border-r border-[#E8EEF6]' : ''} ${idx < 2 ? 'border-b border-[#E8EEF6]' : ''} ${isDropTarget ? 'ring-2 ring-inset ring-[#2B4580] brightness-95' : ''}`}
                               onDragOver={(e) => handleSlotDragOver(e, record.slug, slotName)}
                               onDrop={(e) => handleSlotDrop(e, record, slotName)}
                               onDragLeave={handleSlotDragLeave}
@@ -1943,11 +1943,11 @@ const AdminBlogEditorial = () => {
                                 <img src={s.previewUrl} alt={slotName} className="h-16 w-full object-cover" loading="lazy" />
                               ) : (
                                 <div className="flex h-16 flex-col items-center justify-center gap-0.5 bg-[#F8F6F2] px-1">
-                                  <span className="text-[8px] uppercase tracking-[0.08em] text-[#C5C0BA]">
+                                  <span className="text-[8px] uppercase tracking-[0.08em] text-[#C7D0DD]">
                                     {isDropTarget ? '↓ Soltar' : getSlotLabel(slotName)}
                                   </span>
                                   {estimatedSection && !isDropTarget && (
-                                    <span className="line-clamp-2 text-center text-[7px] leading-tight text-[#B89E73]" title={estimatedSection.title}>
+                                    <span className="line-clamp-2 text-center text-[7px] leading-tight text-[#2B4580]" title={estimatedSection.title}>
                                       {estimatedSection.title}
                                     </span>
                                   )}
@@ -1959,7 +1959,7 @@ const AdminBlogEditorial = () => {
                                   <span className="line-clamp-1 text-[7px] leading-tight text-white/80">{estimatedSection.title}</span>
                                 </div>
                               )}
-                              {isDropTarget && <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-[#B89E73]/25" />}
+                              {isDropTarget && <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-[#2B4580]/25" />}
                               {hasOvr && (
                                 <button type="button" onClick={() => { clearLocalUpload(record.slug, slotName); clearLocalUnsplashSelection(record.slug, slotName); }} className="absolute right-0.5 top-0.5 rounded-full bg-white/80 p-0.5 text-[#7B2D2D] hover:bg-white">
                                   <X className="h-2.5 w-2.5" />
@@ -1974,7 +1974,7 @@ const AdminBlogEditorial = () => {
 
                   {/* Extra images strip */}
                   {recordExtraImages.length > 0 && (
-                    <div className="flex gap-2 overflow-x-auto border-b border-[#EEE8DD] px-4 py-2.5">
+                    <div className="flex gap-2 overflow-x-auto border-b border-[#E8EEF6] px-4 py-2.5">
                       {recordExtraImages.map((image) => {
                         const isBeingDragged = dragImagePayload?.source === 'extra' && dragImagePayload?.extraImage?.id === image.id;
                         return (
@@ -1983,7 +1983,7 @@ const AdminBlogEditorial = () => {
                             draggable
                             onDragStart={(e) => startImageDrag(e, { source: 'extra', extraImage: image, recordSlug: record.slug })}
                             onDragEnd={endImageDrag}
-                            className={`relative shrink-0 cursor-grab overflow-hidden rounded-lg border border-[#DED7CA] bg-white active:cursor-grabbing transition-opacity ${isBeingDragged ? 'opacity-40' : ''}`}
+                            className={`relative shrink-0 cursor-grab overflow-hidden rounded-lg border border-[#DCE3EE] bg-white active:cursor-grabbing transition-opacity ${isBeingDragged ? 'opacity-40' : ''}`}
                           >
                             <a href={image.pageUrl || image.src} target="_blank" rel="noreferrer" onClick={(e) => { if (dragImagePayload) e.preventDefault(); }}>
                               <img src={image.src} alt="Extra" className="h-12 w-16 object-cover" loading="lazy" />
@@ -1992,7 +1992,7 @@ const AdminBlogEditorial = () => {
                               {primarySlotNames.map((slotName) => {
                                 const isActive = uploads?.[record.slug]?.[slotName]?.src === image.src;
                                 return (
-                                  <button key={`${image.id}-${slotName}`} type="button" onClick={() => assignExternalImageToSlot(record, slotName, image)} className={`px-1 py-0.5 text-[9px] uppercase tracking-[0.08em] transition ${isActive ? 'bg-[#EEF4EF] text-[#2E7D5A]' : 'bg-white text-[#5B6470] hover:bg-[#F7F3EB]'}`}>
+                                  <button key={`${image.id}-${slotName}`} type="button" onClick={() => assignExternalImageToSlot(record, slotName, image)} className={`px-1 py-0.5 text-[9px] uppercase tracking-[0.08em] transition ${isActive ? 'bg-[#EEF4EF] text-[#2E7D5A]' : 'bg-white text-[#5B6470] hover:bg-[#F1F5F9]'}`}>
                                     {getSlotLabel(slotName)}
                                   </button>
                                 );
@@ -2008,10 +2008,10 @@ const AdminBlogEditorial = () => {
                   )}
 
                   {/* Unified search panel */}
-                  <div className="border-b border-[#EEE8DD]">
-                    <button type="button" onClick={() => toggleSearchPanel(record.slug, record.slots?.[0]?.mainQuery || record.title)} className="flex w-full items-center justify-between gap-3 px-5 py-3 text-left transition hover:bg-[#FAFAF8]">
+                  <div className="border-b border-[#E8EEF6]">
+                    <button type="button" onClick={() => toggleSearchPanel(record.slug, record.slots?.[0]?.mainQuery || record.title)} className="flex w-full items-center justify-between gap-3 px-5 py-3 text-left transition hover:bg-[#F8FAFC]">
                       <div className="flex items-center gap-2">
-                        <Search className="h-4 w-4 text-[#7A5B2F]" />
+                        <Search className="h-4 w-4 text-[#1E2A3A]" />
                         <span className="text-sm font-medium text-[#1E2A3A]">Buscar imagens</span>
                         {panelResult.photos.length > 0 && !panelOpen && (
                           <span className="rounded-full bg-[#EEF4EF] px-2 py-0.5 text-[10px] uppercase tracking-[0.12em] text-[#2E7D5A]">
@@ -2030,7 +2030,7 @@ const AdminBlogEditorial = () => {
                             onChange={(e) => setSearchQueryBySlug((c) => ({ ...c, [record.slug]: e.target.value }))}
                             onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); runInlineUnsplashSearch(record.slug); } }}
                             placeholder="Ex.: minimalist interior, japandi bedroom..."
-                            className="w-full rounded-xl border border-[#D7D1C5] bg-white px-4 py-2 text-sm text-[#1E2A3A] outline-none transition-colors focus:border-wg-blue/45 focus:ring-2 focus:ring-wg-blue/12"
+                            className="w-full rounded-xl border border-[#DCE3EE] bg-white px-4 py-2 text-sm text-[#1E2A3A] outline-none transition-colors focus:border-wg-blue/45 focus:ring-2 focus:ring-wg-blue/12"
                           />
                           <Button type="button" onClick={() => runInlineUnsplashSearch(record.slug)} disabled={panelResult.loading || !panelQuery.trim()} className="shrink-0 bg-[#1E2A3A] text-sm text-white hover:bg-[#24354C] disabled:opacity-50">
                             {panelResult.loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Search className="mr-2 h-4 w-4" />}Unsplash
@@ -2040,7 +2040,7 @@ const AdminBlogEditorial = () => {
                         {record.slots?.length > 0 && (
                           <div className="mt-2 flex flex-wrap gap-1.5">
                             {[...new Set([record.slots[0]?.mainQuery, ...((record.slots[0]?.searchTerms || []).slice(0, 4))].filter(Boolean))].map((term) => (
-                              <button key={`suggest-${record.slug}-${term}`} type="button" onClick={() => setSearchQueryBySlug((c) => ({ ...c, [record.slug]: term }))} className="rounded-full border border-[#DED7CA] bg-white px-2.5 py-0.5 text-xs text-[#5B6470] hover:border-[#B89E73] hover:text-[#7A5B2F] transition">
+                              <button key={`suggest-${record.slug}-${term}`} type="button" onClick={() => setSearchQueryBySlug((c) => ({ ...c, [record.slug]: term }))} className="rounded-full border border-[#DCE3EE] bg-white px-2.5 py-0.5 text-xs text-[#5B6470] hover:border-[#2B4580] hover:text-[#1E2A3A] transition">
                                 {term}
                               </button>
                             ))}
@@ -2093,7 +2093,7 @@ const AdminBlogEditorial = () => {
                                 >
                                   <div className="flex items-center justify-between gap-2">
                                     <span className="text-xs font-semibold text-[#1E2A3A]">{sourceCard.label}</span>
-                                    <ExternalLink className="h-3.5 w-3.5 text-[#9B9791] transition group-hover:text-wg-orange" />
+                                    <ExternalLink className="h-3.5 w-3.5 text-[#667085] transition group-hover:text-wg-orange" />
                                   </div>
                                   <p className="mt-2 line-clamp-2 text-sm text-[#3F4752]">{sourceCard.hint}</p>
                                   <span className="mt-2 inline-flex w-fit rounded-full bg-[#F5F6F7] px-2 py-0.5 text-[10px] uppercase tracking-[0.12em] text-[#7C7C7C]">
@@ -2109,7 +2109,7 @@ const AdminBlogEditorial = () => {
 
                         {panelResult.photos.length > 0 && (
                           <>
-                            <p className="mt-2 text-[10px] text-[#9B9791]">Clique para atribuir • <span className="text-[#B89E73]">Arraste direto para o slot acima</span></p>
+                            <p className="mt-2 text-[10px] text-[#667085]">Clique para atribuir • <span className="text-[#2B4580]">Arraste direto para o slot acima</span></p>
                             <div className="mt-2 flex gap-2 overflow-x-auto pb-1">
                               {panelResult.photos.map((photo) => {
                                 const isBeingDragged = dragImagePayload?.source === 'unsplash' && dragImagePayload?.photo?.id === photo.id;
@@ -2119,7 +2119,7 @@ const AdminBlogEditorial = () => {
                                     draggable
                                     onDragStart={(e) => startImageDrag(e, { source: 'unsplash', photo, recordSlug: record.slug })}
                                     onDragEnd={endImageDrag}
-                                    className={`group relative min-w-[176px] shrink-0 cursor-grab overflow-hidden rounded-xl border border-[#DED7CA] bg-white active:cursor-grabbing transition-opacity ${isBeingDragged ? 'opacity-40' : ''}`}
+                                    className={`group relative min-w-[176px] shrink-0 cursor-grab overflow-hidden rounded-xl border border-[#DCE3EE] bg-white active:cursor-grabbing transition-opacity ${isBeingDragged ? 'opacity-40' : ''}`}
                                   >
                                     <img src={photo.urls.small} alt={photo.alt || ''} className="h-24 w-full object-cover" loading="lazy" />
                                     <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 bg-black/60 opacity-0 transition-opacity group-hover:opacity-100">
@@ -2134,7 +2134,7 @@ const AdminBlogEditorial = () => {
                                           const nextImages = { ...externalImages, [record.slug]: [...(externalImages?.[record.slug] || []), { id: `${Date.now()}-${photo.id}`, src: `${photo.urls.raw}&auto=format&fit=crop&w=720&h=480&q=80`, source: 'unsplash', unsplashPhotoId: photo.id, pageUrl: photo.unsplashPage, originalUrl: photo.unsplashPage, addedAt: new Date().toISOString() }] };
                                           setExternalImages(nextImages);
                                           writeLocalExternalImages(nextImages);
-                                        }} className="rounded-lg bg-[#E8E0D1]/95 px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.1em] text-[#7A5B2F] hover:bg-[#E8E0D1] transition">
+                                        }} className="rounded-lg bg-[#EAF0F7]/95 px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.1em] text-[#1E2A3A] hover:bg-[#EAF0F7] transition">
                                           + Extra
                                         </button>
                                       )}
@@ -2165,13 +2165,13 @@ const AdminBlogEditorial = () => {
                         onChange={(e) => { setUrlInputBySlug((c) => ({ ...c, [record.slug]: e.target.value })); setUrlErrorBySlug((c) => ({ ...c, [record.slug]: '' })); }}
                         onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addExternalImageFromInput(record); } }}
                         placeholder="Colar URL de imagem (opcional)"
-                        className="w-full rounded-xl border border-[#D7D1C5] bg-[#FAFAF8] px-3 py-2 text-sm text-[#1E2A3A] outline-none transition-colors focus:border-wg-blue/45 focus:ring-2 focus:ring-wg-blue/12"
+                        className="w-full rounded-xl border border-[#DCE3EE] bg-[#F8FAFC] px-3 py-2 text-sm text-[#1E2A3A] outline-none transition-colors focus:border-wg-blue/45 focus:ring-2 focus:ring-wg-blue/12"
                       />
-                      <Button type="button" variant="outline" onClick={() => addExternalImageFromInput(record)} className="shrink-0 border-[#D7D1C5] bg-white text-sm text-[#1E2A3A] hover:bg-[#F7F3EB]" title="Adicionar URL">
+                      <Button type="button" variant="outline" onClick={() => addExternalImageFromInput(record)} className="shrink-0 border-[#DCE3EE] bg-white text-sm text-[#1E2A3A] hover:bg-[#F1F5F9]" title="Adicionar URL">
                         <ImagePlus className="h-4 w-4" />
                       </Button>
                       {widgetReady && (
-                        <Button type="button" variant="outline" onClick={() => openUploadWidget(record, record.slots?.[0] || { slot: primarySlotNames[0] })} className="shrink-0 border-[#D7D1C5] bg-white text-xs text-[#1E2A3A] hover:bg-[#F7F3EB]" title="Upload para Cloudinary">
+                        <Button type="button" variant="outline" onClick={() => openUploadWidget(record, record.slots?.[0] || { slot: primarySlotNames[0] })} className="shrink-0 border-[#DCE3EE] bg-white text-xs text-[#1E2A3A] hover:bg-[#F1F5F9]" title="Upload para Cloudinary">
                           Upload
                         </Button>
                       )}
@@ -2181,7 +2181,7 @@ const AdminBlogEditorial = () => {
 
                   {/* Slot detail cards — detailed mode only */}
                   {!compactMode && (
-                    <div className="grid gap-3 border-t border-[#EEE8DD] p-4 md:grid-cols-2 xl:grid-cols-3">
+                    <div className="grid gap-3 border-t border-[#E8EEF6] p-4 md:grid-cols-2 xl:grid-cols-3">
                       {record.slots.map((slot) => {
                         const slotState = getEffectiveSlotState(record, slot, uploads, unsplashSelections);
                         const unsplashSlotState = getEffectiveUnsplashSlotState(record.slug, slot.slot, unsplashSelections);
@@ -2192,7 +2192,7 @@ const AdminBlogEditorial = () => {
                           : [];
 
                         return (
-                          <section key={`${record.slug}-${slot.slot}`} className="rounded-2xl border border-[#E3DDCF] bg-[#FBF8F2] p-4">
+                          <section key={`${record.slug}-${slot.slot}`} className="rounded-2xl border border-[#DCE3EE] bg-[#F8FAFC] p-4">
                             <div className="flex items-center justify-between gap-2">
                               <div>
                                 <p className="text-[10px] uppercase tracking-[0.14em] text-[#7C7C7C]">Slot {slot.slot}</p>
@@ -2203,43 +2203,43 @@ const AdminBlogEditorial = () => {
                               </span>
                             </div>
                             {slotState.previewUrl && (
-                              <img src={slotState.previewUrl} alt={`${record.title} - ${slot.slot}`} className="mt-3 h-36 w-full rounded-xl object-cover border border-[#DED7CA]" loading="lazy" />
+                              <img src={slotState.previewUrl} alt={`${record.title} - ${slot.slot}`} className="mt-3 h-36 w-full rounded-xl object-cover border border-[#DCE3EE]" loading="lazy" />
                             )}
-                            <div className="mt-3 rounded-xl border border-[#DED7CA] bg-white p-3 text-xs text-[#5B6470]">
+                            <div className="mt-3 rounded-xl border border-[#DCE3EE] bg-white p-3 text-xs text-[#5B6470]">
                               <p className="font-medium text-[#1E2A3A]">Query</p>
                               <p className="mt-0.5">{slot.mainQuery || slot.searchQuery}</p>
                             </div>
                             {Array.isArray(slot.searchTerms) && slot.searchTerms.length > 0 && (
                               <div className="mt-2 flex flex-wrap gap-1">
                                 {slot.searchTerms.map((term) => (
-                                  <span key={`${record.slug}-${slot.slot}-${term}`} className="rounded-full border border-[#DED7CA] bg-white px-2 py-0.5 text-[10px] text-[#5B6470]">{term}</span>
+                                  <span key={`${record.slug}-${slot.slot}-${term}`} className="rounded-full border border-[#DCE3EE] bg-white px-2 py-0.5 text-[10px] text-[#5B6470]">{term}</span>
                                 ))}
                               </div>
                             )}
-                            <div className="mt-3 space-y-0.5 text-[11px] text-[#9B9791]">
+                            <div className="mt-3 space-y-0.5 text-[11px] text-[#667085]">
                               <p>Cloudinary: {slot.targetCloudinaryId}</p>
                               {slotState.publicId && <p className="text-[#2E7D5A]">Active: {slotState.publicId}</p>}
-                              {unsplashSlotState.id && <p className="text-[#7A5B2F]">Unsplash ID: {unsplashSlotState.id}</p>}
+                              {unsplashSlotState.id && <p className="text-[#1E2A3A]">Unsplash ID: {unsplashSlotState.id}</p>}
                             </div>
                             <div className="mt-3 grid gap-2 sm:grid-cols-2">
                               {record.kind === 'blog' && (
                                 <label className="flex flex-col gap-1 text-xs text-[#5B6470]">
                                   Unsplash ID
-                                  <input value={unsplashSlotState.id} onChange={(e) => updateUnsplashSelection(record.slug, slot.slot, 'id', e.target.value)} placeholder="Ex.: ChSZETOal-I" className="rounded-lg border border-[#D7D1C5] bg-white px-3 py-2 text-xs text-[#1E2A3A] outline-none transition-colors focus:border-wg-blue/45 focus:ring-2 focus:ring-wg-blue/12" />
+                                  <input value={unsplashSlotState.id} onChange={(e) => updateUnsplashSelection(record.slug, slot.slot, 'id', e.target.value)} placeholder="Ex.: ChSZETOal-I" className="rounded-lg border border-[#DCE3EE] bg-white px-3 py-2 text-xs text-[#1E2A3A] outline-none transition-colors focus:border-wg-blue/45 focus:ring-2 focus:ring-wg-blue/12" />
                                 </label>
                               )}
                               <label className="flex flex-col gap-1 text-xs text-[#5B6470]">
                                 Alt
-                                <input value={slotState.alt || ''} onChange={(e) => updateLocalSlotMetadata(record, slot.slot, 'alt', e.target.value)} placeholder="Descrição editorial" className="rounded-lg border border-[#D7D1C5] bg-white px-3 py-2 text-xs text-[#1E2A3A] outline-none transition-colors focus:border-wg-blue/45 focus:ring-2 focus:ring-wg-blue/12" />
+                                <input value={slotState.alt || ''} onChange={(e) => updateLocalSlotMetadata(record, slot.slot, 'alt', e.target.value)} placeholder="Descrição editorial" className="rounded-lg border border-[#DCE3EE] bg-white px-3 py-2 text-xs text-[#1E2A3A] outline-none transition-colors focus:border-wg-blue/45 focus:ring-2 focus:ring-wg-blue/12" />
                               </label>
                               <label className="flex flex-col gap-1 text-xs text-[#5B6470]">
                                 Legenda
-                                <input value={slotState.caption || ''} onChange={(e) => updateLocalSlotMetadata(record, slot.slot, 'caption', e.target.value)} placeholder="Texto curto" className="rounded-lg border border-[#D7D1C5] bg-white px-3 py-2 text-xs text-[#1E2A3A] outline-none transition-colors focus:border-wg-blue/45 focus:ring-2 focus:ring-wg-blue/12" />
+                                <input value={slotState.caption || ''} onChange={(e) => updateLocalSlotMetadata(record, slot.slot, 'caption', e.target.value)} placeholder="Texto curto" className="rounded-lg border border-[#DCE3EE] bg-white px-3 py-2 text-xs text-[#1E2A3A] outline-none transition-colors focus:border-wg-blue/45 focus:ring-2 focus:ring-wg-blue/12" />
                               </label>
                               {record.kind === 'blog' && isContextSlot(slot.slot) && (
                                 <label className="flex flex-col gap-1 text-xs text-[#5B6470]">
                                   Bloco vinculado
-                                  <select value={slotState.sectionId || ''} onChange={(e) => { const nextId = e.target.value; const nextOpt = sectionTargetOptions.find((o) => o.id === nextId); updateLocalSlotMetadata(record, slot.slot, 'sectionId', nextId); updateLocalSlotMetadata(record, slot.slot, 'sectionTitle', nextOpt?.title || ''); }} className="rounded-lg border border-[#D7D1C5] bg-white px-3 py-2 text-xs text-[#1E2A3A] outline-none transition-colors focus:border-wg-blue/45 focus:ring-2 focus:ring-wg-blue/12">
+                                  <select value={slotState.sectionId || ''} onChange={(e) => { const nextId = e.target.value; const nextOpt = sectionTargetOptions.find((o) => o.id === nextId); updateLocalSlotMetadata(record, slot.slot, 'sectionId', nextId); updateLocalSlotMetadata(record, slot.slot, 'sectionTitle', nextOpt?.title || ''); }} className="rounded-lg border border-[#DCE3EE] bg-white px-3 py-2 text-xs text-[#1E2A3A] outline-none transition-colors focus:border-wg-blue/45 focus:ring-2 focus:ring-wg-blue/12">
                                     <option value="">Sem vínculo</option>
                                     {sectionTargetOptions.map((o) => <option key={`${record.slug}-${slot.slot}-${o.id}`} value={o.id}>{o.title}</option>)}
                                   </select>
@@ -2247,23 +2247,23 @@ const AdminBlogEditorial = () => {
                               )}
                             </div>
                             <div className="mt-3 flex flex-wrap gap-2">
-                              <Button variant="outline" onClick={() => copyText(slot.mainQuery || slot.searchQuery, slotCopyKey)} className="border-[#D7D1C5] bg-white text-xs text-[#1E2A3A] hover:bg-[#F7F3EB]">
+                              <Button variant="outline" onClick={() => copyText(slot.mainQuery || slot.searchQuery, slotCopyKey)} className="border-[#DCE3EE] bg-white text-xs text-[#1E2A3A] hover:bg-[#F1F5F9]">
                                 <Copy className="mr-1.5 h-3 w-3" />{copiedKey === slotCopyKey ? 'Copiada' : 'Query'}
                               </Button>
-                              <Button variant="outline" asChild className="border-[#D7D1C5] bg-white text-xs text-[#1E2A3A] hover:bg-[#F7F3EB]">
+                              <Button variant="outline" asChild className="border-[#DCE3EE] bg-white text-xs text-[#1E2A3A] hover:bg-[#F1F5F9]">
                                 <a href={buildUnsplashSearchUrl(slot.mainQuery || slot.searchQuery)} target="_blank" rel="noreferrer"><Search className="mr-1.5 h-3 w-3" />Unsplash</a>
                               </Button>
-                              <Button variant="outline" asChild className="border-[#D7D1C5] bg-white text-xs text-[#1E2A3A] hover:bg-[#F7F3EB]">
+                              <Button variant="outline" asChild className="border-[#DCE3EE] bg-white text-xs text-[#1E2A3A] hover:bg-[#F1F5F9]">
                                 <a href={buildGoogleImageSearchUrl(slot.mainQuery || slot.searchQuery)} target="_blank" rel="noreferrer"><ExternalLink className="mr-1.5 h-3 w-3" />Google</a>
                               </Button>
                               <Button onClick={() => openUploadWidget(record, slot)} disabled={!widgetReady || !uploadPreset} className="bg-[#1E2A3A] text-xs text-white hover:bg-[#24354C]">
                                 {activeUploadKey === slotUploadKey ? <Loader2 className="mr-1.5 h-3 w-3 animate-spin" /> : <ImagePlus className="mr-1.5 h-3 w-3" />}Cloudinary
                               </Button>
                               {uploads?.[record.slug]?.[slot.slot] && (
-                                <Button variant="outline" onClick={() => clearLocalUpload(record.slug, slot.slot)} className="border-[#D7D1C5] bg-white text-xs text-[#1E2A3A] hover:bg-[#F7F3EB]">Limpar upload</Button>
+                                <Button variant="outline" onClick={() => clearLocalUpload(record.slug, slot.slot)} className="border-[#DCE3EE] bg-white text-xs text-[#1E2A3A] hover:bg-[#F1F5F9]">Limpar upload</Button>
                               )}
                               {unsplashSelections?.[record.slug]?.[slot.slot] && (
-                                <Button variant="outline" onClick={() => clearLocalUnsplashSelection(record.slug, slot.slot)} className="border-[#D7D1C5] bg-white text-xs text-[#1E2A3A] hover:bg-[#F7F3EB]">Limpar Unsplash</Button>
+                                <Button variant="outline" onClick={() => clearLocalUnsplashSelection(record.slug, slot.slot)} className="border-[#DCE3EE] bg-white text-xs text-[#1E2A3A] hover:bg-[#F1F5F9]">Limpar Unsplash</Button>
                               )}
                             </div>
                           </section>
@@ -2278,28 +2278,28 @@ const AdminBlogEditorial = () => {
 
           {/* ── FILA DE BUSCA AUTOMÁTICA — collapsible ───────────────────── */}
           {editorialSearchQueue.length > 0 && (
-            <details className="rounded-[24px] border border-[#D7D1C5] bg-white shadow-sm">
-              <summary className="flex cursor-pointer list-none items-center justify-between p-5 text-[#1E2A3A] hover:bg-[#FAFAF8] rounded-[24px]">
+            <details className="rounded-[24px] border border-[#DCE3EE] bg-white shadow-sm">
+              <summary className="flex cursor-pointer list-none items-center justify-between p-5 text-[#1E2A3A] hover:bg-[#F8FAFC] rounded-[24px]">
                 <div>
                   <span className="font-semibold">Fila automática de busca</span>
                   <span className="ml-2 text-sm text-[#7C7C7C]">({editorialSearchQueue.length} itens)</span>
                 </div>
                 <ChevronDown className="h-4 w-4 text-[#7C7C7C]" />
               </summary>
-              <div className="space-y-2 border-t border-[#EEE8DD] p-4">
+              <div className="space-y-2 border-t border-[#E8EEF6] p-4">
                 {editorialSearchQueue.map((record) => {
                   const pq = record.searchQueueEntry?.heroQuery || record.searchQueueEntry?.mainQuery || record.slots?.[0]?.mainQuery || record.title;
                   return (
-                    <div key={`sq-${record.slug}`} className="flex flex-col gap-3 rounded-xl border border-[#E3DDCF] bg-[#FBF8F2] p-3 sm:flex-row sm:items-center sm:justify-between">
+                    <div key={`sq-${record.slug}`} className="flex flex-col gap-3 rounded-xl border border-[#DCE3EE] bg-[#F8FAFC] p-3 sm:flex-row sm:items-center sm:justify-between">
                       <div>
                         <p className="text-sm font-semibold text-[#1E2A3A]">{record.title}</p>
                         <p className="text-xs text-[#5B6470]">{pq}</p>
                       </div>
                       <div className="flex flex-wrap gap-2">
-                        <Button variant="outline" asChild className="border-[#D7D1C5] bg-white text-xs text-[#1E2A3A] hover:bg-[#F7F3EB]">
+                        <Button variant="outline" asChild className="border-[#DCE3EE] bg-white text-xs text-[#1E2A3A] hover:bg-[#F1F5F9]">
                           <a href={record.searchQueueEntry?.search?.googleImages || buildGoogleImageSearchUrl(pq)} target="_blank" rel="noreferrer"><ExternalLink className="mr-1.5 h-3.5 w-3.5" />Google</a>
                         </Button>
-                        <Button variant="outline" asChild className="border-[#D7D1C5] bg-white text-xs text-[#1E2A3A] hover:bg-[#F7F3EB]">
+                        <Button variant="outline" asChild className="border-[#DCE3EE] bg-white text-xs text-[#1E2A3A] hover:bg-[#F1F5F9]">
                           <a href={record.searchQueueEntry?.search?.unsplash || buildUnsplashSearchUrl(pq)} target="_blank" rel="noreferrer"><Search className="mr-1.5 h-3.5 w-3.5" />Unsplash</a>
                         </Button>
                       </div>
@@ -2311,15 +2311,15 @@ const AdminBlogEditorial = () => {
           )}
 
           {/* ── PAINEL TÉCNICO — collapsible ─────────────────────────────── */}
-          <details className="rounded-[24px] border border-[#D7D1C5] bg-white shadow-sm">
-            <summary className="flex cursor-pointer list-none items-center justify-between p-5 text-[#1E2A3A] hover:bg-[#FAFAF8] rounded-[24px]">
+          <details className="rounded-[24px] border border-[#DCE3EE] bg-white shadow-sm">
+            <summary className="flex cursor-pointer list-none items-center justify-between p-5 text-[#1E2A3A] hover:bg-[#F8FAFC] rounded-[24px]">
               <div>
                 <span className="font-semibold">Painel técnico</span>
                 <span className="ml-2 text-sm text-[#7C7C7C]">Manifesto · Automação · Métricas</span>
               </div>
               <ChevronDown className="h-4 w-4 text-[#7C7C7C]" />
             </summary>
-            <div className="space-y-5 border-t border-[#EEE8DD] p-5">
+            <div className="space-y-5 border-t border-[#E8EEF6] p-5">
               {/* Manifests */}
               <div className="grid gap-4 lg:grid-cols-4">
                 {[
@@ -2331,17 +2331,17 @@ const AdminBlogEditorial = () => {
                   <div key={key}>
                     <div className="mb-2 flex items-center justify-between">
                       <p className="text-sm font-semibold text-[#1E2A3A]">{label}</p>
-                      <Button variant="outline" onClick={() => copyText(snippet, key)} disabled={!snippet} className="border-[#D7D1C5] bg-white text-xs text-[#1E2A3A] hover:bg-[#F7F3EB]">
+                      <Button variant="outline" onClick={() => copyText(snippet, key)} disabled={!snippet} className="border-[#DCE3EE] bg-white text-xs text-[#1E2A3A] hover:bg-[#F1F5F9]">
                         <Copy className="mr-1.5 h-3.5 w-3.5" />{copiedKey === key ? 'Copiado' : 'Copiar'}
                       </Button>
                     </div>
-                    <textarea value={snippet || '// Sem dados.'} readOnly className="h-36 w-full rounded-xl border border-[#D7D1C5] bg-[#FBF8F2] p-3 font-mono text-xs text-[#3B4350] outline-none" />
-                    <p className="mt-1 text-[10px] text-[#9B9791]">→ {dest}</p>
+                    <textarea value={snippet || '// Sem dados.'} readOnly className="h-36 w-full rounded-xl border border-[#DCE3EE] bg-[#F8FAFC] p-3 font-mono text-xs text-[#3B4350] outline-none" />
+                    <p className="mt-1 text-[10px] text-[#667085]">→ {dest}</p>
                   </div>
                 ))}
               </div>
 
-              <div className="rounded-2xl border border-[#E3DDCF] bg-white p-4">
+              <div className="rounded-2xl border border-[#DCE3EE] bg-white p-4">
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <div>
                     <p className="text-sm font-semibold text-[#1E2A3A]">Publicação real do admin</p>
@@ -2351,7 +2351,7 @@ const AdminBlogEditorial = () => {
                         : publicationSyncStatus.error || publicationSyncStatus.notes || 'Pronto.'}
                     </p>
                     {publicationSyncStatus.lastSyncedAt && (
-                      <p className="mt-0.5 text-[11px] text-[#7A5B2F]">
+                      <p className="mt-0.5 text-[11px] text-[#1E2A3A]">
                         Última sincronização: {new Date(publicationSyncStatus.lastSyncedAt).toLocaleString('pt-BR')}
                       </p>
                     )}
@@ -2368,24 +2368,24 @@ const AdminBlogEditorial = () => {
               </div>
 
               {/* Automation */}
-              <div className="rounded-2xl border border-[#E3DDCF] bg-[#FBF8F2] p-4">
+              <div className="rounded-2xl border border-[#DCE3EE] bg-[#F8FAFC] p-4">
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <div>
                     <p className="text-sm font-semibold text-[#1E2A3A]">Automação editorial</p>
                     <p className="text-xs text-[#5B6470]">{automationStatus.loading ? 'Verificando...' : automationStatus.error || automationStatus.notes || 'Pronto.'}</p>
-                    <code className="mt-0.5 block text-xs text-[#7A5B2F]">{automationStatus.command}</code>
+                    <code className="mt-0.5 block text-xs text-[#1E2A3A]">{automationStatus.command}</code>
                   </div>
                   <div className="flex gap-2">
                     <Button onClick={runEditorialAutomation} disabled={automationStatus.loading || automationRunning || !automationStatus.enabled} className="bg-[#1E2A3A] text-sm text-white hover:bg-[#24354C]">
                       {automationRunning ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CheckCircle2 className="mr-2 h-4 w-4" />}Rodar
                     </Button>
-                    <Button variant="outline" onClick={() => copyText(automationStatus.command, 'editorial-auto-command')} className="border-[#D7D1C5] bg-white text-sm text-[#1E2A3A] hover:bg-[#F7F3EB]">
+                    <Button variant="outline" onClick={() => copyText(automationStatus.command, 'editorial-auto-command')} className="border-[#DCE3EE] bg-white text-sm text-[#1E2A3A] hover:bg-[#F1F5F9]">
                       <Copy className="mr-2 h-4 w-4" />{copiedKey === 'editorial-auto-command' ? 'Copiado' : 'Copiar cmd'}
                     </Button>
                   </div>
                 </div>
                 {automationOutput && (
-                  <textarea value={automationOutput} readOnly className="mt-3 h-32 w-full rounded-xl border border-[#D7D1C5] bg-white p-3 font-mono text-xs text-[#3B4350] outline-none" />
+                  <textarea value={automationOutput} readOnly className="mt-3 h-32 w-full rounded-xl border border-[#DCE3EE] bg-white p-3 font-mono text-xs text-[#3B4350] outline-none" />
                 )}
               </div>
 
@@ -2397,7 +2397,7 @@ const AdminBlogEditorial = () => {
                   { label: 'Estilos mapeados', value: `${editorialHealthStyles.publicReady || editorialHealthStyles.localWebp || 0}/${editorialHealthStyles.totalStyles || 0}` },
                   { label: 'Cloudinary 404', value: editorialHealthStyles.cloudinaryBroken || 0 },
                 ].map(({ label, value }) => (
-                  <div key={label} className="rounded-xl border border-[#D7D1C5] bg-[#FBF8F2] p-3">
+                  <div key={label} className="rounded-xl border border-[#DCE3EE] bg-[#F8FAFC] p-3">
                     <p className="text-[10px] uppercase tracking-[0.12em] text-[#7C7C7C]">{label}</p>
                     <p className="mt-1 text-xl font-semibold text-[#1E2A3A]">{value}</p>
                   </div>

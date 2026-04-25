@@ -183,6 +183,7 @@ const WhatsAppButton = ({ show, urgent = false, size = 'normal', message, ariaLa
     <AnimatePresence>
       {show && (
         <motion.button
+          type="button"
           initial={{ scale: 0, opacity: 0 }}
           animate={{
             scale: 1,
@@ -276,6 +277,7 @@ const FinalCTA = ({ show, lines, message, subtitle, buttonLabel, availabilityLab
 
           {/* Botão principal */}
           <motion.button
+            type="button"
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 0.9, type: 'spring', stiffness: 200 }}
@@ -1479,6 +1481,7 @@ const PremiumCinematicIntro = ({ onComplete }) => {
               {t('premiumIntro.cta.subtitle')}
             </motion.p>
             <motion.button
+              type="button"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.6, type: 'spring' }}
@@ -1530,6 +1533,7 @@ const PremiumCinematicIntro = ({ onComplete }) => {
 
       {/* Botão pular */}
       <motion.button
+        type="button"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2 }}

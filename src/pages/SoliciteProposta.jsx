@@ -4,7 +4,7 @@ import { motion } from '@/lib/motion-lite';
 import SEO from '@/components/SEO';
 import OrcadorInteligente from '@/components/OrcadorInteligente';
 import { useTranslation } from 'react-i18next';
-import { Sparkles, Users, Briefcase } from 'lucide-react';
+import { CheckCircle2, Users, Briefcase } from 'lucide-react';
 import { WG_PRODUCT_MESSAGES } from '@/data/company';
 import { useWGContext } from '@/providers/ContextProvider';
 
@@ -78,7 +78,7 @@ const SoliciteProposta = () => {
           >
             {[
               {
-                icon: Sparkles,
+                icon: CheckCircle2,
                 title: 'Experiência visual',
                 text: WG_PRODUCT_MESSAGES.wgExperienceSystem,
               },

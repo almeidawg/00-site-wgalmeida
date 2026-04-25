@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import SEO from '@/components/SEO';
 import { motion } from '@/lib/motion-lite';
-import { Wrench, ClipboardCheck, Zap, Award, ArrowRight, Sparkles } from 'lucide-react';
+import { Wrench, ClipboardCheck, Zap, Award, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { SCHEMAS } from '@/data/schemaConfig';
@@ -401,7 +401,7 @@ const Engineering = () => {
                   'Entrada assistida para pré-venda, retrofit ou reforma de ticket mais alto.',
                 ].map((item) => (
                   <div key={item} className="wg-overlay-panel-dark flex items-start gap-3 p-4">
-                    <Sparkles className="w-5 h-5 text-white flex-shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-5 h-5 text-white flex-shrink-0 mt-0.5" />
                     <p className="text-sm text-white/80 font-light leading-relaxed">{item}</p>
                   </div>
                 ))}
