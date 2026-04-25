@@ -25,6 +25,8 @@
     "blog:i18n:audit": "node ./tools/audit-blog-i18n-coverage.mjs",
     "audit:public:claims": "node ./tools/audit-public-claims.mjs",
     "audit:public:claims:strict": "node ./tools/audit-public-claims.mjs --strict",
+    "audit:wgeasy:site-sync": "node ./tools/audit-wgeasy-site-sync.mjs",
+    "audit:wgeasy:site-sync:strict": "node ./tools/audit-wgeasy-site-sync.mjs --strict",
     "blog:editorial:audit": "node ./tools/audit-blog-unsplash-selection.mjs",
     "infra:tunnels:audit": "node ./tools/audit-infra-tunnels.mjs",
     "unsplash:collection:pull": "node ./tools/pull-unsplash-collection.mjs",

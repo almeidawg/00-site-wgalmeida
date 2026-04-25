@@ -336,7 +336,7 @@ Investir 10 dias nesta etapa pode economizar meses de retrabalho e centenas de m
 
 O **ObraEasy** gera seu Estudo de Viabilidade Financeira completo em minutos — com base no CUB regional atualizado, dados reais de mercado e cronograma integrado.
 
-Sem planilha, sem cálculo manual. Planos a partir de **R$ 29,90/mês**.
+Sem planilha, sem cálculo manual. Plano gratuito para conhecer a experiência e planos pagos do ObraEasy a partir de **R$ 29,90/mês**, conforme a estratégia ativa de escala do ecossistema WG.
 
 [**Quero fazer meu EVF no ObraEasy →**](https://obraeasy.wgalmeida.com.br)
 
