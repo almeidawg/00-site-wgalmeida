@@ -49,7 +49,7 @@ const Footer = () => {
               <Link to="/engenharia" className="block text-gray-400 hover:text-wg-blue transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
                 {t('nav.engineering')}
               </Link>
-              <Link to="/marcenaria" className="block text-gray-400 hover:text-wg-brown transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
+              <Link to="/marcenaria" className="block text-gray-400 hover:text-wg-black transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
                 {t('nav.carpentry')}
               </Link>
               <Link to="/obra-turn-key" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>

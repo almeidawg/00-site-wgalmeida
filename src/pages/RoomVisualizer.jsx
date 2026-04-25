@@ -10,7 +10,7 @@ import { RoomVisualizerProvider, useRoomVisualizer } from '@/contexts/RoomVisual
 import { useAuth } from '@/contexts/SupabaseAuthContext'
 import { motion } from '@/lib/motion-lite'
 import { Link } from 'react-router-dom'
-import { ArrowLeft, Lock, Sparkles, Users, Wand2 } from 'lucide-react'
+import { ArrowLeft, Lock, CheckCircle2, Users, Wand2 } from 'lucide-react'
 
 const RoomVisualizerContent = () => {
   const { user } = useAuth()
@@ -208,7 +208,7 @@ const RoomVisualizerContent = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
               {
-                icon: Sparkles,
+                icon: CheckCircle2,
                 title: 'Menos abstração',
                 text: 'Ajuda o usuário a sair da dúvida entre referência bonita e decisão aplicável.',
               },

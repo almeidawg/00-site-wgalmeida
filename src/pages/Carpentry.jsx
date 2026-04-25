@@ -1,7 +1,7 @@
 import React from 'react';
 import SEO from '@/components/SEO';
 import { motion } from '@/lib/motion-lite';
-import { Hammer, Package, Ruler, ArrowRight, Sparkles } from 'lucide-react';
+import { Hammer, Package, Ruler, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ResponsiveWebpImage from '@/components/ResponsiveWebpImage';
 import { getPublicPageImageSrc } from '@/data/publicPageImageCatalog';
@@ -145,7 +145,7 @@ const Carpentry = () => {
               <div className="h-px w-12 bg-gradient-to-l from-transparent to-wg-brown" />
             </motion.div>
 
-            <span className="text-wg-brown font-light tracking-[0.2em] uppercase text-sm mb-4 block">
+            <span className="text-wg-black font-light tracking-[0.2em] uppercase text-sm mb-4 block">
               {t('carpentryPage.servicesKicker')}
             </span>
 
@@ -172,7 +172,7 @@ const Carpentry = () => {
 
                 {/* Ícone com background */}
                 <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-wg-brown/10 mb-5 group-hover:scale-110 transition-transform duration-300">
-                  <service.icon className="w-7 h-7 text-wg-brown" />
+                  <service.icon className="w-7 h-7 text-wg-black" />
                 </div>
 
                 <h3 className="text-xl font-inter font-light text-wg-black mb-3 tracking-tight">
@@ -191,7 +191,7 @@ const Carpentry = () => {
             className="rounded-3xl border border-wg-brown/15 bg-gradient-to-br from-wg-brown/5 via-white to-white p-8 md:p-10 mb-20"
           >
             <div className="max-w-4xl">
-              <span className="text-wg-brown font-light tracking-[0.2em] uppercase text-sm mb-4 block">
+              <span className="text-wg-black font-light tracking-[0.2em] uppercase text-sm mb-4 block">
                 Produção Paralela
               </span>
               <h3 className="text-2xl md:text-3xl font-inter font-light text-wg-black tracking-tight mb-4">
@@ -234,7 +234,7 @@ const Carpentry = () => {
                 transition={{ duration: 0.6, delay: 0.4 }}
                 className="absolute -bottom-6 -right-6 bg-white p-5 rounded-xl shadow-xl max-w-[200px]"
               >
-                <p className="text-sm font-inter font-light text-wg-brown italic leading-tight">{t('carpentryPage.commitment.badge')}</p>
+                <p className="text-sm font-inter font-light text-wg-black italic leading-tight">{t('carpentryPage.commitment.badge')}</p>
               </motion.div>
             </motion.div>
 
@@ -244,7 +244,7 @@ const Carpentry = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             >
-              <span className="text-wg-brown font-light tracking-[0.2em] uppercase text-sm mb-4 block">
+              <span className="text-wg-black font-light tracking-[0.2em] uppercase text-sm mb-4 block">
                 {t('carpentryPage.commitment.kicker')}
               </span>
 
@@ -309,7 +309,7 @@ const Carpentry = () => {
                   'Cria base mais clara para detalhamento, montagem e entrega final.',
                 ].map((item) => (
                   <div key={item} className="wg-overlay-panel-dark flex items-start gap-3 p-4">
-                    <Sparkles className="w-5 h-5 text-wg-brown flex-shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-5 h-5 text-wg-black flex-shrink-0 mt-0.5" />
                     <p className="text-sm text-white/80 font-light leading-relaxed">{item}</p>
                   </div>
                 ))}

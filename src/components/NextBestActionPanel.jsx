@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { X, ExternalLink, ArrowRight, Sparkles } from 'lucide-react'
+import { X, ExternalLink, ArrowRight, CheckCircle2 } from 'lucide-react'
 import { useNextBestAction } from '@/hooks/useNextBestAction'
 import { useLocation } from 'react-router-dom'
 
@@ -68,7 +68,7 @@ export default function NextBestActionPanel() {
     >
       {/* Icon */}
       <div className="shrink-0 w-9 h-9 rounded-xl bg-wg-orange/10 text-wg-orange flex items-center justify-center">
-        <Sparkles className="w-4 h-4" />
+        <CheckCircle2 className="w-4 h-4" />
       </div>
 
       {/* Content */}

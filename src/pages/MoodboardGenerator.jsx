@@ -22,7 +22,7 @@ import {
   Loader2,
   Palette,
   RefreshCcw,
-  Sparkles,
+  CheckCircle2,
   SwatchBook,
   Users,
 } from 'lucide-react'
@@ -634,7 +634,7 @@ export default function MoodboardGenerator() {
               <section className="space-y-5">
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-wg-orange/10 text-wg-orange">
-                    <Sparkles className="h-5 w-5" />
+                    <CheckCircle2 className="h-5 w-5" />
                   </div>
                   <div>
                     <h2 className="text-xl text-gray-900">1. Escolha o que parece certo</h2>

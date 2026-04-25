@@ -585,7 +585,7 @@ const Home = () => {
               </div>
               <p className="text-sm md:text-base text-wg-gray font-light">
                 <Trans i18nKey="home.stats.hours">
-                  Horas projetando<br />e construindo historias
+                  Horas projetando<br />e construindo histórias
                 </Trans>
               </p>
             </motion.div>
@@ -603,24 +603,24 @@ const Home = () => {
                   ICCRI 2026
                 </span>
                 <h2 className="text-2xl md:text-3xl font-inter font-light text-wg-black mb-4 tracking-tight">
-                  Referencia tecnica para custo de reforma e decisao imobiliaria
+                  Referência técnica para custo de reforma e decisão imobiliária
                 </h2>
                 <p className="text-[15px] md:text-base leading-relaxed text-[#4C4C4C] mb-5">
-                  O ICCRI conecta dados reais de obra com simulacao de custo, EVF e AVM.
-                  Cliente final, corretor, imobiliaria e banco usam a mesma base para decidir com previsibilidade.
+                  O ICCRI conecta dados reais de obra com simulação de custo, EVF e AVM.
+                  Cliente final, corretor, imobiliária e banco usam a mesma base para decidir com previsibilidade.
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm text-[#334155]">
                   <p className="flex items-center gap-2">
                     <Calculator className="w-4 h-4 text-wg-orange" />
-                    Simulacao de custo por m2
+                    Simulação de custo por m2
                   </p>
                   <p className="flex items-center gap-2">
                     <Building2 className="w-4 h-4 text-wg-blue" />
-                    Uso profissional para mercado imobiliario
+                    Uso profissional para mercado imobiliário
                   </p>
                   <p className="flex items-center gap-2">
                     <TrendingUp className="w-4 h-4 text-wg-green" />
-                    Base para viabilidade e valorizacao
+                    Base para viabilidade e valorização
                   </p>
                 </div>
               </div>
@@ -631,14 +631,14 @@ const Home = () => {
                   onClick={() => {
                     trackCtaClick({
                       ctaId: 'home_iccri_index',
-                      ctaLabel: 'Ver indice ICCRI',
+                      ctaLabel: 'Ver índice ICCRI',
                       ctaContext: 'home_iccri_block',
                       ctaDestination: '/iccri',
                     });
                   }}
                   className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-wg-orange px-4 py-3 text-sm text-white"
                 >
-                  Ver indice ICCRI
+                  Ver índice ICCRI
                   <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link
@@ -904,7 +904,7 @@ const Home = () => {
           >
             <Link
               to="/revista-estilos"
-              className="inline-flex items-center gap-2 text-wg-orange hover:text-wg-brown font-light transition-colors"
+              className="inline-flex items-center gap-2 text-wg-orange hover:text-wg-black font-light transition-colors"
               style={{ marginBottom: 0, paddingBottom: 0 }}
             >
               Ver todos os 30 estilos
@@ -1439,9 +1439,9 @@ const Home = () => {
           >
             <h2 className="text-2xl md:text-3xl lg:text-3xl font-inter font-light mb-5 leading-tight normal-case tracking-tight [text-wrap:balance] [text-shadow:0_8px_32px_rgba(0,0,0,0.35)] [&>span:first-of-type]:bg-gradient-to-r [&>span:first-of-type]:from-white/90 [&>span:first-of-type]:to-white/70 [&>span:first-of-type]:bg-clip-text [&>span:first-of-type]:text-transparent [&>span:last-of-type]:bg-gradient-to-r [&>span:last-of-type]:from-wg-orange [&>span:last-of-type]:to-wg-orange [&>span:last-of-type]:bg-clip-text [&>span:last-of-type]:text-transparent">
               <Trans i18nKey="home.closing.title">
-                Grupo WG Almeida.<br />
-                <span className="text-white/70">Onde ideias ganham forma, processos ganham controle</span><br />
-                <span className="text-wg-orange">e espacos ganham alma.</span>
+                Grupo WG Almeida. <br />
+                <span className="text-white/70">Onde ideias ganham forma, processos ganham controle</span> <br />
+                <span className="text-wg-orange">e espaços ganham alma.</span>
               </Trans>
             </h2>
 

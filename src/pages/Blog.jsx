@@ -967,7 +967,7 @@ const Blog = () => {
     { id: 'todos', label: t('blogPage.categories.all'), icon: BookOpen, color: 'text-wg-blue', bgColor: 'bg-wg-blue' },
     { id: 'arquitetura', label: t('blogPage.categories.architecture'), icon: Ruler, color: 'text-wg-green', bgColor: 'bg-wg-green' },
     { id: 'engenharia', label: t('blogPage.categories.engineering'), icon: Building2, color: 'text-wg-blue', bgColor: 'bg-wg-blue' },
-    { id: 'marcenaria', label: t('blogPage.categories.carpentry'), icon: Hammer, color: 'text-wg-brown', bgColor: 'bg-wg-brown' },
+    { id: 'marcenaria', label: t('blogPage.categories.carpentry'), icon: Hammer, color: 'text-wg-black', bgColor: 'bg-wg-brown' },
     { id: 'design', label: t('blogPage.categories.design'), icon: Palette, color: 'text-wg-green', bgColor: 'bg-wg-green' },
     { id: 'tecnologia', label: t('blogPage.categories.technology'), icon: Monitor, color: 'text-wg-blue', bgColor: 'bg-wg-blue' },
     { id: 'tendencias', label: t('blogPage.categories.trends'), icon: TrendingUp, color: 'text-wg-blue', bgColor: 'bg-wg-blue' },
@@ -1134,7 +1134,7 @@ const Blog = () => {
       currentCategoryMeta.bgColor === 'bg-wg-green'
         ? 'text-wg-green'
         : currentCategoryMeta.bgColor === 'bg-wg-brown'
-          ? 'text-wg-brown'
+          ? 'text-wg-black'
           : 'text-wg-blue';
     const articleAccentBorderClass =
       currentCategoryMeta.bgColor === 'bg-wg-green'
@@ -1158,19 +1158,19 @@ const Blog = () => {
       currentCategoryMeta.bgColor === 'bg-wg-green'
         ? 'text-wg-green'
         : currentCategoryMeta.bgColor === 'bg-wg-brown'
-          ? 'text-wg-brown'
+          ? 'text-wg-black'
           : 'text-wg-blue';
     const articleAccentHoverTextClass =
       currentCategoryMeta.bgColor === 'bg-wg-green'
         ? 'group-hover:text-wg-green'
         : currentCategoryMeta.bgColor === 'bg-wg-brown'
-          ? 'group-hover:text-wg-brown'
+          ? 'group-hover:text-wg-black'
           : 'group-hover:text-wg-blue';
     const articleAccentHoverTextSoftClass =
       currentCategoryMeta.bgColor === 'bg-wg-green'
         ? 'group-hover:text-wg-green/80'
         : currentCategoryMeta.bgColor === 'bg-wg-brown'
-          ? 'group-hover:text-wg-brown/80'
+          ? 'group-hover:text-wg-black/80'
           : 'group-hover:text-wg-blue/80';
     const articleAccentShadowClass =
       currentCategoryMeta.bgColor === 'bg-wg-green'
@@ -1182,7 +1182,7 @@ const Blog = () => {
       currentCategoryMeta.bgColor === 'bg-wg-green'
         ? "[&>ul>li]:before:bg-wg-green/70 [&>ol>li::marker]:text-wg-green/70"
         : currentCategoryMeta.bgColor === 'bg-wg-brown'
-          ? "[&>ul>li]:before:bg-wg-brown/70 [&>ol>li::marker]:text-wg-brown/70"
+          ? "[&>ul>li]:before:bg-wg-brown/70 [&>ol>li::marker]:text-wg-black/70"
           : "[&>ul>li]:before:bg-wg-blue/70 [&>ol>li::marker]:text-wg-blue/70";
     const articleReaderGuideDotClass =
       currentCategoryMeta.bgColor === 'bg-wg-green'
@@ -1797,7 +1797,7 @@ const Blog = () => {
                             ${articleInlineCodeClass}
                             [&>pre]:bg-[#1A1A1A] [&>pre]:text-white [&>pre]:p-6 [&>pre]:rounded-lg [&>pre]:overflow-x-auto [&>pre]:my-8
                             [&>img]:mx-auto [&>img]:my-8 [&>img]:max-h-[68vh] [&>img]:max-w-full [&>img]:rounded-lg [&>img]:shadow-md
-                            [&>hr]:border-[#E5E5E5] [&>hr]:my-10 ${articleContentBulletMarkerClass} ${isFaqSection ? `[&>h3]:rounded-xl [&>h3]:border [&>h3]:border-[#DDE4EE] [&>h3]:bg-gradient-to-r [&>h3]:from-white [&>h3]:to-[#F7F9FC] [&>h3]:px-5 [&>h3]:py-4 [&>h3]:mb-3 [&>h3]:mt-6 [&>p]:relative [&>p]:pl-6 [&>p]:text-[14px] [&>p]:leading-[1.58] [&>p]:mb-6 [&>p]:before:content-['↳'] [&>p]:before:absolute [&>p]:before:left-0 [&>p]:before:top-0 [&>p]:before:font-light ${currentCategoryMeta.bgColor === 'bg-wg-green' ? "[&>p]:before:text-wg-green" : currentCategoryMeta.bgColor === 'bg-wg-brown' ? "[&>p]:before:text-wg-brown" : "[&>p]:before:text-wg-blue"}` : ''}`}>
+                            [&>hr]:border-[#E5E5E5] [&>hr]:my-10 ${articleContentBulletMarkerClass} ${isFaqSection ? `[&>h3]:rounded-xl [&>h3]:border [&>h3]:border-[#DDE4EE] [&>h3]:bg-gradient-to-r [&>h3]:from-white [&>h3]:to-[#F7F9FC] [&>h3]:px-5 [&>h3]:py-4 [&>h3]:mb-3 [&>h3]:mt-6 [&>p]:relative [&>p]:pl-6 [&>p]:text-[14px] [&>p]:leading-[1.58] [&>p]:mb-6 [&>p]:before:content-['↳'] [&>p]:before:absolute [&>p]:before:left-0 [&>p]:before:top-0 [&>p]:before:font-light ${currentCategoryMeta.bgColor === 'bg-wg-green' ? "[&>p]:before:text-wg-green" : currentCategoryMeta.bgColor === 'bg-wg-brown' ? "[&>p]:before:text-wg-black" : "[&>p]:before:text-wg-blue"}` : ''}`}>
                             {markdownRuntimeReady ? (
                               <MarkdownRenderer remarkPlugins={markdownRemarkPlugins} components={markdownComponents}>
                                 {section.markdown}
@@ -1844,7 +1844,7 @@ const Blog = () => {
                         ${articleInlineCodeClass}
                         [&>pre]:bg-[#1A1A1A] [&>pre]:text-white [&>pre]:p-6 [&>pre]:rounded-lg [&>pre]:overflow-x-auto [&>pre]:my-8
                         [&>img]:mx-auto [&>img]:my-8 [&>img]:max-h-[68vh] [&>img]:max-w-full [&>img]:rounded-lg [&>img]:shadow-md
-                        [&>hr]:border-[#E5E5E5] [&>hr]:my-10 ${articleContentBulletMarkerClass} ${isFaqSection ? `[&>h3]:rounded-xl [&>h3]:border [&>h3]:border-[#DDE4EE] [&>h3]:bg-gradient-to-r [&>h3]:from-white [&>h3]:to-[#F7F9FC] [&>h3]:px-5 [&>h3]:py-4 [&>h3]:mb-3 [&>h3]:mt-6 [&>p]:relative [&>p]:pl-6 [&>p]:text-[14px] [&>p]:leading-[1.58] [&>p]:mb-6 [&>p]:before:content-['↳'] [&>p]:before:absolute [&>p]:before:left-0 [&>p]:before:top-0 [&>p]:before:font-light ${currentCategoryMeta.bgColor === 'bg-wg-green' ? "[&>p]:before:text-wg-green" : currentCategoryMeta.bgColor === 'bg-wg-brown' ? "[&>p]:before:text-wg-brown" : "[&>p]:before:text-wg-blue"}` : ''}`}>
+                        [&>hr]:border-[#E5E5E5] [&>hr]:my-10 ${articleContentBulletMarkerClass} ${isFaqSection ? `[&>h3]:rounded-xl [&>h3]:border [&>h3]:border-[#DDE4EE] [&>h3]:bg-gradient-to-r [&>h3]:from-white [&>h3]:to-[#F7F9FC] [&>h3]:px-5 [&>h3]:py-4 [&>h3]:mb-3 [&>h3]:mt-6 [&>p]:relative [&>p]:pl-6 [&>p]:text-[14px] [&>p]:leading-[1.58] [&>p]:mb-6 [&>p]:before:content-['↳'] [&>p]:before:absolute [&>p]:before:left-0 [&>p]:before:top-0 [&>p]:before:font-light ${currentCategoryMeta.bgColor === 'bg-wg-green' ? "[&>p]:before:text-wg-green" : currentCategoryMeta.bgColor === 'bg-wg-brown' ? "[&>p]:before:text-wg-black" : "[&>p]:before:text-wg-blue"}` : ''}`}>
                         {markdownRuntimeReady ? (
                           <MarkdownRenderer remarkPlugins={markdownRemarkPlugins} components={markdownComponents}>
                             {section.markdown}
@@ -2181,8 +2181,8 @@ const Blog = () => {
                     <h3 className={`mb-3 font-inter font-light text-wg-black transition-colors ${
                       categorias.find(c => c.id === artigo.category)?.color === 'text-wg-green'
                         ? 'group-hover:text-wg-green'
-                        : categorias.find(c => c.id === artigo.category)?.color === 'text-wg-brown'
-                          ? 'group-hover:text-wg-brown'
+                        : categorias.find(c => c.id === artigo.category)?.color === 'text-wg-black'
+                          ? 'group-hover:text-wg-black'
                           : 'group-hover:text-wg-blue'
                     } ${index === 0 && categoriaAtiva === 'todos' ? editorialScale.cardTitle : 'text-lg leading-[1.35]'}`}>
                       {artigo.title}

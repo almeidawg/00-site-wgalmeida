@@ -127,4 +127,51 @@ describe('syncEditorialOverrides', () => {
     expect(blogOutput).toContain('"sectionTitle": "Oscar Niemeyer (1907-2012)"');
     expect(blogOutput).toContain('https://unsplash.com/photos/wxyz9876/download');
   });
+
+  it('publishes unsplash-only page selections to public page overrides', async () => {
+    const tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), 'wg-editorial-overrides-'));
+    const dataDir = path.join(tempRoot, 'src', 'data');
+    await fs.mkdir(dataDir, { recursive: true });
+    await fs.writeFile(
+      path.join(dataDir, 'blogImageOverrides.generated.js'),
+      'const BLOG_IMAGE_OVERRIDES = { generatedAt: "", source: "test", slugs: {} };\nexport default BLOG_IMAGE_OVERRIDES;\n',
+      'utf8'
+    );
+    await fs.writeFile(
+      path.join(dataDir, 'publicPageImageOverrides.generated.js'),
+      'const PUBLIC_PAGE_IMAGE_OVERRIDES = { generatedAt: "", source: "test", pages: {} };\nexport default PUBLIC_PAGE_IMAGE_OVERRIDES;\n',
+      'utf8'
+    );
+
+    process.chdir(tempRoot);
+
+    const helper = await import(`${pathToFileURL(helperModulePath).href}?test=${Date.now()}`);
+    const result = await helper.syncEditorialOverrides({
+      uploads: {
+        buildtech: {
+          hero: {
+            alt: 'Dashboard de tecnologia para construção',
+          },
+        },
+      },
+      unsplashSelections: {
+        buildtech: {
+          hero: {
+            id: 'page1234',
+            alt: 'Imagem editorial de tecnologia para construção',
+          },
+        },
+      },
+      managedPageSlugs: ['buildtech'],
+      source: 'vitest-page-unsplash',
+    });
+
+    expect(result.ok).toBe(true);
+    expect(result.pages.synced).toBe(1);
+
+    const pageOutput = await fs.readFile(path.join(dataDir, 'publicPageImageOverrides.generated.js'), 'utf8');
+    expect(pageOutput).toContain('"buildtech"');
+    expect(pageOutput).toContain('https://unsplash.com/photos/page1234/download');
+    expect(pageOutput).toContain('"alt": "Dashboard de tecnologia para construção"');
+  });
 });

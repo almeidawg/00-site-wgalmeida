@@ -4,12 +4,12 @@ const DEFAULT_OG_IMAGE = `${BASE_URL}/og-home-1200x630.jpg`;
 const defaultConfig = {
   title: "Grupo WG Almeida | Arquitetura, Engenharia, Marcenaria, Easy Locker e WG.BuildTech",
   description:
-    "Grupo WG Almeida integra arquitetura, engenharia, marcenaria, Easy Locker e WG.BuildTech em um ecossistema de execucao, tecnologia e solucoes de alto padrao.",
+    "Grupo WG Almeida integra arquitetura, engenharia, marcenaria, Easy Locker e WG.BuildTech em um ecossistema de execução, tecnologia e soluções de alto padrão.",
   canonical: `${BASE_URL}/`,
   og: {
     title: "Grupo WG Almeida | Arquitetura, Engenharia, Marcenaria, Easy Locker e WG.BuildTech",
     description:
-      "Grupo WG Almeida integra arquitetura, engenharia, marcenaria, Easy Locker e WG.BuildTech em um ecossistema de execucao, tecnologia e solucoes de alto padrao.",
+      "Grupo WG Almeida integra arquitetura, engenharia, marcenaria, Easy Locker e WG.BuildTech em um ecossistema de execução, tecnologia e soluções de alto padrão.",
     image: DEFAULT_OG_IMAGE,
     url: `${BASE_URL}/`,
   },
@@ -17,7 +17,7 @@ const defaultConfig = {
     card: "summary_large_image",
     title: "Grupo WG Almeida | Arquitetura, Engenharia, Marcenaria, Easy Locker e WG.BuildTech",
     description:
-      "Grupo WG Almeida integra arquitetura, engenharia, marcenaria, Easy Locker e WG.BuildTech em um ecossistema de execucao, tecnologia e solucoes de alto padrao.",
+      "Grupo WG Almeida integra arquitetura, engenharia, marcenaria, Easy Locker e WG.BuildTech em um ecossistema de execução, tecnologia e soluções de alto padrão.",
     image: DEFAULT_OG_IMAGE,
   },
 };
@@ -181,12 +181,12 @@ export const SEO_CONFIG = {
   "/moodboard-generator": page(
     "/moodboard-generator",
     "Gerador de Moodboard Profissional | WG Almeida",
-    "Monte apresentacoes de moodboard e transforme referencias em uma experiencia visual clara para clientes, corretores e profissionais."
+    "Monte apresentações de moodboard e transforme referências em uma experiência visual clara para clientes, corretores e profissionais."
   ),
   "/room-visualizer": page(
     "/room-visualizer",
     "Visualizador de Ambientes com IA | WG Almeida",
-    "Visualize cenarios de reforma com IA e use a leitura visual como apoio para alinhamento, proposta e proximo passo comercial."
+    "Visualize cenários de reforma com IA e use a leitura visual como apoio para alinhamento, proposta e próximo passo comercial."
   ),
 };
 

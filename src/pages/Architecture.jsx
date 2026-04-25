@@ -1,7 +1,7 @@
 import React from 'react';
 import SEO from '@/components/SEO';
 import { motion } from '@/lib/motion-lite';
-import { PenTool, Home, FileCheck, Users, ArrowRight, Sparkles } from 'lucide-react';
+import { PenTool, Home, FileCheck, Users, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ResponsiveWebpImage from '@/components/ResponsiveWebpImage';
 import { useTranslation } from 'react-i18next';
@@ -309,7 +309,7 @@ const Architecture = () => {
                   'Cria ponte direta entre moodboard, visualização e proposta assistida.',
                 ].map((item) => (
                   <div key={item} className="wg-overlay-panel-dark flex items-start gap-3 p-4">
-                    <Sparkles className="w-5 h-5 text-wg-green flex-shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-5 h-5 text-wg-green flex-shrink-0 mt-0.5" />
                     <p className="text-sm text-white/80 font-light leading-relaxed">{item}</p>
                   </div>
                 ))}

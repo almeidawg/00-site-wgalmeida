@@ -30,7 +30,7 @@ const valueStyles = {
   'wg-brown': {
     line: 'bg-wg-brown',
     iconWrap: 'bg-wg-brown/10',
-    icon: 'text-wg-brown',
+    icon: 'text-wg-black',
     halo: 'bg-wg-brown/5',
   },
 };

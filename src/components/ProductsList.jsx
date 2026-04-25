@@ -47,8 +47,8 @@ const unitColorStyles = {
   'wg-brown': {
     line: 'bg-wg-brown',
     overlay: 'from-wg-brown/20',
-    icon: 'text-wg-brown',
-    accent: 'text-wg-brown',
+    icon: 'text-wg-black',
+    accent: 'text-wg-black',
     button: 'bg-wg-brown hover:bg-wg-brown/90',
     halo: 'bg-wg-brown/5',
   },

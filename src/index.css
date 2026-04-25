@@ -320,13 +320,13 @@
   .bg-wg-brown {
     background-color: var(--wg-brown);
   }
-  .text-wg-brown {
+  .text-wg-black {
     color: var(--wg-brown);
   }
   .border-wg-brown {
     border-color: var(--wg-brown);
   }
-  .hover\:text-wg-brown:hover {
+  .hover\:text-wg-black:hover {
     color: var(--wg-brown);
   }
   .hover\:bg-wg-brown:hover {

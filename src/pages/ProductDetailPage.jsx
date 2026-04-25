@@ -493,7 +493,7 @@ function ProductDetailPage() {
               )}
 
               {isStockManaged && !canAddToCart && product.purchasable && (
-                <p className="text-sm text-wg-brown mt-3 flex items-center justify-center gap-2">
+                <p className="text-sm text-wg-black mt-3 flex items-center justify-center gap-2">
                   <XCircle size={16} />{' '}
                   {t('storePage.productDetail.lowStock', { count: availableStock })}
                 </p>
