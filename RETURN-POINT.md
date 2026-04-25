@@ -601,3 +601,16 @@ O sistema de botões está 100% homogêneo em todas as landing pages públicas a
 - O fluxo Search Console ainda depende de autorizacao humana no navegador para emitir token com escopos `https://www.googleapis.com/auth/webmasters` e `https://www.googleapis.com/auth/cloud-platform`.
 - A versao local do `gcloud auth login` nao aceita `--client-id-file` e `--scopes`; usar `gcloud auth application-default login --client-id-file ... --scopes ... --no-browser` ou fluxo OAuth manual.
 - Nenhum valor real de secret foi gravado no repositorio.
+
+### Search Console e APIs Google — 25/04/2026
+
+- OAuth ADC concluido com sucesso; credencial salva localmente em `%APPDATA%\gcloud\application_default_credentials.json`.
+- Search Console API habilitada em `grupo-wg-284118` / `312535767112`.
+- Propriedades Search Console confirmadas com `siteOwner`: `sc-domain:wgalmeida.com.br` e `https://wgalmeida.com.br/`.
+- Sitemap enviado para as duas propriedades: `https://wgalmeida.com.br/sitemap.xml`; API retornou `204 NoContent`.
+- Listagem Search Console confirmou `https://wgalmeida.com.br/sitemap.xml` com `lastSubmitted=2026-04-25T05:51:21.869Z`, `lastDownloaded=2026-04-25T05:51:22.942Z`, `warnings=0`, `errors=0`, `submitted=158`.
+- URL Inspection em `https://wgalmeida.com.br/`: `verdict=PASS`, `coverageState=Submitted and indexed`, `robotsTxtState=ALLOWED`, `indexingState=INDEXING_ALLOWED`, `pageFetchState=SUCCESSFUL`, canonical Google/usuario `https://wgalmeida.com.br/`.
+- APIs Google habilitadas no projeto `grupo-wg-284118`: Search Console, Custom Search, PageSpeed, Analytics Data, Places Legacy, Maps, Geocoding, Static Maps, Directions, Distance Matrix, Gemini Generative Language, Indexing, Google Ads, Drive, Docs, Sheets, Gmail, Calendar, Business Profile, Resource Manager, IAM, IAM Credentials, Service Usage, YouTube, YouTube Analytics, Vertex AI e Vision.
+- APIs Google habilitadas no projeto `site-485315`: mesmo conjunto acima, incluindo `places.googleapis.com` / Places API New.
+- Pendencia: `places.googleapis.com` no projeto `grupo-wg-284118` ficou bloqueada por falta de billing (`UREQ_PROJECT_BILLING_NOT_FOUND`). Usar `site-485315` para Places New ou vincular billing ao projeto `grupo-wg-284118`.
+- Proxima rodada: iniciar projeto de analise de posicionamento no Google com relatorios de Search Console, identificar paginas sem indexacao ou com cobertura fraca, corrigir causas tecnicas/SEO e executar auditoria PageSpeed para melhorar pontuacao mobile/desktop.
