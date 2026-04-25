@@ -23,6 +23,9 @@
     - Unsplash publicado no Admin
     - override gerado/commitado
     - imagem base do catálogo
+- `vercel.json`
+  - `Content-Security-Policy` e `Content-Security-Policy-Report-Only` passam a declarar `media-src 'self' blob: data: https://res.cloudinary.com`
+  - isso libera o vídeo do hero hospedado no Cloudinary em produção
 - testes adicionados/atualizados:
   - `src/__tests__/cloudinaryMedia.test.js`
   - `src/__tests__/publicPageImageCatalog.test.js`
