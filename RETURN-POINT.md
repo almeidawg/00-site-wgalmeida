@@ -81,7 +81,10 @@
 - alguns conteúdos antigos de blog ainda têm títulos/textos sem acento nos próprios markdowns e filas editoriais. Isso não bloqueou deploy porque o foco imediato foi SEO global, renderização de imagem e higiene visual, mas é backlog editorial separado.
 - commit/PR/produção:
   - commit local: `fix(site): apply SEO visual and editorial image cleanup` no branch `fix/seo-visual-cleanup-2026-04-24`
-  - PR/produção: pendente neste ponto do registro; preencher após push/merge/deploy.
+  - PR principal: `#25` — https://github.com/almeidawg/site-wgalmeida/pull/25
+  - merge em `main`: `fec3780ed1d2a5d6b4132a722fa73fd8e58f8f8c`
+  - preview Vercel do PR validado antes do merge
+  - produção disparada pelo merge em `main`
 
 ## Ajuste responsivo do hero video — 23/04/2026
 
