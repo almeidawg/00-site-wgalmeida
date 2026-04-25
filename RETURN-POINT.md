@@ -74,6 +74,7 @@
   - `temp_unsplash_priority_batch*_report.json`
   - `temp_unsplash_top10_fill_report.json`
 - contrato do hero atualizado para nao referenciar mais `/videos/hero/*.mp4`
+- CSP de producao ajustada para permitir `frame-src https://ct.pinterest.com` e remover `report-uri /csp-report` sem endpoint, que gerava 405 em console
 
 ## Correção SEO, auditoria visual e Admin Blog — 25/04/2026
 
