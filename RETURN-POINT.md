@@ -633,6 +633,10 @@ O sistema de botões está 100% homogêneo em todas as landing pages públicas a
 - Validacao em producao confirmou `robots.txt`, `sitemap.xml`, `/revista-estilos`, `/estilos/maximalista`, `/blog/closet-planejado-organizacao-otimizacao` e `/blog/onboarding-processo-wg-almeida` com HTTP 200.
 - A pagina `closet-planejado-organizacao-otimizacao` tem canonical proprio correto em producao; o alerta do Google vem de crawl antigo de `2026-04-06`.
 - PageSpeed rodado em 11 rotas prioritarias, mobile e desktop; SEO 100 em todas as rotas testadas.
+- PR #37 mergeado em `main`: `d08ef9e Merge pull request #37 from almeidawg/docs/google-seo-pagespeed-round-20260425`.
+- Deploy Vercel Production validado: deployment GitHub `4481413098`, URL Vercel `https://site-wgalmeida-oklvmwo0b-william-almeidas-projects.vercel.app`, commit `d08ef9ece65e6c119fb079671612d9f3df7c0ab4`.
+- Dominio publico validado apos merge: `https://wgalmeida.com.br/`, `/sitemap.xml`, `/blog` e `/revista-estilos` com HTTP 200.
+- Sitemap reenviado ao Search Console apos a rodada para `https://wgalmeida.com.br/` e `sc-domain:wgalmeida.com.br`; ambas chamadas retornaram `204`.
 
 ### Pendencias abertas para a proxima sessao
 
