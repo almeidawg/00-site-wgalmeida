@@ -41,6 +41,30 @@
   - geração SEO/OG/sitemap
   - validações de deploy
 
+### Erros, dificuldades e regras preventivas consolidadas
+
+- MP4 local no repo nao garante entrega na Vercel:
+  - erro encontrado: `/videos/hero/hero-desktop.mp4` e `/videos/hero/hero-mobile.mp4` retornavam `404` em producao
+  - regra: video de hero/asset grande precisa ser validado por URL publica direta e pelo estado do `<video>` no dominio final
+- CDN externa precisa de CSP explicita:
+  - erro encontrado: Cloudinary estava no `src`, mas a CSP bloqueava por falta de `media-src`
+  - regra: qualquer troca para Cloudinary/CDN exige revisar `media-src`, `img-src`, `connect-src` ou `frame-src` conforme o tipo de asset
+- Vercel `Ready` nao encerra validacao:
+  - dificuldade encontrada: deploy pronto ainda podia entregar HTML correto com asset bloqueado por CSP
+  - regra: sempre validar `https://wgalmeida.com.br` em navegador/headless depois do deploy de producao
+- Admin Blog tem contratos diferentes por tipo de conteudo:
+  - erro encontrado: paginas publicas dependiam de `hero`, enquanto parte do admin tratava tudo como `cover`
+  - regra: validar post, pagina publica e estilo/guia com os slots reais de cada catalogo
+- Estado do Admin e estado de visitante nao sao a mesma coisa:
+  - erro encontrado: selecao aparecia no Admin, mas pagina publica dependia do override gerado/commitado
+  - regra: validar mesmo navegador do admin e tambem visitante sem `localStorage`; para todos os visitantes, garantir manifest/override versionado e deployado
+- Lazy loading pode parecer imagem quebrada:
+  - dificuldade encontrada: produtos relacionados tinham `naturalWidth = 0` antes de scroll
+  - regra: rolar ate a imagem e aguardar carregamento antes de classificar quebra
+- Build pode gerar ruido:
+  - dificuldade encontrada: `public/sitemap.xml` aparecia modificado sem mudanca semantica
+  - regra: revisar `git diff --stat`/diff final e remover artefatos gerados sem valor para o bloco
+
 ## Correção SEO, auditoria visual e Admin Blog — 25/04/2026
 
 ### Escopo
