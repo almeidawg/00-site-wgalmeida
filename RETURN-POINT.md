@@ -614,3 +614,28 @@ O sistema de botões está 100% homogêneo em todas as landing pages públicas a
 - APIs Google habilitadas no projeto `site-485315`: mesmo conjunto acima, incluindo `places.googleapis.com` / Places API New.
 - Pendencia: `places.googleapis.com` no projeto `grupo-wg-284118` ficou bloqueada por falta de billing (`UREQ_PROJECT_BILLING_NOT_FOUND`). Usar `site-485315` para Places New ou vincular billing ao projeto `grupo-wg-284118`.
 - Proxima rodada: iniciar projeto de analise de posicionamento no Google com relatorios de Search Console, identificar paginas sem indexacao ou com cobertura fraca, corrigir causas tecnicas/SEO e executar auditoria PageSpeed para melhorar pontuacao mobile/desktop.
+
+## Rodada Google SEO e PageSpeed — 25/04/2026
+
+### Ponto de retorno salvo
+
+- Repo canonico validado: `C:\Users\Atendimento\Documents\_GRUPO_WG_ALMEIDA\01_APPS\02_BUILDTECH\04_OPERACIONAL\02_20260310_Projetos\02_20260310_Desenvolvimento\_Grupo_WG_Almeida\site-wgalmeida\site-wgalmeida`.
+- Branch: `main`, alinhada com `origin/main` antes da rodada.
+- Sync gate `start`: PASS em `2026-04-25T03:43:23`.
+- Evidencias locais nao commitadas: `.codex/tmp/google-strategy-20260425/`.
+- Relatorio commitavel criado: `docs/GOOGLE-SEO-PAGESPEED-ROUND-2026-04-25.md`.
+
+### Resultado tecnico
+
+- Search Console analisado para `2026-01-24..2026-04-23`.
+- Sitemap inspecionado com 158 URLs.
+- Cobertura atual: 105 indexadas, 44 descobertas ainda nao indexadas, 5 rastreadas ainda nao indexadas, 3 desconhecidas pelo Google e 1 duplicada por canonical escolhido pelo Google.
+- Validacao em producao confirmou `robots.txt`, `sitemap.xml`, `/revista-estilos`, `/estilos/maximalista`, `/blog/closet-planejado-organizacao-otimizacao` e `/blog/onboarding-processo-wg-almeida` com HTTP 200.
+- A pagina `closet-planejado-organizacao-otimizacao` tem canonical proprio correto em producao; o alerta do Google vem de crawl antigo de `2026-04-06`.
+- PageSpeed rodado em 11 rotas prioritarias, mobile e desktop; SEO 100 em todas as rotas testadas.
+
+### Pendencias abertas para a proxima sessao
+
+- Executar P0 do relatorio: recrawl manual das URLs pendentes, reforco de links internos e revisao de snippets com CTR baixo.
+- Melhorar PageSpeed mobile da home, blog e paginas de estilos, priorizando LCP e JS inicial.
+- Fazer auditoria futura do repo pai para separar o que fica e o que e lixo antigo, conforme orientacao anterior; nao limpar repo pai sem uma rodada dedicada.
