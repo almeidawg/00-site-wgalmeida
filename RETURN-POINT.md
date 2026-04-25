@@ -76,6 +76,16 @@
 - contrato do hero atualizado para nao referenciar mais `/videos/hero/*.mp4`
 - CSP de producao ajustada para permitir `frame-src https://ct.pinterest.com` e remover `report-uri /csp-report` sem endpoint, que gerava 405 em console
 
+### Pendencias operacionais registradas em 25/04/2026
+
+- Google Search Console:
+  - validado publicamente: `robots.txt` 200 permitindo crawlers, `sitemap.xml` 200, home com canonical `https://wgalmeida.com.br/` e `robots=index, follow`
+  - bloqueio atual: `gcloud` tem conta ativa, mas o token local nao possui escopo Search Console; service account valida encontrada nao tem propriedades do Search Console associadas
+  - proxima sessao: autenticar `william@wgalmeida.com.br` com escopo `https://www.googleapis.com/auth/webmasters` ou adicionar a service account valida como proprietaria/usuario da propriedade `https://wgalmeida.com.br/`/`sc-domain:wgalmeida.com.br`, entao consultar URL Inspection API e reenviar `https://wgalmeida.com.br/sitemap.xml`
+- Repositorio pai BuildTech:
+  - pendente auditoria separada para classificar o que fica e o que e lixo em `site-wgalmeida/Imagens`, `noc-tools` e gitlink `site-wgalmeida/site-wgalmeida`
+  - nao limpar em bloco automatico porque o repo pai esta muito sujo com mudancas antigas e sem `origin` configurado; fazer auditoria futura path-scoped antes de qualquer delecao
+
 ## Correção SEO, auditoria visual e Admin Blog — 25/04/2026
 
 ### Escopo
