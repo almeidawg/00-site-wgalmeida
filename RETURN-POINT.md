@@ -592,3 +592,12 @@ O sistema de botões está 100% homogêneo em todas as landing pages públicas a
 - Video hero em producao carregou com `readyState=4`, `videoWidth=1920`, `videoHeight=1080`.
 - Blog validado: `/blog/arquitetos-brasileiros-famosos-legado`; apos rolagem completa, 13 imagens, 0 quebradas, 0 pendentes, 0 responses de imagem com erro >= 400.
 - Auditoria visual renderizada desktop/mobile salva em `.codex/tmp/audit-home-desktop` e `.codex/tmp/audit-home-mobile`.
+
+### OAuth Search Console — secrets validadas
+
+- Client id testado: `312535767112-idrkrdml4pgd9tr4l6d0vpuk8cio8nhi.apps.googleusercontent.com`.
+- Secret rotulada `Search`: valida para esse client id. O teste retornou `invalid_grant`, esperado para codigo de autorizacao falso quando client id/secret estao corretos.
+- Secret rotulada `eco_wg_google`: invalida para esse client id. O teste retornou `invalid_client`.
+- O fluxo Search Console ainda depende de autorizacao humana no navegador para emitir token com escopos `https://www.googleapis.com/auth/webmasters` e `https://www.googleapis.com/auth/cloud-platform`.
+- A versao local do `gcloud auth login` nao aceita `--client-id-file` e `--scopes`; usar `gcloud auth application-default login --client-id-file ... --scopes ... --no-browser` ou fluxo OAuth manual.
+- Nenhum valor real de secret foi gravado no repositorio.
