@@ -42,18 +42,19 @@ export const PRODUCT_URLS = {
   easylocker:   'https://wgalmeida.com.br/easylocker',
 }
 
-/** Preços ObraEasy — espelho para uso no site sem importar o TS do ObraEasy */
+/** Preços SaaS — espelho público auditado contra saas_planos do WGEasy */
 export const OBRAEASY_PRECOS = {
-  pro:      { label: 'Pro',              price: 'R$ 29,90', id: 'pro' },
-  business: { label: 'Business',         price: 'R$ 59,90', id: 'business' },
-  solo:     { label: 'Solo · Parceiro',  price: 'R$ 79,90', id: 'solo' },
-  completo: { label: 'Completo · Parc.', price: 'R$ 149,90',id: 'completo' },
+  free:     { label: 'Gratuito', price: 'R$ 0', id: 'free' },
+  pro:      { label: 'Pro',      price: 'R$ 29,90', id: 'pro' },
+  business: { label: 'Business', price: 'R$ 59,90', id: 'business' },
 }
 
 export const EASYREALSTATE_PRECOS = {
-  free:        { label: 'Gratuito', price: 'R$ 0' },
-  proCorretor: { label: 'Pro Corretor', price: 'R$ 49' },
-  imobiliaria: { label: 'Imobiliária', price: 'R$ 149' },
+  free:        { label: 'Gratuito', price: 'R$ 0', id: 'free' },
+  solo:        { label: 'Solo', price: 'R$ 79,90', id: 'solo' },
+  completo:    { label: 'Completo', price: 'R$ 149,90', id: 'completo' },
+  proCorretor: { label: 'Solo', price: 'R$ 79,90', id: 'solo' },
+  imobiliaria: { label: 'Completo', price: 'R$ 149,90', id: 'completo' },
 }
 
 export const WG_PRODUCT_MESSAGES = {

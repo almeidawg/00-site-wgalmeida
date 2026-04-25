@@ -643,3 +643,54 @@ O sistema de botões está 100% homogêneo em todas as landing pages públicas a
 - Executar P0 do relatorio: recrawl manual das URLs pendentes, reforco de links internos e revisao de snippets com CTR baixo.
 - Melhorar PageSpeed mobile da home, blog e paginas de estilos, priorizando LCP e JS inicial.
 - Fazer auditoria futura do repo pai para separar o que fica e o que e lixo antigo, conforme orientacao anterior; nao limpar repo pai sem uma rodada dedicada.
+
+## Rodada WGEasy x Site — Conteudo, planos e motores — 25/04/2026
+
+### Ponto de retorno salvo
+
+- Repo canonico validado: `C:\Users\Atendimento\Documents\_GRUPO_WG_ALMEIDA\01_APPS\02_BUILDTECH\04_OPERACIONAL\02_20260310_Projetos\02_20260310_Desenvolvimento\_Grupo_WG_Almeida\site-wgalmeida\site-wgalmeida`.
+- Branch de trabalho: `wgeasy-site-sync-audit`.
+- Sync gate `start`: PASS em `2026-04-25T04:29:00`.
+- Arquivos duplicados antigos nao rastreados permanecem intocados para auditoria futura dedicada do repo pai/site.
+
+### Causa raiz encontrada
+
+- O site mantinha espelhos manuais de planos em `src/data/company.js`.
+- Esses espelhos evidenciaram um conflito entre sistemas:
+  - site/ObraEasy SSoT/checkout estavam em Pro `R$ 29,90` e Business `R$ 59,90`;
+  - base viva WGEasy estava em Pro `R$ 297` e Business `R$ 797`, divergindo da estrategia de escala e do checkout real.
+  - EasyRealState mantinha referencias antigas de `R$ 49` e `R$ 149`; base ativa: Solo `R$ 79,90` e Completo `R$ 149,90`.
+- A pagina `/obraeasy` misturava planos de parceiro/EasyRealState dentro da grade de planos do ObraEasy.
+- Nao foi encontrada evidencia local de estrategia ativa em `R$ 97,90`.
+
+### Correcoes aplicadas
+
+- `saas_planos` no WGEasy: Pro normalizado para `R$ 29,90/mês` e `R$ 299/ano`; Business normalizado para `R$ 59,90/mês` e `R$ 599/ano`.
+- `src/data/company.js`: atualizado para refletir a estrategia ativa normalizada.
+- `src/pages/ObraEasyLanding.jsx`: grade reduzida para Gratuito, Pro e Business; beneficios alinhados com o SSoT do ObraEasy; JSON-LD passa a usar a lista renderizada.
+- `src/pages/EasyRealStateLanding.jsx`: planos publicos ajustados para Calculo Publico, Solo e Completo; JSON-LD atualizado.
+- `src/content/blog/evf-estudo-viabilidade-financeira.md`: CTA alinhado para plano pago a partir de `R$ 29,90/mês`.
+- `tools/audit-wgeasy-site-sync.mjs`: auditor novo criado para comparar site x WGEasy e bloquear strings antigas.
+- `package.json`: scripts `audit:wgeasy:site-sync` e `audit:wgeasy:site-sync:strict` adicionados.
+- Relatorio da rodada: `docs/WGEASY-SITE-CONTENT-SYNC-AUDIT-2026-04-25.md`.
+
+### Validacao executada
+
+- `npm run audit:wgeasy:site-sync:strict`: OK; precos publicos e tabelas criticas conferidos contra WGEasy.
+- `npm run check:imports`: OK.
+- `npm run audit:consistency:strict`: OK.
+- `npm run audit:public:claims:strict`: OK.
+- `npm run test:run`: OK, 8 arquivos e 52 testes.
+- `npm run build`: OK, 158 rotas SEO geradas.
+- Browser audit local (`wg-browser-audit`) em `/obraeasy` e `/easy-real-state`, desktop e mobile: OK.
+- DOM renderizado validado:
+  - `/obraeasy`: contem `R$ 0`, `R$ 29,90`, `R$ 59,90`; nao contem `R$ 297`, `R$ 797` ou `R$ 97,90`.
+  - `/easy-real-state`: contem `R$ 0`, `R$ 79,90`, `R$ 149,90`; nao contem `R$ 49`, `R$ 297` ou `R$ 797`.
+- `git grep` inicial confirmou que o SSoT ObraEasy e checkouts reais usavam `R$ 29,90` e `R$ 59,90`, enquanto a base WGEasy estava divergente em `R$ 297` e `R$ 797`.
+- `git grep` em `src` para `OBRAEASY_PRECOS.solo`, `OBRAEASY_PRECOS.completo`, `EASYREALSTATE_PRECOS.proCorretor` e `EASYREALSTATE_PRECOS.imobiliaria`: sem ocorrencias.
+
+### Pendencias abertas
+
+- Criar endpoint ou snapshot publico gerado automaticamente a partir do WGEasy para eliminar espelhos manuais de preco.
+- Auditar artigos tecnicos com tabelas de custo contra `pricelist_itens`, `sinapi_composicoes` e `iccri_indice`.
+- Fazer auditoria futura do repo pai e duplicatas antigas para decidir o que fica e o que e lixo, sem misturar com rodada de produto/SEO.

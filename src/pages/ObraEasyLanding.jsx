@@ -16,8 +16,8 @@ const ObraEasyLanding = () => {
   const planos = [
     {
       id: 'free',
-      label: 'Gratuito',
-      price: 'R$ 0',
+      label: OBRAEASY_PRECOS.free.label,
+      price: OBRAEASY_PRECOS.free.price,
       period: '/sempre',
       desc: 'Para conhecer a experiência',
       cor: '#60a5fa',
@@ -35,17 +35,16 @@ const ObraEasyLanding = () => {
       label: OBRAEASY_PRECOS.pro.label,
       price: OBRAEASY_PRECOS.pro.price,
       period: '/mês',
-      desc: 'Para quem está reformando ou construindo',
+      desc: 'Para profissionais autônomos',
       cor: '#f97316',
-      destaque: true,
+      destaque: false,
       features: [
-        'EVFs ilimitados',
-        'Projetos ilimitados',
-        'Link público do EVF',
-        'Comparativo de orçamentos',
-        'Cronograma automático',
-        'Contratos digitais',
-        'Financeiro da obra',
+        'Até 5 projetos simultâneos',
+        'EVF completo com CUB regional',
+        'Diário de obra com fotos',
+        'Financeiro básico por projeto',
+        'Cronograma simplificado',
+        'Suporte via email',
       ],
       cta: 'Assinar Pro',
       href: `${PRODUCT_URLS.obraeasy}/planos`,
@@ -55,58 +54,20 @@ const ObraEasyLanding = () => {
       label: OBRAEASY_PRECOS.business.label,
       price: OBRAEASY_PRECOS.business.price,
       period: '/mês',
-      desc: 'Para construtores e gestores de múltiplas obras',
+      desc: 'Para escritórios e construtoras',
       cor: '#a855f7',
-      destaque: false,
+      destaque: true,
       features: [
+        'Projetos ilimitados',
         'Tudo do Pro',
-        'White-label (sua marca no EVF)',
-        'Múltiplos clientes e obras',
-        'Diário de obra + análise de projeto',
-        'Módulo financeiro por projeto',
-        'Relatórios mensais automáticos',
+        'Análise de viabilidade e risco',
+        'DRE por projeto',
+        'Cronograma avançado com dependências',
+        'Módulo de materiais e quantitativos',
         'Suporte prioritário',
       ],
       cta: 'Assinar Business',
       href: `${PRODUCT_URLS.obraeasy}/planos`,
-    },
-    {
-      id: 'solo',
-      label: OBRAEASY_PRECOS.solo.label,
-      price: OBRAEASY_PRECOS.solo.price,
-      period: '/mês',
-      desc: 'Para corretores que indicam clientes e ganham comissão',
-      cor: '#f97316',
-      destaque: false,
-      features: [
-        'Tudo do Business',
-        'Painel de indicações rastreáveis',
-        'Link exclusivo de indicação',
-        'Comissão automática (5%) por cliente ativo',
-        'Até 20 clientes indicados',
-        'Relatório mensal de comissões',
-      ],
-      cta: 'Quero ser parceiro',
-      href: PRODUCT_URLS.corretor,
-    },
-    {
-      id: 'completo',
-      label: OBRAEASY_PRECOS.completo.label,
-      price: OBRAEASY_PRECOS.completo.price,
-      period: '/mês',
-      desc: 'Para imobiliárias e corretores de alto volume',
-      cor: '#16a34a',
-      destaque: false,
-      features: [
-        'Tudo do Solo',
-        'Clientes ilimitados',
-        'Site profissional com portfólio',
-        'SEO local para sua região',
-        'Comissão 5% recorrente por cliente',
-        'Onboarding com especialista WG',
-      ],
-      cta: 'Assinar Completo',
-      href: PRODUCT_URLS.corretor,
     },
   ]
 
@@ -208,10 +169,7 @@ const ObraEasyLanding = () => {
     url: pageUrl,
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Web',
-    offers: [
-      { '@type': 'Offer', price: '0', priceCurrency: 'BRL', name: 'Gratuito' },
-      ...Object.values(OBRAEASY_PRECOS).map(p => ({ '@type': 'Offer', price: p.price.replace('R$ ', '').replace(',', '.'), priceCurrency: 'BRL', name: p.label })),
-    ],
+    offers: planos.map(p => ({ '@type': 'Offer', price: p.price.replace('R$ ', '').replace(',', '.'), priceCurrency: 'BRL', name: p.label })),
   }
 
   return (
@@ -454,7 +412,7 @@ const ObraEasyLanding = () => {
             </h2>
             <p className="text-wg-gray max-w-xl mx-auto">Cancele a qualquer momento. Sem fidelidade, sem taxa de adesão.</p>
           </motion.div>
-          <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-6 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {planos.map((plano, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15 }}
                 className={`rounded-2xl p-8 relative ${plano.destaque ? 'bg-wg-black text-white ring-2 ring-wg-orange' : 'bg-white'}`}>
