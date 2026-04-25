@@ -702,3 +702,36 @@ O sistema de botões está 100% homogêneo em todas as landing pages públicas a
 - Criar endpoint ou snapshot publico gerado automaticamente a partir do WGEasy para eliminar espelhos manuais de preco.
 - Auditar artigos tecnicos com tabelas de custo contra `pricelist_itens`, `sinapi_composicoes` e `iccri_indice`.
 - Fazer auditoria futura do repo pai e duplicatas antigas para decidir o que fica e o que e lixo, sem misturar com rodada de produto/SEO.
+
+---
+
+## Ponto de Retorno - PR #39 em producao
+
+Data/hora: 2026-04-25 05:06 BRT.
+
+### Merge/deploy
+
+- PR: `https://github.com/almeidawg/site-wgalmeida/pull/39`.
+- Merge commit em `main`: `ca45fcf260e0369ca67b5c1c9b633d59fc490021`.
+- Vercel production deployment: `AdS3HMPn9DCH6ebcRRPuehmLD8re`.
+- Vercel dashboard: `https://vercel.com/william-almeidas-projects/site-wgalmeida/AdS3HMPn9DCH6ebcRRPuehmLD8re`.
+- CI main: `https://github.com/almeidawg/site-wgalmeida/actions/runs/24926311369`, OK.
+
+### Producao validada
+
+Dominio publico final validado: `https://wgalmeida.com.br`.
+
+- `https://wgalmeida.com.br/obraeasy`: HTTP 200, DOM com `R$ 0`, `R$ 29,90`, `R$ 59,90`, sem `R$ 297`, `R$ 797` ou `R$ 97,90`, sem erro de console, hero background renderizado.
+- `https://wgalmeida.com.br/easy-real-state`: HTTP 200, DOM com `R$ 0`, `R$ 79,90`, `R$ 149,90`, sem `R$ 49` legado, `R$ 297` ou `R$ 797`, sem erro de console, hero background renderizado.
+- `https://wgalmeida.com.br/blog/evf-estudo-viabilidade-financeira`: HTTP 200, CTA com `R$ 29,90/mês`, sem `R$ 297` ou `R$ 797`, sem erro de console.
+- Browser audit de producao salvo em:
+  - `.codex/tmp/browser-audit/prod-obraeasy-desktop`
+  - `.codex/tmp/browser-audit/prod-obraeasy-mobile`
+  - `.codex/tmp/browser-audit/prod-easyrealstate-desktop`
+  - `.codex/tmp/browser-audit/prod-easyrealstate-mobile`
+
+### Estado final da decisao de precificacao
+
+- ObraEasy cliente final: Gratuito `R$ 0`, Pro `R$ 29,90/mês`, Business `R$ 59,90/mês`.
+- Easy Real State: Calculo Publico `R$ 0`, Solo `R$ 79,90/mês`, Completo `R$ 149,90/mês`.
+- `R$ 97,90` nao aplicado: sem fonte ativa em SSoT, checkout real ou WGEasy normalizado.
