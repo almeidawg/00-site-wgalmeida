@@ -15,7 +15,7 @@
 
 - `src/utils/cloudinaryMedia.js`
   - perfis principais do hero voltaram a usar Cloudinary com transformações responsivas
-  - MP4 locais ficaram apenas como fallback técnico
+  - dependência dos MP4 locais legados foi removida; Cloudinary/CDN é a fonte canônica
 - `src/data/publicPageImageCatalog.js`
   - páginas públicas passam a ler também as seleções publicadas pelo Admin Blog em `localStorage`
   - prioridade de imagem pública:
@@ -45,7 +45,7 @@
 
 - MP4 local no repo nao garante entrega na Vercel:
   - erro encontrado: `/videos/hero/hero-desktop.mp4` e `/videos/hero/hero-mobile.mp4` retornavam `404` em producao
-  - regra: video de hero/asset grande precisa ser validado por URL publica direta e pelo estado do `<video>` no dominio final
+  - regra: video de hero/asset grande precisa usar CDN canonica, sem fallback local legado, e ser validado por URL publica direta e pelo estado do `<video>` no dominio final
 - CDN externa precisa de CSP explicita:
   - erro encontrado: Cloudinary estava no `src`, mas a CSP bloqueava por falta de `media-src`
   - regra: qualquer troca para Cloudinary/CDN exige revisar `media-src`, `img-src`, `connect-src` ou `frame-src` conforme o tipo de asset
@@ -64,6 +64,16 @@
 - Build pode gerar ruido:
   - dificuldade encontrada: `public/sitemap.xml` aparecia modificado sem mudanca semantica
   - regra: revisar `git diff --stat`/diff final e remover artefatos gerados sem valor para o bloco
+
+### Limpeza operacional executada em 25/04/2026
+
+- removida a copia antiga `site-wgalmeida-publish-temp` fora do repo canonico
+- removidos builds locais, logs, relatorios temporarios, `.monitor-data`, `tmp` e videos locais legados
+- removidos relatorios temporarios que estavam versionados por engano:
+  - `blog-editorial-status-2026-04-09.json`
+  - `temp_unsplash_priority_batch*_report.json`
+  - `temp_unsplash_top10_fill_report.json`
+- contrato do hero atualizado para nao referenciar mais `/videos/hero/*.mp4`
 
 ## Correção SEO, auditoria visual e Admin Blog — 25/04/2026
 
@@ -170,10 +180,8 @@
     - `desktopPortrait`
     - `desktopLandscape`
   - seleção centralizada por viewport com `getHeroVideoProfile()` e `selectHeroVideoSrc()`
-  - fonte canônica do hero passou a usar o par local já existente:
-    - `/videos/hero/hero-mobile.mp4`
-    - `/videos/hero/hero-desktop.mp4`
-  - Cloudinary ficou apenas como fallback técnico
+  - observacao historica: este bloco chegou a apontar para MP4 local em `/videos/hero`, mas essa decisao foi revertida em 25/04/2026
+  - estado atual: Cloudinary/CDN e a fonte canonica do hero; MP4 local legado nao deve ser recriado sem decisao explicita
 - `src/components/HeroVideo.jsx`
   - troca de `mobile/desktop` simples por seleção orientada por largura + altura do viewport
   - atualização automática em `resize` e `orientationchange`
@@ -188,10 +196,10 @@
 - `npm run test:run -- src/__tests__/cloudinaryMedia.test.js` OK
 - `npm run build` OK
 - preview local + Playwright OK:
-  - celular vertical -> `hero-mobile.mp4`
-  - tablet vertical -> `hero-mobile.mp4`
-  - tablet horizontal -> `hero-desktop.mp4`
-  - desktop horizontal -> `hero-desktop.mp4`
+  - celular vertical -> perfil Cloudinary vertical
+  - tablet vertical -> perfil Cloudinary vertical
+  - tablet horizontal -> perfil Cloudinary horizontal
+  - desktop horizontal -> perfil Cloudinary horizontal
 
 ## Hotfix de header/menu bloqueado — 23/04/2026
 

@@ -171,28 +171,24 @@ Subpastas e arquivos confirmados por referencia no codigo:
 - [ ] `consultorio-cure-dent-cotia/2020-10-06 13.39.14.webp`
 - [ ] `galpao-surubiju-alphaville/1.webp`
 
-### Pasta ausente 3
+### Pasta removida do contrato atual
 
 - `public/videos/hero`
 
 Estado:
 
-- ausente no runtime atual
+- ausente por decisao atual; hero usa Cloudinary/CDN
 
 Impacto:
 
-- afeta hero cinematografico
-- afeta experiencia premium inicial
+- nao deve afetar hero cinematografico quando `src/utils/cloudinaryMedia.js` e CSP de `vercel.json` estiverem corretos
 
 Acoes:
 
-- [ ] criar `public/videos/hero`
-- [ ] recuperar ou substituir:
-  - `VERTICAL_compressed.mp4`
-  - `HORIZONTAL_compressed.mp4`
-  - `descricao.vtt`
-- [ ] gerar poster leve definitivo
-- [ ] garantir video otimizado para web
+- [ ] nao recriar MP4 local legado sem decisao explicita
+- [ ] validar `video.currentSrc`, `readyState`, `videoWidth` e `videoHeight` em producao
+- [ ] validar `media-src` para Cloudinary/CDN na CSP de producao
+- [ ] manter poster leve definitivo
 
 ## Fase 2. Substituir imagens externas
 

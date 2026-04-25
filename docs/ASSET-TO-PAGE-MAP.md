@@ -55,13 +55,13 @@ Assets referenciados no codigo mas ausentes no runtime:
 
 - `public/images/imagens`: ausente
 - `public/images/projects`: ausente
-- `public/videos/hero`: ausente
+- `public/videos/hero`: ausente por decisao atual; hero usa Cloudinary/CDN
 
 Leitura pratica:
 
 - parte do site ja esta sustentada por assets locais reais;
 - outra parte depende de caminhos antigos que nao existem mais;
-- isso afeta especialmente portfolio, galerias de projetos e hero em video.
+- isso afeta especialmente portfolio e galerias de projetos; hero em video nao depende mais de MP4 local.
 
 ## Mapa por area
 
@@ -83,7 +83,7 @@ Assets atuais:
 - banner institucional:
   - `/images/banners/PROCESSOS.webp`
 
-Assets ausentes:
+Assets removidos do contrato atual:
 
 - `/videos/hero/VERTICAL_compressed.mp4`
 - `/videos/hero/HORIZONTAL_compressed.mp4`
@@ -95,8 +95,8 @@ Dependencias externas:
 
 Fonte de reposicao recomendada:
 
-- hero e videos aprovados devem vir do acervo interno sincronizado e ser publicados em CDN;
-- enquanto isso, manter poster local e desativar dependencia em video ausente se necessario.
+- hero e videos aprovados devem ser publicados em Cloudinary/CDN;
+- manter poster local leve e nao recriar `public/videos/hero` para producao.
 
 ### 2. Sobre / Marca / Institucional
 

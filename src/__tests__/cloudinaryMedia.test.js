@@ -23,8 +23,9 @@ describe('hero video media selection', () => {
     expect(HERO_MEDIA.profiles.desktopLandscape).toContain('/video/upload/');
   });
 
-  it('keeps local videos only as fallback assets', () => {
-    expect(HERO_MEDIA.fallbackProfiles.phonePortrait).toContain('/videos/hero/hero-mobile.mp4');
-    expect(HERO_MEDIA.fallbackProfiles.desktopLandscape).toContain('/videos/hero/hero-desktop.mp4');
+  it('does not reference legacy local hero videos', () => {
+    expect(HERO_MEDIA.fallbackProfiles.phonePortrait).toBe(HERO_MEDIA.profiles.phonePortrait);
+    expect(HERO_MEDIA.fallbackProfiles.desktopLandscape).toBe(HERO_MEDIA.profiles.desktopLandscape);
+    expect(Object.values(HERO_MEDIA.fallbackProfiles).join(' ')).not.toContain('/videos/hero/');
   });
 });
