@@ -550,3 +550,33 @@ O sistema de botões está 100% homogêneo em todas as landing pages públicas a
 - `npm run blog:editorial:repetition:audit` OK
 - `npm run style:editorial:status` OK
 - `npm run verify:deploy` OK
+
+## Google keys e Search Console — 25/04/2026
+
+### Resultado da validação
+
+- Google Search Console / sitemap submit: nenhuma API key simples serve para esta API; ela exige OAuth2 com escopo `webmasters` ou service account autorizada na propriedade do Search Console.
+- Gemini: somente a chave marcada como `K5_pai_gemini` respondeu com sucesso na Generative Language API. Modelos validados: `gemini-2.5-flash` e `gemini-flash-latest`.
+- Google Custom Search / Cloudinary image search: as chaves `K1` e `K2` foram aceitas pela API do Custom Search e falharam apenas por falta de parametro de mecanismo externo no teste direto. Isso indica que sao as candidatas corretas para `VITE_GOOGLE_IMAGE_SEARCH_API_KEY` no widget Cloudinary.
+- `K3` esta bloqueada para Custom Search/Gemini no projeto atual.
+- `K4` esta com APIs necessarias desativadas no projeto associado.
+- `K5_pai_gemini` funciona para Gemini, mas nao para Custom Search.
+
+### Admin blog / imagens
+
+- O admin blog usa `src/pages/AdminBlogEditorial.jsx` com `window.cloudinary.createUploadWidget`.
+- A busca de imagens do Google entra pelo source `image_search` da Cloudinary e pela opcao `googleApiKey`.
+- Variavel necessaria no frontend: `VITE_GOOGLE_IMAGE_SEARCH_API_KEY`.
+- Essa variavel nao pode ser commitada com valor real; manter apenas em `.env` local e Vercel Environment Variables.
+
+### Contas Google identificadas
+
+- Projeto ativo observado: `site-485315`.
+- Service accounts existentes: `ads-138@site-485315.iam.gserviceaccount.com` e `wg-almeida-analytics@site-485315.iam.gserviceaccount.com`.
+- Foi identificada uma chave user-managed no service account `ads-138`, mas sem arquivo privado local disponivel.
+- A conta local autenticada ainda nao conseguiu usar Search Console porque o token nao tem escopo `https://www.googleapis.com/auth/webmasters`.
+
+### Proximo passo para indexacao
+
+- Refazer login OAuth com escopo Search Console ou adicionar uma service account autorizada na propriedade do Search Console.
+- Depois executar `sites.list`, `urlInspection.index.inspect` e `sitemaps.submit` para `https://wgalmeida.com.br/sitemap.xml`.
