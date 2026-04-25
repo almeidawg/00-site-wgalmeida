@@ -41,6 +41,28 @@ Este AGENTS deve ser usado em conjunto com:
 - Ao tocar em i18n/blog/header responsivo: `npm run blog:i18n:audit`
 - Para fechar saude estrutural de imagens/editorial: `npm run editorial:health`
 
+## REGRAS DE MIDIA, BLOG E PRODUCAO
+- Hero video nao deve depender de MP4 local grande como fonte primaria de producao sem validacao direta no dominio final. Preferir CDN/Cloudinary para fonte primaria e manter local apenas como fallback tecnico.
+- Ao alterar video, validar em producao:
+  - `video.currentSrc`
+  - `video.readyState`
+  - `video.networkState`
+  - `video.videoWidth`
+  - `video.videoHeight`
+  - console sem bloqueio de CSP para a midia
+- Ao usar Cloudinary ou outra CDN para video/audio, `vercel.json` deve permitir o host em `media-src` na CSP ativa e report-only.
+- Ao usar CDN externa para imagem, revisar `img-src`; ao usar API externa, revisar `connect-src`; ao usar embed, revisar `frame-src`.
+- Admin Blog e paginas publicas nao usam necessariamente o mesmo slot:
+  - blog post: validar slots do post, como `cover`
+  - pagina publica: validar `hero`
+  - estilos/guias: validar o slot definido no catalogo do tipo
+- Ao tocar em Admin Blog, validar upload local e Unsplash nos dois caminhos:
+  - estado publicado no navegador do admin
+  - manifest/override versionado para visitante sem localStorage
+- Imagem de blog so pode ser considerada quebrada depois de rolar ate ela e aguardar lazy loading. Validar `naturalWidth > 0` apenas depois de `scrollIntoView`/scroll real.
+- Depois de merge na `main`, confirmar Vercel Production `Ready` e revalidar `https://wgalmeida.com.br`; preview aprovado nao encerra o bloco.
+- Se `public/sitemap.xml` aparecer apos build sem mudanca semantica, descartar o ruido antes do commit.
+
 ## REGRAS
 - Proibido hardcode de dominios de produtos (easy/obraeasy/easyrealstate/buildtech).
 - Contatos institucionais devem sair de `src/data/company.js`.
