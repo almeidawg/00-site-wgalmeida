@@ -1,22 +1,9 @@
 import fs from "node:fs";
-import { createRequire } from "node:module";
 import path from "node:path";
 import react from "@vitejs/plugin-react";
 import { createLogger, defineConfig } from "vite";
 import { compression } from "vite-plugin-compression2";
 import { visualizer } from "rollup-plugin-visualizer";
-const require = createRequire(import.meta.url);
-const isVercel = process.env.VERCEL === '1';
-let vitePrerender = null;
-let PuppeteerRenderer = null;
-if (!isVercel) {
-  try {
-    vitePrerender = require("vite-plugin-prerender").default ?? require("vite-plugin-prerender");
-    PuppeteerRenderer = require("@prerenderer/renderer-puppeteer").default ?? require("@prerenderer/renderer-puppeteer");
-  } catch (e) {
-    // Puppeteer not available (CI/Vercel environment)
-  }
-}
 import inlineEditPlugin from "./plugins/visual-editor/vite-plugin-react-inline-editor.js";
 import editModeDevPlugin from "./plugins/visual-editor/vite-plugin-edit-mode.js";
 import iframeRouteRestorationPlugin from "./plugins/vite-plugin-iframe-route-restoration.js";
@@ -33,39 +20,7 @@ const mdRawPlugin = {
 };
 
 const isDev = process.argv.includes("serve") || process.argv.includes("dev");
-const enableLegacyPrerender = process.env.ENABLE_LEGACY_PRERENDER === "true";
 const enableEditorDevPlugins = process.env.ENABLE_VISUAL_EDITOR_DEV === "true";
-const defaultPrerenderRoutes = [
-  "/",
-  "/sobre",
-  "/processo",
-  "/projetos",
-  "/store",
-  "/arquitetura",
-  "/engenharia",
-  "/marcenaria",
-];
-
-const sitemapPath = path.resolve(__dirname, "public", "sitemap.xml");
-const prerenderRoutesFromSitemap = (() => {
-  try {
-    if (!fs.existsSync(sitemapPath)) return [];
-    const xml = fs.readFileSync(sitemapPath, "utf8");
-    const matches = [...xml.matchAll(/<loc>(.*?)<\/loc>/gim)];
-    return matches
-      .map((m) => m[1]?.trim())
-      .filter(Boolean)
-      .map((loc) => {
-        const url = new URL(loc);
-        const pathname = url.pathname || "/";
-        return pathname.length > 1 && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
-      });
-  } catch {
-    return [];
-  }
-})();
-
-const prerenderRoutes = Array.from(new Set([...defaultPrerenderRoutes, ...prerenderRoutesFromSitemap]));
 const coreJsInternalsPath = path.resolve(
   __dirname,
   "node_modules/core-js/internals/define-global-property.js",
@@ -333,19 +288,6 @@ export default defineConfig({
       : []),
     mdRawPlugin,
     react(),
-    ...(!isDev && enableLegacyPrerender && typeof vitePrerender === "function"
-      ? [
-          vitePrerender({
-            staticDir: path.join(__dirname, "dist"),
-            routes: prerenderRoutes,
-            renderer: new PuppeteerRenderer({
-              renderAfterDocumentEvent: "prerender-ready",
-              maxConcurrentRoutes: 4,
-              headless: true,
-            }),
-          }),
-        ]
-      : []),
     ...(!isDev ? [addTransformIndexHtml] : []),
     coreJsAliasPlugin,
     // Compressão Gzip + Brotli dos assets no build

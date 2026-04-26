@@ -94,7 +94,6 @@
     "remark-gfm": "^4.0.1",
     "tailwind-merge": "^2.0.0",
     "tailwindcss-animate": "^1.0.7",
-    "vite-plugin-prerender": "^1.0.8",
     "web-vitals": "^5.1.0"
   },
   "devDependencies": {
@@ -103,7 +102,6 @@
     "@babel/traverse": "^7.29.0",
     "@babel/types": "^7.29.0",
     "@eslint/js": "^9.39.1",
-    "@prerenderer/renderer-puppeteer": "^1.2.4",
     "@secretlint/secretlint-rule-preset-recommend": "^11.6.0",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
@@ -124,7 +122,6 @@
     "jsdom": "^27.4.0",
     "playwright": "^1.59.1",
     "postcss": "^8.4.31",
-    "react-snap": "^1.23.0",
     "rollup-plugin-visualizer": "^7.0.1",
     "secretlint": "^11.6.0",
     "sharp": "^0.33.5",
