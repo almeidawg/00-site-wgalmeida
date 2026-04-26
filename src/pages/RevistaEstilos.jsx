@@ -240,6 +240,22 @@ const RevistaEstilos = () => {
               <StyleCard key={estilo.slug} estilo={estilo} index={index} />
             ))}
           </div>
+
+          {/* SEO Quick Links Hub */}
+          <div className="mt-20 pt-10 border-t border-gray-200">
+            <h3 className="text-sm font-light uppercase tracking-widest text-wg-gray mb-6 text-center">Índice Completo de Estilos</h3>
+            <div className="flex flex-wrap justify-center gap-x-6 gap-y-3">
+              {estilos.map((estilo) => (
+                <Link
+                  key={estilo.slug}
+                  to={`/estilos/${estilo.slug}`}
+                  className="text-sm font-light text-wg-gray hover:text-wg-orange transition-colors"
+                >
+                  {estilo.title}
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 

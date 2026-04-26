@@ -223,8 +223,19 @@ const EstiloDetail = () => {
   const tocHeadings = extractTocHeadings(contentBody);
   const sectionedContent = splitMarkdownByH2(contentBody);
 
-  // Get other styles for recommendations
-  const otherEstilos = allEstilos.filter(e => e.slug !== slug).slice(0, 3);
+  // Get other styles for recommendations - prioritize same category for SEO interlinking
+  const otherEstilos = allEstilos
+    .filter(e => e.slug !== slug)
+    .sort((a, b) => {
+      // Prioritize same category
+      if (a.category === estilo.category && b.category !== estilo.category) return -1;
+      if (a.category !== estilo.category && b.category === estilo.category) return 1;
+      // Then featured
+      if (a.featured && !b.featured) return -1;
+      if (!a.featured && b.featured) return 1;
+      return 0;
+    })
+    .slice(0, 3);
 
   return (
     <>

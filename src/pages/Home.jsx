@@ -66,9 +66,10 @@ const HOME_STYLE_CARD_IMAGES = {
 };
 
 const logosNucleos = [
-  { src: withBasePath('/Logos/logo-arquitetura-84.webp'), alt: 'Logo Arquitetura' },
-  { src: withBasePath('/Logos/logo-engenharia-84.webp'), alt: 'Logo Engenharia' },
-  { src: withBasePath('/Logos/logo-marcenaria-84.webp'), alt: 'Logo Marcenaria' }
+  { src: withBasePath('/Logos/logo-arquitetura-84.webp'), alt: 'Logo Arquitetura', href: '/arquitetura' },
+  { src: withBasePath('/Logos/logo-engenharia-84.webp'), alt: 'Logo Engenharia', href: '/engenharia' },
+  { src: withBasePath('/Logos/logo-marcenaria-84.webp'), alt: 'Logo Marcenaria', href: '/marcenaria' },
+  { src: withBasePath('/Logos/logo-obraeasy-84.webp'), alt: 'Logo ObraEasy', href: '/obraeasy' }
 ];
 
 const ENGINEERING_BANNER_SRC = withBasePath('/images/banners/ENGENHARIA.webp');

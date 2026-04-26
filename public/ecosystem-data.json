@@ -1,0 +1,29 @@
+{
+  "lastUpdated": "2026-04-26T14:30:00Z",
+  "version": "1.0.0",
+  "products": {
+    "obraeasy": {
+      "name": "ObraEasy",
+      "plans": [
+        { "id": "free", "name": "Gratuito", "price": 0, "currency": "BRL", "period": "mensal" },
+        { "id": "pro", "name": "Pro", "price": 29.90, "currency": "BRL", "period": "mensal" },
+        { "id": "business", "name": "Business", "price": 59.90, "currency": "BRL", "period": "mensal" }
+      ]
+    },
+    "easyrealstate": {
+      "name": "Easy Real State",
+      "plans": [
+        { "id": "free", "name": "Cálculo Público", "price": 0, "currency": "BRL", "period": "mensal" },
+        { "id": "solo", "name": "Solo", "price": 79.90, "currency": "BRL", "period": "mensal" },
+        { "id": "completo", "name": "Completo", "price": 149.90, "currency": "BRL", "period": "mensal" }
+      ]
+    }
+  },
+  "references": {
+    "iccri": {
+      "name": "ICCRI 2026",
+      "status": "active",
+      "coverage": "São Paulo, SP"
+    }
+  }
+}
