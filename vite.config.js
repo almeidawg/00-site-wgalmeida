@@ -216,6 +216,18 @@ if (window.navigation && window.self !== window.top) {
 
 const enableHorizonsMonitoring = process.env.HORIZONS_EMBED === "true";
 const appBasePath = process.env.APP_BASE_PATH || "/";
+const devServerAllowedHosts = [
+  "localhost",
+  "127.0.0.1",
+  ".localhost",
+  "site-wgalmeida.local",
+];
+const devServerAllowedOrigins = [
+  /^https?:\/\/localhost(?::\d+)?$/,
+  /^https?:\/\/127\.0\.0\.1(?::\d+)?$/,
+  /^https?:\/\/\[::1\](?::\d+)?$/,
+  /^https?:\/\/site-wgalmeida\.local(?::\d+)?$/,
+];
 const reactPathMarkers = [
   "/react/",
   `${path.win32.sep}react${path.win32.sep}`,
@@ -319,11 +331,13 @@ export default defineConfig({
         ]),
   ],
   server: {
-    cors: true,
+    cors: {
+      origin: devServerAllowedOrigins,
+    },
     headers: {
       "Cross-Origin-Embedder-Policy": "credentialless",
     },
-    allowedHosts: true,
+    allowedHosts: devServerAllowedHosts,
   },
   resolve: {
     extensions: [".jsx", ".js", ".tsx", ".ts", ".json"],
