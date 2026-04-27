@@ -126,7 +126,10 @@ const canRunHomeIntro = async () => {
   try {
     const battery = await navigator.getBattery?.();
     return !battery || battery.level > 0.2;
-  } catch (_) {
+  } catch (error) {
+    if (import.meta.env.DEV) {
+      console.debug('[home-intro] Battery status unavailable; intro remains enabled.', error);
+    }
     return true;
   }
 };
@@ -154,99 +157,43 @@ const scheduleHomeIntro = (showIntro) => {
   return () => globalThis.clearTimeout(timeoutId);
 };
 
-const Home = () => {
-  const { t, i18n } = useTranslation();
-  const { context: wgContext } = useWGContext() || { context: {} };
-  const userInteresse = wgContext?.interesse || null;
-  const isReturning = (wgContext?.paginas?.length || 0) >= 3;
+const STATS_VISIBILITY_OPTIONS = { threshold: 0.35 };
+const LAZY_SECTION_VISIBILITY_OPTIONS = { rootMargin: '320px 0px', threshold: 0.01 };
 
-  const personalized = userInteresse ? HERO_COPY_BY_INTEREST[userInteresse] : null;
-  const heroEyebrow = personalized?.eyebrow || t('home.hero.eyebrow', { defaultValue: 'Grupo WG Almeida · São Paulo' });
-  const heroSupport = personalized?.support || t('home.hero.support', {
-    defaultValue:
-      'Planejamos, executamos e entregamos espaços de alto padrão, do conceito ao último detalhe, sob um único padrão de gestão.',
-  });
-  // Intro inicia desativada para não competir com renderização crítica do hero.
-  const [showIntro, setShowIntro] = useState(false);
-  const statsSectionRef = useRef(null);
-  const [statsVisible, setStatsVisible] = useState(false);
-  const projectGalleryRef = useRef(null);
-  const [projectGalleryVisible, setProjectGalleryVisible] = useState(false);
-  const reviewsRef = useRef(null);
-  const [reviewsVisible, setReviewsVisible] = useState(false);
+const createEmptyStats = () => ({
+  projetosAndamento: 0,
+  clientesAtendidos: 0,
+  metrosRevestimentos: 0,
+  horasProjetando: 0,
+});
+
+const useVisibilityFlag = (options) => {
+  const sectionRef = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (!sectionRef.current || visible) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      options
+    );
+
+    observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, [visible, options]);
+
+  return [sectionRef, visible];
+};
+
+const useAnimatedStats = (statsVisible, estatisticas) => {
   const [statsAnimated, setStatsAnimated] = useState(false);
-  const [displayStats, setDisplayStats] = useState({
-    projetosAndamento: 0,
-    clientesAtendidos: 0,
-    metrosRevestimentos: 0,
-    horasProjetando: 0
-  });
-
-  // Hook para estatísticas dinâmicas do sistema
-  const estatisticas = useEstatisticasWG({ enabled: statsVisible });
-
-  const handleIntroComplete = () => {
-    setShowIntro(false);
-  };
-
-  useEffect(() => {
-    const enableIntroNow = () => {
-      setShowIntro(true);
-      globalThis.sessionStorage.setItem('wg-intro-triggered', 'true');
-    };
-    return scheduleHomeIntro(enableIntroNow);
-  }, []);
-
-  useEffect(() => {
-    if (!statsSectionRef.current || statsVisible) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0]?.isIntersecting) {
-          setStatsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.35 }
-    );
-
-    observer.observe(statsSectionRef.current);
-    return () => observer.disconnect();
-  }, [statsVisible]);
-
-  useEffect(() => {
-    if (!projectGalleryRef.current || projectGalleryVisible) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0]?.isIntersecting) {
-          setProjectGalleryVisible(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: '320px 0px', threshold: 0.01 }
-    );
-
-    observer.observe(projectGalleryRef.current);
-    return () => observer.disconnect();
-  }, [projectGalleryVisible]);
-
-  useEffect(() => {
-    if (!reviewsRef.current || reviewsVisible) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0]?.isIntersecting) {
-          setReviewsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: '320px 0px', threshold: 0.01 }
-    );
-
-    observer.observe(reviewsRef.current);
-    return () => observer.disconnect();
-  }, [reviewsVisible]);
+  const [displayStats, setDisplayStats] = useState(createEmptyStats);
 
   useEffect(() => {
     if (!statsVisible || estatisticas.loading) return;
@@ -269,18 +216,18 @@ const Home = () => {
     let startTime;
     const duration = 1400;
 
-    const animate = (timestamp) => {
-      if (!startTime) startTime = timestamp;
+    const animate = (currentTime) => {
+      if (!startTime) startTime = currentTime;
 
-      const elapsed = timestamp - startTime;
+      const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      const easedProgress = 1 - Math.pow(1 - progress, 3);
+      const easeOut = 1 - Math.pow(1 - progress, 3);
 
       setDisplayStats({
-        projetosAndamento: Math.round(targetStats.projetosAndamento * easedProgress),
-        clientesAtendidos: Math.round(targetStats.clientesAtendidos * easedProgress),
-        metrosRevestimentos: Math.round(targetStats.metrosRevestimentos * easedProgress),
-        horasProjetando: Math.round(targetStats.horasProjetando * easedProgress)
+        projetosAndamento: Math.round(targetStats.projetosAndamento * easeOut),
+        clientesAtendidos: Math.round(targetStats.clientesAtendidos * easeOut),
+        metrosRevestimentos: Math.round(targetStats.metrosRevestimentos * easeOut),
+        horasProjetando: Math.round(targetStats.horasProjetando * easeOut)
       });
 
       if (progress < 1) {
@@ -301,6 +248,56 @@ const Home = () => {
     estatisticas.metrosRevestimentos,
     estatisticas.horasProjetando
   ]);
+
+  return displayStats;
+};
+
+const getLocalizedHeroTitle = (language = '') => {
+  if (language.startsWith('pt')) {
+    return 'Arquitetura, Engenharia e Marcenaria de Alto Padrão.';
+  }
+
+  if (language.startsWith('es')) {
+    return 'Arquitectura, Ingeniería y Carpintería Premium.';
+  }
+
+  return 'Architecture, Engineering and Premium Carpentry.';
+};
+
+const Home = () => {
+  const { t, i18n } = useTranslation();
+  const { context: wgContext } = useWGContext() || { context: {} };
+  const userInteresse = wgContext?.interesse || null;
+  const isReturning = (wgContext?.paginas?.length || 0) >= 3;
+
+  const personalized = userInteresse ? HERO_COPY_BY_INTEREST[userInteresse] : null;
+  const heroEyebrow = personalized?.eyebrow || t('home.hero.eyebrow', { defaultValue: 'Grupo WG Almeida · São Paulo' });
+  const heroSupport = personalized?.support || t('home.hero.support', {
+    defaultValue:
+      'Planejamos, executamos e entregamos espaços de alto padrão, do conceito ao último detalhe, sob um único padrão de gestão.',
+  });
+  // Intro inicia desativada para não competir com renderização crítica do hero.
+  const [showIntro, setShowIntro] = useState(false);
+  const [statsSectionRef, statsVisible] = useVisibilityFlag(STATS_VISIBILITY_OPTIONS);
+  const [projectGalleryRef, projectGalleryVisible] = useVisibilityFlag(LAZY_SECTION_VISIBILITY_OPTIONS);
+  const [reviewsRef, reviewsVisible] = useVisibilityFlag(LAZY_SECTION_VISIBILITY_OPTIONS);
+
+  // Hook para estatísticas dinâmicas do sistema
+  const estatisticas = useEstatisticasWG({ enabled: statsVisible });
+  const displayStats = useAnimatedStats(statsVisible, estatisticas);
+  const localizedHeroTitle = getLocalizedHeroTitle(i18n.language);
+
+  const handleIntroComplete = () => {
+    setShowIntro(false);
+  };
+
+  useEffect(() => {
+    const enableIntroNow = () => {
+      setShowIntro(true);
+      globalThis.sessionStorage.setItem('wg-intro-triggered', 'true');
+    };
+    return scheduleHomeIntro(enableIntroNow);
+  }, []);
 
   // Etapas do processo / Metodologia
   const metodologia = [
@@ -365,13 +362,7 @@ const Home = () => {
             transition={{ duration: 1, delay: showIntro ? 0 : 0.3, ease: "easeOut" }}
             className="home-hero-title"
           >
-            {i18n.language?.startsWith('pt') ? (
-              <>Arquitetura, Engenharia e Marcenaria de Alto Padrão.</>
-            ) : i18n.language?.startsWith('es') ? (
-              <>Arquitectura, Ingeniería y Carpintería Premium.</>
-            ) : (
-              <>Architecture, Engineering and Premium Carpentry.</>
-            )}
+            {localizedHeroTitle}
           </motion.h1>
 
           <div className="home-hero-support-block">
