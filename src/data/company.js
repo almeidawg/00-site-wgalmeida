@@ -50,11 +50,11 @@ export const OBRAEASY_PRECOS = {
 }
 
 export const EASYREALSTATE_PRECOS = {
-  free:        { label: 'Gratuito', price: 'R$ 0', id: 'free' },
-  solo:        { label: 'Solo', price: 'R$ 79,90', id: 'solo' },
-  completo:    { label: 'Completo', price: 'R$ 149,90', id: 'completo' },
-  proCorretor: { label: 'Solo', price: 'R$ 79,90', id: 'solo' },
-  imobiliaria: { label: 'Completo', price: 'R$ 149,90', id: 'completo' },
+  free:        { label: 'Gratuito', price: 'R$ 0', schemaPrice: '0', id: 'free' },
+  solo:        { label: 'Solo', price: 'R$ 79,90', schemaPrice: '79.90', id: 'solo' },
+  completo:    { label: 'Completo', price: 'R$ 149,90', schemaPrice: '149.90', id: 'completo' },
+  proCorretor: { label: 'Solo', price: 'R$ 79,90', schemaPrice: '79.90', id: 'solo' },
+  imobiliaria: { label: 'Completo', price: 'R$ 149,90', schemaPrice: '149.90', id: 'completo' },
 }
 
 export const WG_PRODUCT_MESSAGES = {

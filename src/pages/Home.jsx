@@ -72,6 +72,8 @@ const logosNucleos = [
   { src: withBasePath('/Logos/logo-obraeasy-84.webp'), alt: 'Logo ObraEasy', href: '/obraeasy' }
 ];
 
+const logoStackAlignment = ['md:items-start', 'md:items-center', 'md:items-end'];
+
 const ENGINEERING_BANNER_SRC = withBasePath('/images/banners/ENGENHARIA.webp');
 const ENGINEERING_BANNER_SRCSET = [
   `${withBasePath('/images/banners/ENGENHARIA-640.webp')} 640w`,
@@ -115,11 +117,45 @@ const HERO_COPY_BY_INTEREST = {
   },
 };
 
-const NUCLEOS_ORDER_BY_INTEREST = {
-  obra: ['arquitetura', 'engenharia', 'marcenaria', 'buildtech', 'easylocker'],
-  marcenaria: ['marcenaria', 'arquitetura', 'engenharia', 'buildtech', 'easylocker'],
-  design: ['arquitetura', 'marcenaria', 'engenharia', 'buildtech', 'easylocker'],
-  investimento: ['engenharia', 'arquitetura', 'marcenaria', 'buildtech', 'easylocker'],
+const canRunHomeIntro = async () => {
+  const prefersReducedMotion = globalThis.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hasSaveData = Boolean(navigator.connection?.saveData);
+  const deviceMemory = navigator.deviceMemory || 4;
+  const cpuCores = navigator.hardwareConcurrency || 4;
+
+  if (prefersReducedMotion || hasSaveData || deviceMemory < 2 || cpuCores < 4) {
+    return false;
+  }
+
+  try {
+    const battery = await navigator.getBattery?.();
+    return !battery || battery.level > 0.2;
+  } catch (_) {
+    return true;
+  }
+};
+
+const scheduleHomeIntro = (showIntro) => {
+  let timeoutId;
+
+  const enableIntro = () => {
+    timeoutId = globalThis.setTimeout(async () => {
+      if (await canRunHomeIntro()) {
+        showIntro();
+      }
+    }, 800);
+  };
+
+  if (typeof globalThis.requestIdleCallback === 'function') {
+    const idleId = globalThis.requestIdleCallback(enableIntro, { timeout: 1500 });
+    return () => {
+      globalThis.cancelIdleCallback(idleId);
+      globalThis.clearTimeout(timeoutId);
+    };
+  }
+
+  enableIntro();
+  return () => globalThis.clearTimeout(timeoutId);
 };
 
 const Home = () => {
@@ -158,43 +194,11 @@ const Home = () => {
   };
 
   useEffect(() => {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const hasSaveData = Boolean(navigator.connection?.saveData);
-    const deviceMem = navigator.deviceMemory || 4;
-    const cores = navigator.hardwareConcurrency || 4;
-    const perfOk = deviceMem >= 2 && cores >= 4;
-
     const enableIntroNow = () => {
       setShowIntro(true);
-      sessionStorage.setItem('wg-intro-triggered', 'true');
+      globalThis.sessionStorage.setItem('wg-intro-triggered', 'true');
     };
-
-    const runWithBatteryCheck = async () => {
-      if (prefersReducedMotion || hasSaveData || !perfOk) return;
-      try {
-        const battery = await navigator.getBattery?.();
-        if (battery && battery.level <= 0.2) return;
-      } catch (_) {
-        // sem suporte, segue
-      }
-      enableIntroNow();
-    };
-
-    let timeoutId;
-    const enableIntro = () => {
-      timeoutId = window.setTimeout(runWithBatteryCheck, 800);
-    };
-
-    if (typeof window.requestIdleCallback === 'function') {
-      const idleId = window.requestIdleCallback(enableIntro, { timeout: 1500 });
-      return () => {
-        window.cancelIdleCallback(idleId);
-        window.clearTimeout(timeoutId);
-      };
-    }
-
-    enableIntro();
-    return () => window.clearTimeout(timeoutId);
+    return scheduleHomeIntro(enableIntroNow);
   }, []);
 
   useEffect(() => {
@@ -284,14 +288,14 @@ const Home = () => {
       });
 
       if (progress < 1) {
-        animationFrame = window.requestAnimationFrame(animate);
+        animationFrame = globalThis.requestAnimationFrame(animate);
       } else {
         setStatsAnimated(true);
       }
     };
 
-    animationFrame = window.requestAnimationFrame(animate);
-    return () => window.cancelAnimationFrame(animationFrame);
+    animationFrame = globalThis.requestAnimationFrame(animate);
+    return () => globalThis.cancelAnimationFrame(animationFrame);
   }, [
     statsVisible,
     statsAnimated,
@@ -301,64 +305,6 @@ const Home = () => {
     estatisticas.metrosRevestimentos,
     estatisticas.horasProjetando
   ]);
-
-  // Unidades (antes "Serviços") — ordem personalizada por interesse detectado
-  const nucleosBase = [
-    {
-      key: 'arquitetura',
-      title: t('home.units.architecture.title'),
-      path: '/arquitetura',
-      icon: Ruler,
-      description: t('home.units.architecture.description'),
-      highlight: t('home.units.architecture.highlight'),
-      color: 'wg-green',
-    },
-    {
-      key: 'engenharia',
-      title: t('home.units.engineering.title'),
-      path: '/engenharia',
-      icon: Building2,
-      description: t('home.units.engineering.description'),
-      highlight: t('home.units.engineering.highlight'),
-      color: 'wg-blue',
-    },
-    {
-      key: 'marcenaria',
-      title: t('home.units.carpentry.title'),
-      path: '/marcenaria',
-      icon: Hammer,
-      description: t('home.units.carpentry.description'),
-      highlight: t('home.units.carpentry.highlight'),
-      color: 'wg-brown',
-    },
-    {
-      key: 'buildtech',
-      title: 'WG Build Tech',
-      path: '/buildtech',
-      icon: Monitor,
-      description: 'Consultoria de IA e tecnologia para construção e gestão de projetos.',
-      highlight: 'Tecnologia + Construção',
-      color: 'wg-blue',
-    },
-    {
-      key: 'easylocker',
-      title: 'WG EasyLocker',
-      path: '/easylocker',
-      icon: Lock,
-      description: 'Armários inteligentes com acesso por app para condomínios e empresas.',
-      highlight: 'IoT + Segurança',
-      color: 'wg-orange',
-    },
-  ];
-
-  const nucleoOrder = userInteresse ? NUCLEOS_ORDER_BY_INTEREST[userInteresse] : null;
-  const nucleos = nucleoOrder
-    ? [...nucleosBase].sort((a, b) => {
-        const ai = nucleoOrder.indexOf(a.key);
-        const bi = nucleoOrder.indexOf(b.key);
-        return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
-      })
-    : nucleosBase;
 
   // Etapas do processo / Metodologia
   const metodologia = [
@@ -981,7 +927,7 @@ const Home = () => {
                       {logosNucleos.map((logo, index) => (
                         <div
                           key={logo.src}
-                          className={`flex justify-center ${index === 0 ? 'md:items-start' : index === 2 ? 'md:items-end' : 'md:items-center'}`}
+                          className={`flex justify-center ${logoStackAlignment[index] || 'md:items-center'}`}
                         >
                           <img
                             src={logo.src}
@@ -1108,7 +1054,7 @@ const Home = () => {
                 height="1080"
                 loading="lazy"
                 decoding="async"
-                fetchpriority="low"
+                fetchPriority="low"
               />
               <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-wg-blue/90 via-wg-blue/70 to-transparent" />
 
