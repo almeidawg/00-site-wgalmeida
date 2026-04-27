@@ -264,6 +264,17 @@ const getLocalizedHeroTitle = (language = '') => {
   return 'Architecture, Engineering and Premium Carpentry.';
 };
 
+const getIntroMotionProps = (showIntro, y, delay, duration = 1, ease) => {
+  const transition = { duration, delay: showIntro ? 0 : delay };
+  if (ease) transition.ease = ease;
+
+  return {
+    initial: { opacity: 0, y },
+    animate: { opacity: showIntro ? 0 : 1, y: showIntro ? y : 0 },
+    transition,
+  };
+};
+
 const Home = () => {
   const { t, i18n } = useTranslation();
   const { context: wgContext } = useWGContext() || { context: {} };
@@ -343,9 +354,7 @@ const Home = () => {
         <div className="container-custom">
           <div className="wg-page-hero-content home-hero-content px-4 sm:px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: showIntro ? 0 : 1, y: showIntro ? 18 : 0 }}
-            transition={{ duration: 0.85, delay: showIntro ? 0 : 0.2, ease: 'easeOut' }}
+            {...getIntroMotionProps(showIntro, 18, 0.2, 0.85, 'easeOut')}
             className="home-hero-overline mb-1 flex items-center justify-center gap-4 text-wg-orange"
           >
             <span className="hidden h-px w-10 bg-current/50 sm:block" />
@@ -357,9 +366,7 @@ const Home = () => {
 
           {/* H1 Principal - Responsivo para mobile */}
           <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: showIntro ? 0 : 1, y: showIntro ? 40 : 0 }}
-            transition={{ duration: 1, delay: showIntro ? 0 : 0.3, ease: "easeOut" }}
+            {...getIntroMotionProps(showIntro, 40, 0.3, 1, 'easeOut')}
             className="home-hero-title"
           >
             {localizedHeroTitle}
@@ -368,9 +375,7 @@ const Home = () => {
           <div className="home-hero-support-block">
           {/* Subtítulo */}
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: showIntro ? 0 : 1, y: showIntro ? 30 : 0 }}
-            transition={{ duration: 1, delay: showIntro ? 0 : 0.6, ease: "easeOut" }}
+            {...getIntroMotionProps(showIntro, 30, 0.6, 1, 'easeOut')}
             className="home-hero-subtitle px-2"
           >
             {t('home.hero.subtitle', { defaultValue: 'Um ecossistema completo para construir com excelência.' })}
@@ -378,9 +383,7 @@ const Home = () => {
 
           {/* H2 Subheadline */}
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: showIntro ? 0 : 1, y: showIntro ? 30 : 0 }}
-            transition={{ duration: 1, delay: showIntro ? 0 : 0.9, ease: "easeOut" }}
+            {...getIntroMotionProps(showIntro, 30, 0.9, 1, 'easeOut')}
             className="home-hero-body"
           >
             {heroSupport}
@@ -388,9 +391,7 @@ const Home = () => {
 
           {/* CTAs — personalizados se interesse detectado, padrão caso contrário */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: showIntro ? 0 : 1, y: showIntro ? 30 : 0 }}
-            transition={{ duration: 1, delay: showIntro ? 0 : 1.35 }}
+            {...getIntroMotionProps(showIntro, 30, 1.35)}
             className="home-hero-actions"
           >
             {personalized ? (
