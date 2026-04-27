@@ -20,8 +20,8 @@ const EasyRealStateLanding = () => {
   const planos = [
     {
       id: 'free',
-      label: 'Cálculo Público',
-      price: 'R$ 0',
+      label: EASYREALSTATE_PRECOS.free.label,
+      price: EASYREALSTATE_PRECOS.free.price,
       period: '/entrada',
       desc: 'Para validar a metodologia',
       cor: '#60a5fa',
@@ -180,9 +180,9 @@ const EasyRealStateLanding = () => {
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Web',
     offers: [
-      { '@type': 'Offer', price: '0', priceCurrency: 'BRL', name: 'Gratuito' },
-      { '@type': 'Offer', price: '79.90', priceCurrency: 'BRL', name: 'Solo' },
-      { '@type': 'Offer', price: '149.90', priceCurrency: 'BRL', name: 'Completo' },
+      { '@type': 'Offer', price: EASYREALSTATE_PRECOS.free.schemaPrice, priceCurrency: 'BRL', name: EASYREALSTATE_PRECOS.free.label },
+      { '@type': 'Offer', price: EASYREALSTATE_PRECOS.solo.schemaPrice, priceCurrency: 'BRL', name: EASYREALSTATE_PRECOS.solo.label },
+      { '@type': 'Offer', price: EASYREALSTATE_PRECOS.completo.schemaPrice, priceCurrency: 'BRL', name: EASYREALSTATE_PRECOS.completo.label },
     ],
   }
 

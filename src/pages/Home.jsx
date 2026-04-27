@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
-import SEO from '@/components/SEO';
+import Seo from '@/components/SEO';
 import { Link } from 'react-router-dom';
 import { motion } from '@/lib/motion-lite';
 import {
   ArrowRight,
   Building2,
-  Hammer,
-  Ruler,
   MessageSquare,
   FileText,
   Calculator,
@@ -14,7 +12,6 @@ import {
   Sofa,
   CheckCircle2,
   Monitor,
-  Lock,
   Calendar,
   Camera,
   MessagesSquare,
@@ -39,7 +36,6 @@ import { withBasePath } from '@/utils/assetPaths';
 import { trackCtaClick } from '@/lib/analytics';
 import { PRODUCT_URLS } from '@/data/company';
 import { useWGContext } from '@/providers/ContextProvider';
-import SmartCTA from '@/components/SmartCTA';
 
 const editorialScale = {
   kicker: 'text-[11px] font-light uppercase tracking-[0.18em]',
@@ -66,10 +62,13 @@ const HOME_STYLE_CARD_IMAGES = {
 };
 
 const logosNucleos = [
-  { src: withBasePath('/Logos/logo-arquitetura-84.webp'), alt: 'Logo Arquitetura' },
-  { src: withBasePath('/Logos/logo-engenharia-84.webp'), alt: 'Logo Engenharia' },
-  { src: withBasePath('/Logos/logo-marcenaria-84.webp'), alt: 'Logo Marcenaria' }
+  { src: withBasePath('/Logos/logo-arquitetura-84.webp'), alt: 'Logo Arquitetura', href: '/arquitetura' },
+  { src: withBasePath('/Logos/logo-engenharia-84.webp'), alt: 'Logo Engenharia', href: '/engenharia' },
+  { src: withBasePath('/Logos/logo-marcenaria-84.webp'), alt: 'Logo Marcenaria', href: '/marcenaria' },
+  { src: withBasePath('/Logos/logo-obraeasy-84.webp'), alt: 'Logo ObraEasy', href: '/obraeasy' }
 ];
+
+const logoStackAlignment = ['md:items-start', 'md:items-center', 'md:items-end'];
 
 const ENGINEERING_BANNER_SRC = withBasePath('/images/banners/ENGENHARIA.webp');
 const ENGINEERING_BANNER_SRCSET = [
@@ -114,138 +113,87 @@ const HERO_COPY_BY_INTEREST = {
   },
 };
 
-const NUCLEOS_ORDER_BY_INTEREST = {
-  obra: ['arquitetura', 'engenharia', 'marcenaria', 'buildtech', 'easylocker'],
-  marcenaria: ['marcenaria', 'arquitetura', 'engenharia', 'buildtech', 'easylocker'],
-  design: ['arquitetura', 'marcenaria', 'engenharia', 'buildtech', 'easylocker'],
-  investimento: ['engenharia', 'arquitetura', 'marcenaria', 'buildtech', 'easylocker'],
+const canRunHomeIntro = async () => {
+  const prefersReducedMotion = globalThis.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hasSaveData = Boolean(navigator.connection?.saveData);
+  const deviceMemory = navigator.deviceMemory || 4;
+  const cpuCores = navigator.hardwareConcurrency || 4;
+
+  if (prefersReducedMotion || hasSaveData || deviceMemory < 2 || cpuCores < 4) {
+    return false;
+  }
+
+  try {
+    const battery = await navigator.getBattery?.();
+    return !battery || battery.level > 0.2;
+  } catch (error) {
+    if (import.meta.env.DEV) {
+      console.debug('[home-intro] Battery status unavailable; intro remains enabled.', error);
+    }
+    return true;
+  }
 };
 
-const Home = () => {
-  const { t, i18n } = useTranslation();
-  const { context: wgContext } = useWGContext() || { context: {} };
-  const userInteresse = wgContext?.interesse || null;
-  const isReturning = (wgContext?.paginas?.length || 0) >= 3;
+const scheduleHomeIntro = (showIntro) => {
+  let timeoutId;
 
-  const personalized = userInteresse ? HERO_COPY_BY_INTEREST[userInteresse] : null;
-  const heroEyebrow = personalized?.eyebrow || t('home.hero.eyebrow', { defaultValue: 'Grupo WG Almeida · São Paulo' });
-  const heroSupport = personalized?.support || t('home.hero.support', {
-    defaultValue:
-      'Planejamos, executamos e entregamos espaços de alto padrão, do conceito ao último detalhe, sob um único padrão de gestão.',
-  });
-  // Intro inicia desativada para não competir com renderização crítica do hero.
-  const [showIntro, setShowIntro] = useState(false);
-  const statsSectionRef = useRef(null);
-  const [statsVisible, setStatsVisible] = useState(false);
-  const projectGalleryRef = useRef(null);
-  const [projectGalleryVisible, setProjectGalleryVisible] = useState(false);
-  const reviewsRef = useRef(null);
-  const [reviewsVisible, setReviewsVisible] = useState(false);
-  const [statsAnimated, setStatsAnimated] = useState(false);
-  const [displayStats, setDisplayStats] = useState({
-    projetosAndamento: 0,
-    clientesAtendidos: 0,
-    metrosRevestimentos: 0,
-    horasProjetando: 0
-  });
-
-  // Hook para estatísticas dinâmicas do sistema
-  const estatisticas = useEstatisticasWG({ enabled: statsVisible });
-
-  const handleIntroComplete = () => {
-    setShowIntro(false);
+  const enableIntro = () => {
+    timeoutId = globalThis.setTimeout(async () => {
+      if (await canRunHomeIntro()) {
+        showIntro();
+      }
+    }, 800);
   };
 
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const hasSaveData = Boolean(navigator.connection?.saveData);
-    const deviceMem = navigator.deviceMemory || 4;
-    const cores = navigator.hardwareConcurrency || 4;
-    const perfOk = deviceMem >= 2 && cores >= 4;
-
-    const enableIntroNow = () => {
-      setShowIntro(true);
-      sessionStorage.setItem('wg-intro-triggered', 'true');
+  if (typeof globalThis.requestIdleCallback === 'function') {
+    const idleId = globalThis.requestIdleCallback(enableIntro, { timeout: 1500 });
+    return () => {
+      globalThis.cancelIdleCallback(idleId);
+      globalThis.clearTimeout(timeoutId);
     };
+  }
 
-    const runWithBatteryCheck = async () => {
-      if (prefersReducedMotion || hasSaveData || !perfOk) return;
-      try {
-        const battery = await navigator.getBattery?.();
-        if (battery && battery.level <= 0.2) return;
-      } catch (_) {
-        // sem suporte, segue
-      }
-      enableIntroNow();
-    };
+  enableIntro();
+  return () => globalThis.clearTimeout(timeoutId);
+};
 
-    let timeoutId;
-    const enableIntro = () => {
-      timeoutId = window.setTimeout(runWithBatteryCheck, 800);
-    };
+const STATS_VISIBILITY_OPTIONS = { threshold: 0.35 };
+const LAZY_SECTION_VISIBILITY_OPTIONS = { rootMargin: '320px 0px', threshold: 0.01 };
 
-    if (typeof window.requestIdleCallback === 'function') {
-      const idleId = window.requestIdleCallback(enableIntro, { timeout: 1500 });
-      return () => {
-        window.cancelIdleCallback(idleId);
-        window.clearTimeout(timeoutId);
-      };
-    }
+const createEmptyStats = () => ({
+  projetosAndamento: 0,
+  clientesAtendidos: 0,
+  metrosRevestimentos: 0,
+  horasProjetando: 0,
+});
 
-    enableIntro();
-    return () => window.clearTimeout(timeoutId);
-  }, []);
+const useVisibilityFlag = (options) => {
+  const sectionRef = useRef(null);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    if (!statsSectionRef.current || statsVisible) return;
+    if (!sectionRef.current || visible) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0]?.isIntersecting) {
-          setStatsVisible(true);
+          setVisible(true);
           observer.disconnect();
         }
       },
-      { threshold: 0.35 }
+      options
     );
 
-    observer.observe(statsSectionRef.current);
+    observer.observe(sectionRef.current);
     return () => observer.disconnect();
-  }, [statsVisible]);
+  }, [visible, options]);
 
-  useEffect(() => {
-    if (!projectGalleryRef.current || projectGalleryVisible) return;
+  return [sectionRef, visible];
+};
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0]?.isIntersecting) {
-          setProjectGalleryVisible(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: '320px 0px', threshold: 0.01 }
-    );
-
-    observer.observe(projectGalleryRef.current);
-    return () => observer.disconnect();
-  }, [projectGalleryVisible]);
-
-  useEffect(() => {
-    if (!reviewsRef.current || reviewsVisible) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0]?.isIntersecting) {
-          setReviewsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: '320px 0px', threshold: 0.01 }
-    );
-
-    observer.observe(reviewsRef.current);
-    return () => observer.disconnect();
-  }, [reviewsVisible]);
+const useAnimatedStats = (statsVisible, estatisticas) => {
+  const [statsAnimated, setStatsAnimated] = useState(false);
+  const [displayStats, setDisplayStats] = useState(createEmptyStats);
 
   useEffect(() => {
     if (!statsVisible || estatisticas.loading) return;
@@ -268,29 +216,29 @@ const Home = () => {
     let startTime;
     const duration = 1400;
 
-    const animate = (timestamp) => {
-      if (!startTime) startTime = timestamp;
+    const animate = (currentTime) => {
+      if (!startTime) startTime = currentTime;
 
-      const elapsed = timestamp - startTime;
+      const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      const easedProgress = 1 - Math.pow(1 - progress, 3);
+      const easeOut = 1 - Math.pow(1 - progress, 3);
 
       setDisplayStats({
-        projetosAndamento: Math.round(targetStats.projetosAndamento * easedProgress),
-        clientesAtendidos: Math.round(targetStats.clientesAtendidos * easedProgress),
-        metrosRevestimentos: Math.round(targetStats.metrosRevestimentos * easedProgress),
-        horasProjetando: Math.round(targetStats.horasProjetando * easedProgress)
+        projetosAndamento: Math.round(targetStats.projetosAndamento * easeOut),
+        clientesAtendidos: Math.round(targetStats.clientesAtendidos * easeOut),
+        metrosRevestimentos: Math.round(targetStats.metrosRevestimentos * easeOut),
+        horasProjetando: Math.round(targetStats.horasProjetando * easeOut)
       });
 
       if (progress < 1) {
-        animationFrame = window.requestAnimationFrame(animate);
+        animationFrame = globalThis.requestAnimationFrame(animate);
       } else {
         setStatsAnimated(true);
       }
     };
 
-    animationFrame = window.requestAnimationFrame(animate);
-    return () => window.cancelAnimationFrame(animationFrame);
+    animationFrame = globalThis.requestAnimationFrame(animate);
+    return () => globalThis.cancelAnimationFrame(animationFrame);
   }, [
     statsVisible,
     statsAnimated,
@@ -301,63 +249,66 @@ const Home = () => {
     estatisticas.horasProjetando
   ]);
 
-  // Unidades (antes "Serviços") — ordem personalizada por interesse detectado
-  const nucleosBase = [
-    {
-      key: 'arquitetura',
-      title: t('home.units.architecture.title'),
-      path: '/arquitetura',
-      icon: Ruler,
-      description: t('home.units.architecture.description'),
-      highlight: t('home.units.architecture.highlight'),
-      color: 'wg-green',
-    },
-    {
-      key: 'engenharia',
-      title: t('home.units.engineering.title'),
-      path: '/engenharia',
-      icon: Building2,
-      description: t('home.units.engineering.description'),
-      highlight: t('home.units.engineering.highlight'),
-      color: 'wg-blue',
-    },
-    {
-      key: 'marcenaria',
-      title: t('home.units.carpentry.title'),
-      path: '/marcenaria',
-      icon: Hammer,
-      description: t('home.units.carpentry.description'),
-      highlight: t('home.units.carpentry.highlight'),
-      color: 'wg-brown',
-    },
-    {
-      key: 'buildtech',
-      title: 'WG Build Tech',
-      path: '/buildtech',
-      icon: Monitor,
-      description: 'Consultoria de IA e tecnologia para construção e gestão de projetos.',
-      highlight: 'Tecnologia + Construção',
-      color: 'wg-blue',
-    },
-    {
-      key: 'easylocker',
-      title: 'WG EasyLocker',
-      path: '/easylocker',
-      icon: Lock,
-      description: 'Armários inteligentes com acesso por app para condomínios e empresas.',
-      highlight: 'IoT + Segurança',
-      color: 'wg-orange',
-    },
-  ];
+  return displayStats;
+};
 
-  const nucleoOrder = userInteresse ? NUCLEOS_ORDER_BY_INTEREST[userInteresse] : null;
-  const nucleos = nucleoOrder
-    ? [...nucleosBase].sort((a, b) => {
-        const ai = nucleoOrder.indexOf(a.key);
-        const bi = nucleoOrder.indexOf(b.key);
-        return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
-      })
-    : nucleosBase;
+const getLocalizedHeroTitle = (language = '') => {
+  if (language.startsWith('pt')) {
+    return 'Arquitetura, Engenharia e Marcenaria de Alto Padrão.';
+  }
+
+  if (language.startsWith('es')) {
+    return 'Arquitectura, Ingeniería y Carpintería Premium.';
+  }
+
+  return 'Architecture, Engineering and Premium Carpentry.';
+};
+
+const getIntroMotionProps = (showIntro, y, delay, duration = 1, ease = undefined) => {
+  const transition = { duration, delay: showIntro ? 0 : delay };
+  if (ease) transition.ease = ease;
+
+  return {
+    initial: { opacity: 0, y },
+    animate: { opacity: showIntro ? 0 : 1, y: showIntro ? y : 0 },
+    transition,
+  };
+};
+
+const Home = () => {
+  const { t, i18n } = useTranslation();
+  const { context: wgContext } = useWGContext() || { context: {} };
+  const userInteresse = wgContext?.interesse || null;
+  const isReturning = (wgContext?.paginas?.length || 0) >= 3;
+
+  const personalized = userInteresse ? HERO_COPY_BY_INTEREST[userInteresse] : null;
+  const heroEyebrow = personalized?.eyebrow || t('home.hero.eyebrow', { defaultValue: 'Grupo WG Almeida · São Paulo' });
+  const heroSupport = personalized?.support || t('home.hero.support', {
+    defaultValue:
+      'Planejamos, executamos e entregamos espaços de alto padrão, do conceito ao último detalhe, sob um único padrão de gestão.',
+  });
+  // Intro inicia desativada para não competir com renderização crítica do hero.
+  const [showIntro, setShowIntro] = useState(false);
+  const [statsSectionRef, statsVisible] = useVisibilityFlag(STATS_VISIBILITY_OPTIONS);
+  const [projectGalleryRef, projectGalleryVisible] = useVisibilityFlag(LAZY_SECTION_VISIBILITY_OPTIONS);
+  const [reviewsRef, reviewsVisible] = useVisibilityFlag(LAZY_SECTION_VISIBILITY_OPTIONS);
+
+  // Hook para estatísticas dinâmicas do sistema
+  const estatisticas = useEstatisticasWG({ enabled: statsVisible });
+  const displayStats = useAnimatedStats(statsVisible, estatisticas);
+  const localizedHeroTitle = getLocalizedHeroTitle(i18n.language);
+
+  const handleIntroComplete = () => {
+    setShowIntro(false);
+  };
+
+  useEffect(() => {
+    const enableIntroNow = () => {
+      setShowIntro(true);
+      globalThis.sessionStorage.setItem('wg-intro-triggered', 'true');
+    };
+    return scheduleHomeIntro(enableIntroNow);
+  }, []);
 
   // Etapas do processo / Metodologia
   const metodologia = [
@@ -380,7 +331,7 @@ const Home = () => {
 
   return (
     <>
-      <SEO
+      <Seo
         pathname="/"
         schema={[SCHEMAS.knowledgeGraph, SCHEMAS.website, SCHEMAS.localBusiness, SCHEMAS.breadcrumbHome]}
       />
@@ -403,9 +354,7 @@ const Home = () => {
         <div className="container-custom">
           <div className="wg-page-hero-content home-hero-content px-4 sm:px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: showIntro ? 0 : 1, y: showIntro ? 18 : 0 }}
-            transition={{ duration: 0.85, delay: showIntro ? 0 : 0.2, ease: 'easeOut' }}
+            {...getIntroMotionProps(showIntro, 18, 0.2, 0.85, 'easeOut')}
             className="home-hero-overline mb-1 flex items-center justify-center gap-4 text-wg-orange"
           >
             <span className="hidden h-px w-10 bg-current/50 sm:block" />
@@ -417,26 +366,16 @@ const Home = () => {
 
           {/* H1 Principal - Responsivo para mobile */}
           <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: showIntro ? 0 : 1, y: showIntro ? 40 : 0 }}
-            transition={{ duration: 1, delay: showIntro ? 0 : 0.3, ease: "easeOut" }}
+            {...getIntroMotionProps(showIntro, 40, 0.3, 1, 'easeOut')}
             className="home-hero-title"
           >
-            {i18n.language?.startsWith('pt') ? (
-              <>Arquitetura, Engenharia e Marcenaria de Alto Padrão.</>
-            ) : i18n.language?.startsWith('es') ? (
-              <>Arquitectura, Ingeniería y Carpintería Premium.</>
-            ) : (
-              <>Architecture, Engineering and Premium Carpentry.</>
-            )}
+            {localizedHeroTitle}
           </motion.h1>
 
           <div className="home-hero-support-block">
           {/* Subtítulo */}
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: showIntro ? 0 : 1, y: showIntro ? 30 : 0 }}
-            transition={{ duration: 1, delay: showIntro ? 0 : 0.6, ease: "easeOut" }}
+            {...getIntroMotionProps(showIntro, 30, 0.6, 1, 'easeOut')}
             className="home-hero-subtitle px-2"
           >
             {t('home.hero.subtitle', { defaultValue: 'Um ecossistema completo para construir com excelência.' })}
@@ -444,9 +383,7 @@ const Home = () => {
 
           {/* H2 Subheadline */}
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: showIntro ? 0 : 1, y: showIntro ? 30 : 0 }}
-            transition={{ duration: 1, delay: showIntro ? 0 : 0.9, ease: "easeOut" }}
+            {...getIntroMotionProps(showIntro, 30, 0.9, 1, 'easeOut')}
             className="home-hero-body"
           >
             {heroSupport}
@@ -454,9 +391,7 @@ const Home = () => {
 
           {/* CTAs — personalizados se interesse detectado, padrão caso contrário */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: showIntro ? 0 : 1, y: showIntro ? 30 : 0 }}
-            transition={{ duration: 1, delay: showIntro ? 0 : 1.35 }}
+            {...getIntroMotionProps(showIntro, 30, 1.35)}
             className="home-hero-actions"
           >
             {personalized ? (
@@ -717,8 +652,8 @@ const Home = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-4">
                     <div className="flex gap-1 mb-2">
-                      {['#FFFFFF', '#000000', '#808080'].map((color, idx) => (
-                        <div key={idx} className="w-4 h-4 rounded-full border border-white/50" style={{ backgroundColor: color }} />
+                      {['#FFFFFF', '#000000', '#808080'].map((color) => (
+                        <div key={color} className="w-4 h-4 rounded-full border border-white/50" style={{ backgroundColor: color }} />
                       ))}
                     </div>
                     <h3 className="text-white font-light text-lg">Minimalismo</h3>
@@ -750,8 +685,8 @@ const Home = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-4">
                     <div className="flex gap-1 mb-2">
-                      {['#2C3E50', '#ECF0F1', '#3498DB'].map((color, idx) => (
-                        <div key={idx} className="w-4 h-4 rounded-full border border-white/50" style={{ backgroundColor: color }} />
+                      {['#2C3E50', '#ECF0F1', '#3498DB'].map((color) => (
+                        <div key={color} className="w-4 h-4 rounded-full border border-white/50" style={{ backgroundColor: color }} />
                       ))}
                     </div>
                     <h3 className="text-white font-light text-lg">Moderno</h3>
@@ -783,8 +718,8 @@ const Home = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-4">
                     <div className="flex gap-1 mb-2">
-                      {['#2C2C2C', '#B87333', '#708090'].map((color, idx) => (
-                        <div key={idx} className="w-4 h-4 rounded-full border border-white/50" style={{ backgroundColor: color }} />
+                      {['#2C2C2C', '#B87333', '#708090'].map((color) => (
+                        <div key={color} className="w-4 h-4 rounded-full border border-white/50" style={{ backgroundColor: color }} />
                       ))}
                     </div>
                     <h3 className="text-white font-light text-lg">Industrial</h3>
@@ -816,8 +751,8 @@ const Home = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-4">
                     <div className="flex gap-1 mb-2">
-                      {['#2F4F4F', '#FFFFFF', '#DAA520'].map((color, idx) => (
-                        <div key={idx} className="w-4 h-4 rounded-full border border-white/50" style={{ backgroundColor: color }} />
+                      {['#2F4F4F', '#FFFFFF', '#DAA520'].map((color) => (
+                        <div key={color} className="w-4 h-4 rounded-full border border-white/50" style={{ backgroundColor: color }} />
                       ))}
                     </div>
                     <h3 className="text-white font-light text-lg">Contemporâneo</h3>
@@ -849,8 +784,8 @@ const Home = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-4">
                     <div className="flex gap-1 mb-2">
-                      {['#F5F5DC', '#2F4F4F', '#D4C5B9'].map((color, idx) => (
-                        <div key={idx} className="w-4 h-4 rounded-full border border-white/50" style={{ backgroundColor: color }} />
+                      {['#F5F5DC', '#2F4F4F', '#D4C5B9'].map((color) => (
+                        <div key={color} className="w-4 h-4 rounded-full border border-white/50" style={{ backgroundColor: color }} />
                       ))}
                     </div>
                     <h3 className="text-white font-light text-lg">Japandi</h3>
@@ -882,8 +817,8 @@ const Home = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-4">
                     <div className="flex gap-1 mb-2">
-                      {['#E5C07B', '#A67C52', '#FFFFFF'].map((color, idx) => (
-                        <div key={idx} className="w-4 h-4 rounded-full border border-white/50" style={{ backgroundColor: color }} />
+                      {['#E5C07B', '#A67C52', '#FFFFFF'].map((color) => (
+                        <div key={color} className="w-4 h-4 rounded-full border border-white/50" style={{ backgroundColor: color }} />
                       ))}
                     </div>
                     <h3 className="text-white font-light text-lg">Clássico</h3>
@@ -980,7 +915,7 @@ const Home = () => {
                       {logosNucleos.map((logo, index) => (
                         <div
                           key={logo.src}
-                          className={`flex justify-center ${index === 0 ? 'md:items-start' : index === 2 ? 'md:items-end' : 'md:items-center'}`}
+                          className={`flex justify-center ${logoStackAlignment[index] || 'md:items-center'}`}
                         >
                           <img
                             src={logo.src}
@@ -1107,7 +1042,7 @@ const Home = () => {
                 height="1080"
                 loading="lazy"
                 decoding="async"
-                fetchpriority="low"
+                fetchPriority="low"
               />
               <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-wg-blue/90 via-wg-blue/70 to-transparent" />
 
@@ -1224,7 +1159,7 @@ const Home = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
             {metodologia.map((step, index) => (
               <motion.div
-                key={index}
+                key={step.title}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -1298,7 +1233,7 @@ const Home = () => {
               <div className="flex flex-wrap gap-3 mb-8">
                 {clientAreaFeatures.map((feature, index) => (
                   <motion.div
-                    key={index}
+                    key={feature.title}
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
