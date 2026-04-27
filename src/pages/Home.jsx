@@ -264,7 +264,7 @@ const getLocalizedHeroTitle = (language = '') => {
   return 'Architecture, Engineering and Premium Carpentry.';
 };
 
-const getIntroMotionProps = (showIntro, y, delay, duration = 1, ease) => {
+const getIntroMotionProps = (showIntro, y, delay, duration = 1, ease = undefined) => {
   const transition = { duration, delay: showIntro ? 0 : delay };
   if (ease) transition.ease = ease;
 
