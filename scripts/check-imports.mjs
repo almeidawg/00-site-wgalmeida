@@ -2,7 +2,9 @@
 import path from 'path'
 import { fileURLToPath, pathToFileURL } from 'url'
 
+const project = 'site-wg'
 const here = path.dirname(fileURLToPath(import.meta.url))
-const sharedScript = path.resolve(here, '../../../../03_SaaS/shared/tooling/check-imports.mjs')
+const sharedScript = path.resolve(here, './.wg-shared/tooling/check-imports.mjs')
 
+void project
 await import(pathToFileURL(sharedScript).href)
