@@ -10,6 +10,7 @@ export const DEFAULT_USER_CONTEXT = {
   faixaValor: null,
   estagio: 'exploracao',
   origem: null,
+  partnerId: null,
   paginas: [],
   lastPath: '',
   recommendedAction: null,

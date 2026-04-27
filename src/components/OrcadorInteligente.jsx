@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from '@/lib/motion-lite';
 import { ArrowRight, ArrowLeft, CheckCircle2, Building2, Ruler, Loader2 } from 'lucide-react';
 import { supabase } from '@/lib/customSupabaseClient';
+import { useWGContext } from '@/providers/ContextProvider';
 
 const SERVICE_OPTIONS = [
   'Obra Turn Key (Completa)',
@@ -18,6 +19,7 @@ const OrcadorInteligente = ({
   sourceContext = '',
   introLabel = '',
 }) => {
+  const { context: wgContext } = useWGContext() || { context: {} };
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -36,33 +38,25 @@ const OrcadorInteligente = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setStep(4); // Forçar step 4 para visualização de carregamento
     setLoading(true);
 
-    try {
-      const payload = {
-        nome: formData.nome,
-        telefone: formData.telefone,
-        email: formData.email,
-        servico: formData.servico,
-        tipoImovel: formData.tipoImovel,
-        metragem: formData.metragem,
-        prazo: formData.prazo,
-        origem: sourceContext || 'site-wgalmeida',
-      };
+    const finalSource = sourceContext || wgContext?.origem || 'site-wgalmeida';
+    const partnerId = wgContext?.partnerId || null;
 
+    try {
       const { error: contactError } = await supabase.from('contacts').insert([{
         name: formData.nome,
         email: formData.email,
         phone: formData.telefone,
         subject: `Orçamento Inteligente: ${formData.servico}`,
-        message: `Imóvel: ${formData.tipoImovel} | Metragem: ${formData.metragem}m² | Prazo: ${formData.prazo} | Origem: ${sourceContext || 'site-wgalmeida'}`,
+        message: `Imóvel: ${formData.tipoImovel} | Metragem: ${formData.metragem}m² | Prazo: ${formData.prazo} | Origem: ${finalSource}${partnerId ? ` | Parceiro: ${partnerId}` : ''}`,
       }]);
 
       if (contactError) {
         console.warn('Sem permissão para contact (RLS), ignorando erro nativo para manter UX...', contactError);
       }
 
-      void payload;
       setSuccess(true);
     } catch (err) {
       console.error('Erro ao enviar orçamento:', err);
