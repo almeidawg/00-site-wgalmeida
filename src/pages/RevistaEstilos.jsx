@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { motion } from '@/lib/motion-lite';
 import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import SEO from '@/components/SEO';
+import Seo from '@/components/SEO';
 import ResponsiveWebpImage from '@/components/ResponsiveWebpImage';
 import {
   Palette,
@@ -20,8 +20,6 @@ const STYLE_MAGAZINE_HERO_IMAGE = getPublicPageImageSrc('revistaEstilos', withBa
 
 // Component for Style Card
 const StyleCard = ({ estilo, index }) => {
-  const isEven = index % 2 === 0;
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -53,9 +51,9 @@ const StyleCard = ({ estilo, index }) => {
 
           {/* Color Palette */}
           <div className="absolute top-6 left-6 flex gap-2">
-            {estilo.colors.slice(0, 4).map((color, idx) => (
+            {estilo.colors.slice(0, 4).map((color) => (
               <div
-                key={idx}
+                key={color}
                 className="w-8 h-8 rounded-full border-2 border-white shadow-md"
                 style={{ backgroundColor: color }}
               />
@@ -95,9 +93,9 @@ const StyleCard = ({ estilo, index }) => {
 
           {/* Tags */}
           <div className="flex flex-wrap gap-2 mb-4">
-            {estilo.tags.slice(0, 3).map((tag, idx) => (
+            {estilo.tags.slice(0, 3).map((tag) => (
               <span
-                key={idx}
+                key={tag}
                 className="px-3 py-1 bg-white/20 backdrop-blur-sm text-xs rounded-full border border-white/30"
               >
                 #{tag}
@@ -116,8 +114,22 @@ const StyleCard = ({ estilo, index }) => {
   );
 };
 
+StyleCard.propTypes = {
+  estilo: PropTypes.shape({
+    slug: PropTypes.string.isRequired,
+    image: PropTypes.string,
+    title: PropTypes.string.isRequired,
+    featured: PropTypes.bool,
+    colors: PropTypes.arrayOf(PropTypes.string).isRequired,
+    quote: PropTypes.string,
+    author: PropTypes.string,
+    excerpt: PropTypes.string.isRequired,
+    tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }).isRequired,
+  index: PropTypes.number.isRequired,
+};
+
 const RevistaEstilos = () => {
-  const { t } = useTranslation();
   const [estilos, setEstilos] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -139,7 +151,7 @@ const RevistaEstilos = () => {
 
   return (
     <>
-      <SEO
+      <Seo
         pathname="/revista-estilos"
         title="Revista de Estilos | Descubra seu Estilo Ideal - WG Almeida"
         description="Explore nossa revista de estilos: Minimalismo, Clássico, Moderno, Vintage, Tropical, Boho e mais. Descubra qual estilo combina com você."

@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { motion } from '@/lib/motion-lite';
-import { useTranslation } from 'react-i18next';
-import SEO from '@/components/SEO';
+import Seo from '@/components/SEO';
 import ResponsiveWebpImage from '@/components/ResponsiveWebpImage';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -24,8 +24,8 @@ import { getStyleImageUrl } from '@/data/styleImageManifest';
 
 const slugifyHeading = (text) => text
   .toString().toLowerCase().normalize('NFD')
-  .replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9\s-]/g, '')
-  .trim().replace(/\s+/g, '-');
+  .replaceAll(/[\u0300-\u036f]/g, '').replaceAll(/[^a-z0-9\s-]/g, '')
+  .trim().replaceAll(/\s+/g, '-');
 
 const extractTocHeadings = (markdown) =>
   markdown.split('\n').filter((l) => l.startsWith('## '))
@@ -160,14 +160,17 @@ const ShareButtons = ({ title, url }) => {
   );
 };
 
+ShareButtons.propTypes = {
+  title: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+};
+
 const EstiloDetail = () => {
   const { slug } = useParams();
-  const navigate = useNavigate();
-  const { t } = useTranslation();
   const [estilo, setEstilo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [allEstilos, setAllEstilos] = useState([]);
-  const [activeHeadingId, setActiveHeadingId] = useState(null);
+  const activeHeadingId = null;
 
   useEffect(() => {
     const loadEstilo = () => {
@@ -239,7 +242,7 @@ const EstiloDetail = () => {
 
   return (
     <>
-      <SEO
+      <Seo
         title={`${estilo.title} - Guia Completo de Estilo | WG Almeida`}
         description={estilo.excerpt}
         url={articleUrl}
@@ -298,9 +301,9 @@ const EstiloDetail = () => {
                 Guia de Estilo
               </span>
               <div className="flex gap-2">
-                {estilo.colors.map((color, idx) => (
+                {estilo.colors.map((color) => (
                   <div
-                    key={idx}
+                    key={color}
                     className="h-5 w-5 rounded-full border border-white/60 shadow-[0_10px_24px_rgba(0,0,0,0.16)]"
                     style={{ backgroundColor: color }}
                   />
@@ -451,9 +454,9 @@ const EstiloDetail = () => {
               <span className="text-sm font-light uppercase tracking-wider text-wg-gray">Tags</span>
             </div>
             <div className="flex flex-wrap items-center gap-3">
-              {estilo.tags.map((tag, idx) => (
+              {estilo.tags.map((tag) => (
                 <span
-                  key={idx}
+                  key={tag}
                   className="inline-flex items-center rounded-full border border-black/8 bg-[#f6f6f4] px-4 py-2 text-sm font-light text-wg-black transition-all hover:border-black/14 hover:shadow-sm"
                 >
                   #{tag}

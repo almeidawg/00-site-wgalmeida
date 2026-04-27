@@ -10,9 +10,9 @@
  * 3. Blog: (Placeholder) Validar se posts de blog vinculam a serviços/estilos.
  */
 
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -43,16 +43,12 @@ async function auditEstilos() {
   return true;
 }
 
-async function run() {
-  const estilosOk = await auditEstilos();
-  
-  if (estilosOk) {
-    console.log('\n✨ Auditoria de SEO concluída com sucesso!');
-    process.exit(0);
-  } else {
-    console.log('\n⚠️ Falhas detectadas na auditoria de SEO.');
-    process.exit(1);
-  }
-}
+const estilosOk = await auditEstilos();
 
-run();
+if (estilosOk) {
+  console.log('\n✨ Auditoria de SEO concluída com sucesso!');
+  process.exit(0);
+} else {
+  console.log('\n⚠️ Falhas detectadas na auditoria de SEO.');
+  process.exit(1);
+}

@@ -216,13 +216,22 @@ if (window.navigation && window.self !== window.top) {
 
 const enableHorizonsMonitoring = process.env.HORIZONS_EMBED === "true";
 const appBasePath = process.env.APP_BASE_PATH || "/";
+const reactPathMarkers = [
+  "/react/",
+  `${path.win32.sep}react${path.win32.sep}`,
+  "/react-dom/",
+  `${path.win32.sep}react-dom${path.win32.sep}`,
+  "/react-router",
+  `${path.win32.sep}react-router`,
+  "react-router",
+];
 
 const addTransformIndexHtml = {
   name: "add-transform-index-html",
   transformIndexHtml(html) {
     const optimizedHtml = html
-      .replace(/<link rel="modulepreload"[^>]*vendor-supabase[^>]*>\s*/g, "")
-      .replace(/<link rel="modulepreload"[^>]*vendor-motion[^>]*>\s*/g, "");
+      .replaceAll(/<link rel="modulepreload"[^>]*vendor-supabase[^>]*>\s*/g, "")
+      .replaceAll(/<link rel="modulepreload"[^>]*vendor-motion[^>]*>\s*/g, "");
 
     const tags = [];
 
@@ -288,26 +297,26 @@ export default defineConfig({
       : []),
     mdRawPlugin,
     react(),
-    ...(!isDev ? [addTransformIndexHtml] : []),
+    ...(isDev ? [] : [addTransformIndexHtml]),
     coreJsAliasPlugin,
     // Compressão Gzip + Brotli dos assets no build
-    ...(!isDev
-      ? [
+    ...(isDev
+      ? []
+      : [
           compression({ algorithm: "gzip", threshold: 1024 }),
           compression({ algorithm: "brotliCompress", threshold: 1024 }),
-        ]
-      : []),
+        ]),
     // Bundle analyzer — gera stats.html na raiz após build
-    ...(!isDev && process.env.ANALYZE === "true"
-      ? [
+    ...(isDev || process.env.ANALYZE !== "true"
+      ? []
+      : [
           visualizer({
             filename: "stats.html",
             open: true,
             gzipSize: true,
             brotliSize: true,
           }),
-        ]
-      : []),
+        ]),
   ],
   server: {
     cors: true,
@@ -365,15 +374,7 @@ export default defineConfig({
               return "vendor-icons";
             }
             // React core - critico, carrega primeiro
-            if (
-              id.includes("/react/") ||
-              id.includes("\\react\\") ||
-              id.includes("/react-dom/") ||
-              id.includes("\\react-dom\\") ||
-              id.includes("/react-router") ||
-              id.includes("\\react-router") ||
-              id.includes("react-router")
-            ) {
+            if (reactPathMarkers.some((marker) => id.includes(marker))) {
               return "vendor-react";
             }
             // UI components

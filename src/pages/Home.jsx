@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
-import SEO from '@/components/SEO';
+import Seo from '@/components/SEO';
 import { Link } from 'react-router-dom';
 import { motion } from '@/lib/motion-lite';
 import {
   ArrowRight,
   Building2,
-  Hammer,
-  Ruler,
   MessageSquare,
   FileText,
   Calculator,
@@ -14,7 +12,6 @@ import {
   Sofa,
   CheckCircle2,
   Monitor,
-  Lock,
   Calendar,
   Camera,
   MessagesSquare,
@@ -39,7 +36,6 @@ import { withBasePath } from '@/utils/assetPaths';
 import { trackCtaClick } from '@/lib/analytics';
 import { PRODUCT_URLS } from '@/data/company';
 import { useWGContext } from '@/providers/ContextProvider';
-import SmartCTA from '@/components/SmartCTA';
 
 const editorialScale = {
   kicker: 'text-[11px] font-light uppercase tracking-[0.18em]',
@@ -327,7 +323,7 @@ const Home = () => {
 
   return (
     <>
-      <SEO
+      <Seo
         pathname="/"
         schema={[SCHEMAS.knowledgeGraph, SCHEMAS.website, SCHEMAS.localBusiness, SCHEMAS.breadcrumbHome]}
       />
@@ -664,8 +660,8 @@ const Home = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-4">
                     <div className="flex gap-1 mb-2">
-                      {['#FFFFFF', '#000000', '#808080'].map((color, idx) => (
-                        <div key={idx} className="w-4 h-4 rounded-full border border-white/50" style={{ backgroundColor: color }} />
+                      {['#FFFFFF', '#000000', '#808080'].map((color) => (
+                        <div key={color} className="w-4 h-4 rounded-full border border-white/50" style={{ backgroundColor: color }} />
                       ))}
                     </div>
                     <h3 className="text-white font-light text-lg">Minimalismo</h3>
@@ -697,8 +693,8 @@ const Home = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-4">
                     <div className="flex gap-1 mb-2">
-                      {['#2C3E50', '#ECF0F1', '#3498DB'].map((color, idx) => (
-                        <div key={idx} className="w-4 h-4 rounded-full border border-white/50" style={{ backgroundColor: color }} />
+                      {['#2C3E50', '#ECF0F1', '#3498DB'].map((color) => (
+                        <div key={color} className="w-4 h-4 rounded-full border border-white/50" style={{ backgroundColor: color }} />
                       ))}
                     </div>
                     <h3 className="text-white font-light text-lg">Moderno</h3>
@@ -730,8 +726,8 @@ const Home = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-4">
                     <div className="flex gap-1 mb-2">
-                      {['#2C2C2C', '#B87333', '#708090'].map((color, idx) => (
-                        <div key={idx} className="w-4 h-4 rounded-full border border-white/50" style={{ backgroundColor: color }} />
+                      {['#2C2C2C', '#B87333', '#708090'].map((color) => (
+                        <div key={color} className="w-4 h-4 rounded-full border border-white/50" style={{ backgroundColor: color }} />
                       ))}
                     </div>
                     <h3 className="text-white font-light text-lg">Industrial</h3>
@@ -763,8 +759,8 @@ const Home = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-4">
                     <div className="flex gap-1 mb-2">
-                      {['#2F4F4F', '#FFFFFF', '#DAA520'].map((color, idx) => (
-                        <div key={idx} className="w-4 h-4 rounded-full border border-white/50" style={{ backgroundColor: color }} />
+                      {['#2F4F4F', '#FFFFFF', '#DAA520'].map((color) => (
+                        <div key={color} className="w-4 h-4 rounded-full border border-white/50" style={{ backgroundColor: color }} />
                       ))}
                     </div>
                     <h3 className="text-white font-light text-lg">Contemporâneo</h3>
@@ -796,8 +792,8 @@ const Home = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-4">
                     <div className="flex gap-1 mb-2">
-                      {['#F5F5DC', '#2F4F4F', '#D4C5B9'].map((color, idx) => (
-                        <div key={idx} className="w-4 h-4 rounded-full border border-white/50" style={{ backgroundColor: color }} />
+                      {['#F5F5DC', '#2F4F4F', '#D4C5B9'].map((color) => (
+                        <div key={color} className="w-4 h-4 rounded-full border border-white/50" style={{ backgroundColor: color }} />
                       ))}
                     </div>
                     <h3 className="text-white font-light text-lg">Japandi</h3>
@@ -829,8 +825,8 @@ const Home = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-4">
                     <div className="flex gap-1 mb-2">
-                      {['#E5C07B', '#A67C52', '#FFFFFF'].map((color, idx) => (
-                        <div key={idx} className="w-4 h-4 rounded-full border border-white/50" style={{ backgroundColor: color }} />
+                      {['#E5C07B', '#A67C52', '#FFFFFF'].map((color) => (
+                        <div key={color} className="w-4 h-4 rounded-full border border-white/50" style={{ backgroundColor: color }} />
                       ))}
                     </div>
                     <h3 className="text-white font-light text-lg">Clássico</h3>
@@ -1171,7 +1167,7 @@ const Home = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
             {metodologia.map((step, index) => (
               <motion.div
-                key={index}
+                key={step.title}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -1245,7 +1241,7 @@ const Home = () => {
               <div className="flex flex-wrap gap-3 mb-8">
                 {clientAreaFeatures.map((feature, index) => (
                   <motion.div
-                    key={index}
+                    key={feature.title}
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
