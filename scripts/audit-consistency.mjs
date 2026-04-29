@@ -81,7 +81,50 @@ function run(command) {
   }
 }
 
+function hasCommand(command) {
+  try {
+    execSync(`${command} --version`, { cwd: rootDir, stdio: 'ignore' })
+    return true
+  } catch {
+    return false
+  }
+}
+
+function listSourceFiles(dir = srcDir) {
+  const files = []
+  if (!fs.existsSync(dir)) return files
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const abs = path.join(dir, entry.name)
+    const rel = toPosix(path.relative(rootDir, abs))
+    if (entry.isDirectory()) {
+      if (isIgnoredFile(`${rel}/`)) continue
+      files.push(...listSourceFiles(abs))
+      continue
+    }
+    if (!entry.isFile()) continue
+    if (!/\.(ts|tsx|js|jsx)$/.test(entry.name)) continue
+    if (isIgnoredFile(rel)) continue
+    files.push(rel)
+  }
+  return files
+}
+
+const canUseRg = hasCommand('rg')
+
 function rgContent(pattern) {
+  if (!canUseRg) {
+    const rx = new RegExp(pattern, 'i')
+    return listSourceFiles()
+      .filter((rel) => {
+        try {
+          return rx.test(fs.readFileSync(path.join(rootDir, rel), 'utf8'))
+        } catch {
+          return false
+        }
+      })
+      .sort()
+  }
+
   const cmd = `rg --json -n --no-heading --color never -g "*.ts" -g "*.tsx" -g "*.js" -g "*.jsx" "${pattern}" "${srcDir}"`
   const out = run(cmd)
   if (!out) return []
@@ -106,6 +149,11 @@ function rgContent(pattern) {
 }
 
 function rgFiles(pattern) {
+  if (!canUseRg) {
+    const rx = new RegExp(pattern, 'i')
+    return listSourceFiles().filter((rel) => rx.test(rel)).sort()
+  }
+
   const out = run(`rg --files "${srcDir}"`)
   if (!out) return []
   const rx = new RegExp(pattern, 'i')
