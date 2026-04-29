@@ -871,3 +871,35 @@ Dominio publico final validado: `https://wgalmeida.com.br`.
 - ObraEasy cliente final: Gratuito `R$ 0`, Pro `R$ 29,90/mês`, Business `R$ 59,90/mês`.
 - Easy Real State: Calculo Publico `R$ 0`, Solo `R$ 79,90/mês`, Completo `R$ 149,90/mês`.
 - `R$ 97,90` nao aplicado: sem fonte ativa em SSoT, checkout real ou WGEasy normalizado.
+
+---
+
+## Ponto de Retorno - Intervencao P0 BuildTech em producao
+
+Data/hora: 2026-04-29 17:45 BRT.
+
+### Merge/deploy
+
+- PR: `https://github.com/almeidawg/site-wgalmeida/pull/44`.
+- Merge commit em `main`: `b7d3213 fix(buildtech): restore canonical routes and secured contact capture`.
+- Vercel production deployment: `CuGbaAzBSyVUBoER7mLcsjGNssBW`.
+- Vercel dashboard: `https://vercel.com/william-almeidas-projects/site-wgalmeida/CuGbaAzBSyVUBoER7mLcsjGNssBW`.
+- CI main: `https://github.com/almeidawg/site-wgalmeida/actions/runs/25132728219`, OK.
+
+### Producao validada
+
+Dominio publico final validado: `https://wgalmeida.com.br`.
+
+- `/buildtech`: HTTP 200.
+- `/buildtech/solucoes.html`: HTTP 200, H1 `WG Build.tech`, secao `Experimente ao Vivo` visivel, sem erro de console.
+- `/buildtech/metodo.html`: HTTP 200, H1 `WG Build.tech`, secao `Experimente ao Vivo` visivel, sem erro de console.
+- `/buildtech/contato.html`: HTTP 200, H1 `Fale Conosco`, formulario renderizado, sem erro de console.
+- `/clientes/umauma`: HTTP 200, H1 `WG Build.tech`, secao `Experimente ao Vivo` visivel, sem erro de console.
+- `/buildtech/clientes/umauma`: HTTP 200.
+- `/contato?context=buildtech`: HTTP 200.
+
+### Causa raiz e decisao
+
+- As rotas legadas da WG BuildTech eram capturadas por rewrites/proxy antigos e nao tinham mapeamento SPA canonico suficiente.
+- A branch `recovery/buildtech-dirty-baseline-20260429` continua preservada como evidencia; a correcao de producao foi aplicada cirurgicamente no repo canonico `site-wgalmeida`.
+- Turnstile server-side ficou preparado em `/api/contact`; ativacao completa depende de `VITE_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` e loader aprovado de script Cloudflare sem falhar Sonar.
