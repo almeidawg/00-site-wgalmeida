@@ -1,5 +1,66 @@
 # RETURN-POINT — site-wgalmeida
-**Atualizado:** 25/04/2026
+**Atualizado:** 29/04/2026
+
+## Google indexing ops e submissao de sitemap — 29/04/2026
+
+### O que foi corrigido
+
+- `tools/google-indexing-ops.mjs`
+  - criado comando operacional para auditoria via URL Inspection API.
+  - criado comando para submissao de sitemap via Search Console API usando ADC/OAuth de `william@wgalmeida.com.br`.
+- `build-seo-routes.mjs`
+  - HTML pre-gerado de blog e estilos passa a incluir preview real do Markdown, reduzindo dependencia de renderizacao client-side para descoberta/indexacao.
+  - `sitemap-index.xml` passa a ser atualizado junto do build com `lastmod` atual.
+- `public/robots.txt`
+  - metadado de atualizacao alinhado para 2026-04-29.
+- `docs/audits/GOOGLE-INDEXING-OPS-2026-04-29.md`
+  - registrado baseline de indexacao, estados da URL Inspection API e estrategia por classe de problema.
+
+### Baseline Search Console
+
+- URLs no sitemap: 158.
+- URLs inspecionadas: 158.
+- `Submitted and indexed`: 105.
+- `Discovered - currently not indexed`: 44.
+- `Crawled - currently not indexed`: 5.
+- `URL is unknown to Google`: 3.
+- `Duplicate, Google chose different canonical than user`: 1.
+
+### Validacao executada
+
+- Sync Gate `-Stage start`, `-Stage pre-commit` e `-Stage pre-push` OK no repo canonico.
+- `npm run google:indexing:audit -- --concurrency=5` OK.
+- `npm run build` OK.
+- `npm run verify:fast` OK: 9 arquivos de teste / 54 testes OK.
+- PR #51 mesclado em `main`: `ddc8be9283ee59fc4b4d364f7c5d4cd57fe4f7ca`.
+- GitHub Actions `CI/CD Pipeline` da `main` OK.
+- Producao validada em `https://wgalmeida.com.br/` com HTTP 200.
+- Producao validada em:
+  - `https://wgalmeida.com.br/sitemap.xml` HTTP 200.
+  - `https://wgalmeida.com.br/sitemap-index.xml` HTTP 200 com `lastmod` 2026-04-29.
+  - `https://wgalmeida.com.br/video-sitemap.xml` HTTP 200.
+- HTML inicial em producao validado para:
+  - `/blog/custo-reforma-m2-sao-paulo`
+  - `/estilos/neoclassico`
+  - `/blog/closet-planejado-organizacao-otimizacao`
+
+### Submissao Search Console
+
+- Sitemaps submetidos em producao para `sc-domain:wgalmeida.com.br`:
+  - `https://wgalmeida.com.br/sitemap.xml`
+  - `https://wgalmeida.com.br/sitemap-index.xml`
+  - `https://wgalmeida.com.br/video-sitemap.xml`
+- Confirmacao Search Console:
+  - `lastSubmitted`: 2026-04-29T23:29:01Z.
+  - `lastDownloaded`: 2026-04-29T23:29:02Z / 2026-04-29T23:29:03Z.
+  - `warnings`: 0.
+  - `errors`: 0.
+
+### Pendencia de acompanhamento
+
+- Reexecutar `npm run google:indexing:audit -- --concurrency=5` apos novo ciclo de crawl do Google.
+- Priorizar reforco editorial/interlinking nas URLs `Discovered - currently not indexed` e `Crawled - currently not indexed`.
+- A Service Account `search@grupo-wg-284118.iam.gserviceaccount.com` autentica, mas o Search Console nao aceitou adiciona-la como usuario; o fluxo operacional validado e ADC/OAuth com `william@wgalmeida.com.br`.
 
 ## Intervencao P0 BuildTech — 29/04/2026
 
