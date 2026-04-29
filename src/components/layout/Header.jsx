@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo, Suspense, lazy } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown, ShoppingCart as ShoppingCartIcon, Ruler, Building2, Hammer, Globe, Monitor, HardHat } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { useCart } from '@/hooks/useCart';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from '@/components/LanguageSelector';
@@ -407,8 +406,11 @@ const iconButtonClass = isScrolled
                   <Monitor className="h-5 w-5 text-wg-black" />
                   <span>{t('header.wgEasyAccess')}</span>
                 </a>
-                <Link to="/contato" className="block">
-                  <Button className="btn-primary w-full">{t('header.ctaSpecialist')}</Button>
+                <Link
+                  to="/contato"
+                  className="btn-primary inline-flex h-11 w-full items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-light tracking-[0.01em] transition-all duration-300"
+                >
+                  {t('header.ctaSpecialist')}
                 </Link>
               </div>
             </nav>

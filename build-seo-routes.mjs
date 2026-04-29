@@ -190,6 +190,26 @@ const escapeHtml = (text = "") =>
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;");
 
+const CRITICAL_ROUTE_PRELOADS = {
+  "/buildtech": [
+    '<link rel="preload" as="image" href="/images/banners/PROCESSOS-640.webp" imagesrcset="/images/banners/PROCESSOS-640.webp 640w, /images/banners/PROCESSOS-960.webp 960w, /images/banners/PROCESSOS.webp 1200w" imagesizes="100vw" fetchpriority="high">',
+  ],
+  "/buildtech/solucoes.html": [
+    '<link rel="preload" as="image" href="/images/banners/PROCESSOS-640.webp" imagesrcset="/images/banners/PROCESSOS-640.webp 640w, /images/banners/PROCESSOS-960.webp 960w, /images/banners/PROCESSOS.webp 1200w" imagesizes="100vw" fetchpriority="high">',
+  ],
+  "/buildtech/metodo.html": [
+    '<link rel="preload" as="image" href="/images/banners/PROCESSOS-640.webp" imagesrcset="/images/banners/PROCESSOS-640.webp 640w, /images/banners/PROCESSOS-960.webp 960w, /images/banners/PROCESSOS.webp 1200w" imagesizes="100vw" fetchpriority="high">',
+  ],
+};
+
+function applyRoutePreloads(html, route) {
+  const preloads = CRITICAL_ROUTE_PRELOADS[route];
+  if (!preloads?.length) return html;
+  const preloadHtml = preloads.join("\n");
+  if (html.includes(preloadHtml)) return html;
+  return html.replace("</head>", `${preloadHtml}\n</head>`);
+}
+
 const routeLabel = (route) => {
   if (route === "/") return "Grupo WG Almeida";
   const raw = route.split("/").filter(Boolean).pop() || "";
@@ -258,6 +278,7 @@ function applySeo(template, route, config) {
   html = replaceOne(html, /<meta name="twitter:url" content="[^"]*"\s*\/?>/i, `<meta name="twitter:url" content="${ogUrl}" />`);
   html = replaceOne(html, /<meta name="twitter:description" content="[^"]*"\s*\/?>/i, `<meta name="twitter:description" content="${twDesc}" />`);
   html = replaceOne(html, /<meta name="twitter:image" content="[^"]*"\s*\/?>/i, `<meta name="twitter:image" content="${twImage}" />`);
+  html = applyRoutePreloads(html, route);
   html = replaceOne(
     html,
     /<script>\s*\(function\(\)\s*\{[\s\S]*?dynamic-canonical[\s\S]*?<\/script>/i,

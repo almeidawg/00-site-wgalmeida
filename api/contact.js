@@ -3,6 +3,7 @@ import crypto from 'node:crypto'
 const SUPABASE_ORIGIN = 'https://ahlqzzkxuutwoepirpzr.supabase.co'
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
 const TURNSTILE_SECRET_KEY = process.env.TURNSTILE_SECRET_KEY
+const CONTACT_TURNSTILE_REQUIRED = process.env.CONTACT_TURNSTILE_REQUIRED === 'true'
 const MAX_BODY_BYTES = 16 * 1024
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000
 const RATE_LIMIT_MAX = 8
@@ -178,13 +179,23 @@ export default async function handler(req, res) {
       return json(res, 429, { error: 'Muitas tentativas. Aguarde alguns minutos e tente novamente.' })
     }
 
-    if (tokenAlreadyUsed(body.turnstileToken)) {
-      return json(res, 403, { error: 'Verificacao anti-spam expirada. Atualize e tente novamente.' })
+    if (CONTACT_TURNSTILE_REQUIRED && !TURNSTILE_SECRET_KEY) {
+      return json(res, 500, { error: 'TURNSTILE_SECRET_KEY not configured' })
     }
 
-    const turnstileOk = await verifyTurnstile(body.turnstileToken, remoteip)
-    if (!turnstileOk) {
-      return json(res, 403, { error: 'Falha na verificacao anti-spam.' })
+    if (TURNSTILE_SECRET_KEY) {
+      if (!body.turnstileToken) {
+        return json(res, 403, { error: 'Verificacao anti-spam obrigatoria.' })
+      }
+
+      if (tokenAlreadyUsed(body.turnstileToken)) {
+        return json(res, 403, { error: 'Verificacao anti-spam expirada. Atualize e tente novamente.' })
+      }
+
+      const turnstileOk = await verifyTurnstile(body.turnstileToken, remoteip)
+      if (!turnstileOk) {
+        return json(res, 403, { error: 'Falha na verificacao anti-spam.' })
+      }
     }
 
     const payload = {

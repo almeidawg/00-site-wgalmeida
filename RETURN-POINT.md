@@ -949,3 +949,76 @@ Browser audit final:
 - P1 aprovado para seguranca basica, observabilidade, SEO, acessibilidade, conversao e vitrine viva.
 - Hold remanescente: ativar `VITE_TURNSTILE_SITE_KEY` e `TURNSTILE_SECRET_KEY` no Vercel para Turnstile real.
 - P2 recomendado: reduzir TBT/hidratacao mobile do shell SPA, especialmente `NextBestActionPanel`, contexto global e chunks iniciais.
+
+---
+
+## Ponto de Retorno - P2 BuildTech performance e Turnstile
+
+Data/hora: 2026-04-29 19:56 BRT.
+
+### Branch local
+
+- Branch: `p2/buildtech-performance-turnstile-20260429`.
+- Base: `main` sincronizada com `origin/main`, Sync Gate `-Stage start -AllowDirty` OK.
+- Escopo: melhoria cirurgica pos go-live, sem migracao de framework e sem reescrita do site.
+
+### O que foi aplicado
+
+- Shell SPA:
+  - `Footer`, `ContextTracker`, `NextBestActionPanel`, Vercel Analytics, Speed Insights, Toaster e `web-vitals` passaram a carregar em idle/deferido.
+  - CTA mobile do header deixou de importar o componente global `Button`.
+- Hero BuildTech:
+  - `PROCESSOS.webp` convertido para WebP real.
+  - Criadas variantes `PROCESSOS-640.webp`, `PROCESSOS-960.webp` e `PROCESSOS-1200.webp`.
+  - Adicionado `srcset` responsivo e preload especifico para `/buildtech`, `/buildtech/solucoes.html` e `/buildtech/metodo.html`.
+- Contato/Turnstile:
+  - `/api/contact` agora aceita ativacao progressiva via `CONTACT_TURNSTILE_REQUIRED`.
+  - Fallback sem secret permanece operacional quando `CONTACT_TURNSTILE_REQUIRED=false`.
+  - Modo obrigatorio falha explicitamente se `TURNSTILE_SECRET_KEY` estiver ausente.
+  - Testes unitarios cobrem fallback e falha segura.
+
+### Validacao local executada
+
+- `npm run verify:deploy` OK:
+  - lint OK
+  - check imports OK
+  - audit estrutural OK
+  - audit consistency normal e strict OK
+  - Vitest: 9 arquivos / 54 testes OK
+  - audit public claims strict OK
+  - build Vite OK
+  - SEO audit e validate dist OK
+- `npm audit --omit=dev` OK, 0 vulnerabilidades.
+- Rotas locais em preview:
+  - `/buildtech`: HTTP 200.
+  - `/buildtech/solucoes.html`: HTTP 200.
+  - `/buildtech/metodo.html`: HTTP 200.
+  - `/contato?context=buildtech`: HTTP 200.
+- Browser audit local:
+  - `buildtech-p2-desktop`: OK.
+  - `buildtech-p2-mobile`: OK.
+  - `contact-p2-desktop`: OK.
+  - `contact-p2-mobile`: OK.
+
+### Lighthouse local
+
+- Desktop: Performance 94, Accessibility 96, Best Practices 92, SEO 100; LCP 1.1 s, CLS 0, TBT 170 ms.
+- Mobile: Performance 59, Accessibility 96, Best Practices 92, SEO 100; LCP 5.1 s, CLS 0.021, TBT 720 ms.
+- O runner Lighthouse local segue retornando `EPERM` ao limpar temporarios do Chrome, mas os JSONs foram gerados e lidos.
+
+### Resultado
+
+- Entrada SPA reduziu de ~336.99 KB para ~291.80 KB bruto.
+- Gzip reduziu de ~102.87 KB para ~90.61 KB.
+- Brotli reduziu de ~77.64 KB para ~67.54 KB.
+- `PROCESSOS.webp` reduziu de ~93.97 KB para ~42.81 KB, com variantes responsivas menores.
+
+### Pendencias antes de considerar P2 production hardened
+
+- Abrir PR contra `main`, aguardar `build-and-test` e `deploy-gate-final`, mesclar e validar producao.
+- Configurar Turnstile no Vercel:
+  - `VITE_TURNSTILE_SITE_KEY`
+  - `TURNSTILE_SECRET_KEY`
+  - `CONTACT_TURNSTILE_REQUIRED=true`
+- Validar CSP real de producao com `https://challenges.cloudflare.com`.
+- P3 recomendado para performance mobile: reduzir hidratacao do shell SPA, CSS critico e custo de i18n/contextos globais.
