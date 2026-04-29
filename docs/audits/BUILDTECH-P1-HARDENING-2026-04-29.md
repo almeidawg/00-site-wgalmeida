@@ -39,6 +39,13 @@ Preview local construido apos correcoes P1, em `http://127.0.0.1:4173/buildtech`
 | Desktop | 91 | 96 | 92 | 100 | Best Practices local penalizado por contexto localhost. |
 | Mobile | 56 | 96 | 92 | 100 | Localhost/preview sem CDN/Brotli real; gargalo segue em hidratacao SPA. |
 
+Producao final apos merge do PR #46, em `https://wgalmeida.com.br/buildtech`:
+
+| Perfil | Performance | Accessibility | Best Practices | SEO | Observacao |
+| --- | ---: | ---: | ---: | ---: | --- |
+| Desktop | 81 | 96 | 96 | 100 | A11y e SEO dentro da meta; performance afetada por TBT 410 ms em execucao isolada. |
+| Mobile | 55 | 96 | 96 | 100 | A11y/SEO/BP dentro da meta; performance abaixo por TBT 1710 ms e LCP 4.7 s. |
+
 ## Validacoes executadas
 
 - `npm run lint`
@@ -52,6 +59,8 @@ Preview local construido apos correcoes P1, em `http://127.0.0.1:4173/buildtech`
 - Browser audit desktop/mobile em `/buildtech`
 - Browser audit desktop/mobile em `/contato?context=buildtech`
 - Synthetic check em producao: rotas P0 200; `/api/health` 404 esperado antes do deploy P1.
+- Synthetic check pos-deploy P1 em producao: `/api/health`, `/buildtech`, `/buildtech/solucoes.html`, `/buildtech/metodo.html`, `/buildtech/contato.html`, `/clientes/umauma` e `/contato?context=buildtech` com HTTP 200.
+- Browser audit final de producao desktop/mobile em `https://wgalmeida.com.br/buildtech`: OK.
 
 ## Plano para scores abaixo da meta
 
@@ -62,3 +71,12 @@ Preview local construido apos correcoes P1, em `http://127.0.0.1:4173/buildtech`
 ## Recomendacao
 
 P1 esta apto para PR e deploy controlado. Go-live permanece mantido. O unico hold funcional e Turnstile completo ate as duas variaveis existirem em Vercel.
+
+## Resultado pos-deploy
+
+PR #46 mergeado em producao. Recomendacao atual: `production hardened parcial`.
+
+Go-live mantido para P0/P1 funcional, SEO, acessibilidade, seguranca basica, observabilidade e conversao. Hold apenas para:
+
+- ativacao real das chaves Turnstile no Vercel;
+- P2 de performance mobile focado em reducao de hidratacao do shell SPA.
