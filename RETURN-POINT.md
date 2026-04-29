@@ -903,3 +903,49 @@ Dominio publico final validado: `https://wgalmeida.com.br`.
 - As rotas legadas da WG BuildTech eram capturadas por rewrites/proxy antigos e nao tinham mapeamento SPA canonico suficiente.
 - A branch `recovery/buildtech-dirty-baseline-20260429` continua preservada como evidencia; a correcao de producao foi aplicada cirurgicamente no repo canonico `site-wgalmeida`.
 - Turnstile server-side ficou preparado em `/api/contact`; ativacao completa depende de `VITE_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` e loader aprovado de script Cloudflare sem falhar Sonar.
+
+---
+
+## Ponto de Retorno - Hardening P1 BuildTech em producao
+
+Data/hora: 2026-04-29 19:08 BRT.
+
+### Merge/deploy
+
+- PR: `https://github.com/almeidawg/site-wgalmeida/pull/46`.
+- Merge commit em `main`: `03f961cfa610d9f53022ffa35045be4490d63899`.
+- Commit P1: `ed8b128 feat(buildtech): harden post go-live telemetry and contact`.
+- Vercel production deployment: `dpl_7FkHYj7jBV9TFV46WwjKBrK8cTUZ`.
+- Vercel production URL: `https://site-wgalmeida-kh03ymxu7-william-almeidas-projects.vercel.app`.
+- Dominio validado: `https://wgalmeida.com.br`.
+- CI main: `https://github.com/almeidawg/site-wgalmeida/actions/runs/25136239073`, OK.
+
+### Producao validada
+
+Synthetic checks em `https://wgalmeida.com.br`:
+
+- `/api/health`: HTTP 200.
+- `/buildtech`: HTTP 200.
+- `/buildtech/solucoes.html`: HTTP 200.
+- `/buildtech/metodo.html`: HTTP 200.
+- `/buildtech/contato.html`: HTTP 200.
+- `/clientes/umauma`: HTTP 200.
+- `/contato?context=buildtech`: HTTP 200.
+
+Browser audit final:
+
+- Desktop e mobile em `https://wgalmeida.com.br/buildtech`: OK.
+- H1 `WG Build.tech`, H2 `Portfólio tecnológico para operação, vendas e dados`, secao `Demos leves para entender valor antes da reuniao`, CTA `Converse com a Liz agora` e campo `Area operacional impactada` renderizados.
+
+### Lighthouse final
+
+- Desktop: Performance 81, Accessibility 96, Best Practices 96, SEO 100; LCP 1.0 s, CLS 0, TBT 410 ms.
+- Mobile: Performance 55, Accessibility 96, Best Practices 96, SEO 100; LCP 4.7 s, CLS 0.021, TBT 1710 ms.
+- O runner Lighthouse local continuou retornando `EPERM` ao limpar diretorio temporario do Chrome, mas os JSONs foram gerados e lidos com sucesso.
+
+### Decisao
+
+- Go-live mantido.
+- P1 aprovado para seguranca basica, observabilidade, SEO, acessibilidade, conversao e vitrine viva.
+- Hold remanescente: ativar `VITE_TURNSTILE_SITE_KEY` e `TURNSTILE_SECRET_KEY` no Vercel para Turnstile real.
+- P2 recomendado: reduzir TBT/hidratacao mobile do shell SPA, especialmente `NextBestActionPanel`, contexto global e chunks iniciais.
