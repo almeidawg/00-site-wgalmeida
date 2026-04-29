@@ -2011,7 +2011,7 @@ const Blog = () => {
               transition={{ duration: 0.6 }}
               className="mb-4"
             >
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/28 bg-black/30 px-4 py-2 text-sm font-light uppercase tracking-wider text-white shadow-[0_14px_34px_rgba(0,0,0,0.18)] backdrop-blur-md">
+              <span className="inline-flex items-center gap-2 rounded-full border border-[rgba(255,255,255,0.28)] bg-black/30 px-4 py-2 text-sm font-light uppercase tracking-wider text-white shadow-[0_14px_34px_rgba(0,0,0,0.18)] backdrop-blur-md">
                 <Tag className="w-4 h-4" />
                 {t('blogPage.hero.featured')}
               </span>
@@ -2067,7 +2067,7 @@ const Blog = () => {
             >
               <Link
                 to={`/blog/${artigoRecente?.slug}`}
-                className="inline-flex items-center gap-2 rounded-lg border border-white/24 bg-[#0F172A]/72 px-6 py-3 font-light text-white shadow-[0_18px_40px_rgba(15,23,42,0.26)] transition-all group hover:border-white/40 hover:bg-[#162033]/84 focus:outline-none"
+                className="inline-flex items-center gap-2 rounded-lg border border-[rgba(255,255,255,0.24)] bg-[#0F172A]/72 px-6 py-3 font-light text-white shadow-[0_18px_40px_rgba(15,23,42,0.26)] transition-all group hover:border-[rgba(255,255,255,0.42)] hover:bg-[#162033]/84 focus:outline-none"
               >
                 {t('blogPage.hero.cta')}
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />

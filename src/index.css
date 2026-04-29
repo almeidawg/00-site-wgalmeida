@@ -68,24 +68,24 @@
 
 :root {
   --header-height: 5rem;
-  --background: 255 255 255;
-  --foreground: 46 46 46;
-  --card: 255 255 255;
-  --card-foreground: 46 46 46;
-  --popover: 255 255 255;
-  --popover-foreground: 46 46 46;
+  --background: 0 0% 100%;
+  --foreground: 0 0% 18%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 18%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 18%;
   --primary: 16 88% 53%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 243 243 243;
-  --secondary-foreground: 46 46 46;
-  --muted: 243 243 243;
-  --muted-foreground: 76 76 76;
-  --accent: 243 243 243;
-  --accent-foreground: 46 46 46;
-  --destructive: 239 68 68;
-  --destructive-foreground: 255 255 255;
-  --border: 229 229 229;
-  --input: 229 229 229;
+  --secondary: 0 0% 95%;
+  --secondary-foreground: 0 0% 18%;
+  --muted: 0 0% 95%;
+  --muted-foreground: 0 0% 30%;
+  --accent: 0 0% 95%;
+  --accent-foreground: 0 0% 18%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 0 0% 90%;
+  --input: 0 0% 90%;
   --ring: 16 88% 53%;
   --radius: 0.5rem;
 

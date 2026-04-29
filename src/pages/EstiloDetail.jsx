@@ -296,7 +296,7 @@ const EstiloDetail = () => {
               transition={{ duration: 0.6 }}
               className="flex flex-wrap items-center gap-3 mb-6"
             >
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/18 bg-white/8 px-4 py-2 text-[rgba(255,255,255,0.78)] font-light uppercase tracking-[0.22em] text-[11px] backdrop-blur-sm">
+              <span className="inline-flex items-center gap-2 rounded-full border border-[rgba(255,255,255,0.18)] bg-white/[0.08] px-4 py-2 text-[rgba(255,255,255,0.78)] font-light uppercase tracking-[0.22em] text-[11px] backdrop-blur-sm">
                 <Palette className="h-4 w-4 text-[rgba(255,255,255,0.78)]" />
                 Guia de Estilo
               </span>
@@ -478,7 +478,7 @@ const EstiloDetail = () => {
           </div>
 
           {/* CTA */}
-          <div className="mt-12 rounded-[28px] border border-black/6 bg-[#f7f4ef] p-8 shadow-[0_18px_60px_rgba(30,24,20,0.05)]">
+          <div className="mt-12 rounded-[28px] border border-black/[0.06] bg-[#f7f4ef] p-8 shadow-[0_18px_60px_rgba(30,24,20,0.05)]">
             <div className="flex items-start gap-4">
               <div className="mt-1 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-white/80 text-wg-black/70">
                 <Palette className="w-6 h-6" />
@@ -492,7 +492,7 @@ const EstiloDetail = () => {
                 </p>
                 <Link
                   to="/solicite-proposta"
-                  className="inline-flex items-center gap-2 rounded-full bg-wg-black px-6 py-3 text-sm font-light text-white transition-colors hover:bg-wg-black/92 focus:outline-none"
+                  className="inline-flex items-center gap-2 rounded-full bg-wg-black px-6 py-3 text-sm font-light text-white transition-colors hover:bg-[rgba(46,46,46,0.92)] focus:outline-none"
                 >
                   <span>Solicitar Consultoria</span>
                   <ArrowRight className="w-5 h-5" />

@@ -59,36 +59,36 @@ export default function NextBestActionPanel() {
 
   return (
     <div
-      className="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-lg
-                 bg-white border border-black/10 rounded-[1.6rem] shadow-[0_20px_60px_rgba(30,24,20,0.14)]
-                 px-5 py-4 flex items-center gap-4
+      className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-1.5rem)] max-w-sm
+                 bg-white/96 border border-black/[0.08] rounded-2xl shadow-[0_14px_36px_rgba(30,24,20,0.12)]
+                 px-3.5 py-3 flex items-center gap-3 backdrop-blur-md
                  animate-in slide-in-from-bottom-4 fade-in duration-300"
       role="complementary"
       aria-label="Próximo passo recomendado"
     >
       {/* Icon */}
-      <div className="shrink-0 w-9 h-9 rounded-xl bg-wg-orange/10 text-wg-orange flex items-center justify-center">
-        <CheckCircle2 className="w-4 h-4" />
+      <div className="shrink-0 w-8 h-8 rounded-lg bg-wg-orange/10 text-wg-orange flex items-center justify-center">
+        <CheckCircle2 className="w-3.5 h-3.5" />
       </div>
 
       {/* Content */}
       <div className="flex-1 min-w-0">
-        <span className={`inline-block rounded-full px-2.5 py-1 text-[10px] font-light uppercase tracking-[0.14em] ${stageClass}`}>
+        <span className={`inline-block rounded-full px-2 py-0.5 text-[9px] font-light uppercase tracking-[0.12em] ${stageClass}`}>
           {stageLabel}
         </span>
         <CTALink
           href={href}
           external={external}
-          className="flex items-center gap-1.5 text-sm font-light text-wg-black hover:text-wg-orange transition-colors truncate"
+          className="mt-0.5 flex items-center gap-1.5 text-[13px] font-light leading-tight text-wg-black hover:text-wg-orange transition-colors truncate"
         >
           {label}
-          <Icon className="w-3.5 h-3.5 shrink-0" />
+          <Icon className="w-3 h-3 shrink-0" />
         </CTALink>
         {secondary && (
           <CTALink
             href={secondary.href}
             external={secondary.external}
-            className="text-[11px] text-wg-gray hover:text-wg-orange transition-colors"
+            className="text-[10.5px] text-wg-gray hover:text-wg-orange transition-colors"
           >
             {secondary.label}
           </CTALink>
@@ -98,10 +98,10 @@ export default function NextBestActionPanel() {
       {/* Dismiss */}
       <button
         onClick={() => setDismissed(true)}
-        className="shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-black/30 hover:text-black/60 hover:bg-black/5 transition-colors"
+        className="shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-black/30 hover:text-black/60 hover:bg-black/5 transition-colors"
         aria-label="Fechar"
       >
-        <X className="w-3.5 h-3.5" />
+        <X className="w-3 h-3" />
       </button>
     </div>
   )
