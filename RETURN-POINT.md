@@ -1,6 +1,57 @@
 # RETURN-POINT — site-wgalmeida
 **Atualizado:** 25/04/2026
 
+## Intervencao P0 BuildTech — 29/04/2026
+
+### O que foi corrigido
+
+- `vercel.json`
+  - removido proxy geral de `/buildtech` e `/buildtech/:path*` para `wgalmeida-buildtech.vercel.app`, que era a causa direta dos 404s herdados.
+  - mantidos os rewrites especificos de EasyFood antes da rota SPA.
+  - adicionados rewrites SPA para rotas legadas:
+    - `/buildtech/solucoes.html`
+    - `/buildtech/metodo.html`
+    - `/buildtech/cases.html`
+    - `/buildtech/blog.html`
+    - `/buildtech/contato.html`
+    - `/buildtech/clientes/umauma`
+    - `/clientes/umauma`
+- `src/App.jsx`
+  - rotas legadas BuildTech agora renderizam a pagina canônica ou redirecionam para contato/case.
+- `src/pages/BuildTech.jsx`
+  - pagina consolidada com secoes `solucoes`, `metodo`, `experimente` e `cases`.
+  - adicionada vitrine viva leve com CRM Pipeline, IA WhatsApp Agent, Dashboard KPIs, mapa de projetos, simulador de proposta e Liz demo.
+- `src/pages/Contact.jsx` e `api/contact.js`
+  - formulario passa a enviar para endpoint server-side `/api/contact` quando `VITE_TURNSTILE_SITE_KEY` estiver configurada.
+  - endpoint valida Cloudflare Turnstile via Siteverify e grava em `contacts` no Supabase com service role.
+  - enquanto as chaves Turnstile nao existirem no Vercel, o fluxo legado Supabase anon + EmailJS permanece como fallback para nao interromper captacao.
+- `.env.example`
+  - documentadas `SUPABASE_SERVICE_ROLE_KEY`, `VITE_TURNSTILE_SITE_KEY` e `TURNSTILE_SECRET_KEY`.
+
+### Validacao local executada
+
+- Sync Gate `-Stage pre-commit -AllowDirty` OK no repo canonico.
+- `npm run lint` OK.
+- `npm audit --omit=dev` OK, 0 vulnerabilidades.
+- `npm run build` OK.
+- Rotas locais com HTTP 200:
+  - `/buildtech`
+  - `/buildtech/solucoes.html`
+  - `/buildtech/metodo.html`
+  - `/buildtech/contato.html`
+  - `/clientes/umauma`
+  - `/buildtech/clientes/umauma`
+  - `/contato?context=buildtech`
+- Browser audit desktop e mobile gerado em `.codex/tmp/audit-buildtech-*`.
+
+### Pendencia antes de go-live
+
+- Configurar variaveis Turnstile no Vercel para ativar o fluxo server-side completo:
+  - `VITE_TURNSTILE_SITE_KEY`
+  - `TURNSTILE_SECRET_KEY`
+- Quando as chaves Turnstile forem configuradas, abrir PR especifica de CSP adicionando `https://challenges.cloudflare.com` em `frame-src` e validando SonarCloud.
+- Validar em producao apos deploy no dominio final `https://wgalmeida.com.br`.
+
 ## Fechamento pendencia footer recursos — 29/04/2026
 
 ### O que foi corrigido

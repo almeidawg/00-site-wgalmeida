@@ -6,7 +6,7 @@ import { supabase } from '@/lib/customSupabaseClient'
 import { notificarNovoContato } from '@/lib/emailService'
 import { motion } from '@/lib/motion-lite'
 import { Clock, Loader2, Mail, MapPin, MessageCircle, Phone, Send } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 import { COMPANY } from '@/data/company';
@@ -21,12 +21,53 @@ const fadeInUp = {
 }
 
 const CONTACT_HERO_IMAGE = getPublicPageImageSrc('contact', '/images/banners/FALECONOSCO.webp')
+const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY
+
+const TurnstileWidget = ({ onVerify, onExpire, disabled }) => {
+  const containerRef = useRef(null)
+  const widgetIdRef = useRef(null)
+
+  useEffect(() => {
+    if (!TURNSTILE_SITE_KEY || !containerRef.current || disabled) return undefined
+
+    let cancelled = false
+
+    const render = () => {
+      if (cancelled || !window.turnstile || !containerRef.current || widgetIdRef.current) return
+
+      widgetIdRef.current = window.turnstile.render(containerRef.current, {
+        sitekey: TURNSTILE_SITE_KEY,
+        theme: 'light',
+        callback: onVerify,
+        'expired-callback': onExpire,
+        'error-callback': onExpire,
+      })
+    }
+
+    render()
+    window.addEventListener('wg:turnstile-ready', render, { once: true })
+
+    return () => {
+      cancelled = true
+      window.removeEventListener('wg:turnstile-ready', render)
+      if (window.turnstile && widgetIdRef.current) {
+        window.turnstile.remove(widgetIdRef.current)
+        widgetIdRef.current = null
+      }
+    }
+  }, [disabled, onExpire, onVerify])
+
+  if (!TURNSTILE_SITE_KEY) return null
+
+  return <div ref={containerRef} className="min-h-[65px]" aria-label="Verificacao anti-spam" />
+}
 
 const Contact = () => {
   const { toast } = useToast()
   const { t } = useTranslation()
   const [searchParams] = useSearchParams()
   const [loading, setLoading] = useState(false)
+  const [turnstileToken, setTurnstileToken] = useState('')
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -45,7 +86,12 @@ const Contact = () => {
     return limitedNumbers.replace(/(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3')
   }
 
-  const isValidEmail = (email) => /^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)
+  const isValidEmail = (email) => {
+    const value = String(email || '').trim()
+    const atIndex = value.indexOf('@')
+    const dotIndex = value.lastIndexOf('.')
+    return atIndex > 0 && dotIndex > atIndex + 1 && dotIndex < value.length - 2
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -56,39 +102,61 @@ const Contact = () => {
         throw new Error('Insira um e-mail válido (ex: nome@email.com)')
       }
 
-      // Salvar no Supabase
-      const { error } = await supabase.from('contacts').insert([
-        {
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          subject: formData.subject,
-          message: formData.message,
-          utm_source: searchParams.get('utm_source') || null,
-          utm_medium: searchParams.get('utm_medium') || null,
-          utm_campaign: searchParams.get('utm_campaign') || null,
-          origem: searchParams.get('utm_source')
-            ? `site-${searchParams.get('utm_source')}`
-            : 'site',
-        },
-      ])
+      if (TURNSTILE_SITE_KEY) {
+        if (!turnstileToken) {
+          throw new Error('Confirme a verificacao anti-spam antes de enviar.')
+        }
 
-      if (error) throw error
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            ...formData,
+            turnstileToken,
+            utm_source: searchParams.get('utm_source') || null,
+            utm_medium: searchParams.get('utm_medium') || null,
+            utm_campaign: searchParams.get('utm_campaign') || null,
+            context: searchParams.get('context') || null,
+          }),
+        })
 
-      // Enviar notificação por email para william@wgalmeida.com.br
-      await notificarNovoContato(
-        formData.name,
-        formData.email,
-        formData.phone,
-        formData.subject,
-        formData.message
-      )
+        if (!response.ok) {
+          const data = await response.json().catch(() => ({}))
+          throw new Error(data.error || 'Nao foi possivel registrar o contato.')
+        }
+      } else {
+        const { error } = await supabase.from('contacts').insert([
+          {
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            subject: formData.subject,
+            message: formData.message,
+            utm_source: searchParams.get('utm_source') || null,
+            utm_medium: searchParams.get('utm_medium') || null,
+            utm_campaign: searchParams.get('utm_campaign') || null,
+            origem: searchParams.get('context') === 'buildtech' ? 'site-buildtech' : 'site',
+          },
+        ])
+
+        if (error) throw error
+
+        await notificarNovoContato(
+          formData.name,
+          formData.email,
+          formData.phone,
+          formData.subject,
+          formData.message
+        )
+      }
 
       toast({
         title: t('contactPage.toast.successTitle'),
         description: t('contactPage.toast.successDescription'),
       })
       setFormData({ name: '', email: '', phone: '', subject: '', message: '' })
+      setTurnstileToken('')
+      if (window.turnstile) window.turnstile.reset()
     } catch (error) {
       toast({
         variant: 'destructive',
@@ -101,7 +169,7 @@ const Contact = () => {
   }
 
   const handleWhatsApp = () => {
-    window.open('https://wa.me/5511984650002', '_blank')
+    window.open('https://wa.me/5511984650002', '_blank', 'noopener,noreferrer')
   }
 
   return (
@@ -427,6 +495,12 @@ const Contact = () => {
                       disabled={loading}
                     />
                   </div>
+
+                  <TurnstileWidget
+                    disabled={loading}
+                    onVerify={setTurnstileToken}
+                    onExpire={() => setTurnstileToken('')}
+                  />
 
                   <div className="pt-1 sm:flex sm:justify-end">
                     <Button
