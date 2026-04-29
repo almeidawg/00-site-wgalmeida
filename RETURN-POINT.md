@@ -1,6 +1,35 @@
 # RETURN-POINT — site-wgalmeida
 **Atualizado:** 25/04/2026
 
+## Fechamento pendencia footer recursos — 29/04/2026
+
+### O que foi corrigido
+
+- `src/components/layout/Footer.jsx`
+  - bloco `Recursos` mantido no footer para expor:
+    - Blog & Artigos
+    - Revista de Estilos
+    - Gerador de Moodboard
+    - Visualizador de Ambientes
+    - Guia de Estilos
+  - grid responsivo ajustado para comportar a quinta coluna sem quebrar o layout:
+    - `lg:grid-cols-3`
+    - `xl:grid-cols-[0.9fr_0.95fr_1fr_1.55fr_1.05fr]`
+  - removido deslocamento negativo da coluna de regioes que era especifico do layout anterior.
+
+### Validacao executada
+
+- Sync Gate `-Stage start -AllowDirty` OK no repo canonico.
+- `npm run verify:full` OK:
+  - lint OK
+  - check imports OK
+  - audit estrutural OK
+  - audit consistency normal e strict OK
+  - 8 arquivos de teste / 52 testes OK
+  - build Vite OK
+  - rotas SEO geradas/validadas OK
+- `public/sitemap.xml` apareceu apenas com ruido de `lastmod` gerado pelo build e foi descartado antes do commit conforme regra local.
+
 ## Auditoria estrutural anti-reincidencia estendida — 29/04/2026
 
 ### O que foi saneado

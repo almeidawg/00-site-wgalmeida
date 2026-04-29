@@ -12,7 +12,7 @@ const Footer = () => {
       <div className="container-custom py-12 md:py-16">
         <div className="border-t border-gray-800 pt-10" />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[0.92fr_0.96fr_1.6fr_1.02fr] gap-8 lg:gap-x-5 lg:gap-y-8 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-[0.9fr_0.95fr_1fr_1.55fr_1.05fr] gap-8 lg:gap-x-5 lg:gap-y-8 items-start">
           <div>
             <span className="font-suisse font-light text-lg mb-3 block text-gray-200" style={{ fontWeight: 300 }}>{t('footer.navigation')}</span>
             <nav className="space-y-2">
@@ -67,8 +67,29 @@ const Footer = () => {
             </nav>
           </div>
 
-          {/* Onde Atuamos - SEO Local */}
-          <div className="lg:-ml-10">
+          {/* Recursos */}
+          <div>
+            <span className="font-suisse font-light text-lg mb-3 block text-gray-200" style={{ fontWeight: 300 }}>Recursos</span>
+            <nav className="space-y-2">
+              <Link to="/blog" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
+                Blog & Artigos
+              </Link>
+              <Link to="/revista-estilos" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
+                Revista de Estilos
+              </Link>
+              <Link to="/moodboard-generator" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
+                Gerador de Moodboard
+              </Link>
+              <Link to="/room-visualizer" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
+                Visualizador de Ambientes
+              </Link>
+              <Link to="/estilos" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
+                Guia de Estilos
+              </Link>
+            </nav>
+          </div>
+
+          <div>
             <span className="font-suisse font-light text-lg mb-3 block text-gray-200" style={{ fontWeight: 300 }}>{t('footer.regions')}</span>
             <nav className="grid max-w-[29rem] grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-3">
               <Link to="/jardins" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm leading-snug whitespace-normal font-light" style={{ fontWeight: 300 }}>
