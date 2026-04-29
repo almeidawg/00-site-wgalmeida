@@ -30,6 +30,27 @@
   - rotas SEO geradas/validadas OK
 - `public/sitemap.xml` apareceu apenas com ruido de `lastmod` gerado pelo build e foi descartado antes do commit conforme regra local.
 
+## Hotfix logo ObraEasy Home — 29/04/2026
+
+### Problema confirmado
+
+- Browser validation em producao detectou 404 em:
+  - `https://wgalmeida.com.br/Logos/logo-obraeasy-84.webp`
+- O arquivo nao existe em `public/Logos`, mas `src/pages/Home.jsx` referenciava o asset no stack de logos dos nucleos.
+
+### Correcao aplicada
+
+- `src/pages/Home.jsx`
+  - remove dependencia do asset inexistente `logo-obraeasy-84.webp`.
+  - usa marcador textual compacto `ObraEasy` no mesmo stack.
+  - grid de logos ajustado de 3 para 4 itens:
+    - mobile: `grid-cols-4`
+    - desktop: `md:grid-rows-4`
+
+### Validacao esperada
+
+- Browser validation de producao sem 404 para `logo-obraeasy-84.webp`.
+
 ## Auditoria estrutural anti-reincidencia estendida — 29/04/2026
 
 ### O que foi saneado

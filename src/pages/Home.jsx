@@ -65,10 +65,10 @@ const logosNucleos = [
   { src: withBasePath('/Logos/logo-arquitetura-84.webp'), alt: 'Logo Arquitetura', href: '/arquitetura' },
   { src: withBasePath('/Logos/logo-engenharia-84.webp'), alt: 'Logo Engenharia', href: '/engenharia' },
   { src: withBasePath('/Logos/logo-marcenaria-84.webp'), alt: 'Logo Marcenaria', href: '/marcenaria' },
-  { src: withBasePath('/Logos/logo-obraeasy-84.webp'), alt: 'Logo ObraEasy', href: '/obraeasy' }
+  { label: 'ObraEasy', alt: 'ObraEasy', href: '/obraeasy' }
 ];
 
-const logoStackAlignment = ['md:items-start', 'md:items-center', 'md:items-end'];
+const logoStackAlignment = ['md:items-start', 'md:items-center', 'md:items-center', 'md:items-end'];
 
 const ENGINEERING_BANNER_SRC = withBasePath('/images/banners/ENGENHARIA.webp');
 const ENGINEERING_BANNER_SRCSET = [
@@ -911,21 +911,27 @@ const Home = () => {
               <div className="p-6 md:p-8">
                 <div className="grid grid-cols-1 md:grid-cols-[72px_1fr] gap-6 md:gap-8">
                   <div className="md:h-full">
-                    <div className="grid grid-cols-3 md:grid-cols-1 md:grid-rows-3 gap-2 md:gap-0 h-full">
+                    <div className="grid grid-cols-4 md:grid-cols-1 md:grid-rows-4 gap-2 md:gap-0 h-full">
                       {logosNucleos.map((logo, index) => (
                         <div
-                          key={logo.src}
+                          key={logo.alt}
                           className={`flex justify-center ${logoStackAlignment[index] || 'md:items-center'}`}
                         >
-                          <img
-                            src={logo.src}
-                            alt={logo.alt}
-                            width="84"
-                            height="84"
-                            loading="lazy"
-                            decoding="async"
-                            className="w-12 md:w-full h-auto max-h-14 object-contain opacity-70 scale-[1.45]"
-                          />
+                          {logo.src ? (
+                            <img
+                              src={logo.src}
+                              alt={logo.alt}
+                              width="84"
+                              height="84"
+                              loading="lazy"
+                              decoding="async"
+                              className="w-12 md:w-full h-auto max-h-14 object-contain opacity-70 scale-[1.45]"
+                            />
+                          ) : (
+                            <span className="flex h-12 w-12 items-center justify-center rounded-full border border-wg-orange/30 text-[10px] font-light uppercase tracking-[0.08em] text-wg-orange md:h-14 md:w-14">
+                              {logo.label}
+                            </span>
+                          )}
                         </div>
                       ))}
                     </div>
