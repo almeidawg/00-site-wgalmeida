@@ -18,6 +18,11 @@ const fadeInUp = {
 };
 
 const BUILDTECH_HERO_IMAGE = getPublicPageImageSrc('buildtech', '/images/banners/PROCESSOS.webp');
+const BUILDTECH_HERO_SRCSET = [
+  '/images/banners/PROCESSOS-640.webp 640w',
+  '/images/banners/PROCESSOS-960.webp 960w',
+  '/images/banners/PROCESSOS.webp 1200w',
+].join(', ');
 
 const BuildTech = () => {
   const { t } = useTranslation();
@@ -180,6 +185,7 @@ const BuildTech = () => {
             className="w-full h-full object-cover"
             alt="Tecnologia WG Build.tech"
             src={BUILDTECH_HERO_IMAGE}
+            srcSet={BUILDTECH_HERO_SRCSET}
             width="1920"
             height="1080"
             loading="eager"

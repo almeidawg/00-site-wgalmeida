@@ -1,16 +1,16 @@
-import Footer from '@/components/layout/Footer'
 import Header from '@/components/layout/Header'
-import { Suspense, lazy, useEffect, useLayoutEffect } from 'react'
+import { Suspense, lazy, useEffect, useLayoutEffect, useState } from 'react'
 import { Navigate, Route, Routes, useLocation, useParams } from 'react-router-dom'
 import ProtectedRoute from '@/components/auth/ProtectedRoute'
 import { AuthProvider } from '@/contexts/SupabaseAuthContext'
 import { Loader2 } from 'lucide-react'
 import { PRODUCT_URLS } from '@/data/company'
 import { ContextProvider } from '@/providers/ContextProvider'
-import ContextTracker from '@/components/ContextTracker'
-import NextBestActionPanel from '@/components/NextBestActionPanel'
 
 // Lazy load pages
+const Footer = lazy(() => import('@/components/layout/Footer'))
+const ContextTracker = lazy(() => import('@/components/ContextTracker'))
+const NextBestActionPanel = lazy(() => import('@/components/NextBestActionPanel'))
 const Home = lazy(() => import('@/pages/Home'))
 const About = lazy(() => import('@/pages/About'))
 const AMarca = lazy(() => import('@/pages/AMarca'))
@@ -97,6 +97,18 @@ const LoadingFallback = () => (
 
 const APP_BUILD_TAG = '2026-04-09-store-refresh-2'
 
+const scheduleIdle = (callback, timeout = 1600) => {
+  if (typeof window === 'undefined') return undefined
+
+  if ('requestIdleCallback' in window) {
+    const idleId = window.requestIdleCallback(callback, { timeout })
+    return () => window.cancelIdleCallback(idleId)
+  }
+
+  const timeoutId = window.setTimeout(callback, timeout)
+  return () => window.clearTimeout(timeoutId)
+}
+
 function ConteudoRedirect() {
   const { slug } = useParams()
   return <Navigate to={slug ? `/blog/${slug}` : '/blog'} replace />
@@ -159,6 +171,35 @@ function RouteScrollManager() {
   }, [location.pathname, location.hash])
 
   return null
+}
+
+function DeferredEngagementLayer() {
+  const [enabled, setEnabled] = useState(false)
+
+  useEffect(() => scheduleIdle(() => setEnabled(true), 1400), [])
+
+  if (!enabled) return null
+
+  return (
+    <Suspense fallback={null}>
+      <ContextTracker />
+      <NextBestActionPanel />
+    </Suspense>
+  )
+}
+
+function DeferredFooter() {
+  const [enabled, setEnabled] = useState(false)
+
+  useEffect(() => scheduleIdle(() => setEnabled(true), 1200), [])
+
+  if (!enabled) return null
+
+  return (
+    <Suspense fallback={null}>
+      <Footer />
+    </Suspense>
+  )
 }
 
 function App() {
@@ -231,8 +272,7 @@ function App() {
   return (
     <ContextProvider>
     <AuthProvider autoInit={shouldInitAuth}>
-      <ContextTracker />
-      <NextBestActionPanel />
+      <DeferredEngagementLayer />
       <RouteScrollManager />
       <div
         className="min-h-screen flex flex-col bg-white"
@@ -395,7 +435,7 @@ function App() {
             </Routes>
           </Suspense>
         </main>
-        {!isStandaloneRoute && <Footer />}
+        {!isStandaloneRoute && <DeferredFooter />}
       </div>
     </AuthProvider>
     </ContextProvider>

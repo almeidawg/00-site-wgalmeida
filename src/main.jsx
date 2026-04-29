@@ -2,18 +2,25 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights/react';
 import App from '@/App';
 import '@/index.css';
 import '@/i18n'; // Internacionalizacao
 import AnalyticsEvents from '@/components/AnalyticsEvents';
-import { Toaster } from '@/components/ui/toaster';
 import { CartProvider } from '@/hooks/useCart';
 import { getBasePath, withBasePath } from '@/utils/assetPaths';
 
 const isLocalPreview = ['localhost', '127.0.0.1'].includes(window.location.hostname);
 const disableServiceWorkerTemporarily = true;
+
+const scheduleIdle = (callback, timeout = 1800) => {
+  if ('requestIdleCallback' in window) {
+    const idleId = window.requestIdleCallback(callback, { timeout });
+    return () => window.cancelIdleCallback(idleId);
+  }
+
+  const timeoutId = window.setTimeout(callback, timeout);
+  return () => window.clearTimeout(timeoutId);
+};
 
 class AppErrorBoundary extends React.Component {
   constructor(props) {
@@ -63,13 +70,15 @@ class AppErrorBoundary extends React.Component {
 // Web Vitals - Monitoramento de Performance
 const reportWebVitals = (onPerfEntry) => {
   if (onPerfEntry && onPerfEntry instanceof Function) {
-    import('web-vitals').then((metrics) => {
-      ['onCLS', 'onFCP', 'onLCP', 'onTTFB', 'onINP', 'onFID'].forEach((fnName) => {
-        if (typeof metrics?.[fnName] === 'function') {
-          metrics[fnName](onPerfEntry);
-        }
+    scheduleIdle(() => {
+      import('web-vitals').then((metrics) => {
+        ['onCLS', 'onFCP', 'onLCP', 'onTTFB', 'onINP', 'onFID'].forEach((fnName) => {
+          if (typeof metrics?.[fnName] === 'function') {
+            metrics[fnName](onPerfEntry);
+          }
+        });
       });
-    });
+    }, 2200);
   }
 };
 
@@ -95,6 +104,22 @@ const sendToAnalytics = (metric) => {
     console.log(`[Web Vitals] ${name}: ${value.toFixed(2)} (ID: ${id})`);
   }
 };
+
+function DeferredClientEnhancements() {
+  const [Enhancements, setEnhancements] = React.useState(null);
+
+  React.useEffect(() => scheduleIdle(() => {
+    import('@/components/DeferredClientEnhancements')
+      .then((module) => setEnhancements(() => module.default))
+      .catch(() => {
+        // Melhorias de telemetria nao devem bloquear a experiencia principal.
+      });
+  }, 1800), []);
+
+  if (!Enhancements) return null;
+
+  return <Enhancements />;
+}
 
 // Ativar monitoramento em todos os ambientes (envio condicional via GTM)
 reportWebVitals(sendToAnalytics);
@@ -141,9 +166,7 @@ const app = (
         <CartProvider>
           <AnalyticsEvents />
           <App />
-          <Toaster />
-          <Analytics />
-          <SpeedInsights />
+          <DeferredClientEnhancements />
         </CartProvider>
       </BrowserRouter>
     </HelmetProvider>
