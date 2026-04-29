@@ -254,6 +254,22 @@ function App() {
               {/* Outras empresas do Grupo WG Almeida */}
               <Route path="/easylocker" element={<EasyLocker />} />
               <Route path="/buildtech" element={<BuildTech />} />
+              <Route path="/buildtech/solucoes.html" element={<BuildTech />} />
+              <Route path="/buildtech/metodo.html" element={<BuildTech />} />
+              <Route path="/buildtech/cases.html" element={<BuildTech />} />
+              <Route path="/buildtech/blog.html" element={<BuildTech />} />
+              <Route
+                path="/buildtech/contato.html"
+                element={<Navigate to="/contato?context=buildtech" replace />}
+              />
+              <Route
+                path="/clientes/umauma"
+                element={<Navigate to="/buildtech?case=umauma" replace />}
+              />
+              <Route
+                path="/buildtech/clientes/umauma"
+                element={<Navigate to="/buildtech?case=umauma" replace />}
+              />
               <Route path="/iccri" element={<ICCRI />} />
               <Route path="/iccri-para-imobiliarias" element={<ICCRIParaImobiliarias />} />
               <Route path="/obraeasy" element={<ObraEasyLanding />} />
