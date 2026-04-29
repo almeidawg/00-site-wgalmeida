@@ -956,10 +956,14 @@ Browser audit final:
 
 Data/hora: 2026-04-29 19:56 BRT.
 
-### Branch local
+### Merge/deploy
 
-- Branch: `p2/buildtech-performance-turnstile-20260429`.
-- Base: `main` sincronizada com `origin/main`, Sync Gate `-Stage start -AllowDirty` OK.
+- PR: `https://github.com/almeidawg/site-wgalmeida/pull/49`.
+- Merge commit em `main`: `1ab172648f35c1408b450bdcb6e11147ecfbc471`.
+- Commit P2: `171ce48116bab2d28fb884a523a8c960537d0753`.
+- Vercel production deployment: `https://site-wgalmeida-qlenk9rzr-william-almeidas-projects.vercel.app`.
+- Dominio validado: `https://wgalmeida.com.br`.
+- CI main: `https://github.com/almeidawg/site-wgalmeida/actions/runs/25138293295`, OK.
 - Escopo: melhoria cirurgica pos go-live, sem migracao de framework e sem reescrita do site.
 
 ### O que foi aplicado
@@ -1013,9 +1017,26 @@ Data/hora: 2026-04-29 19:56 BRT.
 - Brotli reduziu de ~77.64 KB para ~67.54 KB.
 - `PROCESSOS.webp` reduziu de ~93.97 KB para ~42.81 KB, com variantes responsivas menores.
 
-### Pendencias antes de considerar P2 production hardened
+### Producao validada
 
-- Abrir PR contra `main`, aguardar `build-and-test` e `deploy-gate-final`, mesclar e validar producao.
+- `/api/health`: HTTP 200.
+- `/buildtech`: HTTP 200.
+- `/buildtech/solucoes.html`: HTTP 200.
+- `/buildtech/metodo.html`: HTTP 200.
+- `/contato?context=buildtech`: HTTP 200.
+- `/api/contact`: POST invalido retornou HTTP 400 com validacao server-side, sem criar lead real.
+- Browser audit de producao:
+  - `prod-buildtech-p2-desktop`: OK.
+  - `prod-buildtech-p2-mobile`: OK.
+  - `prod-contact-p2-mobile`: OK.
+- Imagem hero em producao:
+  - `currentSrc`: `https://wgalmeida.com.br/images/banners/PROCESSOS-640.webp`.
+  - `naturalWidth`: 390.
+  - `naturalHeight`: 204.
+  - console sem erro na rota `/buildtech`.
+
+### Pendencias antes de considerar P2 production hardened completo
+
 - Configurar Turnstile no Vercel:
   - `VITE_TURNSTILE_SITE_KEY`
   - `TURNSTILE_SECRET_KEY`
