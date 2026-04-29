@@ -64,6 +64,7 @@ debug.log
 wg-ga4-sa-key.json
 *-sa-key.json
 *.key.json
+grupo-wg-*.json
 
 # Vite cache timestamps
 vite.config.js.timestamp-*

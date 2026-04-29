@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 import { COMPANY } from '@/data/company';
 import { getPublicPageImageSrc } from '@/data/publicPageImageCatalog';
+import { trackFormSubmit, trackWhatsappClick } from '@/lib/analytics'
 
 // Animações elegantes
 const fadeInUp = {
@@ -22,6 +23,39 @@ const fadeInUp = {
 
 const CONTACT_HERO_IMAGE = getPublicPageImageSrc('contact', '/images/banners/FALECONOSCO.webp')
 const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY
+let turnstileScriptPromise = null
+
+const loadTurnstileScript = () => {
+  if (!TURNSTILE_SITE_KEY || typeof window === 'undefined') return Promise.resolve()
+  if (window.turnstile) {
+    window.dispatchEvent(new Event('wg:turnstile-ready'))
+    return Promise.resolve()
+  }
+  if (turnstileScriptPromise) return turnstileScriptPromise
+
+  turnstileScriptPromise = new Promise((resolve, reject) => {
+    const existingScript = document.getElementById('wg-turnstile-script')
+    if (existingScript) {
+      existingScript.addEventListener('load', resolve, { once: true })
+      existingScript.addEventListener('error', reject, { once: true })
+      return
+    }
+
+    const script = document.createElement('script')
+    script.id = 'wg-turnstile-script'
+    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
+    script.async = true
+    script.defer = true
+    script.onload = () => {
+      window.dispatchEvent(new Event('wg:turnstile-ready'))
+      resolve()
+    }
+    script.onerror = reject
+    document.head.appendChild(script)
+  })
+
+  return turnstileScriptPromise
+}
 
 const TurnstileWidget = ({ onVerify, onExpire, disabled }) => {
   const containerRef = useRef(null)
@@ -44,7 +78,7 @@ const TurnstileWidget = ({ onVerify, onExpire, disabled }) => {
       })
     }
 
-    render()
+    loadTurnstileScript().then(render).catch(onExpire)
     window.addEventListener('wg:turnstile-ready', render, { once: true })
 
     return () => {
@@ -74,6 +108,7 @@ const Contact = () => {
     phone: '',
     subject: '',
     message: '',
+    website: '',
   })
 
   // Formatar telefone (apenas números brasileiros)
@@ -154,10 +189,21 @@ const Contact = () => {
         title: t('contactPage.toast.successTitle'),
         description: t('contactPage.toast.successDescription'),
       })
-      setFormData({ name: '', email: '', phone: '', subject: '', message: '' })
+      trackFormSubmit({
+        formId: 'contact',
+        status: 'success',
+        context: searchParams.get('context') || 'site',
+      })
+      setFormData({ name: '', email: '', phone: '', subject: '', message: '', website: '' })
       setTurnstileToken('')
       if (window.turnstile) window.turnstile.reset()
     } catch (error) {
+      if (import.meta.env.DEV) console.error(error)
+      trackFormSubmit({
+        formId: 'contact',
+        status: 'error',
+        context: searchParams.get('context') || 'site',
+      })
       toast({
         variant: 'destructive',
         title: t('contactPage.toast.errorTitle'),
@@ -169,6 +215,10 @@ const Contact = () => {
   }
 
   const handleWhatsApp = () => {
+    trackWhatsappClick({
+      context: searchParams.get('context') || 'contact',
+      target: COMPANY.whatsapp || COMPANY.phoneRaw,
+    })
     window.open('https://wa.me/5511984650002', '_blank', 'noopener,noreferrer')
   }
 
@@ -390,7 +440,7 @@ const Contact = () => {
                 </motion.div>
               </div>
 
-              <Button onClick={handleWhatsApp} className="wg-btn-pill-primary w-full group sm:w-auto">
+              <Button type="button" onClick={handleWhatsApp} className="wg-btn-pill-primary w-full group sm:w-auto">
                 <MessageCircle className="mr-2 w-5 h-5 transition-transform group-hover:scale-110" />
                 {t('contactPage.info.whatsappCta')}
               </Button>
@@ -420,12 +470,22 @@ const Contact = () => {
                 </div>
 
                 <div className="grid gap-3.5">
+                  <input
+                    type="hidden"
+                    name="website"
+                    value={formData.website}
+                    onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+                    autoComplete="off"
+                  />
+
                   <div className="grid gap-3.5 md:grid-cols-2">
                     <div>
-                      <label className="mb-2 block text-sm font-light text-wg-black/88">
+                      <label htmlFor="contact-name" className="mb-2 block text-sm font-light text-wg-black/88">
                         {t('contactPage.form.name')}
                       </label>
                       <input
+                        id="contact-name"
+                        name="name"
                         type="text"
                         required
                         value={formData.name}
@@ -436,10 +496,12 @@ const Contact = () => {
                     </div>
 
                     <div>
-                      <label className="mb-2 block text-sm font-light text-wg-black/88">
+                      <label htmlFor="contact-email" className="mb-2 block text-sm font-light text-wg-black/88">
                         {t('contactPage.form.email')}
                       </label>
                       <input
+                        id="contact-email"
+                        name="email"
                         type="email"
                         required
                         value={formData.email}
@@ -452,10 +514,12 @@ const Contact = () => {
 
                   <div className="grid gap-3.5 md:grid-cols-2">
                     <div>
-                      <label className="mb-2 block text-sm font-light text-wg-black/88">
+                      <label htmlFor="contact-phone" className="mb-2 block text-sm font-light text-wg-black/88">
                         {t('contactPage.form.phone')}
                       </label>
                       <input
+                        id="contact-phone"
+                        name="phone"
                         type="tel"
                         value={formData.phone}
                         onChange={(e) =>
@@ -469,10 +533,12 @@ const Contact = () => {
                     </div>
 
                     <div>
-                      <label className="mb-2 block text-sm font-light text-wg-black/88">
+                      <label htmlFor="contact-subject" className="mb-2 block text-sm font-light text-wg-black/88">
                         {t('contactPage.form.subject')}
                       </label>
                       <input
+                        id="contact-subject"
+                        name="subject"
                         type="text"
                         value={formData.subject}
                         onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
@@ -483,10 +549,12 @@ const Contact = () => {
                   </div>
 
                   <div>
-                    <label className="mb-2 block text-sm font-light text-wg-black/88">
+                    <label htmlFor="contact-message" className="mb-2 block text-sm font-light text-wg-black/88">
                       {t('contactPage.form.message')}
                     </label>
                     <textarea
+                      id="contact-message"
+                      name="message"
                       required
                       rows={4}
                       value={formData.message}
