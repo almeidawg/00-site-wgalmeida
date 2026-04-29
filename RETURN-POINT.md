@@ -1,6 +1,70 @@
 # RETURN-POINT — site-wgalmeida
 **Atualizado:** 25/04/2026
 
+## Fechamento pendencia footer recursos — 29/04/2026
+
+### O que foi corrigido
+
+- `src/components/layout/Footer.jsx`
+  - bloco `Recursos` mantido no footer para expor:
+    - Blog & Artigos
+    - Revista de Estilos
+    - Gerador de Moodboard
+    - Visualizador de Ambientes
+    - Guia de Estilos
+  - grid responsivo ajustado para comportar a quinta coluna sem quebrar o layout:
+    - `lg:grid-cols-3`
+    - `xl:grid-cols-[0.9fr_0.95fr_1fr_1.55fr_1.05fr]`
+  - removido deslocamento negativo da coluna de regioes que era especifico do layout anterior.
+
+### Validacao executada
+
+- Sync Gate `-Stage start -AllowDirty` OK no repo canonico.
+- `npm run verify:full` OK:
+  - lint OK
+  - check imports OK
+  - audit estrutural OK
+  - audit consistency normal e strict OK
+  - 8 arquivos de teste / 52 testes OK
+  - build Vite OK
+  - rotas SEO geradas/validadas OK
+- `public/sitemap.xml` apareceu apenas com ruido de `lastmod` gerado pelo build e foi descartado antes do commit conforme regra local.
+
+## Auditoria estrutural anti-reincidencia estendida — 29/04/2026
+
+### O que foi saneado
+
+- ref contaminada `origin/main (1)` movida para `.git/codex-quarantine/refs-contaminadas-20260429`
+- 13 copias nao versionadas `arquivo (1).*` movidas para `.git/codex-quarantine/worktree-duplicates-20260429`
+- `scripts/audit-consistency.mjs` passou a ter fallback Node nativo quando `rg` nao existir
+
+### Guardrail criado
+
+- criado `scripts/audit-structural.mjs`
+- `package.json` passou a executar `audit:structural` em:
+  - `verify:fast`
+  - `verify:full`
+  - `verify:deploy`
+  - `prepush`
+- o audit valida:
+  - ausencia de contaminacao em `.git/refs` e `.git/objects`
+  - dominios canonicos em `src/data/company.js`
+  - hero video via Cloudinary, sem retorno a `/videos/hero/*.mp4`
+  - CSP ativa e report-only com `media-src https://res.cloudinary.com`
+  - Admin Blog -> paginas publicas usando slot `hero`, override versionado, upload publicado e Unsplash publicado
+  - testes regressivos de Cloudinary e catalogo de imagens
+
+### Validacao executada
+
+- `npm run audit:structural` OK
+- `npm run verify:fast` OK:
+  - lint OK
+  - check imports OK
+  - audit estrutural OK
+  - audit consistency normal e strict OK
+  - 8 arquivos de teste / 52 testes OK
+- Sync Gate `-Stage start -AllowDirty` OK no repo canonico
+
 ## Hotfix hero video e imagens Admin Blog — 25/04/2026
 
 ### Problema confirmado

@@ -38,6 +38,7 @@ export default function ContextTracker() {
         tipoImovel: prev.tipoImovel || query.get('propertyType') || tipoImovel || null,
         faixaValor: prev.faixaValor || query.get('valueRange') || null,
         origem: prev.origem || query.get('source') || pathname,
+        partnerId: prev.partnerId || query.get('partner') || null,
         lastPath: pathname,
         updatedAt: new Date().toISOString(),
         signals: {
