@@ -1,6 +1,6 @@
 # Robots.txt - Grupo WG Almeida
 # https://wgalmeida.com.br
-# Atualizado: 2026-02-28
+# Atualizado: 2026-04-29
 
 User-agent: *
 Allow: /

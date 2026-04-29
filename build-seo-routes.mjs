@@ -190,6 +190,38 @@ const escapeHtml = (text = "") =>
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;");
 
+function stripMarkdownInline(text = "") {
+  return text
+    .replace(/!\[[^\]]*\]\([^)]+\)/g, "")
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/[*_`~>#]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function getMarkdownPreviewBlocks(route) {
+  let filePath = null;
+  if (route.startsWith("/blog/")) {
+    const slug = route.replace("/blog/", "");
+    filePath = path.join(root, "src", "content", "blog", `${slug}.md`);
+  } else if (route.startsWith("/estilos/")) {
+    const slug = route.replace("/estilos/", "");
+    filePath = path.join(root, "src", "content", "estilos", `${slug}.md`);
+  }
+
+  if (!filePath || !fs.existsSync(filePath)) return [];
+
+  const raw = fs.readFileSync(filePath, "utf8").replace(/^---\r?\n[\s\S]*?\r?\n---/, "");
+  const blocks = [];
+  for (const line of raw.split(/\r?\n/)) {
+    const clean = stripMarkdownInline(line.replace(/^#{1,3}\s+/, ""));
+    if (clean.length < 45) continue;
+    blocks.push(clean);
+    if (blocks.length >= 5) break;
+  }
+  return blocks;
+}
+
 const CRITICAL_ROUTE_PRELOADS = {
   "/buildtech": [
     '<link rel="preload" as="image" href="/images/banners/PROCESSOS-640.webp" imagesrcset="/images/banners/PROCESSOS-640.webp 640w, /images/banners/PROCESSOS-960.webp 960w, /images/banners/PROCESSOS.webp 1200w" imagesizes="100vw" fetchpriority="high">',
@@ -224,6 +256,12 @@ function buildSeoFallback(route, config) {
   const heading = escapeHtml(config.og?.title || config.title || routeLabel(route));
   const description = escapeHtml(config.description || "");
   const canonical = `https://wgalmeida.com.br${route}`;
+  const previewBlocks = getMarkdownPreviewBlocks(route);
+  const previewHtml = previewBlocks.length
+    ? previewBlocks.map((block) => `<p style="font-size:16px;margin:0 0 14px 0">${escapeHtml(block)}</p>`).join("\n  ")
+    : `<p style="font-size:16px;margin:0 0 18px 0">
+    Nesta pagina voce encontra informacoes objetivas sobre escopo, etapas, qualidade de execucao e orientacoes para tomar decisoes com seguranca. O foco e entregar clareza de investimento, previsibilidade de prazo e compatibilizacao entre arquitetura, obra e marcenaria, evitando retrabalho e ruido operacional ao longo de toda a jornada do cliente.
+  </p>`;
 
   return `
 <div id="wg-seo-fallback" style="max-width:980px;margin:48px auto;padding:0 20px;font-family:Inter,Arial,sans-serif;color:#222;line-height:1.6">
@@ -232,9 +270,7 @@ function buildSeoFallback(route, config) {
   <p style="font-size:16px;margin:0 0 18px 0">
     O Grupo WG Almeida atua com arquitetura, engenharia e marcenaria integradas, do projeto a entrega da obra, com padrao tecnico e gestao unificada.
   </p>
-  <p style="font-size:16px;margin:0 0 18px 0">
-    Nesta pagina voce encontra informacoes objetivas sobre escopo, etapas, qualidade de execucao e orientacoes para tomar decisoes com seguranca. O foco e entregar clareza de investimento, previsibilidade de prazo e compatibilizacao entre arquitetura, obra e marcenaria, evitando retrabalho e ruido operacional ao longo de toda a jornada do cliente.
-  </p>
+  ${previewHtml}
   <nav aria-label="Navegacao interna">
     <a href="/arquitetura">Arquitetura</a> ·
     <a href="/engenharia">Engenharia</a> ·
@@ -384,6 +420,20 @@ ${sitemapEntries}
   
   // Também atualizar na pasta public para o próximo build
   await fs.promises.writeFile(sitemapPath, sitemapXml);
+  const sitemapIndexXml = `<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>https://wgalmeida.com.br/sitemap.xml</loc>
+    <lastmod>${today}</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://wgalmeida.com.br/video-sitemap.xml</loc>
+    <lastmod>${today}</lastmod>
+  </sitemap>
+</sitemapindex>
+`;
+  await fs.promises.writeFile(path.join(outputRoot, "sitemap-index.xml"), sitemapIndexXml);
+  await fs.promises.writeFile(path.join(root, "public", "sitemap-index.xml"), sitemapIndexXml);
   console.log(`Sitemap updated with ${ROUTES.length} routes.`);
 }
 

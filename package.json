@@ -17,6 +17,8 @@
     "seo:validate": "node ./tools/seo-audit.mjs && node ./tools/seo-validate-dist.mjs dist",
     "seo:validate:fresh": "node ./tools/seo-audit.mjs && node ./tools/generate-style-webp-from-svg.mjs && node ./tools/generate-about-webp.mjs && node ./build-seo-og.mjs && vite build && node ./tools/prune-unused-style-svg.mjs dist && node ./tools/prune-unused-public-media.mjs dist && node ./build-seo-routes.mjs dist && node ./tools/seo-validate-dist.mjs dist",
     "monitor:synthetic": "node ./tools/synthetic-checks.mjs",
+    "google:indexing:audit": "node ./tools/google-indexing-ops.mjs audit",
+    "google:indexing:submit-sitemap": "node ./tools/google-indexing-ops.mjs submit-sitemap",
     "blog:editorial:queue": "node ./tools/generate-blog-editorial-queue.mjs",
     "blog:editorial:auto": "node ./tools/run-editorial-auto.mjs",
     "blog:editorial:status": "node ./tools/blog-editorial-status.mjs",
