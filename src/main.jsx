@@ -2,9 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import App from '@/App';
 import '@/index.css';
 import '@/i18n'; // Internacionalizacao
+import AnalyticsEvents from '@/components/AnalyticsEvents';
 import { Toaster } from '@/components/ui/toaster';
 import { CartProvider } from '@/hooks/useCart';
 import { getBasePath, withBasePath } from '@/utils/assetPaths';
@@ -24,6 +27,20 @@ class AppErrorBoundary extends React.Component {
 
   componentDidCatch(error, errorInfo) {
     console.error('App crashed:', error, errorInfo);
+    if (!import.meta.env.PROD) return;
+
+    fetch('/api/client-error', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      keepalive: true,
+      body: JSON.stringify({
+        message: String(error?.message || 'unknown').slice(0, 500),
+        componentStack: String(errorInfo?.componentStack || '').slice(0, 1200),
+        path: window.location.pathname,
+      }),
+    }).catch(() => {
+      // Telemetria de erro nunca deve derrubar a experiencia.
+    });
   }
 
   render() {
@@ -122,8 +139,11 @@ const app = (
     <HelmetProvider>
       <BrowserRouter basename={getBasePath() || undefined}>
         <CartProvider>
+          <AnalyticsEvents />
           <App />
           <Toaster />
+          <Analytics />
+          <SpeedInsights />
         </CartProvider>
       </BrowserRouter>
     </HelmetProvider>

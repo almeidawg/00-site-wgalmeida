@@ -7,6 +7,8 @@ import ResponsiveWebpImage from '@/components/ResponsiveWebpImage';
 import { getPublicPageImageSrc } from '@/data/publicPageImageCatalog';
 import { useTranslation } from 'react-i18next';
 import { SCHEMAS } from '@/data/schemaConfig';
+import { COMPANY } from '@/data/company';
+import { trackCtaClick, trackDemoInteraction, trackWhatsappClick } from '@/lib/analytics';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 40 },
@@ -83,27 +85,31 @@ const BuildTech = () => {
   const liveDemos = [
     {
       title: 'CRM Pipeline',
-      metric: '18 leads ativos',
-      text: 'Lead entra por campanha, recebe origem, prioridade e proximo passo comercial.',
+      metric: '18 leads anonimizados',
+      text: 'Lead entra por campanha, recebe origem, prioridade e proximo passo comercial com dados mascarados de operacao real.',
       icon: LayoutDashboard,
+      id: 'crm_pipeline',
     },
     {
       title: 'IA WhatsApp Agent',
       metric: '4 etapas rastreadas',
-      text: 'A Liz identifica contexto, qualifica demanda e encaminha para a proxima acao.',
+      text: 'A Liz identifica contexto, qualifica demanda e encaminha para a proxima acao com trilha de atendimento auditavel.',
       icon: Bot,
+      id: 'ia_whatsapp_agent',
     },
     {
       title: 'Dashboard KPIs',
       metric: '92% SLA',
-      text: 'Visao de funil, tempo de resposta, propostas abertas e gargalos operacionais.',
+      text: 'Visao anonimizada de funil, tempo de resposta, propostas abertas e gargalos operacionais.',
       icon: BarChart,
+      id: 'dashboard_kpis',
     },
     {
       title: 'Mapa de Projetos',
       metric: 'SP + regioes',
-      text: 'Camada georreferenciada para leitura de carteira, demanda e oportunidade.',
+      text: 'Camada georreferenciada para leitura de carteira, demanda e oportunidade sem expor enderecos sensiveis.',
       icon: Rocket,
+      id: 'mapa_projetos',
     },
   ];
 
@@ -137,6 +143,28 @@ const BuildTech = () => {
           SCHEMAS.softwareMoodboard,
           SCHEMAS.softwareRoomVisualizer,
           SCHEMAS.breadcrumbBuildTech,
+          {
+            '@context': 'https://schema.org',
+            '@type': 'ItemList',
+            name: 'Demonstrações WG BuildTech',
+            itemListElement: liveDemos.map((demo, index) => ({
+              '@type': 'ListItem',
+              position: index + 1,
+              name: demo.title,
+              description: demo.text,
+              url: `https://wgalmeida.com.br/buildtech#experimente`,
+            })),
+          },
+          SCHEMAS.faq([
+            {
+              question: 'O que a WG BuildTech automatiza?',
+              answer: 'A WG BuildTech conecta CRM, WhatsApp, dados operacionais, dashboards e agentes de IA para reduzir tarefas manuais e melhorar previsibilidade comercial e operacional.',
+            },
+            {
+              question: 'As demos usam dados reais?',
+              answer: 'As demos usam amostras mascaradas e padrões de operação reais, sem expor dados pessoais, endereços sensíveis ou informações confidenciais de clientes.',
+            },
+          ]),
         ]}
       />
 
@@ -154,6 +182,10 @@ const BuildTech = () => {
             src={BUILDTECH_HERO_IMAGE}
             width="1920"
             height="1080"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+            sizes="100vw"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-wg-blue/60 via-wg-blue/80 to-wg-black/90"></div>
         </motion.div>
@@ -195,6 +227,12 @@ const BuildTech = () => {
             >
               <Link
                 to="/solicite-proposta?service=Sistema%20de%20Experi%C3%AAncia%20Visual&context=buildtech"
+                onClick={() => trackCtaClick({
+                  ctaId: 'buildtech_hero_specialist',
+                  ctaLabel: 'Falar com Especialista',
+                  ctaContext: 'buildtech_hero',
+                  ctaDestination: '/solicite-proposta?context=buildtech',
+                })}
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-white/12 px-6 py-3 text-sm text-white transition-colors hover:bg-white/20"
               >
                 Falar com Especialista
@@ -213,6 +251,11 @@ const BuildTech = () => {
         </div>
 
         <div className="container-custom relative z-10">
+          <div className="mb-8 max-w-3xl">
+            <span className="text-[#ff8a57] text-sm tracking-widest uppercase">Solucoes e servicos</span>
+            <h2 className="mt-3 text-3xl md:text-5xl font-light tracking-tight">Portfólio tecnológico para operação, vendas e dados</h2>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {services.map((service, index) => (
               <motion.div
@@ -227,7 +270,7 @@ const BuildTech = () => {
                   <service.icon className="w-6 h-6 text-wg-orange" />
                 </div>
                 <h3 className="text-xl font-light mb-3">{service.title}</h3>
-                <p className="text-white/60 text-sm leading-relaxed">{service.description}</p>
+                <p className="text-white/75 text-sm leading-relaxed">{service.description}</p>
               </motion.div>
             ))}
           </div>
@@ -258,7 +301,7 @@ const BuildTech = () => {
                   <item.icon className="w-5 h-5" />
                 </div>
                 <h2 className="text-xl font-light mb-2">{item.title}</h2>
-                <p className="text-white/65 text-sm leading-relaxed">{item.text}</p>
+                <p className="text-white/75 text-sm leading-relaxed">{item.text}</p>
               </div>
             ))}
           </motion.div>
@@ -270,21 +313,21 @@ const BuildTech = () => {
           >
             <div className="mb-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
               <div>
-                <span className="text-wg-orange text-sm tracking-widest uppercase">Metodo WG Build.tech</span>
+                <span className="text-[#ff8a57] text-sm tracking-widest uppercase">Metodo WG Build.tech</span>
                 <h2 className="mt-3 text-3xl md:text-5xl font-light tracking-tight">Tecnologia aplicada com governanca, nao improviso</h2>
               </div>
-              <p className="max-w-2xl text-white/62 text-sm leading-relaxed">
+              <p className="max-w-2xl text-white/75 text-sm leading-relaxed">
                 Cada solucao nasce com descoberta, dados, automacao, seguranca e medicao. A interface fica simples; a engenharia trabalha nos bastidores.
               </p>
             </div>
             <div className="grid gap-4 md:grid-cols-4">
               {methodSteps.map(([title, text], index) => (
                 <div key={title} className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
-                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-wg-orange/15 text-sm text-wg-orange">
+                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-sm text-white">
                     {String(index + 1).padStart(2, '0')}
                   </div>
                   <h3 className="mb-2 text-lg font-light">{title}</h3>
-                  <p className="text-sm leading-relaxed text-white/60">{text}</p>
+                  <p className="text-sm leading-relaxed text-white/75">{text}</p>
                 </div>
               ))}
             </div>
@@ -296,23 +339,31 @@ const BuildTech = () => {
             className="mt-16 scroll-mt-28"
           >
             <div className="mb-8">
-              <span className="text-wg-orange text-sm tracking-widest uppercase">Experimente ao vivo</span>
+              <span className="text-[#ff8a57] text-sm tracking-widest uppercase">Experimente ao vivo</span>
               <h2 className="mt-3 text-3xl md:text-5xl font-light tracking-tight">Demos leves para entender valor antes da reuniao</h2>
             </div>
 
             <div className="grid gap-4 lg:grid-cols-[1fr_0.92fr]">
               <div className="grid gap-4 md:grid-cols-2">
                 {liveDemos.map((demo) => (
-                  <div key={demo.title} className="rounded-2xl border border-white/10 bg-white/[0.05] p-5">
+                  <button
+                    key={demo.title}
+                    type="button"
+                    onClick={() => trackDemoInteraction({ demoId: demo.id, action: 'open_card' })}
+                    className="rounded-2xl border border-white/10 bg-white/[0.05] p-5 text-left transition-colors hover:border-wg-orange/50 hover:bg-white/[0.07] focus:outline-none focus:ring-2 focus:ring-wg-orange/40"
+                  >
                     <div className="mb-5 flex items-center justify-between gap-4">
                       <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-wg-orange/15 text-wg-orange">
                         <demo.icon className="h-5 w-5" />
                       </div>
-                      <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/62">{demo.metric}</span>
+                      <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/75">{demo.metric}</span>
                     </div>
                     <h3 className="mb-2 text-xl font-light">{demo.title}</h3>
-                    <p className="text-sm leading-relaxed text-white/60">{demo.text}</p>
-                  </div>
+                    <p className="text-sm leading-relaxed text-white/75">{demo.text}</p>
+                    <span className="mt-4 inline-flex text-xs uppercase tracking-widest text-[#ff8a57]">
+                      Amostra navegavel
+                    </span>
+                  </button>
                 ))}
               </div>
 
@@ -320,13 +371,16 @@ const BuildTech = () => {
                 <div className="mb-5 flex items-center justify-between gap-4">
                   <div>
                     <h3 className="text-xl font-light">Simulador de proposta</h3>
-                    <p className="mt-1 text-sm text-white/58">Estimativa inicial para automacao, dashboard e integrações.</p>
+                    <p className="mt-1 text-sm text-white/75">Estimativa inicial para automacao, dashboard e integrações.</p>
                   </div>
                   <Zap className="h-6 w-6 text-wg-orange" />
                 </div>
-                <label className="mb-2 block text-xs uppercase tracking-widest text-white/50">Area operacional impactada</label>
+                <label htmlFor="proposal-area" className="mb-2 block text-xs uppercase tracking-widest text-white/75">Area operacional impactada</label>
                 <input
+                  id="proposal-area"
+                  name="proposal-area"
                   type="range"
+                  aria-label="Area operacional impactada"
                   min="40"
                   max="420"
                   step="10"
@@ -334,7 +388,7 @@ const BuildTech = () => {
                   onChange={(event) => setProposalArea(Number(event.target.value))}
                   className="w-full accent-wg-orange"
                 />
-                <div className="mt-2 flex justify-between text-sm text-white/60">
+                <div className="mt-2 flex justify-between text-sm text-white/75">
                   <span>{proposalArea} m2 equivalentes</span>
                   <span>{proposalEstimate}</span>
                 </div>
@@ -343,11 +397,14 @@ const BuildTech = () => {
                     <button
                       key={label}
                       type="button"
-                      onClick={() => setProposalComplexity(index + 1)}
+                      onClick={() => {
+                        setProposalComplexity(index + 1);
+                        trackDemoInteraction({ demoId: 'simulador_proposta', action: `complexity_${label.toLowerCase()}` });
+                      }}
                       className={`rounded-xl border px-3 py-2 text-xs transition-colors ${
                         proposalComplexity === index + 1
                           ? 'border-wg-orange bg-wg-orange/16 text-white'
-                          : 'border-white/10 bg-white/[0.03] text-white/58 hover:bg-white/[0.08]'
+                          : 'border-white/10 bg-white/[0.03] text-white/75 hover:bg-white/[0.08]'
                       }`}
                     >
                       {label}
@@ -359,9 +416,32 @@ const BuildTech = () => {
                     <Bot className="h-4 w-4 text-wg-orange" />
                     Liz demo
                   </div>
-                  <p className="text-sm leading-relaxed text-white/58">
+                  <p className="text-sm leading-relaxed text-white/75">
                     "Identifiquei origem BuildTech, interesse em automacao e prioridade comercial. Proximo passo: enviar diagnostico guiado e abrir oportunidade no CRM."
                   </p>
+                  <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+                    <Link
+                      to="/contato?context=buildtech"
+                      onClick={() => trackDemoInteraction({ demoId: 'liz_demo', action: 'open_contact' })}
+                      className="inline-flex items-center justify-center gap-2 rounded-xl border border-wg-orange/40 px-4 py-2 text-sm text-wg-orange transition-colors hover:bg-wg-orange/12"
+                    >
+                      Abrir diagnostico
+                      <ArrowRight className="h-4 w-4" />
+                    </Link>
+                    <a
+                      href={`https://wa.me/${COMPANY.phoneRaw.replace(/\D/g, '')}?text=${encodeURIComponent('Quero conversar com a Liz sobre WG BuildTech')}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => {
+                        trackDemoInteraction({ demoId: 'liz_demo', action: 'whatsapp' });
+                        trackWhatsappClick({ context: 'buildtech_liz_demo', target: COMPANY.phoneRaw });
+                      }}
+                      className="inline-flex items-center justify-center gap-2 rounded-xl bg-wg-orange px-4 py-2 text-sm text-white transition-colors hover:bg-wg-orange/90"
+                    >
+                      Converse com a Liz agora
+                      <Bot className="h-4 w-4" />
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -374,7 +454,7 @@ const BuildTech = () => {
           >
             <div className="mb-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
               <div>
-                <span className="text-wg-orange text-sm tracking-widest uppercase">Cases e produtos</span>
+                <span className="text-[#ff8a57] text-sm tracking-widest uppercase">Cases e produtos</span>
                 <h2 className="mt-3 text-3xl md:text-5xl font-light tracking-tight">Laboratorio vivo do ecossistema WG</h2>
               </div>
               <Link to="/contato?context=buildtech" className="inline-flex items-center gap-2 text-sm text-wg-orange hover:text-white">
@@ -385,9 +465,9 @@ const BuildTech = () => {
             <div className="grid gap-4 md:grid-cols-3">
               {cases.map((item) => (
                 <article key={item.title} className="rounded-2xl border border-white/10 bg-white/[0.05] p-6">
-                  <span className="text-xs uppercase tracking-widest text-white/44">{item.type}</span>
+                  <span className="text-xs uppercase tracking-widest text-white/70">{item.type}</span>
                   <h3 className="mt-3 text-2xl font-light">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-white/60">{item.text}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-white/75">{item.text}</p>
                 </article>
               ))}
             </div>
@@ -399,7 +479,7 @@ const BuildTech = () => {
             className="mt-20 p-8 md:p-12 rounded-3xl bg-gradient-to-br from-wg-blue/20 to-wg-orange/10 border border-white/10 flex flex-col md:flex-row items-center gap-12"
           >
             <div className="flex-1">
-              <span className="text-wg-orange text-sm tracking-widest uppercase mb-4 block">Powered by WG Easy</span>
+              <span className="text-[#ff8a57] text-sm tracking-widest uppercase mb-4 block">Powered by WG Easy</span>
               <h2 className="text-3xl md:text-5xl font-light mb-6 tracking-tight">A experiência de gestão por trás das obras mais exigentes</h2>
               <p className="text-white/70 text-lg mb-8">
                 Utilize a mesma inteligência operacional que permitiu ao Grupo WG Almeida escalar sua operação com mais clareza, automação útil e menos esforço manual. Do CRM ao controle de suprimentos em uma jornada conectada.
@@ -416,6 +496,12 @@ const BuildTech = () => {
               </ul>
               <Link
                 to="/solicite-proposta?service=Sistema%20de%20Experi%C3%AAncia%20Visual&context=buildtech"
+                onClick={() => trackCtaClick({
+                  ctaId: 'buildtech_wgeasy_demo',
+                  ctaLabel: 'Solicitar Demonstração',
+                  ctaContext: 'buildtech_wgeasy',
+                  ctaDestination: '/solicite-proposta?context=buildtech',
+                })}
                 className="inline-flex items-center gap-2 px-6 py-3 border border-white/20 rounded-lg hover:bg-white/10 transition-all"
               >
                 Solicitar Demonstração
