@@ -1,6 +1,46 @@
 # RETURN-POINT — site-wgalmeida
 **Atualizado:** 30/04/2026
 
+## Correcao iPad/mobile: menu sanduiche e video da intro — 30/04/2026
+
+### O que foi corrigido
+
+- `src/components/layout/Header.jsx`
+  - menu mobile passa a cobrir tambem tablet/iPad em landscape (`xl:hidden`), eliminando o intervalo onde o sanduiche aparecia sem painel correspondente.
+  - painel mobile recebeu `z-index`, altura maxima e scroll interno para evitar bloqueio visual em telas pequenas.
+- `src/components/PremiumCinematicIntro.jsx`
+  - overlay da intro deixa de capturar toques em mobile/tablet (`pointer-events-none`), liberando o clique no menu.
+  - video da intro passa a recalcular perfil por viewport/orientacao com debounce em resize/orientationchange.
+  - video chama `load()`/`play()` ao trocar perfil e usa `onCanPlay` para recuperar autoplay quando o asset fica pronto.
+  - ruído de qualidade reduzido: PropTypes, chaves estaveis e particulas deterministicas no render.
+- `src/utils/cloudinaryMedia.js`
+  - perfis landscape de phone/tablet passam a usar 16:9 com dimensoes explicitas, evitando video vertical em aparelho horizontal.
+- `src/pages/Home.jsx`
+  - removido `fetchPriority` que gerava warning de React no console durante validacao mobile.
+
+### Validacao executada
+
+- PR #53 mesclado em `main`: `e6924a900ffec4607cfa7590ea2c60fb4dac9797`.
+- GitHub Actions `CI/CD Pipeline` da `main` OK: run `25148802358`.
+- Checks do PR OK: `build-and-test`, `deploy-gate-final`, SonarCloud, GitGuardian, Vercel e Vercel Preview Comments.
+- Gates locais OK:
+  - `npm run lint`
+  - `npm run test:run -- src/__tests__/cloudinaryMedia.test.js`
+  - `npm run build`
+  - pre-push hook com `check:imports`, `audit:consistency:strict` e build.
+- Producao validada em `https://wgalmeida.com.br/` com HTTP 200.
+- Browser headless em producao validado para:
+  - iPhone portrait: menu abre, links aparecem, video `ar_9:16`, `readyState=4`, sem erros de console.
+  - iPhone landscape: menu abre, links aparecem, video `ar_16:9`, `readyState=4`, sem erros de console.
+  - iPad portrait: menu abre, links aparecem, video `ar_3:4`, `readyState=4`, sem erros de console.
+  - iPad landscape: menu abre, links aparecem, video `ar_16:9`, `readyState=4`, sem erros de console.
+
+### Causa raiz
+
+- A intro cinematografica tinha camada fixa acima do header e ainda interceptava eventos de ponteiro em mobile/tablet.
+- O breakpoint do menu deixava um intervalo de tablet/iPad landscape sem painel mobile renderizado.
+- O perfil de video landscape para tablet podia selecionar proporcao inadequada, gerando experiencia vertical em orientacao horizontal.
+
 ## Reforco de indexacao e interlinking — 30/04/2026
 
 ### O que foi corrigido
