@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { motion, AnimatePresence } from '@/lib/motion-lite';
 import { useTranslation, Trans } from 'react-i18next';
 import { withBasePath } from '@/utils/assetPaths';
@@ -53,7 +54,7 @@ const TOTAL_DURATION = 45000; // 45 segundos total
 const portfolioImages = PREMIUM_INTRO_PORTFOLIO_IMAGES;
 
 const getViewportForHeroVideo = () => {
-  if (typeof globalThis.window === 'undefined') {
+  if (globalThis.window === undefined) {
     return { width: 1440, height: 900 };
   }
 
@@ -62,6 +63,29 @@ const getViewportForHeroVideo = () => {
     width: Math.round(visualViewport?.width || innerWidth || 1440),
     height: Math.round(visualViewport?.height || innerHeight || 900),
   };
+};
+
+const openExternalUrl = (url) => {
+  const opened = globalThis.open?.(url, '_blank', 'noopener,noreferrer');
+  if (opened) {
+    opened.opener = null;
+  }
+};
+
+const getStableIntroKey = (prefix, value) => {
+  if (typeof value === 'string' || typeof value === 'number') {
+    return `${prefix}-${value}`;
+  }
+
+  if (React.isValidElement(value)) {
+    return `${prefix}-${value.key || value.props?.i18nKey || value.props?.children || value.type?.name || 'node'}`;
+  }
+
+  try {
+    return `${prefix}-${JSON.stringify(value)}`;
+  } catch {
+    return `${prefix}-node`;
+  }
 };
 
 // ============================================================
@@ -79,10 +103,11 @@ const GoldenParticles = ({ count = 50, active = true }) => {
         const delay = Math.random() * 3;
         const duration = 4 + Math.random() * 4;
         const startX = Math.random() * 100;
+        const particleKey = `${startX.toFixed(2)}-${delay.toFixed(2)}-${duration.toFixed(2)}-${size.toFixed(2)}`;
 
         return (
           <motion.div
-            key={i}
+            key={particleKey}
             initial={{
               x: `${startX}vw`,
               y: '110vh',
@@ -151,7 +176,7 @@ const ContinuousLightBeams = () => {
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {beams.map((beam, i) => (
         <motion.div
-          key={i}
+          key={`${beam.angle}-${beam.top}-${beam.delay}`}
           initial={{ x: '-100%', opacity: 0 }}
           animate={{
             x: ['-100%', '200%'],
@@ -182,7 +207,7 @@ const ContinuousLightBeams = () => {
 const WhatsAppButton = ({ show, urgent = false, size = 'normal', message, ariaLabel }) => {
   const handleClick = () => {
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank');
+    openExternalUrl(url);
   };
 
   const sizeClasses = {
@@ -248,7 +273,7 @@ const WhatsAppButton = ({ show, urgent = false, size = 'normal', message, ariaLa
 const FinalCTA = ({ show, lines, message, subtitle, buttonLabel, availabilityLabel }) => {
   const handleClick = () => {
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank');
+    openExternalUrl(url);
   };
 
   return (
@@ -265,7 +290,7 @@ const FinalCTA = ({ show, lines, message, subtitle, buttonLabel, availabilityLab
           <div className="text-center">
             {(lines || ['Vamos começar?']).map((line, i) => (
               <motion.h2
-                key={i}
+                key={getStableIntroKey('final-cta-line', line)}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 + i * 0.2 }}
@@ -354,7 +379,7 @@ const LogoReveal = ({ show }) => (
       >
         {/* Ondas de energia atrás do logo - cores WG */}
         {[WG_COLORS.orange, WG_COLORS.green, WG_COLORS.blue, WG_COLORS.brown].map((color, i) => (
-          <ElegantWave key={i} color={color} delay={0.3 + i * 0.15} scale={5 + i * 1.5} />
+          <ElegantWave key={color} color={color} delay={0.3 + i * 0.15} scale={5 + i * 1.5} />
         ))}
 
         {/* Luz central pulsante */}
@@ -430,7 +455,7 @@ const EmotionalText = ({ lines, show }) => (
       >
         {lines.map((line, i) => (
           <motion.p
-            key={i}
+            key={getStableIntroKey('emotional-line', line)}
             initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             transition={{ delay: i * 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
@@ -457,7 +482,7 @@ const StatementText = ({ lines, show }) => (
       >
         {lines.map((line, i) => (
           <motion.p
-            key={i}
+            key={getStableIntroKey('statement-line', line)}
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: i * 0.15, duration: 0.6 }}
@@ -484,7 +509,7 @@ const ServicesDisplay = ({ lines, show }) => (
       >
         {lines.map((service, i) => (
           <motion.div
-            key={i}
+            key={getStableIntroKey('service-line', service)}
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: i * 0.2, duration: 0.5, type: 'spring' }}
@@ -524,7 +549,7 @@ const ImpactText = ({ lines, show }) => (
       >
         {lines.map((line, i) => (
           <motion.p
-            key={i}
+            key={getStableIntroKey('impact-line', line)}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.2, duration: 0.6 }}
@@ -569,7 +594,7 @@ const StoryText = ({ subtitle, lines, show }) => (
         {/* Linhas de texto */}
         {lines.map((line, i) => (
           <motion.p
-            key={i}
+            key={getStableIntroKey('story-line', line)}
             initial={{ opacity: 0, y: 40, filter: 'blur(8px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             transition={{
@@ -694,7 +719,7 @@ const WGEasyDisplay = ({ subtitle, lines, features, show }) => (
         {/* Linhas de texto */}
         {lines.map((line, i) => (
           <motion.p
-            key={i}
+            key={getStableIntroKey('wg-easy-line', line)}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 + i * 0.1 }}
@@ -713,7 +738,7 @@ const WGEasyDisplay = ({ subtitle, lines, features, show }) => (
         >
           {features.map((feature, i) => (
             <motion.span
-              key={i}
+              key={getStableIntroKey('wg-easy-feature', feature)}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.7 + i * 0.1 }}
@@ -757,7 +782,7 @@ const ImpactFinal = ({ lines, show }) => (
         {/* Texto de impacto */}
         {lines.map((line, i) => (
           <motion.p
-            key={i}
+            key={getStableIntroKey('impact-final-line', line)}
             initial={{ opacity: 0, y: 30, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{
@@ -801,7 +826,7 @@ const PortfolioFlash = ({ show }) => (
       >
         {portfolioImages.map((img, i) => (
           <motion.div
-            key={i}
+            key={getStableIntroKey('portfolio-image', img)}
             initial={{ opacity: 0, scale: 1.1 }}
             animate={{ opacity: [0, 1, 1, 0], scale: [1.1, 1, 1, 1.05] }}
             transition={{
@@ -853,7 +878,7 @@ const PortfolioFlash = ({ show }) => (
 const getStartTime = () => {
   const stored = sessionStorage.getItem('wg-intro-start-time');
   if (stored) {
-    const storedTime = parseInt(stored, 10);
+    const storedTime = Number.parseInt(stored, 10);
     // Verificar se não passou da duração total (evita usar tempo antigo)
     if (Date.now() - storedTime < TOTAL_DURATION + 5000) {
       return storedTime;
@@ -893,7 +918,7 @@ const PremiumCinematicIntro = ({ onComplete }) => {
   });
   // Inicializa isMobile sincronamente para evitar flip de src no primeiro render
   const [introVideoProfile, setIntroVideoProfile] = useState(
-    () => typeof globalThis.window === 'undefined'
+    () => globalThis.window === undefined
       ? 'desktopLandscape'
       : getHeroVideoProfile(getViewportForHeroVideo())
   );
@@ -1000,8 +1025,8 @@ const PremiumCinematicIntro = ({ onComplete }) => {
         setIsComplete(false);
       }
     };
-    window.addEventListener('keypress', handleKeyPress);
-    return () => window.removeEventListener('keypress', handleKeyPress);
+    globalThis.addEventListener('keypress', handleKeyPress);
+    return () => globalThis.removeEventListener('keypress', handleKeyPress);
   }, []);
 
   if (isComplete) return null;
@@ -1023,7 +1048,7 @@ const PremiumCinematicIntro = ({ onComplete }) => {
           playsInline
           preload="auto"
           poster={INTRO_VIDEO_POSTER}
-          aria-hidden="true"
+          role="presentation"
           onCanPlay={() => videoRef.current?.play().catch(() => {})}
         />
 
@@ -1506,7 +1531,7 @@ const PremiumCinematicIntro = ({ onComplete }) => {
               transition={{ delay: 0.6, type: 'spring' }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank')}
+              onClick={() => openExternalUrl(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`)}
               className="relative"
             >
               <motion.div
@@ -1587,6 +1612,93 @@ const PremiumCinematicIntro = ({ onComplete }) => {
       </motion.div>
     </div>
   );
+};
+
+const textLinesType = PropTypes.arrayOf(PropTypes.node);
+
+GoldenParticles.propTypes = {
+  count: PropTypes.number,
+  active: PropTypes.bool,
+};
+
+ElegantWave.propTypes = {
+  color: PropTypes.string,
+  delay: PropTypes.number,
+  scale: PropTypes.number,
+};
+
+WhatsAppButton.propTypes = {
+  show: PropTypes.bool,
+  urgent: PropTypes.bool,
+  size: PropTypes.oneOf(['small', 'normal', 'large']),
+  message: PropTypes.string,
+  ariaLabel: PropTypes.string,
+};
+
+FinalCTA.propTypes = {
+  show: PropTypes.bool,
+  lines: textLinesType,
+  message: PropTypes.string,
+  subtitle: PropTypes.node,
+  buttonLabel: PropTypes.node,
+  availabilityLabel: PropTypes.node,
+};
+
+LogoReveal.propTypes = {
+  show: PropTypes.bool,
+};
+
+EmotionalText.propTypes = {
+  lines: textLinesType,
+  show: PropTypes.bool,
+};
+
+StatementText.propTypes = {
+  lines: textLinesType,
+  show: PropTypes.bool,
+};
+
+ServicesDisplay.propTypes = {
+  lines: textLinesType,
+  show: PropTypes.bool,
+};
+
+ImpactText.propTypes = {
+  lines: textLinesType,
+  show: PropTypes.bool,
+};
+
+StoryText.propTypes = {
+  subtitle: PropTypes.node,
+  lines: textLinesType,
+  show: PropTypes.bool,
+};
+
+NucleoHighlight.propTypes = {
+  nucleo: PropTypes.node,
+  desc: PropTypes.node,
+  color: PropTypes.string,
+  show: PropTypes.bool,
+};
+
+WGEasyDisplay.propTypes = {
+  subtitle: PropTypes.node,
+  lines: textLinesType,
+  features: PropTypes.arrayOf(PropTypes.node),
+  show: PropTypes.bool,
+};
+
+ImpactFinal.propTypes = {
+  lines: textLinesType,
+  show: PropTypes.bool,
+};
+
+PortfolioFlash.propTypes = {
+  show: PropTypes.bool,
+};
+
+PremiumCinematicIntro.propTypes = {
+  onComplete: PropTypes.func,
 };
 
 export default PremiumCinematicIntro;

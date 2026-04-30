@@ -1048,7 +1048,6 @@ const Home = () => {
                 height="1080"
                 loading="lazy"
                 decoding="async"
-                fetchPriority="low"
               />
               <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-wg-blue/90 via-wg-blue/70 to-transparent" />
 
