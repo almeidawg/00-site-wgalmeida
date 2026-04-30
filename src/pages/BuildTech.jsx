@@ -29,6 +29,7 @@ const BuildTech = () => {
   const location = useLocation();
   const [proposalArea, setProposalArea] = useState(120);
   const [proposalComplexity, setProposalComplexity] = useState(2);
+  const [activeDemoId, setActiveDemoId] = useState('crm_pipeline');
 
   const proposalEstimate = useMemo(() => {
     const base = Number(proposalArea || 0) * 145;
@@ -117,6 +118,53 @@ const BuildTech = () => {
       id: 'mapa_projetos',
     },
   ];
+
+  const liveDemoPanels = {
+    crm_pipeline: {
+      title: 'Pipeline comercial mascarado',
+      insight: 'Da primeira mensagem ao follow-up, cada etapa tem SLA e dono claros.',
+      rows: [
+        ['Novo lead', '6', 'origem + interesse'],
+        ['Qualificacao Liz', '5', 'perfil + urgencia'],
+        ['Diagnostico', '4', 'briefing assistido'],
+        ['Proposta', '3', 'proximo passo'],
+      ],
+    },
+    ia_whatsapp_agent: {
+      title: 'Roteiro Liz assistido',
+      insight: 'O agente distingue cliente final, parceiro e demanda tecnica antes de encaminhar.',
+      rows: [
+        ['Detectar contexto', '12s', 'BuildTech'],
+        ['Coletar objetivo', '38s', 'automacao'],
+        ['Classificar prioridade', 'alta', 'resposta < 1h'],
+        ['Criar tarefa CRM', 'ok', 'handoff humano'],
+      ],
+    },
+    dashboard_kpis: {
+      title: 'KPIs operacionais',
+      insight: 'Indicadores acompanham captacao, resposta e conversao sem expor dados sensiveis.',
+      rows: [
+        ['SLA resposta', '92%', 'meta 90%'],
+        ['Propostas abertas', '11', '3 prioritarias'],
+        ['Origem rastreada', '100%', 'UTM + contexto'],
+        ['Tempo medio', '18min', 'primeiro toque'],
+      ],
+    },
+    mapa_projetos: {
+      title: 'Mapa de oportunidades',
+      insight: 'Leitura por regiao ajuda a cruzar demanda, carteira e capacidade operacional.',
+      rows: [
+        ['Zona Sul', '7', 'alto ticket'],
+        ['Oeste', '5', 'retrofit'],
+        ['ABC', '3', 'parceiros'],
+        ['Interior SP', '3', 'remoto assistido'],
+      ],
+    },
+  };
+
+  const activeDemo = liveDemos.find((demo) => demo.id === activeDemoId) || liveDemos[0];
+  const activePanel = liveDemoPanels[activeDemo.id];
+  const ActiveDemoIcon = activeDemo.icon;
 
   const cases = [
     {
@@ -355,8 +403,16 @@ const BuildTech = () => {
                   <button
                     key={demo.title}
                     type="button"
-                    onClick={() => trackDemoInteraction({ demoId: demo.id, action: 'open_card' })}
-                    className="rounded-2xl border border-white/10 bg-white/[0.05] p-5 text-left transition-colors hover:border-wg-orange/50 hover:bg-white/[0.07] focus:outline-none focus:ring-2 focus:ring-wg-orange/40"
+                    aria-pressed={activeDemoId === demo.id}
+                    onClick={() => {
+                      setActiveDemoId(demo.id);
+                      trackDemoInteraction({ demoId: demo.id, action: 'open_card' });
+                    }}
+                    className={`rounded-2xl border p-5 text-left transition-colors focus:outline-none focus:ring-2 focus:ring-wg-orange/40 ${
+                      activeDemoId === demo.id
+                        ? 'border-wg-orange/70 bg-wg-orange/10'
+                        : 'border-white/10 bg-white/[0.05] hover:border-wg-orange/50 hover:bg-white/[0.07]'
+                    }`}
                   >
                     <div className="mb-5 flex items-center justify-between gap-4">
                       <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-wg-orange/15 text-wg-orange">
@@ -374,6 +430,29 @@ const BuildTech = () => {
               </div>
 
               <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-5">
+                <div className="mb-6 rounded-2xl border border-white/10 bg-wg-black/45 p-4">
+                  <div className="mb-4 flex items-center justify-between gap-4">
+                    <div>
+                      <span className="text-xs uppercase tracking-widest text-[#ff8a57]">{activeDemo.title}</span>
+                      <h3 className="mt-1 text-xl font-light">{activePanel.title}</h3>
+                    </div>
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-wg-orange/15 text-wg-orange">
+                      <ActiveDemoIcon className="h-5 w-5" />
+                    </div>
+                  </div>
+                  <p className="mb-4 text-sm leading-relaxed text-white/75">{activePanel.insight}</p>
+                  <div className="grid gap-2">
+                    {activePanel.rows.map(([label, value, note]) => (
+                      <div key={label} className="grid grid-cols-[1fr_auto] items-center gap-3 rounded-xl bg-white/[0.05] px-3 py-2">
+                        <div>
+                          <p className="text-sm text-white">{label}</p>
+                          <p className="text-xs text-white/55">{note}</p>
+                        </div>
+                        <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/80">{value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
                 <div className="mb-5 flex items-center justify-between gap-4">
                   <div>
                     <h3 className="text-xl font-light">Simulador de proposta</h3>

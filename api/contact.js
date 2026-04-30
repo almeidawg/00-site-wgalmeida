@@ -1,9 +1,14 @@
 import crypto from 'node:crypto'
+import { applyRateLimitHeaders, getClientIp } from './_requestGuard.js'
 
 const SUPABASE_ORIGIN = 'https://ahlqzzkxuutwoepirpzr.supabase.co'
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
 const TURNSTILE_SECRET_KEY = process.env.TURNSTILE_SECRET_KEY
 const CONTACT_TURNSTILE_REQUIRED = process.env.CONTACT_TURNSTILE_REQUIRED === 'true'
+const ALLOWED_EXTRA_ORIGINS = String(process.env.CONTACT_ALLOWED_ORIGINS || '')
+  .split(',')
+  .map((origin) => origin.trim())
+  .filter(Boolean)
 const MAX_BODY_BYTES = 16 * 1024
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000
 const RATE_LIMIT_MAX = 8
@@ -31,6 +36,7 @@ const json = (res, status, payload) => {
   res.setHeader('Content-Type', 'application/json; charset=utf-8')
   res.setHeader('Cache-Control', 'no-store')
   res.setHeader('X-Robots-Tag', 'noindex')
+  res.setHeader('X-Content-Type-Options', 'nosniff')
   res.end(JSON.stringify(payload))
 }
 
@@ -76,7 +82,8 @@ const isAllowedOrigin = (req) => {
   const origin = req.headers.origin
   if (!origin) return true
   if (ALLOWED_ORIGINS.has(origin)) return true
-  return /^https:\/\/[a-z0-9-]+\.vercel\.app$/i.test(origin)
+  if (ALLOWED_EXTRA_ORIGINS.includes(origin)) return true
+  return process.env.VERCEL_ENV !== 'production' && /^https:\/\/[a-z0-9-]+\.vercel\.app$/i.test(origin)
 }
 
 const pruneMap = (store, now) => {
@@ -92,12 +99,16 @@ const checkRateLimit = (key) => {
 
   if (!current || current.resetAt <= now) {
     rateLimitStore.set(key, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS })
-    return true
+    return { ok: true, remaining: RATE_LIMIT_MAX - 1, resetAt: now + RATE_LIMIT_WINDOW_MS }
   }
 
   current.count += 1
   rateLimitStore.set(key, current)
-  return current.count <= RATE_LIMIT_MAX
+  return {
+    ok: current.count <= RATE_LIMIT_MAX,
+    remaining: Math.max(0, RATE_LIMIT_MAX - current.count),
+    resetAt: current.resetAt,
+  }
 }
 
 const tokenAlreadyUsed = (token) => {
@@ -127,7 +138,14 @@ const verifyTurnstile = async (token, remoteip) => {
   })
 
   const result = await response.json().catch(() => ({}))
-  return response.ok && result.success === true
+  if (!response.ok || result.success !== true) return false
+  if (result.action && result.action !== 'contact_form') return false
+
+  const expectedHostnames = new Set(['wgalmeida.com.br', 'www.wgalmeida.com.br'])
+  if (process.env.VERCEL_ENV !== 'production' && typeof result.hostname === 'string') {
+    return expectedHostnames.has(result.hostname) || result.hostname.endsWith('.vercel.app') || result.hostname === 'localhost'
+  }
+  return !result.hostname || expectedHostnames.has(result.hostname)
 }
 
 export default async function handler(req, res) {
@@ -164,7 +182,7 @@ export default async function handler(req, res) {
     const phone = clean(body.phone, 40)
     const subject = clean(body.subject, 160)
     const message = clean(body.message, 1800)
-    const remoteip = String(req.headers['x-forwarded-for'] || '').split(',')[0].trim()
+    const remoteip = getClientIp(req)
     const rateKey = `${remoteip || 'unknown'}:${email || 'no-email'}`
 
     if (clean(body.website, 120)) {
@@ -175,7 +193,9 @@ export default async function handler(req, res) {
       return json(res, 400, { error: 'Nome, e-mail valido e mensagem sao obrigatorios.' })
     }
 
-    if (!checkRateLimit(rateKey)) {
+    const rate = checkRateLimit(rateKey)
+    applyRateLimitHeaders(res, rate)
+    if (!rate.ok) {
       return json(res, 429, { error: 'Muitas tentativas. Aguarde alguns minutos e tente novamente.' })
     }
 
