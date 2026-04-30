@@ -53,14 +53,14 @@ const TOTAL_DURATION = 45000; // 45 segundos total
 const portfolioImages = PREMIUM_INTRO_PORTFOLIO_IMAGES;
 
 const getViewportForHeroVideo = () => {
-  if (typeof window === 'undefined') {
+  if (typeof globalThis.window === 'undefined') {
     return { width: 1440, height: 900 };
   }
 
-  const visualViewport = window.visualViewport;
+  const { innerWidth, innerHeight, visualViewport } = globalThis.window;
   return {
-    width: Math.round(visualViewport?.width || window.innerWidth || 1440),
-    height: Math.round(visualViewport?.height || window.innerHeight || 900),
+    width: Math.round(visualViewport?.width || innerWidth || 1440),
+    height: Math.round(visualViewport?.height || innerHeight || 900),
   };
 };
 
@@ -208,7 +208,7 @@ const WhatsAppButton = ({ show, urgent = false, size = 'normal', message, ariaLa
           aria-label={ariaLabel}
           className={`
             ${sizeClasses[size]}
-            pointer-events-auto rounded-full flex items-center justify-center
+            rounded-full flex items-center justify-center
             shadow-lg transition-colors relative z-50
           `}
           style={{
@@ -296,7 +296,7 @@ const FinalCTA = ({ show, lines, message, subtitle, buttonLabel, availabilityLab
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={handleClick}
-            className="relative mt-4 pointer-events-auto"
+            className="relative mt-4"
           >
             {/* Pulsos de urgência */}
             <motion.div
@@ -893,7 +893,7 @@ const PremiumCinematicIntro = ({ onComplete }) => {
   });
   // Inicializa isMobile sincronamente para evitar flip de src no primeiro render
   const [introVideoProfile, setIntroVideoProfile] = useState(
-    () => typeof window === 'undefined'
+    () => typeof globalThis.window === 'undefined'
       ? 'desktopLandscape'
       : getHeroVideoProfile(getViewportForHeroVideo())
   );
@@ -905,19 +905,19 @@ const PremiumCinematicIntro = ({ onComplete }) => {
   useEffect(() => {
     let timerId;
     const syncVideoProfile = () => {
-      window.clearTimeout(timerId);
-      timerId = window.setTimeout(() => {
+      globalThis.clearTimeout(timerId);
+      timerId = globalThis.setTimeout(() => {
         setIntroVideoProfile(getHeroVideoProfile(getViewportForHeroVideo()));
       }, 160);
     };
 
     syncVideoProfile();
-    window.addEventListener('resize', syncVideoProfile);
-    window.addEventListener('orientationchange', syncVideoProfile);
+    globalThis.addEventListener('resize', syncVideoProfile);
+    globalThis.addEventListener('orientationchange', syncVideoProfile);
     return () => {
-      window.clearTimeout(timerId);
-      window.removeEventListener('resize', syncVideoProfile);
-      window.removeEventListener('orientationchange', syncVideoProfile);
+      globalThis.clearTimeout(timerId);
+      globalThis.removeEventListener('resize', syncVideoProfile);
+      globalThis.removeEventListener('orientationchange', syncVideoProfile);
     };
   }, []);
 
@@ -1507,7 +1507,7 @@ const PremiumCinematicIntro = ({ onComplete }) => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank')}
-              className="relative pointer-events-auto"
+              className="relative"
             >
               <motion.div
                 className="absolute inset-0 rounded-full"
@@ -1530,7 +1530,7 @@ const PremiumCinematicIntro = ({ onComplete }) => {
       </div>
 
       {/* WhatsApp flutuante (canto inferior direito) - esconde no CTA (stage 11) */}
-      <div className="fixed bottom-8 right-8 z-50">
+      <div className="pointer-events-auto fixed bottom-8 right-8 z-50">
         <WhatsAppButton
           show={showWhatsApp && currentStage !== 11}
           urgent={currentStage >= 3}
