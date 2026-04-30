@@ -219,6 +219,13 @@ Para:
 - Roupa academia
 - Separação lavagem
 
+## Veja Tambem
+
+- [Custo de marcenaria planejada](/blog/custo-marcenaria-planejada)
+- [Marcenaria sob medida: guia completo](/blog/marcenaria-sob-medida)
+- [Reforma de cozinha planejada](/blog/reforma-cozinha-planejada-guia-completo)
+- [Servico de marcenaria WG Almeida](/marcenaria)
+
 Tipos:
 - Fixos: R$ 150-400
 - Deslizantes: R$ 300-700
