@@ -88,6 +88,11 @@ const getStableIntroKey = (prefix, value) => {
   }
 };
 
+const getIntroSeedValue = (index, salt) => {
+  const value = Math.sin(index * 12.9898 + salt * 78.233) * 43758.5453;
+  return value - Math.floor(value);
+};
+
 // ============================================================
 // COMPONENTES DE EFEITOS VISUAIS
 // ============================================================
@@ -98,11 +103,12 @@ const GoldenParticles = ({ count = 50, active = true }) => {
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {[...Array(count)].map((_, i) => {
-        const size = 2 + Math.random() * 4;
-        const delay = Math.random() * 3;
-        const duration = 4 + Math.random() * 4;
-        const startX = Math.random() * 100;
+      {Array.from({ length: count }, (_, i) => {
+        const size = 2 + getIntroSeedValue(i, 1) * 4;
+        const delay = getIntroSeedValue(i, 2) * 3;
+        const duration = 4 + getIntroSeedValue(i, 3) * 4;
+        const startX = getIntroSeedValue(i, 4) * 100;
+        const endX = startX + (getIntroSeedValue(i, 5) - 0.5) * 20;
         const particleKey = `${startX.toFixed(2)}-${delay.toFixed(2)}-${duration.toFixed(2)}-${size.toFixed(2)}`;
 
         return (
@@ -118,7 +124,7 @@ const GoldenParticles = ({ count = 50, active = true }) => {
               y: '-10vh',
               opacity: [0, 1, 1, 0],
               scale: [0, 1, 1, 0],
-              x: `${startX + (Math.random() - 0.5) * 20}vw`,
+              x: `${endX}vw`,
             }}
             transition={{
               duration: duration,
