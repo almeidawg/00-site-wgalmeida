@@ -345,7 +345,7 @@ const iconButtonClass = isScrolled
 
         {/* Mobile menu */}
         {isMobileMenuOpen && (
-          <div className="relative z-[90] animate-slideDown border-t border-white/[0.12] bg-[rgba(12,16,22,0.76)] backdrop-blur-2xl lg:hidden">
+          <div className="relative z-[95] max-h-[calc(100dvh-var(--header-height)-1rem)] overflow-y-auto overscroll-contain animate-slideDown border-t border-white/[0.12] bg-[rgba(12,16,22,0.86)] backdrop-blur-2xl xl:hidden">
             <nav className="container-custom py-4 space-y-2">
               {[...navItems.slice(0,3), {label: t('header.unitsLabel'), dropdown: unitsItems}, ...navItems.slice(3)].map((item, index) => (
                 <div key={index}>

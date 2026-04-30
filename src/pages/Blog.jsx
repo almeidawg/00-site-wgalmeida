@@ -510,7 +510,7 @@ const buildIccriDatasetSchema = ({ articleUrl, datePublished }) => ({
   ],
 });
 
-const StableBlogImage = ({ src, fallbackSrc, alt, onError, ...props }) => {
+const StableBlogImage = ({ src, fallbackSrc, alt, onError, fetchPriority, ...props }) => {
   const [currentSrc, setCurrentSrc] = useState(src || fallbackSrc || '');
   const [fallbackApplied, setFallbackApplied] = useState(false);
   const imageRef = useRef(null);
@@ -549,6 +549,7 @@ const StableBlogImage = ({ src, fallbackSrc, alt, onError, ...props }) => {
   return (
     <img
       {...props}
+      fetchpriority={fetchPriority}
       ref={imageRef}
       src={currentSrc}
       alt={alt}

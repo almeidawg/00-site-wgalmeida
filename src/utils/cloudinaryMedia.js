@@ -14,6 +14,16 @@ const HERO_VIEWPORT_BREAKPOINTS = {
   tabletMax: 1199,
 };
 
+const normalizeViewport = ({ width = 0, height = 0 } = {}) => {
+  const safeWidth = Number.isFinite(width) ? width : 0;
+  const safeHeight = Number.isFinite(height) ? height : 0;
+
+  return {
+    width: Math.max(0, Math.round(safeWidth)),
+    height: Math.max(0, Math.round(safeHeight)),
+  };
+};
+
 const joinTransformations = (transformations = []) =>
   transformations.filter(Boolean).join('/');
 
@@ -35,9 +45,9 @@ const buildHeroVideoProfile = (transformations = []) =>
 
 const HERO_CLOUDINARY_VIDEO_PROFILES = {
   phonePortrait: buildHeroVideoProfile(['ar_9:16', 'w_720', 'h_1280']),
-  phoneLandscape: buildHeroVideoProfile(['ar_16:9', 'w_1280']),
+  phoneLandscape: buildHeroVideoProfile(['ar_16:9', 'w_1280', 'h_720']),
   tabletPortrait: buildHeroVideoProfile(['ar_3:4', 'w_1080', 'h_1440']),
-  tabletLandscape: buildHeroVideoProfile(['ar_4:3', 'w_1600', 'h_1200']),
+  tabletLandscape: buildHeroVideoProfile(['ar_16:9', 'w_1600', 'h_900']),
   desktopPortrait: buildHeroVideoProfile(['ar_4:5', 'w_1440', 'h_1800']),
   desktopLandscape: buildHeroVideoProfile(['ar_16:9', 'w_1920']),
 };
@@ -52,8 +62,7 @@ HERO_MEDIA.mobile = HERO_MEDIA.profiles.phonePortrait;
 HERO_MEDIA.desktop = HERO_MEDIA.profiles.desktopLandscape;
 
 export const getHeroVideoProfile = ({ width = 0, height = 0 } = {}) => {
-  const safeWidth = Number.isFinite(width) ? width : 0;
-  const safeHeight = Number.isFinite(height) ? height : 0;
+  const { width: safeWidth, height: safeHeight } = normalizeViewport({ width, height });
   const orientation = safeHeight > safeWidth ? 'portrait' : 'landscape';
 
   if (safeWidth <= HERO_VIEWPORT_BREAKPOINTS.phoneMax) {

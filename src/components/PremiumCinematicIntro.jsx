@@ -52,6 +52,18 @@ const TOTAL_DURATION = 45000; // 45 segundos total
 // Imagens do portfólio para o flash
 const portfolioImages = PREMIUM_INTRO_PORTFOLIO_IMAGES;
 
+const getViewportForHeroVideo = () => {
+  if (typeof window === 'undefined') {
+    return { width: 1440, height: 900 };
+  }
+
+  const visualViewport = window.visualViewport;
+  return {
+    width: Math.round(visualViewport?.width || window.innerWidth || 1440),
+    height: Math.round(visualViewport?.height || window.innerHeight || 900),
+  };
+};
+
 // ============================================================
 // COMPONENTES DE EFEITOS VISUAIS
 // ============================================================
@@ -196,7 +208,7 @@ const WhatsAppButton = ({ show, urgent = false, size = 'normal', message, ariaLa
           aria-label={ariaLabel}
           className={`
             ${sizeClasses[size]}
-            rounded-full flex items-center justify-center
+            pointer-events-auto rounded-full flex items-center justify-center
             shadow-lg transition-colors relative z-50
           `}
           style={{
@@ -284,7 +296,7 @@ const FinalCTA = ({ show, lines, message, subtitle, buttonLabel, availabilityLab
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={handleClick}
-            className="relative mt-4"
+            className="relative mt-4 pointer-events-auto"
           >
             {/* Pulsos de urgência */}
             <motion.div
@@ -883,22 +895,27 @@ const PremiumCinematicIntro = ({ onComplete }) => {
   const [introVideoProfile, setIntroVideoProfile] = useState(
     () => typeof window === 'undefined'
       ? 'desktopLandscape'
-      : getHeroVideoProfile({ width: window.innerWidth, height: window.innerHeight })
+      : getHeroVideoProfile(getViewportForHeroVideo())
   );
   const [elapsed, setElapsed] = useState(() => Date.now() - startTimeRef.current);
   const videoRef = useRef(null);
   const intervalRef = useRef(null);
 
-  // Detectar mobile
+  // Detectar mobile/tablet e aguardar o viewport estabilizar após rotação.
   useEffect(() => {
-    const syncVideoProfile = () =>
-      setIntroVideoProfile(
-        getHeroVideoProfile({ width: window.innerWidth, height: window.innerHeight })
-      );
+    let timerId;
+    const syncVideoProfile = () => {
+      window.clearTimeout(timerId);
+      timerId = window.setTimeout(() => {
+        setIntroVideoProfile(getHeroVideoProfile(getViewportForHeroVideo()));
+      }, 160);
+    };
 
+    syncVideoProfile();
     window.addEventListener('resize', syncVideoProfile);
     window.addEventListener('orientationchange', syncVideoProfile);
     return () => {
+      window.clearTimeout(timerId);
       window.removeEventListener('resize', syncVideoProfile);
       window.removeEventListener('orientationchange', syncVideoProfile);
     };
@@ -963,9 +980,10 @@ const PremiumCinematicIntro = ({ onComplete }) => {
   // Controle do vídeo
   useEffect(() => {
     if (videoRef.current) {
+      videoRef.current.load();
       videoRef.current.play().catch(() => {});
     }
-  }, []);
+  }, [introVideoProfile]);
 
   // Tecla R para reiniciar a intro (para testes)
   useEffect(() => {
@@ -991,7 +1009,7 @@ const PremiumCinematicIntro = ({ onComplete }) => {
   const introVideoSrc = HERO_MEDIA.profiles[introVideoProfile] || HERO_MEDIA.desktop;
 
   return (
-    <div className="fixed inset-0 z-[100] overflow-hidden bg-black">
+    <div className="pointer-events-none fixed inset-0 z-[70] overflow-hidden bg-black xl:pointer-events-auto xl:z-[100]">
       {/* Vídeo de fundo */}
       <div className="absolute inset-0">
         <video
@@ -1006,6 +1024,7 @@ const PremiumCinematicIntro = ({ onComplete }) => {
           preload="auto"
           poster={INTRO_VIDEO_POSTER}
           aria-hidden="true"
+          onCanPlay={() => videoRef.current?.play().catch(() => {})}
         />
 
         {/* Overlay gradiente - mais leve */}
@@ -1488,7 +1507,7 @@ const PremiumCinematicIntro = ({ onComplete }) => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank')}
-              className="relative"
+              className="relative pointer-events-auto"
             >
               <motion.div
                 className="absolute inset-0 rounded-full"
@@ -1541,7 +1560,7 @@ const PremiumCinematicIntro = ({ onComplete }) => {
           setIsComplete(true);
           if (onComplete) onComplete();
         }}
-        className="absolute top-8 right-8 text-white/30 hover:text-white/70 text-xs tracking-widest uppercase transition-colors"
+        className="pointer-events-auto absolute right-5 top-24 text-white/40 hover:text-white/80 text-xs tracking-widest uppercase transition-colors xl:right-8 xl:top-8 xl:text-white/30 xl:hover:text-white/70"
       >
         {t('premiumIntro.skip')}
       </motion.button>
@@ -1550,7 +1569,7 @@ const PremiumCinematicIntro = ({ onComplete }) => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: currentStage > 0 ? 0.5 : 0 }}
-        className="absolute top-8 left-8"
+        className="absolute left-5 top-24 xl:left-8 xl:top-8"
       >
         <img
           src={WG_LOGO}
