@@ -1,6 +1,57 @@
 # RETURN-POINT — site-wgalmeida
 **Atualizado:** 30/04/2026
 
+## P1 hardening pos go-live BuildTech — 30/04/2026
+
+### O que foi reforcado
+
+- `api/contact.js`
+  - CORS em producao deixou de aceitar previews Vercel aleatorios por padrao.
+  - `CONTACT_ALLOWED_ORIGINS` documentado para previews controlados.
+  - resposta passa a expor headers de rate limit.
+  - Turnstile passa a validar `action=contact_form` e hostname esperado.
+- `api/client-error.js`
+  - adicionados limite de payload, CORS, OPTIONS, rate limiting e headers anti-indexacao/nosniff.
+- `src/pages/Contact.jsx`
+  - Turnstile renderizado com `action` e `cData`.
+  - links de WhatsApp passam a usar `COMPANY.whatsapp`.
+- `src/pages/BuildTech.jsx`
+  - vitrine "Experimente ao vivo" evoluida para painel navegavel com dados mascarados de pipeline, agente WhatsApp, KPIs e mapa de oportunidades.
+- `src/lib/analytics.js`
+  - payload Vercel Analytics ampliado com `action` e `source` para eventos de CTA, formulario, WhatsApp, demo e scroll.
+- `tools/synthetic-checks.mjs`
+  - monitoramento expandido para robots, sitemaps e rota `/buildtech/clientes/umauma`.
+- `src/__tests__/contact-api.test.js`
+  - cobertura adicionada para headers de rate limit e bloqueio de preview Vercel aleatorio em producao.
+
+### Validacao local executada
+
+- `npm run verify:fast` OK: 9 arquivos de teste / 56 testes.
+- `npm run build` OK.
+- `npm run monitor:synthetic` OK em producao:
+  - `/api/health`
+  - `/robots.txt`
+  - `/sitemap.xml`
+  - `/sitemap-index.xml`
+  - `/buildtech`
+  - `/buildtech/solucoes.html`
+  - `/buildtech/metodo.html`
+  - `/buildtech/contato.html`
+  - `/buildtech/clientes/umauma`
+  - `/clientes/umauma`
+  - `/contato?context=buildtech`
+- Browser audit local desktop e mobile OK para `/buildtech`.
+- `public/sitemap.xml` e `public/sitemap-index.xml` apareceram apenas como ruido gerado pelo build e foram descartados antes do commit.
+
+### Pendencias P1/P2
+
+- Configurar em Vercel para ativacao completa do fluxo server-side com desafio obrigatorio:
+  - `VITE_TURNSTILE_SITE_KEY`
+  - `TURNSTILE_SECRET_KEY`
+  - `CONTACT_TURNSTILE_REQUIRED=true`
+- Rodar Lighthouse em preview/production apos PR, com metas: Performance >90, Accessibility >95, SEO >95, Best Practices >95.
+- Substituir amostras mascaradas por screenshots reais aprovados/com dados anonimizados quando houver curadoria comercial final.
+
 ## Correcao iPad/mobile: menu sanduiche e video da intro — 30/04/2026
 
 ### O que foi corrigido

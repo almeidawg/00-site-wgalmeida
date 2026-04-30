@@ -72,6 +72,8 @@ const TurnstileWidget = ({ onVerify, onExpire, disabled }) => {
       widgetIdRef.current = window.turnstile.render(containerRef.current, {
         sitekey: TURNSTILE_SITE_KEY,
         theme: 'light',
+        action: 'contact_form',
+        cData: 'wg_contact',
         callback: onVerify,
         'expired-callback': onExpire,
         'error-callback': onExpire,
@@ -219,7 +221,7 @@ const Contact = () => {
       context: searchParams.get('context') || 'contact',
       target: COMPANY.whatsapp || COMPANY.phoneRaw,
     })
-    window.open('https://wa.me/5511984650002', '_blank', 'noopener,noreferrer')
+    window.open(COMPANY.whatsapp, '_blank', 'noopener,noreferrer')
   }
 
   return (
@@ -358,7 +360,7 @@ const Contact = () => {
                       {t('contactPage.info.phoneLabel')}
                     </p>
                     <a
-                      href="https://wa.me/5511984650002"
+                      href={COMPANY.whatsapp}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-[15px] leading-relaxed text-wg-gray transition-colors hover:text-wg-orange"

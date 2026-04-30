@@ -7,6 +7,8 @@ const limitValue = (value) => String(value ?? '').slice(0, 255)
 const vercelPayload = (payload = {}) => ({
   context: limitValue(payload.cta_context || payload.context || payload.page_path || 'site'),
   target: limitValue(payload.cta_id || payload.demo_id || payload.depth || payload.cta_destination || payload.target || ''),
+  action: limitValue(payload.action || payload.status || ''),
+  source: limitValue(payload.source || payload.form_id || ''),
 })
 
 export function pushDataLayerEvent(eventName, payload = {}) {

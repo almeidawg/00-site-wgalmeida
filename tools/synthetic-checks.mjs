@@ -2,10 +2,14 @@ const baseUrl = process.env.SYNTHETIC_BASE_URL || 'https://wgalmeida.com.br'
 
 const criticalRoutes = [
   '/api/health',
+  '/robots.txt',
+  '/sitemap.xml',
+  '/sitemap-index.xml',
   '/buildtech',
   '/buildtech/solucoes.html',
   '/buildtech/metodo.html',
   '/buildtech/contato.html',
+  '/buildtech/clientes/umauma',
   '/clientes/umauma',
   '/contato?context=buildtech',
 ]
