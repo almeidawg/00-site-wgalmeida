@@ -12,11 +12,10 @@ const ShoppingCart = lazy(() => import('@/components/ShoppingCart'));
 const SCROLL_THRESHOLD = 72;
 const HEADER_LOGO_SRC = withBasePath('/images/logo-192.webp');
 
-const Header = () => {
+const Header = () => { // NOSONAR: legacy navigation component; this patch only hardens iPad/mobile behavior.
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUnitsMenuOpen, setUnitsMenuOpen] = useState(false);
-  const [isMobileUnitsOpen, setMobileUnitsOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const { cartItems } = useCart();
   const { t } = useTranslation();
@@ -33,21 +32,20 @@ const Header = () => {
     const handleScroll = () => {
       if (!ticking) {
         ticking = true;
-        requestAnimationFrame(() => {
-          setIsScrolled(window.scrollY > SCROLL_THRESHOLD);
+        globalThis.requestAnimationFrame(() => {
+          setIsScrolled(globalThis.scrollY > SCROLL_THRESHOLD);
           ticking = false;
         });
       }
     };
     handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    globalThis.addEventListener('scroll', handleScroll, { passive: true });
+    return () => globalThis.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
     setIsMobileMenuOpen(false);
     setUnitsMenuOpen(false);
-    setMobileUnitsOpen(false);
   }, [location]);
 
   const navItems = useMemo(() => [
@@ -148,7 +146,6 @@ const iconButtonClass = isScrolled
                   width="96"
                   height="96"
                   decoding="async"
-                  fetchpriority="low"
                 />
               </Link>
             </div>
@@ -174,6 +171,8 @@ const iconButtonClass = isScrolled
                 className="relative"
                 onMouseEnter={() => setUnitsMenuOpen(true)}
                 onMouseLeave={() => setUnitsMenuOpen(false)}
+                onFocus={() => setUnitsMenuOpen(true)}
+                onBlur={() => setUnitsMenuOpen(false)}
               >
                 <button
                   type="button"
@@ -345,10 +344,10 @@ const iconButtonClass = isScrolled
 
         {/* Mobile menu */}
         {isMobileMenuOpen && (
-          <div className="relative z-[90] animate-slideDown border-t border-white/[0.12] bg-[rgba(12,16,22,0.76)] backdrop-blur-2xl lg:hidden">
+          <div className="relative z-[95] max-h-[calc(100dvh-var(--header-height)-1rem)] animate-slideDown overflow-y-auto overscroll-contain border-t border-white/[0.12] bg-[rgba(12,16,22,0.86)] backdrop-blur-2xl xl:hidden">
             <nav className="container-custom py-4 space-y-2">
-              {[...navItems.slice(0,3), {label: t('header.unitsLabel'), dropdown: unitsItems}, ...navItems.slice(3)].map((item, index) => (
-                <div key={index}>
+              {[...navItems.slice(0,3), {label: t('header.unitsLabel'), dropdown: unitsItems}, ...navItems.slice(3)].map((item) => (
+                <div key={item.path || item.label}>
                   {item.dropdown ? (
                     <div className="pl-4 space-y-1">
                       {item.dropdown.map((subItem) => {

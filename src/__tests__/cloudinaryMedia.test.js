@@ -11,12 +11,15 @@ describe('hero video media selection', () => {
 
   it('returns landscape profiles for wide landscape viewports', () => {
     expect(getHeroVideoProfile({ width: 844, height: 390 })).toBe('tabletLandscape');
+    expect(getHeroVideoProfile({ width: 1024, height: 768 })).toBe('tabletLandscape');
     expect(getHeroVideoProfile({ width: 1440, height: 900 })).toBe('desktopLandscape');
   });
 
   it('maps the selected profile to the expected video url', () => {
     expect(selectHeroVideoSrc({ width: 390, height: 844 })).toBe(HERO_MEDIA.profiles.phonePortrait);
+    expect(selectHeroVideoSrc({ width: 1024, height: 768 })).toBe(HERO_MEDIA.profiles.tabletLandscape);
     expect(selectHeroVideoSrc({ width: 1366, height: 768 })).toBe(HERO_MEDIA.profiles.desktopLandscape);
+    expect(HERO_MEDIA.profiles.tabletLandscape).toContain('ar_16:9');
     expect(HERO_MEDIA.profiles.phonePortrait).toContain('res.cloudinary.com');
     expect(HERO_MEDIA.profiles.phonePortrait).toContain('/video/upload/');
     expect(HERO_MEDIA.profiles.desktopLandscape).toContain('res.cloudinary.com');
