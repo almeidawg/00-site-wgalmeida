@@ -252,6 +252,62 @@ const routeLabel = (route) => {
     .join(" ");
 };
 
+const CORE_SEO_LINKS = [
+  ["/arquitetura", "Arquitetura"],
+  ["/engenharia", "Engenharia"],
+  ["/marcenaria", "Marcenaria"],
+  ["/obra-turn-key", "Obra Turn Key"],
+  ["/arquitetura-corporativa", "Arquitetura Corporativa"],
+  ["/construtora-alto-padrao-sp", "Construtora Alto Padrao SP"],
+  ["/reforma-apartamento-itaim", "Reforma Apartamento Itaim"],
+  ["/revista-estilos", "Revista de Estilos"],
+  ["/blog", "Blog"],
+  ["/solicite-proposta", "Solicite Proposta"],
+  ["/projetos", "Projetos"],
+  ["/faq", "FAQ"],
+  ["/contato", "Contato"],
+];
+
+const ROUTE_SEO_LINKS = {
+  "/blog/closet-planejado-organizacao-otimizacao": [
+    ["/marcenaria", "Marcenaria sob medida"],
+    ["/blog/custo-marcenaria-planejada", "Custo de marcenaria planejada"],
+    ["/blog/marcenaria-sob-medida", "Guia de marcenaria sob medida"],
+    ["/blog/reforma-cozinha-planejada-guia-completo", "Cozinha planejada"],
+  ],
+  "/blog/custo-reforma-m2-sao-paulo": [
+    ["/iccri", "Indice ICCRI"],
+    ["/blog/tabela-precos-reforma-2026-iccri", "Tabela de precos de reforma 2026"],
+    ["/blog/quanto-custa-reforma-apartamento-100m2", "Reforma de apartamento de 100m2"],
+    ["/blog/como-calcular-custo-de-obra", "Como calcular custo de obra"],
+  ],
+  "/estilos/neoclassico": [
+    ["/revista-estilos", "Indice de estilos"],
+    ["/estilos/classico", "Estilo Classico"],
+    ["/estilos/mediterraneo", "Estilo Mediterraneo"],
+    ["/arquitetura", "Projeto de arquitetura"],
+  ],
+  "/estilos/southwest": [
+    ["/revista-estilos", "Indice de estilos"],
+    ["/estilos/rustico", "Estilo Rustico"],
+    ["/estilos/boho", "Estilo Boho"],
+    ["/arquitetura", "Projeto de arquitetura"],
+  ],
+};
+
+function buildSeoNavLinks(route) {
+  const links = [...(ROUTE_SEO_LINKS[route] || []), ...CORE_SEO_LINKS];
+  const seen = new Set();
+  return links
+    .filter(([href]) => {
+      if (seen.has(href)) return false;
+      seen.add(href);
+      return true;
+    })
+    .map(([href, label]) => `<a href="${href}">${escapeHtml(label)}</a>`)
+    .join(" ·\n    ");
+}
+
 function buildSeoFallback(route, config) {
   const heading = escapeHtml(config.og?.title || config.title || routeLabel(route));
   const description = escapeHtml(config.description || "");
@@ -272,17 +328,7 @@ function buildSeoFallback(route, config) {
   </p>
   ${previewHtml}
   <nav aria-label="Navegacao interna">
-    <a href="/arquitetura">Arquitetura</a> ·
-    <a href="/engenharia">Engenharia</a> ·
-    <a href="/marcenaria">Marcenaria</a> ·
-    <a href="/obra-turn-key">Obra Turn Key</a> ·
-    <a href="/arquitetura-corporativa">Arquitetura Corporativa</a> ·
-    <a href="/construtora-alto-padrao-sp">Construtora Alto Padrao SP</a> ·
-    <a href="/reforma-apartamento-itaim">Reforma Apartamento Itaim</a> ·
-    <a href="/solicite-proposta">Solicite Proposta</a> ·
-    <a href="/projetos">Projetos</a> ·
-    <a href="/faq">FAQ</a> ·
-    <a href="/contato">Contato</a>
+    ${buildSeoNavLinks(route)}
   </nav>
   <p style="margin-top:12px;font-size:13px;color:#666">
     URL canonica: <a href="${canonical}">${canonical}</a>
