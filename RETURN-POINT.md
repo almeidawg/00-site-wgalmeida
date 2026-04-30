@@ -1247,3 +1247,55 @@ Data/hora: 2026-04-29 19:56 BRT.
   - `CONTACT_TURNSTILE_REQUIRED=true`
 - Validar CSP real de producao com `https://challenges.cloudflare.com`.
 - P3 recomendado para performance mobile: reduzir hidratacao do shell SPA, CSS critico e custo de i18n/contextos globais.
+
+## Hotfix seguranca admin APIs — 30/04/2026
+
+### Causa confirmada
+
+- Revisao P1 identificou exposicao critica em endpoints administrativos:
+  - `/api/leads`
+  - `/api/campaigns`
+- Ambos usavam `SUPABASE_SERVICE_ROLE_KEY` sem autenticacao server-side.
+- O painel Admin tinha protecao client-side, mas as APIs aceitavam chamada direta sem Bearer token.
+
+### Correcao aplicada
+
+- Criado `api/_adminAuth.js`:
+  - exige `Authorization: Bearer <supabase_access_token>`.
+  - valida o token em `SUPABASE_URL/auth/v1/user`.
+  - consulta perfil via service role apenas depois do token valido.
+  - permite admin por `profile.role === "admin"` ou e-mail no dominio `ADMIN_EMAIL_DOMAIN`.
+  - bloqueia perfil com `ativo === false`.
+  - adiciona `Cache-Control: no-store` e `X-Content-Type-Options: nosniff`.
+- `api/leads.js`:
+  - `GET` e `PATCH` agora exigem admin autenticado antes de consultar PII ou atualizar status.
+  - metodos fora de `GET/PATCH` retornam `405`.
+- `api/campaigns.js`:
+  - `GET/POST/PATCH/DELETE` agora exigem admin autenticado antes de CRUD com service role.
+  - metodos nao suportados retornam `405`.
+- `src/pages/Admin.jsx`:
+  - chamadas do painel para `/api/leads` e `/api/campaigns` passam a enviar o access token da sessao Supabase.
+- `.env.example`:
+  - documentado `SUPABASE_ANON_KEY` server-side e `ADMIN_EMAIL_DOMAIN`.
+
+### Validacao local executada
+
+- Sync Gate `-Stage start -NoFetch` OK no worktree limpo de hotfix:
+  - branch `security/admin-api-auth-20260430`.
+  - base `origin/main` em `92f5943`.
+- `npm ci` OK, `npm audit` reportou 0 vulnerabilidades.
+- `npm run test:run -- src/__tests__/admin-api-auth.test.js` OK:
+  - 3 testes cobrindo bloqueio sem token e acesso admin autenticado.
+- `npm run lint` OK.
+- `npm run verify:fast` OK:
+  - lint OK.
+  - check imports OK.
+  - audit estrutural OK.
+  - audit consistency normal e strict OK.
+  - Vitest: 10 arquivos / 59 testes OK.
+
+### Riscos remanescentes
+
+- Rate limit de contato ainda e in-memory/serverless; recomendado mover para KV/Upstash se abuso real aumentar.
+- Turnstile completo segue dependente de configurar chaves em Vercel e ativar `CONTACT_TURNSTILE_REQUIRED=true`.
+- `/api/meta-ads`, `/api/google-analytics` e `/api/pinterest-ads` continuam como proximo alvo de revisao admin, porque tambem expõem dados operacionais a partir do painel.

@@ -3,6 +3,7 @@ import SEO from '@/components/SEO'
 import editorialQueue from '@/data/blogEditorialQueue.generated.json'
 import { sendClaudePrompt } from '@/lib/claudeClient'
 import { motion } from '@/lib/motion-lite'
+import { useAuth } from '@/contexts/SupabaseAuthContext'
 import {
   ArrowLeft,
   BarChart3,
@@ -516,6 +517,7 @@ const DEFAULT_PLATFORM_SETTINGS = {
 // ─── Componente principal ─────────────────────────────────────────────────────
 const Admin = () => {
   const { t } = useTranslation()
+  const { session } = useAuth()
 
   // Injetar CSS para scrollbar-hide
   useEffect(() => {
@@ -527,6 +529,15 @@ const Admin = () => {
 
   const [activeTab, setActiveTab] = useState('dashboard')
   const [copiedId, setCopiedId] = useState(null)
+  const getAdminApiHeaders = useCallback(
+    (extraHeaders = {}) => ({
+      ...extraHeaders,
+      ...(session?.access_token
+        ? { Authorization: `Bearer ${session.access_token}` }
+        : {}),
+    }),
+    [session?.access_token]
+  )
 
   // Dashboard / Reviews
   const [reviews, setReviews] = useState(null)
@@ -843,7 +854,7 @@ Responda como consultor experiente:
     setLeadsLoading(true)
     try {
       const [leadsRes, metaRes, gaRes, pinterestRes] = await Promise.allSettled([
-        fetch('/api/leads'),
+        fetch('/api/leads', { headers: getAdminApiHeaders() }),
         fetch('/api/meta-ads'),
         fetch('/api/google-analytics'),
         fetch('/api/pinterest-ads'),
@@ -868,13 +879,13 @@ Responda como consultor experiente:
     } finally {
       setLeadsLoading(false)
     }
-  }, [])
+  }, [getAdminApiHeaders])
 
   const updateLeadStatus = async (id, tipo, novoStatus) => {
     try {
       const res = await fetch('/api/leads', {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAdminApiHeaders({ 'Content-Type': 'application/json' }),
         body: JSON.stringify({ id, tipo, status: novoStatus }),
       })
       if (!res.ok) throw new Error('Falha ao atualizar')
@@ -913,14 +924,14 @@ Responda como consultor experiente:
   const fetchCampaigns = useCallback(async () => {
     setCampaignsLoading(true)
     try {
-      const res = await fetch('/api/campaigns')
+      const res = await fetch('/api/campaigns', { headers: getAdminApiHeaders() })
       if (res.ok) setCampaigns((await res.json()).campaigns || [])
     } catch (err) {
       console.error('fetchCampaigns error:', err)
     } finally {
       setCampaignsLoading(false)
     }
-  }, [])
+  }, [getAdminApiHeaders])
 
   useEffect(() => {
     if (activeTab === 'landing' && campaigns.length === 0 && !campaignsLoading) {
@@ -948,7 +959,7 @@ Responda como consultor experiente:
       const payload = { ...campaign, url_final }
       const res = await fetch('/api/campaigns', {
         method: isNew ? 'POST' : 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAdminApiHeaders({ 'Content-Type': 'application/json' }),
         body: JSON.stringify(payload),
       })
       if (!res.ok) throw new Error(await res.text())
@@ -975,7 +986,7 @@ Responda como consultor experiente:
     try {
       await fetch('/api/campaigns', {
         method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAdminApiHeaders({ 'Content-Type': 'application/json' }),
         body: JSON.stringify({ id }),
       })
       setCampaigns((prev) => prev.filter((c) => c.id !== id))

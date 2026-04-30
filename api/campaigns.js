@@ -1,6 +1,8 @@
 // Campaigns API — CRUD para campanhas de landing page com UTM
 // GET: lista campanhas | POST: cria | PATCH: atualiza | DELETE: remove
 
+import { requireAdmin } from './_adminAuth.js';
+
 const SUPABASE_URL = process.env.SUPABASE_URL || 'https://ahlqzzkxuutwoepirpzr.supabase.co';
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
@@ -13,6 +15,13 @@ const sbHeaders = () => ({
 
 export default async function handler(req, res) {
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
+
+  if (!['GET', 'POST', 'PATCH', 'DELETE'].includes(req.method)) {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  const adminAuth = await requireAdmin(req, res);
+  if (!adminAuth.ok) return adminAuth.response;
 
   if (!SUPABASE_SERVICE_KEY) {
     return res.status(500).json({ error: 'SUPABASE_SERVICE_ROLE_KEY not configured' });
