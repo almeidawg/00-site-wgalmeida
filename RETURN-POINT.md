@@ -1,5 +1,57 @@
 # RETURN-POINT — site-wgalmeida
-**Atualizado:** 29/04/2026
+**Atualizado:** 30/04/2026
+
+## Reforco de indexacao e interlinking — 30/04/2026
+
+### O que foi corrigido
+
+- `build-seo-routes.mjs`
+  - fallback HTML pre-gerado passa a incluir links internos especificos por rota para as 4 URLs com atencao no Search Console.
+  - mantidos links centrais para arquitetura, marcenaria, arquitetura corporativa, revista de estilos e blog.
+- `src/content/blog/closet-planejado-organizacao-otimizacao.md`
+  - adicionados links contextuais para marcenaria planejada, marcenaria sob medida, cozinha planejada e pagina de marcenaria.
+- `src/content/estilos/neoclassico.md`
+  - adicionados links para estilos classico/mediterraneo, revista de estilos e arquitetura.
+- `src/content/estilos/southwest.md`
+  - adicionados links para estilos rustico/boho, revista de estilos e arquitetura.
+- `public/sitemap.xml` e `public/sitemap-index.xml`
+  - `lastmod` atualizado para 2026-04-30 no build de producao.
+
+### URLs priorizadas
+
+- `https://wgalmeida.com.br/blog/closet-planejado-organizacao-otimizacao`
+- `https://wgalmeida.com.br/blog/custo-reforma-m2-sao-paulo`
+- `https://wgalmeida.com.br/estilos/neoclassico`
+- `https://wgalmeida.com.br/estilos/southwest`
+
+### Validacao executada
+
+- PR #54 mesclado em `main`: `d87e6c504c98056b11ab65fa6ee7709471304f9a`.
+- GitHub Actions `CI/CD Pipeline` da `main` OK.
+- PR checks OK para `build-and-test`, `deploy-gate-final`, Vercel e GitGuardian; SonarCloud seguiu com falha conhecida nao bloqueante.
+- Producao validada com HTTP 200 em:
+  - `https://wgalmeida.com.br/`
+  - `https://wgalmeida.com.br/blog/closet-planejado-organizacao-otimizacao`
+  - `https://wgalmeida.com.br/blog/custo-reforma-m2-sao-paulo`
+  - `https://wgalmeida.com.br/estilos/neoclassico`
+  - `https://wgalmeida.com.br/estilos/southwest`
+  - `https://wgalmeida.com.br/sitemap.xml`
+  - `https://wgalmeida.com.br/sitemap-index.xml`
+- HTML inicial em producao validado com canonical correto e `hrefs` internos novos nas 4 URLs priorizadas.
+- `sitemap.xml` em producao validado com `lastmod=2026-04-30` para as 4 URLs priorizadas.
+
+### Submissao Search Console
+
+- Sitemaps submetidos em producao para `sc-domain:wgalmeida.com.br` via ADC/OAuth de `william@wgalmeida.com.br`:
+  - `https://wgalmeida.com.br/sitemap.xml`
+  - `https://wgalmeida.com.br/sitemap-index.xml`
+  - `https://wgalmeida.com.br/video-sitemap.xml`
+
+### Proximo acompanhamento
+
+- Reexecutar `npm run google:indexing:audit -- --concurrency=5` apos novo ciclo de crawl do Google.
+- Monitorar se as 3 URLs `URL is unknown to Google` mudam para descoberta/rastreamento.
+- Monitorar se a URL de closet resolve o estado `Duplicate, Google chose different canonical than user` apos os novos sinais canonicos e de interlinking.
 
 ## Google indexing ops e submissao de sitemap — 29/04/2026
 
