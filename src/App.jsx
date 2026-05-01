@@ -204,6 +204,9 @@ function DeferredFooter() {
 
 function App() {
   const location = useLocation()
+  const buildTechHostname = new URL(PRODUCT_URLS.buildtech).hostname
+  const isBuildTechHost = typeof window !== 'undefined'
+    && window.location.hostname === buildTechHostname
   const shouldInitAuth = [
     '/login',
     '/register',
@@ -285,7 +288,7 @@ function App() {
         >
           <Suspense fallback={<LoadingFallback />}>
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={isBuildTechHost ? <BuildTech /> : <Home />} />
               <Route path="/sobre" element={<About />} />
               <Route path="/a-marca" element={<AMarca />} />
               <Route path="/arquitetura" element={<Architecture />} />

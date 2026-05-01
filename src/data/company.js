@@ -37,7 +37,7 @@ export const PRODUCT_URLS = {
   obraeasy:     'https://obraeasy.wgalmeida.com.br',
   easyrealstate:'https://easyrealstate.wgalmeida.com.br',
   corretor:     'https://obraeasy.wgalmeida.com.br/landing/corretor',
-  buildtech:    'https://wgalmeida.com.br/buildtech',
+  buildtech:    'https://buildtech.wgalmeida.com.br',
   iccri:        'https://wgalmeida.com.br/iccri',
   easylocker:   'https://wgalmeida.com.br/easylocker',
 }
