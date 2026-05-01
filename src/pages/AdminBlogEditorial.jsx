@@ -14,6 +14,11 @@ import {
   buildCloudinaryEditorialUrl,
   getCloudinaryEditorialCloudName,
 } from '@/utils/cloudinaryEditorial';
+import {
+  createCloudinarySlotState,
+  createExternalSlotState,
+  stripSlotSourceFields,
+} from '@/utils/editorialSlotState';
 import { withBasePath } from '@/utils/assetPaths';
 import {
   AlertCircle,
@@ -972,18 +977,15 @@ const AdminBlogEditorial = () => {
   };
 
   const saveUpload = (record, slotName, info) => {
-    const existingSlot = uploads?.[record.slug]?.[slotName] || {};
     const nextUploads = {
       ...uploads,
       [record.slug]: {
         ...(uploads[record.slug] || {}),
-        [slotName]: {
-          ...existingSlot,
-          publicId: info.public_id,
-          secureUrl: info.secure_url,
-          originalFilename: info.original_filename || '',
-          uploadedAt: new Date().toISOString(),
-        },
+        [slotName]: createCloudinarySlotState(
+          uploads?.[record.slug]?.[slotName] || {},
+          info,
+          new Date().toISOString(),
+        ),
       },
     };
 
@@ -996,20 +998,15 @@ const AdminBlogEditorial = () => {
     // Imagens base64 são muito grandes para localStorage e não funcionam como overrides permanentes
     if (image.src.startsWith('data:')) return;
 
-    const existingSlot = uploads?.[record.slug]?.[slotName] || {};
     const nextUploads = {
       ...uploads,
       [record.slug]: {
         ...(uploads[record.slug] || {}),
-        [slotName]: {
-          ...existingSlot,
-          src: image.src,
-          source: image.source || 'remote',
-          unsplashPhotoId: image.unsplashPhotoId || '',
-          pageUrl: image.pageUrl || '',
-          originalUrl: image.originalUrl || image.src,
-          uploadedAt: new Date().toISOString(),
-        },
+        [slotName]: createExternalSlotState(
+          uploads?.[record.slug]?.[slotName] || {},
+          image,
+          new Date().toISOString(),
+        ),
       },
     };
 
@@ -1044,6 +1041,28 @@ const AdminBlogEditorial = () => {
 
     setUnsplashSelections(nextSelections);
     writeLocalUnsplashSelections(nextSelections);
+
+    if (field === 'id' && value) {
+      const nextUploads = { ...uploads };
+      const existingSlot = nextUploads?.[slug]?.[slotName];
+      if (!existingSlot) return;
+
+      const sanitizedSlot = stripSlotSourceFields(existingSlot);
+      if (sanitizedSlot) {
+        nextUploads[slug] = {
+          ...(nextUploads[slug] || {}),
+          [slotName]: sanitizedSlot,
+        };
+      } else {
+        delete nextUploads[slug][slotName];
+        if (!Object.keys(nextUploads[slug]).length) {
+          delete nextUploads[slug];
+        }
+      }
+
+      setUploads(nextUploads);
+      writeLocalUploads(nextUploads);
+    }
   };
 
   const updateLocalSlotMetadata = (record, slotName, field, value) => {

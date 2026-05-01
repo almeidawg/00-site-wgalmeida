@@ -1,5 +1,95 @@
 # RETURN-POINT — site-wgalmeida
-**Atualizado:** 30/04/2026
+**Atualizado:** 01/05/2026
+
+## Hotfix regressao editorial: imagens antigas voltando no blog/admin — 01/05/2026
+
+### Problema confirmado
+
+- o fluxo editorial do blog estava sujeito a regressao por duas causas estruturais:
+  - `src/data/blogImageManifest.js`
+    - overrides novos gerados pelo admin podiam perder prioridade para overrides canonicos antigos ainda versionados no repo.
+    - efeito pratico: a imagem nova era escolhida/publicada, mas a pagina publica podia voltar a mostrar a imagem antiga.
+  - `src/pages/AdminBlogEditorial.jsx`
+    - ao trocar um slot de Cloudinary antigo para URL externa/Unsplash, o `publicId` antigo podia permanecer salvo no estado local.
+    - efeito pratico: a selecao nova parecia aplicada no painel, mas o resolvedor continuava preferindo a referencia anterior.
+
+### O que foi corrigido
+
+- `src/data/blogImageManifest.js`
+  - a precedencia dos overrides foi normalizada para que o override gerado/publicado mais novo vença o bloco canonico legado.
+  - o canonico antigo continua como fallback, nao como autoridade principal.
+  - ajuste adicional de normalizacao:
+    - manifesto curado atual agora vence o canonico legado quando nao existe override novo gerado.
+    - ordem efetiva consolidada:
+      - sessao/upload atual
+      - publicacao atual
+      - override gerado recente
+      - manifesto curado atual
+      - canonico legado apenas como fallback
+- `src/pages/AdminBlogEditorial.jsx`
+  - upload novo para Cloudinary agora limpa campos antigos de URL/Unsplash do mesmo slot.
+  - troca para URL externa/Unsplash agora limpa `publicId`/`secureUrl` antigos do mesmo slot.
+  - ao preencher um `id` de Unsplash, o slot remove a fonte anterior conflitante e preserva apenas metadados editoriais.
+- `src/utils/editorialSlotState.js`
+  - helper novo para normalizar o estado de slot editorial e evitar regressao por mistura de fontes antigas com novas.
+- `scripts/audit-structural.mjs`
+  - auditoria estrutural passa a exigir os testes de regressao e os marcadores de precedencia nova no manifesto do blog.
+- testes novos:
+  - `src/__tests__/blogImageManifest.test.js`
+  - `src/__tests__/editorialSlotState.test.js`
+
+### Causa raiz consolidada
+
+- o problema nao era apenas cache do navegador.
+- havia segunda fonte de verdade antiga vencendo a nova:
+  - override canonico legado vencendo override gerado recente
+  - `publicId` antigo sobrevivendo depois da troca de fonte no admin
+- havia tambem um caso residual em que canonico legado ainda podia vencer o manifesto curado atual quando nao existia override novo gerado.
+- isso confirma o padrao de regressao por estado legado/commit antigo ainda ativo no pipeline editorial.
+
+### Validacao executada
+
+- Sync Gate `-Stage start` OK na base limpa do bloco antes da reaplicacao isolada do hotfix.
+- branch de publicacao preparada:
+  - `hotfix/layer-precedence`
+- `npm run test:run -- src/__tests__/blogImageManifest.test.js src/__tests__/editorialSlotState.test.js src/__tests__/publicPageOverrides.test.js src/__tests__/publicPageImageCatalog.test.js` OK
+  - 4 arquivos / 9 testes OK
+- `npm run lint` OK
+- `npm run blog:editorial:status` OK
+  - `publishedWithManifest: 77/78`
+- `npm run blog:editorial:repetition:audit` OK
+  - `problematicDuplicates: 4`
+  - `allThreeEqual: 4`
+- `npm run editorial:health` OK
+  - `blogStructuralClosed: false`
+  - `stylesStructuralClosed: false`
+  - `editorialStructuralClosed: false`
+- `npm run verify:fast` OK
+  - 12 arquivos / 63 testes OK
+  - imports OK
+  - audit estrutural OK
+  - audit consistency OK
+  - audit consistency strict OK
+- validacao direta do resolvedor:
+  - `arquitetos-brasileiros-famosos-legado` deixou de resolver para `/images/blog/...` canonico antigo
+  - agora resolve para a entrada curada atual da Wikipedia
+
+### Evidencias geradas
+
+- evidencias `.latest.json` foram geradas localmente nesta rodada para validacao editorial.
+- elas ficaram fora deste commit de hotfix para nao arrastar baseline historico e backlog estrutural junto com a correcao de precedencia.
+
+### Pendencias e proxima acao
+
+- backlog estrutural editorial continua aberto e nao foi zerado neste bloco:
+  - 1 slug sem hero
+  - 1 slug sem card
+  - 4 casos com duplicidade problematica hero/card/thumb
+- proxima rodada deve ser visual/controlada no admin e no blog publico para os slugs afetados, garantindo:
+  - admin publicado
+  - visitante sem localStorage
+  - producao sem retorno ao asset antigo
+- este bloco corrigiu a regressao de precedencia e persistencia; nao conclui a fila historica de curadoria editorial.
 
 ## P1 hardening pos go-live BuildTech — 30/04/2026
 
