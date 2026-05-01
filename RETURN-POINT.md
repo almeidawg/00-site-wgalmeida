@@ -1,6 +1,33 @@
 # RETURN-POINT — site-wgalmeida
 **Atualizado:** 01/05/2026
 
+## Revalidação de prints iPad/site-wg — 01/05/2026
+
+### Evidências revalidadas
+
+- Print `Grupo WG Almeida...jpeg 2.png` / `Grupo WG Almeida...jpeg.png`:
+  - produção `https://wgalmeida.com.br/` revalidada.
+  - iPad landscape: vídeo Cloudinary `ar_16:9`, `readyState=4`, `networkState=1`, `videoWidth=1600`, `videoHeight=900`, sem erros de console.
+  - iPad portrait: vídeo Cloudinary `ar_3:4`, `readyState=4`, `networkState=1`, sem erros de console.
+  - evidências:
+    - `.codex/tmp/visual-audit-20260501/site-wg/home-ipadLandscape-prod.png`
+    - `.codex/tmp/visual-audit-20260501/site-wg/home-ipadPortrait-prod.png`
+    - `.codex/tmp/visual-audit-20260501/site-wg/home-desktop-prod/screenshot.png`
+    - `.codex/tmp/visual-audit-20260501/site-wg/home-mobile-prod/screenshot.png`
+- Print `Obra Easy · Plataforma...jpeg.png`:
+  - produção `https://obraeasy.wgalmeida.com.br/` revalidada em desktop/mobile/iPad landscape.
+  - texto/card `Pontos de valor` não existe mais no DOM atual da home publicada; print classificado como superado pela versão atual.
+  - evidências no repo ObraEasy:
+    - `.codex/tmp/visual-audit-20260501/obraeasy/home-prod-desktop/screenshot.png`
+    - `.codex/tmp/visual-audit-20260501/obraeasy/home-prod-mobile/screenshot.png`
+    - `.codex/tmp/visual-audit-20260501/obraeasy/home-prod-ipad-landscape.png`
+
+### Status
+
+- Prints de vídeo/iPad do site institucional: `validado`.
+- Print do card `Pontos de valor` da home ObraEasy: `validado como superado`, sem alteração de código necessária neste repo.
+- Sem mudança funcional no site-wgalmeida neste bloco.
+
 ## Hotfix regressao editorial: imagens antigas voltando no blog/admin — 01/05/2026
 
 ### Problema confirmado
