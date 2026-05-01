@@ -9,7 +9,7 @@
  *   2. Rodar: grep -rn "98465-0002\|contato@wg\|obraeasy\.wg\|easy\.wg\|easyrealstate\.wg" src/
  *   3. Garantir que todos os resultados sejam apenas importações desta constante
  *
- * Última revisão: 2026-04-12
+ * Última revisão: 2026-05-01
  */
 
 export const COMPANY = {
@@ -37,7 +37,7 @@ export const PRODUCT_URLS = {
   obraeasy:     'https://obraeasy.wgalmeida.com.br',
   easyrealstate:'https://easyrealstate.wgalmeida.com.br',
   corretor:     'https://obraeasy.wgalmeida.com.br/landing/corretor',
-  buildtech:    'https://buildtech.wgalmeida.com.br',
+  buildtech:    'https://wgalmeida.com.br/buildtech',
   iccri:        'https://wgalmeida.com.br/iccri',
   easylocker:   'https://wgalmeida.com.br/easylocker',
 }
