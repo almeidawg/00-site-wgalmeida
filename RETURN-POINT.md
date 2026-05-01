@@ -26,6 +26,10 @@
 
 - Prints de vídeo/iPad do site institucional: `validado`.
 - Print do card `Pontos de valor` da home ObraEasy: `validado como superado`, sem alteração de código necessária neste repo.
+- Prints movidos para `C:\Users\Atendimento\Documents\Imagens\Screenshots\site-wg\_VALIDADOS_2026-05-01`:
+  - `Grupo WG Almeida  Arquitetura, Engenharia, Marcenaria, Easy Locker e WG.BuildTech.jpeg 2.png`
+  - `Grupo WG Almeida  Arquitetura, Engenharia, Marcenaria, Easy Locker e WG.BuildTech.jpeg.png`
+  - `Obra Easy · Plataforma para planejar, analisar e executar a obra.jpeg.png`
 - Sem mudança funcional no site-wgalmeida neste bloco.
 
 ## Hotfix regressao editorial: imagens antigas voltando no blog/admin — 01/05/2026
