@@ -1,6 +1,46 @@
 # RETURN-POINT — site-wgalmeida
 **Atualizado:** 02/05/2026
 
+## Sessao 2026-05-02 — auditoria local de paginas, landings e links internos
+
+### Escopo
+
+- Pedido: rodar todos os links/paginas/landings encontrados na pasta do site.
+- Base local validada: `http://localhost:3000`.
+- Conjunto coberto:
+  - todas as 158 rotas indexaveis do `public/sitemap.xml`;
+  - aliases e rotas operacionais do `App.jsx`;
+  - landings BuildTech antigas e atuais;
+  - propostas publicas BuildTech:
+    - `/clientes/modelo`
+    - `/clientes/umauma`
+    - `/buildtech/clientes/umauma`
+
+### Validacao executada
+
+- Check HTTP local em 177 rotas: `177 OK`, `0 falhas`.
+- Smoke com navegador real em 177 rotas:
+  - relatorio: `.monitor-data/reports/console-smoke-2026-05-02T17-23-39-730Z.json`;
+  - rotas navegadas: `177`;
+  - ocorrencias altas: `0`;
+  - erros de request/navegacao: `0`;
+  - ocorrencias medias restantes: `354`, todas do tipo `React Router Future Flag Warning` para upgrade futuro v7.
+- `npm run lint` OK.
+- `npm run check:imports` OK.
+- `npm run build` OK.
+
+### Ajustes aplicados durante a auditoria
+
+- `src/pages/Blog.jsx`
+  - `fetchPriority` trocado para `fetchpriority` em imagens eager do blog para remover warning alto do React 18.
+  - chaves do sumario/leitor e das secoes do artigo passaram a usar chave composta com indice para evitar duplicidade quando artigos repetem headings como `Conclusao` e `Proximo passo`.
+
+### Status
+
+- Links/paginas/landings locais: `validado`.
+- Pendencia nao bloqueante: avaliar em bloco proprio os future flags do React Router v7.
+- Pendencia de producao: rodar validacao equivalente em dominio publico apos PR/deploy, quando o portfolio sair de freeze.
+
 ## Sessao 2026-05-02 — WG_Build.tech proposta 360 por cliente
 
 ### Escopo

@@ -1463,7 +1463,7 @@ const Blog = () => {
               className="h-full w-full object-cover will-change-transform"
               style={{ objectPosition: artigoAtual.heroPosition }}
               loading="eager"
-              fetchPriority="high"
+              fetchpriority="high"
               decoding="async"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-wg-black via-wg-black/60 to-transparent" />
@@ -1550,9 +1550,9 @@ const Blog = () => {
                   ) : null}
                   </div>
                   <div className={articleReaderTagsClass}>
-                    {tocHeadings.slice(0, 3).map((item) => (
+                    {tocHeadings.slice(0, 3).map((item, index) => (
                       <a
-                        key={item.id}
+                        key={`${item.id}-${index}`}
                         href={`#${item.id}`}
                         onClick={(event) => handleArticleAnchorNavigation(event, item.id)}
                         className={`inline-flex items-center gap-2 rounded-full border border-gray-300 bg-white px-3 py-1.5 text-xs text-[#2E2E2E] transition-colors ${articleAccentHoverBorderClass} ${articleAccentHoverTextClass}`}
@@ -1571,8 +1571,8 @@ const Blog = () => {
               <nav className="mb-8 rounded-2xl border border-gray-200 bg-[#FAFAFA] p-5">
                 <h2 className="mb-4 text-base font-light text-wg-black">{tocTitleLabel}</h2>
                 <ul className="space-y-2">
-                  {tocHeadings.map((item) => (
-                    <li key={item.id}>
+                  {tocHeadings.map((item, index) => (
+                    <li key={`${item.id}-${index}`}>
                       <a
                         href={`#${item.id}`}
                         onClick={(event) => handleArticleAnchorNavigation(event, item.id)}
@@ -1723,6 +1723,7 @@ const Blog = () => {
                 }, []);
 
                 return articleSections.map((section, index) => {
+                  const sectionKey = `${section.id || 'section'}-${index}`;
                 const sectionInsertionIndex = useSideBySideLeadLayout ? index + 1 : index;
                 const isFaqSection = section.id === 'perguntas-frequentes';
                 const sectionAssetGroups = articleSectionContextInsertions.get(sectionInsertionIndex) || [];
@@ -1740,7 +1741,7 @@ const Blog = () => {
                   : 0;
                 const useImageOnRight = useIntegratedSectionImage && integratedVisualOrder % 2 === 0;
                 return (
-                <React.Fragment key={section.id || index}>
+                <React.Fragment key={sectionKey}>
                   {useIntegratedSectionImage ? (
                     <motion.aside
                       initial={{ opacity: 0, y: 16 }}
@@ -1995,7 +1996,7 @@ const Blog = () => {
             alt={artigoRecente?.title}
             className="w-full h-full object-cover"
             loading="eager"
-            fetchPriority="high"
+            fetchpriority="high"
             decoding="async"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-wg-black via-wg-black/60 to-transparent" />
