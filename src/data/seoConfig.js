@@ -2,22 +2,22 @@ const BASE_URL = "https://wgalmeida.com.br";
 const DEFAULT_OG_IMAGE = `${BASE_URL}/og-home-1200x630.jpg`;
 
 const defaultConfig = {
-  title: "Grupo WG Almeida | Arquitetura, Engenharia, Marcenaria, Easy Locker e WG.BuildTech",
+  title: "Grupo WG Almeida | Arquitetura, Engenharia, Marcenaria, Easy Locker e WG_Build.tech",
   description:
-    "Grupo WG Almeida integra arquitetura, engenharia, marcenaria, Easy Locker e WG.BuildTech em um ecossistema de execução, tecnologia e soluções de alto padrão.",
+    "Grupo WG Almeida integra arquitetura, engenharia, marcenaria, Easy Locker e WG_Build.tech em um ecossistema de execução, tecnologia e soluções de alto padrão.",
   canonical: `${BASE_URL}/`,
   og: {
-    title: "Grupo WG Almeida | Arquitetura, Engenharia, Marcenaria, Easy Locker e WG.BuildTech",
+    title: "Grupo WG Almeida | Arquitetura, Engenharia, Marcenaria, Easy Locker e WG_Build.tech",
     description:
-      "Grupo WG Almeida integra arquitetura, engenharia, marcenaria, Easy Locker e WG.BuildTech em um ecossistema de execução, tecnologia e soluções de alto padrão.",
+      "Grupo WG Almeida integra arquitetura, engenharia, marcenaria, Easy Locker e WG_Build.tech em um ecossistema de execução, tecnologia e soluções de alto padrão.",
     image: DEFAULT_OG_IMAGE,
     url: `${BASE_URL}/`,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Grupo WG Almeida | Arquitetura, Engenharia, Marcenaria, Easy Locker e WG.BuildTech",
+    title: "Grupo WG Almeida | Arquitetura, Engenharia, Marcenaria, Easy Locker e WG_Build.tech",
     description:
-      "Grupo WG Almeida integra arquitetura, engenharia, marcenaria, Easy Locker e WG.BuildTech em um ecossistema de execução, tecnologia e soluções de alto padrão.",
+      "Grupo WG Almeida integra arquitetura, engenharia, marcenaria, Easy Locker e WG_Build.tech em um ecossistema de execução, tecnologia e soluções de alto padrão.",
     image: DEFAULT_OG_IMAGE,
   },
 };
@@ -150,8 +150,8 @@ export const SEO_CONFIG = {
   ),
   "/buildtech": page(
     "/buildtech",
-    "WG Build.tech | Consultoria de IA e Tecnologia para Construção",
-    "Conheça a frente WG BuildTech para sistemas inteligentes, automação e experiência visual aplicada à construção, retrofit e mercado imobiliário."
+    "WG_Build.tech | Sites, sistemas e automação com IA",
+    "Conheça a WG_Build.tech para sites, sistemas, agentes, automação e vitrine funcional baseada na metodologia S T A R."
   ),
   "/easylocker": page(
     "/easylocker",

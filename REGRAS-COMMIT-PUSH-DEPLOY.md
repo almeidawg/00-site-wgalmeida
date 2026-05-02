@@ -85,12 +85,15 @@ Para rotas que devem redirecionar para outro domínio (ex: `/parceiros` → `obr
 - **Adicionar em App.jsx** (client-side): garante SPA redirect para usuários logados
 - Usar `"permanent": false` para redirects cross-domínio (status 302) — facilita mudanças futuras
 - Usar `"permanent": true` apenas para redirects internos definitivos de rotas ativas do produto
-## 7. BuildTech clientes no monodomain
+## 7. WG_Build.tech clientes no monodomain
+
+- Nome publico oficial: `WG_Build.tech`.
+- `BuildTech` e `projeto BT` sao aliases operacionais internos.
 - O subdominio oficial de aprovacao e `https://buildtech.wgalmeida.com.br/clientes/<slug>/`.
 - Se tambem for necessario atender `https://wgalmeida.com.br/buildtech/clientes/<slug>/`, manter em `vercel.json` um redirect explicito de `/buildtech/clientes/:path*` para `https://buildtech.wgalmeida.com.br/clientes/:path*`.
 - Nao confiar apenas no rewrite generico `/buildtech/:path*`.
 - Sempre que atualizar essa regra, rodar novo deploy de producao do projeto `grupo-wg-almeida`.
-- Checklist minimo para clientes BuildTech:
+- Checklist minimo para clientes WG_Build.tech:
   - publicar com `publish-approval.mjs`
   - deploy de producao em `wg-WTB-build-tech/files`
   - validar `buildtech.wgalmeida.com.br/clientes/<slug>`

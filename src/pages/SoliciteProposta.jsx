@@ -20,7 +20,7 @@ const SoliciteProposta = () => {
   const contextCopy = {
     moodboard: 'Você chegou pela jornada de moodboard. Vamos traduzir essa direção estética em briefing, proposta e próximo passo real.',
     room: 'Você chegou pela visualização de ambientes. Agora podemos transformar a leitura visual em escopo, proposta ou atendimento assistido.',
-    buildtech: 'Você chegou pela frente BuildTech. Vamos enquadrar essa experiência como solução aplicada ao seu contexto comercial ou operacional.',
+    buildtech: 'Você chegou pela frente WG_Build.tech. Vamos enquadrar essa experiência como solução aplicada ao seu contexto comercial ou operacional.',
     process: 'Você chegou pela metodologia de processo. Agora vamos conectar essa leitura a um atendimento assistido e à proposta mais coerente.',
     architecture: 'Você chegou pela frente de arquitetura. Podemos usar a camada de experiência visual para acelerar alinhamento estético, briefing e aprovação.',
     engineering: 'Você chegou pela frente de engenharia. Vamos conectar a decisão visual à lógica de execução, compras críticas e liberação de frentes.',

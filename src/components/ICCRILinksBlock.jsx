@@ -22,7 +22,7 @@ const TOOL_LINKS = [
   { href: `${PRODUCT_URLS.obraeasy}/evf4`, label: 'Simulador de custo de obra (Obra Easy)', external: true },
   { href: `${PRODUCT_URLS.easyrealstate}/calculo`, label: 'Avaliacao imobiliaria (AVM)', external: true },
   { to: '/easy-real-state', label: 'Calculadora de investimento imobiliário (EasyRealState)' },
-  { to: '/moodboard-generator', label: 'Gerador de moodboard (BuildTech)' },
+  { to: '/moodboard-generator', label: 'Gerador de moodboard (WG_Build.tech)' },
   { to: '/room-visualizer', label: 'Visualizador de ambientes' },
 ]
 

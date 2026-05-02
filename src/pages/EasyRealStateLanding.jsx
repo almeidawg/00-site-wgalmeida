@@ -155,7 +155,7 @@ const EasyRealStateLanding = () => {
     {
       titulo: 'Site + Sistema',
       subtitulo: 'Solução completa personalizada',
-      desc: 'Site imobiliário profissional com catálogo, operação comercial e a leitura Easy Real State conectada ao ecossistema WG. Projeto consultivo da WG BuildTech.',
+      desc: 'Site imobiliário profissional com catálogo, operação comercial e a leitura Easy Real State conectada ao ecossistema WG. Projeto consultivo da WG_Build.tech.',
       itens: [
         'Site institucional com sua marca',
         'Catálogo de imóveis exclusivos',
@@ -355,7 +355,7 @@ const EasyRealStateLanding = () => {
             ))}
           </div>
           <p className="text-center text-wg-gray text-sm mt-8 max-w-2xl mx-auto">
-            Projeto de site personalizado desenvolvido pela WG BuildTech para corretoras e imobiliárias.
+            Projeto de site personalizado desenvolvido pela WG_Build.tech para corretoras e imobiliárias.
             Baseado no projeto Capadócia Brokers · site de exclusividades imobiliárias premium em São Paulo.
           </p>
         </div>

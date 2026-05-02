@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { getSEOConfig } from '@/data/seoConfig';
 import { COMPANY } from '@/data/company';
@@ -111,6 +112,32 @@ export function SEO({
   if (resolvedPathname !== '/') {
     schemas.push(buildBreadcrumbs(resolvedPathname));
   }
+
+  useEffect(() => {
+    const syncMeta = (selector, attributes) => {
+      const nodes = Array.from(document.querySelectorAll(selector));
+      const target = nodes[0] || document.createElement('meta');
+      Object.entries(attributes).forEach(([name, value]) => {
+        target.setAttribute(name, value);
+      });
+      if (!nodes.length) document.head.appendChild(target);
+      nodes.slice(1).forEach((node) => node.parentNode?.removeChild(node));
+    };
+
+    document.title = meta.title;
+    syncMeta('meta[name="description"]', { name: 'description', content: meta.description });
+    syncMeta('meta[property="og:title"]', { property: 'og:title', content: meta.og.title });
+    syncMeta('meta[property="og:description"]', { property: 'og:description', content: meta.og.description });
+    syncMeta('meta[name="twitter:title"]', { name: 'twitter:title', content: meta.twitter.title });
+    syncMeta('meta[name="twitter:description"]', { name: 'twitter:description', content: meta.twitter.description });
+  }, [
+    meta.description,
+    meta.og.description,
+    meta.og.title,
+    meta.title,
+    meta.twitter.description,
+    meta.twitter.title,
+  ]);
 
   return (
     <Helmet>

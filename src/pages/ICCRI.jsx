@@ -322,7 +322,7 @@ export default function ICCRI() {
                 <li><a className="text-wg-blue hover:underline" href={`${PRODUCT_URLS.obraeasy}/evf4`} target="_blank" rel="noopener noreferrer">Simulador de custo de obra (ObraEasy)</a></li>
                 <li><a className="text-wg-blue hover:underline" href={`${PRODUCT_URLS.easyrealstate}/calculo`} target="_blank" rel="noopener noreferrer">Avaliacao imobiliaria (AVM)</a></li>
                 <li><Link className="text-wg-blue hover:underline" to="/easy-real-state">Calculadora EasyRealState</Link></li>
-                <li><Link className="text-wg-blue hover:underline" to="/buildtech">Ecossistema BuildTech</Link></li>
+                <li><Link className="text-wg-blue hover:underline" to="/buildtech">Ecossistema WG_Build.tech</Link></li>
                 <li><Link className="text-wg-blue hover:underline" to="/tools/moodboard-generator">Tool: Moodboard Generator</Link></li>
                 <li><Link className="text-wg-blue hover:underline" to="/tools/room-visualizer">Tool: Room Visualizer</Link></li>
               </ul>

@@ -1,5 +1,52 @@
 # RETURN-POINT — site-wgalmeida
-**Atualizado:** 01/05/2026
+**Atualizado:** 02/05/2026
+
+## Sessao 2026-05-02 — WG_Build.tech vitrine funcional S T A R
+
+### Escopo
+
+- Projeto alvo: `site-wgalmeida`, branch `feature/buildtech-vitrine-star-20260502`.
+- Nome publico oficial definido: `WG_Build.tech`.
+- Aliases operacionais permitidos: `BuildTech` e `projeto BT`.
+- Dominio oficial: `https://buildtech.wgalmeida.com.br`.
+
+### Alteracoes aplicadas
+
+- `src/pages/BuildTech.jsx`
+  - pagina reestruturada como site funcional de aprovacao;
+  - hero reposicionado com a promessa do site antigo: sites que convertem, sistemas que automatizam e agentes rastreaveis;
+  - metodologia `S T A R` adicionada: Situar, Traduzir, Acionar, Rastrear;
+  - vitrine funcional adicionada com briefing vivo, proposta modular e operacao assistida;
+  - cesta selecionavel de modulos adicionada para compor o projeto do cliente;
+  - CTA de contato e WhatsApp preservados com contexto `buildtech`.
+- `src/components/SEO.jsx`
+  - sincroniza meta tags vindas do Helmet com as tags estaticas do `index.html`;
+  - remove duplicidade de `description`, `og:*` e `twitter:*` para a rota exibir o SEO correto no navegador.
+- Naming atualizado em SEO/schema/copy viva e docs operacionais proximas.
+- Sitemaps gerados pelo build foram descartados do diff porque mudaram apenas `lastmod` automatico de 2026-05-01 para 2026-05-02.
+
+### Validacao executada
+
+- `npm run check:imports` OK.
+- `npm run audit:consistency:strict` OK.
+- `npm run lint` OK.
+- `npm run audit:structural` OK.
+- `npm run build` OK.
+- Auditoria visual local em `http://localhost:3000/buildtech`:
+  - desktop: `.codex/tmp/buildtech-vitrine-desktop-after-seo/screenshot.png`, OK.
+  - mobile: `.codex/tmp/buildtech-vitrine-mobile-after-seo/screenshot.png`, OK.
+- Validacao Playwright local:
+  - `title`: `WG_Build.tech | Sites, sistemas e automação com IA`;
+  - `description`: unica meta description da rota BuildTech;
+  - `og:description`: unica e alinhada a BuildTech;
+  - H1 `WG_Build.tech` presente;
+  - cliques testados em `Dashboard executivo`, `Agentic` e `Operação assistida`;
+  - console sem erros.
+
+### Status para aprovacao
+
+- Evidencias locais validadas: 2 prints + 1 teste Playwright funcional/SEO.
+- Evidencias pendentes: validacao de producao em `https://buildtech.wgalmeida.com.br` apos PR/deploy.
 
 ## Revalidação de prints iPad/site-wg — 01/05/2026
 
