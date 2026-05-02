@@ -1,6 +1,63 @@
 # RETURN-POINT — site-wgalmeida
 **Atualizado:** 02/05/2026
 
+## Sessao 2026-05-02 — WG_Build.tech proposta 360 por cliente
+
+### Escopo
+
+- Modelo visual aprovado localmente pelo usuario: `http://127.0.0.1:8092/`.
+- Link publico oficial identificado para propostas BuildTech:
+  - `https://buildtech.wgalmeida.com.br/clientes/<slug>/`
+  - fallback institucional: `https://wgalmeida.com.br/buildtech/clientes/<slug>/`
+- Objetivo do bloco: transformar a proposta por cliente em pagina publica viva, com pesquisa digital completa, plano de acao, acessos necessarios e CTA para a Liz.
+
+### Alteracoes aplicadas
+
+- `src/pages/BuildTechClientProposal.jsx`
+  - nova pagina de proposta 360 por cliente;
+  - perfis iniciais `modelo` e `umauma`;
+  - pesquisa 360 com site/dominio, Google Business Profile, redes sociais, midia paga, SEO, analytics, atendimento, plataformas externas e risco/confianca;
+  - metodologia `S T A R` conectada ao diagnostico;
+  - cesta de modulos por cliente;
+  - CTA WhatsApp da Liz com telefone normalizado e link publico do cliente.
+- `src/App.jsx`
+  - rotas dinamicas adicionadas:
+    - `/clientes/:slug`
+    - `/buildtech/clientes/:slug`
+  - header/footer ocultos nas propostas standalone.
+- `vercel.json`
+  - rewrites genericos adicionados para propostas por slug.
+- `src/pages/BuildTech.jsx`
+  - CTA `Ver proposta 360` adicionado no hero para `/clientes/modelo`.
+- `docs/BUILDTECH-PROPOSTA-360-PESQUISA-CLIENTE.md`
+  - plano operacional completo para pesquisa do cliente e proposta publica.
+
+### Validacao executada
+
+- `npm run check:imports` OK.
+- `npm run lint` OK.
+- `npm run audit:consistency:strict` OK.
+- `npm run audit:structural` OK.
+- `npm run build` OK.
+- HTTP local OK:
+  - `http://localhost:3000/clientes/modelo` -> 200.
+  - `http://localhost:3000/clientes/umauma` -> 200.
+  - `http://localhost:3000/buildtech/clientes/umauma` -> 200.
+- Auditoria visual local:
+  - desktop modelo: `.codex/tmp/buildtech-proposta360-modelo-desktop-final/screenshot.png`, OK.
+  - mobile modelo: `.codex/tmp/buildtech-proposta360-modelo-mobile-final/screenshot.png`, OK.
+  - desktop UMAUMA: `.codex/tmp/buildtech-proposta360-umauma-desktop-final/screenshot.png`, OK.
+- Summaries confirmaram titles, descriptions, H1, botoes de pesquisa 360 e links:
+  - `Revisar com a Liz` -> `https://wa.me/5511984650002?...`
+  - `Abrir link oficial` -> `https://buildtech.wgalmeida.com.br/clientes/<slug>`
+
+### Status para aprovacao
+
+- Site local em execucao para aprovacao: `http://localhost:3000/clientes/modelo`.
+- Link cliente exemplo: `http://localhost:3000/clientes/umauma`.
+- Evidencias locais validadas: 3 prints.
+- Evidencias pendentes: validacao de preview/producao em `https://buildtech.wgalmeida.com.br/clientes/<slug>/` apos PR/deploy.
+
 ## Sessao 2026-05-02 — WG_Build.tech vitrine funcional S T A R
 
 ### Escopo

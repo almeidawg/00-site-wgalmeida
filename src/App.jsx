@@ -59,6 +59,7 @@ const EstiloDetail = lazy(() => import('@/pages/EstiloDetail'))
 // Empresas do Grupo WG Almeida
 const EasyLocker = lazy(() => import('@/pages/EasyLocker'))
 const BuildTech = lazy(() => import('@/pages/BuildTech'))
+const BuildTechClientProposal = lazy(() => import('@/pages/BuildTechClientProposal'))
 const ICCRI = lazy(() => import('@/pages/ICCRI'))
 const ICCRIParaImobiliarias = lazy(() => import('@/pages/ICCRIParaImobiliarias'))
 
@@ -268,7 +269,7 @@ function App() {
 
   // Não mostrar header/footer em páginas standalone
   const isStandaloneRoute =
-    ['/login', '/admin'].some((path) =>
+    ['/login', '/admin', '/clientes', '/buildtech/clientes'].some((path) =>
       location.pathname.startsWith(path)
     )
 
@@ -305,14 +306,8 @@ function App() {
                 path="/buildtech/contato.html"
                 element={<Navigate to="/contato?context=buildtech" replace />}
               />
-              <Route
-                path="/clientes/umauma"
-                element={<Navigate to="/buildtech?case=umauma" replace />}
-              />
-              <Route
-                path="/buildtech/clientes/umauma"
-                element={<Navigate to="/buildtech?case=umauma" replace />}
-              />
+              <Route path="/clientes/:slug" element={<BuildTechClientProposal />} />
+              <Route path="/buildtech/clientes/:slug" element={<BuildTechClientProposal />} />
               <Route path="/iccri" element={<ICCRI />} />
               <Route path="/iccri-para-imobiliarias" element={<ICCRIParaImobiliarias />} />
               <Route path="/obraeasy" element={<ObraEasyLanding />} />

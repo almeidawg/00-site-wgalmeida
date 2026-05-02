@@ -248,11 +248,11 @@
       "destination": "/index.html"
     },
     {
-      "source": "/buildtech/clientes/umauma",
+      "source": "/buildtech/clientes/:path*",
       "destination": "/index.html"
     },
     {
-      "source": "/clientes/umauma",
+      "source": "/clientes/:path*",
       "destination": "/index.html"
     },
     {

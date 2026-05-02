@@ -340,6 +340,19 @@ const BuildTech = () => {
                 Montar diagnóstico BT
                 <ArrowRight className="h-4 w-4" />
               </Link>
+              <Link
+                to="/clientes/modelo"
+                onClick={() => trackCtaClick({
+                  ctaId: 'buildtech_hero_proposal_360',
+                  ctaLabel: 'Ver proposta 360',
+                  ctaContext: 'buildtech_hero',
+                  ctaDestination: '/clientes/modelo',
+                })}
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-[#b6ff6d]/50 bg-[#b6ff6d] px-6 py-3 text-sm font-medium text-wg-black transition-colors hover:bg-[#d8ff9d]"
+              >
+                Ver proposta 360
+                <ArrowRight className="h-4 w-4" />
+              </Link>
               <a
                 href={`https://wa.me/${COMPANY.phoneRaw.replace(/\D/g, '')}?text=${encodeURIComponent('Quero aprovar o site funcional da WG_Build.tech')}`}
                 target="_blank"
