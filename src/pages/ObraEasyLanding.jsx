@@ -199,7 +199,7 @@ const ObraEasyLanding = () => {
         </motion.div>
 
         <div className="container-custom">
-          <div className="wg-page-hero-content px-4 pt-8 md:pt-10">
+          <div className="wg-page-hero-content px-4 pt-16 md:pt-20">
             <motion.span
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -213,7 +213,7 @@ const ObraEasyLanding = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.18 }}
-              className="wg-page-hero-title"
+              className="wg-page-hero-title max-w-4xl text-balance leading-[1.08]"
             >
               Custo real, etapa operacional e <span className="text-wg-orange">execução controlada</span> no mesmo fluxo.
             </motion.h1>

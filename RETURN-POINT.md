@@ -1,6 +1,26 @@
 # RETURN-POINT — site-wgalmeida
 **Atualizado:** 02/05/2026
 
+## Sessao 2026-05-05 — Correcao visual de banner ObraEasy por print
+
+### Evidencia analisada
+
+- `C:\Users\Atendimento\Documents\Imagens\Screenshots\05_site-wg\Captura de tela 2026-05-04 211309.png`
+
+### Correcao aplicada
+
+- `src/pages/ObraEasyLanding.jsx`
+  - hero recebeu `pt` maior (`pt-16 md:pt-20`) para evitar colisao/percepcao de texto comprimido no topo;
+  - H1 recebeu ajuste de largura/quebra/linha (`max-w-4xl text-balance leading-[1.08]`) para melhorar leitura e render do banner.
+
+### Validacao
+
+- `npm run build` -> OK em `2026-05-05`.
+
+### Status
+
+- Ajuste de texto no banner ObraEasy: `validado` em build.
+
 ## Sessao 2026-05-02 — auditoria local de paginas, landings e links internos
 
 ### Escopo
