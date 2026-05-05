@@ -1,6 +1,42 @@
 # RETURN-POINT — site-wgalmeida
 **Atualizado:** 02/05/2026
 
+## Sessao 2026-05-05B — Auditoria full ponta a ponta e bloqueio de producao
+
+### Escopo auditado
+
+- Build completo local.
+- Rota publica `obraeasy` com auditoria visual desktop.
+- Validacao de producao:
+  - `https://wgalmeida.com.br/obraeasy`
+
+### Resultado tecnico
+
+- `npm run build` -> OK.
+- Browser audit local:
+  - `http://127.0.0.1:3015/obraeasy` desktop -> OK.
+  - H1 validado: `Custo real, etapa operacional e execução controlada no mesmo fluxo.`
+- Ajuste do banner permaneceu valido no build/auditoria local.
+
+### Bloqueio critico confirmado em producao
+
+- Dominio publico exibindo `Deployment Paused` / HTTP `402`.
+- Causa raiz confirmada via Vercel CLI:
+  - time `william-almeidas-projects` com billing vencido.
+  - tentativa de `vercel --prod --yes` bloqueada:
+    - `Error: Your team has an overdue balance. Please add a valid payment method to reactivate your account.`
+  - acao necessaria: `https://vercel.com/teams/william-almeidas-projects/settings/billing`
+
+### Evidencias
+
+- `C:\Users\Atendimento\.codex\tmp\browser-audit\wgalmeida-com-br-obraeasy-desktop-2026-05-05T21-00-46-893Z\summary.md`
+- `C:\Users\Atendimento\.codex\tmp\browser-audit\127-0-0-1-3015-obraeasy-desktop-2026-05-05T21-01-52-934Z\summary.md`
+
+### Estado final
+
+- Correcao visual do banner validada localmente.
+- Publicacao/validacao em dominio final bloqueada por pendencia financeira do Vercel (fora de codigo).
+
 ## Sessao 2026-05-05 — Correcao visual de banner ObraEasy por print
 
 ### Evidencia analisada
