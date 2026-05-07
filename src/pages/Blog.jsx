@@ -967,7 +967,7 @@ const Blog = () => {
     { id: 'todos', label: t('blogPage.categories.all'), icon: BookOpen, color: 'text-wg-blue', bgColor: 'bg-wg-blue' },
     { id: 'arquitetura', label: t('blogPage.categories.architecture'), icon: Ruler, color: 'text-wg-green', bgColor: 'bg-wg-green' },
     { id: 'engenharia', label: t('blogPage.categories.engineering'), icon: Building2, color: 'text-wg-blue', bgColor: 'bg-wg-blue' },
-    { id: 'marcenaria', label: t('blogPage.categories.carpentry'), icon: Hammer, color: 'text-wg-black', bgColor: 'bg-wg-brown' },
+    { id: 'marcenaria', label: t('blogPage.categories.carpentry'), icon: Hammer, color: 'text-wg-black', bgColor: 'bg-wg-orange' },
     { id: 'design', label: t('blogPage.categories.design'), icon: Palette, color: 'text-wg-green', bgColor: 'bg-wg-green' },
     { id: 'tecnologia', label: t('blogPage.categories.technology'), icon: Monitor, color: 'text-wg-blue', bgColor: 'bg-wg-blue' },
     { id: 'tendencias', label: t('blogPage.categories.trends'), icon: TrendingUp, color: 'text-wg-blue', bgColor: 'bg-wg-blue' },
@@ -1119,7 +1119,7 @@ const Blog = () => {
     const categoryMeta = {
       arquitetura: { dotColor: 'bg-wg-green', bgColor: 'bg-wg-green' },
       engenharia: { dotColor: 'bg-wg-blue', bgColor: 'bg-wg-blue' },
-      marcenaria: { dotColor: 'bg-wg-brown', bgColor: 'bg-wg-brown' },
+      marcenaria: { dotColor: 'bg-wg-orange', bgColor: 'bg-wg-orange' },
       planejamento: { dotColor: 'bg-wg-blue', bgColor: 'bg-wg-blue' },
       'mercado-imobiliario': { dotColor: 'bg-wg-blue', bgColor: 'bg-wg-blue' },
       insights: { dotColor: 'bg-wg-blue', bgColor: 'bg-wg-blue' },
@@ -1133,62 +1133,62 @@ const Blog = () => {
     const articleReaderGuideLabelClass =
       currentCategoryMeta.bgColor === 'bg-wg-green'
         ? 'text-wg-green'
-        : currentCategoryMeta.bgColor === 'bg-wg-brown'
+        : currentCategoryMeta.bgColor === 'bg-wg-orange'
           ? 'text-wg-black'
           : 'text-wg-blue';
     const articleAccentBorderClass =
       currentCategoryMeta.bgColor === 'bg-wg-green'
         ? 'border-wg-green'
-        : currentCategoryMeta.bgColor === 'bg-wg-brown'
-          ? 'border-wg-brown'
+        : currentCategoryMeta.bgColor === 'bg-wg-orange'
+          ? 'border-wg-orange'
           : 'border-wg-blue';
     const articleAccentLeftBorderClass =
       currentCategoryMeta.bgColor === 'bg-wg-green'
         ? 'border-l-wg-green/45'
-        : currentCategoryMeta.bgColor === 'bg-wg-brown'
-          ? 'border-l-wg-brown/45'
+        : currentCategoryMeta.bgColor === 'bg-wg-orange'
+          ? 'border-l-wg-orange/45'
           : 'border-l-wg-blue/45';
     const articleAccentHoverBorderClass =
       currentCategoryMeta.bgColor === 'bg-wg-green'
         ? 'hover:border-wg-green/60'
-        : currentCategoryMeta.bgColor === 'bg-wg-brown'
-          ? 'hover:border-wg-brown/60'
+        : currentCategoryMeta.bgColor === 'bg-wg-orange'
+          ? 'hover:border-wg-orange/60'
           : 'hover:border-wg-blue/60';
     const articleAccentTextClass =
       currentCategoryMeta.bgColor === 'bg-wg-green'
         ? 'text-wg-green'
-        : currentCategoryMeta.bgColor === 'bg-wg-brown'
+        : currentCategoryMeta.bgColor === 'bg-wg-orange'
           ? 'text-wg-black'
           : 'text-wg-blue';
     const articleAccentHoverTextClass =
       currentCategoryMeta.bgColor === 'bg-wg-green'
         ? 'group-hover:text-wg-green'
-        : currentCategoryMeta.bgColor === 'bg-wg-brown'
+        : currentCategoryMeta.bgColor === 'bg-wg-orange'
           ? 'group-hover:text-wg-black'
           : 'group-hover:text-wg-blue';
     const articleAccentHoverTextSoftClass =
       currentCategoryMeta.bgColor === 'bg-wg-green'
         ? 'group-hover:text-wg-green/80'
-        : currentCategoryMeta.bgColor === 'bg-wg-brown'
+        : currentCategoryMeta.bgColor === 'bg-wg-orange'
           ? 'group-hover:text-wg-black/80'
           : 'group-hover:text-wg-blue/80';
     const articleAccentShadowClass =
       currentCategoryMeta.bgColor === 'bg-wg-green'
         ? 'shadow-[0_0_0_1px_rgba(92,125,82,0.14)]'
-        : currentCategoryMeta.bgColor === 'bg-wg-brown'
+        : currentCategoryMeta.bgColor === 'bg-wg-orange'
           ? 'shadow-[0_0_0_1px_rgba(140,98,57,0.16)]'
           : 'shadow-[0_0_0_1px_rgba(43,69,128,0.14)]';
     const articleContentBulletMarkerClass =
       currentCategoryMeta.bgColor === 'bg-wg-green'
         ? "[&>ul>li]:before:bg-wg-green/70 [&>ol>li::marker]:text-wg-green/70"
-        : currentCategoryMeta.bgColor === 'bg-wg-brown'
-          ? "[&>ul>li]:before:bg-wg-brown/70 [&>ol>li::marker]:text-wg-black/70"
+        : currentCategoryMeta.bgColor === 'bg-wg-orange'
+          ? "[&>ul>li]:before:bg-wg-orange/70 [&>ol>li::marker]:text-wg-black/70"
           : "[&>ul>li]:before:bg-wg-blue/70 [&>ol>li::marker]:text-wg-blue/70";
     const articleReaderGuideDotClass =
       currentCategoryMeta.bgColor === 'bg-wg-green'
         ? 'bg-wg-green'
-        : currentCategoryMeta.bgColor === 'bg-wg-brown'
-          ? 'bg-wg-brown'
+        : currentCategoryMeta.bgColor === 'bg-wg-orange'
+          ? 'bg-wg-orange'
           : 'bg-wg-blue';
     const articleFallbackImage = getBlogFallbackImage(artigoAtual.category, artigoAtual.slug, 'hero');
     const articleLocalFallbackImage = getLocalBlogFallbackImage(artigoAtual.category, artigoAtual.slug);
@@ -1244,8 +1244,8 @@ const Blog = () => {
         ? '[&>blockquote]:border-[#D8DEE8]'
         : currentCategoryMeta.bgColor === 'bg-wg-green'
         ? '[&>blockquote]:border-wg-green'
-        : currentCategoryMeta.bgColor === 'bg-wg-brown'
-          ? '[&>blockquote]:border-wg-brown'
+        : currentCategoryMeta.bgColor === 'bg-wg-orange'
+          ? '[&>blockquote]:border-wg-orange'
           : '[&>blockquote]:border-wg-blue';
     const articleContextImages = getBlogContextAssets({ slug: artigoAtual.slug });
     const articleSchemaImages = [
@@ -1798,7 +1798,7 @@ const Blog = () => {
                             ${articleInlineCodeClass}
                             [&>pre]:bg-[#1A1A1A] [&>pre]:text-white [&>pre]:p-6 [&>pre]:rounded-lg [&>pre]:overflow-x-auto [&>pre]:my-8
                             [&>img]:mx-auto [&>img]:my-8 [&>img]:max-h-[68vh] [&>img]:max-w-full [&>img]:rounded-lg [&>img]:shadow-md
-                            [&>hr]:border-[#E5E5E5] [&>hr]:my-10 ${articleContentBulletMarkerClass} ${isFaqSection ? `[&>h3]:rounded-xl [&>h3]:border [&>h3]:border-[#DDE4EE] [&>h3]:bg-gradient-to-r [&>h3]:from-white [&>h3]:to-[#F7F9FC] [&>h3]:px-5 [&>h3]:py-4 [&>h3]:mb-3 [&>h3]:mt-6 [&>p]:relative [&>p]:pl-6 [&>p]:text-[14px] [&>p]:leading-[1.58] [&>p]:mb-6 [&>p]:before:content-['↳'] [&>p]:before:absolute [&>p]:before:left-0 [&>p]:before:top-0 [&>p]:before:font-light ${currentCategoryMeta.bgColor === 'bg-wg-green' ? "[&>p]:before:text-wg-green" : currentCategoryMeta.bgColor === 'bg-wg-brown' ? "[&>p]:before:text-wg-black" : "[&>p]:before:text-wg-blue"}` : ''}`}>
+                            [&>hr]:border-[#E5E5E5] [&>hr]:my-10 ${articleContentBulletMarkerClass} ${isFaqSection ? `[&>h3]:rounded-xl [&>h3]:border [&>h3]:border-[#DDE4EE] [&>h3]:bg-gradient-to-r [&>h3]:from-white [&>h3]:to-[#F7F9FC] [&>h3]:px-5 [&>h3]:py-4 [&>h3]:mb-3 [&>h3]:mt-6 [&>p]:relative [&>p]:pl-6 [&>p]:text-[14px] [&>p]:leading-[1.58] [&>p]:mb-6 [&>p]:before:content-['↳'] [&>p]:before:absolute [&>p]:before:left-0 [&>p]:before:top-0 [&>p]:before:font-light ${currentCategoryMeta.bgColor === 'bg-wg-green' ? "[&>p]:before:text-wg-green" : currentCategoryMeta.bgColor === 'bg-wg-orange' ? "[&>p]:before:text-wg-black" : "[&>p]:before:text-wg-blue"}` : ''}`}>
                             {markdownRuntimeReady ? (
                               <MarkdownRenderer remarkPlugins={markdownRemarkPlugins} components={markdownComponents}>
                                 {section.markdown}
@@ -1845,7 +1845,7 @@ const Blog = () => {
                         ${articleInlineCodeClass}
                         [&>pre]:bg-[#1A1A1A] [&>pre]:text-white [&>pre]:p-6 [&>pre]:rounded-lg [&>pre]:overflow-x-auto [&>pre]:my-8
                         [&>img]:mx-auto [&>img]:my-8 [&>img]:max-h-[68vh] [&>img]:max-w-full [&>img]:rounded-lg [&>img]:shadow-md
-                        [&>hr]:border-[#E5E5E5] [&>hr]:my-10 ${articleContentBulletMarkerClass} ${isFaqSection ? `[&>h3]:rounded-xl [&>h3]:border [&>h3]:border-[#DDE4EE] [&>h3]:bg-gradient-to-r [&>h3]:from-white [&>h3]:to-[#F7F9FC] [&>h3]:px-5 [&>h3]:py-4 [&>h3]:mb-3 [&>h3]:mt-6 [&>p]:relative [&>p]:pl-6 [&>p]:text-[14px] [&>p]:leading-[1.58] [&>p]:mb-6 [&>p]:before:content-['↳'] [&>p]:before:absolute [&>p]:before:left-0 [&>p]:before:top-0 [&>p]:before:font-light ${currentCategoryMeta.bgColor === 'bg-wg-green' ? "[&>p]:before:text-wg-green" : currentCategoryMeta.bgColor === 'bg-wg-brown' ? "[&>p]:before:text-wg-black" : "[&>p]:before:text-wg-blue"}` : ''}`}>
+                        [&>hr]:border-[#E5E5E5] [&>hr]:my-10 ${articleContentBulletMarkerClass} ${isFaqSection ? `[&>h3]:rounded-xl [&>h3]:border [&>h3]:border-[#DDE4EE] [&>h3]:bg-gradient-to-r [&>h3]:from-white [&>h3]:to-[#F7F9FC] [&>h3]:px-5 [&>h3]:py-4 [&>h3]:mb-3 [&>h3]:mt-6 [&>p]:relative [&>p]:pl-6 [&>p]:text-[14px] [&>p]:leading-[1.58] [&>p]:mb-6 [&>p]:before:content-['↳'] [&>p]:before:absolute [&>p]:before:left-0 [&>p]:before:top-0 [&>p]:before:font-light ${currentCategoryMeta.bgColor === 'bg-wg-green' ? "[&>p]:before:text-wg-green" : currentCategoryMeta.bgColor === 'bg-wg-orange' ? "[&>p]:before:text-wg-black" : "[&>p]:before:text-wg-blue"}` : ''}`}>
                         {markdownRuntimeReady ? (
                           <MarkdownRenderer remarkPlugins={markdownRemarkPlugins} components={markdownComponents}>
                             {section.markdown}

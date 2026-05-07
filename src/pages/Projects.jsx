@@ -31,7 +31,7 @@ const PhotoFrame = ({ image, onClick, index }) => (
       <div className="absolute bottom-0.5 left-0.5 w-3 h-3 border-b-2 border-l-2 border-wg-orange/40 rounded-bl-lg" />
       <div className="absolute bottom-0.5 right-0.5 w-3 h-3 border-b-2 border-r-2 border-wg-orange/40 rounded-br-lg" />
 
-      <div className="relative overflow-hidden rounded-lg border border-wg-brown/10">
+      <div className="relative overflow-hidden rounded-lg border border-wg-orange/10">
         <div className="aspect-[4/3] overflow-hidden">
           <img
             src={image.thumbSrc || image.src}
@@ -90,7 +90,7 @@ const Lightbox = ({ images, currentIndex, onClose, onPrev, onNext }) => (
       onClick={(e) => e.stopPropagation()}
     >
       <div className="bg-white p-4 rounded-xl shadow-2xl">
-        <div className="border-2 border-wg-brown/20 rounded-lg overflow-hidden">
+        <div className="border-2 border-wg-orange/20 rounded-lg overflow-hidden">
           <img
             src={images[currentIndex]?.fullSrc || images[currentIndex]?.src}
             alt={images[currentIndex]?.label}

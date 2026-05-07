@@ -93,7 +93,7 @@
   --wg-orange-text: #F25C26;
   --wg-green: #5E9B94;
   --wg-blue: #2B4580;
-  --wg-brown: #8B5E3C;
+  --wg-orange: #8B5E3C;
   --wg-black: #2E2E2E;
   --wg-gray: #4C4C4C;
   --wg-gray-light: #F3F3F3;
@@ -317,23 +317,23 @@
     border-color: var(--wg-blue);
   }
 
-  .bg-wg-brown {
-    background-color: var(--wg-brown);
+  .bg-wg-orange {
+    background-color: var(--wg-orange);
   }
   .text-wg-black {
-    color: var(--wg-brown);
+    color: var(--wg-orange);
   }
-  .border-wg-brown {
-    border-color: var(--wg-brown);
+  .border-wg-orange {
+    border-color: var(--wg-orange);
   }
   .hover\:text-wg-black:hover {
-    color: var(--wg-brown);
+    color: var(--wg-orange);
   }
-  .hover\:bg-wg-brown:hover {
-    background-color: var(--wg-brown);
+  .hover\:bg-wg-orange:hover {
+    background-color: var(--wg-orange);
   }
-  .hover\:border-wg-brown:hover {
-    border-color: var(--wg-brown);
+  .hover\:border-wg-orange:hover {
+    border-color: var(--wg-orange);
   }
 
   .bg-wg-black {

@@ -31,14 +31,28 @@ const HeroVideo = () => {
 
   useEffect(() => {
     const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const check = () => {
+    
+    const checkStatus = async () => {
       const saveData = Boolean(navigator.connection?.saveData);
       const effectiveType = navigator.connection?.effectiveType || '';
       const slow = ['slow-2g', '2g', '3g'].includes(effectiveType);
-      setAllowVideo(!reduceMotionQuery.matches && !saveData && !slow);
+      
+      let lowBattery = false;
+      try {
+        if ('getBattery' in navigator) {
+          const battery = await navigator.getBattery();
+          // Desativa vídeo se bateria < 20% e não estiver carregando
+          lowBattery = battery.level < 0.2 && !battery.charging;
+        }
+      } catch (e) {
+        // Ignora erros de bateria em navegadores que não suportam ou bloqueiam a API
+      }
+
+      setAllowVideo(!reduceMotionQuery.matches && !saveData && !slow && !lowBattery);
     };
-    check();
-    return bindMediaQueryChange(reduceMotionQuery, check);
+
+    checkStatus();
+    return bindMediaQueryChange(reduceMotionQuery, checkStatus);
   }, []);
 
   useEffect(() => {

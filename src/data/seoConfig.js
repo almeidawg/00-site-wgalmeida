@@ -167,12 +167,32 @@ export const SEO_CONFIG = {
     "/easy-real-state",
     "EasyRealState | Calculadora de Valor Imobiliário para Corretores",
     "Use o EasyRealState para ler valor de mercado com base real em São Paulo. AVM comercial, link compartilhável e trial assistido para corretores e imobiliárias."
-  ),
   "/revista-estilos": page(
     "/revista-estilos",
-    "Revista de Estilos | Descubra seu Estilo de Decoração | WG Almeida",
-    "Explore estilos de decoração: Minimalismo, Clássico, Moderno, Vintage, Tropical, Boho e mais. Descubra qual estilo combina com você."
+    "Revista de Estilos 2026: Guia de Decoração e Design de Interiores | WG Almeida",
+    "Explore 30+ estilos de decoração para sua casa ou apartamento em SP: Minimalismo, Japandi, Industrial e mais. Encontre a inspiração certa para seu projeto de arquitetura e marcenaria."
   ),
+  "/estilos/japandi": page(
+    "/estilos/japandi",
+    "Estilo Japandi em SP: Zen, Minimalismo e Marcenaria Sob Medida | WG Almeida",
+    "Descubra como aplicar o estilo Japandi no seu imóvel em São Paulo. Unimos o minimalismo japonês ao aconchego escandinavo com marcenaria de alto padrão e gestão de obra integrada."
+  ),
+  "/estilos/minimalismo": page(
+    "/estilos/minimalismo",
+    "Estilo Minimalista: Arquitetura de Alto Padrão e Decoração "Less is More" | WG Almeida",
+    "A estética do essencial para apartamentos e casas de luxo em SP. Conheça nossa abordagem de arquitetura minimalista com foco em luz, espaço e acabamentos premium."
+  ),
+  "/estilos/industrial": page(
+    "/estilos/industrial",
+    "Estilo Industrial: Design Urbano, Loft e Arquitetura Contemporânea | WG Almeida",
+    "Como aplicar o design industrial com sofisticação em São Paulo. Estruturas aparentes, marcenaria em metal e madeira, e integração de ambientes com gestão de obra completa."
+  ),
+  "/estilos/boho": page(
+    "/estilos/boho",
+    "Estilo Boho Chic: Decoração Afetiva, Texturas e Design de Interiores | WG Almeida",
+    "Crie ambientes acolhedores com a estética Boho Chic. Unimos texturas naturais, cores quentes e design personalizado para sua residência em São Paulo."
+  ),
+  };
   "/moodboard": page(
     "/moodboard",
     "Moodboard | Sistema de Experiência Visual | WG Almeida",

@@ -1,5 +1,15 @@
 # RETURN-POINT — site-wgalmeida
-**Atualizado:** 02/05/2026
+**Atualizado:** 07/05/2026
+
+## Sessao 2026-05-07 — Otimização de Performance e Remoção de Intro
+
+### Ações Executadas
+- **Remoção da Introdução Cinematográfica:** O componente `PremiumCinematicIntro` e sua lógica foram removidos do `Home.jsx`. 
+  - **Motivo:** A animação de 45s e o peso do JS estavam prejudicando o Mobile PageSpeed (Score ~60) e frustrando a UX.
+  - **Resultado Esperado:** Redução drástica do TBT e melhoria no LCP.
+- **Auditoria de SEO/Indexação:**
+  - Status: 105 URLs indexadas / 53 pendentes.
+  - Performance Desktop: 94 / Mobile: ~60 (antes da remoção da intro).
 
 ## Sessao 2026-05-05B — Auditoria full ponta a ponta e bloqueio de producao
 

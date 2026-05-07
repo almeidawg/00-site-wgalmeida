@@ -27,11 +27,11 @@ const valueStyles = {
     icon: 'text-wg-blue',
     halo: 'bg-wg-blue/5',
   },
-  'wg-brown': {
-    line: 'bg-wg-brown',
-    iconWrap: 'bg-wg-brown/10',
+  'wg-orange': {
+    line: 'bg-wg-orange',
+    iconWrap: 'bg-wg-orange/10',
     icon: 'text-wg-black',
-    halo: 'bg-wg-brown/5',
+    halo: 'bg-wg-orange/5',
   },
 };
 
@@ -80,7 +80,7 @@ const About = () => {
       icon: Users,
       title: t('aboutPage.values.purpose.title'),
       description: t('aboutPage.values.purpose.description'),
-      color: 'wg-brown',
+      color: 'wg-orange',
     },
   ];
 

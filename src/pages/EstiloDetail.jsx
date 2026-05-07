@@ -477,26 +477,56 @@ const EstiloDetail = () => {
             />
           </div>
 
-          {/* CTA */}
-          <div className="mt-12 rounded-[28px] border border-black/6 bg-[#f7f4ef] p-8 shadow-[0_18px_60px_rgba(30,24,20,0.05)]">
-            <div className="flex items-start gap-4">
-              <div className="mt-1 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-white/80 text-wg-black/70">
-                <Palette className="w-6 h-6" />
-              </div>
-              <div>
-                <h3 className="mb-3 text-2xl font-inter font-light text-wg-black">
-                  Gostou deste estilo?
+          {/* Ecossistema Integrado Block */}
+          <div className="mt-12 overflow-hidden rounded-[28px] border border-[#E8E8E8] bg-white shadow-[0_20px_50px_rgba(0,0,0,0.04)]">
+            <div className="grid grid-cols-1 md:grid-cols-2">
+              <div className="p-8 md:p-10">
+                <span className="mb-4 block text-[11px] font-light uppercase tracking-[0.25em] text-wg-orange">
+                  Ecossistema WG Almeida
+                </span>
+                <h3 className="mb-6 text-3xl font-inter font-light leading-tight text-wg-black">
+                  Trabalhamos para que o estilo seja <span className="text-wg-blue italic">vivido</span>, não apenas visto.
                 </h3>
-                <p className="mb-6 font-light leading-relaxed text-wg-gray">
-                  Nossa equipe pode traduzir essa linguagem para o seu ambiente com curadoria, projeto e execução integrada.
+                <p className="mb-8 text-base font-light leading-relaxed text-wg-gray">
+                  No Grupo WG Almeida, traduzimos linguagens estéticas em realidade operacional. Da arquitetura autoral à marcenaria sob medida, garantimos que cada detalhe do estilo {estilo.title} seja executado com precisão técnica e gestão integrada.
                 </p>
-                <Link
-                  to="/solicite-proposta"
-                  className="inline-flex items-center gap-2 rounded-full bg-wg-black px-6 py-3 text-sm font-light text-white transition-colors hover:bg-wg-black/92 focus:outline-none"
-                >
-                  <span>Solicitar Consultoria</span>
-                  <ArrowRight className="w-5 h-5" />
-                </Link>
+                <div className="space-y-4">
+                  {[
+                    { label: 'Arquitetura Autoral', desc: 'Concepção e guia de estilo.' },
+                    { label: 'Engenharia de Alto Padrão', desc: 'Execução Turn Key controlada.' },
+                    { label: 'Marcenaria de Luxo', desc: 'Mobiliário fixo com acabamento premium.' }
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-start gap-3">
+                      <div className="mt-1 h-1.5 w-1.5 rounded-full bg-wg-orange" />
+                      <div>
+                        <p className="text-sm font-light text-wg-black">{item.label}</p>
+                        <p className="text-xs font-light text-wg-gray">{item.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="relative min-h-[300px] bg-wg-black">
+                <ResponsiveWebpImage
+                  src="/images/banners/ENGENHARIA-960-opt.webp"
+                  alt="Ecossistema WG Almeida"
+                  className="absolute inset-0 h-full w-full object-cover opacity-70"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-wg-black/80 to-transparent md:bg-gradient-to-l" />
+                <div className="absolute inset-0 flex items-center justify-center p-8">
+                  <div className="text-center">
+                    <p className="mb-6 text-xl font-light italic text-white/90">
+                      "A excelência está na integração."
+                    </p>
+                    <Link
+                      to="/contato"
+                      className="inline-flex items-center gap-2 rounded-full bg-wg-orange px-8 py-4 text-sm font-light text-white shadow-lg transition-all hover:bg-wg-orange-dark hover:shadow-wg-orange/20"
+                    >
+                      Solicitar Consultoria <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

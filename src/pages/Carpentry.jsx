@@ -72,7 +72,7 @@ const Carpentry = () => {
             fetchpriority="high"
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-wg-brown/50 via-wg-brown/60 to-wg-black/80"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-wg-orange/50 via-wg-orange/60 to-wg-black/80"></div>
         </motion.div>
 
         <div className="container-custom">
@@ -123,8 +123,8 @@ const Carpentry = () => {
       <section className="section-padding-tight-top bg-white relative overflow-hidden">
         {/* Elementos decorativos */}
         <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-wg-brown rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-wg-brown rounded-full blur-3xl" />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-wg-orange rounded-full blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-wg-orange rounded-full blur-3xl" />
         </div>
 
         <div className="container-custom relative z-10">
@@ -140,9 +140,9 @@ const Carpentry = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <div className="h-px w-12 bg-gradient-to-r from-transparent to-wg-brown" />
-              <div className="w-2 h-2 bg-wg-brown rounded-full" />
-              <div className="h-px w-12 bg-gradient-to-l from-transparent to-wg-brown" />
+              <div className="h-px w-12 bg-gradient-to-r from-transparent to-wg-orange" />
+              <div className="w-2 h-2 bg-wg-orange rounded-full" />
+              <div className="h-px w-12 bg-gradient-to-l from-transparent to-wg-orange" />
             </motion.div>
 
             <span className="text-wg-black font-light tracking-[0.2em] uppercase text-sm mb-4 block">
@@ -168,10 +168,10 @@ const Carpentry = () => {
                 className="group relative bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 overflow-hidden"
               >
                 {/* Borda colorida no topo */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-wg-brown transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+                <div className="absolute top-0 left-0 right-0 h-1 bg-wg-orange transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
 
                 {/* Ícone com background */}
-                <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-wg-brown/10 mb-5 group-hover:scale-110 transition-transform duration-300">
+                <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-wg-orange/10 mb-5 group-hover:scale-110 transition-transform duration-300">
                   <service.icon className="w-7 h-7 text-wg-black" />
                 </div>
 
@@ -181,14 +181,14 @@ const Carpentry = () => {
                 <p className="text-wg-gray leading-relaxed">{service.description}</p>
 
                 {/* Elemento decorativo */}
-                <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-wg-brown/5 rounded-full group-hover:scale-150 transition-transform duration-700" />
+                <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-wg-orange/5 rounded-full group-hover:scale-150 transition-transform duration-700" />
               </motion.div>
             ))}
           </div>
 
           <motion.div
             {...fadeInUp}
-            className="rounded-3xl border border-wg-brown/15 bg-gradient-to-br from-wg-brown/5 via-white to-white p-8 md:p-10 mb-20"
+            className="rounded-3xl border border-wg-orange/15 bg-gradient-to-br from-wg-orange/5 via-white to-white p-8 md:p-10 mb-20"
           >
             <div className="max-w-4xl">
               <span className="text-wg-black font-light tracking-[0.2em] uppercase text-sm mb-4 block">
@@ -220,7 +220,7 @@ const Carpentry = () => {
               className="relative"
             >
               {/* Moldura decorativa */}
-              <div className="absolute -inset-4 bg-gradient-to-br from-wg-brown/20 to-transparent rounded-2xl" />
+              <div className="absolute -inset-4 bg-gradient-to-br from-wg-orange/20 to-transparent rounded-2xl" />
               <img
                 className="relative w-full h-[500px] object-cover rounded-xl shadow-2xl"
                 alt={t('carpentryPage.commitment.imageAlt')}
@@ -285,7 +285,7 @@ const Carpentry = () => {
 
           <motion.div
             {...fadeInUp}
-            className="mt-20 rounded-3xl border border-wg-brown/15 bg-wg-black text-white p-8 md:p-10"
+            className="mt-20 rounded-3xl border border-wg-orange/15 bg-wg-black text-white p-8 md:p-10"
           >
             <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-10 items-start">
               <div>

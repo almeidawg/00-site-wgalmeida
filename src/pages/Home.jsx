@@ -23,8 +23,6 @@ import { Button } from '@/components/ui/button';
 import AnimatedStrokes from '@/components/AnimatedStrokes';
 
 import HeroVideo from '@/components/HeroVideo';
-// Lazy load PremiumCinematicIntro para reduzir TBT (Total Blocking Time)
-const PremiumCinematicIntro = lazy(() => import('@/components/PremiumCinematicIntro'));
 const ProjectGallery = lazy(() => import('@/components/ProjectGallery'));
 const HomeColorTransformer = lazy(() => import('@/components/home/HomeColorTransformer'));
 const GoogleReviewsBadge = lazy(() => import('@/components/GoogleReviewsBadge'));
@@ -111,50 +109,6 @@ const HERO_COPY_BY_INTEREST = {
     ctaSecondary: 'Ver ICCRI 2026',
     ctaSecondaryHref: '/iccri',
   },
-};
-
-const canRunHomeIntro = async () => {
-  const prefersReducedMotion = globalThis.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const hasSaveData = Boolean(navigator.connection?.saveData);
-  const deviceMemory = navigator.deviceMemory || 4;
-  const cpuCores = navigator.hardwareConcurrency || 4;
-
-  if (prefersReducedMotion || hasSaveData || deviceMemory < 2 || cpuCores < 4) {
-    return false;
-  }
-
-  try {
-    const battery = await navigator.getBattery?.();
-    return !battery || battery.level > 0.2;
-  } catch (error) {
-    if (import.meta.env.DEV) {
-      console.debug('[home-intro] Battery status unavailable; intro remains enabled.', error);
-    }
-    return true;
-  }
-};
-
-const scheduleHomeIntro = (showIntro) => {
-  let timeoutId;
-
-  const enableIntro = () => {
-    timeoutId = globalThis.setTimeout(async () => {
-      if (await canRunHomeIntro()) {
-        showIntro();
-      }
-    }, 800);
-  };
-
-  if (typeof globalThis.requestIdleCallback === 'function') {
-    const idleId = globalThis.requestIdleCallback(enableIntro, { timeout: 1500 });
-    return () => {
-      globalThis.cancelIdleCallback(idleId);
-      globalThis.clearTimeout(timeoutId);
-    };
-  }
-
-  enableIntro();
-  return () => globalThis.clearTimeout(timeoutId);
 };
 
 const STATS_VISIBILITY_OPTIONS = { threshold: 0.35 };
@@ -264,17 +218,6 @@ const getLocalizedHeroTitle = (language = '') => {
   return 'Architecture, Engineering and Premium Carpentry.';
 };
 
-const getIntroMotionProps = (showIntro, y, delay, duration = 1, ease = undefined) => {
-  const transition = { duration, delay: showIntro ? 0 : delay };
-  if (ease) transition.ease = ease;
-
-  return {
-    initial: { opacity: 0, y },
-    animate: { opacity: showIntro ? 0 : 1, y: showIntro ? y : 0 },
-    transition,
-  };
-};
-
 const Home = () => {
   const { t, i18n } = useTranslation();
   const { context: wgContext } = useWGContext() || { context: {} };
@@ -287,8 +230,7 @@ const Home = () => {
     defaultValue:
       'Planejamos, executamos e entregamos espaços de alto padrão, do conceito ao último detalhe, sob um único padrão de gestão.',
   });
-  // Intro inicia desativada para não competir com renderização crítica do hero.
-  const [showIntro, setShowIntro] = useState(false);
+
   const [statsSectionRef, statsVisible] = useVisibilityFlag(STATS_VISIBILITY_OPTIONS);
   const [projectGalleryRef, projectGalleryVisible] = useVisibilityFlag(LAZY_SECTION_VISIBILITY_OPTIONS);
   const [reviewsRef, reviewsVisible] = useVisibilityFlag(LAZY_SECTION_VISIBILITY_OPTIONS);
@@ -297,18 +239,6 @@ const Home = () => {
   const estatisticas = useEstatisticasWG({ enabled: statsVisible });
   const displayStats = useAnimatedStats(statsVisible, estatisticas);
   const localizedHeroTitle = getLocalizedHeroTitle(i18n.language);
-
-  const handleIntroComplete = () => {
-    setShowIntro(false);
-  };
-
-  useEffect(() => {
-    const enableIntroNow = () => {
-      setShowIntro(true);
-      globalThis.sessionStorage.setItem('wg-intro-triggered', 'true');
-    };
-    return scheduleHomeIntro(enableIntroNow);
-  }, []);
 
   // Etapas do processo / Metodologia
   const metodologia = [
@@ -336,13 +266,6 @@ const Home = () => {
         schema={[SCHEMAS.knowledgeGraph, SCHEMAS.website, SCHEMAS.localBusiness, SCHEMAS.breadcrumbHome]}
       />
 
-      {/* ========== APRESENTAÇÃO CINEMATOGRÁFICA ========== */}
-      {showIntro && (
-        <Suspense fallback={null}>
-          <PremiumCinematicIntro onComplete={handleIntroComplete} />
-        </Suspense>
-      )}
-
       {/* ========== HERO SECTION COM VÍDEO ========== */}
       <section className="wg-page-hero wg-page-hero--full hero-under-header bg-wg-black">
         <HeroVideo />
@@ -354,7 +277,9 @@ const Home = () => {
         <div className="container-custom">
           <div className="wg-page-hero-content home-hero-content px-4 sm:px-6 lg:px-8">
           <motion.div
-            {...getIntroMotionProps(showIntro, 18, 0.2, 0.85, 'easeOut')}
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.85, delay: 0.2, ease: 'easeOut' }}
             className="home-hero-overline mb-1 flex items-center justify-center gap-4 text-wg-orange"
           >
             <span className="hidden h-px w-10 bg-current/50 sm:block" />
@@ -366,7 +291,9 @@ const Home = () => {
 
           {/* H1 Principal - Responsivo para mobile */}
           <motion.h1
-            {...getIntroMotionProps(showIntro, 40, 0.3, 1, 'easeOut')}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.3, ease: 'easeOut' }}
             className="home-hero-title"
           >
             {localizedHeroTitle}
@@ -375,7 +302,9 @@ const Home = () => {
           <div className="home-hero-support-block">
           {/* Subtítulo */}
           <motion.p
-            {...getIntroMotionProps(showIntro, 30, 0.6, 1, 'easeOut')}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.6, ease: 'easeOut' }}
             className="home-hero-subtitle px-2"
           >
             {t('home.hero.subtitle', { defaultValue: 'Um ecossistema completo para construir com excelência.' })}
@@ -383,7 +312,9 @@ const Home = () => {
 
           {/* H2 Subheadline */}
           <motion.p
-            {...getIntroMotionProps(showIntro, 30, 0.9, 1, 'easeOut')}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.9, ease: 'easeOut' }}
             className="home-hero-body"
           >
             {heroSupport}
@@ -391,7 +322,9 @@ const Home = () => {
 
           {/* CTAs — personalizados se interesse detectado, padrão caso contrário */}
           <motion.div
-            {...getIntroMotionProps(showIntro, 30, 1.35)}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1.35 }}
             className="home-hero-actions"
           >
             {personalized ? (
