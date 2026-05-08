@@ -63,6 +63,13 @@ HERO_MEDIA.desktop = HERO_MEDIA.profiles.desktopLandscape;
 
 export const getHeroVideoProfile = ({ width = 0, height = 0 } = {}) => {
   const { width: safeWidth, height: safeHeight } = normalizeViewport({ width, height });
+  
+  // REGRA DE OURO: Se a largura for de Desktop/Tablet Horizontal (>= 1024px), 
+  // FORÇA a versão Landscape independente de qualquer outro fator.
+  if (safeWidth >= 1024) {
+    return 'desktopLandscape';
+  }
+
   const orientation = safeHeight > safeWidth ? 'portrait' : 'landscape';
 
   if (safeWidth <= HERO_VIEWPORT_BREAKPOINTS.phoneMax) {
@@ -73,7 +80,7 @@ export const getHeroVideoProfile = ({ width = 0, height = 0 } = {}) => {
     return orientation === 'portrait' ? 'tabletPortrait' : 'tabletLandscape';
   }
 
-  return orientation === 'portrait' ? 'desktopPortrait' : 'desktopLandscape';
+  return 'desktopLandscape';
 };
 
 export const selectHeroVideoSrc = (viewport) => {

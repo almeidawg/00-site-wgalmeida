@@ -27,12 +27,6 @@ const valueStyles = {
     icon: 'text-wg-blue',
     halo: 'bg-wg-blue/5',
   },
-  'wg-orange': {
-    line: 'bg-wg-orange',
-    iconWrap: 'bg-wg-orange/10',
-    icon: 'text-wg-black',
-    halo: 'bg-wg-orange/5',
-  },
 };
 
 // Animações elegantes

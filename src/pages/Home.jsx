@@ -62,8 +62,7 @@ const HOME_STYLE_CARD_IMAGES = {
 const logosNucleos = [
   { src: withBasePath('/Logos/logo-arquitetura-84.webp'), alt: 'Logo Arquitetura', href: '/arquitetura' },
   { src: withBasePath('/Logos/logo-engenharia-84.webp'), alt: 'Logo Engenharia', href: '/engenharia' },
-  { src: withBasePath('/Logos/logo-marcenaria-84.webp'), alt: 'Logo Marcenaria', href: '/marcenaria' },
-  { label: 'ObraEasy', alt: 'ObraEasy', href: '/obraeasy' }
+  { src: withBasePath('/Logos/logo-marcenaria-84.webp'), alt: 'Logo Marcenaria', href: '/marcenaria' }
 ];
 
 const logoStackAlignment = ['md:items-start', 'md:items-center', 'md:items-center', 'md:items-end'];
@@ -78,7 +77,7 @@ const ENGINEERING_BANNER_SRCSET = [
 
 const HERO_COPY_BY_INTEREST = {
   obra: {
-    eyebrow: 'Execução de alto padrão · São Paulo',
+    eyebrow: 'Arquitetura · Engenharia · Marcenaria',
     support: 'Planejamos e executamos sua obra com gestão integrada, do projeto ao acabamento final, com previsibilidade de custo e prazo.',
     ctaPrimary: 'Simular custo da obra',
     ctaPrimaryHref: '/solicite-proposta?service=Orçamento+de+Obra&intent=obra',
@@ -86,7 +85,7 @@ const HERO_COPY_BY_INTEREST = {
     ctaSecondaryHref: '/processo',
   },
   marcenaria: {
-    eyebrow: 'Marcenaria sob medida · São Paulo',
+    eyebrow: 'Arquitetura · Engenharia · Marcenaria',
     support: 'Projetamos e produzimos marcenaria de alto padrão com aprovação visual antes de medição, garantindo precisão e alinhamento total.',
     ctaPrimary: 'Orçar marcenaria',
     ctaPrimaryHref: '/solicite-proposta?service=Marcenaria&intent=marcenaria',
@@ -94,15 +93,15 @@ const HERO_COPY_BY_INTEREST = {
     ctaSecondaryHref: '/marcenaria',
   },
   design: {
-    eyebrow: 'Experiência visual · São Paulo',
-    support: 'Transformamos sua inspiração em guia de estilo, briefing e proposta. Do moodboard ao projeto executado, com coerência visual do início ao fim.',
+    eyebrow: 'Arquitetura · Engenharia · Marcenaria',
+    support: 'Do moodboard ao projeto executado, transformamos sua visão em realidade com coerência visual e rigor técnico do início ao fim.',
     ctaPrimary: 'Criar meu guia de estilo',
     ctaPrimaryHref: '/moodboard',
     ctaSecondary: 'Levar para projeto',
     ctaSecondaryHref: '/solicite-proposta?context=moodboard&intent=design',
   },
   investimento: {
-    eyebrow: 'Análise de viabilidade · São Paulo',
+    eyebrow: 'Arquitetura · Engenharia · Marcenaria',
     support: 'Avaliamos o potencial do seu imóvel com dados reais de mercado, custo de obra e margem esperada, antes de qualquer decisão.',
     ctaPrimary: 'Ver viabilidade do investimento',
     ctaPrimaryHref: '/solicite-proposta?service=Análise+de+Viabilidade&intent=investimento',
@@ -209,11 +208,11 @@ const useAnimatedStats = (statsVisible, estatisticas) => {
 const getLocalizedHeroTitle = (language = '', interest = null) => {
   if (interest === 'marcenaria') return 'Marcenaria de Luxo e Projetos sob Medida.';
   if (interest === 'obra') return 'Execução de Obras e Reformas de Alto Padrão.';
-  if (interest === 'design') return 'Design de Interiores e Experiência Visual.';
+  if (interest === 'design') return 'Arquitetura · Engenharia · Marcenaria.';
   if (interest === 'investimento') return 'Viabilidade Técnica e Valorização Imobiliária.';
 
   if (language.startsWith('pt')) {
-    return 'Arquitetura, Engenharia e Marcenaria de Alto Padrão.';
+    return 'Arquitetura · Engenharia · Marcenaria.';
   }
   if (language.startsWith('es')) {
     return 'Arquitectura, Ingeniería y Carpintería Premium.';
@@ -302,13 +301,13 @@ const Home = () => {
             {localizedHeroTitle}
           </motion.h1>
 
-          <div className="home-hero-support-block">
+          <div className="home-hero-support-block max-w-5xl mx-auto mt-12">
           {/* Subtítulo */}
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.6, ease: 'easeOut' }}
-            className="home-hero-subtitle px-2"
+            className="home-hero-subtitle px-4 mb-10 text-lg md:text-xl tracking-wide opacity-80"
           >
             {t('home.hero.subtitle', { defaultValue: 'Um ecossistema completo para construir com excelência.' })}
           </motion.p>
@@ -318,17 +317,17 @@ const Home = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.9, ease: 'easeOut' }}
-            className="home-hero-body"
+            className="home-hero-body mb-16 text-xl md:text-2xl leading-relaxed font-light"
           >
             {heroSupport}
           </motion.p>
 
-          {/* CTAs — personalizados se interesse detectado, padrão caso contrário */}
+          {/* CTAs — Distribuição Ampla */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 1.35 }}
-            className="home-hero-actions"
+            className="flex flex-col sm:flex-row items-center justify-center gap-8 pt-4"
           >
             {personalized ? (
               <>
@@ -470,10 +469,10 @@ const Home = () => {
           <div className="rounded-2xl border border-[#DCE3EE] bg-[#F8FAFC] p-6 md:p-8">
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-center">
               <div className="lg:col-span-8">
-                <span className="text-wg-blue font-light text-xs tracking-[0.2em] uppercase mb-3 block">
+                <span className="text-orange-600 font-bold text-[10px] tracking-[0.3em] uppercase mb-4 block">
                   ICCRI 2026
                 </span>
-                <h2 className="text-2xl md:text-3xl font-inter font-light text-wg-black mb-4 tracking-tight">
+                <h2 className="text-3xl md:text-4xl font-playfair italic text-wg-black mb-4 tracking-tight">
                   Referência técnica para custo de reforma e decisão imobiliária
                 </h2>
                 <p className="text-[15px] md:text-base leading-relaxed text-[#4C4C4C] mb-5">
@@ -482,15 +481,15 @@ const Home = () => {
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm text-[#334155]">
                   <p className="flex items-center gap-2">
-                    <Calculator className="w-4 h-4 text-wg-orange" />
+                    <Calculator className="w-4 h-4 text-orange-600" />
                     Simulação de custo por m2
                   </p>
                   <p className="flex items-center gap-2">
-                    <Building2 className="w-4 h-4 text-wg-blue" />
+                    <Building2 className="w-4 h-4 text-slate-700" />
                     Uso profissional para mercado imobiliário
                   </p>
                   <p className="flex items-center gap-2">
-                    <TrendingUp className="w-4 h-4 text-wg-green" />
+                    <TrendingUp className="w-4 h-4 text-emerald-600" />
                     Base para viabilidade e valorização
                   </p>
                 </div>
@@ -775,7 +774,7 @@ const Home = () => {
           >
             <Link
               to="/revista-estilos"
-              className="inline-flex items-center gap-2 text-wg-orange hover:text-wg-black font-light transition-colors"
+              className="inline-flex items-center gap-2 text-orange-600 hover:text-wg-black font-bold transition-all hover:gap-3"
               style={{ marginBottom: 0, paddingBottom: 0 }}
             >
               Ver todos os 30 estilos
@@ -929,17 +928,17 @@ const Home = () => {
                 </div>
               </div>
 
-              <div className="flex flex-wrap gap-3">
-                <Button asChild className="wg-btn-pill-primary">
+              <div className="flex flex-wrap gap-5 pt-8">
+                <Button asChild className="bg-orange-600 hover:bg-orange-500 text-white font-bold h-14 px-10 rounded-full shadow-2xl shadow-orange-900/30 transition-all hover:scale-105">
                   <Link to="/moodboard">
-                    <Palette className="w-5 h-5 mr-2" />
+                    <Palette className="w-5 h-5 mr-3" />
                     Criar Meu Moodboard
-                    <ArrowRight className="ml-2 w-5 h-5" />
+                    <ArrowRight className="ml-3 w-5 h-5" />
                   </Link>
                 </Button>
                 <Link
                   to="/solicite-proposta?service=Sistema%20de%20Experi%C3%AAncia%20Visual&context=moodboard"
-                  className="wg-overlay-button-dark rounded-full"
+                  className="inline-flex items-center justify-center px-10 h-14 bg-white/5 border border-white/10 rounded-full text-white text-sm font-bold backdrop-blur-2xl hover:bg-white/10 transition-all shadow-xl"
                 >
                   Levar para projeto
                 </Link>
@@ -1108,17 +1107,17 @@ const Home = () => {
                 className="text-center group"
               >
                 <div className="relative mb-4">
-                  <div className="w-16 h-16 mx-auto bg-wg-gray-light rounded-2xl flex items-center justify-center group-hover:bg-wg-orange transition-colors duration-300">
-                    <step.icon className="w-7 h-7 text-wg-black group-hover:text-white transition-colors duration-300" />
+                  <div className="w-16 h-16 mx-auto bg-slate-50 rounded-2xl flex items-center justify-center group-hover:bg-orange-500 transition-colors duration-500 border border-slate-100 group-hover:border-orange-400 shadow-sm">
+                    <step.icon className="w-7 h-7 text-slate-800 group-hover:text-white transition-colors duration-300" />
                   </div>
-                  <span className="absolute -top-2 -right-2 w-6 h-6 bg-wg-orange text-white text-xs font-light rounded-full flex items-center justify-center">
+                  <span className="absolute -top-2 -right-2 w-7 h-7 bg-orange-600 text-white text-[11px] font-bold rounded-full flex items-center justify-center shadow-lg border-2 border-white">
                     {index + 1}
                   </span>
                 </div>
-                <h3 className="text-sm font-light text-wg-black mb-1 normal-case">
+                <h3 className="text-sm font-bold text-slate-900 mb-1 normal-case tracking-tight">
                   {step.title}
                 </h3>
-                <p className="text-xs text-wg-gray font-light">
+                <p className="text-[11px] text-slate-500 font-medium leading-relaxed">
                   {step.desc}
                 </p>
               </motion.div>
@@ -1132,7 +1131,7 @@ const Home = () => {
             transition={{ duration: 0.6, delay: 0.6 }}
             className="text-center mt-12"
           >
-            <p className="text-xl italic text-wg-orange">
+            <p className="text-xl italic text-orange-600 font-playfair">
               {t('home.methodology.quote')}
             </p>
           </motion.div>
@@ -1142,11 +1141,11 @@ const Home = () => {
       {/* ========== GALERIA DE PROJETOS ========== */}
       <section ref={projectGalleryRef} aria-label="Galeria de projetos">
         {projectGalleryVisible ? (
-          <Suspense fallback={<div className="h-[560px] bg-wg-gray-light" aria-hidden="true" />}>
+          <Suspense fallback={<div className="h-[560px] bg-slate-50" aria-hidden="true" />}>
             <ProjectGallery />
           </Suspense>
         ) : (
-          <div className="h-[560px] bg-wg-gray-light" aria-hidden="true" />
+          <div className="h-[560px] bg-slate-50" aria-hidden="true" />
         )}
       </section>
       {/* ========== BLOCO EXPERIÊNCIA & TECNOLOGIA ========== */}

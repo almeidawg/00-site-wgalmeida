@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from '@/lib/motion-lite';
 import { Check, Heart } from 'lucide-react';
 import { withBasePath } from '@/utils/assetPaths';
+import { getStyleImageUrl } from '@/data/styleImageManifest';
 
 const StyleCard = ({
   style,
@@ -10,34 +11,38 @@ const StyleCard = ({
   onFavorite,
   isFavorite = false
 }) => {
-  const { id, name, image, description, tags } = style;
+  const { id, name, slug, description, tags } = style;
+
+  // Usa a variante 'card' para a grade, mas garante que pegamos a imagem real do manifesto se disponível
+  const styleImage = getStyleImageUrl({ slug: slug, variant: 'card' }) || style.image;
 
   return (
     <motion.div
       whileHover={{ y: -5 }}
       whileTap={{ scale: 0.98 }}
-      className={`relative rounded-xl overflow-hidden cursor-pointer group shadow-lg ${
-        isSelected ? 'ring-4 ring-wg-orange' : ''
+      className={`relative rounded-xl overflow-hidden cursor-pointer group shadow-lg border transition-all duration-300 ${
+        isSelected 
+          ? 'ring-2 ring-orange-500 border-orange-500/50 shadow-[0_0_20px_rgba(242,92,38,0.2)]' 
+          : 'border-slate-800 bg-slate-900/40 hover:border-slate-700'
       }`}
       onClick={() => onSelect(style)}
     >
-      <div className="aspect-[4/3] overflow-hidden">
+      <div className="aspect-[4/3] overflow-hidden relative">
         <img
-          src={image}
+          src={styleImage}
           alt={name}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 ${isSelected ? 'opacity-100' : 'opacity-70 group-hover:opacity-90'}`}
           loading="lazy"
           onError={(e) => { e.currentTarget.src = withBasePath('/images/banners/MARCENARIA.webp'); }}
         />
+        {/* Overlay gradient para legibilidade */}
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
       </div>
-
-      {/* Overlay gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
       {/* Selection indicator */}
       {isSelected && (
-        <div className="absolute top-3 left-3 w-8 h-8 bg-wg-orange rounded-full flex items-center justify-center">
-          <Check className="w-5 h-5 text-white" />
+        <div className="absolute top-2 left-2 w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center shadow-lg">
+          <Check className="w-4 h-4 text-white" />
         </div>
       )}
 
@@ -47,26 +52,25 @@ const StyleCard = ({
           e.stopPropagation();
           onFavorite?.(style);
         }}
-        className={`absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
+        className={`absolute top-2 right-2 w-7 h-7 rounded-full flex items-center justify-center transition-all ${
           isFavorite
             ? 'bg-red-500 text-white'
-            : 'bg-white/20 text-white hover:bg-white/40'
+            : 'bg-black/40 text-white/70 hover:bg-black/60 hover:text-white backdrop-blur-sm'
         }`}
       >
-        <Heart className={`w-4 h-4 ${isFavorite ? 'fill-current' : ''}`} />
+        <Heart className={`w-3.5 h-3.5 ${isFavorite ? 'fill-current' : ''}`} />
       </button>
 
       {/* Content */}
-      <div className="absolute bottom-0 left-0 right-0 p-4">
-        <h3 className="text-white font-light text-lg mb-1">{name}</h3>
-        <p className="text-white/80 text-sm line-clamp-2 mb-2">{description}</p>
-
-        {/* Tags */}
-        <div className="flex flex-wrap gap-1">
-          {tags?.slice(0, 3).map((tag) => (
+      <div className="absolute bottom-0 left-0 right-0 p-3">
+        <h3 className="text-white font-medium text-sm mb-1">{name}</h3>
+        
+        {/* Tags - Compactas no Studio */}
+        <div className="flex flex-wrap gap-1 mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          {tags?.slice(0, 2).map((tag) => (
             <span
               key={tag}
-              className="px-2 py-0.5 bg-white/20 text-white text-xs rounded-full"
+              className="px-1.5 py-0.5 bg-white/10 text-white/60 text-[9px] rounded uppercase tracking-wider border border-white/5"
             >
               {tag}
             </span>

@@ -194,16 +194,6 @@ const Footer = () => {
           <span className="font-suisse font-light text-sm mb-4 block text-center text-gray-400 uppercase tracking-widest" style={{ fontWeight: 300 }}>Ferramentas Digitais</span>
           <div className="flex flex-wrap justify-center gap-6">
             <a
-              href={PRODUCT_URLS.obraeasy}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-gray-400 hover:text-wg-orange transition-colors text-sm font-light group"
-              style={{ fontWeight: 300 }}
-            >
-              <HardHat size={14} className="group-hover:text-wg-orange" />
-              <span>ObraEasy — Gestão de obras inteligente</span>
-            </a>
-            <a
               href={PRODUCT_URLS.wgeasy}
               target="_blank"
               rel="noopener noreferrer"
@@ -212,16 +202,6 @@ const Footer = () => {
             >
               <Cpu size={14} className="group-hover:text-wg-orange" />
               <span>WGEasy — ERP para escritórios de projetos</span>
-            </a>
-            <a
-              href={`${PRODUCT_URLS.obraeasy}/login`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-gray-400 hover:text-wg-orange transition-colors text-sm font-light group"
-              style={{ fontWeight: 300 }}
-            >
-              <KeyRound size={14} className="group-hover:text-wg-orange" />
-              <span>Painel do Cliente — Acompanhe sua obra em tempo real</span>
             </a>
           </div>
         </div>

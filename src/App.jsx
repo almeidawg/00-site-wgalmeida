@@ -32,6 +32,7 @@ const Admin = lazy(() => import('@/pages/Admin'))
 const AdminBlogEditorial = lazy(() => import('@/pages/AdminBlogEditorial'))
 const AdminLayout = lazy(() => import('@/components/Admin/AdminLayout'))
 const MediaManager = lazy(() => import('@/pages/AdminMediaManager'))
+const PremiumCinematicIntro = lazy(() => import('@/components/PremiumCinematicIntro'))
 
 // Region Pages (SEO)
 const Brooklin = lazy(() => import('@/pages/regions/Brooklin'))
@@ -207,6 +208,28 @@ function DeferredFooter() {
   )
 }
 
+function HomeWithIntro() {
+  const [showIntro, setShowIntro] = useState(() => {
+    if (typeof window === 'undefined') return false
+    return !sessionStorage.getItem('wg-intro-completed')
+  })
+
+  if (showIntro) {
+    return (
+      <Suspense fallback={<LoadingFallback />}>
+        <PremiumCinematicIntro 
+          onComplete={() => {
+            setShowIntro(false)
+            sessionStorage.setItem('wg-intro-completed', 'true')
+          }} 
+        />
+      </Suspense>
+    )
+  }
+
+  return <Home />
+}
+
 function App() {
   const location = useLocation()
   const buildTechHostname = new URL(PRODUCT_URLS.buildtech).hostname
@@ -294,7 +317,7 @@ function App() {
         >
           <Suspense fallback={<LoadingFallback />}>
             <Routes>
-              <Route path="/" element={isBuildTechHost ? <BuildTech /> : <Home />} />
+              <Route path="/" element={isBuildTechHost ? <BuildTech /> : <HomeWithIntro />} />
               <Route path="/sobre" element={<About />} />
               <Route path="/a-marca" element={<AMarca />} />
               <Route path="/arquitetura" element={<Architecture />} />
@@ -341,7 +364,7 @@ function App() {
               <Route path="/estilos/:slug" element={<EstiloDetail />} />
 
               {/* Moodboard & Room Visualizer */}
-              <Route path="/moodboard" element={<Moodboard />} />
+              <Route path="/moodboard" element={<MoodboardStudio />} />
               <Route path="/moodboard/studio" element={<MoodboardStudio />} />
               <Route path="/moodboard/share" element={<MoodboardShare />} />
               <Route path="/moodboard-generator" element={<Navigate to="/moodboard" replace />} />

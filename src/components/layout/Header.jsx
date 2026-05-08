@@ -1,18 +1,20 @@
 import React, { useState, useEffect, useMemo, Suspense, lazy } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, ShoppingCart as ShoppingCartIcon, Ruler, Building2, Hammer, Globe, Monitor, HardHat } from 'lucide-react';
+import { Menu, X, ChevronDown, ShoppingCart as ShoppingCartIcon, Ruler, Building2, Hammer, Globe, Monitor } from 'lucide-react';
 import { useCart } from '@/hooks/useCart';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from '@/components/LanguageSelector';
 import { withBasePath } from '@/utils/assetPaths';
 import { PRODUCT_URLS } from '@/data/company';
+import { motion, AnimatePresence } from '@/lib/motion-lite';
+import { cn } from '@/lib/utils';
 
 const ShoppingCart = lazy(() => import('@/components/ShoppingCart'));
 
 const SCROLL_THRESHOLD = 72;
 const HEADER_LOGO_SRC = withBasePath('/images/logo-192.webp');
 
-const Header = () => { // NOSONAR: legacy navigation component; this patch only hardens iPad/mobile behavior.
+const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUnitsMenuOpen, setUnitsMenuOpen] = useState(false);
@@ -21,7 +23,6 @@ const Header = () => { // NOSONAR: legacy navigation component; this patch only 
   const { t } = useTranslation();
 
   const WG_EASY_URL = PRODUCT_URLS.wgeasy;
-  const OBRA_EASY_URL = PRODUCT_URLS.obraeasy;
   const MANAGEMENT_URL = '/admin';
   const location = useLocation();
 
@@ -65,44 +66,26 @@ const Header = () => { // NOSONAR: legacy navigation component; this patch only 
       label: t('nav.architecture'),
       path: '/arquitetura',
       icon: Ruler,
-      image: withBasePath('/images/banners/ARQ.webp'),
-      description: t('header.units.architecture'),
-      tagline: 'Projetos, interiores e espaços com leitura autoral.',
-      borderHoverClass: 'hover:border-wg-green',
-      iconClass: 'text-wg-green',
-      hoverTextClass: 'group-hover:text-wg-green',
-      accent: 'var(--wg-green)',
-      accentSoft: 'rgba(94, 155, 148, 0.18)',
+      accent: '#F25C26', // Laranja Arquitetura
+      type: 'Arquitetura'
     },
     {
       label: t('nav.engineering'),
       path: '/engenharia',
       icon: Building2,
-      image: withBasePath('/images/banners/ENGENHARIA.webp'),
-      description: t('header.units.engineering'),
-      tagline: 'Execução, planejamento e rigor técnico de obra.',
-      borderHoverClass: 'hover:border-wg-blue',
-      iconClass: 'text-wg-blue',
-      hoverTextClass: 'group-hover:text-wg-blue',
-      accent: 'var(--wg-blue)',
-      accentSoft: 'rgba(43, 69, 128, 0.18)',
+      accent: '#1e3a8a', // Azul Engenharia (Blue 900)
+      type: 'Engenharia'
     },
     {
       label: t('nav.carpentry'),
       path: '/marcenaria',
       icon: Hammer,
-      image: withBasePath('/images/banners/MARCENARIA.webp'),
-      description: t('header.units.carpentry'),
-      tagline: 'Mobiliário sob medida, precisão e acabamento fino.',
-      borderHoverClass: 'hover:border-wg-brown',
-      iconClass: 'text-wg-black',
-      hoverTextClass: 'group-hover:text-wg-black',
-      accent: 'var(--wg-brown)',
-      accentSoft: 'rgba(139, 94, 60, 0.18)',
+      accent: '#78350f', // Marrom Madeira (Amber 900)
+      type: 'Marcenaria'
     },
   ], [t]);
 
-const navLinkClass = isScrolled
+  const navLinkClass = isScrolled
     ? 'whitespace-nowrap px-2 xl:px-2.5 py-1.5 rounded-full text-[12px] xl:text-[13px] text-wg-gray hover:text-wg-black hover:bg-black/[0.05]'
     : 'whitespace-nowrap px-2 xl:px-2.5 py-2 rounded-full text-[12px] xl:text-[13px] text-white/80 hover:text-white hover:bg-white/[0.08] backdrop-blur-sm';
 
@@ -110,7 +93,7 @@ const navLinkClass = isScrolled
     ? 'bg-black/[0.05] text-wg-black'
     : 'bg-white/[0.12] text-white';
 
-const iconButtonClass = isScrolled
+  const iconButtonClass = isScrolled
     ? 'w-8.5 h-8.5 xl:w-9 xl:h-9 border-black/[0.08] bg-white/70 backdrop-blur-xl hover:bg-white hover:border-black/[0.14] shadow-[0_10px_26px_rgba(12,12,12,0.08)]'
     : 'w-9 h-9 xl:w-10 xl:h-10 border-white/20 bg-white/[0.08] backdrop-blur-xl hover:bg-white/[0.16] hover:border-white/30 shadow-[0_14px_34px_rgba(10,10,10,0.16)]';
 
@@ -130,7 +113,7 @@ const iconButtonClass = isScrolled
             }`}
             style={{ height: isScrolled ? '3.25rem' : 'var(--header-height)' }}
           >
-            {/* Logo — some ao rolar */}
+            {/* Logo */}
             <div
               className={`min-w-[4.5rem] xl:min-w-[5.5rem] flex-1 lg:flex-none transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] overflow-hidden ${
                 isScrolled
@@ -166,95 +149,78 @@ const iconButtonClass = isScrolled
                 </Link>
               ))}
 
-              {/* Mega Menu */}
-              <div
-                className="relative"
+              {/* Menu Núcleos (Dropdown Refinado) */}
+              <div 
+                className="relative h-full flex items-center"
                 onMouseEnter={() => setUnitsMenuOpen(true)}
                 onMouseLeave={() => setUnitsMenuOpen(false)}
-                onFocus={() => setUnitsMenuOpen(true)}
-                onBlur={() => setUnitsMenuOpen(false)}
               >
                 <button
                   type="button"
-                  className={`flex items-center gap-1 whitespace-nowrap transition-all duration-300 font-suisse font-light ${navLinkClass}`}
+                  className={cn(
+                    "flex items-center gap-1.5 whitespace-nowrap transition-all duration-300 font-suisse font-light",
+                    navLinkClass,
+                    isUnitsMenuOpen && (isScrolled ? "text-orange-600 bg-black/[0.05]" : "text-white bg-white/[0.12]")
+                  )}
                 >
                   <span>{t('header.unitsLabel')}</span>
-                  <ChevronDown className={`transition-all duration-300 ${isScrolled ? 'w-3 h-3' : 'w-4 h-4'}`} />
+                  <ChevronDown className={cn("transition-transform duration-500", isScrolled ? "w-3 h-3" : "w-4 h-4", isUnitsMenuOpen && "rotate-180")} />
                 </button>
 
-                {isUnitsMenuOpen && (
-                  <div className="absolute top-full left-1/2 z-[90] mt-3 w-[min(92vw,60rem)] -translate-x-1/2">
-                    <div className="overflow-hidden rounded-[2rem] border border-black/[0.06] bg-white/[0.96] p-3 shadow-[0_24px_80px_rgba(23,23,23,0.14)] backdrop-blur-xl">
-                      <div className="grid h-[26rem] grid-cols-3 gap-3">
-                        {unitsItems.map((subItem, index) => {
-                          const Wrapper = subItem.external ? 'a' : Link;
-                          return (
-                            <Wrapper
-                              key={subItem.label}
-                              {...(subItem.external ? { href: subItem.path } : { to: subItem.path })}
-                              className="group relative min-w-0 overflow-hidden rounded-[1.55rem] transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 focus-visible:-translate-y-0.5"
-                              style={{
-                                backgroundColor: '#0f0f10',
-                                boxShadow: '0 14px 34px rgba(20,20,20,0.12)',
-                              }}
-                            >
-                              <div
-                                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
-                                style={{ backgroundImage: `url(${subItem.image})` }}
-                              />
-                              <div
-                                className="absolute inset-0"
-                                style={{
-                                  background: `linear-gradient(180deg, rgba(16,16,17,0.10) 0%, rgba(16,16,17,0.34) 34%, rgba(16,16,17,0.88) 100%), radial-gradient(circle at top left, ${subItem.accentSoft} 0%, transparent 34%)`,
-                                }}
-                              />
-                              <div
-                                className="absolute left-0 top-0 h-full w-[3px]"
-                                style={{ backgroundColor: subItem.accent, opacity: 0.9 }}
-                              />
-
-                              <div
-                                className="absolute inset-x-0 bottom-0 z-20 flex h-full flex-col justify-end p-6"
-                              >
-                                <div className="mb-5 flex items-center gap-3">
-                                  <span
-                                    className="font-playfair text-[3.25rem] italic leading-none tracking-[-0.08em]"
-                                    style={{ color: subItem.accent }}
+                <AnimatePresence>
+                  {isUnitsMenuOpen && (
+                    <>
+                      {/* Invisible buffer to keep menu open while moving mouse */}
+                      <div className="absolute top-full left-0 w-full h-8 bg-transparent" />
+                      
+                      <motion.div 
+                        initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 5, scale: 0.98 }}
+                        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                        className="absolute top-[calc(100%+8px)] left-1/2 -translate-x-1/2 z-[90] w-72"
+                      >
+                        <div className="overflow-hidden rounded-3xl border border-white/10 bg-slate-950/90 p-2 shadow-[0_30px_70px_rgba(0,0,0,0.5)] backdrop-blur-2xl">
+                          <div className="flex flex-col gap-1">
+                            {unitsItems.map((subItem, index) => {
+                              return (
+                                <Link
+                                  key={subItem.label}
+                                  to={subItem.path}
+                                  className="group flex items-center gap-4 px-4 py-3 rounded-[20px] transition-all duration-500"
+                                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = subItem.accent}
+                                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                                >
+                                  <div 
+                                    className="w-10 h-10 rounded-xl flex items-center justify-center bg-white/5 transition-all duration-500 group-hover:bg-white/20 group-hover:scale-110"
                                   >
-                                    0{index + 1}
-                                  </span>
-                                  <div className="h-px w-12" style={{ backgroundColor: subItem.accent }} />
-                                  <span className="text-[10px] uppercase tracking-[0.28em] text-white/52">
-                                    Núcleo
-                                  </span>
-                                </div>
-
-                                <div className="mb-3 flex items-center gap-3">
-                                  <subItem.icon className="h-5 w-5 text-white/88" />
-                                  <span className="font-suisse text-[1.05rem] font-light tracking-[0.02em] text-white">
-                                    {subItem.label}
-                                  </span>
-                                </div>
-
-                                <p className="max-w-[25rem] font-playfair text-[1.7rem] font-light leading-[1.02] tracking-[-0.04em] text-white">
-                                  {subItem.tagline}
-                                </p>
-
-                                <p className="mt-3 max-w-[24rem] text-[0.92rem] leading-[1.75] text-white/72">
-                                  {subItem.description}
-                                </p>
-
-                                <div className="wg-overlay-chip-dark-subtle mt-6 w-fit px-4 py-2 text-[11px] uppercase tracking-[0.22em] text-white/[0.86]">
-                                  Explorar unidade
-                                </div>
-                              </div>
-                            </Wrapper>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  </div>
-                )}
+                                    <subItem.icon 
+                                      size={18} 
+                                      className="text-white group-hover:text-white transition-colors duration-300"
+                                      style={{ color: subItem.accent }}
+                                    />
+                                  </div>
+                                  <div className="flex flex-col">
+                                    <span className="text-[13px] font-bold text-white group-hover:text-white transition-colors">
+                                      {subItem.label}
+                                    </span>
+                                    <span className="text-[8px] text-slate-500 uppercase tracking-widest font-bold group-hover:text-white/70">
+                                      {subItem.type}
+                                    </span>
+                                  </div>
+                                </Link>
+                              );
+                            })}
+                          </div>
+                          
+                          <div className="mt-2 p-2.5 border-t border-white/5 bg-black/20 rounded-b-2xl">
+                             <p className="text-[7px] text-center text-slate-600 uppercase font-bold tracking-[0.2em]">WG Intelligence Ecosystem</p>
+                          </div>
+                        </div>
+                      </motion.div>
+                    </>
+                  )}
+                </AnimatePresence>
               </div>
 
               {navItems.slice(3).map((item) => (
@@ -278,7 +244,6 @@ const iconButtonClass = isScrolled
                 <LanguageSelector />
               </div>
 
-              {/* Carrinho */}
               <button
                 type="button"
                 onClick={() => setIsCartOpen(true)}
@@ -295,7 +260,6 @@ const iconButtonClass = isScrolled
                 )}
               </button>
 
-              {/* Gestão */}
               <Link
                 to={MANAGEMENT_URL}
                 aria-label="Acessar área de gestão"
@@ -305,19 +269,6 @@ const iconButtonClass = isScrolled
                 <Globe className={`${iconColorClass} transition-all ${isScrolled ? 'h-3.5 w-3.5' : 'h-4 w-4'}`} />
               </Link>
 
-              {/* ObraEasy */}
-              <a
-                href={OBRA_EASY_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Acessar ObraEasy"
-                title="ObraEasy · Gestão de Obras"
-                className={`hidden md:flex items-center justify-center rounded-full border transition-all ${iconButtonClass}`}
-              >
-                <HardHat className={`${iconColorClass} transition-all ${isScrolled ? 'h-4 w-4' : 'h-5 w-5'}`} />
-              </a>
-
-              {/* WG Easy */}
               <a
                 href={WG_EASY_URL}
                 target="_blank"
@@ -350,18 +301,11 @@ const iconButtonClass = isScrolled
                 <div key={item.path || item.label}>
                   {item.dropdown ? (
                     <div className="pl-4 space-y-1">
-                      {item.dropdown.map((subItem) => {
-                        const className = "block px-4 py-2 text-white/70 hover:text-white transition-colors text-sm font-suisse font-light";
-                        return subItem.external ? (
-                          <a key={subItem.label} href={subItem.path} className={className}>
-                            {subItem.label}
-                          </a>
-                        ) : (
-                          <Link key={subItem.label} to={subItem.path} className={className}>
-                            {subItem.label}
-                          </Link>
-                        );
-                      })}
+                      {item.dropdown.map((subItem) => (
+                        <Link key={subItem.label} to={subItem.path} className="block px-4 py-2 text-white/70 hover:text-white transition-colors text-sm font-suisse font-light">
+                          {subItem.label}
+                        </Link>
+                      ))}
                     </div>
                   ) : (
                     <Link
@@ -382,20 +326,11 @@ const iconButtonClass = isScrolled
                 </div>
                 <Link
                   to={MANAGEMENT_URL}
-                  className="wg-overlay-button-dark w-full"
+                  className="wg-overlay-button-dark w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center gap-2 text-white text-sm"
                 >
                   <Globe className="h-4 w-4" />
                   <span>Área de Gestão</span>
                 </Link>
-                <a
-                  href={OBRA_EASY_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="wg-overlay-button-dark w-full"
-                >
-                  <HardHat className="h-5 w-5" />
-                  <span>ObraEasy · Gestão de Obras</span>
-                </a>
                 <a
                   href={WG_EASY_URL}
                   target="_blank"
@@ -407,7 +342,7 @@ const iconButtonClass = isScrolled
                 </a>
                 <Link
                   to="/contato"
-                  className="btn-primary inline-flex h-11 w-full items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-light tracking-[0.01em] transition-all duration-300"
+                  className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold bg-orange-600 text-white transition-all duration-300"
                 >
                   {t('header.ctaSpecialist')}
                 </Link>
@@ -427,4 +362,3 @@ const iconButtonClass = isScrolled
 };
 
 export default Header;
-

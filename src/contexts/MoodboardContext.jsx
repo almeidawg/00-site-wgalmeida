@@ -8,6 +8,7 @@ export const MoodboardProvider = ({ children }) => {
   const [colors, setColors] = useState([]);
   const [styles, setStyles] = useState([]);
   const [customImages, setCustomImages] = useState([]);
+  const [projectName, setProjectName] = useState('Meu Novo Refúgio');
   const [isModified, setIsModified] = useState(false);
 
   // Carrega do localStorage ao iniciar
@@ -19,6 +20,7 @@ export const MoodboardProvider = ({ children }) => {
         setColors(data.colors || []);
         setStyles(data.styles || []);
         setCustomImages(data.customImages || []);
+        if (data.projectName) setProjectName(data.projectName);
       } catch (err) {
         console.error('Erro ao carregar moodboard:', err);
       }
@@ -28,10 +30,16 @@ export const MoodboardProvider = ({ children }) => {
   // Salva no localStorage quando modificado
   useEffect(() => {
     if (isModified) {
-      const data = { colors, styles, customImages, updatedAt: new Date().toISOString() };
+      const data = { 
+        colors, 
+        styles, 
+        customImages, 
+        projectName,
+        updatedAt: new Date().toISOString() 
+      };
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     }
-  }, [colors, styles, customImages, isModified]);
+  }, [colors, styles, customImages, projectName, isModified]);
 
   // Handlers
   const updateColors = useCallback((newColors) => {
@@ -58,18 +66,32 @@ export const MoodboardProvider = ({ children }) => {
     setColors([]);
     setStyles([]);
     setCustomImages([]);
+    setProjectName('Meu Novo Refúgio');
     localStorage.removeItem(STORAGE_KEY);
     setIsModified(false);
   }, []);
+
+  const buildShareUrl = useCallback(() => {
+    const state = {
+      p: projectName,
+      c: colors,
+      s: styles.map(s => s.slug || s.id),
+      i: customImages.map(img => ({ u: img.url, t: img.title }))
+    };
+    // Codificação curta para URL
+    const encoded = btoa(encodeURIComponent(JSON.stringify(state)));
+    return `${window.location.origin}/moodboard/share?v=${encoded}`;
+  }, [projectName, colors, styles, customImages]);
 
   const getMoodboardData = useCallback(() => {
     return {
       colors,
       styles,
       customImages,
+      projectName,
       updatedAt: new Date().toISOString(),
     };
-  }, [colors, styles, customImages]);
+  }, [colors, styles, customImages, projectName]);
 
   const hasContent = colors.length > 0 || styles.length > 0 || customImages.length > 0;
 
@@ -78,16 +100,19 @@ export const MoodboardProvider = ({ children }) => {
     colors,
     styles,
     customImages,
+    projectName,
     hasContent,
     isModified,
 
     // Actions
+    setProjectName,
     updateColors,
     updateStyles,
     addCustomImages,
     removeCustomImage,
     clearMoodboard,
     getMoodboardData,
+    buildShareUrl
   };
 
   return (

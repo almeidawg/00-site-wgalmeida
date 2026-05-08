@@ -16,7 +16,9 @@ import {
   Copy,
   Loader2,
   ArrowRight,
-  TrendingDown
+  TrendingDown,
+  BookOpen,
+  Image as ImageIcon
 } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';

@@ -280,6 +280,7 @@ export default function AdminLeads() {
                                  <a 
                                     href={`https://wa.me/55${lead.telefone?.replace(/\D/g, '')}?text=${encodeURIComponent(`Olá ${lead.nome}, vi que você solicitou uma proposta de ${lead.origem || 'projeto'} no site da WG Almeida. Como posso ajudar?`)}`} 
                                     target="_blank" 
+                                    rel="noreferrer"
                                     className="p-2 rounded-xl bg-emerald-500/10 text-emerald-500 hover:bg-emerald-500 hover:text-white transition-all"
                                     title="Chamar no WhatsApp"
                                  >
