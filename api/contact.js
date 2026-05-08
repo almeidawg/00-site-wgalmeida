@@ -237,7 +237,7 @@ export default async function handler(req, res) {
         apikey: SUPABASE_SERVICE_KEY,
         Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
         'Content-Type': 'application/json',
-        Prefer: 'return=minimal',
+        Prefer: 'return=representation',
       },
       body: JSON.stringify(payload),
     })
@@ -245,6 +245,25 @@ export default async function handler(req, res) {
     if (!response.ok) {
       console.error('contact api supabase error:', response.status)
       return json(res, 502, { error: 'Falha ao registrar contato.' })
+    }
+
+    const [savedContact] = await response.json()
+
+    // AUTO-PROMOTION: Dispara promoção automática para WGEasy
+    // Como estamos no mesmo runtime Vercel, podemos chamar a lógica de promoção diretamente ou via fetch interno
+    try {
+       const protocol = req.headers['x-forwarded-proto'] || 'http'
+       const host = req.headers.host
+       fetch(`${protocol}://${host}/api/leads`, {
+         method: 'POST',
+         headers: { 
+           'Content-Type': 'application/json',
+           'Authorization': `Bearer ${SUPABASE_SERVICE_KEY}` // Usando service key para bypass auth admin em promo auto
+         },
+         body: JSON.stringify({ id: savedContact.id, tipo: 'contato' })
+       }).catch(e => console.error('Auto-promotion background error:', e))
+    } catch (e) {
+       console.error('Failed to trigger auto-promotion:', e)
     }
 
     return json(res, 200, { ok: true })

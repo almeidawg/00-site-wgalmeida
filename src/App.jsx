@@ -11,6 +11,7 @@ import { ContextProvider } from '@/providers/ContextProvider'
 const Footer = lazy(() => import('@/components/layout/Footer'))
 const ContextTracker = lazy(() => import('@/components/ContextTracker'))
 const NextBestActionPanel = lazy(() => import('@/components/NextBestActionPanel'))
+const LizAssistant = lazy(() => import('@/components/LizAssistant'))
 const Home = lazy(() => import('@/pages/Home'))
 const About = lazy(() => import('@/pages/About'))
 const AMarca = lazy(() => import('@/pages/AMarca'))

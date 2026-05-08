@@ -206,15 +206,18 @@ const useAnimatedStats = (statsVisible, estatisticas) => {
   return displayStats;
 };
 
-const getLocalizedHeroTitle = (language = '') => {
+const getLocalizedHeroTitle = (language = '', interest = null) => {
+  if (interest === 'marcenaria') return 'Marcenaria de Luxo e Projetos sob Medida.';
+  if (interest === 'obra') return 'Execução de Obras e Reformas de Alto Padrão.';
+  if (interest === 'design') return 'Design de Interiores e Experiência Visual.';
+  if (interest === 'investimento') return 'Viabilidade Técnica e Valorização Imobiliária.';
+
   if (language.startsWith('pt')) {
     return 'Arquitetura, Engenharia e Marcenaria de Alto Padrão.';
   }
-
   if (language.startsWith('es')) {
     return 'Arquitectura, Ingeniería y Carpintería Premium.';
   }
-
   return 'Architecture, Engineering and Premium Carpentry.';
 };
 
@@ -238,7 +241,7 @@ const Home = () => {
   // Hook para estatísticas dinâmicas do sistema
   const estatisticas = useEstatisticasWG({ enabled: statsVisible });
   const displayStats = useAnimatedStats(statsVisible, estatisticas);
-  const localizedHeroTitle = getLocalizedHeroTitle(i18n.language);
+  const localizedHeroTitle = getLocalizedHeroTitle(i18n.language, userInteresse);
 
   // Etapas do processo / Metodologia
   const metodologia = [
