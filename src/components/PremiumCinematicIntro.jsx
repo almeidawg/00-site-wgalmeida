@@ -5,6 +5,7 @@ import { useTranslation, Trans } from 'react-i18next';
 import { withBasePath } from '@/utils/assetPaths';
 import { PREMIUM_INTRO_PORTFOLIO_IMAGES } from '@/utils/cloudinaryProjectPortfolio';
 import { HERO_MEDIA, getHeroVideoProfile } from '@/utils/cloudinaryMedia';
+import { COMPANY } from '@/data/company';
 
 /**
  * ABERTURA CINEMATOGRÁFICA PREMIUM - WG ALMEIDA
@@ -29,7 +30,7 @@ const WG_COLORS = {
 };
 
 // WhatsApp da empresa
-const WHATSAPP_NUMBER = "5511984650002";
+const WHATSAPP_NUMBER = COMPANY.phoneRaw.replace('+', '');
 
 // Sequência de storytelling - História completa da empresa
 // TEMPOS FIXOS em milissegundos
