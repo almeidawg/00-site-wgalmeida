@@ -29,6 +29,8 @@ const Register = lazy(() => import('@/pages/Register'))
 const Account = lazy(() => import('@/pages/Account'))
 const Admin = lazy(() => import('@/pages/Admin'))
 const AdminBlogEditorial = lazy(() => import('@/pages/AdminBlogEditorial'))
+const AdminLayout = lazy(() => import('@/components/Admin/AdminLayout'))
+const MediaManager = lazy(() => import('@/pages/AdminMediaManager'))
 
 // Region Pages (SEO)
 const Brooklin = lazy(() => import('@/pages/regions/Brooklin'))
@@ -51,6 +53,7 @@ const SoliciteProposta = lazy(() => import('@/pages/SoliciteProposta'))
 const Blog = lazy(() => import('@/pages/Blog'))
 const FAQ = lazy(() => import('@/pages/FAQ'))
 const Moodboard = lazy(() => import('@/pages/Moodboard'))
+const MoodboardStudio = lazy(() => import('@/pages/MoodboardStudio'))
 const MoodboardShare = lazy(() => import('@/pages/MoodboardShare'))
 const RoomVisualizer = lazy(() => import('@/pages/RoomVisualizer'))
 const RevistaEstilos = lazy(() => import('@/pages/RevistaEstilos'))
@@ -96,7 +99,7 @@ const LoadingFallback = () => (
   </div>
 )
 
-const APP_BUILD_TAG = '2026-04-09-store-refresh-2'
+const APP_BUILD_TAG = '2026-05-07-cockpit-v2'
 
 const scheduleIdle = (callback, timeout = 1600) => {
   if (typeof window === 'undefined') return undefined
@@ -215,6 +218,7 @@ function App() {
     '/admin',
     '/room-visualizer',
     '/visualizador-ambientes',
+    '/moodboard/studio',
   ].some((path) => location.pathname.startsWith(path))
 
   // Garante canonical sempre sem "www" em qualquer rota SPA
@@ -269,7 +273,7 @@ function App() {
 
   // Não mostrar header/footer em páginas standalone
   const isStandaloneRoute =
-    ['/login', '/admin', '/clientes', '/buildtech/clientes'].some((path) =>
+    ['/login', '/admin', '/clientes', '/buildtech/clientes', '/moodboard/studio'].some((path) =>
       location.pathname.startsWith(path)
     )
 
@@ -337,6 +341,7 @@ function App() {
 
               {/* Moodboard & Room Visualizer */}
               <Route path="/moodboard" element={<Moodboard />} />
+              <Route path="/moodboard/studio" element={<MoodboardStudio />} />
               <Route path="/moodboard/share" element={<MoodboardShare />} />
               <Route path="/moodboard-generator" element={<Navigate to="/moodboard" replace />} />
               <Route path="/gerador-moodboard" element={<Navigate to="/moodboard" replace />} />
@@ -399,13 +404,6 @@ function App() {
               {/* Auth Pages */}
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-
-              {/* Store Pages */}
-              <Route path="/store" element={<Store />} />
-              <Route path="/product/:id" element={<ProductDetailPage />} />
-              <Route path="/success" element={<Success />} />
-
-              {/* Protected Routes */}
               <Route
                 path="/account"
                 element={
@@ -414,22 +412,29 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+
+              {/* Protected Admin Routes */}
               <Route
-                path="/admin"
+                path="/admin/*"
                 element={
                   <ProtectedRoute requireAdmin>
-                    <Admin />
+                    <AdminLayout>
+                      <Routes>
+                        <Route index element={<Admin />} />
+                        <Route path="blog-editorial" element={<AdminBlogEditorial />} />
+                        <Route path="media" element={<MediaManager />} />
+                        <Route path="seo" element={<div className="text-slate-500 py-20 text-center italic">SEO Manager em breve...</div>} />
+                        <Route path="settings" element={<div className="text-slate-500 py-20 text-center italic">Configurações em breve...</div>} />
+                      </Routes>
+                    </AdminLayout>
                   </ProtectedRoute>
                 }
               />
-              <Route
-                path="/admin/blog-editorial"
-                element={
-                  <ProtectedRoute requireAdmin>
-                    <AdminBlogEditorial />
-                  </ProtectedRoute>
-                }
-              />
+
+              {/* Store Pages */}
+              <Route path="/store" element={<Store />} />
+              <Route path="/product/:id" element={<ProductDetailPage />} />
+              <Route path="/success" element={<Success />} />
             </Routes>
           </Suspense>
         </main>
@@ -441,8 +446,3 @@ function App() {
 }
 
 export default App
-
-
-
-
-
