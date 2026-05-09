@@ -10,7 +10,7 @@ import { RoomVisualizerProvider, useRoomVisualizer } from '@/contexts/RoomVisual
 import { useAuth } from '@/contexts/SupabaseAuthContext'
 import { motion } from '@/lib/motion-lite'
 import { Link } from 'react-router-dom'
-import { ArrowLeft, Lock, CheckCircle2, Users, Wand2 } from 'lucide-react'
+import { ArrowLeft, Lock, CheckCircle2, Users, Layers3 } from 'lucide-react'
 
 const RoomVisualizerContent = () => {
   const { user } = useAuth()
@@ -93,7 +93,7 @@ const RoomVisualizerContent = () => {
         <SEO
           pathname="/room-visualizer"
           title="Resultado | Visualizador de Ambientes - WG Almeida"
-          description="Visualização gerada por IA do seu ambiente"
+          description="Visualização aplicada ao seu ambiente"
         />
 
         <div className="max-w-6xl mx-auto px-4 py-8">
@@ -161,9 +161,9 @@ const RoomVisualizerContent = () => {
     <div className="min-h-screen bg-gray-50">
       <SEO
         pathname="/room-visualizer"
-        title="Visualizador de Ambientes | Decisão Visual com IA | WG Almeida"
+        title="Visualizador de Ambientes | Decisão Visual Aplicada | WG Almeida"
         description="Aplique a direção do seu moodboard em um ambiente real e reduza a distância entre inspiração, alinhamento e execução."
-        keywords="visualizador ambientes ia, decisao visual, ambiente com moodboard, simulacao decoracao, visualizacao ambiente reforma"
+        keywords="visualizador ambientes, decisao visual, ambiente com moodboard, simulacao decoracao, visualizacao ambiente reforma"
       />
 
       {/* Hero Section */}
@@ -175,7 +175,7 @@ const RoomVisualizerContent = () => {
             className="text-center"
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-wg-orange/20 rounded-full text-wg-orange mb-6">
-              <Wand2 className="w-5 h-5" />
+              <Layers3 className="w-5 h-5" />
               <span className="text-sm font-medium">Camada de visualização da jornada</span>
             </div>
             <h1 className="text-4xl md:text-5xl mb-4">
@@ -218,7 +218,7 @@ const RoomVisualizerContent = () => {
                 text: 'Cria uma base mais objetiva para conversar com cliente, parceiro ou equipe.',
               },
               {
-                icon: Wand2,
+                icon: Layers3,
                 title: 'Próximo passo claro',
                 text: 'A visualização deixa a jornada pronta para refinamento, especificação ou contratação.',
               },
@@ -300,7 +300,7 @@ const RoomVisualizerContent = () => {
                     : 'bg-gray-200 text-gray-400 cursor-not-allowed'
                 }`}
               >
-                <Wand2 className="w-6 h-6" />
+                <Layers3 className="w-6 h-6" />
                 Gerar Visualização
               </motion.button>
 
