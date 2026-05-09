@@ -646,3 +646,24 @@ A página `/blog/arquitetos-brasileiros-famosos-legado` agora está 100% otimiza
   - `ajsutar container para aprecer a iamgem e não cortar 2.png`
 - Validacao tecnica parcial deste bloco:
   - `npm run audit:i18n:public`: OK.
+
+### Auditoria visual de engenharia e visualizador
+- Rota auditada: `/engenharia`.
+- Correcoes aplicadas:
+  - removido vazamento de chave crua `processPage.integration.quote`;
+  - criada chave `engineeringPage.commitment.quote` em `pt-BR`, `en` e `es`;
+  - adicionado fallback de imagem no bloco de compromisso de engenharia para evitar alt text em card vazio;
+  - print antigo de `14+` revalidado: a pagina atual nao reproduz mais o valor antigo e a base canonica usa minimo de 15 anos.
+- Rota auditada parcialmente: `/room-visualizer`.
+- Correcoes aplicadas:
+  - removidas referencias explicitas a `IA` no SEO do visualizador;
+  - icone `Wand2` substituido por `Layers3` no visualizador.
+- Evidencias de navegador geradas em:
+  - `.codex/tmp/screenshot-audit-05-site-wg/engenharia-after-years-i18n-image/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/room-visualizer-no-ai-symbol/`
+- Print arquivado em `_VALIDADOS_2026-05-09`:
+  - `ATUALIZAR DOCUMENTAÇÃO CANONICA DA MARCA SÃO  AGORA 15 ANOS NÃO MAIS 14 .png`
+- Pendencia mantida:
+  - prints de simbolos de IA continuam na fila ate validacao visual autenticada do estado interno do visualizador.
+- Validacao tecnica parcial deste bloco:
+  - `npm run audit:i18n:public`: OK.

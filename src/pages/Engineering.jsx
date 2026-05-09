@@ -253,10 +253,10 @@ const Engineering = () => {
               <img
                 className="relative w-full h-[500px] object-cover rounded-xl shadow-2xl"
                 alt={t('engineeringPage.commitment.imageAlt')}
-                src={PROJECT_SERVICE_HIGHLIGHTS.engineering}
+                src={PROJECT_SERVICE_HIGHLIGHTS.engineering || ENGINEERING_HERO_IMAGE}
               />
               <div className="absolute -bottom-6 -left-6 bg-white p-5 rounded-xl shadow-xl max-w-[200px]">
-                <p className="text-sm font-inter font-light text-wg-blue italic leading-tight">"{t('processPage.integration.quote')}"</p>
+                <p className="text-sm font-inter font-light text-wg-blue italic leading-tight">"{t('engineeringPage.commitment.quote')}"</p>
               </div>
             </motion.div>
           </div>
