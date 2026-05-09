@@ -667,3 +667,16 @@ A página `/blog/arquitetos-brasileiros-famosos-legado` agora está 100% otimiza
   - prints de simbolos de IA continuam na fila ate validacao visual autenticada do estado interno do visualizador.
 - Validacao tecnica parcial deste bloco:
   - `npm run audit:i18n:public`: OK.
+
+### Encerramento de governanca do bloco
+- Commit enviado: `b1a111d fix(site): clean engineering and visualizer copy`.
+- Repo `site-wgalmeida`: GREEN, dirty `0`, drift `0/0`, alinhado com `origin/feature/buildtech-vitrine-star-20260502`.
+- Validacoes finais:
+  - `npm run verify:fast`: OK, 12 arquivos de teste e 64 testes aprovados.
+  - Sync Gate `pre-push`: PASS.
+  - `git push`: OK; hook pre-push executou `check:imports`, `audit:consistency:strict`, `build` e gerou sitemap com 158 rotas.
+- Portfolio Health final ficou `RED` por incidente restrito a `03_AUTOMACAO/Liz_Assistente_WhatsApp`:
+  - repo bloqueador: `Liz_Assistente_WhatsApp`;
+  - dirty reportado: `7`;
+  - repo alvo `site-wgalmeida` segue isolado e GREEN;
+  - este bloco nao tocou Liz, `C:/AI`, runtime compartilhado, credenciais, banco ou automacoes produtivas externas.
