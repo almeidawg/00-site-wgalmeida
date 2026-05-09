@@ -597,3 +597,14 @@ A página `/blog/arquitetos-brasileiros-famosos-legado` agora está 100% otimiza
 - Validar rotas publicas restantes em lote com o mesmo criterio de chaves cruas, SEO e console.
 - Rodar validacao final no dominio publico depois de deploy, conforme regra de producao real.
 - Manter `Liz_Assistente_WhatsApp` fora deste bloco ate abertura de frente propria.
+
+### Saneamento de smoke local
+- Ajustado `src/components/DeferredClientEnhancements.jsx` para nao carregar Vercel Analytics e Speed Insights em `localhost`, `127.0.0.1`, `::1` ou `file:`.
+- Motivo: o preview local gerava 404 em `/_vercel/insights/script.js` e `/_vercel/speed-insights/script.js`, poluindo o smoke sem indicar falha real de producao.
+- Producao preservada: os componentes continuam ativos fora de runtime local.
+- Validacao apos ajuste:
+  - `npm run verify:fast`: OK.
+  - `npm run seo:audit`: OK.
+  - `npm run build`: OK.
+  - `npm run seo:validate:dist`: OK.
+  - `npm run smoke:console`: OK, sem ocorrencias relevantes.
