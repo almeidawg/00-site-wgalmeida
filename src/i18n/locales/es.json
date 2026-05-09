@@ -17,6 +17,9 @@
     "share": "Compartir",
     "copied": "Enlace copiado"
   },
+  "cta": {
+    "learnMore": "Saber más"
+  },
   "nav": {
     "home": "Inicio",
     "about": "Sobre Nosotros",
@@ -86,6 +89,11 @@
     "blog": {
       "title": "Blog & Revista de Estilos | Grupo WG Almeida",
       "description": "Inspiracion, tendencias y conocimiento tecnico sobre arquitectura y diseno de interiores."
+    },
+    "contact": {
+      "title": "Contacto | Grupo WG Almeida",
+      "description": "Hable con Grupo WG Almeida sobre arquitectura, ingenieria, carpintería a medida y obras llave en mano de alto nivel en Sao Paulo.",
+      "keywords": "contacto Grupo WG Almeida, arquitectura Sao Paulo, ingenieria Sao Paulo, carpintería alto nivel, obra llave en mano"
     }
   },
   "home": {
@@ -450,6 +458,7 @@
       "imageAlt": "Contacto Grupo WG Almeida"
     },
     "info": {
+      "title": "Canales directos",
       "phoneLabel": "Telefono",
       "phoneSupport": "WhatsApp y llamadas",
       "emailLabel": "Correo electronico",
@@ -487,6 +496,126 @@
       "errorTitle": "Error en el Envio",
       "errorDescription": "No se pudo enviar su mensaje ahora."
     }
+  },
+  "architecturePage": {
+    "hero": {
+      "kicker": "Arquitectura WG Almeida",
+      "title": "Arquitectura de autor con viabilidad de obra.",
+      "subtitle": "Proyectos residenciales y corporativos que conectan concepto, layout, tecnica y ejecucion desde las primeras decisiones.",
+      "badge": "Proyecto, compatibilizacion y detalle",
+      "imageAlt": "Proyecto de arquitectura de alto nivel del Grupo WG Almeida"
+    },
+    "servicesKicker": "Frente de arquitectura",
+    "servicesTitle": "Del concepto al proyecto ejecutivo.",
+    "servicesSubtitle": "La arquitectura organiza intención estética, briefing, ergonomía, compatibilización técnica y decisiones que impactan obra, carpintería y presupuesto.",
+    "services": [
+      {
+        "title": "Proyecto arquitectónico",
+        "description": "Estudio de layout, volumetría, implantación y lenguaje del espacio con lectura técnica desde el inicio."
+      },
+      {
+        "title": "Interiores de autor",
+        "description": "Curaduría de materiales, iluminación, acabados y atmósfera para ambientes residenciales y corporativos."
+      },
+      {
+        "title": "Proyecto ejecutivo",
+        "description": "Detalle técnico para reducir dudas de obra, retrabajo, compras equivocadas e incompatibilidades."
+      },
+      {
+        "title": "Compatibilización integrada",
+        "description": "Arquitectura conectada a ingeniería, carpintería a medida, proveedores y cronograma de ejecución."
+      }
+    ],
+    "commitment": {
+      "imageAlt": "Ambiente premium con arquitectura integrada a la ejecución",
+      "badge": "Arquitectura que nace lista para ejecutarse.",
+      "kicker": "Compromiso técnico",
+      "title": "Belleza, método y decisión en el mismo flujo.",
+      "paragraphs": [
+        "La arquitectura debe traducir deseo en decisión concreta: medidas, materiales, interfaces, prioridades y responsabilidades.",
+        "Cuando el proyecto nace conectado a la obra, el cliente entiende mejor la inversión y la ejecución gana previsibilidad.",
+        "Nuestro trabajo integra estética, técnica y gestión para que cada elección tenga intención y consecuencia clara."
+      ]
+    },
+    "cta": "Hablar sobre mi proyecto"
+  },
+  "engineeringPage": {
+    "hero": {
+      "imageAlt": "Obra de alto nivel con ingeniería y gestión integrada"
+    },
+    "servicesKicker": "Secuencia operativa",
+    "servicesTitle": "Ingeniería aplicada a la ejecución real.",
+    "services": [
+      {
+        "title": "Planificación de obra",
+        "description": "Organización de etapas, compras críticas, frentes de trabajo y aprobaciones antes de iniciar la ejecución."
+      },
+      {
+        "title": "Compatibilización técnica",
+        "description": "Lectura integrada entre arquitectura, instalaciones, carpintería, proveedores y restricciones reales de la obra."
+      },
+      {
+        "title": "Gestión de ejecución",
+        "description": "Seguimiento de obra con control de secuencia, liberación de frentes y reducción de retrabajo."
+      },
+      {
+        "title": "Entrega asistida",
+        "description": "Revisión final, ajustes de acabado y organización de la entrega con claridad para el cliente."
+      }
+    ],
+    "commitment": {
+      "imageAlt": "Equipo técnico acompañando una obra premium",
+      "kicker": "Compromiso de ingeniería",
+      "title": "Control, previsibilidad y entrega en un mismo flujo.",
+      "paragraphs": [
+        "La ingeniería traduce el proyecto en secuencia ejecutiva, con decisiones claras antes de que la obra presione plazo y presupuesto.",
+        "Cada frente necesita criterio de liberación, responsabilidad definida e impacto financiero visible.",
+        "Nuestro seguimiento integra cronograma, proveedores, compras y obra para reducir improvisación y proteger la calidad final."
+      ]
+    },
+    "cta": "Hablar sobre mi obra"
+  },
+  "carpentryPage": {
+    "hero": {
+      "kicker": "Carpintería a medida",
+      "title": "Carpintería autoral integrada al proyecto y a la obra.",
+      "subtitle": "Muebles planificados, detalle técnico y producción coordinada para ambientes residenciales y corporativos de alto nivel.",
+      "badge": "Producción a medida con método WG.",
+      "imageAlt": "Carpintería a medida en ambiente premium"
+    },
+    "servicesKicker": "Detalle y producción",
+    "servicesTitle": "Carpintería que nace junto con el proyecto.",
+    "servicesSubtitle": "La carpintería organiza medidas, uso, acabado y fabricación para que estética y ejecución lleguen juntas.",
+    "services": [
+      {
+        "title": "Proyecto de carpintería",
+        "description": "Detalle de muebles, modulación, ergonomía, herrajes e integración con el layout del ambiente."
+      },
+      {
+        "title": "Curaduría de acabados",
+        "description": "Definición de chapas, patrones, colores, texturas y combinaciones coherentes con el proyecto."
+      },
+      {
+        "title": "Producción coordinada",
+        "description": "Planificación de medición, aprobación, fabricación e instalación alineada al cronograma de obra."
+      },
+      {
+        "title": "Montaje y entrega",
+        "description": "Instalación acompañada, ajustes finales y revisión de acabado para una entrega consistente."
+      }
+    ],
+    "commitment": {
+      "imageAlt": "Detalle de carpintería premium con acabado a medida",
+      "badge": "Un detalle bien resuelto es una decisión tomada en el momento correcto.",
+      "kicker": "Compromiso de acabado",
+      "title": "Precisión, materialidad e instalación con control.",
+      "paragraphs": [
+        "La carpintería debe pensarse antes de cerrar muros, puntos eléctricos y medidas finales.",
+        "Cuando proyecto, medición y fabricación conversan, el acabado gana precisión y el cliente gana previsibilidad.",
+        "Nuestra estructura conecta dibujo técnico, elección de materiales e instalación para reducir ruidos entre expectativa y entrega."
+      ]
+    },
+    "cta": "Hablar sobre mi carpintería"
   },
   "proposalPage": {
     "hero": {

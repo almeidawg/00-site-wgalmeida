@@ -539,3 +539,61 @@ A página `/blog/arquitetos-brasileiros-famosos-legado` agora está 100% otimiza
 - `git-sync-gate -Stage start` segue bloqueado porque o worktree do `site-wgalmeida` ja esta sujo.
 - Portfolio continua `RED`; sem commit, push, merge ou deploy nesta rodada.
 - Replicacao para outros projetos deve ser feita projeto por projeto, depois de triagem do worktree e leitura do `RETURN-POINT.md` local.
+
+---
+
+## Sessao: 09/05/2026 - Excecao controlada para prontidao de producao do site
+
+### Pedido atual
+- Continuar somente com o `site-wgalmeida` ate deixar pronto para producao com o novo padrao de SEO.
+- `Liz_Assistente_WhatsApp` fica fora desta secao e sera tratada em outro bloco.
+
+### Evidencias de isolamento
+- Portfolio permanece `RED` por incidentes em:
+  - `C:/AI`
+  - `03_AUTOMACAO/Liz_Assistente_WhatsApp`
+- Repo alvo `site-wgalmeida` esta `GREEN` no dashboard:
+  - dirty `0`
+  - drift `0/0`
+  - branch `feature/buildtech-vitrine-star-20260502`
+  - ultimo commit `570c9be`
+- Mudancas deste bloco ficam restritas ao site e sua documentacao local.
+- Nao tocar em `C:/AI`, Liz, runtime compartilhado, credenciais, banco ou automacoes produtivas externas.
+
+### Regra operacional deste bloco
+- Permitido: auditoria tecnica, SEO, rotas publicas, validacao visual local/producao e correcoes cirurgicas no site.
+- Bloqueado: deploy/merge global, alteracoes em Liz/C:/AI e mudancas transversais fora do repo do site.
+
+### Evolucao executada neste bloco
+- Corrigido vazamento de chaves i18n em rotas publicas:
+  - `/arquitetura`: `architecturePage.*`, `cta.learnMore`.
+  - `/contato`: `seo.contact.*`, `contactPage.info.title`.
+  - `/engenharia`: `engineeringPage.*`.
+  - `/marcenaria`: `carpentryPage.*`.
+- Idiomas atualizados com cobertura equivalente em `pt-BR`, `en` e `es`.
+- Mantida a restricao de nao alterar layout, cores ou estrutura visual fora do necessario para remover chaves cruas.
+
+### Validacoes executadas
+- `npm run audit:i18n:public`: OK, 227 chaves verificadas em `pt-BR`, `en` e `es`.
+- `npm run verify:fast`: OK, 12 arquivos de teste e 64 testes aprovados.
+- `npm run seo:audit`: OK, 149 markdowns verificados e 0 assets SEO ausentes.
+- `npm run build`: OK, build de producao gerado e 158 rotas estaticas processadas.
+- `npm run seo:validate:dist`: OK, sitemap com 158 rotas e dist validado.
+
+### Evidencias visuais locais
+- Preview local de producao: `http://127.0.0.1:3011`.
+- Prints e relatorios salvos em:
+  - `.codex/tmp/prod-audit/arquitetura-desktop-after-i18n/`
+  - `.codex/tmp/prod-audit/contato-desktop-after-i18n/`
+  - `.codex/tmp/prod-audit/engenharia-desktop-after-i18n/`
+  - `.codex/tmp/prod-audit/marcenaria-desktop-after-i18n/`
+- Rotas revalidadas sem chaves cruas no DOM auditado:
+  - `/arquitetura`
+  - `/contato`
+  - `/engenharia`
+  - `/marcenaria`
+
+### Pendencias para prontidao final
+- Validar rotas publicas restantes em lote com o mesmo criterio de chaves cruas, SEO e console.
+- Rodar validacao final no dominio publico depois de deploy, conforme regra de producao real.
+- Manter `Liz_Assistente_WhatsApp` fora deste bloco ate abertura de frente propria.

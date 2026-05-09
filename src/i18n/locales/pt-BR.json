@@ -17,6 +17,9 @@
     "share": "Compartilhar",
     "copied": "Link copiado"
   },
+  "cta": {
+    "learnMore": "Saiba mais"
+  },
   "nav": {
     "home": "Início",
     "about": "Sobre",
@@ -85,6 +88,11 @@
     "blog": {
       "title": "Blog & Revista de Estilos | Grupo WG Almeida",
       "description": "Inspiração, tendências e conhecimento técnico sobre arquitetura e design de interiores."
+    },
+    "contact": {
+      "title": "Contato | Grupo WG Almeida",
+      "description": "Fale com o Grupo WG Almeida para projetos de arquitetura, engenharia, marcenaria e obras turn key de alto padrão em São Paulo.",
+      "keywords": "contato Grupo WG Almeida, arquitetura São Paulo, engenharia São Paulo, marcenaria alto padrão, obra turn key"
     }
   },
   "home": {
@@ -451,6 +459,7 @@
       "imageAlt": "Contato Grupo WG Almeida"
     },
     "info": {
+      "title": "Canais diretos",
       "phoneLabel": "Telefone",
       "phoneSupport": "WhatsApp e ligação",
       "emailLabel": "E-mail",
@@ -488,6 +497,126 @@
       "errorTitle": "Erro no Envio",
       "errorDescription": "Não foi possível enviar sua mensagem agora."
     }
+  },
+  "architecturePage": {
+    "hero": {
+      "kicker": "Arquitetura WG Almeida",
+      "title": "Arquitetura autoral com viabilidade de obra.",
+      "subtitle": "Projetos residenciais e corporativos que conectam conceito, layout, técnica e execução desde as primeiras decisões.",
+      "badge": "Projeto, compatibilização e detalhamento",
+      "imageAlt": "Projeto de arquitetura de alto padrão do Grupo WG Almeida"
+    },
+    "servicesKicker": "Frente de arquitetura",
+    "servicesTitle": "Do conceito ao projeto executivo.",
+    "servicesSubtitle": "A arquitetura organiza intenção estética, briefing, ergonomia, compatibilização técnica e decisões que impactam obra, marcenaria e orçamento.",
+    "services": [
+      {
+        "title": "Projeto arquitetônico",
+        "description": "Estudo de layout, volumetria, implantação e linguagem do espaço com leitura técnica desde o início."
+      },
+      {
+        "title": "Interiores autorais",
+        "description": "Curadoria de materiais, iluminação, acabamentos e atmosfera para ambientes residenciais e corporativos."
+      },
+      {
+        "title": "Projeto executivo",
+        "description": "Detalhamento técnico para reduzir dúvidas de obra, retrabalho, compras erradas e incompatibilidades."
+      },
+      {
+        "title": "Compatibilização integrada",
+        "description": "Arquitetura conectada à engenharia, marcenaria, fornecedores e cronograma de execução."
+      }
+    ],
+    "commitment": {
+      "imageAlt": "Ambiente premium com arquitetura integrada à execução",
+      "badge": "Arquitetura que nasce pronta para ser executada.",
+      "kicker": "Compromisso técnico",
+      "title": "Beleza, método e decisão no mesmo fluxo.",
+      "paragraphs": [
+        "A arquitetura precisa traduzir desejo em decisão concreta: medidas, materiais, interfaces, prioridades e responsabilidades.",
+        "Quando o projeto nasce conectado à obra, o cliente entende melhor o investimento e a execução ganha previsibilidade.",
+        "Nosso trabalho integra estética, técnica e gestão para que cada escolha tenha intenção e consequência clara."
+      ]
+    },
+    "cta": "Falar sobre meu projeto"
+  },
+  "engineeringPage": {
+    "hero": {
+      "imageAlt": "Obra de alto padrão com engenharia e gerenciamento integrado"
+    },
+    "servicesKicker": "Sequência operacional",
+    "servicesTitle": "Engenharia aplicada à execução real.",
+    "services": [
+      {
+        "title": "Planejamento de obra",
+        "description": "Organização de etapas, compras críticas, frentes de serviço e aprovações antes do início da execução."
+      },
+      {
+        "title": "Compatibilização técnica",
+        "description": "Leitura integrada entre arquitetura, instalações, marcenaria, fornecedores e restrições reais da obra."
+      },
+      {
+        "title": "Gestão de execução",
+        "description": "Acompanhamento de campo com controle de sequência, liberação de frentes e redução de retrabalho."
+      },
+      {
+        "title": "Entrega assistida",
+        "description": "Conferência final, ajustes de acabamento e organização da entrega com clareza para o cliente."
+      }
+    ],
+    "commitment": {
+      "imageAlt": "Equipe técnica acompanhando obra premium",
+      "kicker": "Compromisso de engenharia",
+      "title": "Controle, previsibilidade e entrega no mesmo fluxo.",
+      "paragraphs": [
+        "A engenharia traduz projeto em sequência executiva, com decisões claras antes que a obra pressione prazo e orçamento.",
+        "Cada frente precisa nascer com critério de liberação, responsabilidade definida e impacto financeiro visível.",
+        "Nosso acompanhamento integra cronograma, fornecedores, compras e obra para reduzir improviso e proteger a qualidade final."
+      ]
+    },
+    "cta": "Falar sobre minha obra"
+  },
+  "carpentryPage": {
+    "hero": {
+      "kicker": "Marcenaria sob medida",
+      "title": "Marcenaria autoral integrada ao projeto e à obra.",
+      "subtitle": "Móveis planejados, detalhamento técnico e produção coordenada para ambientes residenciais e corporativos de alto padrão.",
+      "badge": "Produção sob medida com método WG.",
+      "imageAlt": "Marcenaria sob medida em ambiente premium"
+    },
+    "servicesKicker": "Detalhamento e produção",
+    "servicesTitle": "Marcenaria que nasce junto com o projeto.",
+    "servicesSubtitle": "A marcenaria organiza medidas, uso, acabamento e fabricação para que estética e execução cheguem juntas.",
+    "services": [
+      {
+        "title": "Projeto de marcenaria",
+        "description": "Detalhamento de móveis, modulação, ergonomia, ferragens e integração com o layout do ambiente."
+      },
+      {
+        "title": "Curadoria de acabamentos",
+        "description": "Definição de lâminas, padrões, cores, texturas e combinações coerentes com o projeto."
+      },
+      {
+        "title": "Produção coordenada",
+        "description": "Planejamento de medição, aprovação, fabricação e instalação alinhado ao cronograma da obra."
+      },
+      {
+        "title": "Montagem e entrega",
+        "description": "Instalação acompanhada, ajustes finais e conferência de acabamento para entrega consistente."
+      }
+    ],
+    "commitment": {
+      "imageAlt": "Detalhe de marcenaria premium com acabamento sob medida",
+      "badge": "Detalhe bem resolvido é decisão tomada no momento certo.",
+      "kicker": "Compromisso de acabamento",
+      "title": "Precisão, materialidade e instalação com controle.",
+      "paragraphs": [
+        "A marcenaria precisa ser pensada antes da obra fechar paredes, pontos elétricos e medidas finais.",
+        "Quando projeto, medição e fabricação conversam, o acabamento ganha precisão e o cliente ganha previsibilidade.",
+        "Nossa estrutura conecta desenho técnico, escolha de materiais e instalação para reduzir ruídos entre expectativa e entrega."
+      ]
+    },
+    "cta": "Falar sobre minha marcenaria"
   },
   "proposalPage": {
     "hero": {

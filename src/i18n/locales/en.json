@@ -17,6 +17,9 @@
     "share": "Share",
     "copied": "Link copied"
   },
+  "cta": {
+    "learnMore": "Learn more"
+  },
   "nav": {
     "home": "Home",
     "about": "About",
@@ -86,6 +89,11 @@
     "blog": {
       "title": "Blog & Style Magazine | Grupo WG Almeida",
       "description": "Inspiration, trends, and technical knowledge about architecture and interior design."
+    },
+    "contact": {
+      "title": "Contact | Grupo WG Almeida",
+      "description": "Contact Grupo WG Almeida for high-end architecture, engineering, bespoke joinery, and turn key work in Sao Paulo.",
+      "keywords": "Grupo WG Almeida contact, architecture Sao Paulo, engineering Sao Paulo, high-end joinery, turn key work"
     }
   },
   "home": {
@@ -450,6 +458,7 @@
       "imageAlt": "WG Almeida Group Contact"
     },
     "info": {
+      "title": "Direct channels",
       "phoneLabel": "Phone",
       "phoneSupport": "WhatsApp and calls",
       "emailLabel": "Email",
@@ -487,6 +496,126 @@
       "errorTitle": "Error Sending",
       "errorDescription": "Could not send your message now."
     }
+  },
+  "architecturePage": {
+    "hero": {
+      "kicker": "WG Almeida Architecture",
+      "title": "Original architecture with construction viability.",
+      "subtitle": "Residential and corporate projects that connect concept, layout, technique, and execution from the first decisions.",
+      "badge": "Design, coordination, and detailing",
+      "imageAlt": "High-end architecture project by Grupo WG Almeida"
+    },
+    "servicesKicker": "Architecture division",
+    "servicesTitle": "From concept to technical project.",
+    "servicesSubtitle": "Architecture organizes aesthetic intent, briefing, ergonomics, technical coordination, and decisions that affect construction, joinery, and budget.",
+    "services": [
+      {
+        "title": "Architectural design",
+        "description": "Layout study, volume, implantation, and spatial language with technical reading from the beginning."
+      },
+      {
+        "title": "Original interiors",
+        "description": "Material, lighting, finish, and atmosphere curation for residential and corporate spaces."
+      },
+      {
+        "title": "Technical project",
+        "description": "Detailed documentation to reduce site doubts, rework, wrong purchases, and incompatibilities."
+      },
+      {
+        "title": "Integrated coordination",
+        "description": "Architecture connected to engineering, bespoke joinery, suppliers, and execution schedule."
+      }
+    ],
+    "commitment": {
+      "imageAlt": "Premium space with architecture integrated into execution",
+      "badge": "Architecture designed to be executed.",
+      "kicker": "Technical commitment",
+      "title": "Beauty, method, and decision in one flow.",
+      "paragraphs": [
+        "Architecture must translate desire into concrete decisions: measurements, materials, interfaces, priorities, and responsibilities.",
+        "When the project is born connected to construction, the client understands investment better and execution gains predictability.",
+        "Our work integrates aesthetics, technique, and management so every choice has clear intention and consequence."
+      ]
+    },
+    "cta": "Talk about my project"
+  },
+  "engineeringPage": {
+    "hero": {
+      "imageAlt": "High-end construction site with integrated engineering management"
+    },
+    "servicesKicker": "Operational sequence",
+    "servicesTitle": "Engineering applied to real execution.",
+    "services": [
+      {
+        "title": "Construction planning",
+        "description": "Organization of stages, critical purchases, work fronts and approvals before execution begins."
+      },
+      {
+        "title": "Technical coordination",
+        "description": "Integrated review across architecture, systems, woodworking, suppliers and real site constraints."
+      },
+      {
+        "title": "Execution management",
+        "description": "Site monitoring with sequence control, front release and reduced rework."
+      },
+      {
+        "title": "Assisted handover",
+        "description": "Final checks, finish adjustments and organized delivery with clear communication for the client."
+      }
+    ],
+    "commitment": {
+      "imageAlt": "Technical team monitoring a premium construction project",
+      "kicker": "Engineering commitment",
+      "title": "Control, predictability and delivery in one flow.",
+      "paragraphs": [
+        "Engineering translates design into an execution sequence, with clear decisions before the site pressures schedule and budget.",
+        "Each work front needs release criteria, defined responsibility and visible financial impact.",
+        "Our monitoring connects schedule, suppliers, purchases and site work to reduce improvisation and protect final quality."
+      ]
+    },
+    "cta": "Talk about my construction"
+  },
+  "carpentryPage": {
+    "hero": {
+      "kicker": "Custom woodworking",
+      "title": "Authorial woodworking integrated with design and construction.",
+      "subtitle": "Planned furniture, technical detailing and coordinated production for high-end residential and corporate spaces.",
+      "badge": "Custom production with the WG method.",
+      "imageAlt": "Custom woodworking in a premium interior"
+    },
+    "servicesKicker": "Detailing and production",
+    "servicesTitle": "Woodworking that starts with the project.",
+    "servicesSubtitle": "Woodworking organizes measurements, use, finish and fabrication so aesthetics and execution arrive together.",
+    "services": [
+      {
+        "title": "Woodworking design",
+        "description": "Furniture detailing, modulation, ergonomics, hardware and integration with the room layout."
+      },
+      {
+        "title": "Finish curation",
+        "description": "Definition of veneers, patterns, colors, textures and combinations aligned with the project."
+      },
+      {
+        "title": "Coordinated production",
+        "description": "Planning of measurement, approval, fabrication and installation aligned with the construction schedule."
+      },
+      {
+        "title": "Assembly and handover",
+        "description": "Supervised installation, final adjustments and finish checks for a consistent delivery."
+      }
+    ],
+    "commitment": {
+      "imageAlt": "Premium woodworking detail with custom finish",
+      "badge": "A well-resolved detail is a decision made at the right time.",
+      "kicker": "Finish commitment",
+      "title": "Precision, materiality and installation under control.",
+      "paragraphs": [
+        "Woodworking needs to be planned before walls, electrical points and final measurements are closed.",
+        "When design, measurement and fabrication communicate, the finish gains precision and the client gains predictability.",
+        "Our structure connects technical drawings, material choices and installation to reduce friction between expectation and delivery."
+      ]
+    },
+    "cta": "Talk about my woodworking"
   },
   "proposalPage": {
     "hero": {
