@@ -1156,8 +1156,8 @@ const Blog = () => {
                   key={cat.id}
                   onClick={() => setActiveCategory(cat.id)}
                   className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm transition-all ${
-                    activeCategory === cat.id 
-                      ? `${cat.bgColor} text-white shadow-lg shadow-black/5` 
+                    activeCategory === cat.id
+                      ? `${cat.bgColor} ${cat.id === 'all' ? 'text-wg-black' : 'text-white'} shadow-lg shadow-black/5`
                       : 'bg-gray-50 text-wg-gray hover:bg-gray-100'
                   }`}
                 >
@@ -1266,13 +1266,13 @@ const Blog = () => {
                                 alt={article.title}
                                 className="h-full w-full scale-105 object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-100"
                               />
-                            </div>
-                            <div className="flex flex-1 flex-col p-5">
-                              <div className="mb-3 flex flex-wrap gap-2">
-                                <span className={`rounded-full border px-2 py-0.5 text-[9px] font-light uppercase tracking-[0.1em] ${articleTagClass}`}>
+                              <div className="absolute left-4 top-4">
+                                <span className={`rounded-full border px-2.5 py-1 text-[9px] font-light uppercase tracking-[0.12em] backdrop-blur-md ${articleTagClass}`}>
                                   {article.category}
                                 </span>
                               </div>
+                            </div>
+                            <div className="flex flex-1 flex-col p-5">
                               <h3 className="mb-3 line-clamp-3 text-base font-light leading-tight text-wg-black transition-colors group-hover:text-wg-orange">
                                 {article.title}
                               </h3>
