@@ -3,69 +3,41 @@ import SEO from '@/components/SEO';
 import { motion } from '@/lib/motion-lite';
 import { Wrench, ClipboardCheck, Zap, Award, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import ResponsiveWebpImage from '@/components/ResponsiveWebpImage';
 import { useTranslation } from 'react-i18next';
 import { SCHEMAS } from '@/data/schemaConfig';
 import { WG_PRODUCT_MESSAGES } from '@/data/company';
-import { normalizeUnsplashImageUrl } from '@/lib/unsplash';
+import { PROJECT_SERVICE_HIGHLIGHTS } from '@/utils/cloudinaryProjectPortfolio';
 import { getPublicPageImageSrc } from '@/data/publicPageImageCatalog';
 
-// Animações elegantes
-const fadeInUp = {
-  initial: { opacity: 0, y: 40 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
-};
-
-const ENGINEERING_COMMITMENT_IMAGE = normalizeUnsplashImageUrl('https://images.unsplash.com/photo-1581093196867-ca3dba3c721b', {
-  width: 1280,
-  height: 900,
-  quality: 80,
-});
-const ENGINEERING_HERO_IMAGE = getPublicPageImageSrc('engineering', '/images/banners/ENGENHARIA.webp');
+const ENGINEERING_HERO_IMAGE = getPublicPageImageSrc('engineering', '/images/banners/ENG.webp');
 
 const Engineering = () => {
   const { t } = useTranslation();
-
-  const services = [
-    {
-      icon: Wrench,
-      title: t('engineeringPage.services.0.title'),
-      description: t('engineeringPage.services.0.description'),
-    },
-    {
-      icon: ClipboardCheck,
-      title: t('engineeringPage.services.1.title'),
-      description: t('engineeringPage.services.1.description'),
-    },
-    {
-      icon: Zap,
-      title: t('engineeringPage.services.2.title'),
-      description: t('engineeringPage.services.2.description'),
-    },
-    {
-      icon: Award,
-      title: t('engineeringPage.services.3.title'),
-      description: t('engineeringPage.services.3.description'),
-    },
-  ];
+  const [etapaAtiva, setEtapaAtiva] = useState(0);
 
   const etapas = [
-    { title: 'Etapas Iniciais', desc: 'Documentação, alvará, demarcação' },
-    { title: 'Mobilização', desc: 'Estruturação do canteiro de obras' },
-    { title: 'Limpeza', desc: 'Regularizações e preparação do terreno' },
-    { title: 'Marcação', desc: 'Gabarito e demarcação da fundação' },
-    { title: 'Fundação', desc: 'Estacas, blocos e estrutura base' },
-    { title: 'Estruturas', desc: 'Pilares, vigas, lajes e cobertura' },
-    { title: 'Alvenaria', desc: 'Vedações e fechamentos' },
-    { title: 'Instalações', desc: 'Elétrica, hidráulica, ar-condicionado' },
-    { title: 'Acabamentos', desc: 'Pisos, revestimentos, pintura' },
-    { title: 'Marcenaria', desc: 'Mobiliário sob medida' },
-    { title: 'Louças e Metais', desc: 'Instalação de equipamentos' },
-    { title: 'Entrega', desc: 'Casa pronta para morar' },
+    {
+      title: t('engineeringPage.services.0.title'),
+      desc: t('engineeringPage.services.0.description'),
+      icon: ClipboardCheck,
+    },
+    {
+      title: t('engineeringPage.services.1.title'),
+      desc: t('engineeringPage.services.1.description'),
+      icon: Wrench,
+    },
+    {
+      title: t('engineeringPage.services.2.title'),
+      desc: t('engineeringPage.services.2.description'),
+      icon: Zap,
+    },
+    {
+      title: t('engineeringPage.services.3.title'),
+      desc: t('engineeringPage.services.3.description'),
+      icon: Award,
+    },
   ];
-
-  const [etapaLiberada, setEtapaLiberada] = useState(1);
 
   return (
     <>
@@ -82,16 +54,14 @@ const Engineering = () => {
           animate={{ scale: 1 }}
           transition={{ duration: 1.5, ease: "easeOut" }}
         >
-          <img
+          <ResponsiveWebpImage
             className="w-full h-full object-cover"
             alt={t('engineeringPage.hero.imageAlt')}
             src={ENGINEERING_HERO_IMAGE}
-            srcSet="/images/banners/ENGENHARIA-640.webp 640w, /images/banners/ENGENHARIA-960-opt.webp 960w, /images/banners/ENGENHARIA-1280.webp 1280w, /images/banners/ENGENHARIA.webp 1920w"
-            sizes="100vw"
             width="1920"
             height="1080"
-            decoding="async"
             loading="eager"
+            decoding="async"
             fetchpriority="high"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-wg-blue/50 via-wg-blue/60 to-wg-black/80"></div>
@@ -105,7 +75,7 @@ const Engineering = () => {
             transition={{ duration: 0.6 }}
             className="wg-page-hero-kicker"
           >
-            {t('engineeringPage.hero.kicker')}
+            {t('units.engineering.kicker')}
           </motion.span>
 
           <motion.h1
@@ -114,7 +84,7 @@ const Engineering = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="wg-page-hero-title"
           >
-            {t('engineeringPage.hero.title')}
+            {t('units.engineering.title')}
           </motion.h1>
 
           <motion.p
@@ -123,186 +93,117 @@ const Engineering = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="wg-page-hero-subtitle max-w-3xl"
           >
-            {t('engineeringPage.hero.subtitle')}
+            {t('units.engineering.subtitle')}
           </motion.p>
-
-          {/* Badge da unidade */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="mt-7"
-          >
-            <span className="wg-overlay-chip-dark md:px-6 md:py-3.5">
-              <Wrench className="w-4 h-4" />
-              {t('engineeringPage.hero.badge')}
-            </span>
-          </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Fluxo interativo de etapas */}
-      <section className="section-padding-tight-top bg-wg-gray-light relative overflow-hidden">
+      <section className="section-padding bg-white relative overflow-hidden">
         <div className="container-custom relative z-10">
-          <motion.div
-            {...fadeInUp}
-            className="text-center mb-12"
-          >
-            <span className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full text-sm text-wg-blue font-light shadow-sm">
-              Turn Key · Sequência Técnica
-            </span>
-            <h2 className="text-3xl md:text-4xl font-inter font-light text-wg-black mt-4 mb-3 tracking-tight">
-              Empreitada Global (Engenharia)
-            </h2>
-            <p className="text-lg text-wg-gray max-w-3xl mx-auto">
-              Etapas organizadas em ordem lógica. Cada passo precisa de aprovação antes de liberar o próximo.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {etapas.map((etapa, index) => {
-              const numero = index + 1;
-              const liberada = numero <= etapaLiberada;
-              const ehAtual = numero === etapaLiberada;
-              return (
-                <motion.div
-                  key={etapa.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.04 }}
-                  className={`group relative rounded-2xl border ${liberada ? 'border-wg-blue/30 bg-white' : 'border-gray-200 bg-white/70'} shadow-sm hover:shadow-lg transition-all duration-300`}
-                >
-                  <div className="flex items-start gap-3 p-5">
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-sm font-light ${liberada ? 'bg-wg-blue/10 text-wg-blue' : 'bg-gray-100 text-gray-400'}`}>
-                      {String(numero).padStart(2, '0')}
-                    </div>
-                    <div className="flex-1">
-                      <p className={`text-base font-light ${liberada ? 'text-wg-black' : 'text-gray-500'}`}>{etapa.title}</p>
-                      <p className="text-sm text-wg-gray mt-1">{etapa.desc}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between px-5 pb-5 text-xs">
-                    <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full ${liberada ? 'bg-wg-blue/10 text-wg-blue' : 'bg-gray-100 text-gray-500'}`}>
-                      {liberada ? 'Liberado' : 'Bloqueado'}
-                    </span>
-                    <button
-                      disabled={!ehAtual}
-                      onClick={() => setEtapaLiberada((prev) => Math.min(prev + 1, etapas.length))}
-                      className={`px-3 py-1 rounded-full text-xs font-light transition-colors ${ehAtual ? 'bg-wg-blue text-white hover:bg-wg-blue/90' : 'bg-gray-200 text-gray-500 cursor-not-allowed'}`}
+          {/* Timeline Interactiva */}
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-12 items-start mb-20">
+            <div className="space-y-6">
+              <span className="text-wg-blue font-light tracking-[0.2em] uppercase text-sm mb-4 block">
+                {t('engineeringPage.servicesKicker')}
+              </span>
+              <h2 className="text-3xl md:text-4xl font-inter font-light text-wg-black tracking-tight">
+                {t('engineeringPage.servicesTitle')}
+              </h2>
+              <div className="space-y-4 pt-4">
+                {etapas.map((etapa, idx) => {
+                  const ehAtual = etapaAtiva === idx;
+                  return (
+                    <motion.div
+                      key={idx}
+                      onClick={() => setEtapaAtiva(idx)}
+                      className={`p-6 rounded-2xl cursor-pointer border transition-all ${
+                        ehAtual
+                          ? 'bg-wg-blue text-white border-wg-blue shadow-xl'
+                          : 'bg-gray-50 border-transparent hover:border-gray-200 text-wg-gray'
+                      }`}
                     >
-                      {ehAtual ? 'Aprovar etapa' : 'Aguarde etapa anterior'}
-                    </button>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+                      <div className="flex items-center gap-4">
+                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
+                          ehAtual ? 'bg-white/20' : 'bg-wg-blue/10 text-wg-blue'
+                        }`}>
+                          <etapa.icon size={20} />
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex justify-between items-center mb-1">
+                            <h4 className={`text-lg font-light ${ehAtual ? 'text-white' : 'text-wg-black'}`}>
+                              {etapa.title}
+                            </h4>
+                            <span className={`text-[10px] uppercase font-bold tracking-widest ${
+                              ehAtual ? 'text-white/60' : 'text-wg-blue'
+                            }`}>
+                              {idx <= etapaAtiva ? t('units.engineering.etapas.approved') : t('units.engineering.etapas.locked')}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
 
-      <section className="section-padding-tight-top bg-white">
-        <div className="container-custom">
+            <motion.div
+              key={etapaAtiva}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="bg-gray-50 rounded-3xl p-8 md:p-12 border border-black/5"
+            >
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-16 h-16 rounded-2xl bg-wg-blue text-white flex items-center justify-center">
+                  {React.createElement(etapas[etapaAtiva].icon, { size: 32 })}
+                </div>
+                <div>
+                  <span className="text-xs uppercase tracking-widest text-wg-blue font-bold">Etapa 0{etapaAtiva + 1}</span>
+                  <h3 className="text-2xl font-inter font-light text-wg-black">{etapas[etapaAtiva].title}</h3>
+                </div>
+              </div>
+              <p className="text-lg text-wg-gray leading-relaxed font-light mb-10">
+                {etapas[etapaAtiva].desc}
+              </p>
+              <div className="flex flex-wrap gap-4">
+                 <Link to="/solicite-proposta" className="btn-primary">
+                    {etapaAtiva === etapas.length - 1 ? t('engineeringPage.cta') : t('units.engineering.etapas.approveAction')}
+                 </Link>
+              </div>
+            </motion.div>
+          </div>
+
           <motion.div
-            {...fadeInUp}
-            className="rounded-3xl border border-wg-blue/15 bg-gradient-to-br from-wg-blue/5 via-white to-white p-8 md:p-10"
+            className="rounded-3xl border border-wg-blue/15 bg-gradient-to-br from-wg-blue/5 via-white to-white p-8 md:p-10 mb-20"
           >
             <div className="max-w-4xl">
               <span className="text-wg-blue font-light tracking-[0.2em] uppercase text-sm mb-4 block">
-                Lógica de Obra
+                {t('aboutPage.differential.kicker')}
               </span>
-              <h2 className="text-2xl md:text-3xl font-inter font-light text-wg-black tracking-tight mb-4">
-                Engenharia forte não é só execução. É sequência, liberação e controle de frente
-              </h2>
+              <h3 className="text-2xl md:text-3xl font-inter font-light text-wg-black tracking-tight mb-4">
+                {t('units.engineering.methodTitle')}
+              </h3>
               <div className="space-y-3 text-wg-gray leading-relaxed">
                 <p>
                   {WG_PRODUCT_MESSAGES.obraeasyPromise}
                 </p>
                 <p>
-                  Em campo, isso significa liberar a obra no momento certo, testar antes de fechar, acionar compras críticas com antecedência e coordenar as frentes que vão para produção paralela.
+                  {t('units.engineering.methodDesc')}
                 </p>
                 <p>
-                  {WG_PRODUCT_MESSAGES.iccriPositioning}
+                   {WG_PRODUCT_MESSAGES.marketReferences}
                 </p>
               </div>
             </div>
           </motion.div>
-        </div>
-      </section>
-
-      <section className="section-padding bg-white relative overflow-hidden">
-        {/* Elementos decorativos */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-wg-blue rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-wg-blue rounded-full blur-3xl" />
-        </div>
-
-        <div className="container-custom relative z-10">
-          <motion.div
-            {...fadeInUp}
-            className="text-center mb-10"
-          >
-            {/* Linha decorativa */}
-            <motion.div
-              className="flex items-center justify-center gap-4 mb-8"
-              initial={{ opacity: 0, scaleX: 0 }}
-              whileInView={{ opacity: 1, scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <div className="h-px w-12 bg-gradient-to-r from-transparent to-wg-blue" />
-              <div className="w-2 h-2 bg-wg-blue rounded-full" />
-              <div className="h-px w-12 bg-gradient-to-l from-transparent to-wg-blue" />
-            </motion.div>
-
-            <span className="text-wg-blue font-light tracking-[0.2em] uppercase text-sm mb-4 block">
-              {t('engineeringPage.servicesKicker')}
-            </span>
-
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-inter font-light text-wg-black mb-4 tracking-tight">
-              {t('engineeringPage.servicesTitle')}
-            </h2>
-            <p className="text-lg text-wg-gray max-w-2xl mx-auto">
-              {t('engineeringPage.servicesSubtitle')}
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-20">
-            {services.map((service, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                className="group relative bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 overflow-hidden"
-              >
-                {/* Borda colorida no topo */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-wg-blue transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-
-                {/* Ícone com background */}
-                <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-wg-blue/10 mb-5 group-hover:scale-110 transition-transform duration-300">
-                  <service.icon className="w-7 h-7 text-wg-blue" />
-                </div>
-
-                <h3 className="text-xl font-inter font-light text-wg-black mb-3 tracking-tight">
-                  {service.title}
-                </h3>
-                <p className="text-wg-gray leading-relaxed">{service.description}</p>
-
-                {/* Elemento decorativo */}
-                <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-wg-blue/5 rounded-full group-hover:scale-150 transition-transform duration-700" />
-              </motion.div>
-            ))}
-          </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.8 }}
             >
               <span className="text-wg-blue font-light tracking-[0.2em] uppercase text-sm mb-4 block">
                 {t('engineeringPage.commitment.kicker')}
@@ -324,7 +225,6 @@ const Engineering = () => {
                 </p>
               </div>
 
-              {/* CTA */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -334,7 +234,7 @@ const Engineering = () => {
               >
                 <Link
                   to="/contato"
-                  className="btn-primary group"
+                  className="bg-wg-blue text-white px-8 py-4 rounded-xl font-light hover:bg-wg-blue/90 transition-all inline-flex items-center gap-2 group"
                 >
                   <span>{t('engineeringPage.cta')}</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -346,78 +246,66 @@ const Engineering = () => {
               initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.8 }}
               className="relative"
             >
-              {/* Moldura decorativa */}
               <div className="absolute -inset-4 bg-gradient-to-br from-wg-blue/20 to-transparent rounded-2xl" />
               <img
                 className="relative w-full h-[500px] object-cover rounded-xl shadow-2xl"
                 alt={t('engineeringPage.commitment.imageAlt')}
-                src={ENGINEERING_COMMITMENT_IMAGE}
-                width="1280"
-                height="900"
-                loading="lazy"
-                decoding="async"
+                src={PROJECT_SERVICE_HIGHLIGHTS.engineering}
               />
-
-              {/* Badge flutuante */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-xl"
-              >
-                <p className="text-3xl font-inter font-light text-wg-blue">14+</p>
-                <p className="text-sm text-wg-gray">{t('engineeringPage.commitment.badge')}</p>
-              </motion.div>
+              <div className="absolute -bottom-6 -left-6 bg-white p-5 rounded-xl shadow-xl max-w-[200px]">
+                <p className="text-sm font-inter font-light text-wg-blue italic leading-tight">"{t('processPage.integration.quote')}"</p>
+              </div>
             </motion.div>
           </div>
 
+          {/* Add-on de Experiência Visual */}
           <motion.div
-            {...fadeInUp}
-            className="mt-20 rounded-3xl border border-wg-blue/15 bg-gradient-to-br from-wg-blue to-wg-black text-white p-8 md:p-10"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-20 rounded-3xl border border-wg-blue/15 bg-wg-black text-white p-8 md:p-10"
           >
             <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-10 items-start">
               <div>
-                <span className="text-white/65 font-light tracking-[0.2em] uppercase text-sm mb-4 block">
-                  Add-on de experiência visual
+                <span className="text-white/60 font-light tracking-[0.2em] uppercase text-sm mb-4 block">
+                   {t('proposalPage.benefits.visual')}
                 </span>
                 <h3 className="text-2xl md:text-3xl font-inter font-light tracking-tight mb-4">
-                  Engenharia ganha velocidade quando a decisão visual chega mais organizada
+                  {t('units.engineering.addonTitle')}
                 </h3>
                 <div className="space-y-3 text-white/75 leading-relaxed">
-                  <p>{WG_PRODUCT_MESSAGES.wgExperienceConversion}</p>
+                  <p>{WG_PRODUCT_MESSAGES.wgExperienceSystem}</p>
                   <p>
-                    Em engenharia, essa camada ajuda a consolidar referências, reduzir revisões tardias e conectar expectativa visual com compras, medição e liberação de frente.
+                    {t('units.engineering.addonDesc')}
                   </p>
                 </div>
               </div>
               <div className="space-y-4">
-                {[
-                  'Antecipação de escolhas que normalmente travam obra ou geram retrabalho.',
-                  'Briefing mais claro para compatibilização, aprovações e sequência executiva.',
-                  'Entrada assistida para pré-venda, retrofit ou reforma de ticket mais alto.',
-                ].map((item) => (
+                {(Array.isArray(t('units.engineering.addonPoints', { returnObjects: true }))
+                  ? t('units.engineering.addonPoints', { returnObjects: true })
+                  : []
+                ).map((item) => (
                   <div key={item} className="wg-overlay-panel-dark flex items-start gap-3 p-4">
-                    <CheckCircle2 className="w-5 h-5 text-white flex-shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-5 h-5 text-wg-blue flex-shrink-0 mt-0.5" />
                     <p className="text-sm text-white/80 font-light leading-relaxed">{item}</p>
                   </div>
                 ))}
                 <div className="flex flex-col sm:flex-row gap-3 pt-2">
                   <Link
                     to="/solicite-proposta?service=Sistema%20de%20Experi%C3%AAncia%20Visual&context=engineering"
-                    className="btn-primary"
+                    className="bg-wg-blue text-white px-6 py-3 rounded-xl text-sm font-bold hover:bg-wg-blue/90 transition-all flex items-center justify-center gap-2"
                   >
-                    <span>Levar para proposta</span>
+                    <span>{t('units.engineering.addonButton')}</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                   <Link
-                    to="/room-visualizer"
-                    className="wg-overlay-button-dark"
+                    to="/moodboard"
+                    className="btn-hero-outline"
                   >
-                    Ver visualização assistida
+                    {t('cta.learnMore')}
                   </Link>
                 </div>
               </div>
@@ -430,4 +318,3 @@ const Engineering = () => {
 };
 
 export default Engineering;
-

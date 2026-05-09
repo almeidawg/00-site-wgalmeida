@@ -189,7 +189,6 @@ function DeferredEngagementLayer() {
   return (
     <Suspense fallback={null}>
       <ContextTracker />
-      <NextBestActionPanel />
     </Suspense>
   )
 }
@@ -211,7 +210,8 @@ function DeferredFooter() {
 function HomeWithIntro() {
   const [showIntro, setShowIntro] = useState(() => {
     if (typeof window === 'undefined') return false
-    return !sessionStorage.getItem('wg-intro-completed')
+    const forceIntro = new URLSearchParams(window.location.search).get('intro') === '1'
+    return forceIntro || !sessionStorage.getItem('wg-intro-completed')
   })
 
   if (showIntro) {

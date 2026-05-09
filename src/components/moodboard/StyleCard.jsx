@@ -22,7 +22,7 @@ const StyleCard = ({
       whileTap={{ scale: 0.98 }}
       className={`relative rounded-xl overflow-hidden cursor-pointer group shadow-lg border transition-all duration-300 ${
         isSelected 
-          ? 'ring-2 ring-orange-500 border-orange-500/50 shadow-[0_0_20px_rgba(242,92,38,0.2)]' 
+          ? 'ring-2 ring-wg-orange border-wg-orange/50 shadow-[0_0_20px_rgba(242,92,38,0.2)]' 
           : 'border-slate-800 bg-slate-900/40 hover:border-slate-700'
       }`}
       onClick={() => onSelect(style)}
@@ -41,7 +41,7 @@ const StyleCard = ({
 
       {/* Selection indicator */}
       {isSelected && (
-        <div className="absolute top-2 left-2 w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center shadow-lg">
+        <div className="absolute top-2 left-2 w-6 h-6 bg-wg-orange rounded-full flex items-center justify-center shadow-lg">
           <Check className="w-4 h-4 text-white" />
         </div>
       )}

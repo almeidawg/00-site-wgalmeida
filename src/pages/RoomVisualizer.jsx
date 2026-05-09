@@ -296,12 +296,12 @@ const RoomVisualizerContent = () => {
                 disabled={!canGenerate}
                 className={`w-full flex items-center justify-center gap-3 px-8 py-5 rounded-xl font-semibold text-lg transition-all ${
                   canGenerate
-                    ? 'bg-wg-orange text-white hover:bg-wg-orange/90 shadow-lg shadow-wg-orange/30'
+                    ? 'bg-wg-black text-white hover:bg-wg-black/90 shadow-lg'
                     : 'bg-gray-200 text-gray-400 cursor-not-allowed'
                 }`}
               >
                 <Wand2 className="w-6 h-6" />
-                Gerar Visualização com IA
+                Gerar Visualização
               </motion.button>
 
               {!canGenerate && (

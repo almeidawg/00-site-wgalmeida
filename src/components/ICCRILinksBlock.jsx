@@ -56,7 +56,7 @@ export default function ICCRILinksBlock({ context = 'custo', className = '' }) {
         Baseado no ICCRI 2026 · índice de custo de reforma da WG Almeida
       </p>
 
-      <h2 className="mb-3 text-2xl font-suisse font-light text-wg-black">
+      <h2 className="mb-3 font-playfair text-[clamp(1.45rem,1.9vw,1.92rem)] font-light leading-[1.06] text-wg-black">
         Planeje sua reforma com dados reais
       </h2>
 
@@ -66,7 +66,7 @@ export default function ICCRILinksBlock({ context = 'custo', className = '' }) {
       </p>
 
       <div className="mb-8 rounded-xl border border-[#E5E7EB] bg-white p-5">
-        <h3 className="mb-2 flex items-center gap-2 text-lg font-light text-wg-black">
+        <h3 className="mb-2 flex items-center gap-2 font-playfair text-[clamp(1.02rem,1.15vw,1.14rem)] font-light text-wg-black">
           <Calculator className="h-4 w-4 text-wg-orange" />
           Calcule agora o custo da sua reforma
         </h3>
@@ -85,16 +85,16 @@ export default function ICCRILinksBlock({ context = 'custo', className = '' }) {
               ctaDestination: `${PRODUCT_URLS.obraeasy}/evf4`,
             })
           }}
-          className="inline-flex items-center gap-2 rounded-lg bg-wg-orange px-4 py-2 text-sm font-light text-white"
+          className="wg-cta-canonical wg-cta-canonical-accent"
         >
           Acessar calculadora
-          <ExternalLink className="h-4 w-4" />
+          <ExternalLink />
         </a>
       </div>
 
       <div className="mb-6 grid gap-8 lg:grid-cols-3 lg:gap-6">
         <div>
-          <h3 className="mb-3 text-lg font-light text-wg-black">Conteúdos que podem te ajudar</h3>
+          <h3 className="mb-3 font-playfair text-[clamp(0.92rem,1.02vw,1.02rem)] font-light text-wg-black">Conteúdos que podem te ajudar</h3>
           <ul className="space-y-2 text-sm font-light text-[#334155]">
             {RELATED_CONTENT.map((item) => (
               <li key={item.to}>{renderNavLink(item)}</li>
@@ -103,7 +103,7 @@ export default function ICCRILinksBlock({ context = 'custo', className = '' }) {
         </div>
 
         <div>
-          <h3 className="mb-3 flex items-center gap-2 text-lg font-light text-wg-black">
+          <h3 className="mb-3 flex items-center gap-2 font-playfair text-[clamp(0.92rem,1.02vw,1.02rem)] font-light text-wg-black">
             <BarChart3 className="h-4 w-4 text-wg-blue" />
             Ferramentas para simular e decidir
           </h3>
@@ -115,7 +115,7 @@ export default function ICCRILinksBlock({ context = 'custo', className = '' }) {
         </div>
 
         <div>
-          <h3 className="mb-3 text-lg font-light text-wg-black">Para quem é este conteúdo</h3>
+          <h3 className="mb-3 font-playfair text-[clamp(0.92rem,1.02vw,1.02rem)] font-light text-wg-black">Para quem é este conteúdo</h3>
           <ul className="space-y-1 text-sm font-light text-[#334155]">
             <li className="font-light" style={{ fontWeight: 300 }}>Quem está planejando uma reforma</li>
             <li className="font-light" style={{ fontWeight: 300 }}>Quem deseja comprar imóvel para reformar</li>

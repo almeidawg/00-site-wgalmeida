@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from '@/lib/motion-lite';
-import { MessageSquare, X, Sparkles, Send, ArrowRight } from 'lucide-react';
+import { MessageSquare, X, Send, ArrowRight } from 'lucide-react';
 import { trackWhatsappClick } from '@/lib/analytics';
 import { COMPANY } from '@/data/company';
 
@@ -39,11 +39,11 @@ export default function LizAssistant() {
               onClick={() => setIsOpen(true)}
             >
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-500 to-emerald-400 flex items-center justify-center shrink-0">
-                  <Sparkles size={14} className="text-white" />
+                <div className="w-8 h-8 rounded-full bg-slate-900 flex items-center justify-center shrink-0 overflow-hidden">
+                  <img src="/images/icone.webp" alt="Liz" className="w-full h-full object-cover" />
                 </div>
                 <div>
-                  <p className="text-[10px] uppercase tracking-widest font-bold text-slate-400 mb-1">Liz · AI Concierge</p>
+                  <p className="text-[10px] uppercase tracking-widest font-bold text-slate-400 mb-1">Liz · Concierge Digital</p>
                   <p className="text-sm leading-snug font-light">Posso te ajudar a estimar o custo do seu projeto ou encontrar o estilo ideal?</p>
                 </div>
               </div>
@@ -83,9 +83,9 @@ export default function LizAssistant() {
               <div className="absolute top-0 right-0 w-48 h-48 bg-blue-500/20 rounded-full blur-[50px]" />
               <div className="relative z-10 flex items-center gap-4">
                  <div className="relative">
-                   <div className="w-14 h-14 rounded-full bg-gradient-to-tr from-blue-500 to-emerald-400 p-[2px]">
+                   <div className="w-14 h-14 rounded-full bg-slate-900 p-[2px]">
                       <div className="w-full h-full bg-slate-900 rounded-full flex items-center justify-center overflow-hidden">
-                         <img src="/images/icone.webp" alt="Liz" className="w-8 h-8 opacity-80 object-contain" />
+                         <img src="/images/icone.webp" alt="Liz" className="w-full h-full object-cover" />
                       </div>
                    </div>
                    <div className="absolute bottom-0 right-0 w-4 h-4 bg-emerald-500 border-2 border-slate-900 rounded-full" />
@@ -99,7 +99,7 @@ export default function LizAssistant() {
 
             <div className="p-6 bg-slate-50 flex-1">
               <p className="text-slate-600 text-sm font-light leading-relaxed mb-6">
-                Olá! Sou a inteligência artificial do Grupo WG Almeida. Posso te conectar com um diretor de projeto ou responder suas dúvidas instantaneamente no WhatsApp.
+                Olá! Sou a Concierge Digital do Grupo WG Almeida. Posso te conectar com um diretor de projeto ou responder suas dúvidas instantaneamente no WhatsApp.
               </p>
 
               <div className="space-y-3">

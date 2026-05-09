@@ -30,65 +30,32 @@ const HeroVideo = () => {
   };
 
   useEffect(() => {
-    const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    
-    const checkStatus = async () => {
-      const saveData = Boolean(navigator.connection?.saveData);
-      const effectiveType = navigator.connection?.effectiveType || '';
-      const slow = ['slow-2g', '2g', '3g'].includes(effectiveType);
-      
-      let lowBattery = false;
-      try {
-        if ('getBattery' in navigator) {
-          const battery = await navigator.getBattery();
-          // Desativa vídeo se bateria < 20% e não estiver carregando
-          lowBattery = battery.level < 0.2 && !battery.charging;
-        }
-      } catch (e) {
-        // Ignora erros de bateria em navegadores que não suportam ou bloqueiam a API
+    const handleIntroComplete = () => {
+      setShouldLoadVideo(true);
+      if (videoRef.current) {
+        videoRef.current.load();
+        videoRef.current.play().catch(() => {});
       }
-
-      setAllowVideo(!reduceMotionQuery.matches && !saveData && !slow && !lowBattery);
     };
 
-    checkStatus();
-    return bindMediaQueryChange(reduceMotionQuery, checkStatus);
-  }, []);
+    window.addEventListener('wg-intro-complete', handleIntroComplete);
+    
+    // Fallback: se não houver intro ou se demorar demais
+    const timer = setTimeout(() => setShouldLoadVideo(true), 1500);
 
-  useEffect(() => {
-    const syncViewport = () =>
-      setViewportProfile(
-        getHeroVideoProfile({ width: window.innerWidth, height: window.innerHeight })
-      );
-
-    syncViewport();
-    window.addEventListener('resize', syncViewport);
-    window.addEventListener('orientationchange', syncViewport);
     return () => {
-      window.removeEventListener('resize', syncViewport);
-      window.removeEventListener('orientationchange', syncViewport);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!allowVideo) {
-      setShouldLoadVideo(false);
-      return;
-    }
-    const timer = setTimeout(() => setShouldLoadVideo(true), 180);
-    return () => {
+      window.removeEventListener('wg-intro-complete', handleIntroComplete);
       clearTimeout(timer);
     };
-  }, [allowVideo]);
+  }, []);
 
   useEffect(() => {
     if (!shouldLoadVideo || !videoRef.current) return;
     const video = videoRef.current;
     video.muted = isMuted;
-    video.load();
     const playPromise = video.play();
     if (playPromise && typeof playPromise.catch === 'function') {
-      playPromise.catch(() => setShouldLoadVideo(false));
+      playPromise.catch(() => {});
     }
   }, [shouldLoadVideo, isMuted, viewportProfile]);
 

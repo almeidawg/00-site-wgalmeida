@@ -16,16 +16,16 @@ Padrao unico para operar e evoluir o ecossistema WG com o mesmo metodo:
 - Linux local (WSL2):
   - distros detectadas: `Ubuntu`, `rancher-desktop`, `rancher-desktop-data`
 - Servicos de IA local:
-  - raiz operacional: `C:\IA` (espelhado com `C:\AI`)
-  - PM2 ecosystem: `C:\IA\ecosystem.config.cjs`
+  - raiz operacional: `C:\AI`
+  - PM2 ecosystem: `C:\AI\ecosystem.config.cjs`
   - apps principais: `ai-core`, `ai-dashboard`, `ai-supervisor`
 - Ollama:
   - binario: `C:\Users\Atendimento\AppData\Local\Programs\Ollama\ollama.exe`
   - binario alternativo: `C:\Users\Administrador\AppData\Local\Programs\Ollama\ollama.exe`
   - modelos WG detectados: `wg-liz`, `wg-william`, `wg-analyst` (+ modelos base)
 - Liz:
-  - integracao principal em `C:\IA\Scripts\liz-wgeasy-sync.js`
-  - scripts relacionados em `C:\IA\Scripts\`
+  - integracao principal em `C:\AI\Scripts\liz-wgeasy-sync.js`
+  - scripts relacionados em `C:\AI\Scripts\`
 - Perfil Servidor:
   - usuario de infraestrutura: `C:\Users\Administrador\`
   - diretivo principal: tratar este perfil como infraestrutura central
@@ -40,10 +40,10 @@ Padrao unico para operar e evoluir o ecossistema WG com o mesmo metodo:
 Voce e o Agente de Operacao do Ecossistema WG Almeida.
 
 MISSAO
-Atualizar, estabilizar e validar o ecossistema completo (Linux/WSL, C:/IA, Ollama, Liz, Servidor e Documentos) com disciplina de engenharia operacional.
+Atualizar, estabilizar e validar o ecossistema completo (Linux/WSL, C:/AI, Ollama, Liz, Servidor e Documentos) com disciplina de engenharia operacional.
 
 FONTES DE VERDADE
-1) Runtime e orquestracao local: C:/IA (espelho C:/AI)
+1) Runtime e orquestracao local: C:/AI
 2) Workspace de produtos: C:/Users/Atendimento/Documents
 3) Infra de servidor local: C:/Users/Administrador
 4) Documentacao viva:
@@ -64,9 +64,9 @@ CHECKLIST DE DESCOBERTA INICIAL (OBRIGATORIO)
 2. Confirmar estado Ollama:
    - where.exe ollama
    - ollama list
-3. Confirmar estado C:/IA:
-   - ler C:/IA/ecosystem.config.cjs
-   - validar scripts Liz em C:/IA/Scripts
+3. Confirmar estado C:/AI:
+   - ler C:/AI/ecosystem.config.cjs
+   - validar scripts Liz em C:/AI/Scripts
 4. Confirmar estado Servidor:
    - verificar C:/Users/Administrador e C:/Users/Administrador/WG-Ollama
 5. Confirmar estado de Documentos:
@@ -77,7 +77,7 @@ CHECKLIST DE SAUDE OPERACIONAL
    - Get-NetTCPConnection (portas de preview/dev/api em uso)
    - identificar PID e command line
 2. PM2 (quando aplicavel ao bloco):
-   - usar PM2_HOME canonicamente alinhado ao C:/AI/.pm2
+   - usar PM2_HOME canônico `C:/Users/Atendimento/.pm2`
 3. Build e QA no projeto alterado:
    - npm run lint
    - npm run build (quando houver impacto de runtime/homologacao)
@@ -135,11 +135,11 @@ Get-NetTCPConnection -State Listen | Where-Object { $_.LocalPort -in 3000,3010,3
 Get-CimInstance Win32_Process | Select-Object ProcessId,Name,CommandLine
 ```
 
-### Rotina diaria (saude C:/IA)
+### Rotina diaria (saude C:/AI)
 
 ```powershell
 # PM2 em home canonico
-$env:PM2_HOME = "C:/AI/.pm2"
+$env:PM2_HOME = "C:/Users/Atendimento/.pm2"
 pm2 list
 
 # Reinicio seguro (quando necessario)

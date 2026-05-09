@@ -132,19 +132,6 @@ const Architecture = () => {
             {...fadeInUp}
             className="text-center mb-10"
           >
-            {/* Linha decorativa */}
-            <motion.div
-              className="flex items-center justify-center gap-4 mb-8"
-              initial={{ opacity: 0, scaleX: 0 }}
-              whileInView={{ opacity: 1, scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <div className="h-px w-12 bg-gradient-to-r from-transparent to-wg-green" />
-              <div className="w-2 h-2 bg-wg-green rounded-full" />
-              <div className="h-px w-12 bg-gradient-to-l from-transparent to-wg-green" />
-            </motion.div>
-
             <span className="text-wg-green font-light tracking-[0.2em] uppercase text-sm mb-4 block">
               {t('architecturePage.servicesKicker')}
             </span>
@@ -192,17 +179,17 @@ const Architecture = () => {
           >
             <div className="max-w-4xl">
               <span className="text-wg-green font-light tracking-[0.2em] uppercase text-sm mb-4 block">
-                Método Operacional
+                {t('aboutPage.differential.kicker')}
               </span>
               <h3 className="text-2xl md:text-3xl font-inter font-light text-wg-black tracking-tight mb-4">
-                Arquitetura premium precisa organizar decisão antes de organizar acabamento
+                {t('units.architecture.methodTitle')}
               </h3>
               <div className="space-y-3 text-wg-gray leading-relaxed">
                 <p>
                   {WG_PRODUCT_MESSAGES.obraeasyPromise}
                 </p>
                 <p>
-                  Em arquitetura, isso significa definir layout, materiais, interfaces técnicas e frentes que dependem de aprovação ou medição antes de a obra pressionar prazo e custo.
+                  {t('units.architecture.methodDesc')}
                 </p>
                 <p>
                   {WG_PRODUCT_MESSAGES.marketReferences}
@@ -290,24 +277,23 @@ const Architecture = () => {
             <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-10 items-start">
               <div>
                 <span className="text-white/60 font-light tracking-[0.2em] uppercase text-sm mb-4 block">
-                  Add-on de experiência visual
+                   {t('proposalPage.benefits.visual')}
                 </span>
                 <h3 className="text-2xl md:text-3xl font-inter font-light tracking-tight mb-4">
-                  Antes de detalhar tudo, a arquitetura pode entrar com leitura estética guiada
+                  {t('units.architecture.addonTitle')}
                 </h3>
                 <div className="space-y-3 text-white/75 leading-relaxed">
                   <p>{WG_PRODUCT_MESSAGES.wgExperienceSystem}</p>
                   <p>
-                    Essa camada funciona bem como onboarding de projeto, pré-venda consultiva ou alinhamento entre cliente, arquiteto e família antes de fechar materiais e decisões de maior impacto.
+                    {t('units.architecture.addonDesc')}
                   </p>
                 </div>
               </div>
               <div className="space-y-4">
-                {[
-                  'Define estilo dominante, paleta e sensação esperada com menos indecisão.',
-                  'Reduz retrabalho em briefing, referências desconexas e aprovações subjetivas.',
-                  'Cria ponte direta entre moodboard, visualização e proposta assistida.',
-                ].map((item) => (
+                {(Array.isArray(t('units.architecture.addonPoints', { returnObjects: true }))
+                  ? t('units.architecture.addonPoints', { returnObjects: true })
+                  : []
+                ).map((item) => (
                   <div key={item} className="wg-overlay-panel-dark flex items-start gap-3 p-4">
                     <CheckCircle2 className="w-5 h-5 text-wg-green flex-shrink-0 mt-0.5" />
                     <p className="text-sm text-white/80 font-light leading-relaxed">{item}</p>
@@ -318,14 +304,14 @@ const Architecture = () => {
                     to="/solicite-proposta?service=Sistema%20de%20Experi%C3%AAncia%20Visual&context=architecture"
                     className="btn-primary"
                   >
-                    <span>Adicionar ao projeto</span>
+                    <span>{t('units.architecture.addonButton')}</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                   <Link
                     to="/moodboard"
                     className="btn-hero-outline"
                   >
-                    Ver a jornada visual
+                    {t('cta.learnMore')}
                   </Link>
                 </div>
               </div>
@@ -338,4 +324,3 @@ const Architecture = () => {
 };
 
 export default Architecture;
-

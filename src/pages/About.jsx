@@ -7,6 +7,7 @@ import { Trans, useTranslation } from 'react-i18next';
 import { SCHEMAS } from '@/data/schemaConfig';
 import { withBasePath } from '@/utils/assetPaths';
 import { getPublicPageImageSrc } from '@/data/publicPageImageCatalog';
+import { useEstatisticasWG } from '@/hooks/useEstatisticasWG';
 
 const valueStyles = {
   'wg-orange': {
@@ -50,6 +51,7 @@ const ABOUT_WILLIAM_IMAGE_SRCSET = `${ABOUT_WILLIAM_IMAGE_SRC} 1200w`;
 
 const About = () => {
   const { t } = useTranslation();
+  const estatisticas = useEstatisticasWG();
 
   const values = [
     {
@@ -79,7 +81,7 @@ const About = () => {
   ];
 
   const stats = [
-    { number: '14', label: t('aboutPage.stats.years'), icon: Clock },
+    { number: estatisticas.anosExperiencia.toString(), label: t('aboutPage.stats.years'), icon: Clock },
     { number: '400+', label: t('aboutPage.stats.projects'), icon: CheckCircle },
     { number: '3', label: t('aboutPage.stats.units'), icon: Building },
     { number: '✓', label: t('aboutPage.stats.method'), icon: Target },

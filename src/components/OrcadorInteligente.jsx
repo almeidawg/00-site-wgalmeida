@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from '@/lib/motion-lite';
-import { ArrowRight, ArrowLeft, CheckCircle2, Building2, Ruler, Loader2, Sparkles, Calculator } from 'lucide-react';
+import { ArrowRight, ArrowLeft, CheckCircle2, Building2, Ruler, Loader2, Sparkles, Calculator, PenTool, TrendingUp, Home } from 'lucide-react';
 import { useWGContext } from '@/providers/ContextProvider';
+import { useTranslation } from 'react-i18next';
 
 const SERVICE_OPTIONS = [
   'Obra Turn Key (Completa)',
@@ -42,6 +43,7 @@ const OrcadorInteligente = ({
   sourceContext = '',
   introLabel = '',
 }) => {
+  const { t } = useTranslation();
   const { context: wgContext } = useWGContext() || { context: {} };
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -110,7 +112,7 @@ const OrcadorInteligente = ({
           <div
             className={`flex h-10 w-10 items-center justify-center rounded-full text-sm font-light transition-all duration-500 ${
               step >= i
-                ? 'bg-gradient-to-tr from-wg-orange to-orange-400 text-white shadow-lg shadow-orange-500/30'
+                ? 'bg-gradient-to-tr from-wg-orange to-wg-orange/70 text-white shadow-lg shadow-wg-orange/30'
                 : 'border border-slate-200 bg-slate-50 text-slate-400'
             }`}
           >
@@ -163,8 +165,8 @@ const OrcadorInteligente = ({
   return (
     <div className="relative mx-auto max-w-4xl overflow-hidden rounded-[2.5rem] border border-white/40 bg-white/90 backdrop-blur-xl p-6 shadow-[0_30px_100px_rgba(0,0,0,0.08)] md:p-12">
       {/* Decorative premium glows */}
-      <div className="absolute -top-32 -right-32 h-96 w-96 rounded-full bg-orange-400/10 blur-[100px]" />
-      <div className="absolute -bottom-32 -left-32 h-96 w-96 rounded-full bg-blue-400/5 blur-[100px]" />
+      <div className="absolute -top-32 -right-32 h-96 w-96 rounded-full bg-wg-orange/10 blur-[100px]" />
+      <div className="absolute -bottom-32 -left-32 h-96 w-96 rounded-full bg-wg-blue/5 blur-[100px]" />
       
       {renderStepIndicator()}
 
@@ -173,10 +175,10 @@ const OrcadorInteligente = ({
           <motion.div 
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-8 rounded-[1.6rem] border border-orange-200/50 bg-orange-50/50 backdrop-blur-sm px-6 py-5 text-sm text-orange-800 flex items-start gap-3"
+            className="mb-8 rounded-[1.6rem] border border-black/5 bg-wg-gray-light px-6 py-5 text-sm text-wg-black flex items-start gap-3"
           >
-            <Sparkles className="w-5 h-5 shrink-0 text-orange-500 mt-0.5" />
-            <span className="leading-relaxed">{introLabel}</span>
+            <Sparkles className="w-5 h-5 shrink-0 text-wg-orange mt-0.5" />
+            <span className="leading-relaxed font-light">{introLabel}</span>
           </motion.div>
         ) : null}
         
@@ -196,18 +198,18 @@ const OrcadorInteligente = ({
                       setFormData({ ...formData, tipoImovel: tipo });
                       handleNext();
                     }}
-                    className={`group relative overflow-hidden min-h-[9rem] rounded-[2rem] border p-6 text-left transition-all duration-300 ${
+                    className={`group relative overflow-hidden min-h-[9rem] rounded-[2rem] border-2 p-6 text-left transition-all duration-300 ${
                       formData.tipoImovel === tipo
-                        ? 'border-orange-500 bg-orange-50/30 shadow-[0_8px_30px_rgba(242,92,38,0.12)]'
-                        : 'border-slate-200 bg-white hover:border-orange-300 hover:shadow-md'
+                        ? 'border-wg-orange bg-wg-orange/5 shadow-[0_8px_30px_rgba(242,92,38,0.12)]'
+                        : 'border-slate-100 bg-white hover:border-slate-200'
                     }`}
                   >
                     <div className="relative z-10">
                       <div
                         className={`mb-4 flex h-14 w-14 items-center justify-center rounded-2xl transition-colors duration-300 ${
                           formData.tipoImovel === tipo
-                            ? 'bg-gradient-to-br from-orange-500 to-orange-400 text-white shadow-lg shadow-orange-500/30'
-                            : 'bg-slate-50 text-slate-400 group-hover:bg-orange-50 group-hover:text-orange-500'
+                            ? 'bg-gradient-to-br from-wg-orange to-wg-orange/80 text-white shadow-lg shadow-wg-orange/30'
+                            : 'bg-slate-50 text-slate-400 group-hover:bg-wg-orange/10 group-hover:text-wg-orange'
                         }`}
                       >
                         <Building2 className="h-6 w-6" />
@@ -237,10 +239,10 @@ const OrcadorInteligente = ({
                       setFormData({ ...formData, servico: srv });
                       handleNext();
                     }}
-                    className={`group min-h-[7.5rem] rounded-[2rem] border p-6 text-left transition-all duration-300 ${
+                    className={`group min-h-[7.5rem] rounded-[2rem] border-2 p-6 text-left transition-all duration-300 ${
                       formData.servico === srv
-                        ? 'border-orange-500 bg-orange-50/30 shadow-[0_8px_30px_rgba(242,92,38,0.12)]'
-                        : 'border-slate-200 bg-white hover:border-orange-300 hover:shadow-md'
+                        ? 'border-wg-orange bg-wg-orange/5 shadow-[0_8px_30px_rgba(242,92,38,0.12)]'
+                        : 'border-slate-100 bg-white hover:border-slate-200'
                     }`}
                   >
                     <span className={`block text-lg transition-colors ${formData.servico === srv ? 'font-medium text-slate-900' : 'font-light text-slate-600'}`}>
@@ -265,13 +267,13 @@ const OrcadorInteligente = ({
                 <div>
                   <label className="mb-2 block text-sm font-medium text-slate-700">Área de intervenção (m²)</label>
                   <div className="relative group">
-                    <Ruler className="absolute left-5 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400 group-focus-within:text-orange-500 transition-colors" />
+                    <Ruler className="absolute left-5 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400 group-focus-within:text-wg-orange transition-colors" />
                     <input
                       type="number"
                       required
                       value={formData.metragem}
                       onChange={(e) => setFormData({ ...formData, metragem: e.target.value })}
-                      className="w-full rounded-[1.5rem] border border-slate-200 bg-slate-50/50 py-4 pl-14 pr-4 text-slate-900 focus:bg-white focus:border-orange-500 focus:outline-none focus:ring-4 focus:ring-orange-500/10 transition-all"
+                      className="w-full rounded-[1.5rem] border border-slate-200 bg-slate-50/50 py-4 pl-14 pr-4 text-slate-900 focus:bg-white focus:border-wg-orange focus:outline-none focus:ring-4 focus:ring-wg-orange/10 transition-all"
                       placeholder="Ex: 120"
                     />
                   </div>
@@ -282,7 +284,7 @@ const OrcadorInteligente = ({
                     required
                     value={formData.prazo}
                     onChange={(e) => setFormData({ ...formData, prazo: e.target.value })}
-                    className="w-full appearance-none rounded-[1.5rem] border border-slate-200 bg-slate-50/50 px-5 py-4 text-slate-900 focus:bg-white focus:border-orange-500 focus:outline-none focus:ring-4 focus:ring-orange-500/10 transition-all cursor-pointer"
+                    className="w-full appearance-none rounded-[1.5rem] border border-slate-200 bg-slate-50/50 px-5 py-4 text-slate-900 focus:bg-white focus:border-wg-orange focus:outline-none focus:ring-4 focus:ring-wg-orange/10 transition-all cursor-pointer"
                   >
                     <option value="">Selecione o cronograma desejado...</option>
                     <option value="Urgente (1 a 3 meses)">Fast Track (1 a 3 meses)</option>
@@ -306,7 +308,7 @@ const OrcadorInteligente = ({
               {isCalculating ? (
                 <div className="py-20 flex flex-col items-center justify-center">
                   <div className="relative w-20 h-20">
-                     <div className="absolute inset-0 rounded-full border-t-2 border-orange-500 animate-spin"></div>
+                     <div className="absolute inset-0 rounded-full border-t-2 border-wg-orange animate-spin"></div>
                      <div className="absolute inset-2 rounded-full border-l-2 border-slate-800 animate-spin-reverse"></div>
                      <Calculator className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 text-slate-400" />
                   </div>
@@ -349,7 +351,7 @@ const OrcadorInteligente = ({
                           required
                           value={formData.nome}
                           onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
-                          className="w-full rounded-[1.2rem] border border-slate-200 bg-white px-5 py-4 focus:border-orange-500 focus:outline-none focus:ring-4 focus:ring-orange-500/10 transition-all shadow-sm"
+                          className="w-full rounded-[1.2rem] border border-slate-200 bg-white px-5 py-4 focus:border-wg-orange focus:outline-none focus:ring-4 focus:ring-wg-orange/10 transition-all shadow-sm"
                           placeholder="Nome Completo"
                         />
                       </div>
@@ -359,7 +361,7 @@ const OrcadorInteligente = ({
                           required
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          className="w-full rounded-[1.2rem] border border-slate-200 bg-white px-5 py-4 focus:border-orange-500 focus:outline-none focus:ring-4 focus:ring-orange-500/10 transition-all shadow-sm"
+                          className="w-full rounded-[1.2rem] border border-slate-200 bg-white px-5 py-4 focus:border-wg-orange focus:outline-none focus:ring-4 focus:ring-wg-orange/10 transition-all shadow-sm"
                           placeholder="Melhor E-mail"
                         />
                         <input
@@ -367,7 +369,7 @@ const OrcadorInteligente = ({
                           required
                           value={formData.telefone}
                           onChange={(e) => setFormData({ ...formData, telefone: e.target.value })}
-                          className="w-full rounded-[1.2rem] border border-slate-200 bg-white px-5 py-4 focus:border-orange-500 focus:outline-none focus:ring-4 focus:ring-orange-500/10 transition-all shadow-sm"
+                          className="w-full rounded-[1.2rem] border border-slate-200 bg-white px-5 py-4 focus:border-wg-orange focus:outline-none focus:ring-4 focus:ring-wg-orange/10 transition-all shadow-sm"
                           placeholder="WhatsApp"
                         />
                       </div>
@@ -375,7 +377,7 @@ const OrcadorInteligente = ({
 
                     <div className="flex flex-col items-center justify-between gap-4 pt-8 md:flex-row">
                       <button type="button" onClick={handlePrev} className="order-2 flex items-center gap-2 font-light text-slate-400 hover:text-slate-900 md:order-1"><ArrowLeft className="h-4 w-4" /> Voltar</button>
-                      <button type="submit" disabled={loading || !formData.nome || !formData.telefone} className="order-1 flex w-full items-center justify-center gap-2 rounded-full bg-wg-orange px-10 py-4 text-sm font-medium text-white transition-all hover:bg-orange-600 hover:shadow-xl hover:shadow-orange-500/20 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50 md:order-2 md:w-auto">
+                      <button type="submit" disabled={loading || !formData.nome || !formData.telefone} className="order-1 flex w-full items-center justify-center gap-2 rounded-full bg-wg-orange px-10 py-4 text-sm font-medium text-white transition-all hover:bg-wg-orange/90 hover:shadow-xl hover:shadow-wg-orange/20 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50 md:order-2 md:w-auto">
                         {loading ? <><Loader2 className="h-5 w-5 animate-spin" /> Gerando Proposta...</> : <>Receber Proposta Técnica <ArrowRight className="h-4 w-4" /></>}
                       </button>
                     </div>

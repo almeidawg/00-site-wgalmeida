@@ -12,7 +12,7 @@ const Footer = () => {
       <div className="container-custom py-12 md:py-16">
         <div className="border-t border-gray-800 pt-10" />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-[0.9fr_0.95fr_1fr_1.55fr_1.05fr] gap-8 lg:gap-x-5 lg:gap-y-8 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-[0.7fr_0.7fr_0.8fr_2fr_1fr] gap-8 lg:gap-x-5 lg:gap-y-8 items-start">
           <div>
             <span className="font-suisse font-light text-lg mb-3 block text-gray-200" style={{ fontWeight: 300 }}>{t('footer.navigation')}</span>
             <nav className="space-y-2">
@@ -29,10 +29,10 @@ const Footer = () => {
                 {t('nav.store')}
               </Link>
               <Link to="/solicite-proposta" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
-                Solicite Proposta
+                {t('nav.requestProposal')}
               </Link>
               <Link to="/faq" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
-                FAQ
+                {t('footer.faq')}
               </Link>
               <Link to="/contato" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
                 {t('nav.contact')}
@@ -53,38 +53,38 @@ const Footer = () => {
                 {t('nav.carpentry')}
               </Link>
               <Link to="/obra-turn-key" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
-                Obra Turn Key
+                {t('nav.turnKeyWork')}
               </Link>
               <Link to="/arquitetura-corporativa" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
-                Arquitetura Corporativa
+                {t('nav.architectureCorporate')}
               </Link>
               <Link to="/construtora-alto-padrao-sp" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
-                Construtora Alto Padrão SP
+                {t('nav.builderHighEnd')}
               </Link>
               <Link to="/reforma-apartamento-itaim" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
-                Reforma Apartamento Itaim
+                {t('nav.renovationItaim')}
               </Link>
             </nav>
           </div>
 
           {/* Recursos */}
           <div>
-            <span className="font-suisse font-light text-lg mb-3 block text-gray-200" style={{ fontWeight: 300 }}>Recursos</span>
+            <span className="font-suisse font-light text-lg mb-3 block text-gray-200" style={{ fontWeight: 300 }}>{t('footer.resources')}</span>
             <nav className="space-y-2">
               <Link to="/blog" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
-                Blog & Artigos
+                {t('nav.blog')}
               </Link>
               <Link to="/revista-estilos" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
-                Revista de Estilos
+                {t('nav.styleMagazine')}
               </Link>
               <Link to="/moodboard-generator" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
-                Gerador de Moodboard
+                {t('nav.moodboardGenerator')}
               </Link>
               <Link to="/room-visualizer" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
-                Visualizador de Ambientes
+                {t('nav.roomVisualizer')}
               </Link>
               <Link to="/estilos" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
-                Guia de Estilos
+                {t('nav.styleGuide')}
               </Link>
             </nav>
           </div>

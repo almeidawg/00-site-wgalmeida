@@ -91,7 +91,7 @@ const PhotoUploader = ({ photo, onPhotoChange, isProcessing = false }) => {
   return (
     <div className="bg-white rounded-xl shadow-lg p-6 space-y-4">
       <h3 className="text-lg font-semibold text-gray-800 flex items-center gap-2">
-        <Camera className="w-5 h-5 text-wg-orange" />
+        <Camera className="w-5 h-5 text-wg-black" />
         Foto do Seu Espaço
       </h3>
       <p className="text-sm text-gray-500">
@@ -106,8 +106,8 @@ const PhotoUploader = ({ photo, onPhotoChange, isProcessing = false }) => {
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}
             animate={{
-              borderColor: isDragging ? '#FF6B35' : '#E5E7EB',
-              backgroundColor: isDragging ? 'rgba(255, 107, 53, 0.05)' : 'transparent',
+              borderColor: isDragging ? '#2E2E2E' : '#E5E7EB',
+              backgroundColor: isDragging ? 'rgba(46, 46, 46, 0.05)' : 'transparent',
             }}
             className="relative border-2 border-dashed rounded-xl p-12 text-center cursor-pointer transition-colors"
           >

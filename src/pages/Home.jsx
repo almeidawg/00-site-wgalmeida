@@ -32,7 +32,7 @@ import { SCHEMAS } from '@/data/schemaConfig';
 import { buildUnsplashSrcSet, normalizeUnsplashImageUrl } from '@/lib/unsplash';
 import { withBasePath } from '@/utils/assetPaths';
 import { trackCtaClick } from '@/lib/analytics';
-import { PRODUCT_URLS } from '@/data/company';
+import { COMPANY, PRODUCT_URLS } from '@/data/company';
 import { useWGContext } from '@/providers/ContextProvider';
 
 const editorialScale = {
@@ -211,13 +211,12 @@ const getLocalizedHeroTitle = (language = '', interest = null) => {
   if (interest === 'design') return 'Arquitetura · Engenharia · Marcenaria.';
   if (interest === 'investimento') return 'Viabilidade Técnica e Valorização Imobiliária.';
 
-  if (language.startsWith('pt')) {
-    return 'Arquitetura · Engenharia · Marcenaria.';
-  }
   if (language.startsWith('es')) {
     return 'Arquitectura, Ingeniería y Carpintería Premium.';
   }
-  return 'Architecture, Engineering and Premium Carpentry.';
+  
+  // Default para Português (ou qualquer outro que não seja Espanhol)
+  return 'Arquitetura · Engenharia · Marcenaria.';
 };
 
 const Home = () => {
@@ -227,20 +226,28 @@ const Home = () => {
   const isReturning = (wgContext?.paginas?.length || 0) >= 3;
 
   const personalized = userInteresse ? HERO_COPY_BY_INTEREST[userInteresse] : null;
-  const heroEyebrow = personalized?.eyebrow || t('home.hero.eyebrow', { defaultValue: 'Grupo WG Almeida · São Paulo' });
-  const heroSupport = personalized?.support || t('home.hero.support', {
-    defaultValue:
-      'Planejamos, executamos e entregamos espaços de alto padrão, do conceito ao último detalhe, sob um único padrão de gestão.',
-  });
+  const heroEyebrow = personalized?.eyebrow || t('home.hero.eyebrow');
+  const heroSupport = personalized?.support || t('home.hero.support');
 
   const [statsSectionRef, statsVisible] = useVisibilityFlag(STATS_VISIBILITY_OPTIONS);
   const [projectGalleryRef, projectGalleryVisible] = useVisibilityFlag(LAZY_SECTION_VISIBILITY_OPTIONS);
   const [reviewsRef, reviewsVisible] = useVisibilityFlag(LAZY_SECTION_VISIBILITY_OPTIONS);
+  const [instagramRef, instagramVisible] = useVisibilityFlag(LAZY_SECTION_VISIBILITY_OPTIONS);
+  const [instagramFrameLoaded, setInstagramFrameLoaded] = useState(false);
+  const [instagramFrameFailed, setInstagramFrameFailed] = useState(false);
 
   // Hook para estatísticas dinâmicas do sistema
   const estatisticas = useEstatisticasWG({ enabled: statsVisible });
   const displayStats = useAnimatedStats(statsVisible, estatisticas);
   const localizedHeroTitle = getLocalizedHeroTitle(i18n.language, userInteresse);
+
+  useEffect(() => {
+    if (!instagramVisible || instagramFrameLoaded) return undefined;
+    const timeout = globalThis.setTimeout(() => {
+      setInstagramFrameFailed(true);
+    }, 6000);
+    return () => globalThis.clearTimeout(timeout);
+  }, [instagramFrameLoaded, instagramVisible]);
 
   // Etapas do processo / Metodologia
   const metodologia = [
@@ -469,7 +476,7 @@ const Home = () => {
           <div className="rounded-2xl border border-[#DCE3EE] bg-[#F8FAFC] p-6 md:p-8">
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-center">
               <div className="lg:col-span-8">
-                <span className="text-orange-600 font-bold text-[10px] tracking-[0.3em] uppercase mb-4 block">
+                <span className="text-wg-orange font-bold text-[10px] tracking-[0.3em] uppercase mb-4 block">
                   ICCRI 2026
                 </span>
                 <h2 className="text-3xl md:text-4xl font-playfair italic text-wg-black mb-4 tracking-tight">
@@ -481,7 +488,7 @@ const Home = () => {
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm text-[#334155]">
                   <p className="flex items-center gap-2">
-                    <Calculator className="w-4 h-4 text-orange-600" />
+                    <Calculator className="w-4 h-4 text-wg-orange" />
                     Simulação de custo por m2
                   </p>
                   <p className="flex items-center gap-2">
@@ -686,7 +693,7 @@ const Home = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-4">
                     <div className="flex gap-1 mb-2">
-                      {['#2F4F4F', '#FFFFFF', '#DAA520'].map((color) => (
+                      {['#2F4F4F', '#FFFFFF', '#8B5E3C'].map((color) => (
                         <div key={color} className="w-4 h-4 rounded-full border border-white/50" style={{ backgroundColor: color }} />
                       ))}
                     </div>
@@ -1291,8 +1298,62 @@ const Home = () => {
         )}
       </section>
 
-      {/* ========== ASSISTENTE IA - LIZ ========== */}
-      {/* <LizAssistant /> */} {/* DESATIVADO - Manter apenas WhatsApp */}
+      {/* ========== SEÇÃO INSTAGRAM - INTEGRAÇÃO REAL ========== */}
+      <section ref={instagramRef} className="py-12 md:py-16 bg-white overflow-hidden">
+        <div className="container-custom">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex flex-col md:flex-row items-end justify-between gap-6 mb-12"
+          >
+            <div className="space-y-4">
+              <span className="text-wg-orange text-[11px] tracking-[0.35em] uppercase font-bold">@wg.almeida</span>
+              <h2 className="text-3xl md:text-4xl font-playfair italic text-wg-black">Acompanhe nosso dia a dia.</h2>
+            </div>
+            <a 
+              href={COMPANY.instagram} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="wg-btn-pill-secondary flex items-center gap-2"
+            >
+              Ver Perfil Completo <ArrowRight size={14} />
+            </a>
+          </motion.div>
+
+          <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl border border-black/5 bg-gray-50 aspect-[16/6] md:aspect-[16/4]">
+            {instagramVisible && (
+              <iframe 
+                src="https://lightwidget.com/widgets/79017666326e5e8ea576887556a39879.html" 
+                scrolling="no" 
+                className="lightwidget-widget w-full h-full border-0"
+                title="Instagram Feed WG Almeida"
+                loading="lazy"
+                onLoad={() => {
+                  setInstagramFrameLoaded(true);
+                  setInstagramFrameFailed(false);
+                }}
+                onError={() => setInstagramFrameFailed(true)}
+              />
+            )}
+            {instagramFrameFailed && (
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-50 px-6 text-center">
+                <p className="mb-4 max-w-md text-sm font-light text-wg-gray">
+                  O feed externo do Instagram não carregou neste momento.
+                </p>
+                <a
+                  href={COMPANY.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="wg-btn-pill-secondary inline-flex items-center gap-2"
+                >
+                  Ver perfil no Instagram <ArrowRight size={14} />
+                </a>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
 
       {/* ========== ENCERRAMENTO INSTITUCIONAL ========== */}
       <section className="relative overflow-hidden py-14 md:py-20 bg-wg-black text-white">

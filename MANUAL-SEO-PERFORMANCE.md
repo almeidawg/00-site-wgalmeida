@@ -15,11 +15,21 @@
 5. [CSS e JavaScript](#5-css-e-javascript)
 6. [Acessibilidade (Contraste)](#6-acessibilidade-contraste)
 7. [Dados Estruturados (JSON-LD)](#7-dados-estruturados-json-ld)
-8. [Rastreabilidade e Indexacao](#8-rastreabilidade-e-indexacao)
-9. [Internacionalizacao](#9-internacionalizacao)
-10. [Checklist de Auditoria](#10-checklist-de-auditoria)
-11. [Comandos Uteis](#11-comandos-uteis)
-12. [Fontes e Referencias](#12-fontes-e-referencias)
+8. [Dossier de SEO do Ecossistema (Global)](#8-dossier-de-seo-do-ecossistema-global)
+9. [Rastreabilidade e Indexacao](#9-rastreabilidade-e-indexacao)
+10. [Internacionalizacao](#10-internacionalizacao)
+11. [Checklist de Auditoria](#11-checklist-de-auditoria)
+12. [Comandos Uteis](#12-comandos-uteis)
+13. [Fontes e Referencias](#13-fontes-e-referencias)
+
+---
+
+## 8. Dossier de SEO do Ecossistema (Global)
+
+Para diretrizes de padronizacao em todo o ecossistema Grupo WG Almeida (SaaS, Landing Pages e Sites), consulte o documento mestre:
+`01_APPS/02_BUILDTECH/SEO-DOSSIER-ECOSSISTEMA.md`
+
+Este dossier cobre a implementacao de metadados dinamicos, OG Images por post e Schema Article automatizado.
 
 ---
 
@@ -397,16 +407,16 @@ O BreadcrumbList no `index.html` e estatico. Idealmente deve ser gerado dinamica
 
 ---
 
-## 8. Rastreabilidade e Indexacao
+## 9. Rastreabilidade e Indexacao
 
-### 8.1 robots.txt
+### 9.1 robots.txt
 
 **Local:** `public/robots.txt`
 - Allow para Googlebot nas areas publicas
 - Disallow para `/admin`, `/account`, `/login`
 - Crawl-delay diferenciado por bot
 
-### 8.2 Sitemap XML
+### 9.2 Sitemap XML
 
 **Local:** `public/sitemap.xml`
 - 40+ URLs organizadas por categoria
@@ -415,13 +425,13 @@ O BreadcrumbList no `index.html` e estatico. Idealmente deve ser gerado dinamica
 
 **Pendencia:** Incluir TODOS os posts de blog individuais no sitemap.
 
-### 8.3 Pre-rendering (SPA)
+### 9.3 Pre-rendering (SPA)
 
 O projeto usa `vite-plugin-prerender` com Puppeteer para gerar HTML estatico das rotas principais no build. Isso resolve o problema de SPAs com Googlebot.
 
 **Importante:** A variavel `ENABLE_LEGACY_PRERENDER=true` deve estar ativa em producao.
 
-### 8.4 Erros no Console
+### 9.4 Erros no Console
 
 **Fonte:** [Errors in Console - Lighthouse](https://developer.chrome.com/docs/lighthouse/best-practices/errors-in-console/)
 
@@ -434,9 +444,9 @@ O projeto usa `vite-plugin-prerender` com Puppeteer para gerar HTML estatico das
 
 ---
 
-## 9. Internacionalizacao
+## 10. Internacionalizacao
 
-### 9.1 hreflang (PENDENTE - ALTA PRIORIDADE)
+### 10.1 hreflang (PENDENTE - ALTA PRIORIDADE)
 
 O projeto tem conteudo em 3 idiomas (`pt-BR`, `en`, `es`) mas falta implementar tags `hreflang`.
 
@@ -449,13 +459,13 @@ O projeto tem conteudo em 3 idiomas (`pt-BR`, `en`, `es`) mas falta implementar 
 <link rel="alternate" hreflang="x-default" href="https://grupowgalmeida.com.br/blog/briefing-projeto" />
 ```
 
-### 9.2 Atributo lang
+### 10.2 Atributo lang
 
 **Implementado:** `<html lang="pt-BR">` no `index.html` e atualizado via Helmet por idioma.
 
 ---
 
-## 10. Checklist de Auditoria
+## 11. Checklist de Auditoria
 
 ### Antes de Cada Deploy
 
@@ -501,7 +511,7 @@ O projeto tem conteudo em 3 idiomas (`pt-BR`, `en`, `es`) mas falta implementar 
 
 ---
 
-## 11. Comandos Uteis
+## 12. Comandos Uteis
 
 ```bash
 # Preparar assets de estilos (.webp a partir de SVG)
@@ -538,7 +548,7 @@ npm run test:run
 
 ---
 
-## 12. Fontes e Referencias
+## 13. Fontes e Referencias
 
 ### Google
 

@@ -146,7 +146,7 @@ const proposalBlocks = [
 const statusStyles = {
   verificar: 'border-blue-300 bg-blue-50 text-blue-900',
   conectar: 'border-emerald-300 bg-emerald-50 text-emerald-900',
-  mapear: 'border-amber-300 bg-amber-50 text-amber-900',
+  mapear: 'border-wg-brown bg-white text-wg-brown',
   analisar: 'border-fuchsia-300 bg-fuchsia-50 text-fuchsia-900',
   instrumentar: 'border-cyan-300 bg-cyan-50 text-cyan-900',
   automatizar: 'border-lime-300 bg-lime-50 text-lime-900',

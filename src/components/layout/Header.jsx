@@ -28,6 +28,12 @@ const Header = () => {
 
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
+  // Páginas que não possuem Hero escuro no topo
+  const isLightBackgroundPage = ['/faq', '/contato', '/store', '/room-visualizer', '/moodboard-generator'].includes(location.pathname);
+  
+  // Se for uma página clara e não estiver scrolled, forçamos o estilo scrolled (texto escuro)
+  const effectivelyScrolled = isScrolled || isLightBackgroundPage;
+
   useEffect(() => {
     let ticking = false;
     const handleScroll = () => {
@@ -67,37 +73,37 @@ const Header = () => {
       path: '/arquitetura',
       icon: Ruler,
       accent: '#F25C26', // Laranja Arquitetura
-      type: 'Arquitetura'
+      type: t('nav.architecture')
     },
     {
       label: t('nav.engineering'),
       path: '/engenharia',
       icon: Building2,
       accent: '#1e3a8a', // Azul Engenharia (Blue 900)
-      type: 'Engenharia'
+      type: t('nav.engineering')
     },
     {
       label: t('nav.carpentry'),
       path: '/marcenaria',
       icon: Hammer,
-      accent: '#78350f', // Marrom Madeira (Amber 900)
-      type: 'Marcenaria'
+      accent: '#8B5E3C', // Marrom Madeira WG
+      type: t('nav.carpentry')
     },
   ], [t]);
 
-  const navLinkClass = isScrolled
+  const navLinkClass = effectivelyScrolled
     ? 'whitespace-nowrap px-2 xl:px-2.5 py-1.5 rounded-full text-[12px] xl:text-[13px] text-wg-gray hover:text-wg-black hover:bg-black/[0.05]'
     : 'whitespace-nowrap px-2 xl:px-2.5 py-2 rounded-full text-[12px] xl:text-[13px] text-white/80 hover:text-white hover:bg-white/[0.08] backdrop-blur-sm';
 
-  const activeNavLinkClass = isScrolled
+  const activeNavLinkClass = effectivelyScrolled
     ? 'bg-black/[0.05] text-wg-black'
     : 'bg-white/[0.12] text-white';
 
-  const iconButtonClass = isScrolled
+  const iconButtonClass = effectivelyScrolled
     ? 'w-8.5 h-8.5 xl:w-9 xl:h-9 border-black/[0.08] bg-white/70 backdrop-blur-xl hover:bg-white hover:border-black/[0.14] shadow-[0_10px_26px_rgba(12,12,12,0.08)]'
     : 'w-9 h-9 xl:w-10 xl:h-10 border-white/20 bg-white/[0.08] backdrop-blur-xl hover:bg-white/[0.16] hover:border-white/30 shadow-[0_14px_34px_rgba(10,10,10,0.16)]';
 
-  const iconColorClass = isScrolled ? 'text-wg-black' : 'text-white';
+  const iconColorClass = effectivelyScrolled ? 'text-wg-black' : 'text-white';
 
   return (
     <>
@@ -160,7 +166,7 @@ const Header = () => {
                   className={cn(
                     "flex items-center gap-1.5 whitespace-nowrap transition-all duration-300 font-suisse font-light",
                     navLinkClass,
-                    isUnitsMenuOpen && (isScrolled ? "text-orange-600 bg-black/[0.05]" : "text-white bg-white/[0.12]")
+                    isUnitsMenuOpen && (isScrolled ? "text-wg-orange bg-black/[0.05]" : "text-white bg-white/[0.12]")
                   )}
                 >
                   <span>{t('header.unitsLabel')}</span>
@@ -342,7 +348,7 @@ const Header = () => {
                 </a>
                 <Link
                   to="/contato"
-                  className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold bg-orange-600 text-white transition-all duration-300"
+                  className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold bg-wg-orange text-white transition-all duration-300"
                 >
                   {t('header.ctaSpecialist')}
                 </Link>

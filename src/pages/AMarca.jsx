@@ -65,11 +65,9 @@ const AMarca = () => {
             <span className="wg-page-hero-kicker text-white/78">
               {t('brandPage.hero.kicker')}
             </span>
-            <h1 className="wg-page-hero-title">
-              A Marca WG Almeida
-            </h1>
+            <h1 className="wg-page-hero-title" dangerouslySetInnerHTML={{ __html: t('brandPage.hero.title') }} />
             <p className="wg-page-hero-subtitle max-w-3xl">
-              Nossa marca traduz uma operação integrada entre arquitetura, engenharia e marcenaria, com mais previsibilidade, clareza e excelência na entrega.
+              {t('brandPage.hero.subtitle')}
             </p>
           </motion.div>
           </div>
@@ -163,7 +161,10 @@ const AMarca = () => {
               <p className="text-wg-gray text-lg mb-6">{t('brandPage.vision.paragraphs.0')}</p>
               <p className="text-wg-gray">{t('brandPage.vision.paragraphs.1')}</p>
               <div className="mt-6 flex flex-wrap gap-2">
-                {t('brandPage.vision.tags', { returnObjects: true }).map((tag) => (
+                {(Array.isArray(t('brandPage.vision.tags', { returnObjects: true }))
+                  ? t('brandPage.vision.tags', { returnObjects: true })
+                  : []
+                ).map((tag) => (
                   <span key={tag} className="px-3 py-1 bg-wg-blue/10 text-wg-blue text-sm rounded-full">
                     {tag}
                   </span>

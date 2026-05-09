@@ -43,9 +43,9 @@ const MoodboardShare = () => {
   if (!data) {
     return (
       <div className="min-h-screen bg-[#0a0a0b] text-slate-200 flex flex-col items-center justify-center p-6 text-center">
-        <BrandStar className="w-12 h-12 text-orange-500 mb-6" />
+        <BrandStar className="w-12 h-12 text-wg-orange mb-6" />
         <h1 className="text-2xl font-medium font-playfair italic mb-4">Dossiê não encontrado</h1>
-        <Link to="/moodboard/studio" className="px-6 py-3 bg-orange-600 text-white rounded-xl font-bold">Criar meu projeto</Link>
+        <Link to="/moodboard/studio" className="px-6 py-3 bg-wg-orange text-white rounded-xl font-bold">Criar meu projeto</Link>
       </div>
     );
   }
@@ -68,7 +68,7 @@ const MoodboardShare = () => {
                transition={{ delay: 0.5 }}
                className="space-y-6"
              >
-                <BrandStar className="w-16 h-16 text-orange-500 mx-auto animate-pulse" />
+                <BrandStar className="w-16 h-16 text-wg-orange mx-auto animate-pulse" />
                 <div className="space-y-2">
                    <h2 className="text-sm font-bold uppercase tracking-[0.4em] text-slate-500">Aguardamos por você</h2>
                    <h3 className="text-4xl md:text-6xl font-playfair italic text-white">Seja bem-vindo, {data.clientName}</h3>
@@ -77,7 +77,7 @@ const MoodboardShare = () => {
                   initial={{ width: 0 }}
                   animate={{ width: "100%" }}
                   transition={{ duration: 2, delay: 1 }}
-                  className="h-[1px] bg-gradient-to-r from-transparent via-orange-500 to-transparent max-w-xs mx-auto"
+                  className="h-[1px] bg-gradient-to-r from-transparent via-wg-orange to-transparent max-w-xs mx-auto"
                 />
                 <p className="text-xs text-slate-500 font-mono tracking-widest uppercase">Gerando sua experiência imersiva...</p>
              </motion.div>
@@ -95,7 +95,7 @@ const MoodboardShare = () => {
         <header className="h-24 border-b border-white/5 flex items-center justify-between px-8 bg-[#0a0a0b]/80 backdrop-blur-xl sticky top-0 z-50">
            <div className="flex items-center gap-8">
               <Link to="/">
-                <BrandStar className="w-8 h-8 text-orange-500 hover:scale-110 transition-transform" />
+                <BrandStar className="w-8 h-8 text-wg-orange hover:scale-110 transition-transform" />
               </Link>
               <div className="h-6 w-[1px] bg-slate-800" />
               <div className="flex flex-col">
@@ -106,9 +106,9 @@ const MoodboardShare = () => {
 
            <div className="flex items-center gap-4">
               <Link to="/moodboard/studio" className="hidden sm:flex items-center gap-2 px-5 py-2.5 bg-slate-900 border border-white/10 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition-all">
-                 <Sparkles size={14} className="text-orange-500" /> Editar no Studio
+                 <Sparkles size={14} className="text-wg-orange" /> Editar no Studio
               </Link>
-              <button className="flex items-center gap-2 px-6 py-3 bg-orange-600 text-white rounded-xl text-xs font-bold hover:bg-orange-500 transition-all shadow-[0_0_30px_rgba(242,92,38,0.3)]">
+              <button className="flex items-center gap-2 px-6 py-3 bg-wg-orange text-white rounded-xl text-xs font-bold hover:bg-wg-orange/90 transition-all shadow-[0_0_30px_rgba(242,92,38,0.3)]">
                  <Download size={14} /> Download PDF
               </button>
            </div>
@@ -120,7 +120,7 @@ const MoodboardShare = () => {
           <section className="space-y-10">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                <div className="space-y-2">
-                  <h3 className="text-[10px] font-bold text-orange-500 uppercase tracking-[0.4em]">01. Conceito Visual</h3>
+                  <h3 className="text-[10px] font-bold text-wg-orange uppercase tracking-[0.4em]">01. Conceito Visual</h3>
                   <h2 className="text-4xl font-playfair italic text-white">A Alma do Projeto</h2>
                </div>
                <div className="flex items-center gap-4 text-slate-500 font-mono text-[10px] bg-white/5 px-4 py-2 rounded-full border border-white/5">
@@ -139,7 +139,7 @@ const MoodboardShare = () => {
             {/* Coluna 01: Estilos e Conceitos */}
             <section className="space-y-12">
                <div className="space-y-6">
-                  <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.3em] border-l-2 border-orange-500 pl-4">Definição de Estilos</h3>
+                  <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.3em] border-l-2 border-wg-orange pl-4">Definição de Estilos</h3>
                   <div className="space-y-4">
                     {data.styles.map((style, idx) => (
                       <motion.div 
@@ -147,7 +147,7 @@ const MoodboardShare = () => {
                         initial={{ x: -20, opacity: 0 }}
                         whileInView={{ x: 0, opacity: 1 }}
                         transition={{ delay: idx * 0.1 }}
-                        className="p-8 bg-gradient-to-br from-white/[0.05] to-transparent rounded-[32px] border border-white/5 hover:border-orange-500/20 transition-colors"
+                        className="p-8 bg-gradient-to-br from-white/[0.05] to-transparent rounded-[32px] border border-white/5 hover:border-wg-orange/20 transition-colors"
                       >
                          <h4 className="text-xl font-medium text-white mb-3">{style.name}</h4>
                          <p className="text-sm text-slate-400 leading-relaxed font-light">{style.excerpt}</p>
@@ -161,7 +161,7 @@ const MoodboardShare = () => {
 
                {/* Coluna 02: Paleta Técnica */}
                <div className="space-y-8 pt-8">
-                  <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.3em] border-l-2 border-orange-500 pl-4">Paleta Cromática Técnica</h3>
+                  <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.3em] border-l-2 border-wg-orange pl-4">Paleta Cromática Técnica</h3>
                   <div className="grid grid-cols-5 gap-4">
                       {data.colors.map((color, idx) => (
                         <div key={idx} className="group">
@@ -175,7 +175,7 @@ const MoodboardShare = () => {
 
             {/* Coluna 02: Itens e Ativos */}
             <section className="space-y-10">
-               <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.3em] border-l-2 border-orange-500 pl-4">Curadoria de Mobiliário e Acabamentos</h3>
+               <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.3em] border-l-2 border-wg-orange pl-4">Curadoria de Mobiliário e Acabamentos</h3>
                <div className="grid grid-cols-2 gap-4">
                   {data.customImages.map((img, idx) => (
                     <motion.div 
@@ -190,7 +190,7 @@ const MoodboardShare = () => {
                           <p className="text-[10px] text-white font-bold truncate uppercase tracking-tight">{img.title || 'Item Selecionado'}</p>
                           <div className="flex justify-between items-center">
                              <span className="text-[9px] text-slate-500 uppercase tracking-tighter">REF-WG-{idx+100}</span>
-                             <span className="text-[9px] text-orange-500 font-bold uppercase tracking-tighter">Validado</span>
+                             <span className="text-[9px] text-wg-orange font-bold uppercase tracking-tighter">Validado</span>
                           </div>
                        </div>
                     </motion.div>
@@ -201,7 +201,7 @@ const MoodboardShare = () => {
 
           {/* Rodapé Dossiê: Garantia e Próximos Passos */}
           <footer className="pt-24 pb-40">
-             <div className="bg-gradient-to-br from-orange-600 to-orange-800 rounded-[64px] p-12 md:p-20 text-center relative overflow-hidden shadow-2xl">
+             <div className="bg-gradient-to-br from-wg-orange to-wg-orange-dark rounded-[64px] p-12 md:p-20 text-center relative overflow-hidden shadow-2xl">
                 {/* Background Decor */}
                 <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-[120px] -mr-48 -mt-48" />
                 <div className="absolute bottom-0 left-0 w-64 h-64 bg-black/20 rounded-full blur-[100px] -ml-32 -mb-32" />

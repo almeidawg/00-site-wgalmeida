@@ -131,7 +131,7 @@ export default function AdminLeads() {
             <h3 className="text-2xl font-bold text-white">{leads.length}</h3>
          </div>
          <div className="bg-slate-900/40 border border-slate-800 p-5 rounded-2xl">
-            <p className="text-[10px] font-bold text-orange-500 uppercase tracking-widest mb-1">Novos Hoje</p>
+            <p className="text-[10px] font-bold text-wg-orange uppercase tracking-widest mb-1">Novos Hoje</p>
             <h3 className="text-2xl font-bold text-white">
                {leads.filter(l => new Date(l.created_at).toDateString() === new Date().toDateString()).length}
             </h3>
@@ -213,7 +213,7 @@ export default function AdminLeads() {
                                  <div className="flex flex-wrap gap-2 mt-1.5">
                                     <span className={cn(
                                        "text-[9px] font-bold px-1.5 py-0.5 rounded border uppercase tracking-tighter",
-                                       lead.tipo === 'proposta' ? "bg-orange-500/10 text-orange-400 border-orange-500/20" : "bg-blue-500/10 text-blue-400 border-blue-500/20"
+                                       lead.tipo === 'proposta' ? "bg-wg-orange/10 text-wg-orange border-wg-orange/20" : "bg-blue-500/10 text-blue-400 border-blue-500/20"
                                     )}>
                                        {lead.origem || lead.tipo}
                                     </span>
@@ -247,7 +247,7 @@ export default function AdminLeads() {
                                  onChange={(e) => updateLeadStatus(lead.id, lead.tipo, e.target.value)}
                                  className={cn(
                                     "text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-lg bg-slate-950 border outline-none transition-all cursor-pointer",
-                                    lead.status === 'nova' ? "text-orange-500 border-orange-500/30" :
+                                    lead.status === 'nova' ? "text-wg-orange border-wg-orange/30" :
                                     lead.status === 'atendido' ? "text-blue-500 border-blue-500/30" :
                                     "text-emerald-500 border-emerald-500/30"
                                  )}

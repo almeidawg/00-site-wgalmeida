@@ -37,7 +37,7 @@ export const SEO_CONFIG = {
   "/": defaultConfig,
   "/sobre": page(
     "/sobre",
-    "Grupo WG Almeida: 14 Anos Entregando Arquitetura, Engenharia e Marcenaria em SP",
+    "Grupo WG Almeida: 15 Anos Entregando Arquitetura, Engenharia e Marcenaria em SP",
     "Conheça a metodologia Turn Key do Grupo WG Almeida — projeto, obra e marcenaria integrados, sem ruído operacional. Atendemos residências e corporativos de alto padrão em São Paulo.",
     `${BASE_URL}/og-sobre-1200x630.jpg`
   ),

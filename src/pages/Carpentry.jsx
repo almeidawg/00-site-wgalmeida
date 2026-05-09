@@ -192,14 +192,14 @@ const Carpentry = () => {
           >
             <div className="max-w-4xl">
               <span className="text-wg-black font-light tracking-[0.2em] uppercase text-sm mb-4 block">
-                Produção Paralela
+                {t('brandPage.hero.kicker')}
               </span>
               <h3 className="text-2xl md:text-3xl font-inter font-light text-wg-black tracking-tight mb-4">
-                Marcenaria não entra apenas no fim. Ela precisa ser medida, aprovada e produzida no tempo certo
+                {t('units.carpentry.methodTitle')}
               </h3>
               <div className="space-y-3 text-wg-gray leading-relaxed">
                 <p>
-                  Em obras bem coordenadas, marcenaria funciona como frente de produção, com janela própria de medição, aprovação, fabricação e montagem.
+                  {t('units.carpentry.methodDesc')}
                 </p>
                 <p>
                   {WG_PRODUCT_MESSAGES.obraeasyPromise}
@@ -290,24 +290,23 @@ const Carpentry = () => {
             <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-10 items-start">
               <div>
                 <span className="text-white/60 font-light tracking-[0.2em] uppercase text-sm mb-4 block">
-                  Add-on de experiência visual
+                  {t('proposalPage.benefits.visual')}
                 </span>
                 <h3 className="text-2xl md:text-3xl font-inter font-light tracking-tight mb-4">
-                  Marcenaria performa melhor quando a aprovação visual acontece antes da produção
+                  {t('units.carpentry.addonTitle')}
                 </h3>
                 <div className="space-y-3 text-white/75 leading-relaxed">
                   <p>{WG_PRODUCT_MESSAGES.wgExperienceAddon}</p>
                   <p>
-                    A camada de experiência visual ajuda a organizar linguagem, atmosfera e uso antes da medição final, do desenho executivo e da fabricação sob medida.
+                    {t('units.carpentry.addonDesc')}
                   </p>
                 </div>
               </div>
               <div className="space-y-4">
-                {[
-                  'Aprova materiais, acabamentos e sensacao do conjunto com menos ruído.',
-                  'Melhora o alinhamento entre cliente, arquiteto e equipe de produção.',
-                  'Cria base mais clara para detalhamento, montagem e entrega final.',
-                ].map((item) => (
+                {(Array.isArray(t('units.carpentry.addonPoints', { returnObjects: true }))
+                  ? t('units.carpentry.addonPoints', { returnObjects: true })
+                  : []
+                ).map((item) => (
                   <div key={item} className="wg-overlay-panel-dark flex items-start gap-3 p-4">
                     <CheckCircle2 className="w-5 h-5 text-wg-black flex-shrink-0 mt-0.5" />
                     <p className="text-sm text-white/80 font-light leading-relaxed">{item}</p>
@@ -318,14 +317,14 @@ const Carpentry = () => {
                     to="/solicite-proposta?service=Sistema%20de%20Experi%C3%AAncia%20Visual&context=carpentry"
                     className="btn-primary"
                   >
-                    <span>Adicionar ao escopo</span>
+                    <span>{t('units.carpentry.addonButton')}</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                   <Link
-                    to="/moodboard-generator"
-                    className="wg-overlay-button-dark"
+                    to="/moodboard"
+                    className="btn-hero-outline"
                   >
-                    Montar moodboard
+                    {t('cta.learnMore')}
                   </Link>
                 </div>
               </div>
@@ -338,4 +337,3 @@ const Carpentry = () => {
 };
 
 export default Carpentry;
-
