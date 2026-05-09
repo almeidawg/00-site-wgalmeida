@@ -253,7 +253,7 @@ const Contact = () => {
       />
 
       {/* Hero elegante */}
-      <section className="wg-page-hero wg-page-hero--store hero-under-header">
+      <section className="wg-page-hero wg-page-hero--store hero-under-header bg-wg-black">
         <motion.div
           className="absolute inset-0 z-0"
           initial={{ scale: 1.1 }}

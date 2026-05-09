@@ -29,7 +29,7 @@ const Header = () => {
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   // Páginas que não possuem Hero escuro no topo
-  const isLightBackgroundPage = ['/faq', '/contato', '/store', '/room-visualizer', '/moodboard-generator'].includes(location.pathname);
+  const isLightBackgroundPage = ['/faq', '/contato', '/store', '/solicite-proposta', '/room-visualizer', '/moodboard-generator'].includes(location.pathname);
   
   // Se for uma página clara e não estiver scrolled, forçamos o estilo scrolled (texto escuro)
   const effectivelyScrolled = isScrolled || isLightBackgroundPage;
@@ -72,14 +72,14 @@ const Header = () => {
       label: t('nav.architecture'),
       path: '/arquitetura',
       icon: Ruler,
-      accent: '#F25C26', // Laranja Arquitetura
+      accent: '#5E9B94', // Verde Arquitetura
       type: t('nav.architecture')
     },
     {
       label: t('nav.engineering'),
       path: '/engenharia',
       icon: Building2,
-      accent: '#1e3a8a', // Azul Engenharia (Blue 900)
+      accent: '#2B4580', // Azul Engenharia
       type: t('nav.engineering')
     },
     {
@@ -189,28 +189,50 @@ const Header = () => {
                         <div className="overflow-hidden rounded-3xl border border-white/10 bg-slate-950/90 p-2 shadow-[0_30px_70px_rgba(0,0,0,0.5)] backdrop-blur-2xl">
                           <div className="flex flex-col gap-1">
                             {unitsItems.map((subItem, index) => {
+                              const iconColors = {
+                                '#5E9B94': 'text-wg-green',
+                                '#2B4580': 'text-wg-blue',
+                                '#8B5E3C': 'text-wg-brown'
+                              };
+                              const hoverShadows = {
+                                '#5E9B94': 'hover:shadow-[0_0_20px_rgba(94,155,148,0.25)]',
+                                '#2B4580': 'hover:shadow-[0_0_20px_rgba(43,69,128,0.25)]',
+                                '#8B5E3C': 'hover:shadow-[0_0_20px_rgba(139,94,60,0.25)]'
+                              };
+                              const hoverBorders = {
+                                '#5E9B94': 'hover:border-wg-green/40',
+                                '#2B4580': 'hover:border-wg-blue/40',
+                                '#8B5E3C': 'hover:border-wg-brown/40'
+                              };
+
                               return (
                                 <Link
                                   key={subItem.label}
                                   to={subItem.path}
-                                  className="group flex items-center gap-4 px-4 py-3 rounded-[20px] transition-all duration-500"
-                                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = subItem.accent}
-                                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                                  className={cn(
+                                    "group flex items-center gap-4 px-4 py-3 rounded-[20px] transition-all duration-500 border border-transparent",
+                                    "hover:bg-white/[0.03]",
+                                    hoverBorders[subItem.accent],
+                                    hoverShadows[subItem.accent]
+                                  )}
                                 >
                                   <div 
-                                    className="w-10 h-10 rounded-xl flex items-center justify-center bg-white/5 transition-all duration-500 group-hover:bg-white/20 group-hover:scale-110"
+                                    className="w-10 h-10 rounded-xl flex items-center justify-center bg-white/5 transition-all duration-500 group-hover:bg-white/10 group-hover:scale-110"
                                   >
                                     <subItem.icon 
                                       size={18} 
-                                      className="text-white group-hover:text-white transition-colors duration-300"
-                                      style={{ color: subItem.accent }}
+                                      className={cn("transition-colors duration-300", iconColors[subItem.accent])}
                                     />
                                   </div>
                                   <div className="flex flex-col">
                                     <span className="text-[13px] font-bold text-white group-hover:text-white transition-colors">
                                       {subItem.label}
                                     </span>
-                                    <span className="text-[8px] text-slate-500 uppercase tracking-widest font-bold group-hover:text-white/70">
+                                    <span className={cn("text-[8px] uppercase tracking-widest font-bold transition-colors", 
+                                      index === 0 ? "text-wg-green/60 group-hover:text-wg-green" : 
+                                      index === 1 ? "text-wg-blue/60 group-hover:text-wg-blue" : 
+                                      "text-wg-brown/60 group-hover:text-wg-brown"
+                                    )}>
                                       {subItem.type}
                                     </span>
                                   </div>
@@ -220,7 +242,7 @@ const Header = () => {
                           </div>
                           
                           <div className="mt-2 p-2.5 border-t border-white/5 bg-black/20 rounded-b-2xl">
-                             <p className="text-[7px] text-center text-slate-600 uppercase font-bold tracking-[0.2em]">WG Intelligence Ecosystem</p>
+                             <p className="text-[7px] text-center text-slate-500 uppercase font-bold tracking-[0.2em]">Ecossistema WG Almeida</p>
                           </div>
                         </div>
                       </motion.div>

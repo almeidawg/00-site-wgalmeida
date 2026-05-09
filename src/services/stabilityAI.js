@@ -63,7 +63,7 @@ export const ROOM_TYPE_PROMPTS = {
 };
 
 /**
- * Gera prompt completo para a IA
+ * Gera prompt completo para o motor de visualizacao
  * @param {Object} options - Opções do prompt
  * @returns {string} - Prompt formatado
  */

@@ -150,7 +150,7 @@ export const SEO_CONFIG = {
   ),
   "/buildtech": page(
     "/buildtech",
-    "WG_Build.tech | Sites, sistemas e automação com IA",
+    "WG_Build.tech | Sites, sistemas e automação",
     "Conheça a WG_Build.tech para sites, sistemas, agentes, automação e vitrine funcional baseada na metodologia S T A R."
   ),
   "/easylocker": page(
@@ -205,8 +205,8 @@ export const SEO_CONFIG = {
   ),
   "/room-visualizer": page(
     "/room-visualizer",
-    "Visualizador de Ambientes com IA | WG Almeida",
-    "Visualize cenários de reforma com IA e use a leitura visual como apoio para alinhamento, proposta e próximo passo comercial."
+    "Visualizador de Ambientes | WG Almeida",
+    "Visualize cenários de reforma e use a leitura visual como apoio para alinhamento, proposta e próximo passo comercial."
   ),
 };
 

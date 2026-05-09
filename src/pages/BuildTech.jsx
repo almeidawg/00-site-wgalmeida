@@ -237,7 +237,7 @@ const BuildTech = () => {
     <>
       <SEO
         pathname="/buildtech"
-        title="WG_Build.tech | Sites, sistemas e automação com IA"
+        title="WG_Build.tech | Sites, sistemas e automação"
         description="WG_Build.tech cria sites, sistemas, agentes e automações a partir da metodologia S T A R, biblioteca WG e vitrine funcional para aprovação."
         schema={[
           SCHEMAS.knowledgeGraph,
@@ -270,7 +270,7 @@ const BuildTech = () => {
         ]}
       />
 
-      <section className="wg-page-hero wg-page-hero--store hero-under-header">
+      <section className="wg-page-hero wg-page-hero--store hero-under-header bg-wg-black">
         <motion.div
           className="absolute inset-0 z-0"
           initial={{ scale: 1.08 }}

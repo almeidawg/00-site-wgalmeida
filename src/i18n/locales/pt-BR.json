@@ -409,7 +409,8 @@
     "colors": [
       { "name": "Preto WG", "hex": "#2E2E2E", "rgb": "46, 46, 46", "meaning": "Sofisticação, contraste e presença institucional.", "usage": "Base premium, títulos e fundos de impacto." },
       { "name": "Laranja WG", "hex": "#F25C26", "rgb": "242, 92, 38", "meaning": "Energia, ação e proximidade comercial.", "usage": "Chamadas, destaques e pontos de conversão." },
-      { "name": "Verde Engenharia", "hex": "#5E9B94", "rgb": "94, 155, 148", "meaning": "Técnica, segurança e obra controlada.", "usage": "Núcleo engenharia, indicadores e validações." },
+      { "name": "Verde Arquitetura", "hex": "#5E9B94", "rgb": "94, 155, 148", "meaning": "Design, estética e experiência espacial.", "usage": "Núcleo arquitetura, projetos e briefing." },
+      { "name": "Azul Engenharia", "hex": "#2B4580", "rgb": "43, 69, 128", "meaning": "Técnica, segurança e obra controlada.", "usage": "Núcleo engenharia, indicadores e validações." },
       { "name": "Marrom Marcenaria", "hex": "#8B5E3C", "rgb": "139, 94, 60", "meaning": "Matéria, textura e acabamento sob medida.", "usage": "Núcleo marcenaria, madeira e detalhes artesanais." }
     ],
     "typography": {
@@ -426,8 +427,8 @@
       "title": "Três núcleos, uma só experiência",
       "subtitle": "A força da marca está em conectar conceito, estrutura e execução final.",
       "items": [
-        { "name": "Arquitetura", "description": "Conceito, briefing, layout, estética e experiência espacial.", "color": "#F25C26" },
-        { "name": "Engenharia", "description": "Planejamento, viabilidade, execução, controle técnico e obra.", "color": "#5E9B94" },
+        { "name": "Arquitetura", "description": "Conceito, briefing, layout, estética e experiência espacial.", "color": "#5E9B94" },
+        { "name": "Engenharia", "description": "Planejamento, viabilidade, execução, controle técnico e obra.", "color": "#2B4580" },
         { "name": "Marcenaria", "description": "Mobiliário sob medida, acabamento, fabricação e instalação.", "color": "#8B5E3C" }
       ]
     },
@@ -781,7 +782,7 @@
     "hero": {
       "kicker": "Passo a Passo",
       "title": "Vamos construir seu orçamento.",
-      "subtitle": "Responda a 4 perguntas rápidas e nossa inteligência artificial ajudará nossa equipe técnica a preparar a melhor proposta para o seu perfil."
+      "subtitle": "Responda a 4 perguntas rápidas e nossa equipe técnica usará essa leitura para preparar a melhor proposta para o seu perfil."
     },
     "benefits": {
       "visual": "Experiência visual",
@@ -988,8 +989,43 @@
       "quote": "Excelência não é promessa. É processo, método e acompanhamento."
     }
   },
-  "blogPage": {
-    "hero": {
+  "storePage": {
+    "cart": {
+      "title": "Carrinho de compras",
+      "empty": "Seu carrinho está vazio.",
+      "emptyTitle": "Carrinho vazio",
+      "emptyDescription": "Adicione um item antes de finalizar.",
+      "checkout": "Finalizar compra",
+      "total": "Total",
+      "remove": "Remover",
+      "checkoutErrorTitle": "Não foi possível iniciar o checkout",
+      "checkoutErrorDescription": "Tente novamente em alguns instantes."
+    }
+  },
+  "moodboardPage": {
+    "studio": {
+      "title": "Moodboard Studio",
+      "subtitle": "Pro Design Engine v2.0",
+      "editMode": "Modo Studio Imersivo",
+      "editingNow": "Editando agora",
+      "projectNamePlaceholder": "Nome do Projeto...",
+      "statusActive": "Ativo sincronizado",
+      "saveButton": "Salvar Dossiê",
+      "saving": "Salvando...",
+      "tabs": {
+        "styles": "Estilos",
+        "colors": "Paletas",
+        "assets": "Biblioteca"
+      },
+      "tooltips": {
+        "undo": "Desfazer",
+        "redo": "Refazer",
+        "clear": "Limpar Tudo",
+        "fullscreen": "Visualização Fullscreen"
+      }
+    }
+  },
+  "blogPage": {    "hero": {
       "featured": "Matéria em destaque",
       "cta": "Ler matéria"
     },

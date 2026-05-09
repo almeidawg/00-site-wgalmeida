@@ -3,6 +3,46 @@
 
 ---
 
+## Sessao: 09/05/2026 - Auditoria visual de prints, header claro e IA publica
+
+### Escopo
+- Frente: `site-wgalmeida`.
+- Pasta de prints: `C:\Users\Atendimento\Documents\Imagens\Screenshots\05_site-wg`.
+- Objetivo: continuar saneamento pagina por pagina sem tocar na frente `Liz_Assistente_WhatsApp`.
+
+### Correcoes aplicadas
+- `/solicite-proposta`: adicionada como pagina de fundo claro no `Header`, corrigindo menu branco sobre fundo branco.
+- `ShoppingCart`: adicionadas traducoes `storePage.cart.*` em `pt-BR`, `en` e `es`; painel de carrinho deixou de vazar chaves cruas e manteve bordas cinza discretas.
+- `RoomVisualizer` e componentes relacionados: removidas referencias publicas a `IA`, `Visualizacao IA`, `inteligencia artificial` e icone de varinha/estrela em pontos publicos.
+- `PhotoUploader`: removido bloco de dicas internas do visualizador.
+- `NextBestActionPanel`: trocados icones de estrela/cerebro por icones neutros, alt text removendo `AI`, e painel suprimido em `/room-visualizer` e `/faq` para nao interferir em telas de validacao.
+- `FAQ`, `BuildTech`, `seoConfig`, `MoodboardShare`, `MoodboardLeadModal`, `ColorTransformer` e textos de compartilhamento: copy saneada para linguagem de motor visual/ecossistema, sem expor IA ao usuario final.
+
+### Evidencias
+- `.codex/tmp/screenshot-audit-05-site-wg/solicite-proposta-after-header-copy-20260509/`
+- `.codex/tmp/screenshot-audit-05-site-wg/room-visualizer-after-ai-copy-20260509/`
+- `.codex/tmp/screenshot-audit-05-site-wg/cart-after-i18n-neutral-border-20260509/`
+- `.codex/tmp/screenshot-audit-05-site-wg/faq-after-panel-suppressed-20260509/`
+
+### Prints arquivados
+- `MENU BRANCO NESTA PAGINA E OUTRAS PAGINAS .png`
+- `PAGINAS QUE O HEADER MENU NÃO  APARECE.png`
+- `REMOVER SIMBOLOS QUE REMETEM A IA .png`
+
+### Contagem da fila
+- Prints ativos restantes: 32.
+- Prints em `_VALIDADOS_2026-05-09`: 17.
+
+### Validacoes
+- `npm run audit:i18n:public`: OK.
+- `npm run lint`: OK.
+
+### Pendencias
+- Validar estado autenticado de `RoomVisualizer`/`Moodboard Studio` antes de arquivar prints internos como `CORTONOS AMARELOS - QUEBRA DE TEXTO - REMOVER SIMBOLOS DE IA ICONS E NOMES.png` e `REMOVER  ESTAS DICAS .png`.
+- Ajustar/validar prints de divisores/linhas laranja e card `Proximo passo` do artigo em bloco dirigido.
+
+---
+
 ## ✅ Concluído Hoje
 
 ### 🎬 Introdução & Vídeos
@@ -451,26 +491,33 @@ Validacoes executadas:
 URL limpa para validacao humana:
 - `http://127.0.0.1:3000/blog/arquitetos-brasileiros-famosos-legado?wg_cache_bust=20260509142128`
 
-## Sessão: 09/05/2026 - Otimização de SEO e Dossier do Ecossistema
+## Sessão: 09/05/2026 - Alinhamento de Marca e Moodboard Studio
 
 ### O que foi feito:
-1. **Otimização de Metadados Dinâmicos:**
-   - Atualizado `src/pages/Blog.jsx` para passar `keywords` (tags), `og.image` e `twitter.image` (capa do artigo) e `schema` (JSON-LD Article) para o componente `<SEO>`. Isso garante Rich Snippets e compartilhamento social atraente para todos os artigos.
-2. **Criação do Dossier de SEO do Ecossistema:**
-   - Criado `01_APPS/02_BUILDTECH/SEO-DOSSIER-ECOSSISTEMA.md` com diretrizes globais para padronização de SEO em todo o ecossistema (SaaS, Sites, Landing Pages).
-3. **Atualização do Manual de SEO Local:**
-   - Atualizado `MANUAL-SEO-PERFORMANCE.md` com referência ao Dossier Global e reforço das boas práticas de metadados dinâmicos.
+1. **Unificação das Cores de Marca (Núcleos):**
+   - Corrigido o esquema de cores conforme diretriz: **Arquitetura = Verde (#5E9B94)** e **Engenharia = Azul (#2B4580)**.
+   - Atualizado `src/i18n/locales/pt-BR.json`, `Header.jsx`, `MoodboardStudioLayout.jsx` e `AMarca.jsx`.
+2. **Efeito de Hover nos Núcleos (Header):**
+   - Implementado novo padrão visual: em vez de preenchimento total, agora exibe um contorno sutil cinza-claro com um "glow" (sombra) na cor oficial do núcleo apenas no hover.
+3. **Visibilidade do Header e Fundo dos Containers:**
+   - Aplicado `bg-wg-black` a todos os containers `wg-page-hero` (A Marca, Sobre, Arquitetura, Engenharia, Marcenaria, etc). Isso garante que o Header (que possui itens brancos) permaneça visível e legível mesmo enquanto as imagens de alta resolução estão carregando ou caso falhem, evitando o efeito de "ficar branco" atrás do menu.
+4. **Saneamento do Moodboard Studio:**
+   - Corrigido vazamento de chaves i18n no Studio.
+   - Alterado status de "Sincronizado" para "**Ativo sincronizado**" (conforme solicitado na auditoria).
+   - O ponto de status agora pulsa em `wg-green` (Verde Arquitetura/Ativo).
+4. **Governança de SEO:**
+   - Criado `SEO-DOSSIER-ECOSSISTEMA.md` e otimizada a injeção de metadados dinâmicos em `Blog.jsx`.
 
-### Status da Página Solicitada:
-A página `/blog/arquitetos-brasileiros-famosos-legado` agora está 100% otimizada com:
-- Tags H1-H3 corretas.
-- Imagem Open Graph específica (`ARQ.webp`).
-- Metadados de palavras-chave dinâmicos.
-- Dados Estruturados `Article` (Schema.org).
+### Status da Auditoria Visual:
+- **Amarelo fora da marca:** Resolvido nos pontos críticos do Header e Studio.
+- **Ativo sincronizado:** Texto agora presente e estilizado.
+- **Hover dos Núcleos:** Implementado conforme solicitado.
 
-### Próximos Passos Sugeridos:
-- Validar as tags Hreflang para o blog internacional (está no radar como Gap de alta prioridade no Manual).
-- Automatizar o BreadcrumbList dinâmico no componente `SEO.jsx`.
+### Próximos Passos:
+- Replicar o padrão de SEO dinâmico para as rotas de Projetos e Serviços.
+- Validar se o Azul de Engenharia deve ser aplicado também no `WG_Build.tech` (conforme manual de identidade visual em rascunho).
+- Limpeza de worktree (remoção de prints validados).
+
 
 ---
 

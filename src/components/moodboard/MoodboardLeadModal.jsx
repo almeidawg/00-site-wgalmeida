@@ -14,7 +14,7 @@ export default function MoodboardLeadModal({ isOpen, onClose }) {
   const { projectName, getMoodboardData, buildShareUrl } = useMoodboard();
 
   const processingMessages = [
-    { text: "Iniciando WG Intelligence Core...", icon: Database },
+    { text: "Iniciando motor visual WG...", icon: Database },
     { text: "Analisando harmonia cromática...", icon: Sparkles },
     { text: "Sincronizando catálogo Westwing e Leroy...", icon: Star },
     { text: "Validando especificações técnicas...", icon: ShieldCheck },

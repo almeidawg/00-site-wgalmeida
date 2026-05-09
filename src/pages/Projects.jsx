@@ -161,8 +161,8 @@ const Projects = () => {
     <>
       <SEO pathname="/projetos" schema={SCHEMAS.breadcrumbProjects} />
 
-      {/* Hero Section */}
-      <section className="wg-page-hero wg-page-hero--store hero-under-header">
+      {/* Hero Refinado */}
+      <section className="wg-page-hero wg-page-hero--store hero-under-header bg-wg-black">
         <div className="absolute inset-0 z-0">
           <ResponsiveWebpImage
             className="w-full h-full object-cover"

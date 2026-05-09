@@ -780,7 +780,7 @@
     "hero": {
       "kicker": "Step by Step",
       "title": "Let's build your quote.",
-      "subtitle": "Answer 4 quick questions and our artificial intelligence will help our technical team prepare the best proposal for your profile."
+      "subtitle": "Answer 4 quick questions and our technical team will use that reading to prepare the best proposal for your profile."
     },
     "benefits": {
       "visual": "Visual experience",
@@ -985,6 +985,19 @@
       "title": "Real integration between design, construction and delivery.",
       "paragraph": "The client does not need to manage conflicts between suppliers, disciplines and technical decisions.",
       "quote": "Excellence is process, method and follow-up."
+    }
+  },
+  "storePage": {
+    "cart": {
+      "title": "Shopping cart",
+      "empty": "Your cart is empty.",
+      "emptyTitle": "Empty cart",
+      "emptyDescription": "Add an item before checking out.",
+      "checkout": "Checkout",
+      "total": "Total",
+      "remove": "Remove",
+      "checkoutErrorTitle": "Checkout could not be started",
+      "checkoutErrorDescription": "Please try again in a few moments."
     }
   },
   "blogPage": {

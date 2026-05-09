@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { X, ExternalLink, ArrowRight, MessageSquare, Sparkles, Brain } from 'lucide-react'
+import { X, ArrowRight, MessageSquare, Compass, CircleDot } from 'lucide-react'
 import { useNextBestAction } from '@/hooks/useNextBestAction'
 import { useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from '@/lib/motion-lite'
@@ -8,13 +8,13 @@ import { motion, AnimatePresence } from '@/lib/motion-lite'
 const STAGE_CONFIG = {
   exploracao: {
     label: 'Sugestão de Jornada',
-    icon: Sparkles,
+    icon: Compass,
     color: 'text-blue-400',
     bg: 'bg-blue-400/10'
   },
   decisao: {
     label: 'Apoio à Decisão',
-    icon: Brain,
+    icon: CircleDot,
     color: 'text-orange-400',
     bg: 'bg-orange-400/10'
   },
@@ -27,7 +27,7 @@ const STAGE_CONFIG = {
 }
 
 // Routes where we hide the panel
-const SUPPRESSED_PATHS = ['/solicite-proposta', '/login', '/register', '/admin', '/moodboard', '/success']
+const SUPPRESSED_PATHS = ['/solicite-proposta', '/login', '/register', '/admin', '/moodboard', '/room-visualizer', '/faq', '/success']
 
 function CTALink({ href, external, className, children }) {
   if (external) {
@@ -84,7 +84,7 @@ export default function NextBestActionPanel() {
                 <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-slate-800 to-slate-700 border border-white/10 flex items-center justify-center shadow-inner overflow-hidden">
                    <img 
                     src="/images/icone.webp" 
-                    alt="Liz AI Assistant" 
+                    alt="Assistente de jornada WG" 
                     className="w-7 h-7 object-contain opacity-80 group-hover:scale-110 transition-transform duration-500" 
                    />
                 </div>

@@ -2,7 +2,7 @@
  * REGISTRO DE ERROS E SOLUÇÕES — SITE WG ALMEIDA
  * 
  * Regra: Todo erro crítico identificado e corrigido deve ser registrado aqui
- * para evitar reincidência e alimentar a memória operacional da IA.
+ * para evitar reincidência e alimentar a memória operacional do ecossistema.
  */
 
 export const ERROR_LOG = [

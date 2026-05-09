@@ -108,7 +108,7 @@ const FAQ_CLUSTERS = [
   {
     id: 'tecnologia',
     eyebrow: 'Autoridade de processo',
-    title: 'WG Easy, acompanhamento e visualização com IA',
+    title: 'WG Easy, acompanhamento e visualização aplicada',
     intro:
       'Este bloco conecta autoridade de marca, tecnologia própria e intenção de conversão. Ele ajuda SEO ao responder perguntas com termos proprietários e jornadas que o público realmente pesquisa.',
     items: [
@@ -123,10 +123,10 @@ const FAQ_CLUSTERS = [
         ],
       },
       {
-        question: 'Como funciona a personalização de ambiente com IA e moodboard da WG Almeida?',
+        question: 'Como funciona a personalização de ambiente com moodboard da WG Almeida?',
         answer:
           'O moodboard ajuda a transformar direção estética em uma prévia compartilhável, enquanto o room visualizer aproxima cores e atmosferas de uma experiência visual mais concreta. A ferramenta é útil para briefing e alinhamento inicial, mas contratação e material executivo seguem uma etapa técnica posterior.',
-        intent: 'moodboard ia design interiores',
+        intent: 'moodboard design interiores',
         links: [
           { href: '/moodboard', label: 'Abrir moodboard' },
           { href: '/room-visualizer', label: 'Abrir visualizador de ambientes' },

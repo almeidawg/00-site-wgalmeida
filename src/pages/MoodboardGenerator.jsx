@@ -28,6 +28,9 @@ import {
 } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { getPublicPageImageSrc } from '@/data/publicPageImageCatalog'
+
+const MOODBOARD_HERO_IMAGE = getPublicPageImageSrc('moodboard', '/images/banners/PROCESSOS.webp')
 
 const STYLE_MATERIAL_PRESETS = {
   minimalismo: ['paleta-neutra', 'paineis-madeira', 'tecidos', 'revestimentos-naturais'],

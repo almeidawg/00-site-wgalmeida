@@ -28,15 +28,17 @@ import { Link } from 'react-router-dom';
 import BrandStar from '@/components/BrandStar';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/components/ui/use-toast';
+import { useTranslation } from 'react-i18next';
 
 const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, onProjectNameChange, onSave, isSaving }) => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   const tabs = [
-    { id: 'styles', label: 'Estilos', icon: LayoutGrid },
-    { id: 'colors', label: 'Paletas', icon: Palette },
-    { id: 'assets', label: 'Biblioteca', icon: Database },
+    { id: 'styles', label: t('moodboardPage.studio.tabs.styles'), icon: LayoutGrid },
+    { id: 'colors', label: t('moodboardPage.studio.tabs.colors'), icon: Palette },
+    { id: 'assets', label: t('moodboardPage.studio.tabs.assets'), icon: Database },
   ];
 
   return (
@@ -54,7 +56,7 @@ const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, 
             </div>
             <div className="flex flex-col">
               <span className="font-bold text-[10px] tracking-[0.2em] uppercase text-white">Moodboard <span className="text-wg-orange">Studio</span></span>
-              <span className="text-[8px] text-slate-500 font-bold uppercase tracking-tighter">Pro Design Engine v2.0</span>
+              <span className="text-[8px] text-slate-500 font-bold uppercase tracking-tighter">{t('moodboardPage.studio.subtitle')}</span>
             </div>
           </div>
           <button onClick={() => setSidebarOpen(false)} className="text-slate-600 hover:text-white transition-colors p-2">
@@ -110,17 +112,17 @@ const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, 
                 type="text" 
                 value={projectName}
                 onChange={(e) => onProjectNameChange(e.target.value)}
-                placeholder="Nome do Projeto..."
+                placeholder={t('moodboardPage.studio.projectNamePlaceholder')}
                 className="bg-transparent border-none text-white text-2xl font-medium outline-none font-playfair italic focus:ring-0 p-0 placeholder:text-slate-800 w-64 md:w-96"
               />
-              <span className="text-[9px] font-bold text-slate-600 uppercase tracking-[0.2em] mt-1">Editando agora &bull; Modo Studio Imersivo</span>
+              <span className="text-[9px] font-bold text-slate-600 uppercase tracking-[0.2em] mt-1">{t('moodboardPage.studio.editingNow')} &bull; {t('moodboardPage.studio.editMode')}</span>
             </div>
           </div>
 
           <div className="flex items-center gap-4">
             <div className="hidden md:flex items-center gap-2 px-4 py-2 bg-white/5 rounded-xl border border-white/5 mr-4">
-               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-               <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Sincronizado</span>
+               <span className="w-2 h-2 rounded-full bg-wg-green animate-pulse" />
+               <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">{t('moodboardPage.studio.statusActive')}</span>
             </div>
 
             <button 
@@ -129,7 +131,7 @@ const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, 
               className="flex items-center gap-3 px-8 py-4 bg-wg-orange hover:bg-wg-orange/90 text-white rounded-[24px] text-xs font-bold transition-all shadow-[0_20px_50px_rgba(242,92,38,0.2)] hover:scale-[1.02] hover:-translate-y-0.5 uppercase tracking-widest disabled:opacity-50"
             >
               {isSaving ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
-              Salvar Dossiê
+              {isSaving ? t('moodboardPage.studio.saving') : t('moodboardPage.studio.saveButton')}
             </button>
             
             <div className="h-10 w-[1px] bg-white/10 mx-2" />
@@ -154,12 +156,12 @@ const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, 
 
            {/* Toolbar Flutuante Inferior */}
            <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-2 p-2 bg-black/60 backdrop-blur-2xl rounded-3xl border border-white/10 shadow-2xl z-40">
-              <button className="p-4 hover:bg-white/10 rounded-2xl transition-colors text-slate-400 hover:text-white" title="Desfazer"><Undo size={20}/></button>
-              <button className="p-4 hover:bg-white/10 rounded-2xl transition-colors text-slate-400 hover:text-white" title="Refazer"><Redo size={20}/></button>
+              <button className="p-4 hover:bg-white/10 rounded-2xl transition-colors text-slate-400 hover:text-white" title={t('moodboardPage.studio.tooltips.undo')}><Undo size={20}/></button>
+              <button className="p-4 hover:bg-white/10 rounded-2xl transition-colors text-slate-400 hover:text-white" title={t('moodboardPage.studio.tooltips.redo')}><Redo size={20}/></button>
               <div className="w-[1px] h-8 bg-white/10 mx-2" />
-              <button className="p-4 hover:bg-white/10 rounded-2xl transition-colors text-slate-400 hover:text-white" title="Limpar Tudo"><Trash2 size={20}/></button>
+              <button className="p-4 hover:bg-white/10 rounded-2xl transition-colors text-slate-400 hover:text-white" title={t('moodboardPage.studio.tooltips.clear')}><Trash2 size={20}/></button>
               <div className="w-[1px] h-8 bg-white/10 mx-2" />
-              <button className="p-4 bg-wg-orange/10 text-wg-orange rounded-2xl border border-wg-orange/20" title="Visualização Fullscreen"><Maximize2 size={20}/></button>
+              <button className="p-4 bg-wg-orange/10 text-wg-orange rounded-2xl border border-wg-orange/20" title={t('moodboardPage.studio.tooltips.fullscreen')}><Maximize2 size={20}/></button>
            </div>
         </div>
       </main>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from '@/lib/motion-lite';
-import { Loader2, Check, Palette, Wand2, Image } from 'lucide-react';
+import { Loader2, Check, Palette, Layers3, Image } from 'lucide-react';
 
 const GENERATION_STEPS = [
   {
@@ -19,13 +19,13 @@ const GENERATION_STEPS = [
     id: 'applying_style',
     label: 'Aplicando estilo',
     description: 'Integrando referências de design selecionadas',
-    icon: Wand2,
+    icon: Layers3,
   },
   {
     id: 'rendering',
     label: 'Renderizando imagem',
     description: 'Gerando visualização fotorrealista',
-    icon: Wand2,
+    icon: Layers3,
   },
 ];
 
@@ -40,11 +40,11 @@ const GenerationProgress = ({ currentStep, progress = 0, error = null }) => {
           transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
           className="w-16 h-16 mx-auto mb-4"
         >
-          <Wand2 className="w-full h-full text-wg-orange" />
+          <Layers3 className="w-full h-full text-wg-orange" />
         </motion.div>
         <h3 className="text-xl font-light text-gray-800">Gerando sua visualização</h3>
         <p className="text-gray-500 text-sm mt-1">
-          Nossa IA está trabalhando na sua imagem
+          O motor visual está preparando sua imagem
         </p>
       </div>
 

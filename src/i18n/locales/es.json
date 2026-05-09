@@ -780,7 +780,7 @@
     "hero": {
       "kicker": "Paso a Paso",
       "title": "Vamos a construir tu presupuesto.",
-      "subtitle": "Responde a 4 preguntas rapidas y nuestra inteligencia artificial ayudara a nuestro equipo tecnico a preparar la mejor propuesta para tu perfil."
+      "subtitle": "Responde a 4 preguntas rapidas y nuestro equipo tecnico usara esa lectura para preparar la mejor propuesta para tu perfil."
     },
     "benefits": {
       "visual": "Experiencia visual",
@@ -985,6 +985,19 @@
       "title": "Integración real entre proyecto, obra y entrega.",
       "paragraph": "El cliente no necesita administrar conflictos entre proveedores, disciplinas y decisiones técnicas.",
       "quote": "La excelencia es proceso, método y seguimiento."
+    }
+  },
+  "storePage": {
+    "cart": {
+      "title": "Carrito de compras",
+      "empty": "Tu carrito está vacío.",
+      "emptyTitle": "Carrito vacío",
+      "emptyDescription": "Agrega un artículo antes de finalizar.",
+      "checkout": "Finalizar compra",
+      "total": "Total",
+      "remove": "Eliminar",
+      "checkoutErrorTitle": "No fue posible iniciar el checkout",
+      "checkoutErrorDescription": "Inténtalo nuevamente en unos instantes."
     }
   },
   "blogPage": {

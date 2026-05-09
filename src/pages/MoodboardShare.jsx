@@ -228,7 +228,7 @@ const MoodboardShare = () => {
                    <span className="text-[10px] font-bold uppercase tracking-widest text-white">OBRA EASY PIPELINE</span>
                    <span className="text-[10px] font-bold uppercase tracking-widest text-white">WESTWING CONNECT</span>
                 </div>
-                <p className="text-[9px] font-mono text-slate-500">WG ALMEIDA INTELLIGENCE CORE v2.0 - SECURE DOCUMENT</p>
+                <p className="text-[9px] font-mono text-slate-500">WG ALMEIDA DOSSIER VISUAL - DOCUMENTO SEGURO</p>
              </div>
           </footer>
         </main>

@@ -160,7 +160,7 @@ const Admin = () => {
               </h4>
               <div className="space-y-4">
                 {[
-                  { user: 'Liz (IA)', action: 'Post indexado no Google', time: 'Há 12 min', type: 'seo' },
+                  { user: 'Liz', action: 'Post indexado no Google', time: 'Há 12 min', type: 'seo' },
                   { user: 'Você', action: 'Atualizou Taxonomia V45', time: 'Há 1 hora', type: 'system' },
                   { user: 'Sistema', action: 'Lead gerado: Projeto Brooklin', time: 'Há 3 horas', type: 'lead' },
                 ].map((act, i) => (

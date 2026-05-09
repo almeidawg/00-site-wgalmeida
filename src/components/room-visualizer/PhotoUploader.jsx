@@ -135,16 +135,6 @@ const PhotoUploader = ({ photo, onPhotoChange, isProcessing = false }) => {
             Tirar foto com a câmera
           </button>
 
-          {/* Tips */}
-          <div className="bg-blue-50 rounded-xl p-4">
-            <p className="text-sm font-medium text-blue-800 mb-2">Dicas para melhores resultados:</p>
-            <ul className="text-xs text-blue-700 space-y-1">
-              <li>• Fotografe o ambiente com boa iluminação</li>
-              <li>• Enquadre todo o espaço na foto</li>
-              <li>• Evite fotos muito escuras ou com flash forte</li>
-              <li>• Prefira ângulos frontais do ambiente</li>
-            </ul>
-          </div>
         </>
       ) : (
         /* Preview */
