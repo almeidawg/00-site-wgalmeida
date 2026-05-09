@@ -629,3 +629,20 @@ A página `/blog/arquitetos-brasileiros-famosos-legado` agora está 100% otimiza
   - `/projetos`
   - `/contato`
   - `/`
+
+### Auditoria visual do blog - listagem
+- Rota auditada: `/blog`.
+- Correcoes aplicadas em `src/pages/Blog.jsx`:
+  - filtro ativo `Todos` deixou de usar texto branco sobre fundo cinza claro;
+  - tags dos dois cards pequenos da primeira linha voltaram para o topo da imagem, alinhadas ao padrao aprovado dos demais cards;
+  - card destaque espelhado revalidado sem area branca indevida sob a imagem.
+- Evidencias de navegador geradas em:
+  - `.codex/tmp/screenshot-audit-05-site-wg/blog-list-after-card-tags/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/blog-list-after-card-tags-mobile/`
+- Prints arquivados em `_VALIDADOS_2026-05-09`:
+  - `aplicar em local corretoas tags destes dois cards.png`
+  - `corrigir cor de cta .png`
+  - `ajsutar container para aprecer a iamgem e não cortar.png`
+  - `ajsutar container para aprecer a iamgem e não cortar 2.png`
+- Validacao tecnica parcial deste bloco:
+  - `npm run audit:i18n:public`: OK.
