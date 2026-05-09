@@ -256,12 +256,15 @@ export const schemas = {
     }
   }),
 
-  localBusiness: (neighborhood) => ({
+  localBusiness: (neighborhood = 'São Paulo') => {
+    const safeNeighborhood = String(neighborhood || 'São Paulo');
+
+    return ({
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
-    name: `Arquitetura Alto Padrão ${neighborhood} - Grupo WG Almeida`,
-    description: `Serviços de arquitetura, engenharia e marcenaria de alto padrão em ${neighborhood}, São Paulo.`,
-    url: `https://wgalmeida.com.br/${neighborhood
+    name: `Arquitetura Alto Padrão ${safeNeighborhood} - Grupo WG Almeida`,
+    description: `Serviços de arquitetura, engenharia e marcenaria de alto padrão em ${safeNeighborhood}, São Paulo.`,
+    url: `https://wgalmeida.com.br/${safeNeighborhood
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
       .toLowerCase()
@@ -276,7 +279,7 @@ export const schemas = {
     },
     areaServed: {
       '@type': 'Neighborhood',
-      name: neighborhood,
+      name: safeNeighborhood,
       containedInPlace: {
         '@type': 'City',
         name: 'São Paulo'
@@ -287,7 +290,8 @@ export const schemas = {
       ratingValue: '5.0',
       reviewCount: '50'
     }
-  }),
+  });
+  },
 
   article: (title, description, url, datePublished, image) => ({
     '@context': 'https://schema.org',

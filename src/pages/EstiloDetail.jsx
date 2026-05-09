@@ -108,7 +108,7 @@ const ShareButtons = ({ title, url }) => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         onClick={shareOnWhatsApp}
-        className="inline-flex items-center gap-2 rounded-full border border-wg-black/8 bg-white px-4 py-2 text-sm text-wg-black transition-colors hover:border-black/14 hover:text-wg-black"
+        className="inline-flex items-center gap-2 rounded-full border border-[#E2E2DE] bg-white px-4 py-2 text-sm text-wg-black transition-colors hover:border-[#C9C9C2] hover:text-wg-black"
         title="Compartilhar no WhatsApp"
       >
         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -121,7 +121,7 @@ const ShareButtons = ({ title, url }) => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         onClick={shareOnFacebook}
-        className="rounded-full border border-wg-black/8 bg-white p-2 text-wg-black transition-colors hover:border-black/14 hover:text-wg-black"
+        className="rounded-full border border-[#E2E2DE] bg-white p-2 text-wg-black transition-colors hover:border-[#C9C9C2] hover:text-wg-black"
         title="Compartilhar no Facebook"
       >
         <Facebook className="w-5 h-5" />
@@ -131,7 +131,7 @@ const ShareButtons = ({ title, url }) => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         onClick={shareOnTwitter}
-        className="rounded-full border border-wg-black/8 bg-white p-2 text-wg-black transition-colors hover:border-black/14 hover:text-wg-black"
+        className="rounded-full border border-[#E2E2DE] bg-white p-2 text-wg-black transition-colors hover:border-[#C9C9C2] hover:text-wg-black"
         title="Compartilhar no Twitter"
       >
         <Twitter className="w-5 h-5" />
@@ -141,7 +141,7 @@ const ShareButtons = ({ title, url }) => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         onClick={shareOnLinkedin}
-        className="rounded-full border border-wg-black/8 bg-white p-2 text-wg-black transition-colors hover:border-black/14 hover:text-wg-black"
+        className="rounded-full border border-[#E2E2DE] bg-white p-2 text-wg-black transition-colors hover:border-[#C9C9C2] hover:text-wg-black"
         title="Compartilhar no LinkedIn"
       >
         <Linkedin className="w-5 h-5" />
@@ -151,7 +151,7 @@ const ShareButtons = ({ title, url }) => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         onClick={copyLink}
-        className="rounded-full border border-wg-black/8 bg-white p-2 text-wg-gray transition-colors hover:border-black/14 hover:text-wg-black"
+        className="rounded-full border border-[#E2E2DE] bg-white p-2 text-wg-gray transition-colors hover:border-[#C9C9C2] hover:text-wg-black"
         title="Copiar link"
       >
         {copied ? <Check className="w-5 h-5 text-green-600" /> : <Copy className="w-5 h-5" />}

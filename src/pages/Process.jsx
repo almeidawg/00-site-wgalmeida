@@ -95,6 +95,45 @@ const TIMELINE_CONTENT = {
   }
 };
 
+const PROCESS_STEP_FALLBACKS = {
+  'processPage.steps.0': {
+    title: 'Briefing e necessidades',
+    description: 'Levantamento do contexto, rotina, metragem e intenção do projeto.',
+  },
+  'processPage.steps.1': {
+    title: 'Conceito e estudo preliminar',
+    description: 'Direção visual, soluções iniciais e leitura técnica para orientar as decisões.',
+  },
+  'processPage.steps.2': {
+    title: 'Aprovação e compatibilização',
+    description: 'Validação de escopo, materiais, prioridades e pontos críticos antes da execução.',
+  },
+  'processPage.steps.3': {
+    title: 'Planejamento executivo',
+    description: 'Sequência de obra, compras, fornecedores e marcos de acompanhamento organizados.',
+  },
+  'processPage.steps.4': {
+    title: 'Execução e acompanhamento',
+    description: 'Obra conduzida com coordenação técnica, controle de qualidade e comunicação clara.',
+  },
+  'processPage.steps.5': {
+    title: 'Entrega assistida',
+    description: 'Revisão final, ajustes, documentação e transição para uso do ambiente.',
+  },
+  'processPage.onboarding': {
+    title: 'Projeto e viabilidade',
+    subtitle: 'Estudo técnico, estimativa de escopo e organização inicial para avançar com segurança.',
+  },
+  'home.methodology.steps.4': {
+    title: 'Marcenaria premium',
+    desc: 'Acabamentos e mobiliário sob medida integrados ao projeto.',
+  },
+};
+
+const stageText = (t, key, field) => t(`${key}.${field}`, {
+  defaultValue: PROCESS_STEP_FALLBACKS[key]?.[field] || '',
+});
+
 // Reutilizamos a lógica de estágios, mas com chaves de tradução dinâmicas
 const getStages = (type, t) => {
   const isReform = type === 'reform';
@@ -103,9 +142,9 @@ const getStages = (type, t) => {
     return [
       {
         icon: Lightbulb,
-        title: t('processPage.steps.0.title'),
-        summary: t('processPage.steps.0.description'),
-        detail: t('processPage.steps.0.description'),
+        title: stageText(t, 'processPage.steps.0', 'title'),
+        summary: stageText(t, 'processPage.steps.0', 'description'),
+        detail: stageText(t, 'processPage.steps.0', 'description'),
         baseWeeks: 1.2,
         accent: {
           card: 'bg-[#f3f8f7] shadow-[inset_0_0_0_1px_rgba(94,155,148,0.14)]',
@@ -115,9 +154,9 @@ const getStages = (type, t) => {
       },
       {
         icon: PenTool,
-        title: t('processPage.steps.1.title'),
-        summary: t('processPage.steps.1.description'),
-        detail: t('processPage.steps.1.description'),
+        title: stageText(t, 'processPage.steps.1', 'title'),
+        summary: stageText(t, 'processPage.steps.1', 'description'),
+        detail: stageText(t, 'processPage.steps.1', 'description'),
         baseWeeks: 3.1,
         accent: {
           card: 'bg-[#f3f8f7] shadow-[inset_0_0_0_1px_rgba(94,155,148,0.14)]',
@@ -127,9 +166,9 @@ const getStages = (type, t) => {
       },
       {
         icon: FileText,
-        title: t('processPage.steps.3.title'), // Planejamento
-        summary: t('processPage.steps.3.description'),
-        detail: t('processPage.steps.3.description'),
+        title: stageText(t, 'processPage.steps.3', 'title'),
+        summary: stageText(t, 'processPage.steps.3', 'description'),
+        detail: stageText(t, 'processPage.steps.3', 'description'),
         baseWeeks: 7.4,
         accent: {
           card: 'bg-[#f4f7fb] shadow-[inset_0_0_0_1px_rgba(123,151,187,0.16)]',
@@ -139,9 +178,9 @@ const getStages = (type, t) => {
       },
       {
         icon: Hammer,
-        title: t('processPage.steps.4.title'), // Execução
-        summary: t('processPage.steps.4.description'),
-        detail: t('processPage.steps.4.description'),
+        title: stageText(t, 'processPage.steps.4', 'title'),
+        summary: stageText(t, 'processPage.steps.4', 'description'),
+        detail: stageText(t, 'processPage.steps.4', 'description'),
         baseWeeks: 9.6,
         accent: {
           card: 'bg-[#f3f6fb] shadow-[inset_0_0_0_1px_rgba(123,151,187,0.16)]',
@@ -151,9 +190,9 @@ const getStages = (type, t) => {
       },
       {
         icon: DoorOpen,
-        title: t('home.methodology.steps.4.title'), // Marcenaria
-        summary: t('home.methodology.steps.4.desc'),
-        detail: t('home.methodology.steps.4.desc'),
+        title: stageText(t, 'home.methodology.steps.4', 'title'),
+        summary: stageText(t, 'home.methodology.steps.4', 'desc'),
+        detail: stageText(t, 'home.methodology.steps.4', 'desc'),
         baseWeeks: 4.2,
         accent: {
           card: 'bg-[#fbf6f2] shadow-[inset_0_0_0_1px_rgba(208,171,142,0.16)]',
@@ -163,9 +202,9 @@ const getStages = (type, t) => {
       },
       {
         icon: CheckCircle,
-        title: t('processPage.steps.5.title'), // Entrega
-        summary: t('processPage.steps.5.description'),
-        detail: t('processPage.steps.5.description'),
+        title: stageText(t, 'processPage.steps.5', 'title'),
+        summary: stageText(t, 'processPage.steps.5', 'description'),
+        detail: stageText(t, 'processPage.steps.5', 'description'),
         baseWeeks: 1.4,
         accent: {
           card: 'bg-[#f8f7f5] shadow-[inset_0_0_0_1px_rgba(46,46,46,0.08)]',
@@ -180,9 +219,9 @@ const getStages = (type, t) => {
   return [
     {
       icon: Lightbulb,
-      title: t('processPage.steps.0.title'),
-      summary: t('processPage.steps.0.description'),
-      detail: t('processPage.steps.0.description'),
+      title: stageText(t, 'processPage.steps.0', 'title'),
+      summary: stageText(t, 'processPage.steps.0', 'description'),
+      detail: stageText(t, 'processPage.steps.0', 'description'),
       baseWeeks: 2.1,
       accent: {
         card: 'bg-[#f3f8f7] shadow-[inset_0_0_0_1px_rgba(94,155,148,0.14)]',
@@ -192,9 +231,9 @@ const getStages = (type, t) => {
     },
     {
       icon: PenTool,
-      title: t('processPage.onboarding.title'),
-      summary: t('processPage.onboarding.subtitle'),
-      detail: t('processPage.onboarding.subtitle'),
+      title: stageText(t, 'processPage.onboarding', 'title'),
+      summary: stageText(t, 'processPage.onboarding', 'subtitle'),
+      detail: stageText(t, 'processPage.onboarding', 'subtitle'),
       baseWeeks: 5.8,
       accent: {
         card: 'bg-[#f3f8f7] shadow-[inset_0_0_0_1px_rgba(94,155,148,0.14)]',
@@ -204,9 +243,9 @@ const getStages = (type, t) => {
     },
     {
       icon: FileText,
-      title: t('processPage.steps.2.title'), // Aprovação
-      summary: t('processPage.steps.2.description'),
-      detail: t('processPage.steps.2.description'),
+      title: stageText(t, 'processPage.steps.2', 'title'),
+      summary: stageText(t, 'processPage.steps.2', 'description'),
+      detail: stageText(t, 'processPage.steps.2', 'description'),
       baseWeeks: 7.8,
       accent: {
         card: 'bg-[#f4f7fb] shadow-[inset_0_0_0_1px_rgba(123,151,187,0.16)]',
@@ -216,9 +255,9 @@ const getStages = (type, t) => {
     },
     {
       icon: Hammer,
-      title: t('processPage.steps.4.title'), // Execução
-      summary: t('processPage.steps.4.description'),
-      detail: t('processPage.steps.4.description'),
+      title: stageText(t, 'processPage.steps.4', 'title'),
+      summary: stageText(t, 'processPage.steps.4', 'description'),
+      detail: stageText(t, 'processPage.steps.4', 'description'),
       baseWeeks: 15.8,
       accent: {
         card: 'bg-[#f3f6fb] shadow-[inset_0_0_0_1px_rgba(123,151,187,0.16)]',
@@ -228,9 +267,9 @@ const getStages = (type, t) => {
     },
     {
       icon: Users,
-      title: t('home.methodology.steps.4.title'), // Marcenaria
-      summary: t('home.methodology.steps.4.desc'),
-      detail: t('home.methodology.steps.4.desc'),
+      title: stageText(t, 'home.methodology.steps.4', 'title'),
+      summary: stageText(t, 'home.methodology.steps.4', 'desc'),
+      detail: stageText(t, 'home.methodology.steps.4', 'desc'),
       baseWeeks: 4.2,
       accent: {
         card: 'bg-[#fbf6f2] shadow-[inset_0_0_0_1px_rgba(208,171,142,0.16)]',
@@ -240,9 +279,9 @@ const getStages = (type, t) => {
     },
     {
       icon: CheckCircle,
-      title: t('processPage.steps.5.title'), // Entrega
-      summary: t('processPage.steps.5.description'),
-      detail: t('processPage.steps.5.description'),
+      title: stageText(t, 'processPage.steps.5', 'title'),
+      summary: stageText(t, 'processPage.steps.5', 'description'),
+      detail: stageText(t, 'processPage.steps.5', 'description'),
       baseWeeks: 2.3,
       accent: {
         card: 'bg-[#f9f8f6] shadow-[inset_0_0_0_1px_rgba(46,46,46,0.08)]',

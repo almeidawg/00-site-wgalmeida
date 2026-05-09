@@ -680,3 +680,39 @@ A página `/blog/arquitetos-brasileiros-famosos-legado` agora está 100% otimiza
   - dirty reportado: `7`;
   - repo alvo `site-wgalmeida` segue isolado e GREEN;
   - este bloco nao tocou Liz, `C:/AI`, runtime compartilhado, credenciais, banco ou automacoes produtivas externas.
+
+### Auditoria visual - bloco cores, regioes e Timeline
+- Estado de governanca no inicio:
+  - `PORTFOLIO-HEALTH.md`: GREEN, health score `100`, repos criticos `0`.
+  - Sync Gate `start`: PASS em `feature/buildtech-vitrine-star-20260502`.
+  - Repo alvo iniciou limpo e alinhado com `origin/feature/buildtech-vitrine-star-20260502`.
+- Pasta auditada: `C:\Users\Atendimento\Documents\Imagens\Screenshots\05_site-wg`.
+- Prints ativos apos limpeza manual do usuario: `36`.
+- Prints arquivados em `_VALIDADOS_2026-05-09` neste bloco:
+  - `apareceu amarelo de novo .png`
+  - `AMARELO APARECE AQUI DE NOVO .png`
+  - `COR  FORA DO PADRÃO DA MARCA .png`
+  - `AS REGRAS DE ERXSONALZIAÇÃO DE CORES PARA OS NUCLEOS DEVE SER REGRA PARA TODO O SITE .png`
+  - `AMARELO DE NOVO.png`
+  - `borda amarela e cor do texto fora do padrão da marca .png`
+- Correcoes aplicadas:
+  - `src/pages/Process.jsx`: adicionados fallbacks editoriais para as etapas da Timeline; removidos vazamentos `processPage.steps.*` na renderizacao local.
+  - `src/pages/regions/RegionTemplate.jsx`: adicionados fallbacks canonicos para paginas regionais sem bloco i18n completo; corrigidas chaves cruas `regions.defaults.*`; servicos regionais passaram a usar cores por nucleo em vez de tudo laranja.
+  - `src/components/SEO.jsx`: `schemas.localBusiness` ficou resiliente quando o bairro estiver ausente.
+  - `src/pages/EstiloDetail.jsx`: botoes de compartilhamento trocaram contorno amarelo por cinza discreto.
+- Evidencias de navegador:
+  - `.codex/tmp/screenshot-audit-05-site-wg/style-coastal-current/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/style-coastal-after-share-border/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/process-current/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/process-after-i18n/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/alto-de-pinheiros-current/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/alto-de-pinheiros-after-i18n-fallback/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/blog-architects-cta-current/`
+- Validacoes:
+  - `npm run audit:i18n:public`: OK.
+  - `npm run lint -- --max-warnings=0`: OK; apenas aviso do npm sobre parametro futuro.
+  - `npm run verify:fast`: OK, 12 arquivos de teste e 64 testes aprovados.
+- Pendencias:
+  - `aviso amarelo .png`: texto `Ativo sincronizado` nao localizado no codigo-fonte; manter na fila ate validacao dirigida do Moodboard Studio.
+  - Prints de simbolos/termos de IA em estado autenticado continuam pendentes.
+  - Header/menu e diagramações restantes seguem para o proximo bloco.
