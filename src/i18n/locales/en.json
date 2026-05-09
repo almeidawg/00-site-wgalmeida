@@ -459,6 +459,7 @@
     },
     "info": {
       "title": "Direct channels",
+      "subtitle": "Choose the best channel to start your request. Our team organizes the first project reading and guides the next step with clarity.",
       "phoneLabel": "Phone",
       "phoneSupport": "WhatsApp and calls",
       "emailLabel": "Email",
@@ -496,6 +497,163 @@
       "errorTitle": "Error Sending",
       "errorDescription": "Could not send your message now."
     }
+  },
+  "projectsPage": {
+    "hero": {
+      "kicker": "WG Almeida Portfolio",
+      "title": "Projects that connect concept, execution and delivery.",
+      "subtitle": "A curated selection of works and interiors showing architecture, engineering and woodworking under the same quality standard.",
+      "imageAlt": "Architecture, engineering and woodworking projects by Grupo WG Almeida"
+    },
+    "filters": [
+      { "id": "all", "label": "All" },
+      { "id": "residential", "label": "Residential" },
+      { "id": "corporate", "label": "Corporate" }
+    ],
+    "meta": {
+      "area": "Area",
+      "duration": "Timeline"
+    },
+    "cta": {
+      "title": "Shall we turn your next idea into a real project?",
+      "subtitle": "Tell us what you need and our team will guide the best path across architecture, engineering, woodworking and turn key work.",
+      "button": "Start project"
+    },
+    "projects": [
+      {
+        "id": 1,
+        "title": "Acapulco Home Resort House",
+        "category": "residential",
+        "tags": ["Architecture", "Engineering", "Woodworking"],
+        "area": "650m²",
+        "duration": "24 months",
+        "location": "Acapulco, Guarujá - SP",
+        "description": "Complete high-end residential project integrating architectural concept, technical execution and custom woodworking.",
+        "images": [
+          { "label": "Main facade" },
+          { "label": "Integrated living" },
+          { "label": "Gourmet area" },
+          { "label": "Pool deck" },
+          { "label": "Master suite" },
+          { "label": "Woodworking details" }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Alphaville Corporate",
+        "category": "corporate",
+        "tags": ["Architecture", "Engineering", "Woodworking"],
+        "area": "1,200m²",
+        "duration": "18 months",
+        "location": "Alphaville, Barueri - SP",
+        "description": "Integrated corporate project for workspaces with technical reading, contemporary language and premium finishes.",
+        "images": [
+          { "label": "Corporate facade" },
+          { "label": "Executive reception" },
+          { "label": "Open space" },
+          { "label": "Meeting room" },
+          { "label": "Executive office" },
+          { "label": "Gourmet pantry" }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Porta do Sol Residence",
+        "category": "residential",
+        "tags": ["Architecture", "Engineering"],
+        "area": "420m²",
+        "duration": "16 months",
+        "location": "Mairinque - SP",
+        "description": "Gated-community residence with contemporary architecture, structural engineering and integration with the local landscape.",
+        "images": [
+          { "label": "Front view" },
+          { "label": "Social area" },
+          { "label": "Garden" },
+          { "label": "Pool" },
+          { "label": "Structure" },
+          { "label": "Finish" }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Residential Transformation",
+        "category": "residential",
+        "tags": ["Renovation", "Before and after", "Turn Key"],
+        "area": "280m²",
+        "duration": "12 months",
+        "location": "São Paulo - SP",
+        "description": "Full renovation delivered through a turn key model, connecting planning, execution and final handover.",
+        "images": [
+          { "label": "Final result 1" },
+          { "label": "Final result 2" },
+          { "label": "Final result 3" },
+          { "label": "Final result 4" }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Perdizes Renovation in Progress",
+        "category": "residential",
+        "tags": ["Engineering", "Residential renovation"],
+        "area": "127m²",
+        "duration": "In progress",
+        "location": "Perdizes, São Paulo - SP",
+        "description": "Residential work in progress with engineering management, technical monitoring and execution control.",
+        "images": [
+          { "label": "Perdizes · Record 01" },
+          { "label": "Perdizes · Record 02" },
+          { "label": "Perdizes · Record 03" },
+          { "label": "Perdizes · Record 04" }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "Morumbi Residence",
+        "category": "residential",
+        "tags": ["Engineering", "High-end residential"],
+        "area": "160m²",
+        "duration": "Under management",
+        "location": "Morumbi, São Paulo - SP",
+        "description": "Residential project with engineering-led execution, stage coordination and organized site management.",
+        "images": [
+          { "label": "Morumbi · Record 01" },
+          { "label": "Morumbi · Record 02" },
+          { "label": "Morumbi · Record 03" }
+        ]
+      }
+    ]
+  },
+  "googleReviews": {
+    "description": "High-end architecture, engineering and woodworking in São Paulo",
+    "count": "• 50+ reviews",
+    "countWithValue": "• {{count}} reviews",
+    "viewAll": "See all reviews on Google",
+    "reviews": [
+      {
+        "id": 1,
+        "name": "Mariana S.",
+        "rating": 5,
+        "date": "2 weeks ago",
+        "text": "Complete renovation with great care and attention to detail. The result exceeded expectations.",
+        "avatar": "M"
+      },
+      {
+        "id": 2,
+        "name": "Carlos Eduardo R.",
+        "rating": 5,
+        "date": "1 month ago",
+        "text": "Impeccable architecture and woodworking project. Deadline met and a very professional team.",
+        "avatar": "C"
+      },
+      {
+        "id": 3,
+        "name": "Ana Paula M.",
+        "rating": 5,
+        "date": "1 month ago",
+        "text": "Commercial space transformed with very well coordinated engineering and woodworking.",
+        "avatar": "A"
+      }
+    ]
   },
   "architecturePage": {
     "hero": {

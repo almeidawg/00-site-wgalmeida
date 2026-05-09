@@ -608,3 +608,24 @@ A página `/blog/arquitetos-brasileiros-famosos-legado` agora está 100% otimiza
   - `npm run build`: OK.
   - `npm run seo:validate:dist`: OK.
   - `npm run smoke:console`: OK, sem ocorrencias relevantes.
+
+### Auditoria visual da pasta 05_site-wg
+- Pasta auditada: `C:\Users\Atendimento\Documents\Imagens\Screenshots\05_site-wg`.
+- Relatorio criado: `C:\Users\Atendimento\Documents\Imagens\Screenshots\05_site-wg\AUDITORIA-05-SITE-WG-2026-05-09.md`.
+- Prints arquivados como validados em `_VALIDADOS_2026-05-09`:
+  - `ctas.png`
+  - `padronizar altura tamamnhh e formato dos ctas.png`
+  - `estes ctas tb .png`
+- Correcoes aplicadas por vazamento de chave crua:
+  - `googleReviews.countWithValue` e familia `googleReviews.*`.
+  - `contactPage.info.subtitle`.
+  - `projectsPage.hero.title`, `projectsPage.hero.kicker`, `projectsPage.hero.subtitle` e estrutura de `projectsPage`.
+- Idiomas atualizados com cobertura equivalente em `pt-BR`, `en` e `es`.
+- Evidencias de navegador geradas em:
+  - `.codex/tmp/screenshot-audit-05-site-wg/projetos-after-i18n/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/contato-after-i18n/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/home-after-google-reviews/`
+- Rotas validadas sem chaves cruas no DOM auditado:
+  - `/projetos`
+  - `/contato`
+  - `/`

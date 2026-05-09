@@ -460,6 +460,7 @@
     },
     "info": {
       "title": "Canais diretos",
+      "subtitle": "Escolha o melhor canal para iniciar seu atendimento. Nossa equipe organiza a primeira leitura do projeto e direciona o próximo passo com clareza.",
       "phoneLabel": "Telefone",
       "phoneSupport": "WhatsApp e ligação",
       "emailLabel": "E-mail",
@@ -497,6 +498,163 @@
       "errorTitle": "Erro no Envio",
       "errorDescription": "Não foi possível enviar sua mensagem agora."
     }
+  },
+  "projectsPage": {
+    "hero": {
+      "kicker": "Portfólio WG Almeida",
+      "title": "Projetos que conectam conceito, execução e entrega.",
+      "subtitle": "Uma curadoria de obras e ambientes que mostram arquitetura, engenharia e marcenaria trabalhando sob o mesmo padrão de qualidade.",
+      "imageAlt": "Projetos de arquitetura, engenharia e marcenaria do Grupo WG Almeida"
+    },
+    "filters": [
+      { "id": "all", "label": "Todos" },
+      { "id": "residential", "label": "Residencial" },
+      { "id": "corporate", "label": "Corporativo" }
+    ],
+    "meta": {
+      "area": "Área",
+      "duration": "Prazo"
+    },
+    "cta": {
+      "title": "Vamos transformar sua próxima ideia em projeto real?",
+      "subtitle": "Conte sua necessidade e nossa equipe direciona a melhor leitura entre arquitetura, engenharia, marcenaria e obra turn key.",
+      "button": "Iniciar projeto"
+    },
+    "projects": [
+      {
+        "id": 1,
+        "title": "Casa Home Resort Acapulco",
+        "category": "residential",
+        "tags": ["Arquitetura", "Engenharia", "Marcenaria"],
+        "area": "650m²",
+        "duration": "24 meses",
+        "location": "Acapulco, Guarujá - SP",
+        "description": "Projeto residencial completo em condomínio de alto padrão, com integração entre conceito arquitetônico, execução técnica e marcenaria sob medida.",
+        "images": [
+          { "label": "Fachada principal" },
+          { "label": "Living integrado" },
+          { "label": "Área gourmet" },
+          { "label": "Piscina com deck" },
+          { "label": "Suíte master" },
+          { "label": "Detalhes de marcenaria" }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Corporativo Alphaville",
+        "category": "corporate",
+        "tags": ["Arquitetura", "Engenharia", "Marcenaria"],
+        "area": "1.200m²",
+        "duration": "18 meses",
+        "location": "Alphaville, Barueri - SP",
+        "description": "Projeto corporativo integrado para ambientes de trabalho com leitura técnica, linguagem contemporânea e acabamento premium.",
+        "images": [
+          { "label": "Fachada corporativa" },
+          { "label": "Recepção executiva" },
+          { "label": "Open space" },
+          { "label": "Sala de reuniões" },
+          { "label": "Diretoria" },
+          { "label": "Copa gourmet" }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Condomínio Porta do Sol",
+        "category": "residential",
+        "tags": ["Arquitetura", "Engenharia"],
+        "area": "420m²",
+        "duration": "16 meses",
+        "location": "Mairinque - SP",
+        "description": "Residência em condomínio fechado com arquitetura contemporânea, engenharia estrutural e integração com a natureza local.",
+        "images": [
+          { "label": "Vista frontal" },
+          { "label": "Área social" },
+          { "label": "Jardim" },
+          { "label": "Piscina" },
+          { "label": "Estrutura" },
+          { "label": "Acabamento" }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Transformação Residencial",
+        "category": "residential",
+        "tags": ["Reforma", "Antes e depois", "Turn Key"],
+        "area": "280m²",
+        "duration": "12 meses",
+        "location": "São Paulo - SP",
+        "description": "Reforma integral conduzida em modelo turn key, conectando planejamento, execução e entrega final com uma nova leitura de uso.",
+        "images": [
+          { "label": "Resultado final 1" },
+          { "label": "Resultado final 2" },
+          { "label": "Resultado final 3" },
+          { "label": "Resultado final 4" }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Reforma em Andamento Perdizes",
+        "category": "residential",
+        "tags": ["Engenharia", "Reforma residencial"],
+        "area": "127m²",
+        "duration": "Em andamento",
+        "location": "Perdizes, São Paulo - SP",
+        "description": "Obra residencial em andamento com gestão de engenharia, acompanhamento técnico e controle de execução.",
+        "images": [
+          { "label": "Perdizes · Registro 01" },
+          { "label": "Perdizes · Registro 02" },
+          { "label": "Perdizes · Registro 03" },
+          { "label": "Perdizes · Registro 04" }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "Residência Morumbi",
+        "category": "residential",
+        "tags": ["Engenharia", "Residencial alto padrão"],
+        "area": "160m²",
+        "duration": "Sob gestão",
+        "location": "Morumbi, São Paulo - SP",
+        "description": "Projeto residencial com execução técnica orientada por engenharia, compatibilização de etapas e condução organizada da obra.",
+        "images": [
+          { "label": "Morumbi · Registro 01" },
+          { "label": "Morumbi · Registro 02" },
+          { "label": "Morumbi · Registro 03" }
+        ]
+      }
+    ]
+  },
+  "googleReviews": {
+    "description": "Arquitetura, engenharia e marcenaria de alto padrão em São Paulo",
+    "count": "• 50+ avaliações",
+    "countWithValue": "• {{count}} avaliações",
+    "viewAll": "Ver todas as avaliações no Google",
+    "reviews": [
+      {
+        "id": 1,
+        "name": "Mariana S.",
+        "rating": 5,
+        "date": "há 2 semanas",
+        "text": "Reforma completa com muito cuidado e atenção aos detalhes. O resultado superou as expectativas.",
+        "avatar": "M"
+      },
+      {
+        "id": 2,
+        "name": "Carlos Eduardo R.",
+        "rating": 5,
+        "date": "há 1 mês",
+        "text": "Projeto de arquitetura e marcenaria impecável. Prazo cumprido e equipe muito profissional.",
+        "avatar": "C"
+      },
+      {
+        "id": 3,
+        "name": "Ana Paula M.",
+        "rating": 5,
+        "date": "há 1 mês",
+        "text": "Espaço comercial transformado com engenharia e marcenaria muito bem coordenadas.",
+        "avatar": "A"
+      }
+    ]
   },
   "architecturePage": {
     "hero": {

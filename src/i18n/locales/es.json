@@ -459,6 +459,7 @@
     },
     "info": {
       "title": "Canales directos",
+      "subtitle": "Elija el mejor canal para iniciar su atención. Nuestro equipo organiza la primera lectura del proyecto y orienta el próximo paso con claridad.",
       "phoneLabel": "Telefono",
       "phoneSupport": "WhatsApp y llamadas",
       "emailLabel": "Correo electronico",
@@ -496,6 +497,163 @@
       "errorTitle": "Error en el Envio",
       "errorDescription": "No se pudo enviar su mensaje ahora."
     }
+  },
+  "projectsPage": {
+    "hero": {
+      "kicker": "Portafolio WG Almeida",
+      "title": "Proyectos que conectan concepto, ejecución y entrega.",
+      "subtitle": "Una curaduría de obras y ambientes que muestran arquitectura, ingeniería y carpintería bajo el mismo estándar de calidad.",
+      "imageAlt": "Proyectos de arquitectura, ingeniería y carpintería del Grupo WG Almeida"
+    },
+    "filters": [
+      { "id": "all", "label": "Todos" },
+      { "id": "residential", "label": "Residencial" },
+      { "id": "corporate", "label": "Corporativo" }
+    ],
+    "meta": {
+      "area": "Área",
+      "duration": "Plazo"
+    },
+    "cta": {
+      "title": "¿Transformamos su próxima idea en un proyecto real?",
+      "subtitle": "Cuéntenos su necesidad y nuestro equipo orientará la mejor lectura entre arquitectura, ingeniería, carpintería y obra turn key.",
+      "button": "Iniciar proyecto"
+    },
+    "projects": [
+      {
+        "id": 1,
+        "title": "Casa Home Resort Acapulco",
+        "category": "residential",
+        "tags": ["Arquitectura", "Ingeniería", "Carpintería"],
+        "area": "650m²",
+        "duration": "24 meses",
+        "location": "Acapulco, Guarujá - SP",
+        "description": "Proyecto residencial completo en condominio de alto nivel, con integración entre concepto arquitectónico, ejecución técnica y carpintería a medida.",
+        "images": [
+          { "label": "Fachada principal" },
+          { "label": "Living integrado" },
+          { "label": "Área gourmet" },
+          { "label": "Piscina con deck" },
+          { "label": "Suite master" },
+          { "label": "Detalles de carpintería" }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Corporativo Alphaville",
+        "category": "corporate",
+        "tags": ["Arquitectura", "Ingeniería", "Carpintería"],
+        "area": "1.200m²",
+        "duration": "18 meses",
+        "location": "Alphaville, Barueri - SP",
+        "description": "Proyecto corporativo integrado para ambientes de trabajo con lectura técnica, lenguaje contemporáneo y acabados premium.",
+        "images": [
+          { "label": "Fachada corporativa" },
+          { "label": "Recepción ejecutiva" },
+          { "label": "Open space" },
+          { "label": "Sala de reuniones" },
+          { "label": "Dirección" },
+          { "label": "Cocina gourmet" }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Condominio Porta do Sol",
+        "category": "residential",
+        "tags": ["Arquitectura", "Ingeniería"],
+        "area": "420m²",
+        "duration": "16 meses",
+        "location": "Mairinque - SP",
+        "description": "Residencia en condominio cerrado con arquitectura contemporánea, ingeniería estructural e integración con la naturaleza local.",
+        "images": [
+          { "label": "Vista frontal" },
+          { "label": "Área social" },
+          { "label": "Jardín" },
+          { "label": "Piscina" },
+          { "label": "Estructura" },
+          { "label": "Acabado" }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Transformación Residencial",
+        "category": "residential",
+        "tags": ["Reforma", "Antes y después", "Turn Key"],
+        "area": "280m²",
+        "duration": "12 meses",
+        "location": "São Paulo - SP",
+        "description": "Reforma integral conducida en modelo turn key, conectando planificación, ejecución y entrega final.",
+        "images": [
+          { "label": "Resultado final 1" },
+          { "label": "Resultado final 2" },
+          { "label": "Resultado final 3" },
+          { "label": "Resultado final 4" }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Reforma en Curso Perdizes",
+        "category": "residential",
+        "tags": ["Ingeniería", "Reforma residencial"],
+        "area": "127m²",
+        "duration": "En curso",
+        "location": "Perdizes, São Paulo - SP",
+        "description": "Obra residencial en curso con gestión de ingeniería, seguimiento técnico y control de ejecución.",
+        "images": [
+          { "label": "Perdizes · Registro 01" },
+          { "label": "Perdizes · Registro 02" },
+          { "label": "Perdizes · Registro 03" },
+          { "label": "Perdizes · Registro 04" }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "Residencia Morumbi",
+        "category": "residential",
+        "tags": ["Ingeniería", "Residencial alto nivel"],
+        "area": "160m²",
+        "duration": "Bajo gestión",
+        "location": "Morumbi, São Paulo - SP",
+        "description": "Proyecto residencial con ejecución técnica orientada por ingeniería, compatibilización de etapas y gestión organizada de obra.",
+        "images": [
+          { "label": "Morumbi · Registro 01" },
+          { "label": "Morumbi · Registro 02" },
+          { "label": "Morumbi · Registro 03" }
+        ]
+      }
+    ]
+  },
+  "googleReviews": {
+    "description": "Arquitectura, ingeniería y carpintería de alto nivel en São Paulo",
+    "count": "• 50+ reseñas",
+    "countWithValue": "• {{count}} reseñas",
+    "viewAll": "Ver todas las reseñas en Google",
+    "reviews": [
+      {
+        "id": 1,
+        "name": "Mariana S.",
+        "rating": 5,
+        "date": "hace 2 semanas",
+        "text": "Reforma completa con mucho cuidado y atención a los detalles. El resultado superó las expectativas.",
+        "avatar": "M"
+      },
+      {
+        "id": 2,
+        "name": "Carlos Eduardo R.",
+        "rating": 5,
+        "date": "hace 1 mes",
+        "text": "Proyecto de arquitectura y carpintería impecable. Plazo cumplido y equipo muy profesional.",
+        "avatar": "C"
+      },
+      {
+        "id": 3,
+        "name": "Ana Paula M.",
+        "rating": 5,
+        "date": "hace 1 mes",
+        "text": "Espacio comercial transformado con ingeniería y carpintería muy bien coordinadas.",
+        "avatar": "A"
+      }
+    ]
   },
   "architecturePage": {
     "hero": {
