@@ -52,11 +52,11 @@ const StyleCard = ({ estilo, index }) => {
           )}
 
           {/* Color Palette */}
-          <div className="absolute top-6 left-6 flex gap-2">
+          <div className="absolute top-5 left-5 flex gap-1.5">
             {estilo.colors.slice(0, 4).map((color) => (
               <div
                 key={color}
-                className="w-8 h-8 rounded-full border-2 border-white shadow-md"
+                className="h-5 w-5 rounded-full border border-white/90 shadow-sm"
                 style={{ backgroundColor: color }}
               />
             ))}
@@ -64,7 +64,7 @@ const StyleCard = ({ estilo, index }) => {
         </div>
 
         {/* Content Overlay */}
-        <div className="absolute inset-0 flex flex-col justify-end p-8 text-white">
+        <div className="absolute inset-0 flex flex-col justify-end p-6 text-white md:p-7">
           {/* Quote */}
           {estilo.quote && (
             <motion.div
@@ -80,8 +80,8 @@ const StyleCard = ({ estilo, index }) => {
           )}
 
           {/* Title */}
-          <h3 className={`font-inter font-light text-white mb-3 ${
-            index === 0 ? 'text-4xl md:text-5xl' : 'text-2xl md:text-3xl'
+          <h3 className={`font-inter font-light text-white mb-3 leading-[1.05] ${
+            index === 0 ? 'text-3xl md:text-4xl' : 'text-xl md:text-2xl'
           }`}>
             {estilo.title}
           </h3>
@@ -256,16 +256,17 @@ const RevistaEstilos = () => {
           </div>
 
           {/* SEO Quick Links Hub */}
-          <div className="mt-20 pt-10 border-t border-gray-200">
-            <h3 className="text-sm font-light uppercase tracking-widest text-wg-gray mb-6 text-center">{t('styleMagazine.grid.indexTitle')}</h3>
-            <div className="flex flex-wrap justify-center gap-x-6 gap-y-3">
+          <div className="mt-20 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm md:p-8">
+            <h3 className="mb-6 text-center text-sm font-light uppercase tracking-widest text-wg-gray">{t('styleMagazine.grid.indexTitle')}</h3>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {estilos.map((estilo) => (
                 <Link
                   key={estilo.slug}
                   to={`/estilos/${estilo.slug}`}
-                  className="text-sm font-light text-wg-gray hover:text-wg-orange transition-colors"
+                  className="group flex min-h-[56px] items-center rounded-xl border border-gray-100 bg-gray-50 px-4 py-3 text-sm font-light leading-snug text-wg-gray transition-all hover:border-wg-orange/30 hover:bg-white hover:text-wg-black hover:shadow-sm"
                 >
-                  {estilo.title}
+                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-wg-orange/60 transition-transform group-hover:scale-125" />
+                  <span className="ml-3">{estilo.title}</span>
                 </Link>
               ))}
             </div>

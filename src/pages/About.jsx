@@ -47,7 +47,6 @@ const staggerContainer = {
 const ABOUT_FALLBACK_SRC = withBasePath('/images/banners/SOBRE.webp');
 const ABOUT_HERO_IMAGE = getPublicPageImageSrc('about', ABOUT_FALLBACK_SRC);
 const ABOUT_WILLIAM_IMAGE_SRC = withBasePath('/images/about/william-almeida-1200.webp');
-const ABOUT_WILLIAM_IMAGE_SRCSET = `${ABOUT_WILLIAM_IMAGE_SRC} 1200w`;
 
 const About = () => {
   const { t } = useTranslation();
@@ -288,27 +287,16 @@ const About = () => {
 
                 {/* Foto */}
                 <div className="relative rounded-2xl overflow-hidden">
-                  <picture>
-                    <source
-                      srcSet={ABOUT_WILLIAM_IMAGE_SRCSET}
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                      type="image/webp"
-                    />
-                    <img
-                      src={ABOUT_WILLIAM_IMAGE_SRC}
-                      alt={t('aboutPage.ceo.imageAlt')}
-                      className="w-full h-[500px] lg:h-[600px] object-cover"
-                      loading="lazy"
-                      decoding="async"
-                      width="1200"
-                      height="1500"
-                      onError={(event) => {
-                        if (event.currentTarget.dataset.fallbackApplied === 'true') return;
-                        event.currentTarget.dataset.fallbackApplied = 'true';
-                        event.currentTarget.src = ABOUT_FALLBACK_SRC;
-                      }}
-                    />
-                  </picture>
+                  <div
+                    role="img"
+                    aria-label={t('aboutPage.ceo.imageAlt')}
+                    className="h-[500px] w-full bg-cover bg-center lg:h-[600px]"
+                    style={{
+                      backgroundImage: `url(${ABOUT_WILLIAM_IMAGE_SRC}), url(${ABOUT_FALLBACK_SRC})`,
+                      backgroundSize: '128%, cover',
+                      backgroundPosition: 'center center',
+                    }}
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-wg-black/60 via-transparent to-transparent" />
 
                   {/* Nome e cargo sobre a foto */}
@@ -405,19 +393,6 @@ const About = () => {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="text-center max-w-4xl mx-auto"
           >
-            {/* Linha decorativa */}
-            <motion.div
-              className="flex items-center justify-center gap-4 mb-8"
-              initial={{ opacity: 0, scaleX: 0 }}
-              whileInView={{ opacity: 1, scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <div className="h-px w-12 bg-gradient-to-r from-transparent to-wg-orange" />
-              <div className="w-2 h-2 bg-wg-orange rounded-full" />
-              <div className="h-px w-12 bg-gradient-to-l from-transparent to-wg-orange" />
-            </motion.div>
-
             <span className="text-wg-orange tracking-[0.2em] uppercase text-sm mb-4 block">
               {t('aboutPage.differential.kicker')}
             </span>

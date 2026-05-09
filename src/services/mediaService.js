@@ -1,40 +1,14 @@
-const UNSPLASH_ACCESS_KEY = import.meta.env.VITE_UNSPLASH_ACCESS_KEY;
 const GOOGLE_API_KEY = import.meta.env.VITE_GOOGLE_IMAGE_SEARCH_API_KEY;
 const GOOGLE_SEARCH_CX = import.meta.env.VITE_GOOGLE_SEARCH_CX;
 
-// Log de diagnóstico (apenas em desenvolvimento)
-if (import.meta.env.DEV) {
-  console.log('[DiscoveryEngine] Google API Status:', {
-    hasKey: !!GOOGLE_API_KEY,
-    hasCX: !!GOOGLE_SEARCH_CX
-  });
-}
+import { searchUnsplashImages as searchUnsplashLibraryImages } from '@/lib/unsplash';
 
-export const searchUnsplashImages = async (query, page = 1, perPage = 20) => {
-  if (!UNSPLASH_ACCESS_KEY) return [];
-  try {
-    const response = await fetch(
-      `https://api.unsplash.com/search/photos?query=${encodeURIComponent(query)}&page=${page}&per_page=${perPage}&orientation=squarish`,
-      { headers: { Authorization: `Client-ID ${UNSPLASH_ACCESS_KEY}` } }
-    );
-    const data = await response.json();
-    return (data.results || []).map(img => ({
-      id: img.id,
-      title: img.description || img.alt_description || 'Imagem Unsplash',
-      url: img.urls.regular,
-      thumb: img.urls.small,
-      source: 'unsplash',
-      author: img.user.name
-    }));
-  } catch (err) {
-    console.error('[MediaService] Unsplash Error:', err);
-    return [];
-  }
-};
-
+/**
+ * Motor de Busca de Imagens - Google Custom Search
+ */
 export const searchGoogleImages = async (query) => {
   if (!GOOGLE_API_KEY || !GOOGLE_SEARCH_CX) {
-    console.warn('[DiscoveryEngine] Google Search keys missing in .env');
+    console.warn('[DiscoveryEngine] Credenciais ausentes. Verifique o .env');
     return [];
   }
 
@@ -45,12 +19,8 @@ export const searchGoogleImages = async (query) => {
 
     if (!response.ok) {
       const errorData = await response.json();
-      if (response.status === 403) {
-        console.error('[DiscoveryEngine] Google Search Limit Exceeded (403). Falling back to Unsplash.');
-      } else {
-        console.error('[DiscoveryEngine] Google API Error:', response.status, errorData);
-      }
-      return []; // Return empty to trigger Unsplash fallback in UI
+      console.error('[DiscoveryEngine] Erro na API Google:', response.status, errorData);
+      return [];
     }
     
     const data = await response.json();
@@ -65,22 +35,45 @@ export const searchGoogleImages = async (query) => {
       author: item.displayLink
     }));
   } catch (error) {
-    console.error('[DiscoveryEngine] Critical failure in Google Search:', error);
+    console.error('[DiscoveryEngine] Falha crítica na busca Google:', error);
     return [];
   }
 };
 
+/**
+ * Busca de Inspiração - Pinterest (via Google)
+ */
 export const searchPinterestImages = async (query) => {
-  // Pinterest search via Google is specifically tuned for high-end aesthetic results
-  const pinterestQuery = `site:pinterest.com ${query} architecture interior design luxury photography`;
-  
+  const pinterestQuery = `site:pinterest.com ${query} architecture interior design luxury`;
   try {
     const results = await searchGoogleImages(pinterestQuery);
-    return results.map(item => ({
-      ...item,
-      source: 'pinterest' 
+    return results.map(item => ({ ...item, source: 'pinterest' }));
+  } catch (err) {
+    return [];
+  }
+};
+
+/**
+ * Compatibilidade para telas admin legadas que esperam url/thumb/source.
+ */
+export const searchUnsplashImages = async (query) => {
+  try {
+    const results = await searchUnsplashLibraryImages({
+      query,
+      orientation: 'landscape',
+      perPage: 10,
+    });
+
+    return results.map((item) => ({
+      id: item.id,
+      title: item.alt_description || item.description || 'Imagem Unsplash',
+      url: item.urls?.regular || item.urls?.full || item.urls?.raw || '',
+      thumb: item.urls?.small || item.urls?.thumb || item.urls?.regular || '',
+      source: 'unsplash',
+      author: item.photographer || item.user?.name || '',
     }));
   } catch (err) {
+    console.error('[DiscoveryEngine] Falha na busca Unsplash:', err);
     return [];
   }
 };

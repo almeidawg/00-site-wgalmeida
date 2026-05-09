@@ -121,6 +121,14 @@ const Lightbox = ({ images, currentIndex, onClose, onPrev, onNext }) => (
   </motion.div>
 );
 
+const getProjectTagClass = (tag = '') => {
+  const normalized = String(tag).toLowerCase();
+  if (normalized.includes('arquitet')) return 'border-wg-green bg-wg-green text-white';
+  if (normalized.includes('engenhar') || normalized.includes('obra')) return 'border-wg-blue bg-wg-blue text-white';
+  if (normalized.includes('marcen')) return 'border-wg-brown bg-wg-brown text-white';
+  return 'border-wg-orange bg-wg-orange text-white';
+};
+
 const Projects = () => {
   const { t } = useTranslation();
   const projects = t('projectsPage.projects', { returnObjects: true });
@@ -247,7 +255,7 @@ const Projects = () => {
                   <div className="min-w-0">
                     <div className="flex flex-wrap gap-2 mb-4">
                       {project.tags.map((tag, i) => (
-                        <span key={i} className="px-3 py-1 bg-wg-orange/10 text-wg-orange text-xs font-light rounded-full">
+                        <span key={i} className={`rounded-full border px-3 py-1 text-[11px] font-light uppercase tracking-[0.08em] ${getProjectTagClass(tag)}`}>
                           {tag}
                         </span>
                       ))}
@@ -258,12 +266,12 @@ const Projects = () => {
                     <p className="text-wg-gray">{project.location}</p>
                     <p className="mt-6 text-wg-gray leading-relaxed max-w-2xl">{project.description}</p>
                   </div>
-                  <div className="grid grid-cols-2 gap-4 lg:self-stretch">
-                    <div className="rounded-2xl bg-[#faf7f3] px-5 py-6 text-center shadow-[inset_0_0_0_1px_rgba(46,46,46,0.06)]">
+                  <div className="grid grid-cols-2 gap-4 lg:self-start">
+                    <div className="rounded-2xl bg-[#faf7f3] px-5 py-4 text-center shadow-[inset_0_0_0_1px_rgba(46,46,46,0.06)]">
                       <p className="text-2xl font-light text-wg-black">{project.area}</p>
                       <p className="text-sm text-wg-gray">{t('projectsPage.meta.area')}</p>
                     </div>
-                    <div className="rounded-2xl bg-[#faf7f3] px-5 py-6 text-center shadow-[inset_0_0_0_1px_rgba(46,46,46,0.06)]">
+                    <div className="rounded-2xl bg-[#faf7f3] px-5 py-4 text-center shadow-[inset_0_0_0_1px_rgba(46,46,46,0.06)]">
                       <p className="text-2xl font-light text-wg-black">{project.duration}</p>
                       <p className="text-sm text-wg-gray">{t('projectsPage.meta.duration')}</p>
                     </div>

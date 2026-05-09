@@ -220,23 +220,6 @@ export default function FAQPage() {
           </div>
         </section>
 
-        <section className="faq-strategy-strip">
-          <div className="container-custom faq-strategy-grid">
-            <article>
-              <span>Topo semântico</span>
-              <p>Arquitetura alto padrão, turn key, bairros atendidos, marcenaria sob medida e tecnologia WG.</p>
-            </article>
-            <article>
-              <span>Temas centrais</span>
-              <p>Custo, prazo, documentação, compatibilização, condomínio, processo e riscos de obra.</p>
-            </article>
-            <article>
-              <span>Próximo passo</span>
-              <p>Briefing, proposta, jornada operacional, coordenação executiva e contratação assistida.</p>
-            </article>
-          </div>
-        </section>
-
         <section className="faq-content">
           <div className="faq-container">
             {FAQ_CLUSTERS.map((cluster) => (
@@ -294,10 +277,10 @@ export default function FAQPage() {
           <div className="faq-cta-inner">
             <div>
               <span className="faq-kicker">Próximo passo</span>
-              <h2>Se o FAQ já respondeu a parte editorial, vamos para o briefing real</h2>
+              <h2>Transforme a leitura em briefing real</h2>
               <p>
-                A resposta certa para SEO é importante. A resposta certa para contratação exige escopo, imóvel,
-                bairro, expectativa e cronograma. É aí que a conversa fica útil de verdade.
+                Quando você já tem imóvel, bairro, metragem ou objetivo definidos, a próxima conversa
+                precisa sair da dúvida genérica e entrar em escopo, prazo, prioridade e decisão.
               </p>
             </div>
             <div className="faq-cta-actions">

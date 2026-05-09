@@ -1146,7 +1146,7 @@ const Blog = () => {
       </section>
 
       {/* Blog Controls */}
-      <section className="py-12 bg-white border-b border-gray-100 sticky top-[var(--header-height)] z-30">
+      <section className="py-8 bg-white border-b border-gray-100 sticky top-[var(--header-height)] z-30">
         <div className="container-custom">
           <div className="flex flex-col md:flex-row gap-6 items-center justify-between">
             {/* Categories */}
@@ -1183,7 +1183,7 @@ const Blog = () => {
       </section>
 
       {/* Article Grid */}
-      <section className="section-padding bg-gray-50">
+      <section className="bg-gray-50 py-10 md:py-14">
         <div className="container-custom">
           {filteredArticles.length === 0 ? (
             <div className="text-center py-20">

@@ -10,7 +10,7 @@ import { RoomVisualizerProvider, useRoomVisualizer } from '@/contexts/RoomVisual
 import { useAuth } from '@/contexts/SupabaseAuthContext'
 import { motion } from '@/lib/motion-lite'
 import { Link } from 'react-router-dom'
-import { ArrowLeft, Lock, CheckCircle2, Users, Layers3 } from 'lucide-react'
+import { ArrowLeft, Lock, Layers3 } from 'lucide-react'
 
 const RoomVisualizerContent = () => {
   const { user } = useAuth()
@@ -200,38 +200,6 @@ const RoomVisualizerContent = () => {
               </Link>
             </div>
           </motion.div>
-        </div>
-      </section>
-
-      <section className="py-10 bg-white border-b border-gray-100">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {[
-              {
-                icon: CheckCircle2,
-                title: 'Menos abstração',
-                text: 'Ajuda o usuário a sair da dúvida entre referência bonita e decisão aplicável.',
-              },
-              {
-                icon: Users,
-                title: 'Mais alinhamento',
-                text: 'Cria uma base mais objetiva para conversar com cliente, parceiro ou equipe.',
-              },
-              {
-                icon: Layers3,
-                title: 'Próximo passo claro',
-                text: 'A visualização deixa a jornada pronta para refinamento, especificação ou contratação.',
-              },
-            ].map((item) => (
-              <div key={item.title} className="rounded-2xl border border-gray-200 bg-gray-50 p-5">
-                <div className="w-11 h-11 rounded-xl bg-wg-orange/10 text-wg-orange flex items-center justify-center mb-4">
-                  <item.icon className="w-5 h-5" />
-                </div>
-                <h2 className="text-lg text-gray-900 mb-2">{item.title}</h2>
-                <p className="text-sm leading-relaxed text-gray-600">{item.text}</p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 

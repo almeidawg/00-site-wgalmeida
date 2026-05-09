@@ -27,10 +27,24 @@ const Header = () => {
   const location = useLocation();
 
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+// Páginas que não possuem Hero escuro no topo
+const isLightBackgroundPage = [
+  '/faq',
+  '/contato',
+  '/store',
+  '/solicite-proposta',
+  '/room-visualizer',
+  '/construtora-alto-padrao-sp',
+  '/reforma-apartamento-sp',
+  '/arquitetura-corporativa',
+  '/obra-turn-key',
+  '/reforma-apartamento-itaim',
+  '/reforma-apartamento-jardins',
+  '/construtora-brooklin',
+  '/marcenaria-sob-medida-morumbi',
+  '/arquitetura-interiores-vila-nova-conceicao'
+].includes(location.pathname);
 
-  // Páginas que não possuem Hero escuro no topo
-  const isLightBackgroundPage = ['/faq', '/contato', '/store', '/solicite-proposta', '/room-visualizer', '/moodboard-generator'].includes(location.pathname);
-  
   // Se for uma página clara e não estiver scrolled, forçamos o estilo scrolled (texto escuro)
   const effectivelyScrolled = isScrolled || isLightBackgroundPage;
 
@@ -156,7 +170,7 @@ const Header = () => {
               ))}
 
               {/* Menu Núcleos (Dropdown Refinado) */}
-              <div 
+              <div
                 className="relative h-full flex items-center"
                 onMouseEnter={() => setUnitsMenuOpen(true)}
                 onMouseLeave={() => setUnitsMenuOpen(false)}
@@ -178,8 +192,8 @@ const Header = () => {
                     <>
                       {/* Invisible buffer to keep menu open while moving mouse */}
                       <div className="absolute top-full left-0 w-full h-8 bg-transparent" />
-                      
-                      <motion.div 
+
+                      <motion.div
                         initial={{ opacity: 0, y: 10, scale: 0.98 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 5, scale: 0.98 }}
@@ -216,11 +230,11 @@ const Header = () => {
                                     hoverShadows[subItem.accent]
                                   )}
                                 >
-                                  <div 
+                                  <div
                                     className="w-10 h-10 rounded-xl flex items-center justify-center bg-white/5 transition-all duration-500 group-hover:bg-white/10 group-hover:scale-110"
                                   >
-                                    <subItem.icon 
-                                      size={18} 
+                                    <subItem.icon
+                                      size={18}
                                       className={cn("transition-colors duration-300", iconColors[subItem.accent])}
                                     />
                                   </div>
@@ -228,9 +242,9 @@ const Header = () => {
                                     <span className="text-[13px] font-bold text-white group-hover:text-white transition-colors">
                                       {subItem.label}
                                     </span>
-                                    <span className={cn("text-[8px] uppercase tracking-widest font-bold transition-colors", 
-                                      index === 0 ? "text-wg-green/60 group-hover:text-wg-green" : 
-                                      index === 1 ? "text-wg-blue/60 group-hover:text-wg-blue" : 
+                                    <span className={cn("text-[8px] uppercase tracking-widest font-bold transition-colors",
+                                      index === 0 ? "text-wg-green/60 group-hover:text-wg-green" :
+                                      index === 1 ? "text-wg-blue/60 group-hover:text-wg-blue" :
                                       "text-wg-brown/60 group-hover:text-wg-brown"
                                     )}>
                                       {subItem.type}
@@ -240,7 +254,7 @@ const Header = () => {
                               );
                             })}
                           </div>
-                          
+
                           <div className="mt-2 p-2.5 border-t border-white/5 bg-black/20 rounded-b-2xl">
                              <p className="text-[7px] text-center text-slate-500 uppercase font-bold tracking-[0.2em]">Ecossistema WG Almeida</p>
                           </div>

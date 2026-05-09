@@ -77,6 +77,29 @@
     "faq": "FAQ",
     "requestProposal": "Request Proposal"
   },
+  "projectGallery": {
+    "kicker": "Project Gallery Ticker",
+    "previous": "Previous project",
+    "next": "Next project",
+    "goToPage": "Go to page {{page}}",
+    "viewInstagram": "See more on Instagram",
+    "close": "Close gallery",
+    "previousPhoto": "Previous photo",
+    "nextPhoto": "Next photo"
+  },
+  "instagramGallery": {
+    "kicker": "Our Projects",
+    "previous": "Previous",
+    "next": "Next",
+    "postAlt": "WG Almeida project on Instagram {{id}}",
+    "viewOnInstagram": "View on Instagram",
+    "goToPage": "Go to page {{page}}",
+    "viewMore": "See more on Instagram",
+    "close": "Close",
+    "previousPhoto": "Previous photo",
+    "nextPhoto": "Next photo",
+    "openOnInstagram": "Open on Instagram"
+  },
   "seo": {
     "home": {
       "title": "High-End Architecture, Engineering, and Custom Furniture in Sao Paulo",
@@ -801,7 +824,7 @@
     "intents": {
       "obra": "You showed interest in construction and renovation. Let's size your project with cost, deadline, and a detailed technical proposal.",
       "marcenaria": "You showed interest in Bespoke Joinery. We can start with a visual briefing and move to measurement and proposal.",
-      "design": "You showed interest in visual experience and design. Let's use your style guide as a starting point for the project.",
+      "design": "Your visual reading was registered as an initial input. It helps guide the briefing, scope, and curation while the final proposal follows WG technical validation.",
       "investimento": "You showed interest in investment analysis. We can structure the EVF, AVM, and construction cost into a single proposal."
     }
   },

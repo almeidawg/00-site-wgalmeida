@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from '@/lib/motion-lite';
-import { Check, Plus, X, Upload, Image as ImageIcon, Trash2 } from 'lucide-react';
+import { Check, Plus, X, Upload, Image as ImageIcon, Trash2, Link as LinkIcon, Pipette } from 'lucide-react';
+import ColorEyedropper from './ColorEyedropper';
 
 import { styleCatalog } from '@/utils/styleCatalog';
 
@@ -55,15 +56,15 @@ const ColorSwatch = ({ color, isSelected, onClick, onRemove, size = 'md' }) => {
 const ColorPicker = ({
   selectedColors,
   onColorsChange,
-  maxColors = 10,
-  customImages = [],
-  onImagesAdd,
-  onRemoveImage,
-  maxImages = 6
+  maxColors = 10
 }) => {
   const [customColor, setCustomColor] = useState('#000000');
   const [activeCategory, setActiveCategory] = useState(Object.keys(PRESET_PALETTES)[0] || 'moderno');
-  const [isUploadingRef, setIsUploadingRef] = useState(false);
+
+  // States para o Extrator de Cores
+  const [extractorImage, setExtractorImage] = useState(null);
+  const [urlInput, setUrlInput] = useState('');
+  const [showUrlInput, setShowUrlInput] = useState(false);
   const fileInputRef = useRef(null);
 
   const handleColorSelect = (color) => {
@@ -86,9 +87,8 @@ const ColorPicker = ({
 
   const handleApplyPalette = (paletteKey) => {
     const paletteColors = PRESET_PALETTES[paletteKey].colors;
-    // Mesclagem Inteligente: Adiciona cores da paleta que ainda não estão na seleção
     const newColors = [...selectedColors];
-    
+
     paletteColors.forEach(color => {
       if (!newColors.includes(color) && newColors.length < maxColors) {
         newColors.push(color);
@@ -98,15 +98,32 @@ const ColorPicker = ({
     onColorsChange(newColors);
   };
 
+  const handleFileUpload = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => setExtractorImage(event.target?.result);
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleUrlSubmit = () => {
+    if (urlInput.trim()) {
+      setExtractorImage(urlInput);
+      setShowUrlInput(false);
+    }
+  };
+
   return (
     <div className="space-y-6 text-slate-200">
+      {/* 1. Sua Seleção Atual */}
       <div className="bg-slate-950/40 p-4 rounded-2xl border border-slate-800/50">
         <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3">
           Sua Seleção ({selectedColors.length}/{maxColors})
         </h3>
         <div className="flex flex-nowrap items-center gap-2 overflow-x-auto pb-2 custom-scrollbar min-h-[50px]">
           {selectedColors.length === 0 ? (
-            <p className="text-slate-600 text-[10px] uppercase font-bold italic py-2">Selecione estilos para carregar cores</p>
+            <p className="text-slate-600 text-[10px] uppercase font-bold italic py-2">Selecione estilos ou use o conta-gotas</p>
           ) : (
             selectedColors.map((color) => (
               <ColorSwatch
@@ -122,8 +139,63 @@ const ColorPicker = ({
         </div>
       </div>
 
+      {/* 2. Extrator de Cores Inteligente (CONTA-GOTAS) */}
+      <div className="bg-slate-950/30 p-4 rounded-2xl border border-slate-800/50 space-y-4">
+        <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-2">
+          <Pipette className="w-3.5 h-3.5 text-wg-orange" />
+          Identificar cores de imagem
+        </h3>
+
+        {!extractorImage ? (
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              className="flex flex-col items-center gap-2 p-4 rounded-xl border border-white/5 bg-white/5 hover:bg-white/10 transition-all group"
+            >
+              <Upload size={18} className="text-slate-500 group-hover:text-wg-orange" />
+              <span className="text-[9px] font-bold uppercase tracking-tighter">Upload</span>
+            </button>
+            <button
+              onClick={() => setShowUrlInput(!showUrlInput)}
+              className="flex flex-col items-center gap-2 p-4 rounded-xl border border-white/5 bg-white/5 hover:bg-white/10 transition-all group"
+            >
+              <LinkIcon size={18} className="text-slate-500 group-hover:text-wg-orange" />
+              <span className="text-[9px] font-bold uppercase tracking-tighter">Link / URL</span>
+            </button>
+            <input type="file" ref={fileInputRef} onChange={handleFileUpload} className="hidden" accept="image/*" />
+          </div>
+        ) : (
+          <ColorEyedropper
+            imageUrl={extractorImage}
+            onColorPick={handleColorSelect}
+            onClose={() => setExtractorImage(null)}
+          />
+        )}
+
+        <AnimatePresence>
+          {showUrlInput && (
+            <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="pt-2">
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  placeholder="Cole o link da imagem..."
+                  value={urlInput}
+                  onChange={(e) => setUrlInput(e.target.value)}
+                  className="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs outline-none focus:ring-1 focus:ring-wg-orange"
+                />
+                <button onClick={handleUrlSubmit} className="px-3 bg-wg-orange text-white rounded-xl text-[9px] font-bold uppercase tracking-widest">
+                  OK
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {/* 3. Paletas de Estilo (Presets) */}
       <div className="space-y-4">
-        <div className="flex flex-wrap gap-1 max-h-[120px] overflow-y-auto pr-1 custom-scrollbar">
+        <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Inspirado nos Estilos</h3>
+        <div className="flex flex-wrap gap-1 max-h-[100px] overflow-y-auto pr-1 custom-scrollbar">
           {Object.entries(PRESET_PALETTES).map(([key, item]) => (
             <button
               key={key}
@@ -154,15 +226,15 @@ const ColorPicker = ({
           <button
             onClick={() => handleApplyPalette(activeCategory)}
             className="ml-4 shrink-0 px-3 py-2 bg-slate-800 text-slate-300 rounded-lg hover:bg-slate-700 hover:text-white transition-all flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest"
-            title="Adicionar estas cores ao projeto"
           >
-            <Plus size={12} className="text-orange-500" /> Incluir
+            <Plus size={12} className="text-orange-500" /> Mesclar
           </button>
         </div>
       </div>
 
+      {/* 4. Customização Manual */}
       <div className="bg-slate-950/30 p-4 rounded-2xl border border-slate-800/50">
-        <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3">Customizar</h3>
+        <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3">Customização Manual</h3>
         <div className="flex items-center gap-3">
           <input
             type="color"

@@ -22,7 +22,9 @@ import {
   MoreVertical,
   Settings,
   Database,
-  X
+  X,
+  Hammer,
+  Sparkles
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import BrandStar from '@/components/BrandStar';
@@ -30,7 +32,7 @@ import { cn } from '@/lib/utils';
 import { useToast } from '@/components/ui/use-toast';
 import { useTranslation } from 'react-i18next';
 
-const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, onProjectNameChange, onSave, isSaving }) => {
+const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, onProjectNameChange, onSave, isSaving, lizInsight }) => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const { toast } = useToast();
   const { t } = useTranslation();
@@ -38,6 +40,8 @@ const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, 
   const tabs = [
     { id: 'styles', label: t('moodboardPage.studio.tabs.styles'), icon: LayoutGrid },
     { id: 'colors', label: t('moodboardPage.studio.tabs.colors'), icon: Palette },
+    { id: 'finishes', label: 'Acabamentos', icon: Hammer },
+    { id: 'decor', label: 'Decoração', icon: Sparkles },
     { id: 'assets', label: t('moodboardPage.studio.tabs.assets'), icon: Database },
   ];
 
@@ -46,22 +50,35 @@ const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, 
       {/* Sidebar de Ferramentas */}
       <motion.aside
         initial={false}
-        animate={{ width: sidebarOpen ? '420px' : '0px', opacity: sidebarOpen ? 1 : 0 }}
-        className="relative h-full bg-[#0c0c0e] border-r border-white/5 flex flex-col z-40 overflow-hidden"
+        animate={{ width: sidebarOpen ? '475px' : '0px', opacity: sidebarOpen ? 1 : 0 }}
+        className="relative h-full bg-[#0c0c0e] border-r border-white/5 flex flex-col z-40 overflow-hidden w-[475px] min-w-[475px] max-w-[475px]"
       >
-        <div className="p-8 border-b border-white/5 flex items-center justify-between shrink-0">
-          <div className="flex items-center gap-4 group">
-            <div className="w-9 h-9 rounded-lg bg-wg-orange/10 flex items-center justify-center border border-wg-orange/20 group-hover:border-wg-orange/50 transition-colors">
-              <BrandStar className="w-5 h-5 text-wg-orange" />
+        <div className="p-6 border-b border-white/5 flex flex-col gap-6 shrink-0">
+          <div className="flex items-start justify-between">
+            <div className="flex items-center gap-3">
+              <BrandStar className="w-5 h-5 text-wg-orange" alt="WG Almeida rating icon" />
+              <div className="flex flex-col">
+                <span className="font-bold text-[10px] tracking-[0.2em] uppercase text-white leading-none">Moodboard <span className="text-wg-orange">Studio</span></span>
+                <span className="text-[7px] text-slate-500 font-bold uppercase tracking-tighter mt-1">{t('moodboardPage.studio.subtitle')}</span>
+              </div>
             </div>
-            <div className="flex flex-col">
-              <span className="font-bold text-[10px] tracking-[0.2em] uppercase text-white">Moodboard <span className="text-wg-orange">Studio</span></span>
-              <span className="text-[8px] text-slate-500 font-bold uppercase tracking-tighter">{t('moodboardPage.studio.subtitle')}</span>
-            </div>
+            <button onClick={() => setSidebarOpen(false)} className="text-slate-600 hover:text-white transition-colors p-1.5 -mt-1">
+              <ChevronLeft size={18} />
+            </button>
           </div>
-          <button onClick={() => setSidebarOpen(false)} className="text-slate-600 hover:text-white transition-colors p-2">
-            <ChevronLeft size={20} />
-          </button>
+
+          {/* Liz Insight Component - Intelligent Communication */}
+          {lizInsight && (
+            <div className="flex gap-3 items-start animate-fadeIn">
+               <div className="shrink-0 w-8 h-8 rounded-full bg-wg-orange flex items-center justify-center text-[9px] font-bold text-white shadow-[0_0_15px_rgba(242,92,38,0.4)] border border-white/10">Liz</div>
+               <div className="flex flex-col gap-1">
+                 <p className="text-[10px] leading-relaxed text-slate-300 font-medium">
+                    {lizInsight}
+                 </p>
+                 <div className="w-3 h-[1px] bg-wg-orange/30 mt-1" />
+               </div>
+            </div>
+          )}
         </div>
 
         {/* Tabs de Navegação da Sidebar */}
@@ -98,12 +115,12 @@ const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, 
 
       {/* Main Studio Area */}
       <main className="flex-1 relative flex flex-col bg-[#050506]">
-        {/* Top bar de Ações */}
-        <header className="h-24 px-10 flex items-center justify-between bg-black/40 backdrop-blur-xl border-b border-white/5 z-30">
+        {/* Top bar de Ações - Compacta */}
+        <header className="h-20 px-10 flex items-center justify-between bg-black/40 backdrop-blur-xl border-b border-white/5 z-30 shrink-0">
           <div className="flex items-center gap-8">
             {!sidebarOpen && (
-              <button onClick={() => setSidebarOpen(true)} className="w-12 h-12 flex items-center justify-center bg-slate-900 border border-white/5 rounded-2xl text-wg-orange hover:text-white shadow-2xl transition-all">
-                <ChevronRight size={24} />
+              <button onClick={() => setSidebarOpen(true)} className="w-10 h-10 flex items-center justify-center bg-slate-900 border border-white/5 rounded-2xl text-wg-orange hover:text-white shadow-2xl transition-all">
+                <ChevronRight size={20} />
               </button>
             )}
             
@@ -113,45 +130,43 @@ const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, 
                 value={projectName}
                 onChange={(e) => onProjectNameChange(e.target.value)}
                 placeholder={t('moodboardPage.studio.projectNamePlaceholder')}
-                className="bg-transparent border-none text-white text-2xl font-medium outline-none font-playfair italic focus:ring-0 p-0 placeholder:text-slate-800 w-64 md:w-96"
+                className="bg-transparent border-none text-white text-xl font-medium outline-none font-playfair italic focus:ring-0 p-0 placeholder:text-slate-800 w-64 md:w-96"
               />
-              <span className="text-[9px] font-bold text-slate-600 uppercase tracking-[0.2em] mt-1">{t('moodboardPage.studio.editingNow')} &bull; {t('moodboardPage.studio.editMode')}</span>
+              <span className="text-[8px] font-bold text-slate-600 uppercase tracking-[0.2em] mt-0.5">{t('moodboardPage.studio.editingNow')} &bull; {t('moodboardPage.studio.editMode')}</span>
             </div>
           </div>
 
           <div className="flex items-center gap-4">
-            <div className="hidden md:flex items-center gap-2 px-4 py-2 bg-white/5 rounded-xl border border-white/5 mr-4">
-               <span className="w-2 h-2 rounded-full bg-wg-green animate-pulse" />
-               <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">{t('moodboardPage.studio.statusActive')}</span>
+            <div className="hidden md:flex items-center gap-2 px-4 py-2 bg-wg-green/10 rounded-full border border-wg-green/20 mr-4">
+               <span className="w-1.5 h-1.5 rounded-full bg-wg-green animate-pulse" />
+               <span className="text-[9px] font-bold text-wg-green uppercase tracking-widest">{t('moodboardPage.studio.statusActive')}</span>
             </div>
 
             <button 
               onClick={onSave}
               disabled={isSaving}
-              className="flex items-center gap-3 px-8 py-4 bg-wg-orange hover:bg-wg-orange/90 text-white rounded-[24px] text-xs font-bold transition-all shadow-[0_20px_50px_rgba(242,92,38,0.2)] hover:scale-[1.02] hover:-translate-y-0.5 uppercase tracking-widest disabled:opacity-50"
+              className="flex items-center gap-3 px-8 py-3 bg-wg-orange hover:bg-[#de5423] text-white rounded-full text-xs font-light transition-all shadow-[0_16px_34px_rgba(242,92,38,0.18)] hover:shadow-[0_20px_40px_rgba(242,92,38,0.24)] hover:-translate-y-0.5 uppercase tracking-widest disabled:opacity-50 disabled:pointer-events-none"
             >
               {isSaving ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
               {isSaving ? t('moodboardPage.studio.saving') : t('moodboardPage.studio.saveButton')}
             </button>
             
-            <div className="h-10 w-[1px] bg-white/10 mx-2" />
+            <div className="h-8 w-[1px] bg-white/10 mx-2" />
             
-            <Link to="/" className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-all border border-white/5">
-              <X size={24} />
+            <Link to="/" className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-all border border-white/5">
+              <X size={20} />
             </Link>
           </div>
         </header>
 
-        {/* Canvas de Edição - Área Central */}
-        <div className="flex-1 relative overflow-hidden flex items-center justify-center p-12 lg:p-20">
+        {/* Canvas de Edição - Área Central Otimizada */}
+        <div className="flex-1 relative overflow-hidden flex flex-col items-center p-6 lg:p-8">
            {/* Grid Background Decorativo */}
            <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
            
-           {/* Canvas Placeholder/Container (o Studio real renderiza aqui) */}
-           <div className="w-full h-full flex items-center justify-center">
-             <div id="studio-canvas-root" className="w-full h-full max-w-[1400px] max-h-[800px] relative z-10 shadow-[0_100px_150px_rgba(0,0,0,0.5)] rounded-[40px]">
-                {/* O conteúdo do canvas (MoodboardCanvas) é injetado como children via Studio.jsx */}
-             </div>
+           {/* O Studio real renderiza o canvas aqui - Agora alinhado ao topo */}
+           <div id="studio-canvas-root" className="w-full h-full max-w-[1400px] relative z-10 shadow-[0_100px_150px_rgba(0,0,0,0.5)] rounded-[40px]">
+              <div id="main-canvas-container" className="w-full h-full"></div>
            </div>
 
            {/* Toolbar Flutuante Inferior */}

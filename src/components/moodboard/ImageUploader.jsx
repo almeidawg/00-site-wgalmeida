@@ -91,7 +91,6 @@ const ImageUploader = ({ onImagesAdd, maxImages = 6, currentCount = 0 }) => {
       return;
     }
 
-    // Validação básica de URL de imagem
     const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg'];
     const isImageUrl = imageExtensions.some((ext) =>
       urlInput.toLowerCase().includes(ext)
@@ -116,14 +115,14 @@ const ImageUploader = ({ onImagesAdd, maxImages = 6, currentCount = 0 }) => {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-lg p-6 space-y-4 h-full w-full flex flex-col">
+    <div className="space-y-6 text-slate-200">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-gray-800 flex items-center gap-2">
-          <ImageIcon className="w-5 h-5 text-wg-orange" />
-          Adicionar Referências
+        <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-2">
+          <ImageIcon className="w-3.5 h-3.5" />
+          Biblioteca de Ativos
         </h3>
-        <span className="text-sm text-gray-500">
-          {currentCount}/{maxImages} imagens
+        <span className="text-[9px] font-mono text-slate-600">
+          {currentCount}/{maxImages}
         </span>
       </div>
 
@@ -133,11 +132,11 @@ const ImageUploader = ({ onImagesAdd, maxImages = 6, currentCount = 0 }) => {
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         animate={{
-          borderColor: isDragging ? '#FF6B35' : '#E5E7EB',
-          backgroundColor: isDragging ? 'rgba(255, 107, 53, 0.05)' : 'transparent',
+          borderColor: isDragging ? '#F25C26' : 'rgba(242, 92, 38, 0.2)',
+          backgroundColor: isDragging ? 'rgba(242, 92, 38, 0.05)' : 'rgba(0, 0, 0, 0.2)',
         }}
-        className={`relative border-2 border-dashed rounded-xl p-8 text-center transition-colors ${
-          remainingSlots <= 0 ? 'opacity-50 pointer-events-none' : 'cursor-pointer'
+        className={`relative border-2 border-dashed rounded-2xl p-10 text-center transition-colors ${
+          remainingSlots <= 0 ? 'opacity-30 pointer-events-none' : 'cursor-pointer hover:border-wg-orange/40'
         }`}
       >
         <input
@@ -151,30 +150,30 @@ const ImageUploader = ({ onImagesAdd, maxImages = 6, currentCount = 0 }) => {
 
         {isLoading ? (
           <div className="flex flex-col items-center gap-2">
-            <Loader2 className="w-10 h-10 text-wg-orange animate-spin" />
-            <p className="text-sm text-gray-600">Processando imagens...</p>
+            <Loader2 className="w-8 h-8 text-wg-orange animate-spin" />
+            <p className="text-[10px] uppercase font-bold text-slate-500">Processando...</p>
           </div>
         ) : (
           <>
-            <Upload className="w-10 h-10 text-gray-400 mx-auto mb-3" />
-            <p className="text-gray-600 font-medium">
-              Arraste imagens aqui ou clique para selecionar
+            <Upload className="w-8 h-8 text-slate-700 mx-auto mb-3" />
+            <p className="text-slate-400 text-xs font-medium">
+              Arraste arquivos ou clique para selecionar
             </p>
-            <p className="text-sm text-gray-400 mt-1">
-              PNG, JPG, WEBP (máx. {remainingSlots} {remainingSlots === 1 ? 'imagem' : 'imagens'})
+            <p className="text-[9px] text-slate-600 uppercase font-bold mt-2">
+              PNG, JPG, WEBP &bull; Max: {remainingSlots}
             </p>
           </>
         )}
       </motion.div>
 
       {/* URL Input Toggle */}
-      <div className="flex items-center gap-2">
+      <div>
         <button
           onClick={() => setShowUrlInput(!showUrlInput)}
-          className="flex items-center gap-2 text-sm text-gray-600 hover:text-wg-orange transition-colors"
+          className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-wg-orange transition-colors"
         >
-          <LinkIcon className="w-4 h-4" />
-          Adicionar por URL
+          <LinkIcon className="w-3.5 h-3.5" />
+          Importar por URL externa
         </button>
       </div>
 
@@ -182,9 +181,9 @@ const ImageUploader = ({ onImagesAdd, maxImages = 6, currentCount = 0 }) => {
       <AnimatePresence>
         {showUrlInput && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
             className="flex gap-2"
           >
             <input
@@ -192,22 +191,13 @@ const ImageUploader = ({ onImagesAdd, maxImages = 6, currentCount = 0 }) => {
               value={urlInput}
               onChange={(e) => setUrlInput(e.target.value)}
               placeholder="https://exemplo.com/imagem.jpg"
-              className="flex-1 px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-wg-orange focus:border-transparent"
+              className="flex-1 px-4 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-400 focus:ring-1 focus:ring-wg-orange outline-none transition-all placeholder:text-slate-800"
             />
             <button
               onClick={handleUrlAdd}
-              className="px-4 py-2 bg-wg-orange text-white rounded-lg hover:bg-wg-orange/90 transition-colors"
+              className="px-4 py-2 bg-wg-orange text-white rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-wg-orange/90 transition-colors"
             >
-              Adicionar
-            </button>
-            <button
-              onClick={() => {
-                setShowUrlInput(false);
-                setUrlInput('');
-              }}
-              className="p-2 text-gray-400 hover:text-gray-600"
-            >
-              <X className="w-5 h-5" />
+              Add
             </button>
           </motion.div>
         )}
@@ -220,7 +210,7 @@ const ImageUploader = ({ onImagesAdd, maxImages = 6, currentCount = 0 }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="text-sm text-red-500"
+            className="text-[10px] font-bold uppercase text-red-500/80 tracking-tight"
           >
             {error}
           </motion.p>

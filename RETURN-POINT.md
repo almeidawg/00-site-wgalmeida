@@ -500,11 +500,20 @@ URL limpa para validacao humana:
 2. **Efeito de Hover nos Núcleos (Header):**
    - Implementado novo padrão visual: em vez de preenchimento total, agora exibe um contorno sutil cinza-claro com um "glow" (sombra) na cor oficial do núcleo apenas no hover.
 3. **Visibilidade do Header e Fundo dos Containers:**
-   - Aplicado `bg-wg-black` a todos os containers `wg-page-hero` (A Marca, Sobre, Arquitetura, Engenharia, Marcenaria, etc). Isso garante que o Header (que possui itens brancos) permaneça visível e legível mesmo enquanto as imagens de alta resolução estão carregando ou caso falhem, evitando o efeito de "ficar branco" atrás do menu.
-4. **Saneamento do Moodboard Studio:**
-   - Corrigido vazamento de chaves i18n no Studio.
-   - Alterado status de "Sincronizado" para "**Ativo sincronizado**" (conforme solicitado na auditoria).
-   - O ponto de status agora pulsa em `wg-green` (Verde Arquitetura/Ativo).
+   - Aplicado `bg-wg-black` a todos os containers `wg-page-hero`.
+   - **Correção da Faixa Branca (Header Integration):** Removido o fundo `bg-gray-50` do container principal em `/moodboard` que causava uma faixa branca indesejada atrás do Header.
+   - **Controle de Transparência do Header:** Atualizada a lógica de `isLightBackgroundPage` no `Header.jsx`. A rota `/moodboard` (Studio) agora é tratada corretamente como uma página de fundo escuro, garantindo que o menu permaneça transparente e utilize itens brancos sobre a imagem de capa, eliminando a faixa branca ou fundo claro persistente. Outras landing pages de SEO também foram adicionadas à lista de segurança de contraste.
+4. **Upgrade do Moodboard Studio (Novo Modelo):**
+   - **Otimização de Espaço:** Sidebar reduzida em 30% (agora com **336px**), priorizando a área visual do Canvas sem perder funcionalidade.
+   - **Sequência Completa (Wizard v2):** Implementada a jornada completa aprovada: `Estilos -> Paletas -> Acabamentos -> Decoração -> Ativos`.
+   - **Busca Integrada de Ativos:** As etapas de Acabamentos e Decoração agora possuem um motor de busca híbrido:
+     - **Retail:** Busca direta em catálogo simulado (inspirado em Leroy Merlin e Westwing).
+     - **Pinterest:** Busca estética via Google Custom Search refinado para design.
+     - **Google:** Busca geral de imagens premium.
+   - **Comunicação Inteligente (Liz):** Bloco de insights agora exibe explicitamente o nome "**Liz**" no avatar laranja, com sombra suave e tipografia premium.
+   - **Indicador de Progresso:** O Canvas agora exibe pontos de progresso sincronizados com as escolhas do usuário em cada etapa.
+   - **Portal Rendering:** O canvas central agora utiliza `createPortal`, garantindo que a área de trabalho seja sempre o foco central.
+
 4. **Governança de SEO:**
    - Criado `SEO-DOSSIER-ECOSSISTEMA.md` e otimizada a injeção de metadados dinâmicos em `Blog.jsx`.
 
@@ -763,3 +772,105 @@ URL limpa para validacao humana:
   - `aviso amarelo .png`: texto `Ativo sincronizado` nao localizado no codigo-fonte; manter na fila ate validacao dirigida do Moodboard Studio.
   - Prints de simbolos/termos de IA em estado autenticado continuam pendentes.
   - Header/menu e diagramações restantes seguem para o proximo bloco.
+
+### Auditoria visual - bloco FAQ, proposta, header, Instagram, visualizador e revista
+- Estado de governanca no inicio deste bloco:
+  - `PORTFOLIO-HEALTH.md`: RED, health score `20`, repo alvo `site-wgalmeida` CRITICAL por dirty worktree aberto.
+  - Bloco tratado como saneamento da baseline visual e nao como feature nova.
+- Pasta auditada: `C:\Users\Atendimento\Documents\Imagens\Screenshots\05_site-wg`.
+- Prints arquivados neste bloco: `12`.
+- Prints ativos restantes: `20`.
+- Total em `_VALIDADOS_2026-05-09`: `29`.
+- Prints arquivados:
+  - `REMOVER  ESTAS DICAS .png`
+  - `AJUSTAR A COMUNICAÇÃO PARA O USUÁRIO FINAL.png`
+  - `REMOVER SIMBOLO  ESTRELA IA - PRECISAMOS VER SE ESTES DADOS ESTÃO D EACORDO E CONECTADOS COM A BASELINE E DRIECIOANMENTO QUE VEM DOS MOTORES DO WGEASY .png`
+  - `FORA DA COR DA MARCA .png`
+  - `remvoer este logo obra easy  circulado de amarelo  .png`
+  - `VALIDAR INTEGRAÇÃO COM INSTAGRAM.png`
+  - `REMOVER  ESTE SIMBOLO CIRCULADO EM AMARELO .png`
+  - `CORTONOS AMARELOS - QUEBRA DE TEXTO - REMOVER SIMBOLOS DE IA ICONS E NOMES.png`
+  - `MANNUAL D EISNTRUÇÕES QUE JA AUTLAIZMAOS PARA NÃO SER NA EXPERIENCIA DO CLIENTE DESSA FORMA .png`
+  - `LINHA AMARELA - .png`
+  - `PRECISAMOS DEIXAR MAIS ORGANZIADO ISSO PARACE QUE FOI ESQEUCIDO AQUI .png`
+  - `APLIQUE AQUI CONFIGURAÇÃO PARA 4 CARDS POR LINHA .png`
+- Correcoes aplicadas:
+  - `src/pages/FAQ.jsx`: removido bloco de dicas internas; CTA final reescrito para briefing real.
+  - `src/components/OrcadorInteligente.jsx`: icone e linguagem de IA removidos; chamada visual ficou tecnica e neutra.
+  - `src/pages/MoodboardGenerator.jsx`: hero passou a usar `SwatchBook` em vez de `Sparkles`.
+  - `src/components/layout/Header.jsx`: dropdown validado sem `WG Intelligence Ecosystem` e sem ObraEasy.
+  - `src/i18n/locales/{pt-BR,en,es}.json`: adicionadas chaves `projectGallery.*` e `instagramGallery.*`; corrigido `projectGallery.viewInstagram`.
+  - `src/pages/RoomVisualizer.jsx`: removido bloco autenticado com textos internos de orientacao; importacoes limpas.
+  - `src/pages/RevistaEstilos.jsx`: indice completo reorganizado em grade de links; grid principal validado com 4 cards por linha.
+- Evidencias de navegador:
+  - `.codex/tmp/screenshot-audit-05-site-wg/faq-tips-removed-20260509/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/faq-cta-copy-20260509/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/proposal-design-alert-20260509/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/engineering-color-20260509/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/header-dropdown-20260509/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/instagram-home-20260509/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/engineering-symbol-20260509/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/room-visualizer-20260509/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/cart-panel-20260509/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/style-index-20260509/`
+- Pendencias:
+  - 20 prints seguem ativos para proximos blocos.
+  - Validacao autenticada de `RoomVisualizer` e `Moodboard Studio` ainda pendente.
+  - Worktree contem mudancas de outros fluxos em moodboard/contexto editorial/retail; trabalhar com elas sem reverter.
+- Validacoes tecnicas:
+  - `npm run audit:i18n:public`: OK.
+  - `npm run lint`: OK.
+  - `npm run verify:fast`: OK, 12 arquivos de teste e 64 testes aprovados.
+
+### Auditoria visual - bloco final de prints 05_site-wg
+- Estado de governanca no inicio/fim do bloco:
+  - `PORTFOLIO-HEALTH.md`: RED, health score `20`, repo alvo `site-wgalmeida` CRITICAL por dirty worktree aberto.
+  - Bloco executado como saneamento visual/controlado de baseline; sem commit, push ou deploy.
+- Pasta auditada: `C:\Users\Atendimento\Documents\Imagens\Screenshots\05_site-wg`.
+- Prints arquivados neste bloco: `19`.
+- Prints ativos restantes: `0`.
+- Total em `_VALIDADOS_2026-05-09`: `48`.
+- Correcoes aplicadas:
+  - `src/pages/Blog.jsx`: espacamento entre hero/filtros/grid reduzido e validado.
+  - `src/content/blog/{tendencias-construcao-civil-2026,tendencias-decoracao-interiores-2026,casa-cor-2026-mente-coracao,marcenaria-sob-medida-tendencias-2026,reforma-banheiro-moderno-2026}.md`: titulos e chamadas visiveis corrigidos com acentuacao.
+  - `src/pages/Projects.jsx`: tags preenchidas por cor de nucleo e metric cards mais baixos.
+  - `src/pages/About.jsx`: imagem do William estabilizada como background com zoom; simbolo decorativo do bloco `Diferencial WG` removido.
+  - `src/pages/RevistaEstilos.jsx`: swatches menores e titulos dos cards ajustados para reduzir conflito visual.
+  - `src/pages/SoliciteProposta.jsx`: faixa dos tres cards introdutorios removida.
+  - `src/components/OrcadorInteligente.jsx`: mascara de telefone brasileira, copia sem `algoritmica`, erro de envio inline em vez de `alert()`, campos com texto cinza WG/caret laranja.
+- Evidencias de navegador:
+  - `.codex/tmp/screenshot-audit-05-site-wg/blog-article-cta-current-20260509/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/blog-typos-v2-20260509/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/project-tags-metrics-20260509/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/about-image-zoom128-20260509/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/about-symbol-20260509/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/revista-stylecards-20260509/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/a-marca-logos-20260509/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/solicite-proposta-sem-cards-20260509/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/solicite-proposta-step4-v2-20260509/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/solicite-proposta-submit-error-inline-20260509/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/obraeasy-hero-20260509/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/arquitetura-hero-20260509/`
+- Validacoes tecnicas:
+  - `npm run audit:i18n:public`: OK.
+  - `npm run seo:audit`: OK.
+  - `npm run lint`: OK.
+  - `npm run verify:fast`: OK, 12 arquivos de teste e 64 testes aprovados.
+- Pendencias:
+  - Pasta raiz `05_site-wg` sem prints pendentes.
+  - Validacao autenticada de `RoomVisualizer` e `Moodboard Studio` continua pendente fora desta fila de prints.
+
+### Fechamento tecnico do baseline - 2026-05-09 20h49
+- Estado de governanca:
+  - Portfolio ainda iniciou `RED` por dirty worktree aberto no proprio `site-wgalmeida`.
+  - `git-sync-gate.ps1 -Stage pre-commit -AllowDirty`: OK; branch `feature/buildtech-vitrine-star-20260502`, upstream `origin/feature/buildtech-vitrine-star-20260502`, behind `0`.
+- Saneamento aplicado nesta retomada:
+  - Removidos trailing whitespaces apontados por `git diff --check` em arquivos ja alterados do moodboard/header/main.
+  - `src/services/mediaService.js`: restaurado wrapper `searchUnsplashImages(query)` compativel com telas admin, mapeando o modulo canonico `src/lib/unsplash.ts` para `{ url, thumb, source, author }`.
+- Validacoes tecnicas:
+  - `git diff --check`: sem erros de whitespace; apenas avisos CRLF.
+  - `npm run verify:fast`: OK, 12 arquivos de teste e 64 testes aprovados.
+  - `npm run build:local`: OK; `dist-local` gerado e sitemap atualizado com 158 rotas.
+- Pendencias:
+  - Sem push/deploy enquanto Portfolio Health nao sair de `RED`.
+  - Repo pai `01_APPS/02_BUILDTECH` ainda possui `plans/brand-alignment-final.md` nao rastreado para classificacao/commit separado.

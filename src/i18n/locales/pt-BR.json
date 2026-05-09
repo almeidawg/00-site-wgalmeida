@@ -76,6 +76,29 @@
     "digitalTools": "Ferramentas Digitais",
     "faq": "FAQ"
   },
+  "projectGallery": {
+    "kicker": "Project Gallery Ticker",
+    "previous": "Projeto anterior",
+    "next": "Próximo projeto",
+    "goToPage": "Ir para página {{page}}",
+    "viewInstagram": "Ver mais no Instagram",
+    "close": "Fechar galeria",
+    "previousPhoto": "Foto anterior",
+    "nextPhoto": "Próxima foto"
+  },
+  "instagramGallery": {
+    "kicker": "Nossos Projetos",
+    "previous": "Anterior",
+    "next": "Próximo",
+    "postAlt": "Projeto WG Almeida no Instagram {{id}}",
+    "viewOnInstagram": "Ver no Instagram",
+    "goToPage": "Ir para página {{page}}",
+    "viewMore": "Ver mais no Instagram",
+    "close": "Fechar",
+    "previousPhoto": "Foto anterior",
+    "nextPhoto": "Próxima foto",
+    "openOnInstagram": "Abrir no Instagram"
+  },
   "seo": {
     "home": {
       "title": "Arquitetura, Engenharia e Marcenaria de Alto Padrão em São Paulo",
@@ -803,7 +826,7 @@
     "intents": {
       "obra": "Você demonstrou interesse em obra e reforma. Vamos dimensionar o seu projeto com custo, prazo e proposta técnica detalhada.",
       "marcenaria": "Você demonstrou interesse em marcenaria sob medida. Podemos iniciar com um briefing visual e partir para medição e proposta.",
-      "design": "Você demonstrou interesse em experiência visual e design. Vamos usar seu guia de estilo como ponto de partida para o projeto.",
+      "design": "Sua leitura visual foi registrada como insumo inicial. Ela ajuda a orientar briefing, escopo e curadoria, enquanto a proposta final segue validação técnica da equipe WG.",
       "investimento": "Você demonstrou interesse em análise de investimento. Podemos estruturar o EVF, AVM e custo de obra em uma única proposta."
     }
   },
@@ -1010,9 +1033,8 @@
       "editingNow": "Editando agora",
       "projectNamePlaceholder": "Nome do Projeto...",
       "statusActive": "Ativo sincronizado",
-      "saveButton": "Salvar Dossiê",
-      "saving": "Salvando...",
-      "tabs": {
+      "saveButton": "Salvar MoodBoard",
+      "saving": "Salvando...",      "tabs": {
         "styles": "Estilos",
         "colors": "Paletas",
         "assets": "Biblioteca"

@@ -77,6 +77,29 @@
     "faq": "FAQ",
     "requestProposal": "Solicitar Propuesta"
   },
+  "projectGallery": {
+    "kicker": "Project Gallery Ticker",
+    "previous": "Proyecto anterior",
+    "next": "Siguiente proyecto",
+    "goToPage": "Ir a la página {{page}}",
+    "viewInstagram": "Ver más en Instagram",
+    "close": "Cerrar galería",
+    "previousPhoto": "Foto anterior",
+    "nextPhoto": "Siguiente foto"
+  },
+  "instagramGallery": {
+    "kicker": "Nuestros Proyectos",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "postAlt": "Proyecto WG Almeida en Instagram {{id}}",
+    "viewOnInstagram": "Ver en Instagram",
+    "goToPage": "Ir a la página {{page}}",
+    "viewMore": "Ver más en Instagram",
+    "close": "Cerrar",
+    "previousPhoto": "Foto anterior",
+    "nextPhoto": "Siguiente foto",
+    "openOnInstagram": "Abrir en Instagram"
+  },
   "seo": {
     "home": {
       "title": "Arquitectura, Ingenieria y Carpintería a Medida de Alto Nivel en Sao Paulo",
@@ -801,7 +824,7 @@
     "intents": {
       "obra": "Mostraste interes en obra y reforma. Vamos a dimensionar tu proyecto con costo, plazo y propuesta tecnica detallada.",
       "marcenaria": "Mostraste interes en carpinteria a medida. Podemos iniciar con un briefing visual y partir hacia la medicion y propuesta.",
-      "design": "Mostraste interes en experiencia visual y diseno. Vamos a usar tu guia de estilo como punto de partida para el proyecto.",
+      "design": "Tu lectura visual quedo registrada como insumo inicial. Ayuda a orientar briefing, alcance y curaduria, mientras la propuesta final sigue validacion tecnica del equipo WG.",
       "investimento": "Mostraste interes en analisis de inversion. Podemos estructurar el EVF, AVM y costo de obra en una sola propuesta."
     }
   },

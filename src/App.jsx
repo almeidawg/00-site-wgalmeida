@@ -297,9 +297,9 @@ function App() {
 
   // Não mostrar header/footer em páginas standalone
   const isStandaloneRoute =
-    ['/login', '/admin', '/clientes', '/buildtech/clientes', '/moodboard/studio'].some((path) =>
+    ['/login', '/admin', '/clientes', '/buildtech/clientes', '/moodboard', '/moodboard/studio'].some((path) =>
       location.pathname.startsWith(path)
-    )
+    );
 
   return (
     <ContextProvider>

@@ -4,8 +4,6 @@ import { motion } from '@/lib/motion-lite';
 import SEO from '@/components/SEO';
 import OrcadorInteligente from '@/components/OrcadorInteligente';
 import { useTranslation } from 'react-i18next';
-import { CheckCircle2, Users, Briefcase } from 'lucide-react';
-import { WG_PRODUCT_MESSAGES } from '@/data/company';
 import { useWGContext } from '@/providers/ContextProvider';
 
 const SoliciteProposta = () => {
@@ -37,7 +35,7 @@ const SoliciteProposta = () => {
   };
 
   const introLabel = requestedContext
-    ? contextCopy[requestedContext] || WG_PRODUCT_MESSAGES.wgExperienceAddon
+    ? contextCopy[requestedContext] || t('proposalPage.benefits.addon')
     : requestedIntent && intentCopy[requestedIntent]
       ? intentCopy[requestedIntent]
       : wgContext?.interesse && !requestedContext && intentCopy[wgContext.interesse]
@@ -68,39 +66,6 @@ const SoliciteProposta = () => {
             <p className="text-wg-gray text-lg font-light leading-relaxed">
               {t('proposalPage.hero.subtitle')}
             </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl mx-auto mb-10"
-          >
-            {[
-              {
-                icon: CheckCircle2,
-                title: t('proposalPage.benefits.visual'),
-                text: WG_PRODUCT_MESSAGES.wgExperienceSystem,
-              },
-              {
-                icon: Users,
-                title: t('proposalPage.benefits.addon'),
-                text: WG_PRODUCT_MESSAGES.wgExperienceAddon,
-              },
-              {
-                icon: Briefcase,
-                title: t('proposalPage.benefits.action'),
-                text: WG_PRODUCT_MESSAGES.wgExperienceConversion,
-              },
-            ].map((item) => (
-              <div key={item.title} className="rounded-[1.8rem] border border-black/5 bg-white p-6 shadow-[0_18px_48px_rgba(30,24,20,0.05)]">
-                <div className="w-11 h-11 rounded-2xl bg-wg-orange/10 text-wg-orange flex items-center justify-center mb-4">
-                  <item.icon className="w-5 h-5" />
-                </div>
-                <h2 className="text-lg font-light text-wg-black mb-2">{item.title}</h2>
-                <p className="text-sm text-wg-gray font-light leading-relaxed">{item.text}</p>
-              </div>
-            ))}
           </motion.div>
 
           <OrcadorInteligente

@@ -39,12 +39,12 @@ const StyleGrid = ({ selectedStyles, onStylesChange, maxStyles = 3 }) => {
   }, [searchTerm, activeCategory]);
 
   const handleStyleSelect = (style) => {
-    // No catálogo oficial a chave é 'slug', no componente anterior era 'id'
-    // Vamos normalizar para 'slug' que é o identificador único estável
-    const isSelected = selectedStyles.some((s) => (s.slug || s.id) === (style.slug || style.id));
+    // Normalização absoluta: o catálogo oficial usa 'slug'
+    const styleKey = style.slug || style.id;
+    const isSelected = selectedStyles.some((s) => (s.slug || s.id) === styleKey);
 
     if (isSelected) {
-      onStylesChange(selectedStyles.filter((s) => (s.slug || s.id) !== (style.slug || style.id)));
+      onStylesChange(selectedStyles.filter((s) => (s.slug || s.id) !== styleKey));
     } else if (selectedStyles.length < maxStyles) {
       onStylesChange([...selectedStyles, style]);
     }
@@ -129,7 +129,7 @@ const StyleGrid = ({ selectedStyles, onStylesChange, maxStyles = 3 }) => {
         <AnimatePresence>
           {filteredStyles.map((style) => (
             <motion.div
-              key={style.id}
+              key={style.slug || style.id}
               layout
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -138,10 +138,10 @@ const StyleGrid = ({ selectedStyles, onStylesChange, maxStyles = 3 }) => {
             >
               <StyleCard
                 style={style}
-                isSelected={selectedStyles.some((s) => s.id === style.id)}
+                isSelected={selectedStyles.some((s) => (s.slug || s.id) === (style.slug || style.id))}
                 onSelect={handleStyleSelect}
                 onFavorite={handleFavorite}
-                isFavorite={favorites.includes(style.id)}
+                isFavorite={favorites.includes(style.slug || style.id)}
               />
             </motion.div>
           ))}

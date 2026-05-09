@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from '@/lib/motion-lite';
-import { ArrowRight, ArrowLeft, CheckCircle2, Building2, Ruler, Loader2, Sparkles, Calculator, PenTool, TrendingUp, Home } from 'lucide-react';
+import { ArrowRight, ArrowLeft, CheckCircle2, Building2, Ruler, Loader2, ClipboardCheck, Calculator, PenTool, TrendingUp, Home } from 'lucide-react';
 import { useWGContext } from '@/providers/ContextProvider';
 import { useTranslation } from 'react-i18next';
 
@@ -37,6 +37,18 @@ const calculateEstimate = (metragem, servico) => {
   return `${format(min)} a ${format(max)}`;
 };
 
+const formatBrazilianPhone = (value = '') => {
+  const digits = value.replace(/\D/g, '').slice(0, 11);
+
+  if (digits.length <= 2) return digits;
+  if (digits.length <= 6) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+  if (digits.length <= 10) {
+    return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
+  }
+
+  return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+};
+
 const OrcadorInteligente = ({
   initialService = '',
   initialPropertyType = '',
@@ -50,6 +62,7 @@ const OrcadorInteligente = ({
   const [isCalculating, setIsCalculating] = useState(false);
   const [success, setSuccess] = useState(false);
   const [estimate, setEstimate] = useState(null);
+  const [submitError, setSubmitError] = useState('');
   const [formData, setFormData] = useState({
     nome: '',
     telefone: '',
@@ -62,7 +75,7 @@ const OrcadorInteligente = ({
 
   const handleNext = () => {
     if (step === 3) {
-      // Step 3 -> 4: Fake calculation delay for "AI" feel
+      // Step 3 -> 4: breve pausa para apresentar a leitura tecnica.
       setIsCalculating(true);
       setEstimate(calculateEstimate(formData.metragem, formData.servico));
       setStep(4);
@@ -76,6 +89,7 @@ const OrcadorInteligente = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setSubmitError('');
 
     const finalSource = sourceContext || wgContext?.origem || 'site-wgalmeida';
     const message = `Serviço: ${formData.servico} | Imóvel: ${formData.tipoImovel} | Metragem: ${formData.metragem}m² | Prazo: ${formData.prazo} | Origem: ${finalSource} | Faixa Visualizada: ${estimate || 'N/A'}`;
@@ -88,7 +102,7 @@ const OrcadorInteligente = ({
           name: formData.nome,
           email: formData.email,
           phone: formData.telefone,
-          subject: `Orçamento Inteligente: ${formData.servico}`,
+          subject: `Solicitação técnica: ${formData.servico}`,
           message: message,
           context: sourceContext || 'orcamento'
         })
@@ -99,7 +113,7 @@ const OrcadorInteligente = ({
       setSuccess(true);
     } catch (err) {
       console.error('Erro ao enviar orçamento:', err);
-      alert('Ocorreu um erro. Por favor, tente novamente ou nos chame no WhatsApp.');
+      setSubmitError('Nao foi possivel enviar agora. Tente novamente ou chame a equipe pelo WhatsApp.');
     } finally {
       setLoading(false);
     }
@@ -177,7 +191,7 @@ const OrcadorInteligente = ({
             animate={{ opacity: 1, y: 0 }}
             className="mb-8 rounded-[1.6rem] border border-black/5 bg-wg-gray-light px-6 py-5 text-sm text-wg-black flex items-start gap-3"
           >
-            <Sparkles className="w-5 h-5 shrink-0 text-wg-orange mt-0.5" />
+            <ClipboardCheck className="w-5 h-5 shrink-0 text-wg-orange mt-0.5" />
             <span className="leading-relaxed font-light">{introLabel}</span>
           </motion.div>
         ) : null}
@@ -273,7 +287,7 @@ const OrcadorInteligente = ({
                       required
                       value={formData.metragem}
                       onChange={(e) => setFormData({ ...formData, metragem: e.target.value })}
-                      className="w-full rounded-[1.5rem] border border-slate-200 bg-slate-50/50 py-4 pl-14 pr-4 text-slate-900 focus:bg-white focus:border-wg-orange focus:outline-none focus:ring-4 focus:ring-wg-orange/10 transition-all"
+                      className="w-full rounded-[1.5rem] border border-slate-200 bg-slate-50/50 py-4 pl-14 pr-4 text-slate-900 caret-wg-orange placeholder:text-slate-400 focus:bg-white focus:border-wg-orange focus:outline-none focus:ring-4 focus:ring-wg-orange/10 transition-all"
                       placeholder="Ex: 120"
                     />
                   </div>
@@ -331,7 +345,7 @@ const OrcadorInteligente = ({
                         <p className="text-white/60 text-sm uppercase tracking-widest mb-2 font-medium">Investimento Estimado (WG Padrão)</p>
                         <p className="text-3xl md:text-4xl font-light tracking-tight">{estimate}</p>
                         <p className="text-white/40 text-xs mt-4">
-                          *Apenas uma previsão algorítmica. O valor exato depende do Book Técnico final.
+                          *Apenas uma leitura preliminar. O valor exato depende do Book Técnico final.
                         </p>
                       </div>
                     ) : (
@@ -351,7 +365,7 @@ const OrcadorInteligente = ({
                           required
                           value={formData.nome}
                           onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
-                          className="w-full rounded-[1.2rem] border border-slate-200 bg-white px-5 py-4 focus:border-wg-orange focus:outline-none focus:ring-4 focus:ring-wg-orange/10 transition-all shadow-sm"
+                          className="w-full rounded-[1.2rem] border border-slate-200 bg-white px-5 py-4 text-slate-900 caret-wg-orange placeholder:text-slate-400 focus:border-wg-orange focus:outline-none focus:ring-4 focus:ring-wg-orange/10 transition-all shadow-sm"
                           placeholder="Nome Completo"
                         />
                       </div>
@@ -361,18 +375,24 @@ const OrcadorInteligente = ({
                           required
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          className="w-full rounded-[1.2rem] border border-slate-200 bg-white px-5 py-4 focus:border-wg-orange focus:outline-none focus:ring-4 focus:ring-wg-orange/10 transition-all shadow-sm"
+                          className="w-full rounded-[1.2rem] border border-slate-200 bg-white px-5 py-4 text-slate-900 caret-wg-orange placeholder:text-slate-400 focus:border-wg-orange focus:outline-none focus:ring-4 focus:ring-wg-orange/10 transition-all shadow-sm"
                           placeholder="Melhor E-mail"
                         />
                         <input
                           type="tel"
                           required
                           value={formData.telefone}
-                          onChange={(e) => setFormData({ ...formData, telefone: e.target.value })}
-                          className="w-full rounded-[1.2rem] border border-slate-200 bg-white px-5 py-4 focus:border-wg-orange focus:outline-none focus:ring-4 focus:ring-wg-orange/10 transition-all shadow-sm"
-                          placeholder="WhatsApp"
+                          onChange={(e) => setFormData({ ...formData, telefone: formatBrazilianPhone(e.target.value) })}
+                          className="w-full rounded-[1.2rem] border border-slate-200 bg-white px-5 py-4 text-slate-900 caret-wg-orange placeholder:text-slate-400 focus:border-wg-orange focus:outline-none focus:ring-4 focus:ring-wg-orange/10 transition-all shadow-sm"
+                          placeholder="(11) 99999-9999"
+                          inputMode="tel"
                         />
                       </div>
+                      {submitError && (
+                        <p className="rounded-2xl border border-wg-orange/20 bg-wg-orange/5 px-4 py-3 text-center text-sm text-slate-700">
+                          {submitError}
+                        </p>
+                      )}
                     </div>
 
                     <div className="flex flex-col items-center justify-between gap-4 pt-8 md:flex-row">
