@@ -1060,5 +1060,74 @@
       "placeholder": "Seu melhor e-mail",
       "button": "Assinar"
     }
+  },
+  "regions": {
+    "defaults": {
+      "servicesTitle": "Soluções integradas de alto padrão",
+      "coverage": "Nossa atuação em {{region}}",
+      "highlightsTitle": "Por que escolher a WG Almeida em {{region}}?",
+      "ctaTitle": "Quer iniciar seu projeto em {{region}}?",
+      "ctaDescription": "Nossa equipe organiza o próximo passo entre briefing, escopo e conversa técnica.",
+      "quote": "Projeto, obra e marcenaria integrados para imóveis de alto padrão em {{region}}.",
+      "services": [
+        {
+          "title": "Arquitetura",
+          "items": ["Projetos residenciais", "Interiores autorais", "Reformas completas"]
+        },
+        {
+          "title": "Engenharia",
+          "items": ["Obras turn key", "Gestão de projetos", "Acompanhamento técnico"]
+        },
+        {
+          "title": "Marcenaria",
+          "items": ["Mobiliário sob medida", "Acabamentos premium", "Integração total"]
+        }
+      ]
+    },
+    "itaim": {
+      "name": "Itaim Bibi",
+      "title": "Arquitetura e Engenharia de Alto Padrão no Itaim Bibi",
+      "metaDescription": "Especialistas em reformas Turn Key e projetos de interiores no Itaim Bibi. Inteligência ICCRI para custos precisos e execução impecável.",
+      "intro": [
+        "O Itaim Bibi é um dos centros mais dinâmicos de São Paulo, onde a sofisticação encontra a praticidade urbana. O Grupo WG Almeida atua na região com uma estrutura completa que une arquitetura autoral, engenharia de precisão e marcenaria de luxo.",
+        "Utilizamos o ICCRI (Índice de Custo de Construção e Reforma Integrada) para fornecer orçamentos defensáveis e transparentes, garantindo que seu investimento no Itaim Bibi seja protegido por dados reais de mercado e gestão técnica rigorosa."
+      ],
+      "highlights": [
+        "Domínio técnico de normas de condomínios premium do Itaim",
+        "Orçamentação orientada por dados reais (ICCRI)",
+        "Logística de obra otimizada para a região",
+        "Marcenaria própria para acabamentos de altíssimo padrão"
+      ]
+    },
+    "vila-nova-conceicao": {
+      "name": "Vila Nova Conceição",
+      "title": "Projetos de Luxo e Obras Turn Key na Vila Nova Conceição",
+      "metaDescription": "Referência em arquitetura e construção de alto padrão na Vila Nova Conceição. Do conceito à marcenaria sob medida, com previsibilidade e excelência.",
+      "intro": [
+        "Na Vila Nova Conceição, o padrão de exigência demanda uma entrega absoluta. O Grupo WG Almeida entrega soluções Turn Key que respeitam a exclusividade e a estética impecável que este bairro exige.",
+        "Nosso fluxo de trabalho integra a sensibilidade do design de interiores com o rigor da engenharia civil. Planejamos cada detalhe da sua reforma na Vila Nova Conceição para que a execução seja silenciosa, limpa e fiel ao projeto aprovado."
+      ],
+      "highlights": [
+        "Projetos de interiores que valorizam o m² da Vila Nova",
+        "Gestão Turn Key: você aprova o projeto, nós entregamos as chaves",
+        "Fábrica de marcenaria dedicada para exclusividade total",
+        "Acompanhamento via Sistema WG Easy em tempo real"
+      ]
+    },
+    "brooklin": {
+      "name": "Brooklin",
+      "title": "Reformas e Arquitetura de Alto Padrão no Brooklin",
+      "metaDescription": "Transforme seu imóvel no Brooklin com o Grupo WG Almeida. Projetos integrados de arquitetura, engenharia e marcenaria com foco em valorização e conforto.",
+      "intro": [
+        "Com nossa base operacional situada no Brooklin, temos uma conexão profunda com as necessidades residenciais e corporativas da região. Oferecemos um ecossistema completo para quem busca renovar com segurança e design.",
+        "A integração real entre nossos núcleos permite que uma obra no Brooklin aconteça com o máximo de previsibilidade. Do cálculo estrutural ao detalhe da marcenaria, tudo é resolvido dentro de um único padrão de gestão WG."
+      ],
+      "highlights": [
+        "Base operacional local para atendimento ágil no bairro",
+        "Expertise em retrofit e valorização imobiliária no Brooklin",
+        "Projetos residenciais e corporativos integrados",
+        "Transparência financeira total via WG Easy"
+      ]
+    }
   }
 }
