@@ -30,7 +30,8 @@
 - Bundle local gerado: `dist-local/assets/Blog-0J4jFaVQ.js` e `dist-local/assets/moodboard-CESzNsME.js`.
 
 ### Pendências
-- Não houve commit, push, PR ou deploy neste bloco.
+- Commit local criado e enviado para a branch remota `feature/buildtech-vitrine-star-20260502`: `447af87 fix(site): harden blog tags and moodboard storage`.
+- Não houve PR, merge ou deploy neste bloco.
 - O smoke ainda reportou 404s de imagens fora do escopo desta correção: `/images/banners/PROCESSOS.avif`, `/images/banners/MARCENARIA.avif`, `/images/banners/ARQ.avif`, `/images/banners/ENGENHARIA.avif` e `/images/blog/laca-vs-melamina.webp`.
 - Para produção, seguir fluxo protegido: Sync Gate `pre-commit`, commit em branch, PR contra `main`, checks obrigatórios, merge e validação real em `https://wgalmeida.com.br`.
 
