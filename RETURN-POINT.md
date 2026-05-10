@@ -1071,3 +1071,46 @@ URL limpa para validacao humana:
   - O alias final de producao foi atualizado para o site novo confirmado pelo usuario; o deploy antigo ficou sobrescrito no alias, sem nova promocao.
   - Nao foi feita remocao destrutiva de historico/deploy antigo nesta etapa.
   - Build Vercel ainda reporta `2 high severity vulnerabilities` herdadas das dependencias atuais; tratar em bloco proprio.
+
+### Governanca pos-incidente e deploy main canonica - 2026-05-10
+- Data/hora: `2026-05-10 01:21:52 -03:00`.
+- Responsavel pela aprovacao: William/operador via chat, com confirmacao explicita `pode seguir`.
+- Incidente tratado:
+  - Deploy anterior promoveu branch/hotfix inferior ao site novo confirmado.
+  - PR #60 ficou bloqueada por historico antigo e por `audit-public-claims`.
+  - PR limpa #61 substituiu a #60 com um unico commit sobre `origin/main`, sem carregar historico contaminado.
+- Branch canonica atual de producao:
+  - `main`.
+  - Merge commit: `08143211dea4c9347f86dba26bf555a40a83d8cc`.
+  - PR: `https://github.com/almeidawg/site-wgalmeida/pull/61`.
+- Deploy Vercel de producao:
+  - Inspect: `https://vercel.com/william-almeidas-projects/site-wgalmeida/FQAcXdwJZBL6v6viN7QUaF5E5YBJ`.
+  - Production URL: `https://site-wgalmeida-gjr6hopwu-william-almeidas-projects.vercel.app`.
+  - Alias final: `https://wgalmeida.com.br`.
+  - Asset JS validado: `/assets/index-B4i-UMb-.js`.
+- Checklist de validacao:
+  - [x] PR aberta contra `main`, sem deploy direto de hotfix.
+  - [x] GitGuardian Security Checks: PASS.
+  - [x] `build-and-test`: PASS.
+  - [x] `deploy-gate-final`: PASS.
+  - [x] Vercel Preview: PASS.
+  - [x] Merge feito via PR #61, sem `--admin`.
+  - [x] Deploy executado a partir da branch `main` com HEAD igual a `origin/main`.
+  - [x] `https://wgalmeida.com.br`: HTTP `200` em desktop e mobile.
+  - [x] `https://www.wgalmeida.com.br`: HTTP `200` em desktop e mobile.
+  - [x] Video da home carregado e reproduzindo: desktop `1920x1080`, mobile `720x1280`, `readyState 4`.
+  - [x] BuildTech visivel em `/buildtech`.
+  - [x] Moodboard visivel em `/moodboard`.
+  - [x] Blog e artigos validados sem crash `objectPosition`.
+  - [x] `/revista-estilos` validada sem imagens quebradas.
+  - [x] `iframeCount: 0` nas rotas auditadas.
+  - [x] `hasBlockedText: false`, sem `Este conteúdo está bloqueado`.
+  - [x] `criticalConsoleErrors: []`.
+  - [x] `brokenImages: []`.
+- Evidencia tecnica:
+  - Script temporario: `.codex/tmp/prod-validate-20260510.cjs`.
+  - Resultado: `failures: []`.
+- Observacoes:
+  - GitGuardian passou na PR limpa, confirmando que o bloqueio da #60 vinha do historico antigo da branch, nao do conteudo final.
+  - `git worktree prune` limpou o suficiente para liberar `main`; alguns metadados antigos prunable ainda reportaram `Permission denied` e devem ser saneados em bloco separado de limpeza local.
+  - Remocao destrutiva de branches/deploys antigos nao foi feita neste bloco; a limpeza deve ocorrer apos novo checkpoint e com foco em evidencias.
