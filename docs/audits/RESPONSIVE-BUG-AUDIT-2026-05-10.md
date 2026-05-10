@@ -51,6 +51,21 @@ Auditoria automatizada executada em 14 rotas x 13 viewports, totalizando 182 val
 - Falhas ORB de imagens Unsplash devem ser tratadas como bloco proprio de midia/fallback.
 - `2 high severity vulnerabilities` vistas no build/Vercel seguem em auditoria separada de dependencias.
 
+## Deploy e validacao de producao
+
+- Commit funcional ja presente no branch: `593ae44 fix(ui): improve sidebar tabs responsiveness and truncation`.
+- Commit documental: `75a603a docs(site): record responsive bug audit`.
+- Deploy Vercel:
+  - Inspect: `https://vercel.com/william-almeidas-projects/site-wgalmeida/AtMsmNDJ7ArCZ3Nbcr4Xb8j7fTYx`.
+  - Production URL: `https://site-wgalmeida-96mxj6oyi-william-almeidas-projects.vercel.app`.
+  - Alias final: `https://wgalmeida.com.br`.
+- Validacao real:
+  - `https://wgalmeida.com.br/moodboard`: HTTP `200`, sem overflow horizontal em 320px, cinco abas visiveis.
+  - `https://site-wgalmeida-96mxj6oyi-william-almeidas-projects.vercel.app/moodboard`: HTTP `200`, sem overflow horizontal em 320px, cinco abas visiveis.
+- Evidencia:
+  - `.codex/tmp/responsive-prod-validation-20260510/summary.json`.
+  - `.codex/tmp/responsive-prod-validation-20260510/site-domain-moodboard-320.png`.
+
 ## Modelo de governanca aplicado
 
 1. Identificar bug com evidencia visual ou log.

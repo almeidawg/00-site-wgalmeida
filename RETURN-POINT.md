@@ -955,3 +955,19 @@ URL limpa para validacao humana:
   - `RSP-003`: falhas `net::ERR_BLOCKED_BY_ORB` em imagens externas Unsplash durante auditoria local; tratar em bloco proprio de midia/fallback.
   - Avisos de future flags React Router seguem como backlog P3.
   - Validacao autenticada real segue pendente fora deste bloco.
+
+### Deploy producao auditoria responsiva - 2026-05-10
+- Deploy Vercel:
+  - Inspect: `https://vercel.com/william-almeidas-projects/site-wgalmeida/AtMsmNDJ7ArCZ3Nbcr4Xb8j7fTYx`.
+  - Production URL: `https://site-wgalmeida-96mxj6oyi-william-almeidas-projects.vercel.app`.
+  - Alias final: `https://wgalmeida.com.br`.
+- Validacao real de producao:
+  - `https://wgalmeida.com.br/moodboard`: HTTP `200`, sem overflow horizontal em 320px, abas `Estilos`, `Paletas`, `Acabamentos`, `Decoracao` e `Biblioteca` visiveis.
+  - URL de deploy `/moodboard`: HTTP `200`, sem overflow horizontal em 320px.
+- Evidencias:
+  - `.codex/tmp/responsive-prod-validation-20260510/summary.json`.
+  - `.codex/tmp/responsive-prod-validation-20260510/site-domain-moodboard-320.png`.
+- Governanca:
+  - Prompt/padrao do agente QA autonomo registrado em `docs/audits/AUTONOMOUS-QA-VALIDATOR-AGENT-2026-05-10.md`.
+  - `2 high severity vulnerabilities` no build Vercel seguem como bloco proprio de auditoria de dependencias.
+  - Falhas ORB de imagens externas Unsplash seguem como pendencia `RSP-003`.
