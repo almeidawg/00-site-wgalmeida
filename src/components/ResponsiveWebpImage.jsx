@@ -48,25 +48,26 @@ const ResponsiveWebpImage = ({
   const resolvedSrc = withBasePath(src);
 
   return (
-    <img
-      src={resolvedSrc}
-      alt={alt}
-      className={className}
-      width={width}
-      height={height}
-      sizes={sizes}
-      loading={loading}
-      decoding={decoding}
-      fetchpriority={fetchPriority}
-      onError={(event) => {
-        if (event.currentTarget.dataset.fallbackApplied === 'true') return;
-        event.currentTarget.dataset.fallbackApplied = 'true';
-        event.currentTarget.src = getFallbackSrc(resolvedSrc || src);
-      }}
-      {...rest}
-    />
+    <picture className={className}>
+      <img
+        src={resolvedSrc}
+        alt={alt}
+        className="h-full w-full object-cover" // Default to fill container, can be overridden by className on picture
+        width={width}
+        height={height}
+        sizes={sizes}
+        loading={loading}
+        decoding={decoding}
+        fetchpriority={fetchPriority}
+        onError={(event) => {
+          if (event.currentTarget.dataset.fallbackApplied === 'true') return;
+          event.currentTarget.dataset.fallbackApplied = 'true';
+          event.currentTarget.src = getFallbackSrc(resolvedSrc || src);
+        }}
+        {...rest}
+      />
+    </picture>
   );
 };
 
 export default ResponsiveWebpImage;
-

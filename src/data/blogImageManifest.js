@@ -51,6 +51,8 @@ export const BLOG_IMAGE_MANIFEST = {
         page: 'https://pt.wikipedia.org/wiki/Oscar_Niemeyer',
         sourceLabel: 'Wikipedia',
         alt: 'Retrato de Oscar Niemeyer, arquiteto brasileiro reconhecido pelas curvas do concreto armado.',
+        subject: 'person',
+        objectPosition: 'center 10%',
       },
       seo: {
         source: 'remote',
@@ -58,6 +60,8 @@ export const BLOG_IMAGE_MANIFEST = {
         page: 'https://pt.wikipedia.org/wiki/Oscar_Niemeyer',
         sourceLabel: 'Wikipedia',
         alt: 'Retrato de Oscar Niemeyer, arquiteto brasileiro reconhecido pelas curvas do concreto armado.',
+        subject: 'person',
+        objectPosition: 'center 10%',
       },
       card: {
         source: 'remote',
@@ -86,6 +90,8 @@ export const BLOG_IMAGE_MANIFEST = {
         page: 'https://pt.wikipedia.org/wiki/Oscar_Niemeyer',
         sourceLabel: 'Wikipedia',
         alt: 'Retrato de Oscar Niemeyer, arquiteto brasileiro reconhecido pelas curvas do concreto armado.',
+        subject: 'person',
+        objectPosition: 'center 10%',
       },
       context: [
         {
@@ -108,11 +114,11 @@ export const BLOG_IMAGE_MANIFEST = {
         },
         {
           source: 'remote',
-          src: 'https://www.casatigallery.com/wp-content/uploads/2019/10/Lina-Bo-Bardi-on-the-ship-Almirante-Jaceguay-on-her-way-to-Brasil-in-1946.jpg',
-          page: 'https://www.casatigallery.com/design-designer-lina-bo-bardi/',
-          sourceLabel: 'Casati Gallery',
-          alt: 'Retrato de Lina Bo Bardi em sua viagem ao Brasil, reforçando a presença autoral da arquiteta ítalo-brasileira.',
-          caption: 'Imagem de apoio para o bloco de Lina Bo Bardi, conectando biografia, deslocamento cultural e leitura humanista da arquiteta.',
+          src: 'https://upload.wikimedia.org/wikipedia/commons/c/c1/Lina_Bo_Bardi.jpg',
+          page: 'https://commons.wikimedia.org/wiki/File:Lina_Bo_Bardi.jpg',
+          sourceLabel: 'Wikimedia Commons',
+          alt: 'Retrato de Lina Bo Bardi, arquiteta ítalo-brasileira ligada ao MASP e ao SESC Pompeia.',
+          caption: 'Imagem de apoio para o bloco de Lina Bo Bardi, conectando biografia, cultura brasileira e leitura humanista da arquiteta.',
           sectionTitle: 'Lina Bo Bardi (1914-1992)',
         },
         {
@@ -794,6 +800,8 @@ const buildRemoteAsset = (value, variant = 'card') => {
       caption: value.caption || '',
       sectionTitle: value.sectionTitle || '',
       sectionId: value.sectionId || '',
+      subject: value.subject || '',
+      objectPosition: value.objectPosition || value.focalPoint || '',
       photographer: '',
       photographerUrl: '',
       photoPageUrl: value.page || value.pageUrl || '',
@@ -826,6 +834,8 @@ const buildRemoteAsset = (value, variant = 'card') => {
     caption: value.caption || '',
     sectionTitle: value.sectionTitle || '',
     sectionId: value.sectionId || '',
+    subject: value.subject || '',
+    objectPosition: value.objectPosition || value.focalPoint || '',
     photographer: value.photographer || '',
     photographerUrl,
     photoPageUrl,
@@ -1043,13 +1053,14 @@ export const getBlogManifestEntry = (slug) => {
   const curatedEntry = mergeManifestEntries(cloudinaryEntry, remoteEntry);
   const generatedOverrideEntry = BLOG_IMAGE_OVERRIDES?.slugs?.[slug] || null;
   const canonicalOverrideEntry = BLOG_IMAGE_OVERRIDES_CANONICAL?.slugs?.[slug] || null;
-  const sourceOverrideEntryRaw = mergeManifestEntries(
+  const curatedWithCanonicalFallback = mergeManifestEntries(
+    curatedEntry,
     canonicalOverrideEntry,
-    generatedOverrideEntry,
   );
+  const sourceOverrideEntryRaw = generatedOverrideEntry;
   const sourceOverrideReferenceEntry = mergeManifestEntries(
     generatedOverrideEntry,
-    curatedEntry,
+    curatedWithCanonicalFallback,
   );
   const sourceOverrideEntry = sanitizeGenericOverrideEntry(
     sourceOverrideEntryRaw,
@@ -1059,7 +1070,7 @@ export const getBlogManifestEntry = (slug) => {
   const localUploadEntry = buildLocalUploadManifestEntry(slug);
   const persistedEntry = mergeManifestEntries(
     sourceOverrideEntry,
-    curatedEntry,
+    curatedWithCanonicalFallback,
   );
   const withLocalUnsplash = mergeManifestEntries(localUnsplashEntry, persistedEntry);
   return mergeManifestEntries(localUploadEntry, withLocalUnsplash);

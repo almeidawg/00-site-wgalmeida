@@ -64,7 +64,7 @@ const ROOM_TYPES = [
   },
   {
     id: 'varanda',
-    name: 'Varanda/Terraço',
+    name: 'Varanda',
     icon: Trees,
     description: 'Área externa, jardim',
     prompt: 'balcony, terrace, outdoor space',
@@ -73,7 +73,7 @@ const ROOM_TYPES = [
     id: 'outro',
     name: 'Outro',
     icon: MoreHorizontal,
-    description: 'Especificar tipo de ambiente',
+    description: 'Especificar ambiente',
     prompt: 'interior space',
   },
 ];
@@ -85,7 +85,7 @@ const RoomTypeSelector = ({ selectedRoom, onSelectRoom, customRoomName, onCustom
         Selecione o Tipo de Ambiente
       </h3>
       <p className="text-sm text-gray-500">
-        Isso ajuda a IA a entender melhor o espaço e aplicar as referências corretamente
+        Isso ajuda a configurar corretamente as referências de design do moodboard.
       </p>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -99,25 +99,25 @@ const RoomTypeSelector = ({ selectedRoom, onSelectRoom, customRoomName, onCustom
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => onSelectRoom(room)}
-              className={`p-4 rounded-xl border-2 text-left transition-all ${
+              className={`p-3 rounded-xl border-2 text-left transition-all ${
                 isSelected
-                  ? 'border-wg-orange bg-wg-orange/5'
+                  ? 'border-wg-black bg-gray-50'
                   : 'border-gray-200 hover:border-gray-300 bg-white'
               }`}
             >
-              <div className="flex items-center gap-3">
+              <div className="flex flex-col xl:flex-row items-start xl:items-center gap-2 xl:gap-3">
                 <div
-                  className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-                    isSelected ? 'bg-wg-orange text-white' : 'bg-gray-100 text-gray-600'
+                  className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
+                    isSelected ? 'bg-wg-black text-white' : 'bg-gray-100 text-gray-600'
                   }`}
                 >
-                  <Icon className="w-5 h-5" />
+                  <Icon className="w-4 h-4" />
                 </div>
-                <div>
-                  <p className={`font-medium ${isSelected ? 'text-wg-orange' : 'text-gray-800'}`}>
+                <div className="min-w-0">
+                  <p className={`text-sm font-medium truncate ${isSelected ? 'text-wg-black' : 'text-gray-800'}`}>
                     {room.name}
                   </p>
-                  <p className="text-xs text-gray-500">{room.description}</p>
+                  <p className="text-[10px] text-gray-500 line-clamp-1">{room.description}</p>
                 </div>
               </div>
             </motion.button>
@@ -140,7 +140,7 @@ const RoomTypeSelector = ({ selectedRoom, onSelectRoom, customRoomName, onCustom
             value={customRoomName || ''}
             onChange={(e) => onCustomRoomChange?.(e.target.value)}
             placeholder="Ex: Sala de jogos, Adega, Closet..."
-            className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-wg-orange focus:border-transparent"
+            className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-wg-black focus:border-transparent"
           />
         </motion.div>
       )}

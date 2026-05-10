@@ -1064,7 +1064,7 @@ const ColorTransformer = ({ externalColors = [] }) => {
           {isTransforming ? (
             <>
               <Loader2 className="w-6 h-6 animate-spin" />
-              Processando com IA...
+              Processando visualização...
             </>
           ) : (
             <>
@@ -1215,7 +1215,7 @@ const ColorTransformer = ({ externalColors = [] }) => {
                   <button
                     onClick={() => {
                       const shareUrl = getShareableUrl();
-                      const text = encodeURIComponent(`Confira minha transformação de ambiente com IA da WG Almeida!\n${shareUrl}`);
+                      const text = encodeURIComponent(`Confira minha transformação de ambiente com a WG Almeida!\n${shareUrl}`);
                       window.open(`https://wa.me/?text=${text}`, '_blank');
                     }}
                     className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg text-sm font-light hover:bg-green-600 transition-colors"
@@ -1227,7 +1227,7 @@ const ColorTransformer = ({ externalColors = [] }) => {
                     onClick={() => {
                       const shareUrl = getShareableUrl();
                       const subject = encodeURIComponent('Minha Transformação de Ambiente - WG Almeida');
-                      const body = encodeURIComponent(`Olá!\n\nConfira como ficou minha transformação de ambiente com IA:\n${shareUrl}\n\nCriado com a ferramenta WG Almeida Design de Interiores.\nAcesse: https://wgalmeida.com.br`);
+                      const body = encodeURIComponent(`Olá!\n\nConfira como ficou minha transformação de ambiente:\n${shareUrl}\n\nCriado com a ferramenta WG Almeida Design de Interiores.\nAcesse: https://wgalmeida.com.br`);
                       window.open(`mailto:?subject=${subject}&body=${body}`);
                     }}
                     className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg text-sm font-light hover:bg-blue-600 transition-colors"

@@ -19,11 +19,93 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const adminAuth = await requireAdmin(req, res);
-  if (!adminAuth.ok) return adminAuth.response;
+  const authHeader = req.headers.authorization || '';
+  const isServiceKey = authHeader === `Bearer ${SUPABASE_SERVICE_KEY}`;
+
+  if (!isServiceKey) {
+    const adminAuth = await requireAdmin(req, res);
+    if (!adminAuth.ok) return adminAuth.response;
+  }
 
   if (!SUPABASE_SERVICE_KEY) {
     return res.status(500).json({ error: 'SUPABASE_SERVICE_ROLE_KEY not configured' });
+  }
+
+  // POST — Promove um lead para o WGEasy (Oportunidade real)
+  if (req.method === 'POST') {
+    try {
+      const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
+      const { id, tipo } = body || {};
+
+      if (!id || !tipo) {
+        return res.status(400).json({ error: 'id e tipo são obrigatórios' });
+      }
+
+      const headers = supabaseHeaders();
+      const table = tipo === 'proposta' ? 'propostas_solicitadas' : 'contacts';
+      
+      // 1. Buscar dados completos do lead
+      const leadResp = await fetch(`${SUPABASE_URL}/rest/v1/${table}?id=eq.${id}&select=*`, { headers });
+      const [lead] = await leadResp.json();
+
+      if (!lead) return res.status(404).json({ error: 'Lead não encontrado' });
+
+      const email = lead.email;
+      const nome = lead.name || lead.nome || 'Lead do Site';
+      const telefone = lead.phone || lead.telefone;
+
+      // 2. Garantir que a pessoa existe no WGEasy
+      let pessoaId;
+      const pessoaCheckResp = await fetch(`${SUPABASE_URL}/rest/v1/pessoas?email=eq.${email}&select=id`, { headers });
+      const [pessoaExistente] = await pessoaCheckResp.json();
+
+      if (pessoaExistente) {
+        pessoaId = pessoaExistente.id;
+      } else {
+        const novaPessoaResp = await fetch(`${SUPABASE_URL}/rest/v1/pessoas`, {
+          method: 'POST',
+          headers: { ...headers, 'Prefer': 'return=representation' },
+          body: JSON.stringify({
+            nome,
+            email,
+            telefone,
+            tipo: 'CLIENTE',
+            origem: lead.origem || 'Site WG Almeida',
+            ativo: true
+          }),
+        });
+        const [novaPessoa] = await novaPessoaResp.json();
+        pessoaId = novaPessoa.id;
+      }
+
+      // 3. Criar Oportunidade no WGEasy
+      const desc = `Promovido do Site: ${tipo.toUpperCase()}\nOrigem: ${lead.origem || 'Direto'}\nCampanha: ${lead.utm_campaign || '—'}\n\nNota: Lead capturado em ${new Date(lead.created_at).toLocaleString('pt-BR')}`;
+      
+      await fetch(`${SUPABASE_URL}/rest/v1/oportunidades`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          titulo: `[SITE] ${nome}`,
+          cliente_id: pessoaId,
+          estagio: 'Prospecção',
+          origem: lead.origem || 'Marketing Digital',
+          descricao: desc,
+          valor_estimado: tipo === 'proposta' ? 50000 : null // Valor base para propostas do site
+        }),
+      });
+
+      // 4. Marcar como promovido no site
+      await fetch(`${SUPABASE_URL}/rest/v1/${table}?id=eq.${id}`, {
+        method: 'PATCH',
+        headers,
+        body: JSON.stringify({ status: 'atendido' }),
+      });
+
+      return res.status(200).json({ ok: true, message: 'Promovido com sucesso para WGEasy' });
+    } catch (err) {
+      console.error('Promotion error:', err);
+      return res.status(500).json({ error: err.message });
+    }
   }
 
   // PATCH — atualiza status de um lead

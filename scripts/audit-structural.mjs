@@ -99,10 +99,18 @@ assertIncludes(publicCatalog, 'PUBLISHED_UNSPLASH_KEY', 'Catalogo Unsplash publi
 assertIncludes(publicCatalog, '?.[pageKey]?.hero', 'Catalogo slot hero')
 assertIncludes(publicCatalog, 'buildCloudinaryEditorialUrl(resolved.publicId, \'hero\')', 'Catalogo Cloudinary hero')
 
+const blogManifest = read('src/data/blogImageManifest.js')
+assertIncludes(blogManifest, 'curatedWithCanonicalFallback = mergeManifestEntries(', 'Manifesto blog fallback canonico controlado')
+assertIncludes(blogManifest, 'sourceOverrideEntryRaw = generatedOverrideEntry', 'Manifesto blog override gerado primario')
+assertIncludes(blogManifest, 'generatedOverrideEntry,', 'Manifesto blog override recente presente')
+assertIncludes(blogManifest, 'curatedWithCanonicalFallback,', 'Manifesto blog fallback canonico presente')
+
 const tests = [
   'src/__tests__/cloudinaryMedia.test.js',
   'src/__tests__/publicPageImageCatalog.test.js',
   'src/__tests__/publicPageOverrides.test.js',
+  'src/__tests__/blogImageManifest.test.js',
+  'src/__tests__/editorialSlotState.test.js',
 ]
 for (const test of tests) {
   if (!fs.existsSync(path.join(rootDir, test))) fail(`Teste regressivo ausente: ${test}`)

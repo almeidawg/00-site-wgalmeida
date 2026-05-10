@@ -5,7 +5,7 @@ import { buildWgEditorialSearchPlan } from '@/lib/wgVisualSearchProfile';
 describe('buildWgEditorialSearchPlan', () => {
   it('classifies architect roundups as person-led editorial instead of construction', () => {
     const plan = buildWgEditorialSearchPlan({
-      title: 'Arquitetos Brasileiros Famosos: 12 Nomes, Obras e Lições para Projetos Atuais',
+      title: 'Arquitetos Brasileiros Famosos: 7 Nomes, Obras e Lições para Projetos Atuais',
       slug: 'arquitetos-brasileiros-famosos-legado',
       category: 'arquitetura',
       tags: ['arquitetos brasileiros', 'Oscar Niemeyer', 'Paulo Mendes da Rocha', 'história da arquitetura'],

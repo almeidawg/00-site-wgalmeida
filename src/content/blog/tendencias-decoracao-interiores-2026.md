@@ -1,11 +1,11 @@
 ---
-title: "Tendencias de Decoração 2026: 20 Ideias Prontas para Sala, Quarto e Cozinha"
+title: "Tendências de Decoração 2026: 20 Ideias Prontas para Sala, Quarto e Cozinha"
 slug: "tendencias-decoracao-interiores-2026"
 date: "2026-01-25"
 author: "Grupo WG Almeida"
 category: "decoração"
 image: "/images/banners/ARQ.webp"
-excerpt: "Descubra tendencias de decoração 2026 com aplicacao prática por ambiente, paleta de cores e materiais para renovar sua casa sem erro."
+excerpt: "Descubra tendências de decoração 2026 com aplicação prática por ambiente, paleta de cores e materiais para renovar sua casa sem erro."
 tags:
   - "decoração"
   - "interiores"
@@ -14,9 +14,9 @@ tags:
   - "arquitetura"
 featured: false
 ---
-# Tendencias de Decoracao 2026: 20 Ideias Aplicaveis para Projetos Residenciais
+# Tendências de Decoração 2026: 20 Ideias Aplicáveis para Projetos Residenciais
 
-As tendencias de decoracao 2026 apontam para ambientes mais funcionais, acolhedores e com identidade real de quem mora. Neste guia, voce encontra o que aplicar na pratica em sala, quarto, cozinha e home office para renovar com criterio tecnico e estetico.
+As tendências de decoração 2026 apontam para ambientes mais funcionais, acolhedores e com identidade real de quem mora. Neste guia, você encontra o que aplicar na prática em sala, quarto, cozinha e home office para renovar com critério técnico e estético.
 
 O cuidado aqui e nao transformar tendencia em compra impulsiva. Em projeto real, cada escolha precisa conversar com investimento, durabilidade, manutencao e sequencia de obra.
 

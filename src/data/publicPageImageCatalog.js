@@ -125,6 +125,14 @@ export const PUBLIC_PAGE_IMAGE_CATALOG = {
     mainQuery: 'turn key construction luxury residence editorial',
     searchTerms: ['turn key architecture premium', 'luxury residence construction', 'complete renovation premium'],
   },
+  moodboard: {
+    title: 'Moodboard',
+    category: 'ferramentas',
+    routePath: '/moodboard',
+    image: '/images/banners/PROCESSOS.webp',
+    mainQuery: 'moodboard interior design planning materials editorial palette',
+    searchTerms: ['moodboard interior design', 'style discovery tool', 'material palette planning'],
+  },
   process: {
     title: 'Processo',
     category: 'institucional',

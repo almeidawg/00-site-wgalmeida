@@ -176,7 +176,7 @@ O [ObraEasy](/obraeasy) foi desenvolvido exatamente para tornar esse processo tr
 ### Banco, Construtora e Parceiros B2B
 
 - [Cadastro de parceiro ObraEasy](https://obraeasy.wgalmeida.com.br/landing/parceiro)
-- [Ecossistema BuildTech](/buildtech)
+- [Ecossistema WG_Build.tech](/buildtech)
 - [Referencia ICCRI + custos SINAPI 2026](/blog/custo-construcao-reforma-2026-guia-tecnico-completo)
 
 ---

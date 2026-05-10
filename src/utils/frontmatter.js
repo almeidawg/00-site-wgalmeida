@@ -66,8 +66,22 @@ export function parseFrontmatter(content) {
         continue;
       }
 
-      // Remove quotes from value
-      value = value.replace(/^["']|["']$/g, '');
+      // Parse simple inline arrays used by editorial tags, e.g.
+      // tags: ["reforma", "obra"] or tags: [reforma, obra]
+      if (value.startsWith('[') && value.endsWith(']')) {
+        try {
+          value = JSON.parse(value);
+        } catch {
+          value = value
+            .slice(1, -1)
+            .split(',')
+            .map((item) => item.trim().replace(/^["']|["']$/g, ''))
+            .filter(Boolean);
+        }
+      } else {
+        // Remove quotes from value
+        value = value.replace(/^["']|["']$/g, '');
+      }
 
       // Convert boolean strings
       if (value === 'true') value = true;
