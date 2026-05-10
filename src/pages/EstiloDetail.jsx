@@ -108,7 +108,7 @@ const ShareButtons = ({ title, url }) => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         onClick={shareOnWhatsApp}
-        className="inline-flex items-center gap-2 rounded-full border border-wg-black/8 bg-white px-4 py-2 text-sm text-wg-black transition-colors hover:border-black/14 hover:text-wg-black"
+        className="inline-flex items-center gap-2 rounded-full border border-[#E2E2DE] bg-white px-4 py-2 text-sm text-wg-black transition-colors hover:border-[#C9C9C2] hover:text-wg-black"
         title="Compartilhar no WhatsApp"
       >
         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -121,7 +121,7 @@ const ShareButtons = ({ title, url }) => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         onClick={shareOnFacebook}
-        className="rounded-full border border-wg-black/8 bg-white p-2 text-wg-black transition-colors hover:border-black/14 hover:text-wg-black"
+        className="rounded-full border border-[#E2E2DE] bg-white p-2 text-wg-black transition-colors hover:border-[#C9C9C2] hover:text-wg-black"
         title="Compartilhar no Facebook"
       >
         <Facebook className="w-5 h-5" />
@@ -131,7 +131,7 @@ const ShareButtons = ({ title, url }) => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         onClick={shareOnTwitter}
-        className="rounded-full border border-wg-black/8 bg-white p-2 text-wg-black transition-colors hover:border-black/14 hover:text-wg-black"
+        className="rounded-full border border-[#E2E2DE] bg-white p-2 text-wg-black transition-colors hover:border-[#C9C9C2] hover:text-wg-black"
         title="Compartilhar no Twitter"
       >
         <Twitter className="w-5 h-5" />
@@ -141,7 +141,7 @@ const ShareButtons = ({ title, url }) => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         onClick={shareOnLinkedin}
-        className="rounded-full border border-wg-black/8 bg-white p-2 text-wg-black transition-colors hover:border-black/14 hover:text-wg-black"
+        className="rounded-full border border-[#E2E2DE] bg-white p-2 text-wg-black transition-colors hover:border-[#C9C9C2] hover:text-wg-black"
         title="Compartilhar no LinkedIn"
       >
         <Linkedin className="w-5 h-5" />
@@ -151,7 +151,7 @@ const ShareButtons = ({ title, url }) => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         onClick={copyLink}
-        className="rounded-full border border-wg-black/8 bg-white p-2 text-wg-gray transition-colors hover:border-black/14 hover:text-wg-black"
+        className="rounded-full border border-[#E2E2DE] bg-white p-2 text-wg-gray transition-colors hover:border-[#C9C9C2] hover:text-wg-black"
         title="Copiar link"
       >
         {copied ? <Check className="w-5 h-5 text-green-600" /> : <Copy className="w-5 h-5" />}
@@ -225,6 +225,8 @@ const EstiloDetail = () => {
   const articleUrl = `https://wgalmeida.com.br/estilos/${estilo.slug}`;
   const tocHeadings = extractTocHeadings(contentBody);
   const sectionedContent = splitMarkdownByH2(contentBody);
+  const styleAccent = estilo.colors?.[0] || '#F25C26';
+  const styleAccentSoft = `${styleAccent}18`;
 
   // Get other styles for recommendations - prioritize same category for SEO interlinking
   const otherEstilos = allEstilos
@@ -248,26 +250,40 @@ const EstiloDetail = () => {
         url={articleUrl}
         image={heroImg?.startsWith('http') ? heroImg : `https://wgalmeida.com.br${heroImg}`}
         keywords={`${estilo.title.toLowerCase()}, estilo decoracao, design interiores, decoracao ${estilo.title.toLowerCase()}, ambientes ${estilo.title.toLowerCase()}`}
-        schema={{
-          "@context": "https://schema.org",
-          "@type": "Article",
-          headline: `${estilo.title} - Guia Completo de Estilo`,
-          description: estilo.excerpt,
-          url: articleUrl,
-          image: heroImg?.startsWith('http') ? heroImg : `https://wgalmeida.com.br${heroImg}`,
-          author: {
-            "@type": "Organization",
-            name: "Grupo WG Almeida",
-          },
-          publisher: {
-            "@type": "Organization",
-            name: "Grupo WG Almeida",
-            logo: {
-              "@type": "ImageObject",
-              url: "https://wgalmeida.com.br/images/logo-96.webp",
+        schema={[
+          {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: `${estilo.title} - Guia Completo de Estilo`,
+            description: estilo.excerpt,
+            url: articleUrl,
+            image: heroImg?.startsWith('http') ? heroImg : `https://wgalmeida.com.br${heroImg}`,
+            author: {
+              "@type": "Organization",
+              name: "Grupo WG Almeida",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "Grupo WG Almeida",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://wgalmeida.com.br/images/logo-96.webp",
+              },
             },
           },
-        }}
+          estilo.faq && estilo.faq.length > 0 && {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": estilo.faq.map(item => ({
+              "@type": "Question",
+              "name": item.question,
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": item.answer
+              }
+            }))
+          }
+        ].filter(Boolean)}
       />
 
       {/* Hero Banner */}
@@ -283,6 +299,7 @@ const EstiloDetail = () => {
             alt={estilo.title}
             className="w-full h-full object-cover"
             loading="eager"
+            fetchPriority="high"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-wg-black via-wg-black/60 to-transparent" />
         </motion.div>
@@ -349,7 +366,7 @@ const EstiloDetail = () => {
 
       {/* Content */}
       <section className="section-padding bg-white">
-        <div className="container-custom max-w-3xl">
+        <div className="container-custom max-w-4xl">
           {/* Reader guide card */}
           <motion.aside
             initial={{ opacity: 0, y: 14 }}
@@ -357,6 +374,7 @@ const EstiloDetail = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.45 }}
             className="-mt-8 mb-7 overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-br from-white to-[#F8F8F8] shadow-sm md:-mt-12 md:mb-8"
+            style={{ borderTopColor: styleAccent, background: `linear-gradient(135deg, #ffffff 0%, ${styleAccentSoft} 100%)` }}
           >
             <div className="grid grid-cols-1 md:grid-cols-[200px_1fr]">
               <div className="relative h-40 md:h-full">
@@ -373,11 +391,11 @@ const EstiloDetail = () => {
                   <BookOpen className="inline w-3.5 h-3.5 mr-1" />Guia de Estilo
                 </p>
                 <h2 className="text-[20px] leading-tight text-wg-black mb-3 font-light">{estilo.title}</h2>
-                <p className="text-[15px] leading-[1.65] text-wg-gray mb-4">{estilo.excerpt}</p>
+                <p className="text-[15.5px] leading-[1.75] text-wg-gray mb-4">{estilo.excerpt}</p>
                 {tocHeadings.slice(0, 3).map((item) => (
                   <a key={item.id} href={`#${item.id}`}
                     className="inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-white px-3 py-1 text-xs text-wg-black mr-2 mb-2 hover:border-black/20 hover:text-wg-black transition-colors">
-                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-wg-orange/60" />{item.text}
+                    <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ backgroundColor: styleAccent }} />{item.text}
                   </a>
                 ))}
               </div>
@@ -409,11 +427,11 @@ const EstiloDetail = () => {
           {/* Article sectioned */}
           {sectionedContent.intro && (
             <div className="wg-prose mb-7 max-w-none
-              [&>p]:text-[14px] [&>p]:font-light [&>p]:text-wg-gray [&>p]:leading-[1.58] [&>p]:mb-5
-              [&_strong]:text-wg-gray [&_strong]:font-light
+              [&>p]:text-[16px] [&>p]:font-normal [&>p]:text-wg-gray [&>p]:leading-[1.76] [&>p]:mb-5
+              [&_strong]:text-wg-black [&_strong]:font-semibold
               [&_a]:text-wg-gray [&_a]:underline [&_a]:decoration-black/20 [&_a]:underline-offset-4 hover:[&_a]:text-wg-black hover:[&_a]:decoration-black/40
               [&>ul]:my-6 [&>ul]:space-y-3 [&>ul]:pl-0 [&>ul]:list-none
-              [&>ul>li]:text-[14px] [&>ul>li]:font-light [&>ul>li]:text-wg-gray [&>ul>li]:leading-[1.58] [&>ul>li]:pl-7 [&>ul>li]:relative [&>ul>li]:before:content-[''] [&>ul>li]:before:absolute [&>ul>li]:before:left-0 [&>ul>li]:before:top-[9px] [&>ul>li]:before:w-[6px] [&>ul>li]:before:h-[6px] [&>ul>li]:before:rounded-full [&>ul>li]:before:bg-wg-orange/60">
+              [&>ul>li]:text-[16px] [&>ul>li]:font-normal [&>ul>li]:text-wg-gray [&>ul>li]:leading-[1.7] [&>ul>li]:pl-7 [&>ul>li]:relative [&>ul>li]:before:content-[''] [&>ul>li]:before:absolute [&>ul>li]:before:left-0 [&>ul>li]:before:top-[10px] [&>ul>li]:before:w-[6px] [&>ul>li]:before:h-[6px] [&>ul>li]:before:rounded-full [&>ul>li]:before:bg-wg-orange/60">
               <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>{sectionedContent.intro}</ReactMarkdown>
             </div>
           )}
@@ -426,22 +444,24 @@ const EstiloDetail = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.35, delay: index * 0.03 }}
-                className="rounded-2xl border border-gray-200 bg-white p-5 md:p-7 hover:border-black/10 hover:shadow-md transition-all">
+                className="rounded-2xl border border-gray-200 bg-white p-5 transition-all hover:border-black/10 hover:shadow-md md:p-7"
+                style={{ boxShadow: index === 0 ? `inset 4px 0 0 ${styleAccent}` : undefined }}
+              >
                 <div className="wg-prose max-w-none
-                  [&>h2]:text-[22px] [&>h2]:font-light [&>h2]:tracking-tight [&>h2]:text-wg-black [&>h2]:mb-5 [&>h2]:mt-0
-                  [&>h3]:text-[16px] [&>h3]:font-light [&>h3]:text-wg-black [&>h3]:mb-4 [&>h3]:mt-8
-                  [&>h4]:text-[15px] [&>h4]:font-light [&>h4]:text-wg-gray [&>h4]:mb-3 [&>h4]:mt-6
-                  [&>p]:text-[14px] [&>p]:font-light [&>p]:text-wg-gray [&>p]:leading-[1.58] [&>p]:mb-5
-                  [&_strong]:text-wg-gray [&_strong]:font-light
+                  [&>h2]:text-[clamp(1.55rem,2vw,2.05rem)] [&>h2]:font-light [&>h2]:tracking-tight [&>h2]:text-wg-black [&>h2]:mb-5 [&>h2]:mt-0
+                  [&>h3]:text-[1.12rem] [&>h3]:font-normal [&>h3]:text-wg-black [&>h3]:mb-4 [&>h3]:mt-8
+                  [&>h4]:text-[1rem] [&>h4]:font-normal [&>h4]:text-wg-black [&>h4]:mb-3 [&>h4]:mt-6
+                  [&>p]:text-[16px] [&>p]:font-normal [&>p]:text-wg-gray [&>p]:leading-[1.76] [&>p]:mb-5
+                  [&_strong]:text-wg-black [&_strong]:font-semibold
                   [&_a]:text-wg-gray [&_a]:underline [&_a]:decoration-black/20 [&_a]:underline-offset-4 hover:[&_a]:text-wg-black hover:[&_a]:decoration-black/40
                   [&>ul]:my-5 [&>ul]:space-y-2 [&>ul]:pl-0 [&>ul]:list-none
-                  [&>ul>li]:text-[14px] [&>ul>li]:font-light [&>ul>li]:text-wg-gray [&>ul>li]:leading-[1.58] [&>ul>li]:pl-7 [&>ul>li]:relative [&>ul>li]:before:content-[''] [&>ul>li]:before:absolute [&>ul>li]:before:left-0 [&>ul>li]:before:top-[9px] [&>ul>li]:before:w-[6px] [&>ul>li]:before:h-[6px] [&>ul>li]:before:rounded-full [&>ul>li]:before:bg-wg-orange/60
-                  [&>blockquote]:border-l-2 [&>blockquote]:border-wg-orange/25 [&>blockquote]:pl-5 [&>blockquote]:font-light [&>blockquote]:text-wg-gray [&>blockquote]:bg-gradient-to-r [&>blockquote]:from-[#f4efe8] [&>blockquote]:to-[#fcfbf9] [&>blockquote]:py-[14px] [&>blockquote]:pr-4 [&>blockquote]:rounded-r-lg [&>blockquote]:my-8">
+                  [&>ul>li]:text-[16px] [&>ul>li]:font-normal [&>ul>li]:text-wg-gray [&>ul>li]:leading-[1.7] [&>ul>li]:pl-7 [&>ul>li]:relative [&>ul>li]:before:content-[''] [&>ul>li]:before:absolute [&>ul>li]:before:left-0 [&>ul>li]:before:top-[10px] [&>ul>li]:before:w-[6px] [&>ul>li]:before:h-[6px] [&>ul>li]:before:rounded-full [&>ul>li]:before:bg-wg-orange/60
+                  [&>blockquote]:border-l-2 [&>blockquote]:border-[#D7D7D0] [&>blockquote]:pl-5 [&>blockquote]:font-light [&>blockquote]:text-wg-gray [&>blockquote]:bg-gradient-to-r [&>blockquote]:from-[#F7F7F5] [&>blockquote]:to-[#FCFCFB] [&>blockquote]:py-[14px] [&>blockquote]:pr-4 [&>blockquote]:rounded-r-lg [&>blockquote]:my-8">
                   <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>{section.markdown}</ReactMarkdown>
                 </div>
               </motion.article>
             )) : (
-              <div className="wg-prose max-w-none [&>p]:text-[14px] [&>p]:font-light [&>p]:text-wg-gray [&>p]:leading-[1.58] [&>p]:mb-5 [&_strong]:text-wg-gray [&_strong]:font-light [&_a]:text-wg-gray [&_a]:underline [&_a]:decoration-black/20 [&_a]:underline-offset-4 hover:[&_a]:text-wg-black hover:[&_a]:decoration-black/40">
+              <div className="wg-prose max-w-none [&>p]:text-[16px] [&>p]:font-normal [&>p]:text-wg-gray [&>p]:leading-[1.76] [&>p]:mb-5 [&_strong]:text-wg-black [&_strong]:font-semibold [&_a]:text-wg-gray [&_a]:underline [&_a]:decoration-black/20 [&_a]:underline-offset-4 hover:[&_a]:text-wg-black hover:[&_a]:decoration-black/40">
                 <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>{contentBody}</ReactMarkdown>
               </div>
             )}
@@ -477,39 +497,91 @@ const EstiloDetail = () => {
             />
           </div>
 
-          {/* CTA */}
-          <div className="mt-12 rounded-[28px] border border-black/6 bg-[#f7f4ef] p-8 shadow-[0_18px_60px_rgba(30,24,20,0.05)]">
-            <div className="flex items-start gap-4">
-              <div className="mt-1 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-white/80 text-wg-black/70">
-                <Palette className="w-6 h-6" />
-              </div>
-              <div>
-                <h3 className="mb-3 text-2xl font-inter font-light text-wg-black">
-                  Gostou deste estilo?
+          {/* Ecossistema Integrado Block */}
+          <div className="mt-12 overflow-hidden rounded-[28px] border border-[#E8E8E8] bg-white shadow-[0_20px_50px_rgba(0,0,0,0.04)]">
+            <div className="grid grid-cols-1 md:grid-cols-2">
+              <div className="p-8 md:p-10">
+                <span className="mb-4 block text-[11px] font-light uppercase tracking-[0.25em] text-wg-orange">
+                  Ecossistema WG Almeida
+                </span>
+                <h3 className="mb-6 text-3xl font-inter font-light leading-tight text-wg-black">
+                  Trabalhamos para que o estilo seja <span className="text-wg-blue italic">vivido</span>, não apenas visto.
                 </h3>
-                <p className="mb-6 font-light leading-relaxed text-wg-gray">
-                  Nossa equipe pode traduzir essa linguagem para o seu ambiente com curadoria, projeto e execução integrada.
+                <p className="mb-8 text-base font-light leading-relaxed text-wg-gray">
+                  No Grupo WG Almeida, traduzimos linguagens estéticas em realidade operacional. Da arquitetura autoral à marcenaria sob medida, garantimos que cada detalhe do estilo {estilo.title} seja executado com precisão técnica e gestão integrada.
                 </p>
-                <Link
-                  to="/solicite-proposta"
-                  className="inline-flex items-center gap-2 rounded-full bg-wg-black px-6 py-3 text-sm font-light text-white transition-colors hover:bg-wg-black/92 focus:outline-none"
-                >
-                  <span>Solicitar Consultoria</span>
-                  <ArrowRight className="w-5 h-5" />
-                </Link>
+                <div className="space-y-4">
+                  {[
+                    { label: 'Arquitetura Autoral', desc: 'Concepção e guia de estilo.' },
+                    { label: 'Engenharia de Alto Padrão', desc: 'Execução Turn Key controlada.' },
+                    { label: 'Marcenaria de Luxo', desc: 'Mobiliário fixo com acabamento premium.' }
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-start gap-3">
+                      <div className="mt-1 h-1.5 w-1.5 rounded-full bg-wg-orange" />
+                      <div>
+                        <p className="text-sm font-light text-wg-black">{item.label}</p>
+                        <p className="text-xs font-light text-wg-gray">{item.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="relative min-h-[300px] bg-wg-black">
+                <ResponsiveWebpImage
+                  src="/images/banners/ENGENHARIA-960-opt.webp"
+                  alt="Ecossistema WG Almeida"
+                  className="absolute inset-0 h-full w-full object-cover opacity-70"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-wg-black/80 to-transparent md:bg-gradient-to-l" />
+                <div className="absolute inset-0 flex items-center justify-center p-8">
+                  <div className="text-center">
+                    <p className="mb-6 text-xl font-light italic text-white/90">
+                      "A excelência está na integração."
+                    </p>
+                    <Link
+                      to="/contato"
+                      className="inline-flex items-center gap-2 rounded-full bg-wg-orange px-8 py-4 text-sm font-light text-white shadow-lg transition-all hover:bg-wg-orange-dark hover:shadow-wg-orange/20"
+                    >
+                      Solicitar Consultoria <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Navigation */}
-          <div className="mt-12 pt-8 border-t border-gray-200 flex items-center justify-between">
-            <Link
-              to="/revista-estilos"
-              className="inline-flex items-center gap-2 text-wg-gray hover:text-wg-black transition-colors"
-            >
-              <ArrowLeft className="w-5 h-5" />
-              <span className="font-light">Voltar para Revista</span>
-            </Link>
+          {/* Navigation & Next Steps */}
+          <div className="mt-16 pt-10 border-t border-gray-200">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <Link
+                to="/revista-estilos"
+                className="group flex flex-col gap-4 p-6 rounded-2xl border border-gray-100 bg-gray-50 transition-all hover:bg-white hover:border-black/10 hover:shadow-md"
+              >
+                <div className="flex items-center gap-2 text-wg-gray group-hover:text-wg-black transition-colors">
+                  <ArrowLeft className="w-5 h-5" />
+                  <span className="text-xs uppercase tracking-widest">Voltar</span>
+                </div>
+                <div>
+                  <h4 className="text-xl font-inter font-light text-wg-black">Revista de Estilos</h4>
+                  <p className="text-sm text-wg-gray mt-2">Explore nosso catálogo completo de linguagens estéticas.</p>
+                </div>
+              </Link>
+
+              <Link
+                to={`/solicite-proposta?service=Projeto%20${estilo.title}&context=estilo_detail&slug=${estilo.slug}`}
+                className="group flex flex-col gap-4 p-6 rounded-2xl border border-wg-orange/10 bg-wg-orange/5 transition-all hover:bg-wg-orange/10 hover:border-wg-orange/30 hover:shadow-md"
+              >
+                <div className="flex items-center justify-between text-wg-orange">
+                  <span className="text-xs uppercase tracking-widest">Próximo Passo</span>
+                  <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                </div>
+                <div>
+                  <h4 className="text-xl font-inter font-light text-wg-black">Solicitar Proposta</h4>
+                  <p className="text-sm text-wg-gray mt-2">Veja como o estilo {estilo.title} pode ser aplicado no seu projeto.</p>
+                </div>
+              </Link>
+            </div>
           </div>
         </div>
       </section>

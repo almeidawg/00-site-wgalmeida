@@ -28,6 +28,9 @@ import {
 } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { getPublicPageImageSrc } from '@/data/publicPageImageCatalog'
+
+const MOODBOARD_HERO_IMAGE = getPublicPageImageSrc('moodboard', '/images/banners/PROCESSOS.webp')
 
 const STYLE_MATERIAL_PRESETS = {
   minimalismo: ['paleta-neutra', 'paineis-madeira', 'tecidos', 'revestimentos-naturais'],
@@ -551,31 +554,52 @@ export default function MoodboardGenerator() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen">
       <SEO
-        pathname="/moodboard-generator"
+        pathname="/moodboard"
         title="Sistema de Moodboard Profissional | WG Almeida"
         description="Escolha estilos por imagem, abra paletas, tecidos, revestimentos e acabamentos, e gere um documento visual pronto para briefing e decisão."
         keywords="moodboard profissional, descoberta de estilo por imagem, briefing visual, paleta cores ambientes, tecidos revestimentos acabamentos"
       />
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {!showPreview ? (
-          <>
+      {/* Hero Refinado para garantir visibilidade do Header */}
+      <section className="wg-page-hero hero-under-header bg-wg-black">
+        <div className="absolute inset-0 z-0">
+          <ResponsiveWebpImage
+            className="w-full h-full object-cover opacity-60"
+            alt="Fundo Moodboard Studio"
+            src={MOODBOARD_HERO_IMAGE}
+            width="1920"
+            height="1080"
+            loading="eager"
+            fetchpriority="high"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-wg-black/40 via-wg-black/60 to-wg-black/80" />
+        </div>
+
+        <div className="container-custom relative z-10">
+          <div className="wg-page-hero-content px-4 pt-8 md:pt-10">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-sm text-gray-600">
+              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/78 backdrop-blur-md">
+                <SwatchBook className="h-4 w-4 text-wg-orange" />
                 Add-on estratégico para projetos e pré-venda
               </div>
-              <h1 className="mb-2 text-4xl font-light text-gray-900">
+              <h1 className="mb-2 text-4xl font-light text-white">
                 Sistema de moodboard profissional
               </h1>
-              <p className="mb-8 max-w-4xl text-lg text-gray-600">
+              <p className="mb-8 max-w-4xl text-lg text-white/80">
                 O cliente não precisa saber o nome do estilo. Primeiro ele reage ao que vê,
                 depois o sistema abre caminhos próximos, paletas, tecidos, revestimentos,
                 acabamentos e peças decorativas para formar um documento visual mais claro.
               </p>
             </motion.div>
+          </div>
+        </div>
+      </section>
 
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+        {!showPreview ? (
+          <>
             <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-3">
               {[
                 {
@@ -743,7 +767,7 @@ export default function MoodboardGenerator() {
                     </div>
 
                     {referencesError && (
-                      <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+                      <div className="rounded-2xl border border-wg-orange/30 bg-wg-orange/5 px-4 py-3 text-sm text-wg-black">
                         {referencesError}
                       </div>
                     )}
@@ -973,7 +997,7 @@ export default function MoodboardGenerator() {
                   Pagina publica
                 </button>
                 <button
-                  onClick={handleExportPDF}
+                  onClick={handleOpenPublicGuide}
                   className="flex items-center gap-2 rounded-lg bg-wg-orange px-6 py-3 text-white transition-colors hover:bg-orange-600"
                 >
                   <Download className="h-5 w-5" />

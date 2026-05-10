@@ -8,6 +8,11 @@ author: "Grupo WG Almeida"
 featured: true
 tags: ["boho", "étnico", "conforto", "texturas", "artesanal"]
 colors: ["#8B4513", "#D2B48C", "#556B2F", "#CD853F"]
+faq:
+  - question: "O que define o estilo Boho na decoração?"
+    answer: "O estilo Boho é definido pela mistura de texturas, tons terrosos, referências étnicas e um forte foco no conforto e na expressão da personalidade individual."
+  - question: "Quais são as cores principais do estilo Boho?"
+    answer: "As cores base são tons terrosos como marrom, bege e terracota, acompanhados de verde oliva, cáqui e cores de acento como mostarda e laranja queimado."
 ---
 
 # Boho

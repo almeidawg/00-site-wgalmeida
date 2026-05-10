@@ -1,11 +1,11 @@
 ---
-title: "Construção Civil 2026: 12 Tendencias para Reduzir Prazo, Custo e Risco"
+title: "Construção Civil 2026: 12 Tendências para Reduzir Prazo, Custo e Risco"
 slug: "tendencias-construcao-civil-2026"
 date: "2026-01-25"
 author: "Grupo WG Almeida"
 category: "construção civil"
 image: "/images/banners/ENGENHARIA.webp"
-excerpt: "Veja as 12 tendencias da construção civil em 2026 e como aplicalas para ganhar previsibilidade, reduzir retrabalho e acelerar a obra."
+excerpt: "Veja as 12 tendências da construção civil em 2026 e como aplicá-las para ganhar previsibilidade, reduzir retrabalho e acelerar a obra."
 tags:
   - "tendências"
   - "construção civil"
@@ -14,11 +14,11 @@ tags:
   - "tecnologia"
 featured: false
 ---
-# Tendencias da Construcao Civil 2026: O Que Vai Mudar em Prazo e Custo
+# Tendências da Construção Civil 2026: O Que Vai Mudar em Prazo e Custo
 
-As principais tendencias de 2026 ja estao mudando a forma de projetar e executar obras. O foco agora e previsibilidade: menos atraso, menos retrabalho e mais controle de custo desde o inicio.
+As principais tendências de 2026 já estão mudando a forma de projetar e executar obras. O foco agora é previsibilidade: menos atraso, menos retrabalho e mais controle de custo desde o início.
 
-Mais do que modismos de mercado, as tendencias que realmente importam sao as que melhoram decisao, compatibilizacao, suprimentos, producao e leitura de risco ao longo da obra.
+Mais do que modismos de mercado, as tendências que realmente importam são as que melhoram decisão, compatibilização, suprimentos, produção e leitura de risco ao longo da obra.
 
 ## Industrialização da Construção
 

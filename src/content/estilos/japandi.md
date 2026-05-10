@@ -14,82 +14,71 @@ colors: ["#F5F5DC", "#2F4F4F", "#D4C5B9", "#1A1A1A"]
 
 ## O Que é Japandi?
 
-**Japandi** e a fusao harmoniosa entre o design **japones** e **escandinavo**. E um estilo hibrido que combina minimalismo zen com aconchego hygge para criar espacos serenos e funcionais.
+O **Japandi** é a fusão harmoniosa entre o design **japonês** e o **escandinavo**. É um estilo híbrido que combina o minimalismo zen com o aconchego *hygge* para criar espaços serenos, funcionais e sofisticados.
 
 ### Origem:
-Surgiu naturalmente nos anos 2010-2020 quando designers perceberam as semelhanças filosóficas entre os dois estilos.
+Surgiu naturalmente nos anos 2010-2020, quando designers perceberam as semelhanças filosóficas e estéticas entre o Japão e os países nórdicos.
 
 ## Filosofias Combinadas
 
 ### Do Japão (Wabi-Sabi + Zen):
-- **Wabi-Sabi**: Beleza da imperfeição
-- **Ma**: Espaço negativo e silêncio
-- **Kanso**: Simplicidade e eliminação de excessos
-- **Seijaku**: Tranquilidade
+- **Wabi-Sabi**: A beleza da imperfeição e do natural.
+- **Ma**: O valor do espaço negativo e do silêncio visual.
+- **Kanso**: Simplicidade e eliminação de excessos.
+- **Seijaku**: Tranquilidade e paz interior.
 
 ### Da Escandinávia (Hygge + Lagom):
-- **Hygge**: Aconchego e bem-estar
-- **Lagom**: Equilíbrio ("nem muito, nem pouco")
-- **Funcionalidade**: Design prático
-- **Sustentabilidade**: Consumo consciente
+- **Hygge**: Foco no aconchego, conforto e bem-estar.
+- **Lagom**: O equilíbrio perfeito ("nem muito, nem pouco").
+- **Funcionalidade**: Design prático voltado para o uso diário.
+- **Sustentabilidade**: Consumo consciente e materiais duráveis.
 
 ## Características Japandi
 
-- Minimalismo confortável
-- Madeira natural clara
-- Paleta neutra (bege, areia, cinza)
-- Artesanato de qualidade
-- Texturas naturais
-- Plantas minimalistas
-- Luz natural abundante
-- Ausência de desordem
+- Minimalismo confortável e acolhedor.
+- Marcenaria em madeira natural clara.
+- Paleta de cores neutra (bege, areia, cinza quente).
+- Artesanato de alta qualidade e peças autorais.
+- Texturas naturais como linho e pedra.
+- Plantas minimalistas e luz natural abundante.
+- Ausência total de desordem.
 
 ## Japandi em Cada Ambiente
 
 ### Sala Japandi:
-- Sofá baixo em linho bege
-- Mesa de centro em madeira natural
-- Tatami ou tapete de sisal
-- Plantas (bambu, bonsai)
-- Iluminação suave (washi paper)
-- Almofadas em linho
+- Sofá baixo em linho bege ou cinza claro.
+- Mesa de centro em marcenaria de madeira natural (carvalho ou freijó).
+- Tapete de sisal ou fibras naturais.
+- Elementos decorativos minimalistas (bonsai ou galhos secos).
+- Iluminação suave com luminárias de papel ou palha.
 
 ### Dormitório Japandi:
-- Cama baixa estilo futon ou plataforma
-- Roupa de cama em linho natural
-- Criados minimalistas
-- Shoji screens ou cortinas de linho
-- Ikebana (arranjo floral simples)
+- Cama baixa com estrutura de madeira em linhas retas.
+- Roupa de cama em tecidos naturais (linho e algodão).
+- Mesas de cabeceira integradas à marcenaria.
+- Cortinas leves que filtram a luz sem bloquear a vista.
 
 ### Cozinha Japandi:
-- Armários em madeira clara sem puxadores
-- Bancada em madeira ou pedra clara
-- Louças artesanais japonesas
-- Organização minimalista
-- Plantas em vasos cerâmicos
+- Armários de marcenaria sob medida em tons claros sem puxadores aparentes.
+- Bancadas em pedras naturais ou materiais tecnológicos de tom neutro.
+- Louças artesanais expostas em prateleiras flutuantes.
+- Integração fluida com a área social.
 
 ## Paleta Japandi
 
-- Branco quente e off-white
-- Bege e areia
-- Cinza claro
-- Preto (acentos)
-- Madeira clara natural
-- Verde musgo (plantas)
+- Branco quente, *off-white* e areia.
+- Tons de bege e cinza terroso.
+- Preto e cinza grafite (para acentos e contraste).
+- Tons de madeira natural clara e média.
 
-## Materiais
+## O Ecossistema WG Almeida no Estilo Japandi
 
-- Madeira (cedro japonês, pinus, bétula)
-- Bambu
-- Cerâmica artesanal
-- Linho e algodão
-- Papel washi
-- Pedra natural
+No **Grupo WG Almeida**, elevamos o estilo Japandi a um novo patamar de execução técnica e estética. Nossa entrega integrada garante que a serenidade deste estilo seja sentida em cada centímetro do imóvel:
 
-## O Japandi no Grupo WG Almeida
-
-Criamos ambientes japandi que equilibram zen e aconchego, com marcenaria minimalista de alta qualidade e atenção aos detalhes artesanais.
+- **Arquitetura Autoral**: Planejamos espaços com "Ma" (espaço negativo), garantindo fluidez e iluminação natural.
+- **Engenharia de Precisão**: Executamos obras Turn Key com rigor técnico, garantindo que as linhas minimalistas sejam perfeitas e duráveis.
+- **Marcenaria de Luxo**: Nossa fábrica produz peças exclusivas com acabamentos naturais e encaixes invisíveis, essenciais para a estética Japandi.
 
 ---
 
-*Encontre paz e equilíbrio no estilo Japandi. Consulte-nos.*
+*Encontre paz e equilíbrio no estilo Japandi através de um projeto integrado. Consulte-nos.*

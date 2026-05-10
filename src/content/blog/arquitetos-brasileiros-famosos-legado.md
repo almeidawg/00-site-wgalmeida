@@ -1,11 +1,11 @@
 ---
-title: "Arquitetos Brasileiros Famosos: 12 Nomes, Obras e Lições para Projetos Atuais"
+title: "Arquitetos Brasileiros Famosos: 7 Nomes, Obras e Lições para Projetos Atuais"
 slug: "arquitetos-brasileiros-famosos-legado"
 date: "2026-01-25"
 author: "Grupo WG Almeida"
 category: "arquitetura"
 image: "/images/banners/ARQ.webp"
-excerpt: "Conheça 12 arquitetos brasileiros famosos, suas obras icônicas e lições práticas para aplicar em projetos residenciais e corporativos."
+excerpt: "Conheça 7 arquitetos brasileiros famosos, suas obras icônicas e lições práticas para aplicar em projetos residenciais e corporativos."
 tags:
   - "arquitetos brasileiros"
   - "Oscar Niemeyer"
@@ -13,9 +13,7 @@ tags:
   - "história da arquitetura"
 featured: true
 ---
-# Arquitetos Brasileiros Famosos: 12 Referências e Lições Práticas
-
-Os arquitetos brasileiros famosos ajudaram a definir uma linguagem autoral reconhecida no mundo todo. Nesta seleção, você conhece obras-chave de cada nome e como aplicar esses princípios em projetos contemporâneos.
+# Arquitetos Brasileiros Famosos: 7 Referências e Lições Práticas
 
 ## Oscar Niemeyer (1907-2012)
 ### O Poeta do Concreto
@@ -32,17 +30,10 @@ Os arquitetos brasileiros famosos ajudaram a definir uma linguagem autoral recon
 
 ### Características do Estilo
 
-Curvas Sensuais:
-Influenciado pelas montanhas do Rio, pelo corpo feminino e pela liberdade formal do concreto armado.
-
-Leveza Estrutural:
-Edifícios que parecem desafiar a gravidade, suspensos por pilotis.
-
-Integração com Arte:
-Colaborações constantes com artistas como Burle Marx (paisagismo) e Athos Bulcão (azulejos).
-
-Funcionalismo Poético:
-Não abre mão da função, mas acrescenta beleza e emoção.
+- Curvas sensuais: influenciado pelas montanhas do Rio, pelo corpo feminino e pela liberdade formal do concreto armado.
+- Leveza estrutural: edifícios que parecem desafiar a gravidade, suspensos por pilotis.
+- Integração com arte: colaborações constantes com artistas como Burle Marx (paisagismo) e Athos Bulcão (azulejos).
+- Funcionalismo poético: não abre mão da função, mas acrescenta beleza e emoção.
 
 ### Obras Icônicas
 
@@ -52,16 +43,14 @@ Não abre mão da função, mas acrescenta beleza e emoção.
 - Palácio da Alvorada
 - Catedral de Brasília
 - Supremo Tribunal Federal
-
-Legado: Brasília é Patrimônio da Humanidade (UNESCO)
+- Legado: Brasília é Patrimônio da Humanidade (UNESCO).
 
 #### Conjunto da Pampulha (1940-1943)
 - Igreja de São Francisco de Assis
 - Cassino (hoje Museu de Arte)
 - Casa do Baile
 - Iate Clube
-
-Inovação: Primeira grande obra modernista no Brasil
+- Inovação: primeira grande obra modernista no Brasil.
 
 #### Edifício Copan (1951)
 - 1.160 apartamentos
@@ -102,17 +91,10 @@ Inovação: Primeira grande obra modernista no Brasil
 
 ### Características do Estilo
 
-Brutalismo Elegante:
-Concreto aparente com refinamento formal
-
-Grandes Vãos:
-Estruturas ousadas com mínimos apoios
-
-Relação com o Entorno:
-Projetos que dialogam com a cidade
-
-Funcionalidade Radical:
-Espaços democráticos e acessíveis
+- Brutalismo elegante: concreto aparente com refinamento formal.
+- Grandes vãos: estruturas ousadas com mínimos apoios.
+- Relação com o entorno: projetos que dialogam com a cidade.
+- Funcionalidade radical: espaços democráticos e acessíveis.
 
 ### Obras Icônicas
 
@@ -187,7 +169,7 @@ SESC Pompeia (1977-1986):
 
 ### Legado
 
-Lina provou que arquitetura pode ser ao mesmo tempo popular, erudita, funcional e poética.
+Lina provou que arquitetura pode ser, ao mesmo tempo, popular, erudita, funcional e poética.
 
 ---
 
@@ -303,10 +285,10 @@ Obras dos anos 1940-60 permanecem contemporâneas. Não envelheceram.
 
 Incorporamos lições desses mestres:
 
-✅ De Niemeyer: Ousadia formal e leveza
-✅ De Paulo Mendes: Materialidade honesta
-✅ De Lina: Respeito ao existente
-✅ De Artigas: Espaços democráticos e funcionais
+- De Niemeyer: Ousadia formal e leveza
+- De Paulo Mendes: Materialidade honesta
+- De Lina: Respeito ao existente
+- De Artigas: Espaços democráticos e funcionais
 
 ---
 
@@ -341,9 +323,9 @@ Incorporamos lições desses mestres:
 
 ## Conclusão
 
-Esses arquitetos não apenas construíram edifícios. Eles construíram sonhos, transformaram cidades e mostraram ao mundo que a arquitetura brasileira é única, ousada e atemporal.
+Esses arquitetos não apenas construíram edifícios. Eles transformaram cidades e mostraram ao mundo que a arquitetura brasileira é única, ousada e atemporal.
 
-Seu legado inspira cada projeto que desenvolvemos na WG Almeida.
+Esse legado segue inspirando decisões de projeto, materialidade e linguagem arquitetônica nos trabalhos contemporâneos da WG Almeida.
 
 ---
 
@@ -364,8 +346,6 @@ Fontes:
 - [7 cases de arquitetos famosos para você conhecer](https://blog.belasartes.br/arquitetos-famosos/)
 - [10 arquitetos brasileiros mais famosos dos últimos anos](https://www.imoveispro.com.br/blog/arquitetos/)
 - [6 arquitetos brasileiros mais famosos e as suas principais obras](https://www.megacurioso.com.br/ciencia/118851-6-arquitetos-brasileiros-mais-famosos-e-as-suas-principais-obras.htm)
-
-Tags: arquitetos brasileiros, Oscar Niemeyer, Paulo Mendes da Rocha, Lina Bo Bardi, história arquitetura, modernismo brasileiro
 
 ## Leitura recomendada
 

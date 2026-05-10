@@ -10,7 +10,7 @@ import { RoomVisualizerProvider, useRoomVisualizer } from '@/contexts/RoomVisual
 import { useAuth } from '@/contexts/SupabaseAuthContext'
 import { motion } from '@/lib/motion-lite'
 import { Link } from 'react-router-dom'
-import { ArrowLeft, Lock, CheckCircle2, Users, Wand2 } from 'lucide-react'
+import { ArrowLeft, Lock, Layers3 } from 'lucide-react'
 
 const RoomVisualizerContent = () => {
   const { user } = useAuth()
@@ -93,7 +93,7 @@ const RoomVisualizerContent = () => {
         <SEO
           pathname="/room-visualizer"
           title="Resultado | Visualizador de Ambientes - WG Almeida"
-          description="Visualização gerada por IA do seu ambiente"
+          description="Visualização aplicada ao seu ambiente"
         />
 
         <div className="max-w-6xl mx-auto px-4 py-8">
@@ -161,9 +161,9 @@ const RoomVisualizerContent = () => {
     <div className="min-h-screen bg-gray-50">
       <SEO
         pathname="/room-visualizer"
-        title="Visualizador de Ambientes | Decisão Visual com IA | WG Almeida"
+        title="Visualizador de Ambientes | Decisão Visual Aplicada | WG Almeida"
         description="Aplique a direção do seu moodboard em um ambiente real e reduza a distância entre inspiração, alinhamento e execução."
-        keywords="visualizador ambientes ia, decisao visual, ambiente com moodboard, simulacao decoracao, visualizacao ambiente reforma"
+        keywords="visualizador ambientes, decisao visual, ambiente com moodboard, simulacao decoracao, visualizacao ambiente reforma"
       />
 
       {/* Hero Section */}
@@ -175,7 +175,7 @@ const RoomVisualizerContent = () => {
             className="text-center"
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-wg-orange/20 rounded-full text-wg-orange mb-6">
-              <Wand2 className="w-5 h-5" />
+              <Layers3 className="w-5 h-5" />
               <span className="text-sm font-medium">Camada de visualização da jornada</span>
             </div>
             <h1 className="text-4xl md:text-5xl mb-4">
@@ -196,42 +196,10 @@ const RoomVisualizerContent = () => {
                 to="/buildtech"
                 className="wg-overlay-button-dark rounded-full"
               >
-                Ver frente BuildTech
+                Ver frente WG_Build.tech
               </Link>
             </div>
           </motion.div>
-        </div>
-      </section>
-
-      <section className="py-10 bg-white border-b border-gray-100">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {[
-              {
-                icon: CheckCircle2,
-                title: 'Menos abstração',
-                text: 'Ajuda o usuário a sair da dúvida entre referência bonita e decisão aplicável.',
-              },
-              {
-                icon: Users,
-                title: 'Mais alinhamento',
-                text: 'Cria uma base mais objetiva para conversar com cliente, parceiro ou equipe.',
-              },
-              {
-                icon: Wand2,
-                title: 'Próximo passo claro',
-                text: 'A visualização deixa a jornada pronta para refinamento, especificação ou contratação.',
-              },
-            ].map((item) => (
-              <div key={item.title} className="rounded-2xl border border-gray-200 bg-gray-50 p-5">
-                <div className="w-11 h-11 rounded-xl bg-wg-orange/10 text-wg-orange flex items-center justify-center mb-4">
-                  <item.icon className="w-5 h-5" />
-                </div>
-                <h2 className="text-lg text-gray-900 mb-2">{item.title}</h2>
-                <p className="text-sm leading-relaxed text-gray-600">{item.text}</p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -296,12 +264,12 @@ const RoomVisualizerContent = () => {
                 disabled={!canGenerate}
                 className={`w-full flex items-center justify-center gap-3 px-8 py-5 rounded-xl font-semibold text-lg transition-all ${
                   canGenerate
-                    ? 'bg-wg-orange text-white hover:bg-wg-orange/90 shadow-lg shadow-wg-orange/30'
+                    ? 'bg-wg-black text-white hover:bg-wg-black/90 shadow-lg'
                     : 'bg-gray-200 text-gray-400 cursor-not-allowed'
                 }`}
               >
-                <Wand2 className="w-6 h-6" />
-                Gerar Visualização com IA
+                <Layers3 className="w-6 h-6" />
+                Gerar Visualização
               </motion.button>
 
               {!canGenerate && (

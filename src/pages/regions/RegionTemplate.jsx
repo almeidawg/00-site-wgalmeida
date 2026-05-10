@@ -9,6 +9,46 @@ import SafeImage from '@/components/SafeImage';
 import { withBasePath } from '@/utils/assetPaths';
 import SmartCTA from '@/components/SmartCTA';
 
+const REGION_LABELS = {
+  aclimacao: 'Aclimação',
+  altoDePinheiros: 'Alto de Pinheiros',
+  brooklin: 'Brooklin',
+  campoBelo: 'Campo Belo',
+  'cidade-jardim': 'Cidade Jardim',
+  higienopolis: 'Higienópolis',
+  itaim: 'Itaim Bibi',
+  jardins: 'Jardins',
+  moema: 'Moema',
+  mooca: 'Mooca',
+  morumbi: 'Morumbi',
+  paraiso: 'Paraíso',
+  perdizes: 'Perdizes',
+  pinheiros: 'Pinheiros',
+  vilamariana: 'Vila Mariana',
+  'vila-nova-conceicao': 'Vila Nova Conceição',
+};
+
+const fallbackRegionServices = [
+  {
+    title: 'Arquitetura',
+    items: ['Projetos residenciais', 'Interiores autorais', 'Reformas completas'],
+  },
+  {
+    title: 'Engenharia',
+    items: ['Obras turn key', 'Gestão de projetos', 'Acompanhamento técnico'],
+  },
+  {
+    title: 'Marcenaria',
+    items: ['Mobiliário sob medida', 'Acabamentos premium', 'Integração total'],
+  },
+];
+
+const servicePalettes = [
+  { icon: 'text-wg-green' },
+  { icon: 'text-wg-blue' },
+  { icon: 'text-[#8B5E3C]' },
+];
+
 const RegionTemplate = ({
   regionKey,
   region,
@@ -29,11 +69,14 @@ const RegionTemplate = ({
       .replace(/\s+/g, '-');
 
   const { t } = useTranslation();
-  const regionContent = regionKey ? t(`regions.${regionKey}`, { returnObjects: true }) : null;
-  const regionName = regionContent?.name || region;
+  const translatedRegionContent = regionKey ? t(`regions.${regionKey}`, { returnObjects: true }) : null;
+  const regionContent = translatedRegionContent && typeof translatedRegionContent === 'object'
+    ? translatedRegionContent
+    : null;
+  const regionName = regionContent?.name || region || REGION_LABELS[regionKey] || 'São Paulo';
   const regionSlug = regionKey || toSlug(regionName);
-  const resolvedTitle = title || regionContent?.title;
-  const resolvedMetaDescription = metaDescription || regionContent?.metaDescription;
+  const resolvedTitle = title || regionContent?.title || `Soluções integradas de alto padrão em ${regionName}`;
+  const resolvedMetaDescription = metaDescription || regionContent?.metaDescription || `Arquitetura, engenharia e marcenaria integradas para projetos de alto padrão em ${regionName}, São Paulo.`;
   const canonicalUrl = `https://wgalmeida.com.br/${regionSlug}`;
   const rawHeroImage = heroImage || regionContent?.heroImage || '/images/hero-region.webp';
   const heroFallbackImage = withBasePath('/images/hero-region.webp');
@@ -49,12 +92,21 @@ const RegionTemplate = ({
     { width: 1600, height: 900, quality: 80, descriptor: '1600w' },
     { width: 1920, height: 1080, quality: 80, descriptor: '1920w' },
   ]);
-  const resolvedIntro = intro || regionContent?.intro || [];
-  const resolvedHighlights = highlights || regionContent?.highlights || [];
+  const resolvedIntro = intro || regionContent?.intro || [
+    `O Grupo WG Almeida atua em ${regionName} com arquitetura, engenharia e marcenaria integradas para transformar imóveis em espaços mais funcionais, elegantes e bem resolvidos.`,
+    'A condução une projeto, planejamento executivo, gestão de obra e execução sob medida para reduzir ruído, proteger prazo e elevar a qualidade percebida.',
+  ];
+  const resolvedHighlights = highlights || regionContent?.highlights || [
+    'Leitura integrada entre arquitetura, obra e marcenaria',
+    'Planejamento técnico para decisões mais previsíveis',
+    'Atendimento orientado ao padrão do imóvel e do bairro',
+    'Execução com acompanhamento e curadoria de acabamento',
+  ];
   const resolvedCta = cta || regionContent?.cta || {};
 
   const defaultServices = t('regions.defaults.services', { returnObjects: true });
-  const servicesData = services || regionContent?.services || defaultServices;
+  const translatedDefaultServices = Array.isArray(defaultServices) ? defaultServices : null;
+  const servicesData = services || regionContent?.services || translatedDefaultServices || fallbackRegionServices;
   const serviceIcons = [Ruler, Building2, Hammer];
   const regionHighlightsTitle = (() => {
     const regionLabel = (regionName || '').trim();
@@ -71,7 +123,10 @@ const RegionTemplate = ({
       return `Por que escolher a WG Almeida nos ${regionLabel}?`;
     }
 
-    return t('regions.defaults.highlightsTitle', { region: regionLabel });
+    return t('regions.defaults.highlightsTitle', {
+      region: regionLabel,
+      defaultValue: `Por que escolher a WG Almeida em ${regionLabel}?`,
+    });
   })();
 
   // Schema LocalBusiness para SEO local
@@ -161,10 +216,15 @@ const RegionTemplate = ({
             className="text-center mb-12"
           >
             <span className="text-wg-orange font-light text-sm tracking-[0.18em] uppercase mb-4 block">
-              {t('regions.defaults.coverage', { region: regionName })}
+              {t('regions.defaults.coverage', {
+                region: regionName,
+                defaultValue: `Nossa atuação em ${regionName}`,
+              })}
             </span>
             <h2 className="text-3xl md:text-4xl font-inter font-light text-wg-black normal-case tracking-tight">
-              {t('regions.defaults.servicesTitle')}
+              {t('regions.defaults.servicesTitle', {
+                defaultValue: 'Soluções integradas de alto padrão',
+              })}
             </h2>
           </motion.div>
 
@@ -178,7 +238,9 @@ const RegionTemplate = ({
                 transition={{ duration: 0.6, delay: index * 0.15 }}
                 className="bg-white rounded-2xl p-8 shadow-lg"
               >
-                {React.createElement(serviceIcons[index], { className: 'w-10 h-10 text-wg-orange mb-4' })}
+                {React.createElement(serviceIcons[index], {
+                  className: `w-10 h-10 ${servicePalettes[index]?.icon || 'text-wg-gray'} mb-4`,
+                })}
                 <h3 className="text-xl font-inter font-light text-wg-black mb-4 normal-case">
                   {service.title}
                 </h3>
@@ -222,7 +284,7 @@ const RegionTemplate = ({
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="flex items-start gap-4 p-4 rounded-xl bg-wg-gray-light"
                 >
-                  <div className="w-8 h-8 bg-wg-orange rounded-full flex items-center justify-center flex-shrink-0">
+                  <div className="w-8 h-8 bg-wg-green rounded-full flex items-center justify-center flex-shrink-0">
                     <CheckCircle className="w-5 h-5 text-white" />
                   </div>
                   <p className="text-wg-gray font-light">{highlight}</p>
@@ -241,9 +303,12 @@ const RegionTemplate = ({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-xl md:text-2xl italic text-wg-orange max-w-3xl mx-auto"
+            className="text-xl md:text-2xl italic text-white/78 max-w-3xl mx-auto"
           >
-            {resolvedCta?.quote || t('regions.defaults.quote', { region: regionName })}
+            {resolvedCta?.quote || t('regions.defaults.quote', {
+              region: regionName,
+              defaultValue: `Projeto, obra e marcenaria integrados para imóveis de alto padrão em ${regionName}.`,
+            })}
           </motion.p>
         </div>
       </section>
@@ -259,10 +324,15 @@ const RegionTemplate = ({
             className="max-w-2xl mx-auto"
           >
             <h2 className="text-2xl md:text-3xl font-inter font-light text-wg-black mb-6 normal-case tracking-tight">
-              {resolvedCta?.title || t('regions.defaults.ctaTitle', { region: regionName })}
+              {resolvedCta?.title || t('regions.defaults.ctaTitle', {
+                region: regionName,
+                defaultValue: `Quer iniciar seu projeto em ${regionName}?`,
+              })}
             </h2>
             <p className="text-wg-gray mb-8 font-light">
-              {resolvedCta?.description || t('regions.defaults.ctaDescription')}
+              {resolvedCta?.description || t('regions.defaults.ctaDescription', {
+                defaultValue: 'Nossa equipe organiza o próximo passo entre briefing, escopo e conversa técnica.',
+              })}
             </p>
             <SmartCTA showSecondary className="justify-center" />
           </motion.div>

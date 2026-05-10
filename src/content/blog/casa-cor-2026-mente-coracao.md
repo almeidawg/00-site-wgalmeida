@@ -1,11 +1,11 @@
 ---
-title: "Casa Cor 2026: Tema Mente e Coracao e Tendencias da Mostra de Arquitetura"
+title: "Casa Cor 2026: Tema Mente e Coração e Tendências da Mostra de Arquitetura"
 slug: "casa-cor-2026-mente-coracao"
 date: "2026-01-25"
 author: "Grupo WG Almeida"
 category: "arquitetura"
 image: "/images/banners/ARQ.webp"
-excerpt: "Entenda o tema Mente e Coracao da Casa Cor 2026 e as principais tendencias de arquitetura e design para aplicar em projetos."
+excerpt: "Entenda o tema Mente e Coração da Casa Cor 2026 e as principais tendências de arquitetura e design para aplicar em projetos."
 tags:
   - "Casa Cor"
   - "mostra"
@@ -14,7 +14,7 @@ tags:
   - "tendências"
 featured: true
 ---
-# Casa Cor 2026: Mente e Coracao e as Tendencias da Mostra
+# Casa Cor 2026: Mente e Coração e as Tendências da Mostra
 
 *Por Grupo WG Almeida | Arquitetura & Design*
 

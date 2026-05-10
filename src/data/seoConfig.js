@@ -2,22 +2,22 @@ const BASE_URL = "https://wgalmeida.com.br";
 const DEFAULT_OG_IMAGE = `${BASE_URL}/og-home-1200x630.jpg`;
 
 const defaultConfig = {
-  title: "Grupo WG Almeida | Arquitetura, Engenharia, Marcenaria, Easy Locker e WG.BuildTech",
+  title: "Grupo WG Almeida | Arquitetura, Engenharia, Marcenaria, Easy Locker e WG_Build.tech",
   description:
-    "Grupo WG Almeida integra arquitetura, engenharia, marcenaria, Easy Locker e WG.BuildTech em um ecossistema de execução, tecnologia e soluções de alto padrão.",
+    "Grupo WG Almeida integra arquitetura, engenharia, marcenaria, Easy Locker e WG_Build.tech em um ecossistema de execução, tecnologia e soluções de alto padrão.",
   canonical: `${BASE_URL}/`,
   og: {
-    title: "Grupo WG Almeida | Arquitetura, Engenharia, Marcenaria, Easy Locker e WG.BuildTech",
+    title: "Grupo WG Almeida | Arquitetura, Engenharia, Marcenaria, Easy Locker e WG_Build.tech",
     description:
-      "Grupo WG Almeida integra arquitetura, engenharia, marcenaria, Easy Locker e WG.BuildTech em um ecossistema de execução, tecnologia e soluções de alto padrão.",
+      "Grupo WG Almeida integra arquitetura, engenharia, marcenaria, Easy Locker e WG_Build.tech em um ecossistema de execução, tecnologia e soluções de alto padrão.",
     image: DEFAULT_OG_IMAGE,
     url: `${BASE_URL}/`,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Grupo WG Almeida | Arquitetura, Engenharia, Marcenaria, Easy Locker e WG.BuildTech",
+    title: "Grupo WG Almeida | Arquitetura, Engenharia, Marcenaria, Easy Locker e WG_Build.tech",
     description:
-      "Grupo WG Almeida integra arquitetura, engenharia, marcenaria, Easy Locker e WG.BuildTech em um ecossistema de execução, tecnologia e soluções de alto padrão.",
+      "Grupo WG Almeida integra arquitetura, engenharia, marcenaria, Easy Locker e WG_Build.tech em um ecossistema de execução, tecnologia e soluções de alto padrão.",
     image: DEFAULT_OG_IMAGE,
   },
 };
@@ -37,7 +37,7 @@ export const SEO_CONFIG = {
   "/": defaultConfig,
   "/sobre": page(
     "/sobre",
-    "Grupo WG Almeida: 14 Anos Entregando Arquitetura, Engenharia e Marcenaria em SP",
+    "Grupo WG Almeida: 15 Anos Entregando Arquitetura, Engenharia e Marcenaria em SP",
     "Conheça a metodologia Turn Key do Grupo WG Almeida — projeto, obra e marcenaria integrados, sem ruído operacional. Atendemos residências e corporativos de alto padrão em São Paulo.",
     `${BASE_URL}/og-sobre-1200x630.jpg`
   ),
@@ -150,8 +150,8 @@ export const SEO_CONFIG = {
   ),
   "/buildtech": page(
     "/buildtech",
-    "WG Build.tech | Consultoria de IA e Tecnologia para Construção",
-    "Conheça a frente WG BuildTech para sistemas inteligentes, automação e experiência visual aplicada à construção, retrofit e mercado imobiliário."
+    "WG_Build.tech | Sites, sistemas e automação",
+    "Conheça a WG_Build.tech para sites, sistemas, agentes, automação e vitrine funcional baseada na metodologia S T A R."
   ),
   "/easylocker": page(
     "/easylocker",
@@ -170,8 +170,28 @@ export const SEO_CONFIG = {
   ),
   "/revista-estilos": page(
     "/revista-estilos",
-    "Revista de Estilos | Descubra seu Estilo de Decoração | WG Almeida",
-    "Explore estilos de decoração: Minimalismo, Clássico, Moderno, Vintage, Tropical, Boho e mais. Descubra qual estilo combina com você."
+    "Revista de Estilos 2026: Guia de Decoração e Design de Interiores | WG Almeida",
+    "Explore 30+ estilos de decoração para sua casa ou apartamento em SP: Minimalismo, Japandi, Industrial e mais. Encontre a inspiração certa para seu projeto de arquitetura e marcenaria."
+  ),
+  "/estilos/japandi": page(
+    "/estilos/japandi",
+    "Estilo Japandi em SP: Zen, Minimalismo e Marcenaria Sob Medida | WG Almeida",
+    "Descubra como aplicar o estilo Japandi no seu imóvel em São Paulo. Unimos o minimalismo japonês ao aconchego escandinavo com marcenaria de alto padrão e gestão de obra integrada."
+  ),
+  "/estilos/minimalismo": page(
+    "/estilos/minimalismo",
+    "Estilo Minimalista: Arquitetura de Alto Padrão e Decoração 'Less is More' | WG Almeida",
+    "A estética do essencial para apartamentos e casas de luxo em SP. Conheça nossa abordagem de arquitetura minimalista com foco em luz, espaço e acabamentos premium."
+  ),
+  "/estilos/industrial": page(
+    "/estilos/industrial",
+    "Estilo Industrial: Design Urbano, Loft e Arquitetura Contemporânea | WG Almeida",
+    "Como aplicar o design industrial com sofisticação em São Paulo. Estruturas aparentes, marcenaria em metal e madeira, e integração de ambientes com gestão de obra completa."
+  ),
+  "/estilos/boho": page(
+    "/estilos/boho",
+    "Estilo Boho Chic: Decoração Afetiva, Texturas e Design de Interiores | WG Almeida",
+    "Crie ambientes acolhedores com a estética Boho Chic. Unimos texturas naturais, cores quentes e design personalizado para sua residência em São Paulo."
   ),
   "/moodboard": page(
     "/moodboard",
@@ -185,8 +205,8 @@ export const SEO_CONFIG = {
   ),
   "/room-visualizer": page(
     "/room-visualizer",
-    "Visualizador de Ambientes com IA | WG Almeida",
-    "Visualize cenários de reforma com IA e use a leitura visual como apoio para alinhamento, proposta e próximo passo comercial."
+    "Visualizador de Ambientes | WG Almeida",
+    "Visualize cenários de reforma e use a leitura visual como apoio para alinhamento, proposta e próximo passo comercial."
   ),
 };
 

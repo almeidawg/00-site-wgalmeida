@@ -32,26 +32,76 @@ export const STYLE_SEARCH_PROFILES = {
   'wabi-sabi': ['wabi sabi interior design', 'organic imperfect serene interior', 'earthy minimalist textured room'],
 };
 
-export const buildStyleEditorialSearchPlan = (style = {}) => {
+const STOP_WORDS = new Set([
+  'veja', 'como', 'aplicar', 'estilo', 'projeto', 'para', 'mais', 'com', 'seu', 'sua', 'este', 'esta',
+  'tudo', 'sobre', 'guia', 'completo', 'dicas', 'melhores', 'ambientes', 'casa', 'decoração', 'design',
+  'arquitetura', 'luxo', 'premium', 'sofisticado', 'interiores', 'inspiração', 'referência'
+]);
+
+export const STYLE_MATERIAL_MAPPING = {
+  'art-deco': ['Latão Dourado', 'Mármore Nero Marquina', 'Laca Brilhante', 'Vidro Canelado'],
+  'boho': ['Palha Natural', 'Terracota', 'Madeira de Demolição', 'Ladrilho Hidráulico'],
+  'classico': ['Mármore Calacatta', 'Piso Chevron', 'Boiserie Branca', 'Molduras Clássicas'],
+  'contemporaneo': ['Concreto Aparente', 'Metal Preto Fosco', 'Porcelanato Grandes Formatos', 'Painel Ripado'],
+  'escandinavo': ['Pinus', 'Carvalho Americano', 'Cerâmica Artesanal', 'Tecido Linho'],
+  'industrial': ['Tijolinho Aparente', 'Aço Corten', 'Cimento Queimado', 'Tubulação Aparente'],
+  'japandi': ['Madeira Clara', 'Pedra Natural Basalto', 'Papel Arroz', 'Bambu'],
+  'minimalismo': ['Microcimento', 'Gesso Acetinado', 'Mobiliário Oculto', 'Pedra Sabão'],
+  'moderno': ['Nogueira', 'Aço Inox Escovado', 'Terrazzo', 'Vidro Fumê'],
+  'rustico': ['Vigas de Madeira', 'Parede de Pedra', 'Cobre Envelhecido', 'Tijolo de Barro'],
+  'tropical': ['Bambu', 'Pedra Vulcânica', 'Palha trançada', 'Madeira Tropical'],
+};
+
+export const STYLE_DECOR_MAPPING = {
+  'art-deco': ['Espelho Sol', 'Poltrona de Veludo', 'Luminária Geométrica', 'Escultura Metálica'],
+  'boho': ['Tapete Kilim', 'Macramê', 'Plantas Tropicais', 'Almofada Étnica'],
+  'classico': ['Lustre de Cristal', 'Sofá Chesterfield', 'Pintura a Óleo', 'Vaso de Porcelana'],
+  'contemporaneo': ['Sofá Modular', 'Mesa de Centro Escultural', 'Quadro Abstrato', 'Luminária de Trilho'],
+  'escandinavo': ['Pele de Carneiro', 'Cadeira Wishbone', 'Prints Minimalistas', 'Vela Aromática'],
+  'industrial': ['Sofá de Couro Conhaque', 'Lâmpada de Edison', 'Estante de Ferro', 'Relógio de Estação'],
+  'japandi': ['Cama Baixa', 'Bonsai', 'Vaso de Cerâmica Wabi-sabi', 'Luminária de Papel'],
+  'minimalismo': ['Cortina de Linho', 'Mesa Monolítica', 'Escultura de Linha única', 'Vaso Solitário'],
+  'moderno': ['Poltrona Eames', 'Luminária Arco', 'Tapete Geométrico', 'Mesa Saarinen'],
+  'rustico': ['Tapete de Couro', 'Lustre de Ferro Forjado', 'Artesanato em Barro', 'Manta de Lã'],
+  'tropical': ['Palmeira Imperial', 'Móveis de Fibra', 'Objetos de Concha', 'Rede de Descanso'],
+};
+
+export const buildStyleEditorialSearchPlan = (style = {}, mode = 'cover') => {
   const baseQueries = STYLE_SEARCH_PROFILES[style.slug] || [];
+
+  let contextualQueries = [];
+  if (mode === 'finishes') {
+    contextualQueries = STYLE_MATERIAL_MAPPING[style.slug] || [`${style.title} acabamentos`];
+  } else if (mode === 'decor') {
+    contextualQueries = STYLE_DECOR_MAPPING[style.slug] || [`${style.title} decoração`];
+  } else {
+    contextualQueries = baseQueries;
+  }
+
+  // Filtragem inteligente de termos do excerpt (apenas palavras relevantes)
   const excerptTerms = typeof style.excerpt === 'string'
     ? style.excerpt
       .toLowerCase()
       .replace(/[^\p{L}\p{N}\s-]/gu, ' ')
       .split(/\s+/)
-      .filter((term) => term.length > 3)
+      .filter((term) => term.length > 3 && !STOP_WORDS.has(term))
       .slice(0, 6)
     : [];
+
   const tagTerms = Array.isArray(style.tags)
-    ? style.tags.map((tag) => String(tag).trim()).filter(Boolean)
+    ? style.tags.map((tag) => String(tag).trim().toLowerCase()).filter(tag => tag && !STOP_WORDS.has(tag))
     : [];
-  const searchTerms = [...new Set([...baseQueries, ...tagTerms, ...excerptTerms])];
-  const mainQuery = baseQueries[0] || `${style.title || style.slug || 'interior'} interior design`;
+
+  // Prioridade: 1. Curadoria (contextual), 2. Tags limpas, 3. Excerpt limpo
+  const searchTerms = [...new Set([...contextualQueries, ...tagTerms, ...excerptTerms])];
+  const mainQuery = contextualQueries[0] || `${style.title || style.slug || 'interior'} interior design`;
 
   return {
     mainQuery,
     searchTerms,
     searchQuery: mainQuery,
-    intent: 'referencia real de ambiente para capa editorial do guia de estilo',
+    intent: mode === 'cover'
+      ? 'referencia real de ambiente para capa editorial do guia de estilo'
+      : `busca de ${mode === 'finishes' ? 'acabamentos' : 'decoracao'} para o estilo ${style.title}`,
   };
 };

@@ -15,46 +15,48 @@ import { styleCatalog } from '@/utils/styleCatalog';
 import { withBasePath } from '@/utils/assetPaths';
 import { getStyleImageUrl } from '@/data/styleImageManifest';
 import { getPublicPageImageSrc } from '@/data/publicPageImageCatalog';
+import { useTranslation } from 'react-i18next';
 
 const STYLE_MAGAZINE_HERO_IMAGE = getPublicPageImageSrc('revistaEstilos', withBasePath('/images/banners/MARCENARIA.webp'));
 
 // Component for Style Card
 const StyleCard = ({ estilo, index }) => {
+  const { t } = useTranslation();
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className={`group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 ${
+      className={`group relative overflow-hidden rounded-[24px] border border-black/5 bg-wg-black shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl ${
         index === 0 ? 'col-span-1 md:col-span-2 row-span-2' : 'col-span-1'
       }`}
     >
-      <Link to={`/estilos/${estilo.slug}`}>
+      <Link to={`/estilos/${estilo.slug}`} className="block h-full min-h-[380px]">
         {/* Image */}
-        <div className="relative h-full min-h-[400px] overflow-hidden">
+        <div className="relative h-full min-h-[380px] overflow-hidden">
           <ResponsiveWebpImage
             src={getStyleImageUrl({ slug: estilo.slug, variant: 'card' }) || estilo.image}
             alt={estilo.title}
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
             loading={index < 2 ? "eager" : "lazy"}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/55 to-black/10 opacity-80 transition-opacity duration-500 group-hover:opacity-90" />
 
           {/* Featured Badge */}
           {estilo.featured && (
             <div className="absolute top-6 right-6 flex items-center gap-2 rounded-full bg-wg-orange px-4 py-2 text-xs font-light uppercase tracking-wider text-white shadow-lg">
               <BookOpen className="w-4 h-4" />
-              <span>Destaque</span>
+              <span>{t('styleMagazine.grid.featured')}</span>
             </div>
           )}
 
           {/* Color Palette */}
-          <div className="absolute top-6 left-6 flex gap-2">
+          <div className="absolute top-5 left-5 flex gap-1.5">
             {estilo.colors.slice(0, 4).map((color) => (
               <div
                 key={color}
-                className="w-8 h-8 rounded-full border-2 border-white shadow-md"
+                className="h-5 w-5 rounded-full border border-white/90 shadow-sm"
                 style={{ backgroundColor: color }}
               />
             ))}
@@ -62,7 +64,7 @@ const StyleCard = ({ estilo, index }) => {
         </div>
 
         {/* Content Overlay */}
-        <div className="absolute inset-0 flex flex-col justify-end p-8 text-white">
+        <div className="absolute inset-0 flex flex-col justify-end p-6 text-white md:p-7">
           {/* Quote */}
           {estilo.quote && (
             <motion.div
@@ -70,7 +72,7 @@ const StyleCard = ({ estilo, index }) => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
-              className="mb-6 italic text-sm md:text-base opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              className="mb-5 line-clamp-3 text-sm italic opacity-0 transition-opacity duration-500 group-hover:opacity-100 md:text-base"
             >
               "{estilo.quote}"
               {estilo.author && <span className="block mt-2 text-xs not-italic">- {estilo.author}</span>}
@@ -78,15 +80,15 @@ const StyleCard = ({ estilo, index }) => {
           )}
 
           {/* Title */}
-          <h3 className={`font-inter font-light text-white mb-3 ${
-            index === 0 ? 'text-4xl md:text-5xl' : 'text-2xl md:text-3xl'
+          <h3 className={`font-inter font-light text-white mb-3 leading-[1.05] ${
+            index === 0 ? 'text-2xl md:text-4xl' : 'text-xl md:text-2xl'
           }`}>
             {estilo.title}
           </h3>
 
           {/* Excerpt */}
           <p className={`text-white/90 leading-relaxed mb-4 ${
-            index === 0 ? 'text-base md:text-lg' : 'text-sm'
+            index === 0 ? 'line-clamp-4 text-base md:text-lg' : 'line-clamp-3 text-sm'
           }`}>
             {estilo.excerpt}
           </p>
@@ -105,7 +107,7 @@ const StyleCard = ({ estilo, index }) => {
 
           {/* CTA */}
           <div className="flex items-center gap-2 font-light text-white/88 transition-all duration-300 group-hover:gap-4">
-            <span>Explorar Estilo</span>
+            <span>{t('styleMagazine.grid.explore')}</span>
             <ArrowRight className="w-5 h-5" />
           </div>
         </div>
@@ -130,6 +132,7 @@ StyleCard.propTypes = {
 };
 
 const RevistaEstilos = () => {
+  const { t } = useTranslation();
   const [estilos, setEstilos] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -143,7 +146,7 @@ const RevistaEstilos = () => {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <Palette className="w-16 h-16 text-wg-gray animate-spin mx-auto mb-4" />
-          <p className="text-wg-gray">Carregando estilos...</p>
+          <p className="text-wg-gray">{t('styleMagazine.grid.loading')}</p>
         </div>
       </div>
     );
@@ -153,13 +156,12 @@ const RevistaEstilos = () => {
     <>
       <Seo
         pathname="/revista-estilos"
-        title="Revista de Estilos | Descubra seu Estilo Ideal - WG Almeida"
-        description="Explore nossa revista de estilos: Minimalismo, Clássico, Moderno, Vintage, Tropical, Boho e mais. Descubra qual estilo combina com você."
-        keywords="estilos de decoração, design de interiores, minimalismo, clássico, moderno, vintage, tropical, boho, revista de estilos"
+        title="Revista de Estilos | Guia de decoração e interiores WG Almeida"
+        description="Explore estilos de decoração, paletas, materiais e referências para transformar ambientes residenciais com curadoria da WG Almeida."
       />
 
       {/* Hero Section */}
-      <section className="wg-page-hero wg-page-hero--store hero-under-header">
+      <section className="wg-page-hero wg-page-hero--store hero-under-header bg-wg-black">
         <motion.div
           className="absolute inset-0 z-0"
           initial={{ scale: 1.1 }}
@@ -183,7 +185,7 @@ const RevistaEstilos = () => {
               transition={{ duration: 0.7, delay: 0.08 }}
               className="wg-page-hero-kicker text-white/78"
             >
-              Revista de Estilos
+              {t('styleMagazine.hero.kicker')}
             </motion.span>
 
             <motion.h1
@@ -192,7 +194,7 @@ const RevistaEstilos = () => {
               transition={{ duration: 0.8, delay: 0.18 }}
               className="wg-page-hero-title"
             >
-              Qual é o Seu Estilo?
+              {t('styleMagazine.hero.title')}
             </motion.h1>
 
             <motion.p
@@ -201,7 +203,7 @@ const RevistaEstilos = () => {
               transition={{ duration: 0.8, delay: 0.3 }}
               className="wg-page-hero-subtitle max-w-3xl"
             >
-              Explore nossa curadoria de estilos para ambientes residenciais. Descubra qual deles reflete sua personalidade e transforme seu espaço em um lar único.
+              {t('styleMagazine.hero.subtitle')}
             </motion.p>
 
             <motion.div
@@ -212,17 +214,17 @@ const RevistaEstilos = () => {
             >
               <div className="flex items-center gap-2">
                 <BookOpen className="w-4 h-4" />
-                <span>{estilos.length} Estilos</span>
+                <span>{estilos.length} {t('styleMagazine.hero.stats.styles')}</span>
               </div>
               <div className="h-4 w-px bg-white/25" />
               <div className="flex items-center gap-2">
                 <Eye className="w-4 h-4" />
-                <span>Guia Completo</span>
+                <span>{t('styleMagazine.hero.stats.guide')}</span>
               </div>
               <div className="h-4 w-px bg-white/25" />
               <div className="flex items-center gap-2">
                 <Heart className="w-4 h-4" />
-                <span>Inspiração</span>
+                <span>{t('styleMagazine.hero.stats.inspiration')}</span>
               </div>
             </motion.div>
           </div>
@@ -239,31 +241,32 @@ const RevistaEstilos = () => {
             className="text-center mb-10"
           >
             <h2 className="text-3xl md:text-4xl font-inter font-light text-wg-black mb-4">
-              Explore Nossos Estilos
+              {t('styleMagazine.grid.title')}
             </h2>
             <p className="text-lg text-wg-gray max-w-2xl mx-auto">
-              Cada estilo conta uma história. Encontre aquele que fala com você.
+              {t('styleMagazine.grid.subtitle')}
             </p>
           </motion.div>
 
           {/* Masonry Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-auto">
+          <div className="grid auto-rows-[minmax(380px,auto)] grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
             {estilos.map((estilo, index) => (
               <StyleCard key={estilo.slug} estilo={estilo} index={index} />
             ))}
           </div>
 
           {/* SEO Quick Links Hub */}
-          <div className="mt-20 pt-10 border-t border-gray-200">
-            <h3 className="text-sm font-light uppercase tracking-widest text-wg-gray mb-6 text-center">Índice Completo de Estilos</h3>
-            <div className="flex flex-wrap justify-center gap-x-6 gap-y-3">
+          <div className="mt-20 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm md:p-8">
+            <h3 className="mb-6 text-center text-sm font-light uppercase tracking-widest text-wg-gray">{t('styleMagazine.grid.indexTitle')}</h3>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {estilos.map((estilo) => (
                 <Link
                   key={estilo.slug}
                   to={`/estilos/${estilo.slug}`}
-                  className="text-sm font-light text-wg-gray hover:text-wg-orange transition-colors"
+                  className="group flex min-h-[56px] items-center rounded-xl border border-gray-100 bg-gray-50 px-4 py-3 text-sm font-light leading-snug text-wg-gray transition-all hover:border-wg-orange/30 hover:bg-white hover:text-wg-black hover:shadow-sm"
                 >
-                  {estilo.title}
+                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-wg-orange/60 transition-transform group-hover:scale-125" />
+                  <span className="ml-3">{estilo.title}</span>
                 </Link>
               ))}
             </div>
@@ -282,17 +285,16 @@ const RevistaEstilos = () => {
           >
             <Palette className="w-12 h-12 text-white/78 mx-auto mb-6" />
             <h2 className="text-3xl md:text-4xl font-inter font-light mb-6">
-              Pronto para Transformar seu Espaço?
+              {t('styleMagazine.cta.title')}
             </h2>
             <p className="text-xl text-white/80 mb-8">
-              Nossa equipe de arquitetos e designers está pronta para criar o ambiente dos seus sonhos,
-              no estilo que mais combina com você.
+              {t('styleMagazine.cta.subtitle')}
             </p>
             <Link
               to="/solicite-proposta"
               className="inline-flex items-center gap-3 rounded-lg bg-wg-orange px-8 py-4 font-light text-white shadow-lg transition-colors hover:bg-wg-orange-dark hover:shadow-xl"
             >
-              <span>Solicite uma Consultoria Gratuita</span>
+              <span>{t('styleMagazine.cta.button')}</span>
               <ArrowRight className="w-5 h-5" />
             </Link>
           </motion.div>

@@ -1,4 +1,4 @@
-// Room Visualizer Components - Módulo com Login (IA)
+// Room Visualizer Components - módulo com login.
 export { default as RoomTypeSelector } from './RoomTypeSelector';
 export { default as PhotoUploader } from './PhotoUploader';
 export { default as MoodboardImporter } from './MoodboardImporter';

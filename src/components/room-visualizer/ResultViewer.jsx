@@ -98,7 +98,7 @@ const ResultViewer = ({
                 className="w-full h-full object-cover"
               />
               <span className="absolute bottom-2 right-2 px-2 py-1 bg-wg-orange text-white text-xs rounded">
-                Visualização IA
+                Visualização WG
               </span>
             </div>
           </div>
@@ -151,7 +151,7 @@ const ResultViewer = ({
               Original
             </span>
             <span className="absolute bottom-2 right-2 px-2 py-1 bg-wg-orange text-white text-xs rounded">
-              Visualização IA
+              Visualização WG
             </span>
           </div>
         )}
@@ -236,7 +236,7 @@ const ResultViewer = ({
 
             <img
               src={generatedImage}
-              alt="Visualização IA"
+              alt="Visualização WG"
               className="max-w-full max-h-full object-contain"
             />
           </motion.div>

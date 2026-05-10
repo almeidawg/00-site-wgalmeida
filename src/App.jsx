@@ -11,6 +11,7 @@ import { ContextProvider } from '@/providers/ContextProvider'
 const Footer = lazy(() => import('@/components/layout/Footer'))
 const ContextTracker = lazy(() => import('@/components/ContextTracker'))
 const NextBestActionPanel = lazy(() => import('@/components/NextBestActionPanel'))
+const LizAssistant = lazy(() => import('@/components/LizAssistant'))
 const Home = lazy(() => import('@/pages/Home'))
 const About = lazy(() => import('@/pages/About'))
 const AMarca = lazy(() => import('@/pages/AMarca'))
@@ -29,6 +30,9 @@ const Register = lazy(() => import('@/pages/Register'))
 const Account = lazy(() => import('@/pages/Account'))
 const Admin = lazy(() => import('@/pages/Admin'))
 const AdminBlogEditorial = lazy(() => import('@/pages/AdminBlogEditorial'))
+const AdminLayout = lazy(() => import('@/components/Admin/AdminLayout'))
+const MediaManager = lazy(() => import('@/pages/AdminMediaManager'))
+const PremiumCinematicIntro = lazy(() => import('@/components/PremiumCinematicIntro'))
 
 // Region Pages (SEO)
 const Brooklin = lazy(() => import('@/pages/regions/Brooklin'))
@@ -51,6 +55,7 @@ const SoliciteProposta = lazy(() => import('@/pages/SoliciteProposta'))
 const Blog = lazy(() => import('@/pages/Blog'))
 const FAQ = lazy(() => import('@/pages/FAQ'))
 const Moodboard = lazy(() => import('@/pages/Moodboard'))
+const MoodboardStudio = lazy(() => import('@/pages/MoodboardStudio'))
 const MoodboardShare = lazy(() => import('@/pages/MoodboardShare'))
 const RoomVisualizer = lazy(() => import('@/pages/RoomVisualizer'))
 const RevistaEstilos = lazy(() => import('@/pages/RevistaEstilos'))
@@ -59,6 +64,7 @@ const EstiloDetail = lazy(() => import('@/pages/EstiloDetail'))
 // Empresas do Grupo WG Almeida
 const EasyLocker = lazy(() => import('@/pages/EasyLocker'))
 const BuildTech = lazy(() => import('@/pages/BuildTech'))
+const BuildTechClientProposal = lazy(() => import('@/pages/BuildTechClientProposal'))
 const ICCRI = lazy(() => import('@/pages/ICCRI'))
 const ICCRIParaImobiliarias = lazy(() => import('@/pages/ICCRIParaImobiliarias'))
 
@@ -95,7 +101,7 @@ const LoadingFallback = () => (
   </div>
 )
 
-const APP_BUILD_TAG = '2026-04-09-store-refresh-2'
+const APP_BUILD_TAG = '2026-05-07-cockpit-v2'
 
 const scheduleIdle = (callback, timeout = 1600) => {
   if (typeof window === 'undefined') return undefined
@@ -183,7 +189,6 @@ function DeferredEngagementLayer() {
   return (
     <Suspense fallback={null}>
       <ContextTracker />
-      <NextBestActionPanel />
     </Suspense>
   )
 }
@@ -202,8 +207,34 @@ function DeferredFooter() {
   )
 }
 
+function HomeWithIntro() {
+  const [showIntro, setShowIntro] = useState(() => {
+    if (typeof window === 'undefined') return false
+    const forceIntro = new URLSearchParams(window.location.search).get('intro') === '1'
+    return forceIntro || !sessionStorage.getItem('wg-intro-completed')
+  })
+
+  if (showIntro) {
+    return (
+      <Suspense fallback={<LoadingFallback />}>
+        <PremiumCinematicIntro 
+          onComplete={() => {
+            setShowIntro(false)
+            sessionStorage.setItem('wg-intro-completed', 'true')
+          }} 
+        />
+      </Suspense>
+    )
+  }
+
+  return <Home />
+}
+
 function App() {
   const location = useLocation()
+  const buildTechHostname = new URL(PRODUCT_URLS.buildtech).hostname
+  const isBuildTechHost = typeof window !== 'undefined'
+    && window.location.hostname === buildTechHostname
   const shouldInitAuth = [
     '/login',
     '/register',
@@ -211,6 +242,7 @@ function App() {
     '/admin',
     '/room-visualizer',
     '/visualizador-ambientes',
+    '/moodboard/studio',
   ].some((path) => location.pathname.startsWith(path))
 
   // Garante canonical sempre sem "www" em qualquer rota SPA
@@ -265,9 +297,9 @@ function App() {
 
   // Não mostrar header/footer em páginas standalone
   const isStandaloneRoute =
-    ['/login', '/admin'].some((path) =>
+    ['/login', '/admin', '/clientes', '/buildtech/clientes', '/moodboard', '/moodboard/studio'].some((path) =>
       location.pathname.startsWith(path)
-    )
+    );
 
   return (
     <ContextProvider>
@@ -285,7 +317,7 @@ function App() {
         >
           <Suspense fallback={<LoadingFallback />}>
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={isBuildTechHost ? <BuildTech /> : <HomeWithIntro />} />
               <Route path="/sobre" element={<About />} />
               <Route path="/a-marca" element={<AMarca />} />
               <Route path="/arquitetura" element={<Architecture />} />
@@ -302,14 +334,8 @@ function App() {
                 path="/buildtech/contato.html"
                 element={<Navigate to="/contato?context=buildtech" replace />}
               />
-              <Route
-                path="/clientes/umauma"
-                element={<Navigate to="/buildtech?case=umauma" replace />}
-              />
-              <Route
-                path="/buildtech/clientes/umauma"
-                element={<Navigate to="/buildtech?case=umauma" replace />}
-              />
+              <Route path="/clientes/:slug" element={<BuildTechClientProposal />} />
+              <Route path="/buildtech/clientes/:slug" element={<BuildTechClientProposal />} />
               <Route path="/iccri" element={<ICCRI />} />
               <Route path="/iccri-para-imobiliarias" element={<ICCRIParaImobiliarias />} />
               <Route path="/obraeasy" element={<ObraEasyLanding />} />
@@ -338,7 +364,8 @@ function App() {
               <Route path="/estilos/:slug" element={<EstiloDetail />} />
 
               {/* Moodboard & Room Visualizer */}
-              <Route path="/moodboard" element={<Moodboard />} />
+              <Route path="/moodboard" element={<MoodboardStudio />} />
+              <Route path="/moodboard/studio" element={<MoodboardStudio />} />
               <Route path="/moodboard/share" element={<MoodboardShare />} />
               <Route path="/moodboard-generator" element={<Navigate to="/moodboard" replace />} />
               <Route path="/gerador-moodboard" element={<Navigate to="/moodboard" replace />} />
@@ -401,13 +428,6 @@ function App() {
               {/* Auth Pages */}
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-
-              {/* Store Pages */}
-              <Route path="/store" element={<Store />} />
-              <Route path="/product/:id" element={<ProductDetailPage />} />
-              <Route path="/success" element={<Success />} />
-
-              {/* Protected Routes */}
               <Route
                 path="/account"
                 element={
@@ -416,22 +436,29 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+
+              {/* Protected Admin Routes */}
               <Route
-                path="/admin"
+                path="/admin/*"
                 element={
                   <ProtectedRoute requireAdmin>
-                    <Admin />
+                    <AdminLayout>
+                      <Routes>
+                        <Route index element={<Admin />} />
+                        <Route path="blog-editorial" element={<AdminBlogEditorial />} />
+                        <Route path="media" element={<MediaManager />} />
+                        <Route path="seo" element={<div className="text-slate-500 py-20 text-center italic">SEO Manager em breve...</div>} />
+                        <Route path="settings" element={<div className="text-slate-500 py-20 text-center italic">Configurações em breve...</div>} />
+                      </Routes>
+                    </AdminLayout>
                   </ProtectedRoute>
                 }
               />
-              <Route
-                path="/admin/blog-editorial"
-                element={
-                  <ProtectedRoute requireAdmin>
-                    <AdminBlogEditorial />
-                  </ProtectedRoute>
-                }
-              />
+
+              {/* Store Pages */}
+              <Route path="/store" element={<Store />} />
+              <Route path="/product/:id" element={<ProductDetailPage />} />
+              <Route path="/success" element={<Success />} />
             </Routes>
           </Suspense>
         </main>
@@ -443,8 +470,3 @@ function App() {
 }
 
 export default App
-
-
-
-
-

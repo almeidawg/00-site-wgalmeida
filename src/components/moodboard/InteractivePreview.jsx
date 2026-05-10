@@ -97,7 +97,7 @@ const InteractivePreview = ({ colors = [], styles = [] }) => {
     if (colors.length > 0 && selectedRoom) {
       setIsLoading(true);
 
-      // Simula delay de processamento da IA
+      // Simula delay de processamento visual.
       const timer = setTimeout(() => {
         // Em produção, chamar API do Cloudinary aqui
         setTransformedUrl(generateRecolorUrl(selectedRoom.image, colors));

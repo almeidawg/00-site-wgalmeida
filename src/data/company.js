@@ -1,3 +1,5 @@
+import i18n from '@/i18n';
+
 /**
  * SINGLE SOURCE OF TRUTH — Dados da empresa e URLs dos produtos
  *
@@ -9,7 +11,7 @@
  *   2. Rodar: grep -rn "98465-0002\|contato@wg\|obraeasy\.wg\|easy\.wg\|easyrealstate\.wg" src/
  *   3. Garantir que todos os resultados sejam apenas importações desta constante
  *
- * Última revisão: 2026-04-12
+ * Última revisão: 2026-05-01
  */
 
 export const COMPANY = {
@@ -57,33 +59,23 @@ export const EASYREALSTATE_PRECOS = {
   imobiliaria: { label: 'Completo', price: 'R$ 149,90', schemaPrice: '149.90', id: 'completo' },
 }
 
+/**
+ * Mensagens de Posicionamento WG_Build.tech
+ * Dinâmicas para suportar i18n sem quebrar sites de chamada
+ */
 export const WG_PRODUCT_MESSAGES = {
-  wgExperienceCore:
-    'A complexidade, a lógica, as regras e a automação trabalham por trás. Na frente, a experiência precisa ser objetiva, intuitiva e útil para decidir e executar.',
-  wgAutomationPromise:
-    'A tecnologia WG existe para reduzir atrito, automatizar rotinas, organizar informação e facilitar o dia a dia de quem vende, aprova, especifica, executa ou investe.',
-  obraeasyPromise:
-    'O ObraEasy organiza a obra por etapas operacionais reais: o que começa antes, o que depende de medição, o que precisa de aprovação e o que pode ser produzido em paralelo.',
-  obraeasyB2B:
-    'O ObraEasy conecta viabilidade, etapas operacionais, execução e financeiro real para reduzir achismo em retrofit, reforma e implantação de maior ticket.',
-  obraeasyBenchmarks:
-    'SINAPI, CUB/SINDUSCON e FipeZap entram como referência. O diferencial WG está em transformar mercado, orçamento e obra real em leitura acionável para decisão.',
-  iccriPositioning:
-    'O ICCRI é o motor proprietário da WG Almeida para conectar categorias, serviços, composições e leitura operacional da obra.',
-  marketReferences:
-    'SINAPI, CUB/SINDUSCON, FipeZAP e outras bases entram como referência. A organização da experiência segue a metodologia operacional WG Almeida.',
-  easyRealStateB2B:
-    'O Easy Real State conecta valor atual, fechamento real e potencial pós-obra no mesmo fluxo para apoiar decisões imobiliárias de maior ticket.',
-  easyRealStateConfidence:
-    'A leitura do ativo não precisa parecer absoluta para gerar valor. Ela pode estar em fase experimental, assistida ou já defensável, conforme a força da base real daquele objetivo.',
-  easyRealStateBenchmarks:
-    'A lapidação do motor considera referências nacionais e internacionais de AVM, fechamento real e valuation, mas a vantagem WG está na conexão entre mercado, obra e captura de valor.',
-  obraeasyCapture:
-    'No ecossistema WG, a obra deixa de ser só custo. Ela passa a mostrar quanto da tese do ativo já está sendo protegida, validada ou destravada pela execução real.',
-  wgExperienceSystem:
-    'O sistema de experiência WG transforma referências, estilo, briefing e contexto em uma jornada mais clara de decisão visual, alinhamento e execução.',
-  wgExperienceAddon:
-    'Como add-on, essa frente pode entrar antes do projeto, durante a pré-venda ou como camada de alinhamento entre cliente, corretor, arquiteto e equipe.',
-  wgExperienceConversion:
-    'A função dessa camada não é gerar mais uma ferramenta. É reduzir indecisão, organizar preferências e aproximar inspiração de proposta, projeto e obra real.',
-}
+  get wgExperienceCore() { return i18n.t('messages.wgExperienceCore'); },
+  get wgAutomationPromise() { return i18n.t('messages.wgAutomationPromise'); },
+  get obraeasyPromise() { return i18n.t('messages.obraeasyPromise'); },
+  get obraeasyB2B() { return i18n.t('messages.obraeasyB2B'); },
+  get obraeasyBenchmarks() { return i18n.t('messages.obraeasyBenchmarks'); },
+  get iccriPositioning() { return i18n.t('messages.iccriPositioning'); },
+  get marketReferences() { return i18n.t('messages.marketReferences'); },
+  get easyRealStateB2B() { return i18n.t('messages.easyRealStateB2B'); },
+  get easyRealStateConfidence() { return i18n.t('messages.easyRealStateConfidence'); },
+  get easyRealStateBenchmarks() { return i18n.t('messages.easyRealStateBenchmarks'); },
+  get obraeasyCapture() { return i18n.t('messages.obraeasyCapture'); },
+  get wgExperienceSystem() { return i18n.t('messages.wgExperienceSystem'); },
+  get wgExperienceAddon() { return i18n.t('messages.wgExperienceAddon'); },
+  get wgExperienceConversion() { return i18n.t('messages.wgExperienceConversion'); },
+};
