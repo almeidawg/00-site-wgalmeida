@@ -46,17 +46,9 @@ const ResponsiveWebpImage = ({
   ...rest
 }) => {
   const resolvedSrc = withBasePath(src);
-  const isExternal = src.startsWith('http') || src.startsWith('https');
-
-  // Generate AVIF source if applicable (internal images only)
-  const avifSrc = !isExternal ? resolvedSrc.replace(/\.(webp|jpg|jpeg|png)$/i, '.avif') : null;
 
   return (
     <picture className={className}>
-      {/* AVIF Source */}
-      {avifSrc && (
-        <source srcSet={avifSrc} type="image/avif" />
-      )}
       <img
         src={resolvedSrc}
         alt={alt}

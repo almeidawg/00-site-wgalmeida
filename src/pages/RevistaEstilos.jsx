@@ -28,20 +28,20 @@ const StyleCard = ({ estilo, index }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className={`group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 ${
+      className={`group relative overflow-hidden rounded-[24px] border border-black/5 bg-wg-black shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl ${
         index === 0 ? 'col-span-1 md:col-span-2 row-span-2' : 'col-span-1'
       }`}
     >
-      <Link to={`/estilos/${estilo.slug}`}>
+      <Link to={`/estilos/${estilo.slug}`} className="block h-full min-h-[380px]">
         {/* Image */}
-        <div className="relative h-full min-h-[400px] overflow-hidden">
+        <div className="relative h-full min-h-[380px] overflow-hidden">
           <ResponsiveWebpImage
             src={getStyleImageUrl({ slug: estilo.slug, variant: 'card' }) || estilo.image}
             alt={estilo.title}
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
             loading={index < 2 ? "eager" : "lazy"}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/55 to-black/10 opacity-80 transition-opacity duration-500 group-hover:opacity-90" />
 
           {/* Featured Badge */}
           {estilo.featured && (
@@ -72,7 +72,7 @@ const StyleCard = ({ estilo, index }) => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
-              className="mb-6 italic text-sm md:text-base opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              className="mb-5 line-clamp-3 text-sm italic opacity-0 transition-opacity duration-500 group-hover:opacity-100 md:text-base"
             >
               "{estilo.quote}"
               {estilo.author && <span className="block mt-2 text-xs not-italic">- {estilo.author}</span>}
@@ -81,14 +81,14 @@ const StyleCard = ({ estilo, index }) => {
 
           {/* Title */}
           <h3 className={`font-inter font-light text-white mb-3 leading-[1.05] ${
-            index === 0 ? 'text-3xl md:text-4xl' : 'text-xl md:text-2xl'
+            index === 0 ? 'text-2xl md:text-4xl' : 'text-xl md:text-2xl'
           }`}>
             {estilo.title}
           </h3>
 
           {/* Excerpt */}
           <p className={`text-white/90 leading-relaxed mb-4 ${
-            index === 0 ? 'text-base md:text-lg' : 'text-sm'
+            index === 0 ? 'line-clamp-4 text-base md:text-lg' : 'line-clamp-3 text-sm'
           }`}>
             {estilo.excerpt}
           </p>
@@ -156,8 +156,8 @@ const RevistaEstilos = () => {
     <>
       <Seo
         pathname="/revista-estilos"
-        title={t('seo.blog.title')}
-        description={t('seo.blog.description')}
+        title="Revista de Estilos | Guia de decoração e interiores WG Almeida"
+        description="Explore estilos de decoração, paletas, materiais e referências para transformar ambientes residenciais com curadoria da WG Almeida."
       />
 
       {/* Hero Section */}
@@ -249,7 +249,7 @@ const RevistaEstilos = () => {
           </motion.div>
 
           {/* Masonry Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-auto">
+          <div className="grid auto-rows-[minmax(380px,auto)] grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
             {estilos.map((estilo, index) => (
               <StyleCard key={estilo.slug} estilo={estilo} index={index} />
             ))}

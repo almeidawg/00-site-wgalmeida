@@ -225,6 +225,8 @@ const EstiloDetail = () => {
   const articleUrl = `https://wgalmeida.com.br/estilos/${estilo.slug}`;
   const tocHeadings = extractTocHeadings(contentBody);
   const sectionedContent = splitMarkdownByH2(contentBody);
+  const styleAccent = estilo.colors?.[0] || '#F25C26';
+  const styleAccentSoft = `${styleAccent}18`;
 
   // Get other styles for recommendations - prioritize same category for SEO interlinking
   const otherEstilos = allEstilos
@@ -364,7 +366,7 @@ const EstiloDetail = () => {
 
       {/* Content */}
       <section className="section-padding bg-white">
-        <div className="container-custom max-w-3xl">
+        <div className="container-custom max-w-4xl">
           {/* Reader guide card */}
           <motion.aside
             initial={{ opacity: 0, y: 14 }}
@@ -372,6 +374,7 @@ const EstiloDetail = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.45 }}
             className="-mt-8 mb-7 overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-br from-white to-[#F8F8F8] shadow-sm md:-mt-12 md:mb-8"
+            style={{ borderTopColor: styleAccent, background: `linear-gradient(135deg, #ffffff 0%, ${styleAccentSoft} 100%)` }}
           >
             <div className="grid grid-cols-1 md:grid-cols-[200px_1fr]">
               <div className="relative h-40 md:h-full">
@@ -388,11 +391,11 @@ const EstiloDetail = () => {
                   <BookOpen className="inline w-3.5 h-3.5 mr-1" />Guia de Estilo
                 </p>
                 <h2 className="text-[20px] leading-tight text-wg-black mb-3 font-light">{estilo.title}</h2>
-                <p className="text-[15px] leading-[1.65] text-wg-gray mb-4">{estilo.excerpt}</p>
+                <p className="text-[15.5px] leading-[1.75] text-wg-gray mb-4">{estilo.excerpt}</p>
                 {tocHeadings.slice(0, 3).map((item) => (
                   <a key={item.id} href={`#${item.id}`}
                     className="inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-white px-3 py-1 text-xs text-wg-black mr-2 mb-2 hover:border-black/20 hover:text-wg-black transition-colors">
-                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-wg-orange/60" />{item.text}
+                    <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ backgroundColor: styleAccent }} />{item.text}
                   </a>
                 ))}
               </div>
@@ -424,11 +427,11 @@ const EstiloDetail = () => {
           {/* Article sectioned */}
           {sectionedContent.intro && (
             <div className="wg-prose mb-7 max-w-none
-              [&>p]:text-[14px] [&>p]:font-light [&>p]:text-wg-gray [&>p]:leading-[1.58] [&>p]:mb-5
-              [&_strong]:text-wg-gray [&_strong]:font-light
+              [&>p]:text-[16px] [&>p]:font-normal [&>p]:text-wg-gray [&>p]:leading-[1.76] [&>p]:mb-5
+              [&_strong]:text-wg-black [&_strong]:font-semibold
               [&_a]:text-wg-gray [&_a]:underline [&_a]:decoration-black/20 [&_a]:underline-offset-4 hover:[&_a]:text-wg-black hover:[&_a]:decoration-black/40
               [&>ul]:my-6 [&>ul]:space-y-3 [&>ul]:pl-0 [&>ul]:list-none
-              [&>ul>li]:text-[14px] [&>ul>li]:font-light [&>ul>li]:text-wg-gray [&>ul>li]:leading-[1.58] [&>ul>li]:pl-7 [&>ul>li]:relative [&>ul>li]:before:content-[''] [&>ul>li]:before:absolute [&>ul>li]:before:left-0 [&>ul>li]:before:top-[9px] [&>ul>li]:before:w-[6px] [&>ul>li]:before:h-[6px] [&>ul>li]:before:rounded-full [&>ul>li]:before:bg-wg-orange/60">
+              [&>ul>li]:text-[16px] [&>ul>li]:font-normal [&>ul>li]:text-wg-gray [&>ul>li]:leading-[1.7] [&>ul>li]:pl-7 [&>ul>li]:relative [&>ul>li]:before:content-[''] [&>ul>li]:before:absolute [&>ul>li]:before:left-0 [&>ul>li]:before:top-[10px] [&>ul>li]:before:w-[6px] [&>ul>li]:before:h-[6px] [&>ul>li]:before:rounded-full [&>ul>li]:before:bg-wg-orange/60">
               <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>{sectionedContent.intro}</ReactMarkdown>
             </div>
           )}
@@ -441,22 +444,24 @@ const EstiloDetail = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.35, delay: index * 0.03 }}
-                className="rounded-2xl border border-gray-200 bg-white p-5 md:p-7 hover:border-black/10 hover:shadow-md transition-all">
+                className="rounded-2xl border border-gray-200 bg-white p-5 transition-all hover:border-black/10 hover:shadow-md md:p-7"
+                style={{ boxShadow: index === 0 ? `inset 4px 0 0 ${styleAccent}` : undefined }}
+              >
                 <div className="wg-prose max-w-none
-                  [&>h2]:text-[22px] [&>h2]:font-light [&>h2]:tracking-tight [&>h2]:text-wg-black [&>h2]:mb-5 [&>h2]:mt-0
-                  [&>h3]:text-[16px] [&>h3]:font-light [&>h3]:text-wg-black [&>h3]:mb-4 [&>h3]:mt-8
-                  [&>h4]:text-[15px] [&>h4]:font-light [&>h4]:text-wg-gray [&>h4]:mb-3 [&>h4]:mt-6
-                  [&>p]:text-[14px] [&>p]:font-light [&>p]:text-wg-gray [&>p]:leading-[1.58] [&>p]:mb-5
-                  [&_strong]:text-wg-gray [&_strong]:font-light
+                  [&>h2]:text-[clamp(1.55rem,2vw,2.05rem)] [&>h2]:font-light [&>h2]:tracking-tight [&>h2]:text-wg-black [&>h2]:mb-5 [&>h2]:mt-0
+                  [&>h3]:text-[1.12rem] [&>h3]:font-normal [&>h3]:text-wg-black [&>h3]:mb-4 [&>h3]:mt-8
+                  [&>h4]:text-[1rem] [&>h4]:font-normal [&>h4]:text-wg-black [&>h4]:mb-3 [&>h4]:mt-6
+                  [&>p]:text-[16px] [&>p]:font-normal [&>p]:text-wg-gray [&>p]:leading-[1.76] [&>p]:mb-5
+                  [&_strong]:text-wg-black [&_strong]:font-semibold
                   [&_a]:text-wg-gray [&_a]:underline [&_a]:decoration-black/20 [&_a]:underline-offset-4 hover:[&_a]:text-wg-black hover:[&_a]:decoration-black/40
                   [&>ul]:my-5 [&>ul]:space-y-2 [&>ul]:pl-0 [&>ul]:list-none
-                  [&>ul>li]:text-[14px] [&>ul>li]:font-light [&>ul>li]:text-wg-gray [&>ul>li]:leading-[1.58] [&>ul>li]:pl-7 [&>ul>li]:relative [&>ul>li]:before:content-[''] [&>ul>li]:before:absolute [&>ul>li]:before:left-0 [&>ul>li]:before:top-[9px] [&>ul>li]:before:w-[6px] [&>ul>li]:before:h-[6px] [&>ul>li]:before:rounded-full [&>ul>li]:before:bg-wg-orange/60
+                  [&>ul>li]:text-[16px] [&>ul>li]:font-normal [&>ul>li]:text-wg-gray [&>ul>li]:leading-[1.7] [&>ul>li]:pl-7 [&>ul>li]:relative [&>ul>li]:before:content-[''] [&>ul>li]:before:absolute [&>ul>li]:before:left-0 [&>ul>li]:before:top-[10px] [&>ul>li]:before:w-[6px] [&>ul>li]:before:h-[6px] [&>ul>li]:before:rounded-full [&>ul>li]:before:bg-wg-orange/60
                   [&>blockquote]:border-l-2 [&>blockquote]:border-[#D7D7D0] [&>blockquote]:pl-5 [&>blockquote]:font-light [&>blockquote]:text-wg-gray [&>blockquote]:bg-gradient-to-r [&>blockquote]:from-[#F7F7F5] [&>blockquote]:to-[#FCFCFB] [&>blockquote]:py-[14px] [&>blockquote]:pr-4 [&>blockquote]:rounded-r-lg [&>blockquote]:my-8">
                   <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>{section.markdown}</ReactMarkdown>
                 </div>
               </motion.article>
             )) : (
-              <div className="wg-prose max-w-none [&>p]:text-[14px] [&>p]:font-light [&>p]:text-wg-gray [&>p]:leading-[1.58] [&>p]:mb-5 [&_strong]:text-wg-gray [&_strong]:font-light [&_a]:text-wg-gray [&_a]:underline [&_a]:decoration-black/20 [&_a]:underline-offset-4 hover:[&_a]:text-wg-black hover:[&_a]:decoration-black/40">
+              <div className="wg-prose max-w-none [&>p]:text-[16px] [&>p]:font-normal [&>p]:text-wg-gray [&>p]:leading-[1.76] [&>p]:mb-5 [&_strong]:text-wg-black [&_strong]:font-semibold [&_a]:text-wg-gray [&_a]:underline [&_a]:decoration-black/20 [&_a]:underline-offset-4 hover:[&_a]:text-wg-black hover:[&_a]:decoration-black/40">
                 <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>{contentBody}</ReactMarkdown>
               </div>
             )}

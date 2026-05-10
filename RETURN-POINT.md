@@ -1005,3 +1005,37 @@ URL limpa para validacao humana:
   - Prompt/padrao do agente QA autonomo registrado em `docs/audits/AUTONOMOUS-QA-VALIDATOR-AGENT-2026-05-10.md`.
   - `2 high severity vulnerabilities` no build Vercel seguem como bloco proprio de auditoria de dependencias.
   - Falhas ORB de imagens externas Unsplash seguem como pendencia `RSP-003`.
+
+### Correcao site novo blog/revista/estilos - 2026-05-10
+- Branch confirmado pelo usuario:
+  - `feature/buildtech-vitrine-star-20260502`.
+- Contexto:
+  - Usuario confirmou que este e o site novo correto, com video e estrutura aprovada.
+  - Deploy anterior do site antigo/hotfix nao deve ser repetido.
+- Correcoes aplicadas:
+  - `src/components/ResponsiveWebpImage.jsx`: removida geracao automatica de `<source .avif>` quando o arquivo AVIF nao existe; isso corrigiu imagens quebradas em banners e blocos de estilo.
+  - `src/pages/Blog.jsx`: fallback de imagem nos cards, imagens contextuais e imagens inline de markdown; tipografia do artigo reforcada.
+  - `src/pages/RevistaEstilos.jsx`: cards de estilos com altura/estrutura mais estavel e SEO especifico da Revista de Estilos.
+  - `src/pages/EstiloDetail.jsx`: guias de estilo com leitura mais forte, largura de artigo maior e acento visual baseado na paleta do estilo.
+- Rotas validadas localmente:
+  - `/revista-estilos`
+  - `/blog`
+  - `/blog/arquitetos-brasileiros-famosos-legado`
+  - `/estilos/japandi`
+- Resultado da validacao DOM/Playwright local:
+  - `broken: []` nas quatro rotas apos scroll.
+  - `blocked: false`, sem texto `Este conteúdo está bloqueado`.
+  - console sem erros capturados nas rotas validadas.
+- Evidencias visuais:
+  - `.codex/tmp/audit-revista-fix-desktop/`
+  - `.codex/tmp/audit-blog-fix-desktop/`
+  - `.codex/tmp/audit-arquitetos-fix-desktop/`
+  - `.codex/tmp/audit-japandi-fix-mobile/`
+- Validacoes tecnicas:
+  - `npm run lint`: OK.
+  - `npm run build`: OK.
+- Governanca:
+  - Sync Gate `start`: PASS antes das correcoes.
+  - Sync Gate `pre-commit`: bloqueou por worktree suja contendo apenas as correcoes deste bloco; registrado aqui antes do commit.
+- Proximo passo:
+  - Commitar correcoes, rodar `pre-push`, enviar branch e fazer deploy de producao somente deste branch confirmado.

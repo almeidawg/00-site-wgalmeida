@@ -37,6 +37,12 @@ import SmartCTA from '@/components/SmartCTA';
 
 const BLOG_HERO_IMAGE = getPublicPageImageSrc('blog', '/images/banners/PROCESSOS.webp');
 
+const handleArticleImageError = (event) => {
+  if (event.currentTarget.dataset.fallbackApplied === 'true') return;
+  event.currentTarget.dataset.fallbackApplied = 'true';
+  event.currentTarget.src = BLOG_HERO_IMAGE;
+};
+
 const categories = [
   { id: 'all', label: 'all', icon: Globe, color: 'text-wg-gray', bgColor: 'bg-gray-100' },
   { id: 'arquitetura', label: 'architecture', icon: Ruler, color: 'text-wg-green', bgColor: 'bg-wg-green' },
@@ -269,6 +275,7 @@ const ContextImageFigure = ({ asset }) => {
           alt={asset.alt || asset.caption || ''}
           className="mx-auto max-h-[68vh] w-full scale-[1.03] object-contain transition-transform duration-[1400ms] ease-out hover:scale-100"
           loading="lazy"
+          onError={handleArticleImageError}
         />
       </div>
       {(asset.caption || asset.sourceLabel || asset.page) && (
@@ -304,6 +311,7 @@ const ContextImagePanel = ({ asset }) => {
           alt={asset.alt || asset.caption || ''}
           className="h-full w-full scale-[1.035] object-cover object-center transition-transform duration-[1800ms] ease-out group-hover:scale-100"
           loading="lazy"
+          onError={handleArticleImageError}
         />
       </div>
       {(asset.caption || asset.sourceLabel) && (
@@ -519,6 +527,7 @@ const Blog = () => {
             src={article.image || '/images/blog/placeholder.webp'}
             alt={article.title}
             className="w-full h-full scale-105 object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-100"
+            onError={handleArticleImageError}
           />
           <div className="absolute top-4 left-4">
             <span className={`rounded-full border px-2.5 py-1 text-[9px] font-light uppercase tracking-[0.12em] backdrop-blur-md ${articleTagClass}`}>
@@ -573,6 +582,7 @@ const Blog = () => {
               src={article.image || '/images/blog/placeholder.webp'}
               alt={article.title}
               className="h-full w-full scale-105 object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-100"
+              onError={handleArticleImageError}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent md:bg-gradient-to-r" />
             <div className="absolute left-4 top-4">
@@ -624,6 +634,7 @@ const Blog = () => {
               src={article.image || '/images/blog/placeholder.webp'}
               alt={article.title}
               className="h-full w-full scale-105 object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-100"
+              onError={handleArticleImageError}
             />
             <div className="absolute left-4 top-4">
               <span className={`rounded-full border px-2.5 py-1 text-[9px] font-light uppercase tracking-[0.12em] backdrop-blur-md ${articleTagClass}`}>
@@ -738,7 +749,7 @@ const Blog = () => {
           .filter((item) => /\(\d{4}\s*-\s*\d{4}\)/.test(item.text))
           .slice(0, 7)
       : [];
-    const proseClassName = "prose prose-lg max-w-none prose-headings:font-playfair prose-headings:font-light prose-headings:leading-tight prose-headings:text-wg-black prose-h2:mb-6 prose-h2:mt-1 prose-h2:text-[clamp(1.36rem,1.86vw,1.82rem)] prose-h3:mb-3 prose-h3:mt-8 prose-h3:text-[clamp(0.92rem,1.14vw,1.17rem)] prose-h4:mb-2 prose-h4:mt-5 prose-h4:text-[clamp(0.82rem,0.9vw,0.94rem)] prose-h4:font-light prose-h4:text-wg-black prose-p:my-5 prose-p:text-[1.02rem] prose-p:leading-[1.85] prose-p:text-wg-gray prose-a:text-wg-orange prose-a:no-underline hover:prose-a:text-wg-black prose-ul:my-2 prose-ul:pl-5 prose-li:my-0.5 prose-li:text-wg-gray [&_code]:rounded [&_code]:bg-gray-100 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:!text-wg-black [&_h2]:!font-light [&_h2]:!text-wg-black [&_h3]:!font-light [&_h3]:!text-wg-black [&_h4]:!font-light [&_h4]:!text-wg-black [&_li]:!font-[300] [&_li]:!text-wg-gray [&_p]:!font-[300] [&_p]:!text-wg-gray [&_strong]:!font-[300] [&_strong]:!text-wg-black";
+    const proseClassName = "prose prose-lg max-w-none prose-headings:font-playfair prose-headings:font-light prose-headings:leading-tight prose-headings:text-wg-black prose-h2:mb-6 prose-h2:mt-1 prose-h2:text-[clamp(1.48rem,2vw,2rem)] prose-h3:mb-3 prose-h3:mt-8 prose-h3:text-[clamp(1.05rem,1.22vw,1.24rem)] prose-h4:mb-2 prose-h4:mt-5 prose-h4:text-[clamp(0.92rem,0.95vw,1rem)] prose-h4:font-normal prose-h4:text-wg-black prose-p:my-5 prose-p:text-[1.06rem] prose-p:leading-[1.78] prose-p:text-wg-gray prose-a:text-wg-orange prose-a:no-underline hover:prose-a:text-wg-black prose-ul:my-3 prose-ul:pl-5 prose-li:my-1 prose-li:text-wg-gray [&_code]:rounded [&_code]:bg-gray-100 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:!text-wg-black [&_h2]:!font-light [&_h2]:!text-wg-black [&_h3]:!font-normal [&_h3]:!text-wg-black [&_h4]:!font-normal [&_h4]:!text-wg-black [&_li]:!font-normal [&_li]:!text-wg-gray [&_p]:!font-normal [&_p]:!text-wg-gray [&_strong]:!font-semibold [&_strong]:!text-wg-black";
     const articleMarkdownComponents = {
       hr: () => <hr className="my-10 border-0 border-t border-gray-200" />,
       img: ({ node: _node, ...props }) => (
@@ -747,6 +758,7 @@ const Blog = () => {
             {...props}
             className="h-auto w-full scale-[1.03] object-cover transition-transform duration-[1400ms] ease-out hover:scale-100"
             loading="lazy"
+            onError={handleArticleImageError}
           />
         </span>
       ),
@@ -758,7 +770,7 @@ const Blog = () => {
         </ReactMarkdown>
       </div>
     );
-    const architectsSectionClass = `${proseClassName} ${articleMarkerClass} [&_h2]:!mb-2 [&_h2]:!font-playfair [&_h2]:!text-xl md:[&_h2]:!text-2xl [&_h2]:!leading-tight [&_h2]:!font-light [&_h2]:!text-wg-black [&_h3]:!mt-2 [&_h3]:!mb-3 [&_h3]:!text-[clamp(0.84rem,1.06vw,1.01rem)] [&_h3]:!uppercase [&_h3]:!tracking-[0.12em] [&_h3]:!text-wg-gray [&_h4]:!mt-3 [&_h4]:!mb-1.5 [&_h4]:!text-[clamp(0.79rem,0.84vw,0.9rem)] [&_h4]:!font-light [&_h4]:!text-wg-black [&_blockquote]:!my-4 [&_blockquote]:!border-l-2 [&_blockquote]:!border-wg-orange/50 [&_blockquote]:!pl-5 [&_blockquote]:!italic [&_blockquote]:!text-wg-gray [&_ul]:!my-1.5 [&_ul]:!list-disc [&_ul]:!pl-5 [&_li]:!my-0.5 [&_li]:!font-[300] [&_li]:!text-wg-gray [&_p]:!my-2.5 [&_p]:!font-[300] [&_p]:!text-wg-gray [&_strong]:!font-[300]`;
+    const architectsSectionClass = `${proseClassName} ${articleMarkerClass} [&_h2]:!mb-3 [&_h2]:!font-playfair [&_h2]:!text-[clamp(1.45rem,2vw,2rem)] [&_h2]:!leading-tight [&_h2]:!font-light [&_h2]:!text-wg-black [&_h3]:!mt-5 [&_h3]:!mb-2.5 [&_h3]:!text-[clamp(1rem,1.15vw,1.14rem)] [&_h3]:!font-normal [&_h3]:!tracking-[0.02em] [&_h3]:!text-wg-black [&_h4]:!mt-4 [&_h4]:!mb-2 [&_h4]:!text-[clamp(0.92rem,0.96vw,1rem)] [&_h4]:!font-normal [&_h4]:!text-wg-black [&_blockquote]:!my-5 [&_blockquote]:!border-l-2 [&_blockquote]:!border-wg-orange/50 [&_blockquote]:!pl-5 [&_blockquote]:!italic [&_blockquote]:!text-wg-gray [&_ul]:!my-3 [&_ul]:!list-disc [&_ul]:!pl-5 [&_li]:!my-1 [&_li]:!font-normal [&_li]:!text-wg-gray [&_p]:!my-3.5 [&_p]:!font-normal [&_p]:!leading-[1.72] [&_p]:!text-wg-gray [&_strong]:!font-semibold`;
 
     return (
       <>
@@ -947,6 +959,7 @@ const Blog = () => {
                         alt={leadAsset.alt || leadAsset.caption || leadSection.heading}
                         className="h-full w-full scale-[1.035] object-cover object-center transition-transform duration-[1800ms] ease-out group-hover:scale-100"
                         loading="lazy"
+                        onError={handleArticleImageError}
                       />
                     </div>
                     <div className="bg-[#FAFAFA] p-6 md:p-8">
@@ -1235,6 +1248,7 @@ const Blog = () => {
                             src={article.image || '/images/blog/placeholder.webp'}
                             alt={article.title}
                             className="h-full w-full scale-105 object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-100"
+                            onError={handleArticleImageError}
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent md:bg-gradient-to-r" />
                           <div className="absolute left-4 top-4">
@@ -1288,6 +1302,7 @@ const Blog = () => {
                                 src={article.image || '/images/blog/placeholder.webp'}
                                 alt={article.title}
                                 className="h-full w-full scale-105 object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-100"
+                                onError={handleArticleImageError}
                               />
                               <div className="absolute left-4 top-4">
                                 <span className={`rounded-full border px-2.5 py-1 text-[9px] font-light uppercase tracking-[0.12em] backdrop-blur-md ${articleTagClass}`}>
