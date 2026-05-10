@@ -4,7 +4,7 @@ slug: "laca-vs-melamina-vs-folha-natural"
 date: "2026-05-10"
 author: "Grupo WG Almeida"
 category: "materiais"
-image: "/images/blog/laca-vs-melamina.webp"
+image: "/images/blog/marcenaria-sob-medida.webp"
 excerpt: "Comparamos os acabamentos de marcenaria mais desejados do alto padrão: estética, resistência e durabilidade em foco."
 tags:
   - "acabamentos"
