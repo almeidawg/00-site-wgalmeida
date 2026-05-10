@@ -1114,3 +1114,40 @@ URL limpa para validacao humana:
   - GitGuardian passou na PR limpa, confirmando que o bloqueio da #60 vinha do historico antigo da branch, nao do conteudo final.
   - `git worktree prune` limpou o suficiente para liberar `main`; alguns metadados antigos prunable ainda reportaram `Permission denied` e devem ser saneados em bloco separado de limpeza local.
   - Remocao destrutiva de branches/deploys antigos nao foi feita neste bloco; a limpeza deve ocorrer apos novo checkpoint e com foco em evidencias.
+
+### Limpeza pos-incidente de site antigo - 2026-05-10
+- Data/hora: `2026-05-10 02:08 -03:00`.
+- Escopo autorizado pelo operador:
+  - Limpar material antigo que poderia induzir novo deploy errado.
+  - Manter somente a linha nova/canonica para producao.
+- Branches:
+  - Branch canonica preservada: `main`.
+  - Remotas apos limpeza: `origin/main` e `origin/HEAD -> origin/main`.
+  - Locais apos limpeza: apenas `main`.
+  - Branches antigas removidas incluem hotfixes, releases, features antigas, recoveries e PR branches supersedidas.
+- PRs antigas fechadas:
+  - `#60` `chore(main): alinha main...` supersedida pela PR limpa `#61`.
+  - `#59` `fix(layers): corrige precedencia... [hotfix]` supersedida pela main canonica.
+  - `#48` `fix(site): polish visual observations` supersedida pela main canonica.
+- Vercel:
+  - Deployment canonico preservado: `https://site-wgalmeida-65vv6cven-william-almeidas-projects.vercel.app`.
+  - Aliases preservados no deployment canonico:
+    - `https://wgalmeida.com.br`
+    - `https://www.wgalmeida.com.br`
+    - `https://grupo-wg-almeida.vercel.app`
+    - `https://site-wgalmeida-william-almeidas-projects.vercel.app`
+    - `https://site-wgalmeida-git-main-william-almeidas-projects.vercel.app`
+  - Deployments hashados antigos removidos em lotes auditados: `506`.
+  - Familias limpas: `site-wgalmeida-*` antigas e `grupo-wg-almeida-*` legadas.
+  - Confirmacao final: `vercel ls site-wgalmeida --scope william-almeidas-projects` mostrou somente o deployment atual `site-wgalmeida-65vv6cven`.
+  - `vercel project ls --scope william-almeidas-projects` nao lista mais projeto `grupo-wg-almeida` como projeto ativo separado.
+- Validacao real apos limpeza:
+  - Script: `.codex/tmp/prod-validate-20260510.cjs`.
+  - Resultado: `failures: []`.
+  - Dominio `https://wgalmeida.com.br`: HTTP `200`, sem texto bloqueado, video carregado/reproduzindo, sem imagens quebradas nas rotas auditadas.
+  - Dominio `https://www.wgalmeida.com.br`: HTTP `200`, sem texto bloqueado, video carregado/reproduzindo, sem imagens quebradas nas rotas auditadas.
+  - Rotas auditadas: `/`, `/buildtech`, `/moodboard`, `/revista-estilos`, `/blog`, `/blog/laca-vs-melamina-vs-folha-natural`, `/blog/arquitetos-brasileiros-famosos-legado`.
+- Observacoes:
+  - Nenhum `vercel --prod` foi executado durante a limpeza.
+  - Nenhum push direto para `main` foi executado.
+  - Stashes locais antigos permanecem preservados como evidencias/recovery e nao participam de branch, PR, build ou deploy.
