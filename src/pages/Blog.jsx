@@ -194,7 +194,8 @@ const normalizeArticleTags = (tags) => {
   return [];
 };
 
-const getHeroObjectPosition = (asset = {}) => {
+const getHeroObjectPosition = (asset) => {
+  if (!asset || typeof asset !== 'object') return 'center center';
   if (asset.objectPosition) return asset.objectPosition;
   if (asset.subject === 'person' || asset.alt?.toLowerCase().includes('retrato')) return 'center top';
   return 'center center';
