@@ -248,26 +248,40 @@ const EstiloDetail = () => {
         url={articleUrl}
         image={heroImg?.startsWith('http') ? heroImg : `https://wgalmeida.com.br${heroImg}`}
         keywords={`${estilo.title.toLowerCase()}, estilo decoracao, design interiores, decoracao ${estilo.title.toLowerCase()}, ambientes ${estilo.title.toLowerCase()}`}
-        schema={{
-          "@context": "https://schema.org",
-          "@type": "Article",
-          headline: `${estilo.title} - Guia Completo de Estilo`,
-          description: estilo.excerpt,
-          url: articleUrl,
-          image: heroImg?.startsWith('http') ? heroImg : `https://wgalmeida.com.br${heroImg}`,
-          author: {
-            "@type": "Organization",
-            name: "Grupo WG Almeida",
-          },
-          publisher: {
-            "@type": "Organization",
-            name: "Grupo WG Almeida",
-            logo: {
-              "@type": "ImageObject",
-              url: "https://wgalmeida.com.br/images/logo-96.webp",
+        schema={[
+          {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: `${estilo.title} - Guia Completo de Estilo`,
+            description: estilo.excerpt,
+            url: articleUrl,
+            image: heroImg?.startsWith('http') ? heroImg : `https://wgalmeida.com.br${heroImg}`,
+            author: {
+              "@type": "Organization",
+              name: "Grupo WG Almeida",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "Grupo WG Almeida",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://wgalmeida.com.br/images/logo-96.webp",
+              },
             },
           },
-        }}
+          estilo.faq && estilo.faq.length > 0 && {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": estilo.faq.map(item => ({
+              "@type": "Question",
+              "name": item.question,
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": item.answer
+              }
+            }))
+          }
+        ].filter(Boolean)}
       />
 
       {/* Hero Banner */}
@@ -283,6 +297,7 @@ const EstiloDetail = () => {
             alt={estilo.title}
             className="w-full h-full object-cover"
             loading="eager"
+            fetchPriority="high"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-wg-black via-wg-black/60 to-transparent" />
         </motion.div>
@@ -531,15 +546,37 @@ const EstiloDetail = () => {
             </div>
           </div>
 
-          {/* Navigation */}
-          <div className="mt-12 pt-8 border-t border-gray-200 flex items-center justify-between">
-            <Link
-              to="/revista-estilos"
-              className="inline-flex items-center gap-2 text-wg-gray hover:text-wg-black transition-colors"
-            >
-              <ArrowLeft className="w-5 h-5" />
-              <span className="font-light">Voltar para Revista</span>
-            </Link>
+          {/* Navigation & Next Steps */}
+          <div className="mt-16 pt-10 border-t border-gray-200">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <Link
+                to="/revista-estilos"
+                className="group flex flex-col gap-4 p-6 rounded-2xl border border-gray-100 bg-gray-50 transition-all hover:bg-white hover:border-black/10 hover:shadow-md"
+              >
+                <div className="flex items-center gap-2 text-wg-gray group-hover:text-wg-black transition-colors">
+                  <ArrowLeft className="w-5 h-5" />
+                  <span className="text-xs uppercase tracking-widest">Voltar</span>
+                </div>
+                <div>
+                  <h4 className="text-xl font-inter font-light text-wg-black">Revista de Estilos</h4>
+                  <p className="text-sm text-wg-gray mt-2">Explore nosso catálogo completo de linguagens estéticas.</p>
+                </div>
+              </Link>
+
+              <Link
+                to={`/solicite-proposta?service=Projeto%20${estilo.title}&context=estilo_detail&slug=${estilo.slug}`}
+                className="group flex flex-col gap-4 p-6 rounded-2xl border border-wg-orange/10 bg-wg-orange/5 transition-all hover:bg-wg-orange/10 hover:border-wg-orange/30 hover:shadow-md"
+              >
+                <div className="flex items-center justify-between text-wg-orange">
+                  <span className="text-xs uppercase tracking-widest">Próximo Passo</span>
+                  <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                </div>
+                <div>
+                  <h4 className="text-xl font-inter font-light text-wg-black">Solicitar Proposta</h4>
+                  <p className="text-sm text-wg-gray mt-2">Veja como o estilo {estilo.title} pode ser aplicado no seu projeto.</p>
+                </div>
+              </Link>
+            </div>
           </div>
         </div>
       </section>

@@ -46,27 +46,36 @@ const ResponsiveWebpImage = ({
   ...rest
 }) => {
   const resolvedSrc = withBasePath(src);
+  const isExternal = src.startsWith('http') || src.startsWith('https');
+
+  // Generate AVIF source if applicable (internal images only)
+  const avifSrc = !isExternal ? resolvedSrc.replace(/\.(webp|jpg|jpeg|png)$/i, '.avif') : null;
 
   return (
-    <img
-      src={resolvedSrc}
-      alt={alt}
-      className={className}
-      width={width}
-      height={height}
-      sizes={sizes}
-      loading={loading}
-      decoding={decoding}
-      fetchpriority={fetchPriority}
-      onError={(event) => {
-        if (event.currentTarget.dataset.fallbackApplied === 'true') return;
-        event.currentTarget.dataset.fallbackApplied = 'true';
-        event.currentTarget.src = getFallbackSrc(resolvedSrc || src);
-      }}
-      {...rest}
-    />
+    <picture className={className}>
+      {/* AVIF Source */}
+      {avifSrc && (
+        <source srcSet={avifSrc} type="image/avif" />
+      )}
+      <img
+        src={resolvedSrc}
+        alt={alt}
+        className="h-full w-full object-cover" // Default to fill container, can be overridden by className on picture
+        width={width}
+        height={height}
+        sizes={sizes}
+        loading={loading}
+        decoding={decoding}
+        fetchpriority={fetchPriority}
+        onError={(event) => {
+          if (event.currentTarget.dataset.fallbackApplied === 'true') return;
+          event.currentTarget.dataset.fallbackApplied = 'true';
+          event.currentTarget.src = getFallbackSrc(resolvedSrc || src);
+        }}
+        {...rest}
+      />
+    </picture>
   );
 };
 
 export default ResponsiveWebpImage;
-
