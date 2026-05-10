@@ -166,6 +166,28 @@ const getArticleTocHoverClass = (article) => topicTocHoverStyles[getArticleTopic
 const getArticleTocReadingClass = (article) => topicTocReadingStyles[getArticleTopic(article)] || topicTocReadingStyles.transversal;
 const getArticleMarkerClass = (article) => topicMarkerStyles[getArticleTopic(article)] || topicMarkerStyles.transversal;
 
+const normalizeArticleTags = (tags) => {
+  if (Array.isArray(tags)) return tags.map((tag) => String(tag).trim()).filter(Boolean);
+  if (typeof tags === 'string') {
+    const trimmed = tags.trim();
+    if (!trimmed) return [];
+    if (trimmed.startsWith('[') && trimmed.endsWith(']')) {
+      try {
+        const parsed = JSON.parse(trimmed);
+        if (Array.isArray(parsed)) return normalizeArticleTags(parsed);
+      } catch {
+        return trimmed
+          .slice(1, -1)
+          .split(',')
+          .map((tag) => tag.trim().replace(/^["']|["']$/g, ''))
+          .filter(Boolean);
+      }
+    }
+    return trimmed.split(',').map((tag) => tag.trim()).filter(Boolean);
+  }
+  return [];
+};
+
 const getHeroObjectPosition = (asset = {}) => {
   if (asset.objectPosition) return asset.objectPosition;
   if (asset.subject === 'person' || asset.alt?.toLowerCase().includes('retrato')) return 'center top';
@@ -397,6 +419,7 @@ const Blog = () => {
           return {
             slug: articleSlug,
             ...data,
+            tags: normalizeArticleTags(data.tags),
             image: imageCard,
             imageCard,
             imageHero,

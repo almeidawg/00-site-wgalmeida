@@ -3,23 +3,49 @@ const GOOGLE_SEARCH_CX = import.meta.env.VITE_GOOGLE_SEARCH_CX;
 
 import { searchUnsplashImages as searchUnsplashLibraryImages } from '@/lib/unsplash';
 
+let googleImageSearchDisabled = false;
+let googleImageSearchWarningShown = false;
+
 /**
  * Motor de Busca de Imagens - Google Custom Search
  */
 export const searchGoogleImages = async (query) => {
+  if (googleImageSearchDisabled) return [];
+
   if (!GOOGLE_API_KEY || !GOOGLE_SEARCH_CX) {
-    console.warn('[DiscoveryEngine] Credenciais ausentes. Verifique o .env');
+    if (!googleImageSearchWarningShown) {
+      console.warn('[DiscoveryEngine] Credenciais ausentes. Verifique o .env');
+      googleImageSearchWarningShown = true;
+    }
     return [];
   }
 
   try {
-    const response = await fetch(
-      `https://www.googleapis.com/customsearch/v1?key=${GOOGLE_API_KEY}&cx=${GOOGLE_SEARCH_CX}&searchType=image&q=${encodeURIComponent(query)}&num=10`
-    );
+    const params = new URLSearchParams({
+      key: GOOGLE_API_KEY,
+      cx: GOOGLE_SEARCH_CX,
+      searchType: 'image',
+      q: String(query || '').slice(0, 180),
+      num: '10',
+    });
+    const response = await fetch(`https://www.googleapis.com/customsearch/v1?${params.toString()}`);
 
     if (!response.ok) {
-      const errorData = await response.json();
-      console.error('[DiscoveryEngine] Erro na API Google:', response.status, errorData);
+      let errorData = {};
+      try {
+        errorData = await response.json();
+      } catch {
+        errorData = { message: response.statusText };
+      }
+
+      if (response.status === 400 || response.status === 403) {
+        googleImageSearchDisabled = true;
+      }
+
+      if (!googleImageSearchWarningShown) {
+        console.warn('[DiscoveryEngine] Busca Google desativada nesta sessão:', response.status, errorData?.error?.message || errorData?.message || 'erro na API');
+        googleImageSearchWarningShown = true;
+      }
       return [];
     }
     

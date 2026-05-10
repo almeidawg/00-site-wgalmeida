@@ -3,6 +3,39 @@
 
 ---
 
+## Sessao: 09/05/2026 - Correção de crashes de produção Blog/Moodboard
+
+### Escopo
+- Frente: `site-wgalmeida`.
+- Pedido original: tratar erros de produção com `TypeError: U.tags.map is not a function`, `QuotaExceededError` em `wg-moodboard-v3`, Google Custom Search `400`, ruído Locize/i18next e violações CSP report-only.
+- Governança inicial: `PORTFOLIO-HEALTH.md` em `GREEN`, Sync Gate `start` passou para o repo alvo.
+
+### Causa raiz e correções
+- `src/utils/frontmatter.js`: parser local não entendia arrays inline (`tags: ["a", "b"]`) e entregava `tags` como string.
+- `src/pages/Blog.jsx`: normalização defensiva de `tags` antes de renderizar/listar artigos.
+- `src/contexts/MoodboardContext.jsx`: persistência do moodboard agora compacta imagens, remove `data:`/`blob:` de storage e não derruba a UI se o `localStorage` estourar quota.
+- `src/services/mediaService.js`: Google Custom Search usa `URLSearchParams`, limita query e desativa a busca Google na sessão após `400/403`, evitando cascata de erros no console.
+- `vercel.json`: CSP report-only alinhada com a política ativa para não registrar falso positivo de inline script já permitido pela política efetiva.
+- `src/__tests__/frontmatter.test.js`: testes cobrindo tags em array inline e array multiline.
+
+### Validações executadas
+- `npm run lint`: OK.
+- `npx vitest run src/__tests__/frontmatter.test.js`: OK, 2 testes.
+- `npx vitest run`: OK, 13 arquivos e 66 testes.
+- `npm run build:local`: OK, sitemap gerado com 161 rotas.
+- `npm run smoke:console`: OK como comando; sem ocorrência de `tags.map`, `QuotaExceededError`, `customsearch`, `DiscoveryEngine`, `App crashed` ou `TypeError` no relatório.
+
+### Evidências
+- Relatório smoke: `.monitor-data/reports/console-smoke-2026-05-10T02-24-25-151Z.json`.
+- Bundle local gerado: `dist-local/assets/Blog-0J4jFaVQ.js` e `dist-local/assets/moodboard-CESzNsME.js`.
+
+### Pendências
+- Não houve commit, push, PR ou deploy neste bloco.
+- O smoke ainda reportou 404s de imagens fora do escopo desta correção: `/images/banners/PROCESSOS.avif`, `/images/banners/MARCENARIA.avif`, `/images/banners/ARQ.avif`, `/images/banners/ENGENHARIA.avif` e `/images/blog/laca-vs-melamina.webp`.
+- Para produção, seguir fluxo protegido: Sync Gate `pre-commit`, commit em branch, PR contra `main`, checks obrigatórios, merge e validação real em `https://wgalmeida.com.br`.
+
+---
+
 ## Sessao: 09/05/2026 - Auditoria visual de prints, header claro e IA publica
 
 ### Escopo

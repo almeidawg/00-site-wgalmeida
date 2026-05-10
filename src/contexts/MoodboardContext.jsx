@@ -5,6 +5,65 @@ import { buildStyleEditorialSearchPlan } from '@/lib/styleEditorialSearchProfile
 const MoodboardContext = createContext(null);
 
 const STORAGE_KEY = 'wg-moodboard-v3'; // Versão incrementada para nova estrutura de preços
+const MAX_PERSISTED_IMAGES = 12;
+let storageWarningShown = false;
+
+const isQuotaExceededError = (error) =>
+  error?.name === 'QuotaExceededError' ||
+  error?.name === 'NS_ERROR_DOM_QUOTA_REACHED' ||
+  error?.code === 22 ||
+  error?.code === 1014;
+
+const stripImageForStorage = (image = {}) => {
+  const url = String(image.url || '');
+  const thumb = String(image.thumb || '');
+  const isEmbedded = url.startsWith('data:') || thumb.startsWith('data:') || url.startsWith('blob:') || thumb.startsWith('blob:');
+
+  return {
+    id: image.id,
+    name: image.name || image.title || 'Referência',
+    price: image.price,
+    source: image.source,
+    type: image.type,
+    url: isEmbedded ? '' : url,
+    thumb: isEmbedded ? '' : thumb,
+  };
+};
+
+const persistMoodboardData = (data) => {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    return;
+  } catch (error) {
+    if (!isQuotaExceededError(error)) throw error;
+  }
+
+  const compactData = {
+    ...data,
+    customImages: (data.customImages || [])
+      .slice(-MAX_PERSISTED_IMAGES)
+      .map(stripImageForStorage),
+    storageCompacted: true,
+  };
+
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(compactData));
+  } catch (error) {
+    if (!isQuotaExceededError(error)) throw error;
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        ...compactData,
+        customImages: [],
+        storageCompacted: true,
+      }));
+    } catch {
+      if (!storageWarningShown) {
+        console.warn('[Moodboard] Persistencia local indisponivel; mantendo estado apenas na sessao atual.');
+        storageWarningShown = true;
+      }
+    }
+  }
+};
 
 export const MoodboardProvider = ({ children }) => {
   const [colors, setColors] = useState([]);
@@ -69,7 +128,7 @@ export const MoodboardProvider = ({ children }) => {
         colors, styles, customImages, selectedMaterials, projectName,
         updatedAt: new Date().toISOString()
       };
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      persistMoodboardData(data);
     }
   }, [colors, styles, customImages, selectedMaterials, projectName, isModified]);
 
