@@ -1039,3 +1039,35 @@ URL limpa para validacao humana:
   - Sync Gate `pre-commit`: bloqueou por worktree suja contendo apenas as correcoes deste bloco; registrado aqui antes do commit.
 - Proximo passo:
   - Commitar correcoes, rodar `pre-push`, enviar branch e fazer deploy de producao somente deste branch confirmado.
+
+### Deploy producao site novo blog/revista/estilos - 2026-05-10
+- Branch/deploy correto:
+  - `feature/buildtech-vitrine-star-20260502`.
+  - Commit base das correcoes principais: `b0158a2 fix(site): stabilize blog and style imagery`.
+  - Commit complementar de imagem faltante: `d869034 fix(blog): use existing marcenaria image`.
+- Deploy Vercel final:
+  - Inspect: `https://vercel.com/william-almeidas-projects/site-wgalmeida/5dPQ2SwfDcnHUxywicPhnGiYfifS`.
+  - Production URL: `https://site-wgalmeida-67qi8cm3y-william-almeidas-projects.vercel.app`.
+  - Alias final: `https://wgalmeida.com.br`.
+- Validacao real de producao com cache-bust `prod-d869034-20260510`:
+  - `/`: HTTP `200`, sem texto de bloqueio, video Cloudinary carregado com `readyState 4`, `1920x1080`.
+  - `/revista-estilos`: HTTP `200`, `h1` `Qual é o Seu Estilo?`, `33` imagens, `broken: []`, console sem erros.
+  - `/blog`: HTTP `200`, `82` imagens, `broken: []`, console sem erros.
+  - `/blog/arquitetos-brasileiros-famosos-legado`: HTTP `200`, `10` imagens, `broken: []`, console sem erros.
+  - `/estilos/japandi`: HTTP `200`, `7` imagens, `broken: []`, console sem erros.
+  - Checagem especifica de `404` em `/blog`: `[]`.
+- Evidencias visuais/producao:
+  - `.codex/tmp/prod-audit-home-desktop/`
+  - `.codex/tmp/prod-audit-blog-desktop/`
+  - `.codex/tmp/prod-audit-revista-mobile/`
+  - `.codex/tmp/prod-audit-blog-after-d869034/`
+  - `.codex/tmp/prod-audit-arquitetos-mobile-d869034/`
+- Validacoes tecnicas:
+  - `npm run lint`: OK.
+  - `npm run build`: OK.
+  - `git-sync-gate -Stage pre-push`: PASS.
+  - Hook de pre-push: `check:imports`, `audit:consistency:strict` e `build` OK.
+- Governanca/observacoes:
+  - O alias final de producao foi atualizado para o site novo confirmado pelo usuario; o deploy antigo ficou sobrescrito no alias, sem nova promocao.
+  - Nao foi feita remocao destrutiva de historico/deploy antigo nesta etapa.
+  - Build Vercel ainda reporta `2 high severity vulnerabilities` herdadas das dependencias atuais; tratar em bloco proprio.
