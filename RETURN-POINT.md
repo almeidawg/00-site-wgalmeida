@@ -935,3 +935,23 @@ URL limpa para validacao humana:
   - `.codex/tmp/screenshot-audit-05-site-wg/prod-boho-lazy-image-20260509/`
 - Observacoes:
   - Build Vercel concluido; `npm audit` remoto apontou `2 high severity vulnerabilities` herdadas das dependencias atuais, sem bloqueio de build. Abrir bloco proprio para upgrade/auditoria de dependencias antes de alterar stack.
+
+### Auditoria responsiva e bugs governados - 2026-05-10
+- Escopo:
+  - Auditoria mobile/tablet do ecossistema com 14 rotas e 13 viewports, totalizando 182 validacoes.
+  - Correcao aplicada no site para o breakpoint critico de 320px do Moodboard Studio.
+- Correcoes aplicadas:
+  - `src/components/moodboard/MoodboardStudioLayout.jsx`: abas da sidebar agora quebram em duas linhas no mobile, mantendo `Estilos`, `Paletas`, `Acabamentos`, `Decoracao` e `Biblioteca` visiveis em 320px.
+- Evidencias:
+  - `.codex/tmp/responsive-ecosystem-audit-20260510/responsive-audit.json`.
+  - `.codex/tmp/responsive-ecosystem-audit-20260510/responsive-audit.md`.
+  - `.codex/tmp/responsive-fixes-local-20260510b/site-moodboard-320.png`.
+  - Relatorio governado: `docs/audits/RESPONSIVE-BUG-AUDIT-2026-05-10.md`.
+- Validacoes:
+  - `npm run lint`: OK.
+  - `npm run check:imports`: OK.
+  - Playwright local `/moodboard` 320px: HTTP 200, sem overflow horizontal, abas visiveis e sem sobreposicao.
+- Bugs/pendencias governadas:
+  - `RSP-003`: falhas `net::ERR_BLOCKED_BY_ORB` em imagens externas Unsplash durante auditoria local; tratar em bloco proprio de midia/fallback.
+  - Avisos de future flags React Router seguem como backlog P3.
+  - Validacao autenticada real segue pendente fora deste bloco.
