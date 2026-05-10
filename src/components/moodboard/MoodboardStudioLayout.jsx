@@ -70,18 +70,18 @@ const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, 
         </div>
 
         {/* Tabs de Navegação da Sidebar */}
-        <div className="flex border-b border-white/5 p-2 bg-black/20 shrink-0">
+        <div className="flex flex-wrap gap-1 border-b border-white/5 p-2 bg-black/20 shrink-0">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => onTabChange(tab.id)}
               className={cn(
-                "flex-1 flex flex-col items-center gap-1.5 py-4 rounded-xl transition-all relative group",
+                "min-w-[84px] flex-[1_1_84px] flex flex-col items-center gap-1.5 py-3 rounded-xl transition-all relative group",
                 activeTab === tab.id ? "text-wg-orange" : "text-slate-500 hover:text-slate-300"
               )}
             >
               <tab.icon size={18} className={cn("transition-transform group-hover:scale-110", activeTab === tab.id ? "fill-current/10" : "")} />
-              <span className="text-[9px] font-bold uppercase tracking-[0.1em]">{tab.label}</span>
+              <span className="max-w-full truncate text-[8px] font-bold uppercase tracking-[0.08em] sm:text-[9px] sm:tracking-[0.1em]">{tab.label}</span>
               {activeTab === tab.id && (
                 <motion.div layoutId="activeTabGlow" className="absolute bottom-0 left-3 right-3 h-0.5 bg-wg-orange shadow-[0_0_10px_rgba(242,92,38,0.8)]" />
               )}
