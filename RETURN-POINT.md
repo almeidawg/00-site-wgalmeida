@@ -916,3 +916,22 @@ URL limpa para validacao humana:
 - Pendencias:
   - Validacao autenticada real de fluxos com sessao de usuario continua fora deste bloco.
   - Auditoria estrutural da Liz/WGIS/ecossistema deve ser tratada em bloco proprio, com evidencias e acessos reais.
+
+### Deploy producao moodboard/estilos - 2026-05-10
+- Commit funcional implantado:
+  - `623ba3d fix(site): stabilize moodboard visual audit`.
+- Deploy Vercel:
+  - Inspect: `https://vercel.com/william-almeidas-projects/site-wgalmeida/ANZVpj6Pi4hAErn4XLuYgqoRQnwX`.
+  - Production URL: `https://site-wgalmeida-bro4f16fz-william-almeidas-projects.vercel.app`.
+  - Alias final: `https://wgalmeida.com.br`.
+- Validacao real de producao:
+  - `https://wgalmeida.com.br/`: HTTP `200`.
+  - `https://wgalmeida.com.br/moodboard`: HTTP `200`, `h1` `Meu Novo Refugio`, imagens iniciais com `naturalWidth > 0`.
+  - `https://wgalmeida.com.br/estilos/boho`: HTTP `200`, `h1` correto, imagem lazy `Ecossistema WG Almeida` validada apos scroll com `naturalWidth 1200`.
+  - `https://wgalmeida.com.br/revista-estilos`: HTTP `200`, `h1` `Qual e o Seu Estilo?`, cards com imagens carregadas.
+  - Busca producao `luminarias` no moodboard: sem estado vazio, `6` sinais/cards de resultado, console sem erros.
+- Evidencias de producao:
+  - `.codex/tmp/screenshot-audit-05-site-wg/prod-validation-20260509/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/prod-boho-lazy-image-20260509/`
+- Observacoes:
+  - Build Vercel concluido; `npm audit` remoto apontou `2 high severity vulnerabilities` herdadas das dependencias atuais, sem bloqueio de build. Abrir bloco proprio para upgrade/auditoria de dependencias antes de alterar stack.
