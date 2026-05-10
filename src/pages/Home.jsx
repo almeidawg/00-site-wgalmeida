@@ -23,6 +23,7 @@ import { Button } from '@/components/ui/button';
 import AnimatedStrokes from '@/components/AnimatedStrokes';
 
 import HeroVideo from '@/components/HeroVideo';
+const InstagramGallery = lazy(() => import('@/components/InstagramGallery'));
 const ProjectGallery = lazy(() => import('@/components/ProjectGallery'));
 const HomeColorTransformer = lazy(() => import('@/components/home/HomeColorTransformer'));
 const GoogleReviewsBadge = lazy(() => import('@/components/GoogleReviewsBadge'));
@@ -233,21 +234,11 @@ const Home = () => {
   const [projectGalleryRef, projectGalleryVisible] = useVisibilityFlag(LAZY_SECTION_VISIBILITY_OPTIONS);
   const [reviewsRef, reviewsVisible] = useVisibilityFlag(LAZY_SECTION_VISIBILITY_OPTIONS);
   const [instagramRef, instagramVisible] = useVisibilityFlag(LAZY_SECTION_VISIBILITY_OPTIONS);
-  const [instagramFrameLoaded, setInstagramFrameLoaded] = useState(false);
-  const [instagramFrameFailed, setInstagramFrameFailed] = useState(false);
 
   // Hook para estatísticas dinâmicas do sistema
   const estatisticas = useEstatisticasWG({ enabled: statsVisible });
   const displayStats = useAnimatedStats(statsVisible, estatisticas);
   const localizedHeroTitle = getLocalizedHeroTitle(i18n.language, userInteresse);
-
-  useEffect(() => {
-    if (!instagramVisible || instagramFrameLoaded) return undefined;
-    const timeout = globalThis.setTimeout(() => {
-      setInstagramFrameFailed(true);
-    }, 6000);
-    return () => globalThis.clearTimeout(timeout);
-  }, [instagramFrameLoaded, instagramVisible]);
 
   // Etapas do processo / Metodologia
   const metodologia = [
@@ -1298,61 +1289,15 @@ const Home = () => {
         )}
       </section>
 
-      {/* ========== SEÇÃO INSTAGRAM - INTEGRAÇÃO REAL ========== */}
-      <section ref={instagramRef} className="py-12 md:py-16 bg-white overflow-hidden">
-        <div className="container-custom">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-col md:flex-row items-end justify-between gap-6 mb-12"
-          >
-            <div className="space-y-4">
-              <span className="text-wg-orange text-[11px] tracking-[0.35em] uppercase font-bold">@wg.almeida</span>
-              <h2 className="text-3xl md:text-4xl font-playfair italic text-wg-black">Acompanhe nosso dia a dia.</h2>
-            </div>
-            <a 
-              href={COMPANY.instagram} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="wg-btn-pill-secondary flex items-center gap-2"
-            >
-              Ver Perfil Completo <ArrowRight size={14} />
-            </a>
-          </motion.div>
-
-          <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl border border-black/5 bg-gray-50 aspect-[16/6] md:aspect-[16/4]">
-            {instagramVisible && (
-              <iframe 
-                src="https://lightwidget.com/widgets/79017666326e5e8ea576887556a39879.html" 
-                scrolling="no" 
-                className="lightwidget-widget w-full h-full border-0"
-                title="Instagram Feed WG Almeida"
-                loading="lazy"
-                onLoad={() => {
-                  setInstagramFrameLoaded(true);
-                  setInstagramFrameFailed(false);
-                }}
-                onError={() => setInstagramFrameFailed(true)}
-              />
-            )}
-            {instagramFrameFailed && (
-              <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-50 px-6 text-center">
-                <p className="mb-4 max-w-md text-sm font-light text-wg-gray">
-                  O feed externo do Instagram não carregou neste momento.
-                </p>
-                <a
-                  href={COMPANY.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="wg-btn-pill-secondary inline-flex items-center gap-2"
-                >
-                  Ver perfil no Instagram <ArrowRight size={14} />
-                </a>
-              </div>
-            )}
-          </div>
-        </div>
+      {/* ========== SEÇÃO INSTAGRAM - GALERIA CUSTOM ========== */}
+      <section ref={instagramRef} aria-label="Galeria Instagram">
+        {instagramVisible ? (
+          <Suspense fallback={<div className="h-[400px] bg-white" aria-hidden="true" />}>
+            <InstagramGallery />
+          </Suspense>
+        ) : (
+          <div className="h-[400px] bg-white" aria-hidden="true" />
+        )}
       </section>
 
       {/* ========== ENCERRAMENTO INSTITUCIONAL ========== */}
