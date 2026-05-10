@@ -57,7 +57,7 @@ const loadTurnstileScript = () => {
   return turnstileScriptPromise
 }
 
-const TurnstileWidget = ({ onVerify, onExpire, disabled }) => {
+const TurnstileWidget = ({ onVerify, onExpire, disabled, label }) => {
   const containerRef = useRef(null)
   const widgetIdRef = useRef(null)
 
@@ -95,7 +95,7 @@ const TurnstileWidget = ({ onVerify, onExpire, disabled }) => {
 
   if (!TURNSTILE_SITE_KEY) return null
 
-  return <div ref={containerRef} className="min-h-[65px]" aria-label="Verificacao anti-spam" />
+  return <div ref={containerRef} className="min-h-[65px]" aria-label={label} />
 }
 
 const Contact = () => {
@@ -136,12 +136,12 @@ const Contact = () => {
 
     try {
       if (!isValidEmail(formData.email)) {
-        throw new Error('Insira um e-mail válido (ex: nome@email.com)')
+        throw new Error(t('contactPage.form.validation.invalidEmail'))
       }
 
       if (TURNSTILE_SITE_KEY) {
         if (!turnstileToken) {
-          throw new Error('Confirme a verificacao anti-spam antes de enviar.')
+          throw new Error(t('contactPage.form.validation.antiSpamRequired'))
         }
 
         const response = await fetch('/api/contact', {
@@ -159,7 +159,7 @@ const Contact = () => {
 
         if (!response.ok) {
           const data = await response.json().catch(() => ({}))
-          throw new Error(data.error || 'Nao foi possivel registrar o contato.')
+          throw new Error(data.error || t('contactPage.form.validation.generalError'))
         }
       } else {
         const { error } = await supabase.from('contacts').insert([
@@ -209,7 +209,7 @@ const Contact = () => {
       toast({
         variant: 'destructive',
         title: t('contactPage.toast.errorTitle'),
-        description: t('contactPage.toast.errorDescription'),
+        description: error.message || t('contactPage.toast.errorDescription'),
       })
     } finally {
       setLoading(false)
@@ -253,7 +253,7 @@ const Contact = () => {
       />
 
       {/* Hero elegante */}
-      <section className="wg-page-hero wg-page-hero--store hero-under-header">
+      <section className="wg-page-hero wg-page-hero--store hero-under-header bg-wg-black">
         <motion.div
           className="absolute inset-0 z-0"
           initial={{ scale: 1.1 }}
@@ -368,7 +368,7 @@ const Contact = () => {
                       {COMPANY.phone}
                     </a>
                     <p className="mt-1 text-[11px] uppercase tracking-[0.14em] text-wg-gray/65">
-                      WhatsApp e ligação
+                      {t('contactPage.info.phoneSupport')}
                     </p>
                   </div>
                 </motion.div>
@@ -394,7 +394,7 @@ const Contact = () => {
                       {COMPANY.email}
                     </a>
                     <p className="mt-1 text-[11px] uppercase tracking-[0.14em] text-wg-gray/65">
-                      Resposta por e-mail
+                      {t('contactPage.info.emailSupport')}
                     </p>
                   </div>
                 </motion.div>
@@ -415,7 +415,7 @@ const Contact = () => {
                     </p>
                     <p className="text-[15px] leading-relaxed text-wg-gray">{t('contactPage.info.addressValue')}</p>
                     <p className="mt-1 text-[11px] uppercase tracking-[0.14em] text-wg-gray/65">
-                      Atendimento com hora marcada
+                      {t('contactPage.info.addressSupport')}
                     </p>
                   </div>
                 </motion.div>
@@ -436,7 +436,7 @@ const Contact = () => {
                     </p>
                     <p className="text-[15px] leading-relaxed text-wg-gray">{t('contactPage.info.hoursValue')}</p>
                     <p className="mt-1 text-[11px] uppercase tracking-[0.14em] text-wg-gray/65">
-                      Plantão digital no WhatsApp
+                      {t('contactPage.info.hoursSupport')}
                     </p>
                   </div>
                 </motion.div>
@@ -570,6 +570,7 @@ const Contact = () => {
                     disabled={loading}
                     onVerify={setTurnstileToken}
                     onExpire={() => setTurnstileToken('')}
+                    label={t('contactPage.form.antiSpamLabel')}
                   />
 
                   <div className="pt-1 sm:flex sm:justify-end">

@@ -1,11 +1,11 @@
 ---
-title: "Marcenaria Sob Medida 2026: Tendencias, Materiais e Soluções para Otimizar Espacos"
+title: "Marcenaria Sob Medida 2026: Tendências, Materiais e Soluções para Otimizar Espaços"
 slug: "marcenaria-sob-medida-tendencias-2026"
 date: "2026-01-25"
 author: "Grupo WG Almeida"
 category: "marcenaria"
 image: "/images/banners/MARCENARIA.webp"
-excerpt: "Descubra tendencias de marcenaria sob medida em 2026 com materiais, ferragens e soluções para ganhar funcionalidade e acabamento."
+excerpt: "Descubra tendências de marcenaria sob medida em 2026 com materiais, ferragens e soluções para ganhar funcionalidade e acabamento."
 tags:
   - "marcenaria"
   - "móveis planejados"
@@ -14,7 +14,7 @@ tags:
   - "personalização"
 featured: false
 ---
-# Marcenaria Sob Medida 2026: Tendencias e Solucoes para Alto Desempenho
+# Marcenaria Sob Medida 2026: Tendências e Soluções para Alto Desempenho
 
 A marcenaria sob medida em 2026 combina tecnologia, ergonomia e personalizacao com foco em desempenho real. Neste guia voce entende quais materiais, ferragens e solucoes entregam melhor resultado em uso, manutencao e aproveitamento de espaco.
 

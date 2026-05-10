@@ -1,11 +1,11 @@
 ---
-title: "Reforma de Banheiro Moderno: Tendencias, Custos e Etapas em 2026"
+title: "Reforma de Banheiro Moderno: Tendências, Custos e Etapas em 2026"
 slug: "reforma-banheiro-moderno-2026"
 date: "2026-01-25"
 author: "Grupo WG Almeida"
 category: "reforma"
 image: "/images/banners/PROCESSOS.webp"
-excerpt: "Guia prático de reforma de banheiro moderno com custos por faixa, tendencias e etapas para executar sem erro."
+excerpt: "Guia prático de reforma de banheiro moderno com custos por faixa, tendências e etapas para executar sem erro."
 tags:
   - "banheiro"
   - "reforma"
@@ -13,7 +13,7 @@ tags:
   - "sustentabilidade"
 featured: false
 ---
-# Reforma de Banheiro Moderno: Tendencias, Custos e Planejamento em 2026
+# Reforma de Banheiro Moderno: Tendências, Custos e Planejamento em 2026
 
 O banheiro deixou de ser apenas funcional para se tornar um espaco de bem-estar e relaxamento. Veja como planejar a reforma com foco em conforto, custo e durabilidade.
 

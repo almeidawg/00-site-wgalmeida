@@ -67,7 +67,7 @@ const ShoppingCart = ({ isCartOpen, setIsCartOpen }) => {
             className="absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-2xl flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between p-6 border-b">
+            <div className="flex items-center justify-between p-6 border-b border-gray-200">
               <h2 className="text-2xl font-oswald text-wg-black">{t('storePage.cart.title')}</h2>
               <Button onClick={() => setIsCartOpen(false)} variant="ghost" size="icon" className="text-wg-gray hover:bg-wg-gray-light">
                 <X />
@@ -105,7 +105,7 @@ const ShoppingCart = ({ isCartOpen, setIsCartOpen }) => {
               )}
             </div>
             {cartItems.length > 0 && (
-              <div className="p-6 border-t">
+              <div className="p-6 border-t border-gray-200">
                 <div className="flex justify-between items-center mb-4 text-wg-black">
                   <span className="text-lg font-poppins">{t('storePage.cart.total')}</span>
                   <span className="text-2xl font-oswald">{getCartTotal()}</span>

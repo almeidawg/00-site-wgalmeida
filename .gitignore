@@ -179,3 +179,9 @@ cloudinary-*.json
 blog-editorial-queue-*.json
 blog-editorial-status-*.json
 unsplash-collection-*.json
+
+# Evidencias visuais locais de auditoria/validacao humana
+audit_visual/
+validados_*/
+tmp_screenshots/
+tmp-visual*.png

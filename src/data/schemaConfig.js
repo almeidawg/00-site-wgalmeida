@@ -98,7 +98,7 @@ export const SCHEMAS = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "@id": APP_BUILDTECH_ID,
-    name: "WG BuildTech",
+    name: "WG_Build.tech",
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web",
     url: `${BASE_URL}/buildtech`,
@@ -221,7 +221,7 @@ export const SCHEMAS = {
       {
         "@type": "SoftwareApplication",
         "@id": APP_BUILDTECH_ID,
-        name: "WG BuildTech",
+        name: "WG_Build.tech",
         applicationCategory: "BusinessApplication",
         operatingSystem: "Web",
         url: `${BASE_URL}/buildtech`,
@@ -330,7 +330,7 @@ export const SCHEMAS = {
   ]),
   breadcrumbBuildTech: breadcrumb([
     { name: "Home", url: `${BASE_URL}/` },
-    { name: "BuildTech", url: `${BASE_URL}/buildtech` },
+    { name: "WG_Build.tech", url: `${BASE_URL}/buildtech` },
   ]),
   breadcrumbStore: breadcrumb([
     { name: "Home", url: `${BASE_URL}/` },

@@ -16,20 +16,12 @@ function CTALink({ href, external, className, children }) {
 export default function SmartCTA({ className = '', showSecondary = false }) {
   const action = useNextBestAction()
   const Icon = action.external ? ExternalLink : ArrowRight
-  const stageLabel = {
-    exploracao: 'Exploracao',
-    decisao: 'Decisao',
-    acao: 'Acao',
-  }[action.stage] || 'Exploracao'
 
   return (
     <div className={`space-y-4 ${className}`}>
       <div className="space-y-2">
-        <p className="text-[11px] uppercase tracking-[0.18em] text-black/45">
-          Proximo passo recomendado · {stageLabel} · {action.score}% de confianca
-        </p>
         {action.reason && (
-          <p className="max-w-2xl text-sm leading-relaxed text-black/68">
+          <p className="max-w-2xl text-sm font-light leading-relaxed text-wg-gray">
             {action.reason}
           </p>
         )}
@@ -39,7 +31,7 @@ export default function SmartCTA({ className = '', showSecondary = false }) {
         <CTALink
           href={action.href}
           external={action.external}
-          className="inline-flex items-center gap-2 rounded-full bg-wg-orange px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-wg-orange/90"
+          className="wg-cta-canonical wg-cta-canonical-primary"
         >
           {action.label}
           <Icon className="w-4 h-4" />
@@ -49,7 +41,7 @@ export default function SmartCTA({ className = '', showSecondary = false }) {
           <CTALink
             href={action.secondary.href}
             external={action.secondary.external}
-            className="inline-flex items-center gap-2 rounded-full border border-black/15 px-6 py-3 text-sm text-black transition-colors hover:bg-black/5"
+            className="wg-cta-canonical"
           >
             {action.secondary.label}
             {action.secondary.external && <ExternalLink className="w-3 h-3 opacity-60" />}
@@ -59,7 +51,7 @@ export default function SmartCTA({ className = '', showSecondary = false }) {
         <CTALink
           href={action.manual.href}
           external={action.manual.external}
-          className="inline-flex items-center gap-2 rounded-full border border-black/12 bg-white px-6 py-3 text-sm text-black transition-colors hover:bg-black/[0.03]"
+          className="wg-cta-canonical"
         >
           {action.manual.label}
           <MessageCircle className="w-4 h-4" />

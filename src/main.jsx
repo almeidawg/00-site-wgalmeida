@@ -53,11 +53,33 @@ class AppErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24, fontFamily: 'Inter, sans-serif' }}>
-          <div style={{ maxWidth: 680 }}>
+        <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24, fontFamily: 'Inter, sans-serif', background: '#050506', color: '#fff' }}>
+          <div style={{ maxWidth: 680, textAlign: 'center' }}>
             <h1 style={{ marginBottom: 12, fontSize: 24 }}>Falha ao carregar a aplicação</h1>
-            <p style={{ marginBottom: 12, color: '#4C4C4C' }}>Atualize a página com Ctrl+F5. Se persistir, me envie essa mensagem:</p>
-            <pre style={{ whiteSpace: 'pre-wrap', background: '#f3f3f3', padding: 12, borderRadius: 8 }}>{this.state.message}</pre>
+            <p style={{ marginBottom: 24, color: '#94a3b8' }}>Detectamos um problema na sincronização de dados local. Tente reiniciar a ferramenta abaixo:</p>
+
+            <div style={{ background: '#111827', padding: 24, borderRadius: 16, border: '1px solid #1f2937', marginBottom: 24 }}>
+               <pre style={{ whiteSpace: 'pre-wrap', background: 'transparent', padding: 0, color: '#ef4444', fontSize: 13 }}>{this.state.message}</pre>
+            </div>
+
+            <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
+              <button
+                onClick={() => window.location.reload()}
+                style={{ padding: '12px 24px', background: '#334155', color: '#fff', border: 'none', borderRadius: 100, cursor: 'pointer', fontWeight: 500 }}
+              >
+                Tentar Novamente
+              </button>
+              <button
+                onClick={() => {
+                  localStorage.clear();
+                  sessionStorage.clear();
+                  window.location.href = '/moodboard';
+                }}
+                style={{ padding: '12px 24px', background: '#F25C26', color: '#fff', border: 'none', borderRadius: 100, cursor: 'pointer', fontWeight: 500 }}
+              >
+                Limpar Dados e Reiniciar
+              </button>
+            </div>
           </div>
         </div>
       );
@@ -85,7 +107,7 @@ const reportWebVitals = (onPerfEntry) => {
 // Função para enviar métricas para o Analytics
 const sendToAnalytics = (metric) => {
   const { name, delta, id, value } = metric;
-  
+
   // Envia para o dataLayer (GTM)
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({

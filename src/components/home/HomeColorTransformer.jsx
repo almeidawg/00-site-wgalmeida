@@ -2,6 +2,7 @@ import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from '@/lib/motion-lite';
 import { ArrowLeftRight, Check } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { normalizeUnsplashImageUrl } from '@/lib/unsplash';
 
 // Configuração do Cloudinary
@@ -12,21 +13,21 @@ const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET |
 const COLOR_PALETTES = [
   {
     id: 'terrosos',
-    name: 'Tons Terrosos',
+    nameKey: 'home.colorTransformer.palettes.earth',
     colors: ['#8B4513', '#D2691E', '#DEB887', '#F5DEB3', '#CD853F'],
     element: 'walls',
     mainColor: '#D2691E',
   },
   {
     id: 'azuis',
-    name: 'Azuis Modernos',
+    nameKey: 'home.colorTransformer.palettes.blue',
     colors: ['#1E3A5F', '#3498DB', '#5DADE2', '#85C1E9', '#AED6F1'],
     element: 'walls',
     mainColor: '#3498DB',
   },
   {
     id: 'verdes',
-    name: 'Verdes Naturais',
+    nameKey: 'home.colorTransformer.palettes.green',
     colors: ['#1D4E3C', '#27AE60', '#58D68D', '#82E0AA', '#ABEBC6'],
     element: 'walls',
     mainColor: '#27AE60',
@@ -37,19 +38,19 @@ const COLOR_PALETTES = [
 const DEMO_IMAGES = [
   {
     id: 'poltrona',
-    name: 'Poltrona',
+    nameKey: 'home.colorTransformer.images.armchair',
     externalUrl: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=640&h=360&q=55&fm=webp',
     thumbnail: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=96&h=72&q=45&fm=webp',
   },
   {
     id: 'sala',
-    name: 'Sala',
+    nameKey: 'home.colorTransformer.images.livingRoom',
     externalUrl: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=640&h=360&q=55&fm=webp',
     thumbnail: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=96&h=72&q=45&fm=webp',
   },
   {
     id: 'quarto',
-    name: 'Quarto',
+    nameKey: 'home.colorTransformer.images.bedroom',
     externalUrl: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=640&h=360&q=55&fm=webp',
     thumbnail: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=96&h=72&q=45&fm=webp',
   },
@@ -67,6 +68,7 @@ const generateTransformUrl = (publicId, color, cloudName) => {
 };
 
 const HomeColorTransformer = () => {
+  const { t } = useTranslation();
   const [selectedImage, setSelectedImage] = useState(DEMO_IMAGES[0]);
   const [selectedPalette, setSelectedPalette] = useState(COLOR_PALETTES[0]);
   const [imageData, setImageData] = useState({
@@ -81,6 +83,9 @@ const HomeColorTransformer = () => {
   const [isActivated, setIsActivated] = useState(false);
 
   const containerRef = useRef(null);
+// ... (uploadImage remains the same)
+// ... (useEffect remains the same)
+// ... (handleSelectImage, handleActivate, handleSliderMove, useEffect for dragging remain the same)
 
   // Upload da imagem para o Cloudinary quando selecionada
   const uploadImage = async (image) => {
@@ -219,7 +224,7 @@ const HomeColorTransformer = () => {
             {/* Imagem Transformada (direita) */}
             <img
               src={transformedUrl || selectedImage.externalUrl}
-              alt="Transformado"
+              alt={t('home.colorTransformer.labels.transformedAlt')}
               className="absolute inset-0 w-full h-full object-cover"
             />
 
@@ -230,7 +235,7 @@ const HomeColorTransformer = () => {
             >
               <img
                 src={imageData?.url || selectedImage.externalUrl}
-                alt="Original"
+                alt={t('home.colorTransformer.labels.originalAlt')}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -247,11 +252,11 @@ const HomeColorTransformer = () => {
 
             {/* Labels */}
             <div className="absolute top-3 left-3 px-3 py-1 bg-black/60 text-white text-xs rounded-lg backdrop-blur-sm">
-              ORIGINAL
+              {t('home.colorTransformer.labels.original')}
             </div>
             <div className="absolute top-3 right-3 px-3 py-1 bg-wg-orange text-white text-xs rounded-lg flex items-center gap-1.5">
               <Check className="w-3 h-3" />
-              TRANSFORMADO
+              {t('home.colorTransformer.labels.transformed')}
             </div>
           </>
         )}
@@ -260,7 +265,7 @@ const HomeColorTransformer = () => {
         <div className="absolute bottom-3 left-3 right-3 bg-white/10 backdrop-blur-md rounded-xl p-3 border border-white/20">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs text-white/70 mb-1">Paleta: {selectedPalette.name}</p>
+              <p className="text-xs text-white/70 mb-1">{t('home.colorTransformer.labels.palette')}: {t(selectedPalette.nameKey)}</p>
               <div className="flex gap-1.5">
                 {selectedPalette.colors.map((color, idx) => (
                   <div
@@ -271,7 +276,7 @@ const HomeColorTransformer = () => {
                 ))}
               </div>
             </div>
-            <p className="text-[10px] text-white/50">Arraste para comparar</p>
+            <p className="text-[10px] text-white/50">{t('home.colorTransformer.labels.dragToCompare')}</p>
           </div>
         </div>
       </div>
@@ -291,8 +296,8 @@ const HomeColorTransformer = () => {
                 ? 'bg-white/20 ring-2 ring-wg-orange'
                 : 'bg-white/10 hover:bg-white/15'
             }`}
-            aria-label={`Selecionar paleta ${palette.name}`}
-            title={palette.name}
+            aria-label={`${t('common.select')} ${t(palette.nameKey)}`}
+            title={t(palette.nameKey)}
           >
             <div className="flex gap-1">
               {palette.colors.slice(0, 3).map((color, idx) => (
@@ -303,7 +308,7 @@ const HomeColorTransformer = () => {
                 />
               ))}
             </div>
-            <span className="text-xs text-white hidden sm:inline">{palette.name}</span>
+            <span className="text-xs text-white hidden sm:inline">{t(palette.nameKey)}</span>
             {selectedPalette.id === palette.id && (
               <Check className="w-3 h-3 text-wg-orange" />
             )}
@@ -323,12 +328,12 @@ const HomeColorTransformer = () => {
                 ? 'ring-2 ring-wg-orange opacity-100'
                 : 'border-2 border-white/30 opacity-60 hover:opacity-100'
             }`}
-            aria-label={`Selecionar imagem ${img.name}`}
-            title={img.name}
+            aria-label={`${t('common.select')} ${t(img.nameKey)}`}
+            title={t(img.nameKey)}
           >
             <img
               src={img.thumbnail}
-              alt={img.name}
+              alt={t(img.nameKey)}
               className="w-full h-full object-cover"
               loading="lazy"
               decoding="async"
@@ -345,7 +350,7 @@ const HomeColorTransformer = () => {
           to="/moodboard"
           className="inline-flex items-center gap-2 px-5 py-3 h-12 bg-wg-orange text-white rounded-xl hover:bg-wg-orange/90 transition-colors shadow-lg whitespace-nowrap"
         >
-          Explorar Mais Ambientes
+          {t('home.colorTransformer.cta')}
           <ArrowLeftRight className="w-4 h-4" />
         </Link>
       </div>

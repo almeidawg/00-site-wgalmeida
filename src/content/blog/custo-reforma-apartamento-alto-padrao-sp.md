@@ -70,7 +70,7 @@ Marcenaria, marmoraria, vidros, serralheria e esquadrias nao entram apenas no fi
 
 Quando projeto, obra e marcenaria sao conduzidos como ecossistema unico, ha menos retrabalho e menos perda de prazo.
 
-No Grupo WG Almeida, essa integracao e reforcada por processos digitais do ecossistema BuildTech e por controle operacional em campo.
+No Grupo WG Almeida, essa integracao e reforcada por processos digitais do ecossistema WG_Build.tech e por controle operacional em campo.
 
 Na pratica, isso significa sair da pergunta `quanto custa por m2?` e responder perguntas melhores:
 
