@@ -227,7 +227,7 @@ const ColorPicker = ({
             onClick={() => handleApplyPalette(activeCategory)}
             className="ml-4 shrink-0 px-3 py-2 bg-slate-800 text-slate-300 rounded-lg hover:bg-slate-700 hover:text-white transition-all flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest"
           >
-            <Plus size={12} className="text-orange-500" /> Mesclar
+            <Plus size={12} className="text-wg-orange" /> Mesclar
           </button>
         </div>
       </div>
@@ -246,13 +246,13 @@ const ColorPicker = ({
             type="text"
             value={customColor}
             onChange={(e) => setCustomColor(e.target.value)}
-            className="flex-1 bg-slate-950 border border-slate-800 rounded-lg py-2 px-3 text-xs font-mono text-slate-400 focus:border-orange-500 outline-none transition-all"
+            className="flex-1 bg-slate-950 border border-slate-800 rounded-lg py-2 px-3 text-xs font-mono text-slate-400 focus:border-wg-orange outline-none transition-all"
             placeholder="#000000"
           />
           <button
             onClick={handleAddCustomColor}
             disabled={selectedColors.length >= maxColors}
-            className="p-2 bg-orange-600 text-white rounded-lg hover:bg-orange-500 transition-all disabled:opacity-30"
+            className="p-2 bg-wg-orange text-white rounded-lg hover:bg-[#de5423] transition-all disabled:opacity-30"
           >
             <Plus size={16} />
           </button>

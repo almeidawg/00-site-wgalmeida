@@ -7,7 +7,6 @@ import {
   Trash2,
   Layout,
   Hammer,
-  Sparkles,
   Target,
   Trophy,
   Download,
@@ -17,6 +16,8 @@ import {
 import { getStyleImageUrl } from '@/data/styleImageManifest';
 import { MATERIAL_DATA } from '@/lib/moodboard-constants';
 import { useMoodboard } from '@/contexts/MoodboardContext';
+
+const STYLE_FALLBACK_IMAGE = '/images/banners/MARCENARIA.webp';
 
 const MoodboardCanvas = ({ onRemoveImage }) => {
   const canvasRef = useRef(null);
@@ -142,6 +143,10 @@ const MoodboardCanvas = ({ onRemoveImage }) => {
                     <img
                       src={getStyleImageUrl({ slug: style.slug, variant: 'card' }) || style.image}
                       alt={style.title}
+                      onError={(e) => {
+                        if (e.currentTarget.src.includes(STYLE_FALLBACK_IMAGE)) return;
+                        e.currentTarget.src = STYLE_FALLBACK_IMAGE;
+                      }}
                       className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
@@ -197,8 +202,12 @@ const MoodboardCanvas = ({ onRemoveImage }) => {
                     className="relative rounded-xl overflow-hidden shadow-2xl aspect-square group border border-white/5 bg-slate-950"
                   >
                     <img
-                      src={img.url}
+                      src={img.url || img.thumb}
                       alt={img.name}
+                      onError={(e) => {
+                        if (e.currentTarget.src.includes(STYLE_FALLBACK_IMAGE)) return;
+                        e.currentTarget.src = STYLE_FALLBACK_IMAGE;
+                      }}
                       className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all duration-500"
                     />
 

@@ -8,8 +8,8 @@ import {
 } from '@/components/moodboard';
 import MoodboardStepSearch from '@/components/moodboard/MoodboardStepSearch';
 import SEO from '@/components/SEO';
-import { useState, useEffect, useMemo } from 'react';
-import { ArrowRight, Check, Sparkles, Loader2 } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { ArrowRight, Layers, Loader2 } from 'lucide-react';
 import { createPortal } from 'react-dom';
 
 const StudioContent = () => {
@@ -34,7 +34,6 @@ const StudioContent = () => {
     addCustomImages,
     clearMoodboard,
     autoComposeMoodboard,
-    isAutoSyncing,
     isAutoComposing
   } = useMoodboard();
 
@@ -67,7 +66,7 @@ const StudioContent = () => {
         setLizInsight("William, comece selecionando a base da sua visão. Qual destes estilos mais ressoa com o projeto?");
       } else {
         const names = styles.map(s => s.name || s.title).join(' & ');
-        setLizInsight(`Ótima escolha. O mix entre ${names} cria uma base sofisticada. Você pode compor manualmente ou usar minha inteligência para acelerar.`);
+        setLizInsight(`Ótima escolha. O mix entre ${names} cria uma base sofisticada. Você pode compor manualmente ou gerar uma base técnica inicial.`);
       }
     } else if (activeTab === 'colors') {
       if (colors.length > 0) {
@@ -118,8 +117,8 @@ const StudioContent = () => {
                       </>
                     ) : (
                       <>
-                        <Sparkles size={14} className="group-hover:rotate-12 transition-transform" />
-                        Auto-Compor com IA
+                        <Layers size={14} className="group-hover:rotate-12 transition-transform" />
+                        Compor Dossiê Técnico
                       </>
                     )}
                   </button>

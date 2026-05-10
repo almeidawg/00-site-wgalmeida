@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from '@/lib/motion-lite';
-import { X, Send, CheckCircle2, Star, MessageSquare, Loader2, FileText, Sparkles, Database, ShieldCheck, Mail, Phone } from 'lucide-react';
+import { X, Send, CheckCircle2, MessageSquare, Loader2, FileText, Database, ShieldCheck, Palette } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { useMoodboard } from '@/contexts/MoodboardContext';
@@ -15,8 +15,8 @@ export default function MoodboardLeadModal({ isOpen, onClose }) {
 
   const processingMessages = [
     { text: "Iniciando motor visual WG...", icon: Database },
-    { text: "Analisando harmonia cromática...", icon: Sparkles },
-    { text: "Sincronizando catálogo Westwing e Leroy...", icon: Star },
+    { text: "Analisando harmonia cromática...", icon: Palette },
+    { text: "Sincronizando catálogo Westwing e Leroy...", icon: Database },
     { text: "Validando especificações técnicas...", icon: ShieldCheck },
     { text: "Gerando Link Único do Dossiê...", icon: FileText }
   ];
@@ -105,8 +105,8 @@ export default function MoodboardLeadModal({ isOpen, onClose }) {
                 className="space-y-6"
               >
                 <div className="flex justify-between items-start">
-                  <div className="w-12 h-12 bg-gradient-to-tr from-orange-500 to-orange-400 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-orange-500/20">
-                    <Star size={24} />
+                  <div className="w-12 h-12 bg-gradient-to-tr from-wg-orange to-[#ff7a38] rounded-2xl flex items-center justify-center text-white shadow-lg shadow-wg-orange/20">
+                    <FileText size={24} />
                   </div>
                   <button onClick={onClose} className="p-2 hover:bg-white/5 rounded-full transition-colors text-slate-500"><X size={20}/></button>
                 </div>
@@ -124,7 +124,7 @@ export default function MoodboardLeadModal({ isOpen, onClose }) {
                         required
                         type="text"
                         placeholder="Seu nome completo"
-                        className="w-full bg-slate-950/50 border border-slate-800/80 rounded-2xl py-4 px-5 text-sm text-white focus:border-orange-500 focus:ring-4 focus:ring-orange-500/10 outline-none transition-all"
+                        className="w-full bg-slate-950/50 border border-slate-800/80 rounded-2xl py-4 px-5 text-sm text-white focus:border-wg-orange focus:ring-4 focus:ring-wg-orange/10 outline-none transition-all"
                         value={formData.name}
                         onChange={e => setFormData({...formData, name: e.target.value})}
                       />
@@ -135,7 +135,7 @@ export default function MoodboardLeadModal({ isOpen, onClose }) {
                           required
                           type="email"
                           placeholder="Seu melhor e-mail"
-                          className="w-full bg-slate-950/50 border border-slate-800/80 rounded-2xl py-4 px-5 text-sm text-white focus:border-orange-500 focus:ring-4 focus:ring-orange-500/10 outline-none transition-all"
+                          className="w-full bg-slate-950/50 border border-slate-800/80 rounded-2xl py-4 px-5 text-sm text-white focus:border-wg-orange focus:ring-4 focus:ring-wg-orange/10 outline-none transition-all"
                           value={formData.email}
                           onChange={e => setFormData({...formData, email: e.target.value})}
                         />
@@ -145,14 +145,14 @@ export default function MoodboardLeadModal({ isOpen, onClose }) {
                           required
                           type="tel"
                           placeholder="WhatsApp com DDD"
-                          className="w-full bg-slate-950/50 border border-slate-800/80 rounded-2xl py-4 px-5 text-sm text-white focus:border-orange-500 focus:ring-4 focus:ring-orange-500/10 outline-none transition-all"
+                          className="w-full bg-slate-950/50 border border-slate-800/80 rounded-2xl py-4 px-5 text-sm text-white focus:border-wg-orange focus:ring-4 focus:ring-wg-orange/10 outline-none transition-all"
                           value={formData.whatsapp}
                           onChange={e => setFormData({...formData, whatsapp: e.target.value})}
                         />
                       </div>
                    </div>
 
-                   <Button type="submit" disabled={loading} className="w-full h-16 bg-orange-600 hover:bg-orange-500 rounded-2xl text-white font-bold text-lg shadow-xl shadow-orange-900/20 group border-none mt-4 transition-all hover:scale-[1.02]">
+                   <Button type="submit" disabled={loading} className="w-full h-16 bg-wg-orange hover:bg-[#de5423] rounded-2xl text-white font-bold text-lg shadow-xl shadow-wg-orange/20 group border-none mt-4 transition-all hover:scale-[1.02]">
                       {loading ? <Loader2 className="animate-spin" /> : (
                         <span className="flex items-center gap-2">Receber Dossiê Gratuito <Send size={20} className="group-hover:translate-x-1 transition-transform" /></span>
                       )}
@@ -169,13 +169,13 @@ export default function MoodboardLeadModal({ isOpen, onClose }) {
                 className="py-12 flex flex-col items-center text-center space-y-8"
               >
                  <div className="relative">
-                    <div className="w-28 h-24 rounded-full border-2 border-orange-500/10 flex items-center justify-center">
+                    <div className="w-28 h-24 rounded-full border-2 border-wg-orange/10 flex items-center justify-center">
                        <motion.div 
                          animate={{ rotate: 360 }}
                          transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                         className="absolute inset-0 border-t-2 border-orange-500 rounded-full"
+                         className="absolute inset-0 border-t-2 border-wg-orange rounded-full"
                        />
-                       <BrandStar className="w-12 h-12 text-orange-500 animate-pulse" />
+                       <BrandStar className="w-12 h-12 text-wg-orange animate-pulse" />
                     </div>
                  </div>
                  

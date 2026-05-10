@@ -50,8 +50,8 @@ const MoodboardStepSearch = ({ mode, style, onAssetAdd }) => {
         category: mode 
       });
 
-      // 2. Busca Estética no Pinterest
-      const pinterestResults = await searchPinterestImages(searchQuery);
+      // 2. Busca Estética no Pinterest somente quando a curadoria local for insuficiente.
+      const pinterestResults = retailResults.length >= 4 ? [] : await searchPinterestImages(searchQuery);
 
       // 3. Busca de Referência no Google Imagens (Prioriza se o resto falhar)
       let googleResults = [];
@@ -167,7 +167,8 @@ const MoodboardStepSearch = ({ mode, style, onAssetAdd }) => {
               <button 
                 onClick={() => onAssetAdd({
                   id: `search-${idx}-${Date.now()}`,
-                  url: img.url,
+                  url: img.url || img.thumb,
+                  thumb: img.thumb || img.url,
                   name: img.title || 'Referência',
                   type: 'external',
                   source: img.source
@@ -179,7 +180,7 @@ const MoodboardStepSearch = ({ mode, style, onAssetAdd }) => {
                 </div>
               </button>
 
-              <div className="absolute bottom-0 left-0 right-0 p-1.5 bg-black/60 backdrop-blur-sm translate-y-full group-hover:translate-y-0 transition-transform">
+              <div className="absolute bottom-0 left-0 right-0 p-1.5 bg-black/70 backdrop-blur-sm transition-transform">
                 <p className="text-[7px] text-white/90 truncate uppercase tracking-tighter">{img.title || 'Item de Design'}</p>
                 {img.price && <p className="text-[6px] text-wg-orange font-bold">{img.price}</p>}
               </div>

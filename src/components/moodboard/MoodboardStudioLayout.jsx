@@ -1,47 +1,35 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from '@/lib/motion-lite';
+import React, { useState } from 'react';
+import { motion } from '@/lib/motion-lite';
 import { 
-  Search, 
   Layers, 
   Palette, 
-  Image as ImageIcon, 
-  Download, 
-  Share2, 
   ChevronLeft, 
   ChevronRight,
   Maximize2,
   Trash2,
-  Plus,
   Loader2,
   Save,
-  Check,
   Undo,
   Redo,
   LayoutGrid,
-  Zap,
-  MoreVertical,
-  Settings,
   Database,
   X,
-  Hammer,
-  Sparkles
+  Hammer
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import BrandStar from '@/components/BrandStar';
 import { cn } from '@/lib/utils';
-import { useToast } from '@/components/ui/use-toast';
 import { useTranslation } from 'react-i18next';
 
 const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, onProjectNameChange, onSave, isSaving, lizInsight }) => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const { toast } = useToast();
   const { t } = useTranslation();
 
   const tabs = [
     { id: 'styles', label: t('moodboardPage.studio.tabs.styles'), icon: LayoutGrid },
     { id: 'colors', label: t('moodboardPage.studio.tabs.colors'), icon: Palette },
     { id: 'finishes', label: 'Acabamentos', icon: Hammer },
-    { id: 'decor', label: 'Decoração', icon: Sparkles },
+    { id: 'decor', label: 'Decoração', icon: Layers },
     { id: 'assets', label: t('moodboardPage.studio.tabs.assets'), icon: Database },
   ];
 

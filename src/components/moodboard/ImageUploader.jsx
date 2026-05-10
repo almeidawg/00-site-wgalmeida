@@ -136,7 +136,7 @@ const ImageUploader = ({ onImagesAdd, maxImages = 6, currentCount = 0 }) => {
           backgroundColor: isDragging ? 'rgba(242, 92, 38, 0.05)' : 'rgba(0, 0, 0, 0.2)',
         }}
         className={`relative border-2 border-dashed rounded-2xl p-10 text-center transition-colors ${
-          remainingSlots <= 0 ? 'opacity-30 pointer-events-none' : 'cursor-pointer hover:border-wg-orange/40'
+          remainingSlots <= 0 ? 'opacity-30 pointer-events-none' : 'cursor-pointer border-wg-orange/25 hover:border-wg-orange/60'
         }`}
       >
         <input
@@ -155,7 +155,7 @@ const ImageUploader = ({ onImagesAdd, maxImages = 6, currentCount = 0 }) => {
           </div>
         ) : (
           <>
-            <Upload className="w-8 h-8 text-slate-700 mx-auto mb-3" />
+            <Upload className="w-8 h-8 text-wg-orange/70 mx-auto mb-3" />
             <p className="text-slate-400 text-xs font-medium">
               Arraste arquivos ou clique para selecionar
             </p>

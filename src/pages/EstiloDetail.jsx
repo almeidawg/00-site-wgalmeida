@@ -436,7 +436,7 @@ const EstiloDetail = () => {
                   [&_a]:text-wg-gray [&_a]:underline [&_a]:decoration-black/20 [&_a]:underline-offset-4 hover:[&_a]:text-wg-black hover:[&_a]:decoration-black/40
                   [&>ul]:my-5 [&>ul]:space-y-2 [&>ul]:pl-0 [&>ul]:list-none
                   [&>ul>li]:text-[14px] [&>ul>li]:font-light [&>ul>li]:text-wg-gray [&>ul>li]:leading-[1.58] [&>ul>li]:pl-7 [&>ul>li]:relative [&>ul>li]:before:content-[''] [&>ul>li]:before:absolute [&>ul>li]:before:left-0 [&>ul>li]:before:top-[9px] [&>ul>li]:before:w-[6px] [&>ul>li]:before:h-[6px] [&>ul>li]:before:rounded-full [&>ul>li]:before:bg-wg-orange/60
-                  [&>blockquote]:border-l-2 [&>blockquote]:border-wg-orange/25 [&>blockquote]:pl-5 [&>blockquote]:font-light [&>blockquote]:text-wg-gray [&>blockquote]:bg-gradient-to-r [&>blockquote]:from-[#f4efe8] [&>blockquote]:to-[#fcfbf9] [&>blockquote]:py-[14px] [&>blockquote]:pr-4 [&>blockquote]:rounded-r-lg [&>blockquote]:my-8">
+                  [&>blockquote]:border-l-2 [&>blockquote]:border-[#D7D7D0] [&>blockquote]:pl-5 [&>blockquote]:font-light [&>blockquote]:text-wg-gray [&>blockquote]:bg-gradient-to-r [&>blockquote]:from-[#F7F7F5] [&>blockquote]:to-[#FCFCFB] [&>blockquote]:py-[14px] [&>blockquote]:pr-4 [&>blockquote]:rounded-r-lg [&>blockquote]:my-8">
                   <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>{section.markdown}</ReactMarkdown>
                 </div>
               </motion.article>

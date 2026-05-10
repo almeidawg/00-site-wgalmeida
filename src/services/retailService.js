@@ -1,5 +1,18 @@
 import { searchGoogleImages } from './mediaService';
 
+const normalizeSearchText = (value = '') =>
+  String(value)
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim();
+
+const QUERY_SYNONYMS = {
+  luminarias: ['luminaria', 'luminarias', 'iluminacao', 'pendente', 'plafon', 'lustre'],
+  luminaria: ['luminaria', 'luminarias', 'iluminacao', 'pendente', 'plafon', 'lustre'],
+  iluminacao: ['luminaria', 'luminarias', 'iluminacao', 'pendente', 'plafon', 'lustre'],
+};
+
 /**
  * Motor de Descoberta de Produtos - Google Shopping via Domínios Autorizados
  */
@@ -78,17 +91,46 @@ export const fetchRetailProducts = async ({ query, style, category }) => {
       price: 'R$ 349,00',
       thumb: 'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=400',
       tags: ['moderno', 'tecnologia', 'luminaria', 'decor']
+    },
+    {
+      id: 'wg-c-7',
+      source: 'Telha Norte',
+      title: 'Trilho de Iluminação Preto com Spots Direcionáveis',
+      price: 'R$ 429,00',
+      thumb: 'https://images.unsplash.com/photo-1524484485831-a92ffc0de03f?w=400',
+      tags: ['moderno', 'industrial', 'iluminacao', 'luminaria', 'decor']
+    },
+    {
+      id: 'wg-c-8',
+      source: 'Yamamura',
+      title: 'Arandela Escultural para Luz Indireta',
+      price: 'R$ 640,00',
+      thumb: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=400',
+      tags: ['classico', 'contemporaneo', 'iluminacao', 'luminaria', 'decor']
     }
   ];
 
   let curated = [...wgCuratedDB];
   if (query) {
-    const q = query.toLowerCase();
-    curated = curated.filter(p => p.title.toLowerCase().includes(q) || p.tags.some(t => t.includes(q)));
+    const q = normalizeSearchText(query);
+    const terms = QUERY_SYNONYMS[q] || [q.replace(/s$/, ''), q];
+    curated = curated.filter((p) => {
+      const title = normalizeSearchText(p.title);
+      const tags = p.tags.map(normalizeSearchText);
+      return terms.some((term) =>
+        title.includes(term) || tags.some((tag) => tag.includes(term) || term.includes(tag))
+      );
+    });
   }
 
   // 2. Busca Real de Mercado
-  const market = await searchGoogleShopping(query || style || category);
+  // Evita acionar busca externa quando a curadoria interna ja cobre bem a consulta.
+  const shouldQueryMarket = curated.length < 4;
+  const market = shouldQueryMarket ? await searchGoogleShopping(query || style || category) : [];
 
-  return [...curated, ...market];
+  return [...curated, ...market].map((item) => ({
+    ...item,
+    url: item.url || item.thumb,
+    thumb: item.thumb || item.url,
+  }));
 };

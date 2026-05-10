@@ -874,3 +874,45 @@ URL limpa para validacao humana:
 - Pendencias:
   - Sem push/deploy enquanto Portfolio Health nao sair de `RED`.
   - Repo pai `01_APPS/02_BUILDTECH` ainda possui `plans/brand-alignment-final.md` nao rastreado para classificacao/commit separado.
+
+### Auditoria visual moodboard/estilos - 2026-05-10
+- Estado de governanca:
+  - `PORTFOLIO-HEALTH.md`: GREEN, health score `100`.
+  - `wg-auto-retomada.ps1`: repo alvo `site-wgalmeida`, branch `feature/buildtech-vitrine-star-20260502`.
+  - `dirty-triage.ps1`: PASS no repo alvo antes do bloco.
+  - `git-sync-gate.ps1 -Stage start`: PASS; branch sincronizada com upstream.
+- Pastas de prints auditadas:
+  - `C:\Users\Atendimento\Documents\Imagens\Screenshots\05_site-wg`.
+  - `C:\Users\Atendimento\Documents\Imagens\Screenshots\moodboard`.
+- Correcoes aplicadas:
+  - `src/services/retailService.js`: busca de `luminarias/luminaria/iluminacao` normalizada, com sinonimos, curadoria interna expandida e retorno `url/thumb` consistente.
+  - `src/components/moodboard/MoodboardStepSearch.jsx`: cards de decoracao ficam legiveis sem depender de hover e nao acionam busca externa quando a curadoria interna ja atende a consulta.
+  - `src/components/moodboard/ImageUploader.jsx`: zona pontilhada do upload alinhada ao laranja WG.
+  - `src/components/moodboard/MoodboardCanvas.jsx`: fallback visual para imagens quebradas em estilos e ativos.
+  - `src/components/moodboard/{MoodboardStudioLayout,MoodboardLeadModal,ColorPicker,StyleGrid}.jsx` e `src/pages/MoodboardStudio.jsx`: imports limpos, linguagem de IA removida da experiencia e tokens visuais normalizados.
+  - `src/pages/EstiloDetail.jsx`: linha/bloco amarelo do guia de estilo neutralizado.
+  - `public/sitemap.xml` e `public/sitemap-index.xml`: atualizados pelo build local para `2026-05-10`.
+- Evidencias visuais geradas:
+  - `.codex/tmp/screenshot-audit-05-site-wg/moodboard-final-desktop-20260509/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/moodboard-final-mobile-20260509/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/moodboard-search-luminarias-final-20260509/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/moodboard-upload-border-final-20260509/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/boho-final-desktop-20260509/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/boho-final-mobile-20260509/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/revista-final-desktop-20260509/`
+  - `.codex/tmp/screenshot-audit-05-site-wg/revista-final-mobile-20260509/`
+- Resultados de validacao funcional:
+  - `/moodboard`: abre em desktop/mobile sem header institucional acima do studio.
+  - Busca `luminarias`: `5` resultados internos, sem estado vazio e sem erro Google `403`; console apenas com avisos conhecidos de future flags do React Router.
+  - Biblioteca: upload visivel e marcador pontilhado no laranja WG.
+  - `/estilos/boho`: desktop/mobile renderizados; bloco antes amarelo agora neutro.
+  - `/revista-estilos`: desktop/mobile renderizados com grade e indice carregados.
+- Validacoes tecnicas:
+  - `npm run lint`: OK.
+  - `npm run check:imports`: OK.
+  - `npm run audit:brand:visual`: OK.
+  - `npm run verify:fast`: OK, 12 arquivos de teste e 64 testes aprovados.
+  - `npm run build:local`: OK; `dist-local` gerado e sitemap com 158 rotas.
+- Pendencias:
+  - Validacao autenticada real de fluxos com sessao de usuario continua fora deste bloco.
+  - Auditoria estrutural da Liz/WGIS/ecossistema deve ser tratada em bloco proprio, com evidencias e acessos reais.

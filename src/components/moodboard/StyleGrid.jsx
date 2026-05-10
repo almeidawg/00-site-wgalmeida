@@ -71,7 +71,7 @@ const StyleGrid = ({ selectedStyles, onStylesChange, maxStyles = 3 }) => {
           <button
             onClick={() => setViewMode('grid')}
             className={`p-1.5 rounded ${
-              viewMode === 'grid' ? 'bg-orange-500 text-white' : 'text-slate-500 hover:text-slate-300'
+              viewMode === 'grid' ? 'bg-wg-orange text-white' : 'text-slate-500 hover:text-slate-300'
             }`}
           >
             <Grid className="w-4 h-4" />
@@ -79,7 +79,7 @@ const StyleGrid = ({ selectedStyles, onStylesChange, maxStyles = 3 }) => {
           <button
             onClick={() => setViewMode('list')}
             className={`p-1.5 rounded ${
-              viewMode === 'list' ? 'bg-orange-500 text-white' : 'text-slate-500 hover:text-slate-300'
+              viewMode === 'list' ? 'bg-wg-orange text-white' : 'text-slate-500 hover:text-slate-300'
             }`}
           >
             <List className="w-4 h-4" />
@@ -96,7 +96,7 @@ const StyleGrid = ({ selectedStyles, onStylesChange, maxStyles = 3 }) => {
             placeholder="Filtrar estilos..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 focus:ring-1 focus:ring-orange-500 outline-none transition-all placeholder:text-slate-700"
+            className="w-full pl-9 pr-4 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 focus:ring-1 focus:ring-wg-orange outline-none transition-all placeholder:text-slate-700"
           />
         </div>
 
