@@ -550,7 +550,7 @@ export default function EditorialCmsWorkbench() {
                     </div>
                   )}
                   {publicationValidation.warnings.length > 0 && (
-                    <div className="rounded-2xl border border-amber-500/25 bg-amber-500/10 p-4 text-sm leading-relaxed text-amber-50">
+                    <div className="rounded-2xl border border-wg-orange/25 bg-wg-orange/10 p-4 text-sm leading-relaxed text-white">
                       {publicationValidation.warnings.map((warning) => (
                         <p key={warning}>{warning}</p>
                       ))}
