@@ -1453,3 +1453,45 @@ URL limpa para validacao humana:
   - `public/sitemap.xml` e `public/sitemap-index.xml` continuam ruido esperado do build e devem ser restaurados antes do commit.
 - Proximo passo sugerido:
   - restaurar sitemaps, rodar `git-sync-gate.ps1 -Stage pre-commit`, commitar o ajuste, subir e aguardar o rerun da PR `#66`.
+
+### Varredura editorial/comercial complementar apos merge da PR #66 - 2026-05-11
+- Data/hora: `2026-05-11 00:33 -03:00`.
+- Branch de trabalho: `feature/editorial-governance-sweep-20260511`.
+- Objetivo do bloco:
+  - continuar o saneamento das paginas com risco de preco solto fora da malha central, sem inventar faixa oficial onde a base ainda nao esta madura.
+- Entrega deste bloco:
+  - `src/data/commercialGovernance.js`
+    - criada a frente `automacao-residencial-sp` com status `pending_source`;
+    - bindado o artigo `automacao-residencial-2026-guia` a essa frente;
+    - ajustado o `publication guard` para bloquear servico `pending_source` apenas quando existir valor monetario publico no conteudo, e nao qualquer publicacao consultiva.
+  - `src/content/blog/automacao-residencial-2026-guia.md`
+    - removidas as faixas monetarias soltas e as tabelas de custo por ambiente;
+    - artigo reescrito como leitura de escopo, infraestrutura, dependencias e governanca;
+    - automacao passa a publicar orientacao consultiva enquanto o preco oficial segue bloqueado.
+  - `src/content/blog/tabela-precos-reforma-2026-iccri.md`
+    - removidas as tabelas legadas com m2 e complementos soltos;
+    - artigo reescrito para usar a regua oficial ICCRI ja homologada;
+    - marcenaria passa a ser lida pela sua governanca propria e automacao deixa de aparecer como m2 universal fixo.
+- Evidencias de base:
+  - probe controlado em Supabase mostrou que a frente de automacao existe na base, mas ainda com sinal misto entre ponto, unidade, central e itens soltos, insuficiente para publicar faixa monetaria oficial sem higienizacao adicional.
+  - por isso a decisao desta rodada foi: `governar sem chutar`, e nao publicar preco como se a base estivesse madura.
+- Comandos executados:
+  - `git merge --ff-only origin/main`
+  - `npm run lint`
+  - `npm run test:run -- src/__tests__/blogCms.test.js`
+  - `npm run audit:consistency:strict`
+  - `npm run audit:public:claims:strict`
+  - `npm run build`
+- Evidencias validadas:
+  - `validado`: `lint`, `test`, `audit:consistency:strict`, `audit:public:claims:strict` e `build`.
+  - `validado`: checagem de `getCommercialPublicationValidation` para:
+    - `automacao-residencial-2026-guia` sem blocking error depois do ajuste do guard;
+    - `tabela-precos-reforma-2026-iccri` sem blocking error.
+  - `validado`: build gerando:
+    - `/blog/automacao-residencial-2026-guia`
+    - `/blog/tabela-precos-reforma-2026-iccri`
+- Observacoes:
+  - `public/sitemap.xml` e `public/sitemap-index.xml` voltaram a sujar no build e devem ser restaurados antes do commit.
+  - a frente de automacao agora esta formalmente dentro da governanca, mas em estado `pending_source`, o que documenta que existe base parcial e que o preco publico continua bloqueado.
+- Proximo passo sugerido:
+  - restaurar sitemaps, rodar Sync Gate de `pre-commit`, commitar, subir PR e validar em preview/producao as duas rotas tocadas.

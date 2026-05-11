@@ -467,6 +467,76 @@ const COMMERCIAL_SERVICE_REGISTRY_BASE = {
       }),
     },
   },
+  'automacao-residencial-sp': {
+    id: 'automacao-residencial-sp',
+    label: 'Automacao residencial integrada',
+    nucleus: 'automacao-tecnologia',
+    status: 'pending_source',
+    measurementLabel: 'por composicao',
+    sourceOfTruth: 'Base interna automacao (pricelist_itens + iccri_servicos) ainda em higienizacao operacional; preco publico bloqueado ate homologacao WG',
+    sourceReference: '/blog/automacao-residencial-2026-guia',
+    articleBindings: ['automacao-residencial-2026-guia'],
+    variationFactors: [
+      'quantidade de pontos, modulos e cenas',
+      'presenca de central dedicada, audio/video e seguranca',
+      'cortinas motorizadas, climatizacao e integracao com iluminacao',
+      'infraestrutura previa, marcenaria, forro e quadro eletrico',
+    ],
+    observations: [
+      'Automacao residencial ainda nao possui faixa publica homologada unica nesta camada.',
+      'Enquanto a base nao estiver consolidada, o blog deve publicar apenas leitura de escopo, dependencias e criterio de decisao.',
+    ],
+    packages: {
+      essencial: packageEntry({
+        rangeLabel: 'Leitura enxuta por pontos e dispositivos de entrada',
+        summary: 'Automacao de entrada com foco em poucos pontos, conforto basico e ativacao sem grande centralizacao.',
+        includes: ['pontos basicos de comando', 'entrada por voz/app', 'escopo limitado a ambientes prioritarios'],
+        excludes: ['central robusta, audio/video integrado e infraestrutura mais extensa'],
+        idealFor: 'quem quer testar automacao em poucos ambientes sem transformar a casa em sistema central completo.',
+        timelineBase: 'sob cronograma leve de infraestrutura',
+        timelineTypical: 'sob cronograma leve de infraestrutura',
+        timelineDependencies: ['levantamento de pontos', 'wifi robusto', 'compatibilizacao minima'],
+        timelineFactors: ['forro, eletrica existente e compatibilidade dos dispositivos'],
+        variation: 'Publicacao de preco bloqueada ate a consolidacao da base oficial por pontos, central e ambientes.',
+      }),
+      equilibrado: packageEntry({
+        rangeLabel: 'Leitura integrada para ambientes sociais e rotina recorrente',
+        summary: 'Automacao mais coerente para iluminacao, climatizacao, seguranca e alguns acionamentos centralizados.',
+        includes: ['mais pontos integrados', 'cenas reais de uso', 'melhor leitura de infraestrutura'],
+        excludes: ['rollout high-end completo, audio multiroom e automacao autoral extrema'],
+        idealFor: 'obras que ja precisam compatibilizar automacao com eletrica, marcenaria, forro e climatizacao.',
+        timelineBase: 'sob cronograma coordenado de obra',
+        timelineTypical: 'sob cronograma coordenado de obra',
+        timelineDependencies: ['quadro eletrico definido', 'fornecedores homologados', 'layout executivo'],
+        timelineFactors: ['quantidade de ambientes, cortinas motorizadas e integracoes adicionais'],
+        variation: 'A composicao cresce conforme o numero de ambientes, cenas, pontos e modulos de integracao.',
+      }),
+      superior: packageEntry({
+        rangeLabel: 'Leitura premium com central, integracao tecnica e mais ambientes',
+        summary: 'Camada premium para residencias que exigem mais estabilidade, centralizacao e interface entre varias disciplinas.',
+        includes: ['central dedicada', 'maior numero de pontos', 'cenas mais completas', 'integracao tecnica mais exigente'],
+        excludes: ['solucao autoral rarissima com supply chain especial e rollout enterprise'],
+        idealFor: 'casas e apartamentos premium em que automacao ja impacta obra, marcenaria, iluminacao e experiencia final.',
+        timelineBase: 'sob cronograma executivo com integracao entre disciplinas',
+        timelineTypical: 'sob cronograma executivo com integracao entre disciplinas',
+        timelineDependencies: ['escopo congelado', 'infraestrutura validada', 'fornecedores e protocolos definidos'],
+        timelineFactors: ['audio/video, seguranca, cortinas, climatizacao e quantidade de cenas'],
+        variation: 'So deve ganhar preco publico quando a base oficial separar com confianca pontos, central e infraestrutura.',
+      }),
+      exclusivo: packageEntry({
+        rangeLabel: 'Sob composicao dedicada e homologacao tecnica completa',
+        summary: 'Frente autoral e de alta complexidade para projetos em que tecnologia vira parte estrutural da experiencia.',
+        includes: ['desenho dedicado', 'curadoria de stack', 'integracao ampla entre sistemas'],
+        excludes: ['publicacao automatica de valor sem base consolidada e homologada'],
+        idealFor: 'ativos residenciais em que automacao deixa de ser acessorio e passa a guiar a experiencia do espaco.',
+        timelineBase: 'sob cronograma dedicado',
+        timelineTypical: 'sob cronograma dedicado',
+        timelineDependencies: ['escopo executivo fechado', 'stack homologado', 'coordenação fina entre disciplinas'],
+        timelineFactors: ['protocolos, importacao, suporte e profundidade de integracao'],
+        variation: 'Preco publico permanece bloqueado ate a governanca comercial consolidar essa frente sem ruido.',
+      }),
+    },
+  },
   'obraeasy-evf-saas': {
     id: 'obraeasy-evf-saas',
     label: 'ObraEasy · EVF e gestao de obras',
@@ -673,6 +743,7 @@ export const ARTICLE_COMMERCIAL_BINDINGS = {
   'obraeasy-como-funciona-para-clientes-finais': { serviceId: 'obraeasy-evf-saas', packageFocus: 'equilibrado' },
   'obraeasy-para-parceiros-imobiliarias-corretores': { serviceId: 'obraeasy-parcerias-imobiliarias', packageFocus: 'equilibrado' },
   'varanda-gourmet-planejamento': { serviceId: 'varanda-gourmet-planejada', packageFocus: 'equilibrado' },
+  'automacao-residencial-2026-guia': { serviceId: 'automacao-residencial-sp', packageFocus: 'equilibrado' },
 };
 
 export const COMMERCIAL_SERVICE_OPTIONS = Object.values(COMMERCIAL_SERVICE_REGISTRY).map((service) => ({
@@ -764,7 +835,11 @@ export const getCommercialPublicationValidation = (article = {}) => {
     errors.push(`Servico comercial inexistente: ${profile.serviceId}.`);
   }
 
-  if (profile.service?.status === 'pending_source' && String(article.status || '').toLowerCase() === 'published') {
+  if (
+    profile.service?.status === 'pending_source' &&
+    String(article.status || '').toLowerCase() === 'published' &&
+    MONEY_PATTERN.test(content)
+  ) {
     errors.push(`Servico ${profile.service.label} ainda nao possui fonte oficial de verdade e nao pode ser publicado com preco.`);
   }
 
