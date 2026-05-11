@@ -1416,3 +1416,40 @@ URL limpa para validacao humana:
   - na primeira PR, `verify:fast` e `verify:full` falharam porque `audit-structural.mjs` ainda lia `src/data/company.js`; o SSoT estrutural foi atualizado para `src/data/companyPublic.js`.
 - Proximo passo sugerido:
   - restaurar os sitemaps ruidosos, commitar este fechamento, subir branch, abrir PR, mesclar e validar em producao as rotas tocadas.
+
+### Ajuste de gate Sonar para concluir a PR #66 - 2026-05-11
+- Data/hora: `2026-05-11 00:18 -03:00`.
+- Branch de trabalho: `feature/marcenaria-editorial-expansion-20260510`.
+- Motivo:
+  - a PR `#66` ficou `UNSTABLE` apenas por `SonarCloud Code Analysis`, mesmo com `build-and-test`, `deploy-gate-final`, `Vercel`, `GitGuardian` e os audits locais passando.
+  - o Sonar apontou:
+    - `Provide a compare function` em `scripts/audit-consistency.mjs`;
+    - warnings adicionais no mesmo script;
+    - ruido de duplicacao em conteudo editorial/dados repetitivos por desenho.
+- Ajustes aplicados:
+  - `scripts/audit-consistency.mjs`
+    - migrado para `node:child_process`, `node:fs` e `node:path`;
+    - substituido `execSync` shell-string por `execFileSync` com argumentos;
+    - adicionada ordenacao explicita com `localeCompare`;
+    - removido swallow generico de excecao nao operacional;
+    - simplificada a resolucao do label de modo.
+  - `src/data/commercialGovernance.js`
+    - simplificado merge de pacotes para remover warning estrutural;
+    - trocado `replace` por `replaceAll` na leitura numerica de faixas.
+  - `sonar-project.properties`
+    - adicionado `sonar.cpd.exclusions` para `RETURN-POINT.md`, `src/content/blog/**` e `src/data/commercialGovernance.js`, evitando que conteudo editorial e registry declarativo sejam tratados como duplicacao de codigo.
+- Comandos executados:
+  - `npm run lint`
+  - `npm run test:run -- src/__tests__/blogCms.test.js`
+  - `npm run audit:consistency:strict`
+  - `npm run audit:wgeasy:site-sync:strict`
+  - `npm run audit:public:claims:strict`
+  - `npm run audit:structural`
+  - `npm run build`
+- Evidencias validadas:
+  - `validado`: todos os comandos acima com saida verde.
+  - `validado`: build gerando novamente as rotas criticas de governanca comercial/editorial e WGEasy.
+- Observacoes:
+  - `public/sitemap.xml` e `public/sitemap-index.xml` continuam ruido esperado do build e devem ser restaurados antes do commit.
+- Proximo passo sugerido:
+  - restaurar sitemaps, rodar `git-sync-gate.ps1 -Stage pre-commit`, commitar o ajuste, subir e aguardar o rerun da PR `#66`.

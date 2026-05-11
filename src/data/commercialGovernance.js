@@ -627,19 +627,22 @@ const mergePackageEntry = (baseEntry = {}, snapshotEntry = {}) => ({
   ...snapshotEntry,
 });
 
-const mergeServiceEntry = (baseService = {}, snapshotService = {}) => ({
-  ...baseService,
-  ...snapshotService,
-  packages: {
-    ...(baseService.packages || {}),
-    ...Object.fromEntries(
-      Object.entries(snapshotService.packages || {}).map(([packageKey, snapshotEntry]) => [
-        packageKey,
-        mergePackageEntry(baseService.packages?.[packageKey] || {}, snapshotEntry || {}),
-      ])
-    ),
-  },
-});
+const mergeServiceEntry = (baseService = {}, snapshotService = {}) => {
+  const basePackages = baseService.packages;
+  const snapshotPackages = snapshotService.packages || {};
+  const mergedSnapshotPackages = Object.fromEntries(
+    Object.entries(snapshotPackages).map(([packageKey, snapshotEntry]) => [
+      packageKey,
+      mergePackageEntry(basePackages?.[packageKey], snapshotEntry),
+    ])
+  );
+
+  return {
+    ...baseService,
+    ...snapshotService,
+    packages: basePackages ? { ...basePackages, ...mergedSnapshotPackages } : mergedSnapshotPackages,
+  };
+};
 
 export const COMMERCIAL_SERVICE_REGISTRY = Object.entries(COMMERCIAL_SERVICE_REGISTRY_BASE).reduce(
   (accumulator, [serviceId, baseService]) => {
@@ -710,7 +713,7 @@ export const getCommercialPackages = (serviceId = '') => {
 
 const parseRangeNumbersFromLabel = (rangeLabel = '') => {
   const values = Array.from(String(rangeLabel).matchAll(/R\$\s*([\d.]+(?:,\d+)?)/g))
-    .map((match) => Number(String(match[1]).replace(/\./g, '').replace(',', '.')))
+    .map((match) => Number(String(match[1]).replaceAll('.', '').replace(',', '.')))
     .filter((value) => Number.isFinite(value));
 
   return {
