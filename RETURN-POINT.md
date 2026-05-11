@@ -1564,3 +1564,35 @@ URL limpa para validacao humana:
   - `public/sitemap.xml` e `public/sitemap-index.xml` voltaram a sujar pelo build e devem ser restaurados antes do commit.
 - Proximo passo sugerido:
   - restaurar sitemaps, rodar Sync Gate, commitar este bloco, subir PR e validar em producao as tres rotas atualizadas.
+
+### Varredura editorial complementar em custo tecnico e certificacoes - 2026-05-11
+- Data/hora: `2026-05-11 01:11 -03:00`.
+- Branch de trabalho: `feature/editorial-governance-sweep-20260511c`.
+- Objetivo do bloco:
+  - reduzir risco de tabelas numericas legadas em artigos tecnicos e sustentaveis que ainda misturavam referencia de mercado com publicacao comercial.
+- Entrega deste bloco:
+  - `src/content/blog/custo-construcao-reforma-2026-guia-tecnico-completo.md`
+    - removidas tabelas extensas com custo por servico, ambiente, material, mao de obra e comparativo internacional como se fossem base comercial oficial;
+    - artigo reescrito para separar referencia tecnica, regua ICCRI e leitura executiva.
+  - `src/content/blog/arquitetura-sustentavel-certificacoes.md`
+    - removidos custos, taxas, payback e faixas de recomendacao soltas para LEED, AQUA e Casa Azul;
+    - texto reescrito como leitura de criterio, aplicacao e governanca.
+  - `src/content/blog/como-calcular-custo-de-obra.md`
+    - exemplo pratico trocado de numero fixo para faixa oficial via token comercial.
+- Comandos executados:
+  - `npm run lint`
+  - `npm run test:run -- src/__tests__/blogCms.test.js`
+  - `npm run audit:public:claims:strict`
+  - `npm run audit:consistency:strict`
+  - `npm run build`
+- Evidencias validadas:
+  - `validado`: `lint`, `test`, `audit:public:claims:strict`, `audit:consistency:strict` e `build`.
+  - `validado`: build gerando normalmente:
+    - `/blog/custo-construcao-reforma-2026-guia-tecnico-completo`
+    - `/blog/arquitetura-sustentavel-certificacoes`
+    - `/blog/como-calcular-custo-de-obra`
+- Observacoes:
+  - a decisao desta rodada foi preservar utilidade editorial sem sustentar numero fechado de construcao nova ou certificacao sem fonte central homologada.
+  - `public/sitemap.xml` e `public/sitemap-index.xml` voltaram a sujar pelo build e devem ser restaurados antes do commit.
+- Proximo passo sugerido:
+  - restaurar sitemaps, commitar, subir PR e validar em producao as tres rotas atualizadas.
