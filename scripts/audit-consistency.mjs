@@ -43,9 +43,9 @@ const CHECKS = [
 ]
 
 const ALLOWED_SOURCES = {
-  prices: ['src/data/company.ts', 'src/data/company.js', 'src/data/planos.ts', 'src/data/planos.js'],
-  urls: ['src/data/company.ts', 'src/data/company.js'],
-  contact: ['src/data/company.ts', 'src/data/company.js'],
+  prices: ['src/data/company.ts', 'src/data/company.js', 'src/data/companyPublic.js', 'src/data/planos.ts', 'src/data/planos.js'],
+  urls: ['src/data/company.ts', 'src/data/company.js', 'src/data/companyPublic.js'],
+  contact: ['src/data/company.ts', 'src/data/company.js', 'src/data/companyPublic.js'],
 }
 
 const DEFAULT_BASELINE = {
