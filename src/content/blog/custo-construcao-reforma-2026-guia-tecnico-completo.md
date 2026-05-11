@@ -128,36 +128,36 @@ O que NAO esta incluido:
 
 ---
 
-## Tabela 2: Custo de Reforma por Nivel
+## Tabela 2: Custo de Reforma por Faixa Oficial
 
 ### Reforma Residencial, Apartamento Sao Paulo
 
-| Nivel de Reforma | Custo M2 Minimo | Custo M2 Referencia | Custo M2 Maximo |
-|-----------------|----------------|---------------------|-----------------|
-| Basica | R$ 900 | R$ 1.400 | R$ 2.000 |
-| Intermediaria | R$ 1.800 | R$ 2.600 | R$ 3.500 |
-| Completa | R$ 3.000 | R$ 4.200 | R$ 5.800 |
-| Premium Turn Key | R$ 5.500 | R$ 7.500 | R$ 11.000 |
+| Faixa editorial | Custo por m2 homologado | Leitura operacional |
+|-----------------|-------------------------|---------------------|
+| Essencial | {{COMMERCIAL_RANGE:iccri-reforma-civil-sp:essencial}} | {{COMMERCIAL_SUMMARY:iccri-reforma-civil-sp:essencial}} |
+| Equilibrado | {{COMMERCIAL_RANGE:iccri-reforma-civil-sp:equilibrado}} | {{COMMERCIAL_SUMMARY:iccri-reforma-civil-sp:equilibrado}} |
+| Superior | {{COMMERCIAL_RANGE:iccri-reforma-civil-sp:superior}} | {{COMMERCIAL_SUMMARY:iccri-reforma-civil-sp:superior}} |
+| Exclusivo | {{COMMERCIAL_RANGE:iccri-reforma-civil-sp:exclusivo}} | {{COMMERCIAL_SUMMARY:iccri-reforma-civil-sp:exclusivo}} |
 
-### O Que Cada Nivel Inclui
+### O Que Cada Faixa Inclui
 
-| Nivel | Inclui |
+| Faixa | Inclui |
 |-------|--------|
-| Basica | Pintura geral, troca de pisos laminados, pequenos reparos, iluminacao simples |
-| Intermediaria | Basica + revestimentos novos (cozinha e banheiro), eletrica parcial, marcenaria basica |
-| Completa | Intermediaria + hidraulica completa, layout parcial, marcenaria planejada completa, climatizacao |
-| Turn Key | Projeto executivo completo + execucao total + marcenaria premium + automacao + acompanhamento integral |
+| Essencial | Reforma civil de entrada, especificacao funcional e menor nivel de customizacao |
+| Equilibrado | Melhor compatibilizacao, instalacoes mais cuidadas e acabamento mais consistente |
+| Superior | Infraestrutura mais robusta, acabamento premium e coordenacao com marcenaria e marmoraria |
+| Exclusivo | Curadoria dedicada, alta personalizacao e interface fina entre projeto, obra e producao |
 
 Esses niveis sao referencias de escopo. O valor real da reforma depende tambem de como a obra precisa ser acionada.
 
 Em geral:
 
-- `Basica` tem menos pressao de medicao e producao paralela;
-- `Intermediaria` ja mistura acabamento com adequacoes tecnicas;
-- `Completa` aumenta infraestrutura, integracao e itens sob medida;
-- `Turn Key` exige leitura unificada de projeto, custo, prazo, compras e producao.
+- `Essencial` tem menos pressao de medicao e producao paralela;
+- `Equilibrado` ja mistura acabamento com adequacoes tecnicas;
+- `Superior` aumenta infraestrutura, integracao e itens sob medida;
+- `Exclusivo` exige leitura unificada de projeto, custo, prazo, compras e producao.
 
-### Custo por Ambiente (Reforma Completa, Padrao Medio)
+### Custo por Ambiente (Reforma Integrada, Padrao Medio)
 
 | Ambiente | Custo Minimo | Custo Referencia | Custo Maximo |
 |----------|-------------|------------------|-------------|

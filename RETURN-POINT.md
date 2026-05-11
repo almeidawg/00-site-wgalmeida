@@ -1299,3 +1299,55 @@ URL limpa para validacao humana:
 - Pendencias/proximo passo sugerido:
   - Commitar, subir branch e abrir PR desta normalizacao da marcenaria.
   - Repetir a mesma limpeza editorial em outros conteudos de marcenaria que ainda usam referencias de tres niveis ou nomes de mercado nao canonicos.
+
+### Expansao da governanca editorial/comercial para conteudos adjacentes - 2026-05-10
+- Data/hora: `2026-05-10 23:50 -03:00`.
+- Branch de trabalho: `feature/marcenaria-editorial-expansion-20260510`.
+- Contexto:
+  - Usuario autorizou expandir a limpeza alem dos tres artigos iniciais de marcenaria.
+  - Foco deste bloco: reutilizar apenas bases comerciais ja homologadas, evitando "oficializar no chute" paginas ainda sem fonte central dedicada.
+- Entrega deste bloco:
+  - `src/data/commercialGovernance.js`
+    - ampliados os bindings editoriais/comerciais para:
+      - `reforma-banheiro-pequeno-otimizacao`
+      - `quanto-custa-reformar-apartamento-2026`
+      - `o-que-e-turn-key`
+      - `custo-construcao-reforma-2026-guia-tecnico-completo`
+    - ampliadas as listas `articleBindings` de ICCRI e banheiro para refletir esses slugs.
+  - `src/content/blog/reforma-banheiro-pequeno-otimizacao.md`
+    - secao de custos deixou de usar `Economica / Intermediaria / Premium`;
+    - passou a usar `Essencial / Equilibrado / Superior / Exclusivo` com tokens da base oficial de `reforma-banheiro-moderno`.
+  - `src/content/blog/quanto-custa-reformar-apartamento-2026.md`
+    - removidas tabelas publicas com totais fixos por metragem;
+    - artigo passou a ler custo por m2, prazo e porte do apartamento com base oficial do servico `reforma-apartamento-turn-key-sp`.
+  - `src/content/blog/o-que-e-turn-key.md`
+    - tabela de investimento foi normalizada para a regua canonica do Turn Key WG.
+  - `src/content/blog/custo-construcao-reforma-2026-guia-tecnico-completo.md`
+    - tabela de niveis foi reescrita para a faixa oficial ICCRI `Essencial / Equilibrado / Superior / Exclusivo`.
+  - `src/content/blog/reforma-banheiro-moderno-2026.md`
+    - ajuste de copy para remover rotulo legado `Completo` em suite master.
+- Comandos executados:
+  - `git-sync-gate.ps1 -Stage start`
+  - `git fetch origin --prune`
+  - `git switch main`
+  - `git pull --ff-only origin main`
+  - `git switch -c feature/marcenaria-editorial-expansion-20260510`
+  - `npm run lint`
+  - `npm run test:run -- src/__tests__/blogCms.test.js`
+  - `npm run build`
+- Evidencias validadas:
+  - `validado`: `npm run lint`.
+  - `validado`: `npm run test:run -- src/__tests__/blogCms.test.js`.
+  - `validado`: `npm run build`.
+  - `validado`: geracao das rotas tocadas no build:
+    - `/blog/reforma-banheiro-pequeno-otimizacao`
+    - `/blog/quanto-custa-reformar-apartamento-2026`
+    - `/blog/o-que-e-turn-key`
+    - `/blog/custo-construcao-reforma-2026-guia-tecnico-completo`
+- Observacoes de governanca:
+  - `public/sitemap.xml` e `public/sitemap-index.xml` voltaram a sujar no build e foram restaurados para evitar ruido de commit.
+  - `varanda-gourmet-planejamento` continua fora desta rodada porque ainda nao ha servico central homologado para oficializar aquelas faixas com seguranca.
+- Pendencias/proximo passo sugerido:
+  - Rodar `git-sync-gate.ps1 -Stage pre-commit`, commitar esta expansao e seguir com PR/merge/deploy.
+  - Validar em dominio publico as quatro rotas apos deploy.
+  - Decidir se `varanda-gourmet-planejamento` vira novo servico oficial ou se perde a tabela publica de preco ate existir fonte de verdade.

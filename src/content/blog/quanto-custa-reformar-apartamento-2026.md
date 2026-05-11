@@ -12,53 +12,46 @@ tags: ["reforma", "custos", "precos", "orçamento", "2026", "apartamento", "sao 
 
 # Quanto Custa Reformar um Apartamento em 2026?
 
-Reformar um apartamento em Sao Paulo e um investimento significativo. Neste guia completo, voce encontrara **valores reais atualizados para 2026**, baseados em nossa experiencia de 15 anos em reformas Turn Key Premium.
+Reformar um apartamento em Sao Paulo e um investimento significativo. Neste guia completo, voce encontrara **valores reais atualizados para 2026**, baseados em nossa experiencia de 15 anos em reformas Turn Key e na base comercial oficial do ecossistema WG Almeida.
 
 Use estes numeros como referencia de leitura, nao como orcamento cego. Custo de reforma fica muito mais confiavel quando o valor conversa com escopo, etapa, prazo e tipo de execucao.
 
 ---
 
-## Custo por M2: Tabela Comparativa
+## Custo por M2: Regua oficial Turn Key
 
-| Tipo de Reforma | Custo por M2 | O que inclui |
+| Faixa editorial | Custo por M2 | O que inclui |
 |-----------------|--------------|--------------|
-| **Basica** | R$ 1.500 - R$ 2.500 | Pintura, troca de pisos, pequenos reparos |
-| **Intermediaria** | R$ 2.500 - R$ 4.000 | Basica + novos revestimentos, eletrica parcial |
-| **Completa** | R$ 4.000 - R$ 6.000 | Intermediaria + hidraulica, layout parcial |
-| **Premium Turn Key** | R$ 6.000 - R$ 10.000 | Projeto completo, execucao total, marcenaria |
+| **Essencial** | {{COMMERCIAL_RANGE:reforma-apartamento-turn-key-sp:essencial}} | {{COMMERCIAL_SUMMARY:reforma-apartamento-turn-key-sp:essencial}} |
+| **Equilibrado** | {{COMMERCIAL_RANGE:reforma-apartamento-turn-key-sp:equilibrado}} | {{COMMERCIAL_SUMMARY:reforma-apartamento-turn-key-sp:equilibrado}} |
+| **Superior** | {{COMMERCIAL_RANGE:reforma-apartamento-turn-key-sp:superior}} | {{COMMERCIAL_SUMMARY:reforma-apartamento-turn-key-sp:superior}} |
+| **Exclusivo** | {{COMMERCIAL_RANGE:reforma-apartamento-turn-key-sp:exclusivo}} | {{COMMERCIAL_SUMMARY:reforma-apartamento-turn-key-sp:exclusivo}} |
 
 Essas faixas servem como referencia inicial. O valor real fica mais confiavel quando o custo conversa com escopo, etapa, aprovacoes, medicao e forma de execucao.
 
 ---
 
-## Exemplos por Tamanho de Apartamento
+## Como ler por tamanho de apartamento
 
-### Apartamento Compacto (50m2)
+Nao faz sentido usar uma tabela fixa de totais sem cruzar metragem, escopo e pacote. A leitura mais segura e multiplicar a faixa oficial por m2 pela area util e depois ajustar pelo nivel real de marcenaria, pedra, automacao e infraestrutura.
 
-| Nivel | Valor Estimado | Prazo Medio |
-|-------|----------------|-------------|
-| Basica | R$ 75.000 - R$ 125.000 | 45 dias |
-| Intermediaria | R$ 125.000 - R$ 200.000 | 60 dias |
-| Completa | R$ 200.000 - R$ 300.000 | 90 dias |
-| Premium | R$ 300.000 - R$ 500.000 | 120 dias |
+### Apartamento compacto (50m2)
 
-### Apartamento 2 Dormitorios (80m2)
+- Costuma entrar entre **Essencial** e **Equilibrado**.
+- Prazo tipico: de {{COMMERCIAL_TIMELINE:reforma-apartamento-turn-key-sp:essencial}} ate {{COMMERCIAL_TIMELINE:reforma-apartamento-turn-key-sp:equilibrado}}.
+- Sobe quando a reforma troca layout, atualiza infraestrutura e inclui marcenaria mais densa.
 
-| Nivel | Valor Estimado | Prazo Medio |
-|-------|----------------|-------------|
-| Basica | R$ 120.000 - R$ 200.000 | 60 dias |
-| Intermediaria | R$ 200.000 - R$ 320.000 | 90 dias |
-| Completa | R$ 320.000 - R$ 480.000 | 120 dias |
-| Premium | R$ 480.000 - R$ 800.000 | 150 dias |
+### Apartamento 2 dormitorios (80m2)
 
-### Apartamento 3 Dormitorios (120m2)
+- Normalmente orbita entre **Equilibrado** e **Superior**.
+- Prazo tipico: de {{COMMERCIAL_TIMELINE:reforma-apartamento-turn-key-sp:equilibrado}} ate {{COMMERCIAL_TIMELINE:reforma-apartamento-turn-key-sp:superior}}.
+- A faixa cresce rapido quando entram marmoraria, automacao basica e producao sob medida integrada.
 
-| Nivel | Valor Estimado | Prazo Medio |
-|-------|----------------|-------------|
-| Basica | R$ 180.000 - R$ 300.000 | 75 dias |
-| Intermediaria | R$ 300.000 - R$ 480.000 | 120 dias |
-| Completa | R$ 480.000 - R$ 720.000 | 150 dias |
-| Premium | R$ 720.000 - R$ 1.200.000 | 180 dias |
+### Apartamento 3 dormitorios (120m2 ou mais)
+
+- Costuma partir de **Equilibrado** e entrar em **Superior** ou **Exclusivo** quando o escopo fica mais autoral.
+- Prazo tipico: de {{COMMERCIAL_TIMELINE:reforma-apartamento-turn-key-sp:superior}} ate {{COMMERCIAL_TIMELINE:reforma-apartamento-turn-key-sp:exclusivo}}.
+- Aqui a governanca entre projeto, compras, obra e condominio pesa mais do que uma media solta de mercado.
 
 ---
 
@@ -91,12 +84,12 @@ Quando medicao e aprovacao atrasam, o custo final tambem sofre porque compra, pr
 
 ### 4. Comparativo de Materiais
 
-| Categoria | Economica | Intermediaria | Premium |
-|-----------|-----------|---------------|---------|
-| Pisos | Ceramica nacional | Porcelanato nacional | Marmore importado |
-| Metais | Deca linha basica | Deca linha media | Dornbracht |
-| Marcenaria | MDF BP | MDF lacado | Madeira macica |
-| Iluminacao | Spots simples | LED embutido | Projeto luminotecnico |
+| Categoria | Essencial | Equilibrado | Superior/Exclusivo |
+|-----------|------------|--------------|---------------------|
+| Pisos | Ceramica e porcelanato funcional | Porcelanato melhor especificado | Marmore, pedras especiais e acabamentos autorais |
+| Metais | Linhas base bem homologadas | Metais de melhor durabilidade e design | Linhas premium, importadas ou sob curadoria |
+| Marcenaria | Planejados essenciais ou solucoes pontuais | Sob medida com melhor ferragem e internos | Marcenaria autoral, madeira nobre e integracoes especiais |
+| Iluminacao | Pontos simples e funcionais | Camadas basicas com melhor leitura cenica | Projeto luminotecnico completo e tecnologia integrada |
 
 ---
 
@@ -114,7 +107,7 @@ E por isso que custo por m2 ajuda, mas nao substitui leitura operacional.
 
 ---
 
-## Sistema Turn Key Premium
+## Sistema Turn Key WG
 
 ### O Que Esta Incluso
 
@@ -138,6 +131,13 @@ Nossa modalidade Turn Key oferece uma experiencia completa:
 | Estresse | Alto | Minimo |
 
 No ecossistema WG, essa diferenca tambem aparece na forma de leitura. O cliente nao recebe apenas um total: recebe visao mais clara de etapa, cronograma, aprovacoes e impacto financeiro.
+
+### Regua comercial oficial
+
+- **Essencial:** {{COMMERCIAL_RANGE:reforma-apartamento-turn-key-sp:essencial}}
+- **Equilibrado:** {{COMMERCIAL_RANGE:reforma-apartamento-turn-key-sp:equilibrado}}
+- **Superior:** {{COMMERCIAL_RANGE:reforma-apartamento-turn-key-sp:superior}}
+- **Exclusivo:** {{COMMERCIAL_RANGE:reforma-apartamento-turn-key-sp:exclusivo}}
 
 ---
 

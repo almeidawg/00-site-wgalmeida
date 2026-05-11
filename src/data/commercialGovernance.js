@@ -48,7 +48,7 @@ const COMMERCIAL_SERVICE_REGISTRY_BASE = {
     measurementLabel: 'por m2',
     sourceOfTruth: 'ICCRI 2026 · registry v2026.05.10',
     sourceReference: '/blog/tabela-precos-reforma-2026-iccri',
-    articleBindings: ['tabela-precos-reforma-2026-iccri', 'custo-reforma-m2-sao-paulo', 'como-calcular-custo-de-obra'],
+    articleBindings: ['tabela-precos-reforma-2026-iccri', 'custo-reforma-m2-sao-paulo', 'como-calcular-custo-de-obra', 'custo-construcao-reforma-2026-guia-tecnico-completo'],
     variationFactors: [
       'bairro, acesso e regras de condominio',
       'infraestrutura existente e idade do imovel',
@@ -264,7 +264,7 @@ const COMMERCIAL_SERVICE_REGISTRY_BASE = {
     measurementLabel: 'por ambiente',
     sourceOfTruth: 'Registry editorial/comercial WG · v2026.05.10',
     sourceReference: '/blog/reforma-banheiro-moderno-2026',
-    articleBindings: ['reforma-banheiro-moderno-2026'],
+    articleBindings: ['reforma-banheiro-moderno-2026', 'reforma-banheiro-pequeno-otimizacao'],
     variationFactors: [
       'impermeabilizacao e condicoes da infraestrutura existente',
       'nivel de loucas, metais, pedras e iluminacao',
@@ -449,6 +449,10 @@ export const ARTICLE_COMMERCIAL_BINDINGS = {
   'closet-planejado-organizacao-otimizacao': { serviceId: 'marcenaria-sob-medida', packageFocus: 'equilibrado' },
   'reforma-cozinha-planejada-guia-completo': { serviceId: 'reforma-cozinha-planejada', packageFocus: 'equilibrado' },
   'reforma-banheiro-moderno-2026': { serviceId: 'reforma-banheiro-moderno', packageFocus: 'equilibrado' },
+  'reforma-banheiro-pequeno-otimizacao': { serviceId: 'reforma-banheiro-moderno', packageFocus: 'equilibrado' },
+  'quanto-custa-reformar-apartamento-2026': { serviceId: 'reforma-apartamento-turn-key-sp', packageFocus: 'equilibrado' },
+  'o-que-e-turn-key': { serviceId: 'reforma-apartamento-turn-key-sp', packageFocus: 'superior' },
+  'custo-construcao-reforma-2026-guia-tecnico-completo': { serviceId: 'iccri-reforma-civil-sp', packageFocus: 'equilibrado' },
 };
 
 export const COMMERCIAL_SERVICE_OPTIONS = Object.values(COMMERCIAL_SERVICE_REGISTRY).map((service) => ({
