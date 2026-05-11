@@ -1495,3 +1495,38 @@ URL limpa para validacao humana:
   - a frente de automacao agora esta formalmente dentro da governanca, mas em estado `pending_source`, o que documenta que existe base parcial e que o preco publico continua bloqueado.
 - Proximo passo sugerido:
   - restaurar sitemaps, rodar Sync Gate de `pre-commit`, commitar, subir PR e validar em preview/producao as duas rotas tocadas.
+
+### Fechamento da PR #67 e validacao em producao - 2026-05-11
+- Data/hora: `2026-05-11 00:38 -03:00`.
+- Branch de trabalho: `feature/editorial-governance-sweep-20260511`.
+- Resultado:
+  - branch publicada com `git push -u origin feature/editorial-governance-sweep-20260511`;
+  - PR aberta: `#67` `feat(blog): extend editorial governance sweep`;
+  - merge realizado em `main` no commit `ba6ef77`;
+  - estado final da PR: `MERGED` em `2026-05-11T03:37:14Z`.
+- Checks e gates:
+  - `git-sync-gate.ps1 -Stage pre-push`: `PASS`.
+  - `pre-push hard lock`: executado com `check:imports`, `audit:consistency:strict` e `build`.
+  - GitHub checks com `build-and-test`, `deploy-gate-final`, `Vercel` e `GitGuardian` verdes.
+  - `SonarCloud Code Analysis`: permaneceu como ruido externo nao bloqueante, sem impedir o merge real desta rodada.
+- Validacao real de producao:
+  - `validado`: `https://wgalmeida.com.br/blog/automacao-residencial-2026-guia?wg_cache_bust=editorial-governance-sweep-20260511`
+    - `HTTP 200`
+    - `main` presente
+    - leitura publicada com `Fonte de verdade atual`, bloqueio explicito de preco oficial e regua `Essencial / Equilibrado / Exclusivo`.
+  - `validado`: `https://wgalmeida.com.br/blog/tabela-precos-reforma-2026-iccri?wg_cache_bust=editorial-governance-sweep-20260511`
+    - `HTTP 200`
+    - `main` presente
+    - regua `Essencial / Equilibrado / Superior / Exclusivo` renderizada.
+  - `validado`: `https://wgalmeida.com.br/iccri?wg_cache_bust=editorial-governance-sweep-20260511`
+    - `HTTP 200`
+    - `main` presente.
+  - `validado`: mobile headless em `https://wgalmeida.com.br/blog/automacao-residencial-2026-guia?wg_cache_bust=editorial-governance-sweep-20260511-mobile`
+    - `HTTP 200`
+    - `main` presente
+    - regua comercial visivel sem quebra.
+- Observacoes:
+  - o `gh pr merge` atualizou a copia local para `main` apos o merge remoto.
+  - os `sitemap*.xml` voltaram a ser restaurados localmente depois do hook de `pre-push`, mantendo a worktree limpa ao final do bloco.
+- Proximo passo sugerido:
+  - continuar a varredura dos conteudos legados restantes fora do recorte prioritario, repetindo o mesmo padrao de governanca `governar sem chutar`.
