@@ -118,7 +118,7 @@ const COMMERCIAL_SERVICE_REGISTRY_BASE = {
     measurementLabel: 'por m2 linear',
     sourceOfTruth: 'Registry editorial/comercial WG · v2026.05.10',
     sourceReference: '/blog/custo-marcenaria-planejada',
-    articleBindings: ['custo-marcenaria-planejada', 'marcenaria-sob-medida', 'marcenaria-sob-medida-tendencias-2026'],
+    articleBindings: ['custo-marcenaria-planejada', 'marcenaria-sob-medida', 'marcenaria-sob-medida-tendencias-2026', 'closet-planejado-organizacao-otimizacao'],
     variationFactors: [
       'tipo de MDF, folha natural, laca ou madeira',
       'ferragens, internos especiais e usinagem',
@@ -446,6 +446,7 @@ export const ARTICLE_COMMERCIAL_BINDINGS = {
   'custo-marcenaria-planejada': { serviceId: 'marcenaria-sob-medida', packageFocus: 'equilibrado' },
   'marcenaria-sob-medida': { serviceId: 'marcenaria-sob-medida', packageFocus: 'equilibrado' },
   'marcenaria-sob-medida-tendencias-2026': { serviceId: 'marcenaria-sob-medida', packageFocus: 'superior' },
+  'closet-planejado-organizacao-otimizacao': { serviceId: 'marcenaria-sob-medida', packageFocus: 'equilibrado' },
   'reforma-cozinha-planejada-guia-completo': { serviceId: 'reforma-cozinha-planejada', packageFocus: 'equilibrado' },
   'reforma-banheiro-moderno-2026': { serviceId: 'reforma-banheiro-moderno', packageFocus: 'equilibrado' },
 };
