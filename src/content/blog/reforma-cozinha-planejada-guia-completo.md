@@ -89,14 +89,14 @@ Na pratica, marcenaria e bancada nao deveriam comecar apenas na instalacao. Elas
 
 ## Custos Detalhados
 
-### Cozinha Básica (R$ 15.000 - R$ 25.000)
+### Cozinha Essencial ({{COMMERCIAL_RANGE:reforma-cozinha-planejada:essencial}})
 - Armários em MDP
 - Bancada de granito nacional
 - Piso cerâmico
 - Azulejo simples
 - Eletrodomésticos básicos
 
-### Cozinha Intermediária (R$ 25.000 - R$ 50.000)
+### Cozinha Equilibrada ({{COMMERCIAL_RANGE:reforma-cozinha-planejada:equilibrado}})
 - Armários em MDF
 - Bancada de quartzo
 - Porcelanato
@@ -104,7 +104,7 @@ Na pratica, marcenaria e bancada nao deveriam comecar apenas na instalacao. Elas
 - Ilha pequena
 - Eletrodomésticos de médio padrão
 
-### Cozinha Alto Padrão (R$ 50.000 - R$ 120.000+)
+### Cozinha Superior ({{COMMERCIAL_RANGE:reforma-cozinha-planejada:superior}})
 - Marcenaria em laca ou madeira nobre
 - Bancada de mármore ou quartzo importado
 - Porcelanato grande formato
@@ -112,6 +112,12 @@ Na pratica, marcenaria e bancada nao deveriam comecar apenas na instalacao. Elas
 - Adega climatizada
 - Eletrodomésticos premium
 - Iluminação inteligente
+
+### Cozinha Exclusiva ({{COMMERCIAL_RANGE:reforma-cozinha-planejada:exclusivo}})
+- Curadoria dedicada de pedra, marcenaria e eletrodomésticos
+- Equipamentos especiais e integração tecnológica
+- Layout autoral com ilha protagonista
+- Cronograma de produção dedicado
 
 Essas faixas sao referencia inicial. O valor real costuma variar mais quando existe:
 
@@ -126,22 +132,22 @@ Essas faixas sao referencia inicial. O valor real costuma variar mais quando exi
 ### Granito
 Prós: Resistente, durável, variedade de cores
 Contras: Pode manchar, precisa impermeabilização
-Custo: R$ 200-600/m²
+Custo: {{COMMERCIAL_MATERIAL_RANGE:reforma-cozinha-planejada:granito}}
 
 ### Quartzo
 Prós: Não poroso, não mancha, alta resistência
 Contras: Custo mais alto
-Custo: R$ 600-1.500/m²
+Custo: {{COMMERCIAL_MATERIAL_RANGE:reforma-cozinha-planejada:quartzo}}
 
 ### Mármore
 Prós: Beleza incomparável, elegância
 Contras: Mancha fácil, manutenção constante
-Custo: R$ 400-2.000/m²
+Custo: {{COMMERCIAL_MATERIAL_RANGE:reforma-cozinha-planejada:marmore}}
 
 ### Porcelanato
 Prós: Higiênico, variedade, bom custo-benefício
 Contras: Emendas visíveis
-Custo: R$ 150-500/m²
+Custo: {{COMMERCIAL_MATERIAL_RANGE:reforma-cozinha-planejada:porcelanato}}
 
 ## Tendências 2026 para Cozinhas
 
@@ -193,7 +199,7 @@ Escolha materiais fáceis de limpar atrás do fogão
 
 ## Prazo Total
 
-Reforma completa: 6 a 12 semanas
+Reforma completa: {{COMMERCIAL_TIMELINE:reforma-cozinha-planejada:essencial}} a {{COMMERCIAL_TIMELINE:reforma-cozinha-planejada:superior}}
 - Planejamento: 2-4 semanas
 - Execução: 4-8 semanas
 

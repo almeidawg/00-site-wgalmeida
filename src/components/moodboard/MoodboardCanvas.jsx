@@ -1,4 +1,4 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useContext, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from '@/lib/motion-lite';
 import {
   Image as ImageIcon,
@@ -15,27 +15,60 @@ import {
 } from 'lucide-react';
 import { getStyleImageUrl } from '@/data/styleImageManifest';
 import { MATERIAL_DATA } from '@/lib/moodboard-constants';
-import { useMoodboard } from '@/contexts/MoodboardContext';
+import MoodboardContext from '@/contexts/MoodboardContext';
 
 const STYLE_FALLBACK_IMAGE = '/images/banners/MARCENARIA.webp';
 
-const MoodboardCanvas = ({ onRemoveImage }) => {
+const calculateBudget = (items = []) =>
+  (items || []).reduce((sum, img) => {
+    if (!img?.price) return sum;
+    try {
+      const cleanPrice = String(img.price)
+        .replace('R$', '')
+        .replace(/\./g, '')
+        .replace(',', '.')
+        .split('/')[0]
+        .trim();
+      const numericValue = parseFloat(cleanPrice);
+      return Number.isNaN(numericValue) ? sum : sum + numericValue;
+    } catch {
+      return sum;
+    }
+  }, 0);
+
+const resolveBudgetTier = (totalBudget = 0) => {
+  if (totalBudget <= 0) return null;
+  if (totalBudget < 5000) return { label: 'Essential', color: '#10b981', desc: 'Soluções otimizadas de alto impacto visual.' };
+  if (totalBudget < 25000) return { label: 'Premium', color: '#3b82f6', desc: 'Materiais nobres e curadoria de design assinado.' };
+  return { label: 'Luxury', color: '#8b5e3c', desc: 'Exclusividade absoluta e acabamentos de alto padrão.' };
+};
+
+const MoodboardCanvas = ({
+  onRemoveImage,
+  colors: colorsProp = [],
+  styles: stylesProp = [],
+  customImages: customImagesProp = [],
+  selectedMaterials: selectedMaterialsProp = [],
+  totalBudget: totalBudgetProp,
+  budgetTier: budgetTierProp,
+  projectName: projectNameProp = 'Dossiê WG Almeida',
+}) => {
   const canvasRef = useRef(null);
-  const {
-    colors,
-    styles,
-    customImages,
-    selectedMaterials,
-    totalBudget,
-    budgetTier,
-    projectName
-  } = useMoodboard();
+  const moodboardContext = useContext(MoodboardContext);
+  const colors = moodboardContext?.colors || colorsProp;
+  const styles = moodboardContext?.styles || stylesProp;
+  const customImages = moodboardContext?.customImages || customImagesProp;
+  const selectedMaterials = moodboardContext?.selectedMaterials || selectedMaterialsProp;
+  const projectName = moodboardContext?.projectName || projectNameProp;
+  const totalBudget = moodboardContext?.totalBudget ?? totalBudgetProp ?? calculateBudget(customImagesProp);
+  const budgetTier = moodboardContext?.budgetTier || budgetTierProp || resolveBudgetTier(totalBudget);
+  const normalizedCustomImages = Array.isArray(customImages) ? customImages : [];
 
   const materials = useMemo(() =>
     (selectedMaterials || []).map(id => MATERIAL_DATA[id]).filter(Boolean),
   [selectedMaterials]);
 
-  const hasContent = (colors && colors.length > 0) || (styles && styles.length > 0) || (customImages && customImages.length > 0) || (materials.length > 0);
+  const hasContent = (colors && colors.length > 0) || (styles && styles.length > 0) || normalizedCustomImages.length > 0 || (materials.length > 0);
 
   const formattedBudget = useMemo(() => {
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(totalBudget);
@@ -113,9 +146,9 @@ const MoodboardCanvas = ({ onRemoveImage }) => {
              {[
                { id: 1, label: 'Estilos', active: styles.length > 0 },
                { id: 2, label: 'Paletas', active: colors.length > 0 },
-               { id: 3, label: 'Acabamentos', active: customImages.some(i => i.source === 'shopping' || i.id.includes('auto')) },
-               { id: 4, label: 'Decoração', active: customImages.length > 4 },
-               { id: 5, label: 'Ativos', active: customImages.length > 8 }
+               { id: 3, label: 'Acabamentos', active: normalizedCustomImages.some((i) => i?.source === 'shopping' || String(i?.id || '').includes('auto')) },
+               { id: 4, label: 'Decoração', active: normalizedCustomImages.length > 4 },
+               { id: 5, label: 'Ativos', active: normalizedCustomImages.length > 8 }
              ].map((item) => (
                <div key={item.id} className="space-y-2">
                   <div className={`h-1 rounded-full transition-all duration-1000 ${item.active ? 'bg-wg-orange shadow-[0_0_10px_rgba(242,92,38,0.4)]' : 'bg-white/10'}`} />
@@ -187,23 +220,23 @@ const MoodboardCanvas = ({ onRemoveImage }) => {
           )}
 
           {/* 3. Materials & Shopping Section */}
-          {customImages.length > 0 && (
+          {normalizedCustomImages.length > 0 && (
             <section className="space-y-4">
               <div className="flex items-center gap-2 text-slate-400">
                 <Hammer className="w-4 h-4 text-wg-orange" />
                 <h3 className="text-[10px] font-bold uppercase tracking-widest">Mood & Especificações Técnicas</h3>
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-                {customImages.map((img, index) => (
+                {normalizedCustomImages.map((img, index) => (
                   <motion.div
-                    key={img.id || index}
+                    key={img.id || img.url || img.thumb || index}
                     initial={{ scale: 0.9, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     className="relative rounded-xl overflow-hidden shadow-2xl aspect-square group border border-white/5 bg-slate-950"
                   >
                     <img
-                      src={img.url || img.thumb}
-                      alt={img.name}
+                      src={img.url || img.thumb || STYLE_FALLBACK_IMAGE}
+                      alt={img.name || img.title || 'Referência'}
                       onError={(e) => {
                         if (e.currentTarget.src.includes(STYLE_FALLBACK_IMAGE)) return;
                         e.currentTarget.src = STYLE_FALLBACK_IMAGE;
@@ -226,7 +259,7 @@ const MoodboardCanvas = ({ onRemoveImage }) => {
                     </button>
 
                     <div className="absolute bottom-0 left-0 right-0 p-2 bg-black/60 backdrop-blur-sm translate-y-full group-hover:translate-y-0 transition-transform">
-                      <p className="text-[7px] text-white/90 truncate uppercase">{img.name || 'Referência'}</p>
+                          <p className="text-[7px] text-white/90 truncate uppercase">{img.name || img.title || 'Referência'}</p>
                     </div>
                   </motion.div>
                 ))}

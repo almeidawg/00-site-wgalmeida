@@ -1,0 +1,602 @@
+import COMMERCIAL_GOVERNANCE_GENERATED from './commercialGovernance.generated.js';
+
+const COMMERCIAL_PACKAGE_ORDER = ['essencial', 'equilibrado', 'superior', 'exclusivo'];
+
+const COMMERCIAL_PACKAGE_LABELS = {
+  essencial: 'Essencial',
+  equilibrado: 'Equilibrado',
+  superior: 'Superior',
+  exclusivo: 'Exclusivo',
+};
+
+const packageEntry = ({
+  minValue = null,
+  maxValue = null,
+  rangeLabel,
+  summary,
+  includes = [],
+  excludes = [],
+  idealFor = '',
+  timelineBase = '',
+  timelineTypical = '',
+  timelineDependencies = [],
+  timelineFactors = [],
+  variation = '',
+  conditions = [],
+}) => ({
+  minValue,
+  maxValue,
+  rangeLabel,
+  summary,
+  includes,
+  excludes,
+  idealFor,
+  timelineBase,
+  timelineTypical,
+  timelineDependencies,
+  timelineFactors,
+  variation,
+  conditions,
+});
+
+const COMMERCIAL_SERVICE_REGISTRY_BASE = {
+  'iccri-reforma-civil-sp': {
+    id: 'iccri-reforma-civil-sp',
+    label: 'ICCRI 2026 · Reforma civil completa em Sao Paulo',
+    nucleus: 'construcao-obra',
+    status: 'active',
+    measurementLabel: 'por m2',
+    sourceOfTruth: 'ICCRI 2026 · registry v2026.05.10',
+    sourceReference: '/blog/tabela-precos-reforma-2026-iccri',
+    articleBindings: ['tabela-precos-reforma-2026-iccri', 'custo-reforma-m2-sao-paulo', 'como-calcular-custo-de-obra'],
+    variationFactors: [
+      'bairro, acesso e regras de condominio',
+      'infraestrutura existente e idade do imovel',
+      'nivel de personalizacao, producao sob medida e compras paralelas',
+      'janela de prazo e necessidade de aceleracao de frentes',
+    ],
+    observations: [
+      'Faixa editorial de referencia. Contrato real exige levantamento, memorial e cronograma fisico-financeiro.',
+      'Valores muito abaixo da faixa costumam sinalizar omissao de escopo, material inferior ou retrabalho futuro.',
+    ],
+    packages: {
+      essencial: packageEntry({
+        rangeLabel: 'R$ 900 a R$ 1.400 por m2',
+        summary: 'Reforma civil de entrada, com especificacao funcional e menor nivel de customizacao.',
+        includes: ['demolicao controlada', 'infraestrutura basica', 'revestimentos nacionais', 'pintura e acabamento funcional'],
+        excludes: ['marcenaria sob medida', 'automacao', 'pedras e ferragens especiais'],
+        idealFor: 'reformas com foco em base funcional, atualizacao objetiva e controle inicial de caixa.',
+        timelineBase: '90 a 120 dias para 60m2',
+        timelineTypical: '90 a 120 dias',
+        timelineDependencies: ['aprovacoes de condominio', 'levantamento tecnico', 'compras basicas'],
+        timelineFactors: ['restricoes de horario', 'imovel antigo', 'infraestrutura nao mapeada'],
+        variation: 'Pode subir quando a obra exige readequacao eletrica/hidraulica mais pesada ou logistica de acesso restrita.',
+      }),
+      equilibrado: packageEntry({
+        rangeLabel: 'R$ 1.600 a R$ 2.500 por m2',
+        summary: 'Leitura intermediaria homologada para reformas com melhor especificacao, compatibilizacao e acabamento.',
+        includes: ['revestimentos e metais mais consistentes', 'melhor detalhamento de instalacoes', 'compatibilizacao mais cuidadosa'],
+        excludes: ['automacao completa', 'curadoria de materiais importados', 'execucao com cronograma premium comprimido'],
+        idealFor: 'apartamentos e casas que pedem mais precisao de obra sem entrar em pacote superior completo.',
+        timelineBase: '75 a 100 dias para 60m2',
+        timelineTypical: '75 a 100 dias',
+        timelineDependencies: ['memorial descritivo', 'janela de compras organizada', 'medicoes no tempo correto'],
+        timelineFactors: ['troca de layout', 'itens sob medida', 'condominio com operacao restrita'],
+        variation: 'Sobe com producao sob medida, pedras especiais e atraso em decisoes criticas.',
+      }),
+      superior: packageEntry({
+        rangeLabel: 'R$ 3.000 a R$ 5.500 por m2',
+        summary: 'Faixa homologada para reforma premium com especificacao elevada e coordenacao mais exigente.',
+        includes: ['infraestrutura mais robusta', 'acabamentos premium', 'coordenacao com marcenaria e marmoraria', 'compatibilizacao mais fina'],
+        excludes: ['automacao integral high-end', 'escopo ultra exclusivo com materiais raros'],
+        idealFor: 'reformas de alto padrao em que custo, prazo e acabamento precisam andar juntos.',
+        timelineBase: '60 a 90 dias para 60m2',
+        timelineTypical: '60 a 90 dias',
+        timelineDependencies: ['projeto executivo validado', 'fornecedores homologados', 'compras antecipadas'],
+        timelineFactors: ['marcenaria integrada', 'pedras especiais', 'prazo comprimido', 'obra ocupada'],
+        variation: 'Pode subir com automacao, integracoes estruturais e elevacao do nivel de curadoria.',
+      }),
+      exclusivo: packageEntry({
+        rangeLabel: 'R$ 6.000+ por m2',
+        summary: 'Escopo sob curadoria dedicada, com leitura tecnica individual e pacote executivo sob consulta.',
+        includes: ['gestao premium de fornecedores', 'acabamentos especiais', 'alta personalizacao', 'interface fina entre projeto, obra e producao'],
+        excludes: ['faixa fechada sem visita e sem escopo validado'],
+        idealFor: 'ativos com desenho autoral, especificacao rara e operacao executiva sob medida.',
+        timelineBase: '45 a 75 dias para 60m2 em operacao muito bem preparada',
+        timelineTypical: 'sob cronograma dedicado',
+        timelineDependencies: ['visita tecnica', 'escopo congelado', 'supply chain homologado'],
+        timelineFactors: ['importacao', 'obra com regras severas', 'interface com sistemas especiais'],
+        variation: 'Nao publicar numero fechado sem levantamento. A faixa depende da combinacao entre especificacao e operacao.',
+      }),
+    },
+  },
+  'marcenaria-sob-medida': {
+    id: 'marcenaria-sob-medida',
+    label: 'Marcenaria sob medida 2026',
+    nucleus: 'marcenaria',
+    status: 'active',
+    measurementLabel: 'por m2 linear',
+    sourceOfTruth: 'Registry editorial/comercial WG · v2026.05.10',
+    sourceReference: '/blog/custo-marcenaria-planejada',
+    articleBindings: ['custo-marcenaria-planejada', 'marcenaria-sob-medida', 'marcenaria-sob-medida-tendencias-2026'],
+    variationFactors: [
+      'tipo de MDF, folha natural, laca ou madeira',
+      'ferragens, internos especiais e usinagem',
+      'integracao com eletrica, iluminacao, pedra e automacao',
+      'janela real de medicao, producao e montagem',
+    ],
+    observations: [
+      'Marcenaria deve ser lida como frente de producao, nao apenas como acabamento.',
+      'O valor final depende da interface com obra, medicao correta e aprovacao no tempo certo.',
+    ],
+    packages: {
+      essencial: packageEntry({
+        rangeLabel: 'R$ 1.500 a R$ 2.200 por m2 linear',
+        summary: 'Modulos mais simples, ferragens de entrada e menor grau de customizacao.',
+        includes: ['modulos base', 'acabamentos funcionais', 'ferragens de entrada', 'montagem padrao'],
+        excludes: ['internos especiais', 'madeira nobre', 'automacao integrada'],
+        idealFor: 'ambientes funcionais em que a prioridade e organizar uso e custo inicial.',
+        timelineBase: '3 a 5 semanas de producao e instalacao apos medicao aprovada',
+        timelineTypical: '3 a 5 semanas',
+        timelineDependencies: ['projeto definido', 'medicao liberada', 'base civil pronta'],
+        timelineFactors: ['fila de fabrica', 'revisoes de ferragens', 'ajustes na obra'],
+        variation: 'Pode subir com modulos fora do padrao, ferragens melhores e alteracoes de layout.',
+      }),
+      equilibrado: packageEntry({
+        rangeLabel: 'R$ 2.200 a R$ 3.500 por m2 linear',
+        summary: 'Melhor composicao de materiais, detalhamento mais preciso e integracao parcial com outras frentes.',
+        includes: ['melhor composicao de MDF e acabamento', 'internos mais completos', 'ferragens de nivel intermediario', 'detalhamento mais fino'],
+        excludes: ['madeira rara', 'ferragens importadas premium', 'usinagem ultra especial'],
+        idealFor: 'projetos residenciais em que funcionalidade, acabamento e durabilidade precisam subir juntos.',
+        timelineBase: '4 a 7 semanas',
+        timelineTypical: '4 a 7 semanas',
+        timelineDependencies: ['medicao fina', 'compatibilizacao com pedra e eletrica', 'aprovacao final de detalhamento'],
+        timelineFactors: ['itens especiais', 'muitas revisoes', 'montagem fracionada'],
+        variation: 'Sobe com desenho autoral, ferragens melhores e integracoes tecnicas adicionais.',
+      }),
+      superior: packageEntry({
+        rangeLabel: 'R$ 3.500 a R$ 5.000 por m2 linear',
+        summary: 'Desenho sob medida com maior precisao, ferragens superiores e integracao mais sofisticada com a obra.',
+        includes: ['acabamentos especiais', 'ferragens premium', 'internos sofisticados', 'interface mais fina com obra e iluminacao'],
+        excludes: ['pacotes com madeira rara e importacao especial sob curadoria exclusiva'],
+        idealFor: 'apartamentos e casas com exigencia alta de acabamento e desempenho de uso.',
+        timelineBase: '6 a 9 semanas',
+        timelineTypical: '6 a 9 semanas',
+        timelineDependencies: ['medicao sem retrabalho', 'escopo congelado', 'fornecedores homologados'],
+        timelineFactors: ['laca, folha natural, pedra integrada, automacao e montagem delicada'],
+        variation: 'Pode subir conforme a combinacao entre marcenaria, marmoraria, iluminacao e automacao.',
+      }),
+      exclusivo: packageEntry({
+        rangeLabel: 'Sob consulta, normalmente acima de R$ 5.000 por m2 linear',
+        summary: 'Pacote autoral com curadoria dedicada, madeira nobre, ferragens especiais e execucao sob medida.',
+        includes: ['curadoria premium', 'ferragens especiais', 'desenho sob medida de alta complexidade', 'coordenação executiva dedicada'],
+        excludes: ['fechamento sem medicao real e sem validacao de interface com obra'],
+        idealFor: 'ativos com marcenaria assinada, materiais raros e alto nivel de personalizacao.',
+        timelineBase: 'sob cronograma dedicado de fabrica',
+        timelineTypical: 'sob cronograma dedicado',
+        timelineDependencies: ['escopo executivo fechado', 'materiais confirmados', 'janela de producao reservada'],
+        timelineFactors: ['importacao, madeira especial, prototipos e revisoes de desenho'],
+        variation: 'Nao publicar numero fechado sem detalhamento de projeto, ferragens e condicoes de medicao.',
+      }),
+    },
+  },
+  'reforma-cozinha-planejada': {
+    id: 'reforma-cozinha-planejada',
+    label: 'Reforma de cozinha planejada 2026',
+    nucleus: 'construcao-obra',
+    status: 'active',
+    measurementLabel: 'por ambiente',
+    sourceOfTruth: 'Registry editorial/comercial WG · v2026.05.10',
+    sourceReference: '/blog/reforma-cozinha-planejada-guia-completo',
+    articleBindings: ['reforma-cozinha-planejada-guia-completo'],
+    materialReferences: {
+      granito: { label: 'Granito', rangeLabel: 'R$ 200 a R$ 600 por m2' },
+      quartzo: { label: 'Quartzo', rangeLabel: 'R$ 600 a R$ 1.500 por m2' },
+      marmore: { label: 'Marmore', rangeLabel: 'R$ 400 a R$ 2.000 por m2' },
+      porcelanato: { label: 'Porcelanato', rangeLabel: 'R$ 150 a R$ 500 por m2' },
+    },
+    variationFactors: [
+      'troca de infraestrutura eletrica e hidraulica',
+      'marcenaria sob medida e bancada especial',
+      'ilha, eletrodomesticos embutidos e exaustao',
+      'janela de medicao, marcenaria, marmoraria e aprovacao de condominio',
+    ],
+    observations: [
+      'Cozinha deve ser lida como micro-obra com sequencia propria.',
+      'O valor real sobe quando marcenaria, pedra e infraestrutura atrasam ou mudam no meio da execucao.',
+    ],
+    packages: {
+      essencial: packageEntry({
+        rangeLabel: 'R$ 15.000 a R$ 25.000',
+        summary: 'Cozinha funcional com marcenaria de entrada e materiais nacionais de boa leitura.',
+        includes: ['armarios padrao', 'bancada nacional', 'revestimentos funcionais', 'instalacoes essenciais'],
+        excludes: ['ilha completa', 'automacao', 'pedras importadas'],
+        idealFor: 'atualizacao objetiva sem alto grau de personalizacao.',
+        timelineBase: '6 a 8 semanas',
+        timelineTypical: '6 a 8 semanas',
+        timelineDependencies: ['projeto fechado', 'compras basicas', 'condominio liberado'],
+        timelineFactors: ['troca de infraestrutura', 'ajustes de pontos tecnicos'],
+        variation: 'Pode subir com marcenaria mais sofisticada e bancada especial.',
+      }),
+      equilibrado: packageEntry({
+        rangeLabel: 'R$ 25.000 a R$ 50.000',
+        summary: 'Melhor equilibrio entre infraestrutura, marcenaria, bancada e eletrodomesticos.',
+        includes: ['marcenaria mais completa', 'bancada de quartzo ou similar', 'revestimento diferenciado', 'ilha pequena quando aplicavel'],
+        excludes: ['curadoria premium integral', 'automacao completa'],
+        idealFor: 'cozinhas em que uso diario e acabamento precisam subir sem entrar em pacote exclusivo.',
+        timelineBase: '8 a 10 semanas',
+        timelineTypical: '8 a 10 semanas',
+        timelineDependencies: ['medicoes corretas', 'eletrodomesticos definidos', 'aprovacao final de layout'],
+        timelineFactors: ['marcenaria integrada', 'marmoraria e eletros especiais'],
+        variation: 'Sobe quando ilha, eletros premium e ajustes de exaustao entram no escopo.',
+      }),
+      superior: packageEntry({
+        rangeLabel: 'R$ 50.000 a R$ 90.000',
+        summary: 'Pacote com acabamento premium, melhor desenho de marcenaria e infraestrutura mais refinada.',
+        includes: ['marcenaria premium', 'pedra superior', 'ilha completa', 'melhor detalhamento de iluminacao e ferragens'],
+        excludes: ['curadoria exclusiva com importacao e equipamentos especiais'],
+        idealFor: 'cozinhas premium em que a frente de obra precisa conversar com producao sob medida.',
+        timelineBase: '10 a 12 semanas',
+        timelineTypical: '10 a 12 semanas',
+        timelineDependencies: ['escopo congelado', 'fornecedores homologados', 'producao paralela organizada'],
+        timelineFactors: ['marmoraria especial', 'eletrodomesticos importados', 'integracoes tecnicas'],
+        variation: 'Pode subir com automacao, adega climatizada e marcenaria de maior complexidade.',
+      }),
+      exclusivo: packageEntry({
+        rangeLabel: 'Sob consulta, normalmente acima de R$ 90.000',
+        summary: 'Curadoria dedicada para cozinhas autorais, com tecnologia e materiais especiais.',
+        includes: ['eletrodomesticos premium', 'curadoria de materiais especiais', 'desenho autoral', 'coordenacao executiva dedicada'],
+        excludes: ['numero fechado sem projeto e memorial executivo'],
+        idealFor: 'clientes que tratam a cozinha como protagonista do projeto.',
+        timelineBase: 'sob cronograma dedicado',
+        timelineTypical: 'sob cronograma dedicado',
+        timelineDependencies: ['layout executivo aprovado', 'fornecedores especiais', 'janela de producao reservada'],
+        timelineFactors: ['importacao, automacao, pedras especiais e customizacao elevada'],
+        variation: 'Nao publicar fechamento sem leitura executiva e cronograma real de producao.',
+      }),
+    },
+  },
+  'reforma-banheiro-moderno': {
+    id: 'reforma-banheiro-moderno',
+    label: 'Reforma de banheiro moderno 2026',
+    nucleus: 'construcao-obra',
+    status: 'active',
+    measurementLabel: 'por ambiente',
+    sourceOfTruth: 'Registry editorial/comercial WG · v2026.05.10',
+    sourceReference: '/blog/reforma-banheiro-moderno-2026',
+    articleBindings: ['reforma-banheiro-moderno-2026'],
+    variationFactors: [
+      'impermeabilizacao e condicoes da infraestrutura existente',
+      'nivel de loucas, metais, pedras e iluminacao',
+      'presenca de banheira, aquecimento e automacao',
+      'restricoes de acesso, descarte e logistica do condominio',
+    ],
+    observations: [
+      'Banheiro exige governanca de impermeabilizacao, ventilacao e sequencia de instalacao.',
+      'O barato costuma sair caro quando loucas, metais e infraestrutura sao tratados sem compatibilizacao.',
+    ],
+    packages: {
+      essencial: packageEntry({
+        rangeLabel: 'R$ 8.000 a R$ 15.000',
+        summary: 'Atualizacao funcional com loucas padrao e materiais de manutencao mais simples.',
+        includes: ['revestimento funcional', 'loucas padrao', 'metais simples', 'box e iluminacao basica'],
+        excludes: ['banheira, aquecimento e automacao'],
+        idealFor: 'lavabos e banheiros compactos com foco em renovacao objetiva.',
+        timelineBase: '3 a 4 semanas',
+        timelineTypical: '3 a 4 semanas',
+        timelineDependencies: ['infraestrutura em bom estado', 'materiais definidos cedo'],
+        timelineFactors: ['impermeabilizacao extra', 'ajuste de pontos hidraulicos'],
+        variation: 'Pode subir com troca maior de infraestrutura ou pedra especial.',
+      }),
+      equilibrado: packageEntry({
+        rangeLabel: 'R$ 15.000 a R$ 35.000',
+        summary: 'Melhor composicao entre revestimento, bancada, iluminacao e metais.',
+        includes: ['porcelanato retificado', 'loucas de design', 'nicho embutido', 'bancada mais refinada'],
+        excludes: ['banheira premium', 'automacao completa'],
+        idealFor: 'banheiros sociais e suites que pedem acabamento acima do basico sem pacote extremo.',
+        timelineBase: '4 a 5 semanas',
+        timelineTypical: '4 a 5 semanas',
+        timelineDependencies: ['layout validado', 'pedra e metais fechados', 'sequencia de instalacao organizada'],
+        timelineFactors: ['troca de layout, nichos, marcenaria e ventilacao'],
+        variation: 'Sobe com pedra nobre, metais especiais e adequacao estrutural.',
+      }),
+      superior: packageEntry({
+        rangeLabel: 'R$ 35.000 a R$ 55.000',
+        summary: 'Pacote premium com pedra nobre, melhores metais e leitura de conforto mais sofisticada.',
+        includes: ['pedras nobres', 'metais premium', 'iluminacao em camadas', 'melhor integracao de bancada e box'],
+        excludes: ['banheira especial, automacao total e itens importados raros'],
+        idealFor: 'suites premium em que conforto, durabilidade e acabamento precisam subir juntos.',
+        timelineBase: '5 a 6 semanas',
+        timelineTypical: '5 a 6 semanas',
+        timelineDependencies: ['impermeabilizacao validada', 'loucas e metais definidos', 'pedra reservada'],
+        timelineFactors: ['banho duplo, bancada especial, marcenaria e iluminacao tecnica'],
+        variation: 'Pode subir com ducha dupla, pedra importada e ajustes de infraestrutura.',
+      }),
+      exclusivo: packageEntry({
+        rangeLabel: 'Sob consulta, normalmente acima de R$ 55.000',
+        summary: 'Banheiro autoral com tecnologia, pedras especiais e leitura de spa privado.',
+        includes: ['banheira, automacao, metais especiais', 'curadoria dedicada de materiais', 'execucao premium'],
+        excludes: ['fechamento sem levantamento tecnico e sem memorial validado'],
+        idealFor: 'banheiros master com leitura cenica, conforto elevado e detalhamento raro.',
+        timelineBase: 'sob cronograma dedicado',
+        timelineTypical: 'sob cronograma dedicado',
+        timelineDependencies: ['escopo executivo fechado', 'fornecedores especiais', 'compatibilizacao fina'],
+        timelineFactors: ['banheira, aquecimento, automacao e importacao'],
+        variation: 'Nao publicar numero fechado sem visita, especificacao e cronograma real.',
+      }),
+    },
+  },
+  'reforma-apartamento-turn-key-sp': {
+    id: 'reforma-apartamento-turn-key-sp',
+    label: 'Reforma de apartamento SP · Turn Key',
+    nucleus: 'projetos-engenharia',
+    status: 'active',
+    measurementLabel: 'por m2',
+    sourceOfTruth: 'Registry comercial WG · paginas de servico v2026.05.10',
+    sourceReference: '/reforma-apartamento-sp',
+    pageBindings: ['/reforma-apartamento-sp'],
+    variationFactors: [
+      'metragem, tipologia e bairro',
+      'nivel de marcenaria, automacao e pedra',
+      'integração entre projeto, obra e compras',
+      'prazo exigido e regras do condominio',
+    ],
+    observations: [
+      'Pagina de servico trabalha com leitura de pacote Turn Key, nao apenas com ICCRI generico.',
+      'Valor final depende de visita, escopo congelado e cronograma executivo.',
+    ],
+    packages: {
+      essencial: packageEntry({
+        rangeLabel: 'R$ 2.500 a R$ 4.000 por m2',
+        summary: 'Pacote de entrada para reforma guiada com boa base funcional e marcenaria planejada essencial.',
+        includes: ['projeto arquitetonico', 'reforma civil', 'marcenaria planejada essencial'],
+        excludes: ['automacao completa', 'curadoria premium extensa'],
+        idealFor: 'apartamentos que precisam sair do padrao construtora com leitura organizada de custo e obra.',
+        timelineBase: '12 a 16 semanas',
+        timelineTypical: '12 a 16 semanas',
+        timelineDependencies: ['briefing aprovado', 'escopo inicial definido', 'condominio liberado'],
+        timelineFactors: ['troca de layout, compras e marcenaria'],
+        variation: 'Pode subir com melhor nivel de marcenaria, pedra e infraestrutura.',
+      }),
+      equilibrado: packageEntry({
+        rangeLabel: 'R$ 4.000 a R$ 6.500 por m2',
+        summary: 'Leitura equilibrada entre projeto, obra, acabamento e producao sob medida.',
+        includes: ['projeto mais completo', 'melhores acabamentos', 'marcenaria sob medida', 'automacao basica'],
+        excludes: ['curadoria ultra premium e importacao especial'],
+        idealFor: 'apartamentos em que funcionalidade, acabamento e leitura de valorizacao precisam subir juntos.',
+        timelineBase: '14 a 20 semanas',
+        timelineTypical: '14 a 20 semanas',
+        timelineDependencies: ['projeto executivo, compras, fornecedores e medicao coordenados'],
+        timelineFactors: ['marmoraria, automacao, integracoes sob medida'],
+        variation: 'Sobe com maior personalizacao, integracoes e condominio mais restritivo.',
+      }),
+      superior: packageEntry({
+        rangeLabel: 'R$ 6.500 a R$ 9.000 por m2',
+        summary: 'Pacote premium com acabamento elevado, tecnologia e curadoria mais fina.',
+        includes: ['acabamentos premium', 'tecnologia completa', 'curadoria personalizada', 'coordenacao executiva mais intensa'],
+        excludes: ['escopo autoral raro com importacao especial sob consulta exclusiva'],
+        idealFor: 'apartamentos premium em que a experiencia final depende de execucao altamente coordenada.',
+        timelineBase: '18 a 24 semanas',
+        timelineTypical: '18 a 24 semanas',
+        timelineDependencies: ['escopo congelado', 'fornecedores homologados', 'compras antecipadas'],
+        timelineFactors: ['importacao, marcenaria complexa, automacao e pedra especial'],
+        variation: 'Pode subir com itens raros, desenho autoral e obra com logistica delicada.',
+      }),
+      exclusivo: packageEntry({
+        rangeLabel: 'Sob consulta, com leitura executiva dedicada',
+        summary: 'Escopo de alto nivel com configuracao autoral, cronograma premium e equipe dedicada.',
+        includes: ['curadoria integral', 'projeto + obra + entrega premium', 'interface fina entre todas as frentes'],
+        excludes: ['orcamento fechado sem visita e sem memorial executivo'],
+        idealFor: 'ativos de alto valor em que design, obra, marcenaria e tecnologia precisam operar como sistema unico.',
+        timelineBase: 'sob cronograma dedicado',
+        timelineTypical: 'sob cronograma dedicado',
+        timelineDependencies: ['visita, escopo, cronograma e supply chain dedicados'],
+        timelineFactors: ['importacao, automacao avançada, materiais raros e regras de condominio'],
+        variation: 'Nao publicar faixa fechada sem leitura executiva validada.',
+      }),
+    },
+  },
+  'cacamba-residuos-sp': {
+    id: 'cacamba-residuos-sp',
+    label: 'Cacamba e residuos',
+    nucleus: 'cacamba-residuos',
+    status: 'pending_source',
+    measurementLabel: 'por retirada',
+    sourceOfTruth: 'pendente de base oficial operacional',
+    observations: [
+      'Nao ha valor oficial consolidado e versionado nesta copia do projeto.',
+      'Publicacao de preco para cacamba/residuos permanece bloqueada ate fonte de verdade operacional ser conectada.',
+    ],
+    packages: {},
+  },
+};
+
+const mergePackageEntry = (baseEntry = {}, snapshotEntry = {}) => ({
+  ...baseEntry,
+  ...snapshotEntry,
+});
+
+const mergeServiceEntry = (baseService = {}, snapshotService = {}) => ({
+  ...baseService,
+  ...snapshotService,
+  packages: {
+    ...(baseService.packages || {}),
+    ...Object.fromEntries(
+      Object.entries(snapshotService.packages || {}).map(([packageKey, snapshotEntry]) => [
+        packageKey,
+        mergePackageEntry(baseService.packages?.[packageKey] || {}, snapshotEntry || {}),
+      ])
+    ),
+  },
+});
+
+export const COMMERCIAL_SERVICE_REGISTRY = Object.entries(COMMERCIAL_SERVICE_REGISTRY_BASE).reduce(
+  (accumulator, [serviceId, baseService]) => {
+    const snapshotService = COMMERCIAL_GOVERNANCE_GENERATED?.services?.[serviceId] || {};
+    accumulator[serviceId] = mergeServiceEntry(baseService, snapshotService);
+    return accumulator;
+  },
+  {}
+);
+
+export const ARTICLE_COMMERCIAL_BINDINGS = {
+  'tabela-precos-reforma-2026-iccri': { serviceId: 'iccri-reforma-civil-sp', packageFocus: 'superior' },
+  'custo-reforma-m2-sao-paulo': { serviceId: 'iccri-reforma-civil-sp', packageFocus: 'equilibrado' },
+  'como-calcular-custo-de-obra': { serviceId: 'iccri-reforma-civil-sp', packageFocus: 'equilibrado' },
+  'custo-marcenaria-planejada': { serviceId: 'marcenaria-sob-medida', packageFocus: 'equilibrado' },
+  'marcenaria-sob-medida': { serviceId: 'marcenaria-sob-medida', packageFocus: 'equilibrado' },
+  'marcenaria-sob-medida-tendencias-2026': { serviceId: 'marcenaria-sob-medida', packageFocus: 'superior' },
+  'reforma-cozinha-planejada-guia-completo': { serviceId: 'reforma-cozinha-planejada', packageFocus: 'equilibrado' },
+  'reforma-banheiro-moderno-2026': { serviceId: 'reforma-banheiro-moderno', packageFocus: 'equilibrado' },
+};
+
+export const COMMERCIAL_SERVICE_OPTIONS = Object.values(COMMERCIAL_SERVICE_REGISTRY).map((service) => ({
+  id: service.id,
+  label: service.label,
+}));
+
+export const COMMERCIAL_PACKAGE_OPTIONS = COMMERCIAL_PACKAGE_ORDER.map((packageKey) => ({
+  id: packageKey,
+  label: COMMERCIAL_PACKAGE_LABELS[packageKey],
+}));
+
+const LEGACY_PACKAGE_PATTERN = /(^|\n)#{2,6}\s+[^\n]*(basic[ao]|b[aá]sic[ao]|intermedi[aá]ri[ao]|medio padr[aã]o|m[eé]dio padr[aã]o|padr[aã]o premium)/i;
+const MONEY_PATTERN = /R\$\s*\d/i;
+
+const normalizeText = (value = '') =>
+  String(value)
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim();
+
+export const getCommercialService = (serviceId = '') =>
+  COMMERCIAL_SERVICE_REGISTRY[String(serviceId || '').trim()] || null;
+
+export const getCommercialPackages = (serviceId = '') => {
+  const service = getCommercialService(serviceId);
+  if (!service?.packages) return [];
+
+  return COMMERCIAL_PACKAGE_ORDER
+    .filter((packageKey) => service.packages[packageKey])
+    .map((packageKey) => ({
+      key: packageKey,
+      label: COMMERCIAL_PACKAGE_LABELS[packageKey],
+      ...service.packages[packageKey],
+    }));
+};
+
+const parseRangeNumbersFromLabel = (rangeLabel = '') => {
+  const values = Array.from(String(rangeLabel).matchAll(/R\$\s*([\d.]+(?:,\d+)?)/g))
+    .map((match) => Number(String(match[1]).replace(/\./g, '').replace(',', '.')))
+    .filter((value) => Number.isFinite(value));
+
+  return {
+    minValue: values[0] ?? null,
+    maxValue: values[1] ?? null,
+  };
+};
+
+export const getCommercialPackageNumericRange = (serviceId = '', packageKey = '') => {
+  const service = getCommercialService(serviceId);
+  const packageEntry = service?.packages?.[packageKey];
+  if (!packageEntry) return { minValue: null, maxValue: null };
+
+  if (Number.isFinite(packageEntry.minValue) || Number.isFinite(packageEntry.maxValue)) {
+    return {
+      minValue: Number.isFinite(packageEntry.minValue) ? packageEntry.minValue : null,
+      maxValue: Number.isFinite(packageEntry.maxValue) ? packageEntry.maxValue : null,
+    };
+  }
+
+  return parseRangeNumbersFromLabel(packageEntry.rangeLabel);
+};
+
+export const resolveCommercialProfile = (article = {}) => {
+  const explicit = article.commercialProfile || {};
+  const binding = ARTICLE_COMMERCIAL_BINDINGS[article.slug] || {};
+  const serviceId = explicit.serviceId || binding.serviceId || '';
+  const packageFocus = explicit.packageFocus || binding.packageFocus || '';
+  const service = getCommercialService(serviceId);
+  const packages = getCommercialPackages(serviceId);
+
+  return {
+    serviceId,
+    packageFocus,
+    service,
+    packages,
+    sourceOfTruth: service?.sourceOfTruth || '',
+  };
+};
+
+export const getCommercialPublicationValidation = (article = {}) => {
+  const profile = resolveCommercialProfile(article);
+  const content = String(article.content || '');
+  const errors = [];
+  const warnings = [];
+
+  if (profile.serviceId && !profile.service) {
+    errors.push(`Servico comercial inexistente: ${profile.serviceId}.`);
+  }
+
+  if (profile.service?.status === 'pending_source' && String(article.status || '').toLowerCase() === 'published') {
+    errors.push(`Servico ${profile.service.label} ainda nao possui fonte oficial de verdade e nao pode ser publicado com preco.`);
+  }
+
+  if (profile.packageFocus && profile.service && !profile.service.packages?.[profile.packageFocus]) {
+    errors.push(`Pacote foco invalido para ${profile.service.label}: ${profile.packageFocus}.`);
+  }
+
+  if (!profile.serviceId && MONEY_PATTERN.test(content)) {
+    errors.push('Conteudo possui valores monetarios publicos sem vinculo a uma base comercial central.');
+  }
+
+  if (LEGACY_PACKAGE_PATTERN.test(content)) {
+    errors.push('Conteudo ainda usa nomenclatura comercial legada fora da regua Essencial / Equilibrado / Superior / Exclusivo.');
+  }
+
+  if (profile.serviceId && !MONEY_PATTERN.test(content)) {
+    warnings.push('Post vinculado a servico oficial sem citar faixas no corpo. Considere apoiar a leitura com bloco comercial padrao.');
+  }
+
+  return {
+    ...profile,
+    errors,
+    warnings,
+    hasBlockingErrors: errors.length > 0,
+  };
+};
+
+const getPackageLabel = (serviceId, packageKey) => {
+  const service = getCommercialService(serviceId);
+  if (!service?.packages?.[packageKey]) return '';
+  return COMMERCIAL_PACKAGE_LABELS[packageKey] || packageKey;
+};
+
+const getPackageValue = (serviceId, packageKey, field) => {
+  const service = getCommercialService(serviceId);
+  return service?.packages?.[packageKey]?.[field] || '';
+};
+
+const getMaterialValue = (serviceId, materialKey) => {
+  const service = getCommercialService(serviceId);
+  return service?.materialReferences?.[materialKey]?.rangeLabel || '';
+};
+
+export const resolveCommercialTokens = (markdown = '', article = {}) =>
+  String(markdown || '').replace(/\{\{([A-Z_]+):([^}:]+)(?::([^}]+))?\}\}/g, (_match, token, arg1, arg2) => {
+    if (token === 'COMMERCIAL_RANGE') return getPackageValue(arg1, arg2, 'rangeLabel') || _match;
+    if (token === 'COMMERCIAL_TIMELINE') return getPackageValue(arg1, arg2, 'timelineTypical') || _match;
+    if (token === 'COMMERCIAL_TIMELINE_BASE') return getPackageValue(arg1, arg2, 'timelineBase') || _match;
+    if (token === 'COMMERCIAL_SUMMARY') return getPackageValue(arg1, arg2, 'summary') || _match;
+    if (token === 'COMMERCIAL_IDEAL_FOR') return getPackageValue(arg1, arg2, 'idealFor') || _match;
+    if (token === 'COMMERCIAL_LABEL') return getPackageLabel(arg1, arg2) || _match;
+    if (token === 'COMMERCIAL_SOURCE') return getCommercialService(arg1)?.sourceOfTruth || _match;
+    if (token === 'COMMERCIAL_MATERIAL_RANGE') return getMaterialValue(arg1, arg2) || _match;
+    if (token === 'COMMERCIAL_DEFAULT_RANGE') {
+      const profile = resolveCommercialProfile(article);
+      const packageKey = arg1 || profile.packageFocus;
+      return getPackageValue(profile.serviceId, packageKey, 'rangeLabel') || _match;
+    }
+    return _match;
+  });

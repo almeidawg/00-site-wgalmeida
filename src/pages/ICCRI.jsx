@@ -6,14 +6,14 @@ import { ArrowRight, BarChart3, Building2, Calculator, Landmark, Users } from 'l
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { PRODUCT_URLS, WG_PRODUCT_MESSAGES } from '@/data/company';
+import {
+  getCommercialPackages,
+  getCommercialPackageNumericRange,
+  getCommercialService,
+} from '@/data/commercialGovernance';
 
 const ICCRI_PAGE_URL = 'https://wgalmeida.com.br/iccri'
-
-const BASE_RANGE_BY_STANDARD = {
-  essencial: { min: 1500, max: 2500 },
-  equilibrado: { min: 2500, max: 4500 },
-  exclusivo: { min: 4500, max: 8000 },
-}
+const ICCRI_SERVICE_ID = 'iccri-reforma-civil-sp'
 
 const CITY_FACTOR = {
   'sao paulo': 1,
@@ -39,11 +39,18 @@ export default function ICCRI() {
   const [standard, setStandard] = useState('equilibrado')
   const [city, setCity] = useState('São Paulo')
 
+  const commercialService = getCommercialService(ICCRI_SERVICE_ID)
+  const commercialPackages = getCommercialPackages(ICCRI_SERVICE_ID)
+
   const simulation = useMemo(() => {
     const parsedArea = Number.parseFloat(area)
     if (!Number.isFinite(parsedArea) || parsedArea <= 0) return null
 
-    const range = BASE_RANGE_BY_STANDARD[standard] || BASE_RANGE_BY_STANDARD.equilibrado
+    const rawRange = getCommercialPackageNumericRange(ICCRI_SERVICE_ID, standard)
+    const range = {
+      min: rawRange.minValue || 2500,
+      max: rawRange.maxValue || Math.round((rawRange.minValue || 6500) * 1.25),
+    }
     const factor = getCityFactor(city)
     const min = parsedArea * range.min * factor
     const max = parsedArea * range.max * factor
@@ -91,6 +98,7 @@ export default function ICCRI() {
       variableMeasured: [
         { '@type': 'PropertyValue', name: 'custo_reforma_m2_essencial' },
         { '@type': 'PropertyValue', name: 'custo_reforma_m2_equilibrado' },
+        { '@type': 'PropertyValue', name: 'custo_reforma_m2_superior' },
         { '@type': 'PropertyValue', name: 'custo_reforma_m2_exclusivo' },
       ],
     },
@@ -166,13 +174,18 @@ export default function ICCRI() {
             <div className="rounded-2xl border border-gray-200 bg-wg-gray-light p-6">
               <h2 className="text-2xl font-inter font-light text-wg-black mb-3">Quanto custa reformar em 2026?</h2>
               <p className="text-wg-gray leading-relaxed mb-4">
-                Segundo o ICCRI 2026, o custo estimado por m2 varia por padrão de acabamento. Essa é a camada de referência; a metodologia WG organiza a obra pelas etapas e gatilhos operacionais:
+                Segundo a regua comercial homologada do ICCRI 2026, o custo estimado por m2 varia por nível de pacote. Essa é a camada de referência; a metodologia WG organiza a obra pelas etapas e gatilhos operacionais:
               </p>
               <ul className="space-y-2 text-wg-black">
-                <li>Essencial: R$ 1.500 a R$ 2.500/m2</li>
-                <li>Equilibrado: R$ 2.500 a R$ 4.500/m2</li>
-                <li>Exclusivo: R$ 4.500 a R$ 8.000/m2</li>
+                {commercialPackages.map((entry) => (
+                  <li key={entry.key}>{entry.label}: {entry.rangeLabel}</li>
+                ))}
               </ul>
+              {commercialService?.sourceOfTruth && (
+                <p className="mt-4 text-sm leading-relaxed text-wg-gray">
+                  Fonte de verdade: {commercialService.sourceOfTruth}.
+                </p>
+              )}
             </div>
 
             <div className="rounded-2xl border border-wg-orange/30 bg-white p-6 shadow-sm">
@@ -205,6 +218,7 @@ export default function ICCRI() {
                   >
                     <option value="essencial">Essencial</option>
                     <option value="equilibrado">Equilibrado</option>
+                    <option value="superior">Superior</option>
                     <option value="exclusivo">Exclusivo</option>
                   </select>
                 </label>

@@ -34,6 +34,13 @@ import { getBlogContextAssets, getBlogImageAsset, getBlogImageUrl } from '@/data
 import { parseFrontmatter } from '@/utils/frontmatter';
 import ICCRILinksBlock from '@/components/ICCRILinksBlock';
 import SmartCTA from '@/components/SmartCTA';
+import BlogEngagementPanel from '@/components/blog/BlogEngagementPanel';
+import BlogMoodboardPanel from '@/components/blog/BlogMoodboardPanel';
+import CommercialGovernancePanel from '@/components/blog/CommercialGovernancePanel';
+import EditorialThemeBadge from '@/components/blog/EditorialThemeBadge';
+import { getArticleMetrics, mergeArticlesWithCms, registerArticleShare } from '@/data/blogCms';
+import { getEditorialTheme, resolveEditorialThemeId } from '@/data/editorialThemes';
+import { getCommercialPublicationValidation, resolveCommercialTokens } from '@/data/commercialGovernance';
 
 const BLOG_HERO_IMAGE = getPublicPageImageSrc('blog', '/images/banners/PROCESSOS.webp');
 
@@ -50,127 +57,18 @@ const categories = [
   { id: 'marcenaria', label: 'carpentry', icon: Hammer, color: 'text-white', bgColor: 'bg-wg-brown' },
 ];
 
-const topicTagStyles = {
-  arquitetura: 'border-wg-green bg-wg-green text-white',
-  engenharia: 'border-wg-blue bg-wg-blue text-white',
-  marcenaria: 'border-wg-brown bg-wg-brown text-white',
-  transversal: 'border-wg-orange bg-wg-orange text-white',
-};
-
-const topicLineStyles = {
-  arquitetura: 'bg-wg-green',
-  engenharia: 'bg-wg-blue',
-  marcenaria: 'bg-wg-brown',
-  transversal: 'bg-wg-orange',
-};
-
-const topicCardHoverStyles = {
-  arquitetura: 'hover:border-wg-green/45',
-  engenharia: 'hover:border-wg-blue/45',
-  marcenaria: 'hover:border-wg-brown/45',
-  transversal: 'hover:border-wg-orange/45',
-};
-
-const topicIconStyles = {
-  arquitetura: 'text-wg-green',
-  engenharia: 'text-wg-blue',
-  marcenaria: 'text-wg-brown',
-  transversal: 'text-wg-orange',
-};
-
-const topicPillHoverStyles = {
-  arquitetura: 'hover:border-wg-green/45 hover:text-wg-green',
-  engenharia: 'hover:border-wg-blue/45 hover:text-wg-blue',
-  marcenaria: 'hover:border-wg-brown/45 hover:text-wg-brown',
-  transversal: 'hover:border-wg-orange/45 hover:text-wg-orange',
-};
-
-const topicCtaHoverStyles = {
-  arquitetura: 'hover:border-wg-green/45',
-  engenharia: 'hover:border-wg-blue/45',
-  marcenaria: 'hover:border-wg-brown/45',
-  transversal: 'hover:border-wg-orange/45',
-};
-
-const topicTocHoverStyles = {
-  arquitetura: 'hover:border-wg-green/40',
-  engenharia: 'hover:border-wg-blue/40',
-  marcenaria: 'hover:border-wg-brown/40',
-  transversal: 'hover:border-wg-orange/40',
-};
-
-const topicTocReadingStyles = {
-  arquitetura: 'text-wg-green',
-  engenharia: 'text-wg-blue',
-  marcenaria: 'text-wg-brown',
-  transversal: 'text-wg-orange',
-};
-
-const topicMarkerStyles = {
-  arquitetura: '[&_li]:marker:!text-wg-green/65',
-  engenharia: '[&_li]:marker:!text-wg-blue/65',
-  marcenaria: '[&_li]:marker:!text-wg-brown/65',
-  transversal: '[&_li]:marker:!text-wg-orange/65',
-};
-
-const topicCtaBorderVars = {
-  arquitetura: { '--wg-cta-border-hover': 'rgba(94, 155, 148, 0.45)', '--wg-cta-border-focus': 'rgba(94, 155, 148, 0.36)' },
-  engenharia: { '--wg-cta-border-hover': 'rgba(43, 69, 128, 0.45)', '--wg-cta-border-focus': 'rgba(43, 69, 128, 0.36)' },
-  marcenaria: { '--wg-cta-border-hover': 'rgba(139, 94, 60, 0.45)', '--wg-cta-border-focus': 'rgba(139, 94, 60, 0.36)' },
-  transversal: { '--wg-cta-border-hover': 'rgba(242, 92, 38, 0.45)', '--wg-cta-border-focus': 'rgba(242, 92, 38, 0.36)' },
-};
-
-const getArticleTopic = (article = {}) => {
-  const explicitCategory = String(article.category || '').toLowerCase().trim();
-  if (explicitCategory.includes('arquitet')) return 'arquitetura';
-  if (explicitCategory.includes('engenhar') || explicitCategory.includes('obra')) return 'engenharia';
-  if (explicitCategory.includes('marcen')) return 'marcenaria';
-
-  const haystack = [
-    article.category,
-    article.title,
-    ...(Array.isArray(article.tags) ? article.tags : []),
-  ].filter(Boolean).join(' ').toLowerCase();
-
-  if (haystack.includes('marcenaria') || haystack.includes('carpintaria') || haystack.includes('móvel') || haystack.includes('moveis')) {
-    return 'marcenaria';
-  }
-
-  if (
-    haystack.includes('engenharia') ||
-    haystack.includes('obra') ||
-    haystack.includes('reforma') ||
-    haystack.includes('constru') ||
-    haystack.includes('custo') ||
-    haystack.includes('iccri') ||
-    haystack.includes('bim')
-  ) {
-    return 'engenharia';
-  }
-
-  if (
-    haystack.includes('arquitetura') ||
-    haystack.includes('interiores') ||
-    haystack.includes('design') ||
-    haystack.includes('estilo') ||
-    haystack.includes('decor')
-  ) {
-    return 'arquitetura';
-  }
-
-  return 'transversal';
-};
-
-const getArticleTagClass = (article) => topicTagStyles[getArticleTopic(article)] || topicTagStyles.transversal;
-const getArticleLineClass = (article) => topicLineStyles[getArticleTopic(article)] || topicLineStyles.transversal;
-const getArticleCardHoverClass = (article) => topicCardHoverStyles[getArticleTopic(article)] || topicCardHoverStyles.transversal;
-const getArticleIconClass = (article) => topicIconStyles[getArticleTopic(article)] || topicIconStyles.transversal;
-const getArticlePillHoverClass = (article) => topicPillHoverStyles[getArticleTopic(article)] || topicPillHoverStyles.transversal;
-const getArticleCtaHoverClass = (article) => topicCtaHoverStyles[getArticleTopic(article)] || topicCtaHoverStyles.transversal;
-const getArticleCtaBorderVars = (article) => topicCtaBorderVars[getArticleTopic(article)] || topicCtaBorderVars.transversal;
-const getArticleTocHoverClass = (article) => topicTocHoverStyles[getArticleTopic(article)] || topicTocHoverStyles.transversal;
-const getArticleTocReadingClass = (article) => topicTocReadingStyles[getArticleTopic(article)] || topicTocReadingStyles.transversal;
-const getArticleMarkerClass = (article) => topicMarkerStyles[getArticleTopic(article)] || topicMarkerStyles.transversal;
+const getArticleTopic = (article = {}) => resolveEditorialThemeId(article);
+const getArticleTheme = (article = {}) => getEditorialTheme(article);
+const getArticleTagClass = (article) => getArticleTheme(article).tagClass;
+const getArticleLineClass = (article) => getArticleTheme(article).lineClass;
+const getArticleCardHoverClass = (article) => getArticleTheme(article).cardHoverClass;
+const getArticleIconClass = (article) => getArticleTheme(article).iconClass;
+const getArticlePillHoverClass = (article) => getArticleTheme(article).pillHoverClass;
+const getArticleCtaHoverClass = (article) => getArticleTheme(article).ctaHoverClass;
+const getArticleCtaBorderVars = (article) => getArticleTheme(article).ctaBorderVars;
+const getArticleTocHoverClass = (article) => getArticleTheme(article).tocHoverClass;
+const getArticleTocReadingClass = (article) => getArticleTheme(article).tocReadingClass;
+const getArticleMarkerClass = (article) => getArticleTheme(article).markerClass;
 
 const normalizeArticleTags = (tags) => {
   if (Array.isArray(tags)) return tags.map((tag) => String(tag).trim()).filter(Boolean);
@@ -391,6 +289,13 @@ const Blog = () => {
   const [loading, setLoading] = useState(true);
   const [showShareTooltip, setShowShareTooltip] = useState(false);
   const [activeReadingId, setActiveReadingId] = useState('');
+  const [articleMetrics, setArticleMetrics] = useState({
+    likes: 0,
+    shares: 0,
+    comments: 0,
+    liked: false,
+    shareBreakdown: {},
+  });
 
   const currentLang = i18n.language.startsWith('en') ? 'en' : i18n.language.startsWith('es') ? 'es' : 'pt-BR';
   const dateLocale = currentLang === 'en' ? 'en-US' : currentLang === 'es' ? 'es-ES' : 'pt-BR';
@@ -429,6 +334,8 @@ const Blog = () => {
             slug: articleSlug,
             ...data,
             tags: normalizeArticleTags(data.tags),
+            editorialThemeId: data.editorialThemeId || '',
+            commercialProfile: data.commercialProfile || {},
             image: imageCard,
             imageCard,
             imageHero,
@@ -436,7 +343,7 @@ const Blog = () => {
           };
         }).sort((a, b) => new Date(b.date) - new Date(a.date));
 
-        setArticles(articleList);
+        setArticles(mergeArticlesWithCms(articleList));
       } catch (error) {
         console.error('Erro ao carregar artigos:', error);
       } finally {
@@ -454,9 +361,14 @@ const Blog = () => {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }, [slug]);
 
+  useEffect(() => {
+    if (!slug) return;
+    setArticleMetrics(getArticleMetrics(slug));
+  }, [slug]);
+
   const filteredArticles = articles.filter(article => {
-    const matchesSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                         article.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
+    const haystack = `${article.title || ''} ${article.excerpt || ''} ${article.summary || ''}`.toLowerCase();
+    const matchesSearch = haystack.includes(searchTerm.toLowerCase());
     const matchesCategory = activeCategory === 'all' || article.category?.toLowerCase() === activeCategory;
     return matchesSearch && matchesCategory;
   });
@@ -469,7 +381,9 @@ const Blog = () => {
   const selectedArticle = slug ? articles.find((article) => article.slug === slug) : null;
   const liveTocHeadings = useMemo(() => {
     if (!selectedArticle?.content) return [];
-    const articleContent = stripDuplicateTocSection(stripMarkdownTitle(selectedArticle.content));
+    const articleContent = stripDuplicateTocSection(
+      stripMarkdownTitle(resolveCommercialTokens(selectedArticle.content, selectedArticle))
+    );
     const articleSections = splitMarkdownByH2(articleContent);
     return getTocHeadings(articleSections.sections);
   }, [selectedArticle?.content]);
@@ -507,6 +421,9 @@ const Blog = () => {
     navigator.clipboard.writeText(window.location.href);
     setShowShareTooltip(true);
     setTimeout(() => setShowShareTooltip(false), 2000);
+    if (slug) {
+      setArticleMetrics(registerArticleShare(slug, 'link'));
+    }
   };
 
   const renderStandardCard = (article, index, keyPrefix = 'standard') => {
@@ -697,7 +614,8 @@ const Blog = () => {
       );
     }
 
-    const articleContent = stripDuplicateTocSection(stripMarkdownTitle(selectedArticle.content));
+    const resolvedArticleContent = resolveCommercialTokens(selectedArticle.content, selectedArticle);
+    const articleContent = stripDuplicateTocSection(stripMarkdownTitle(resolvedArticleContent));
     const articleSections = splitMarkdownByH2(articleContent);
     const contextAssets = getBlogContextAssets({ slug: selectedArticle.slug });
     const tocHeadings = liveTocHeadings;
@@ -727,6 +645,7 @@ const Blog = () => {
     const articleTocHoverClass = getArticleTocHoverClass(selectedArticle);
     const articleTocReadingClass = getArticleTocReadingClass(selectedArticle);
     const articleMarkerClass = getArticleMarkerClass(selectedArticle);
+    const publicationValidation = getCommercialPublicationValidation(selectedArticle);
     const isArchitectsLegacyArticle = selectedArticle.slug === 'arquitetos-brasileiros-famosos-legado';
     const currentPageUrl = typeof window !== 'undefined'
       ? window.location.href
@@ -744,15 +663,16 @@ const Blog = () => {
       : selectedArticle.readTime || '5 min';
     const heroIntro = selectedArticle.slug === 'arquitetos-brasileiros-famosos-legado'
       ? 'Um guia editorial para reconhecer referências, obras e lições da arquitetura brasileira que seguem influenciando projetos contemporâneos.'
-      : selectedArticle.excerpt;
+      : selectedArticle.summary || selectedArticle.excerpt;
     const architectQuickLinks = selectedArticle.slug === 'arquitetos-brasileiros-famosos-legado'
       ? tocHeadings
           .filter((item) => /\(\d{4}\s*-\s*\d{4}\)/.test(item.text))
           .slice(0, 7)
       : [];
-    const proseClassName = "prose prose-lg max-w-none prose-headings:font-playfair prose-headings:font-light prose-headings:leading-tight prose-headings:text-wg-black prose-h2:mb-6 prose-h2:mt-1 prose-h2:text-[clamp(1.48rem,2vw,2rem)] prose-h3:mb-3 prose-h3:mt-8 prose-h3:text-[clamp(1.05rem,1.22vw,1.24rem)] prose-h4:mb-2 prose-h4:mt-5 prose-h4:text-[clamp(0.92rem,0.95vw,1rem)] prose-h4:font-normal prose-h4:text-wg-black prose-p:my-5 prose-p:text-[1.06rem] prose-p:leading-[1.78] prose-p:text-wg-gray prose-a:text-wg-orange prose-a:no-underline hover:prose-a:text-wg-black prose-ul:my-3 prose-ul:pl-5 prose-li:my-1 prose-li:text-wg-gray [&_code]:rounded [&_code]:bg-gray-100 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:!text-wg-black [&_h2]:!font-light [&_h2]:!text-wg-black [&_h3]:!font-normal [&_h3]:!text-wg-black [&_h4]:!font-normal [&_h4]:!text-wg-black [&_li]:!font-normal [&_li]:!text-wg-gray [&_p]:!font-normal [&_p]:!text-wg-gray [&_strong]:!font-semibold [&_strong]:!text-wg-black";
+    const proseClassName = "prose prose-lg max-w-none prose-headings:font-playfair prose-headings:font-light prose-headings:leading-tight prose-headings:text-wg-black prose-h2:mb-6 prose-h2:mt-1 prose-h2:text-[clamp(1.48rem,2vw,2rem)] prose-h3:mb-3 prose-h3:mt-8 prose-h3:text-[clamp(1.05rem,1.22vw,1.24rem)] prose-h4:mb-2 prose-h4:mt-5 prose-h4:text-[clamp(0.92rem,0.95vw,1rem)] prose-h4:font-normal prose-h4:text-wg-black prose-p:my-5 prose-p:text-[1.06rem] prose-p:leading-[1.78] prose-p:text-wg-gray prose-a:font-medium prose-a:text-wg-orange prose-a:underline prose-a:decoration-wg-orange/55 prose-a:underline-offset-4 hover:prose-a:text-wg-black prose-ul:my-3 prose-ul:pl-5 prose-li:my-1 prose-li:text-wg-gray prose-blockquote:my-8 prose-blockquote:rounded-r-[20px] prose-blockquote:border-l-4 prose-blockquote:border-wg-orange/40 prose-blockquote:bg-[#faf7f2] prose-blockquote:px-5 prose-blockquote:py-4 prose-blockquote:text-wg-gray prose-table:my-8 prose-table:w-full prose-table:overflow-hidden prose-table:rounded-[18px] prose-table:border prose-table:border-[#e8e3d8] prose-thead:bg-[#f6f2ea] prose-th:px-4 prose-th:py-3 prose-th:text-left prose-th:text-[12px] prose-th:uppercase prose-th:tracking-[0.12em] prose-th:text-wg-black prose-td:border-t prose-td:border-[#ece7de] prose-td:px-4 prose-td:py-3 prose-td:text-[15px] [&_code]:rounded [&_code]:bg-gray-100 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:!text-wg-black [&_h2]:!font-light [&_h2]:!text-wg-black [&_h3]:!font-normal [&_h3]:!text-wg-black [&_h4]:!font-normal [&_h4]:!text-wg-black [&_li]:!font-normal [&_li]:!text-wg-gray [&_p]:!font-normal [&_p]:!text-wg-gray [&_strong]:!font-semibold [&_strong]:!text-wg-black";
     const articleMarkdownComponents = {
       hr: () => <hr className="my-10 border-0 border-t border-gray-200" />,
+      a: ({ node: _node, ...props }) => <a {...props} className="font-medium underline decoration-wg-orange/55 underline-offset-4" />,
       img: ({ node: _node, ...props }) => (
         <span className="not-prose my-12 block overflow-hidden rounded-2xl bg-gray-100">
           <img
@@ -817,6 +737,7 @@ const Blog = () => {
                   <span className={`rounded-full border px-3 py-1.5 text-[10px] font-light uppercase tracking-[0.14em] ${articleTagClass}`}>
                     {heroTagLabel}
                   </span>
+                  <EditorialThemeBadge article={selectedArticle} />
                 </div>
                 <h1 className="max-w-4xl font-playfair text-[calc(clamp(2.2rem,6.15vw,5.05rem)-10px)] leading-[0.98]">
                   {selectedArticle.title}
@@ -888,7 +809,7 @@ const Blog = () => {
                   )}
                   <div className="mt-5 flex w-full flex-wrap items-center justify-end gap-2 border-t border-[#EAEAEA] pt-3">
                     <p className="line-clamp-2 mr-auto flex-1 max-w-none text-[10.5px] font-light leading-snug text-wg-gray">
-                      Os arquitetos brasileiros mais influentes ajudaram a consolidar uma linguagem autoral reconhecida no mundo todo. Nesta seleção, você encontra obras-chave de cada nome e diretrizes práticas para aplicar esses princípios em projetos contemporâneos.
+                      {selectedArticle.summary || selectedArticle.excerpt || 'Leitura editorial conectada a custo, prazo, escopo e próximos passos do projeto.'}
                     </p>
                     <button
                       type="button"
@@ -910,12 +831,12 @@ const Blog = () => {
                       WhatsApp
                     </a>
                     <Link
-                      to="/moodboard-generator"
+                      to={selectedArticle.moodboardShareUrl || '/moodboard'}
                       className={`cta-quick inline-flex items-center justify-center gap-2 rounded-full border border-transparent bg-wg-black px-3 py-1.5 text-[9px] font-light uppercase tracking-[0.1em] text-white transition-colors hover:bg-black/90 focus:outline-none focus-visible:outline-none focus-visible:ring-0 ${articleCtaHoverClass}`}
                       style={articleCtaBorderVars}
                     >
                       <LayoutGrid size={11} />
-                      Moodboard
+                      {selectedArticle.moodboardShareUrl ? 'Moodboard público' : 'Moodboard'}
                     </Link>
                   </div>
                 </div>
@@ -949,6 +870,10 @@ const Blog = () => {
                 <div className="mb-8 max-w-none rounded-[20px] border border-[#EAEAEA] bg-[#FCFCFC] px-5 py-5 shadow-sm md:px-6 [&_p]:!font-light [&_p]:!text-wg-gray [&_strong]:!font-light">
                   {renderMarkdown(articleSections.intro)}
                 </div>
+              )}
+
+              {publicationValidation.service && (
+                <CommercialGovernancePanel article={selectedArticle} />
               )}
 
               {useLeadLayout && (
@@ -1056,6 +981,14 @@ const Blog = () => {
                   </div>
                 </div>
               )}
+
+              <BlogMoodboardPanel article={selectedArticle} />
+
+              <BlogEngagementPanel
+                article={selectedArticle}
+                metrics={articleMetrics}
+                onMetricsChange={setArticleMetrics}
+              />
 
               <div className="mt-10 flex flex-wrap items-center gap-3">
                 <button

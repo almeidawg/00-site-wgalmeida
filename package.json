@@ -22,6 +22,7 @@
     "blog:editorial:queue": "node ./tools/generate-blog-editorial-queue.mjs",
     "blog:editorial:auto": "node ./tools/run-editorial-auto.mjs",
     "blog:editorial:status": "node ./tools/blog-editorial-status.mjs",
+    "commercial:governance:build": "node ./tools/build-commercial-governance-snapshot.mjs",
     "blog:editorial:repetition:audit": "node ./tools/audit-blog-image-repetition.mjs",
     "editorial:search:report": "node ./tools/build-editorial-search-report.mjs",
     "editorial:health": "node ./tools/editorial-health-status.mjs",

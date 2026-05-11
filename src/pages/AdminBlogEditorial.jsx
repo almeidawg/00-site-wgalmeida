@@ -1,5 +1,6 @@
 import SEO from '@/components/SEO';
 import { Button } from '@/components/ui/button';
+import EditorialCmsWorkbench from '@/components/Admin/EditorialCmsWorkbench';
 import editorialQueue from '@/data/blogEditorialQueue.generated.json';
 import { getBlogImageAsset, getBlogManifestEntry, publishEditorialOverridesToBlog } from '@/data/blogImageManifest';
 import styleCatalog from '@/utils/styleCatalog';
@@ -26,7 +27,8 @@ import {
   Library,
   PenTool,
   ArrowUpRight,
-  Database
+  Database,
+  FileText
 } from 'lucide-react';
 import { useEffect, useMemo, useState, useRef } from 'react';
 import { useToast } from '@/components/ui/use-toast';
@@ -134,6 +136,7 @@ export default function AdminBlogEditorial() {
            <div className="flex gap-2 p-1.5 bg-slate-950 rounded-2xl border border-white/5">
               <button onClick={() => setActiveTab('curation')} className={cn("px-8 py-3 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all", activeTab === 'curation' ? "bg-white/10 text-white shadow-xl" : "text-slate-600 hover:text-white")}><PenTool size={14} className="inline mr-2" /> Mesa de Curadoria</button>
               <button onClick={() => setActiveTab('library')} className={cn("px-8 py-3 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all", activeTab === 'library' ? "bg-white/10 text-white shadow-xl" : "text-slate-600 hover:text-white")}><Library size={14} className="inline mr-2" /> Biblioteca Global</button>
+              <button onClick={() => setActiveTab('cms')} className={cn("px-8 py-3 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all", activeTab === 'cms' ? "bg-white/10 text-white shadow-xl" : "text-slate-600 hover:text-white")}><FileText size={14} className="inline mr-2" /> CMS Mestre</button>
            </div>
 
            <Button onClick={handleSync} className="bg-wg-orange hover:bg-wg-orange/90 text-white font-bold h-12 px-8 rounded-xl shadow-xl transition-all" disabled={isSyncing}>
@@ -154,7 +157,7 @@ export default function AdminBlogEditorial() {
                    ))}
                 </div>
              </div>
-           ) : (
+           ) : activeTab === 'library' ? (
              <div className="max-w-[1800px] mx-auto h-full flex flex-col space-y-8">
                 <div className="flex flex-col md:flex-row gap-6 items-center bg-[#0c0c0e]/80 border border-white/5 p-8 rounded-[40px] backdrop-blur-3xl shadow-2xl">
                    <div className="flex gap-2 p-1.5 bg-slate-950 rounded-2xl border border-white/5 shrink-0">
@@ -189,7 +192,11 @@ export default function AdminBlogEditorial() {
                         )}
                      </div>
                    )}
-                </div>
+               </div>
+             </div>
+           ) : (
+             <div className="max-w-[1800px] mx-auto">
+               <EditorialCmsWorkbench />
              </div>
            )}
         </main>

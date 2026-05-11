@@ -25,7 +25,13 @@ const MoodboardShare = () => {
         clientName: decoded.n || 'Cliente Especial', // Nome do cliente se disponível
         colors: decoded.c || [],
         styles: resolvedStyles,
-        customImages: (decoded.i || []).map(img => ({ url: img.u, title: img.t })),
+        customImages: (decoded.i || []).map((img, index) => ({
+          id: `share-${index + 1}`,
+          url: img.u,
+          title: img.t,
+          name: img.t || `Referência ${index + 1}`,
+          source: 'share',
+        })),
         wgeasyId: decoded.ext || null // Preparado para integração WGEasy
       };
     } catch (err) {

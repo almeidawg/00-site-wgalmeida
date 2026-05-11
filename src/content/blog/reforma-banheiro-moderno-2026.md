@@ -49,14 +49,14 @@ Transforme seu banheiro em refúgio de autocuidado.
 
 ## Custos de Reforma
 
-### Banheiro Essencial (R$ 8.000 - R$ 15.000)
+### Banheiro Essencial ({{COMMERCIAL_RANGE:reforma-banheiro-moderno:essencial}})
 - Revestimento cerâmico
 - Louças brancas padrão
 - Metais cromados simples
 - Box de vidro temperado
 - Iluminação básica
 
-### Banheiro Equilibrado (R$ 15.000 - R$ 35.000)
+### Banheiro Equilibrado ({{COMMERCIAL_RANGE:reforma-banheiro-moderno:equilibrado}})
 - Porcelanato retificado
 - Louças de design
 - Metais com acabamento especial
@@ -64,7 +64,13 @@ Transforme seu banheiro em refúgio de autocuidado.
 - Iluminação indireta
 - Bancada de mármore ou quartzo
 
-### Banheiro Exclusivo (R$ 35.000 - R$ 80.000+)
+### Banheiro Superior ({{COMMERCIAL_RANGE:reforma-banheiro-moderno:superior}})
+- Pedras nobres
+- Metais premium
+- Iluminação em camadas
+- Melhor integração de bancada, box e marcenaria
+
+### Banheiro Exclusivo ({{COMMERCIAL_RANGE:reforma-banheiro-moderno:exclusivo}})
 - Mármore ou pedras nobres
 - Louças premium (Deca, Roca)
 - Metais importados
@@ -149,7 +155,7 @@ Completo: duplo de tudo, banheira, closet, área de maquiagem
 - Pintura
 - Limpeza
 
-**Prazo total: 3 a 5 semanas**
+**Prazo total:** de {{COMMERCIAL_TIMELINE:reforma-banheiro-moderno:essencial}} até {{COMMERCIAL_TIMELINE:reforma-banheiro-moderno:superior}}.
 
 ## Erros Comuns
 
