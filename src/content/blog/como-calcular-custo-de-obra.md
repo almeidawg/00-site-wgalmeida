@@ -54,8 +54,8 @@ Se alguma dessas respostas ainda estiver aberta, o número deve ser lido como es
 ## Exemplo prático
 
 - Imóvel: 80 m²
-- Faixa de referência: R$ 3.000/m²
-- Estimativa base: `80 x 3.000 = R$ 240.000`
+- Faixa de referência: {{COMMERCIAL_RANGE:iccri-reforma-civil-sp:equilibrado}}
+- Estimativa base: `80 x faixa oficial por m² = leitura inicial do investimento`
 
 Essa conta é apenas a primeira leitura. O valor pode subir ou descer conforme:
 
