@@ -175,25 +175,21 @@ Com trabalho remoto consolidado, o home office exige móveis adequados.
 
 ## Investimento em Marcenaria Sob Medida
 
-### Valores Médios (2026)
+### Regua Oficial WG Almeida
 
-**Cozinha Completa:**
-- Essencial: R$ 15.000 - R$ 25.000
-- Equilibrado: R$ 25.000 - R$ 45.000
-- Exclusivo: R$ 45.000 - R$ 100.000+
+- Essencial: {{COMMERCIAL_RANGE:marcenaria-sob-medida:essencial}}
+- Equilibrado: {{COMMERCIAL_RANGE:marcenaria-sob-medida:equilibrado}}
+- Superior: {{COMMERCIAL_RANGE:marcenaria-sob-medida:superior}}
+- Exclusivo: {{COMMERCIAL_RANGE:marcenaria-sob-medida:exclusivo}}
 
-**Closet:**
-- Essencial: R$ 8.000 - R$ 15.000
-- Equilibrado: R$ 15.000 - R$ 30.000
-- Exclusivo: R$ 30.000 - R$ 80.000+
+Essa regua evita publicar medias soltas fora de contexto. Em marcenaria, o valor muda de verdade quando entram internos especiais, ferragens, altura, laca, vidro, iluminacao e interface com pedra ou obra.
 
-**Home Office:**
-- Essencial: R$ 5.000 - R$ 10.000
-- Equilibrado a Exclusivo: R$ 10.000 - R$ 25.000
+### Como essa regua costuma aparecer por ambiente
 
-**Sala (Painel + Estante):**
-- Essencial: R$ 6.000 - R$ 12.000
-- Exclusivo: R$ 12.000 - R$ 35.000
+- Cozinha completa geralmente parte de Equilibrado e sobe para Superior ou Exclusivo quando entra pedra especial, eletro embutido e marcenaria mais autoral.
+- Closet linear costuma orbitar entre Essencial e Equilibrado; walk-ins mais densos migram para Superior quando entram laca, ferragens premium e iluminacao integrada.
+- Home office pode ficar entre Essencial e Superior, conforme acustica, ergonomia, passagem de cabos e internos.
+- Painel, estante e sala integrada sobem para Superior ou Exclusivo quando o desenho conversa com iluminacao, ripado, vidro ou marcenaria de parede inteira.
 
 ## Como Escolher uma Marcenaria de Qualidade
 

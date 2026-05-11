@@ -90,16 +90,35 @@ Materiais resistentes a umidade, gavetas internas e tomadas ocultas.
 
 ---
 
-## Investimento
+## Faixas de investimento
 
-| Ambiente | Faixa de Valor/m2 |
-|----------|-------------------|
-| Cozinha completa | R$ 2.500 a R$ 5.000 |
-| Closet/roupeiro | R$ 1.800 a R$ 3.500 |
-| Home/Estante TV | R$ 2.000 a R$ 4.000 |
-| Banheiro | R$ 2.000 a R$ 4.500 |
+A WG Almeida usa a mesma regua editorial/comercial para toda marcenaria sob medida. Isso evita comparar um home office enxuto com uma cozinha autoral como se fossem o mesmo produto.
 
-*Valores de referencia para acabamento premium em Sao Paulo 2024/2025.*
+### Essencial — {{COMMERCIAL_RANGE:marcenaria-sob-medida:essencial}}
+- {{COMMERCIAL_SUMMARY:marcenaria-sob-medida:essencial}}
+- Ideal para: {{COMMERCIAL_IDEAL_FOR:marcenaria-sob-medida:essencial}}
+- Prazo tipico: {{COMMERCIAL_TIMELINE:marcenaria-sob-medida:essencial}}
+
+### Equilibrado — {{COMMERCIAL_RANGE:marcenaria-sob-medida:equilibrado}}
+- {{COMMERCIAL_SUMMARY:marcenaria-sob-medida:equilibrado}}
+- Ideal para: {{COMMERCIAL_IDEAL_FOR:marcenaria-sob-medida:equilibrado}}
+- Prazo tipico: {{COMMERCIAL_TIMELINE:marcenaria-sob-medida:equilibrado}}
+
+### Superior — {{COMMERCIAL_RANGE:marcenaria-sob-medida:superior}}
+- {{COMMERCIAL_SUMMARY:marcenaria-sob-medida:superior}}
+- Ideal para: {{COMMERCIAL_IDEAL_FOR:marcenaria-sob-medida:superior}}
+- Prazo tipico: {{COMMERCIAL_TIMELINE:marcenaria-sob-medida:superior}}
+
+### Exclusivo — {{COMMERCIAL_RANGE:marcenaria-sob-medida:exclusivo}}
+- {{COMMERCIAL_SUMMARY:marcenaria-sob-medida:exclusivo}}
+- Ideal para: {{COMMERCIAL_IDEAL_FOR:marcenaria-sob-medida:exclusivo}}
+- Prazo tipico: {{COMMERCIAL_TIMELINE:marcenaria-sob-medida:exclusivo}}
+
+### Como ler essa regua por ambiente
+
+- Banheiros e home offices normalmente entram primeiro em Essencial ou Equilibrado.
+- Closets, cozinhas e paineis integrados sobem rapido quando entram ferragens melhores, iluminacao, vidro, pedra ou laca.
+- O numero final depende de medicao, detalhamento interno, ferragens, acabamento e interface com obra.
 
 ---
 
@@ -109,7 +128,7 @@ Marcenaria sob medida nao e apenas mobiliario. E **arquitetura aplicada**, com d
 
 ## Proximo passo
 
-Se voce busca marcenaria premium com integracao total ao projeto, fale com o nosso time.
+Se voce busca marcenaria com leitura real de escopo, faixa e prazo, fale com o nosso time.
 
 - Solicite uma proposta: https://wgalmeida.com.br/solicite-proposta
 - WhatsApp: +55 (11) 98465-0002

@@ -15,7 +15,7 @@ featured: false
 ---
 # Closet Planejado: Medidas Ideais, Organizacao e Otimizacao de Espaco
 
-Se o objetivo e aproveitar cada centimetro, um closet planejado bem setorizado reduz bagunca, melhora a rotina e valoriza o quarto. Neste guia voce encontra medidas praticas, modulos essenciais e custo estimado para decidir com clareza.
+Se o objetivo e aproveitar cada centimetro, um closet planejado bem setorizado reduz bagunca, melhora a rotina e valoriza o quarto. Neste guia voce encontra medidas praticas, modulos essenciais e uma leitura de faixa de investimento alinhada a marcenaria real.
 
 ## Tipos de Closet
 
@@ -30,7 +30,7 @@ Vantagens:
 ✅ Conforto ao vestir
 ✅ Status
 
-Custo: R$ 15.000-60.000
+Faixa mais comum: Equilibrado a Exclusivo, conforme area, ferragens e nivel de personalizacao.
 
 ### Walk-through (Passagem)
 Localização: Entre quarto e banheiro
@@ -42,7 +42,7 @@ Vantagens:
 ✅ Privacidade
 ✅ Valoriza suite
 
-Custo: R$ 12.000-50.000
+Faixa mais comum: Equilibrado a Superior, dependendo da metragem linear e da interface com suite e banheiro.
 
 ### Aberto no Quarto
 Espaço: Parte do quarto dedicada
@@ -57,7 +57,7 @@ Desvantagens:
 ❌ Menos privacidade
 ❌ Poeira visível
 
-Custo: R$ 8.000-30.000
+Faixa mais comum: Essencial a Equilibrado, com subida para Superior quando entram portas, laca e internos especiais.
 
 ### Linear (Parede Inteira)
 Formato: Armário de parede completa
@@ -69,7 +69,7 @@ Vantagens:
 ✅ Organizado
 ✅ Portas escondem
 
-Custo: R$ 10.000-40.000
+Faixa mais comum: Essencial a Superior, conforme altura, ferragens, portas e detalhamento interno.
 
 ## Dimensionamento
 
@@ -170,9 +170,9 @@ Tipos:
 - Calças (clipe ou barra)
 
 Material:
-- Cromado: R$ 15-30/m
-- Alumínio: R$ 20-40/m
-- Inox: R$ 40-80/m
+- Cromado
+- Aluminio
+- Inox
 
 ### Gavetas
 Com divisórias:
@@ -183,8 +183,8 @@ Com divisórias:
 - Relógios
 
 Corrediças:
-- Telescópica (abre total): +R$ 80-150/gaveta
-- Quadro (abre 75%): +R$ 40-80/gaveta
+- Telescopica: extracao total e leitura mais premium de uso
+- Quadro: leitura mais economica e suficiente para modulos menos exigentes
 
 ### Sapateiras
 Opções:
@@ -205,7 +205,7 @@ Essencial:
 - Sensor de presença
 - 4000K (ver cores reais)
 
-Custo: R$ 800-2.500
+A iluminacao costuma empurrar o closet de Essencial para Equilibrado ou Superior quando entra com mais densidade.
 
 ### Espelhos
 Tamanhos:
@@ -227,8 +227,8 @@ Para:
 - [Servico de marcenaria WG Almeida](/marcenaria)
 
 Tipos:
-- Fixos: R$ 150-400
-- Deslizantes: R$ 300-700
+- Fixos
+- Deslizantes
 
 ## Materiais
 
@@ -254,9 +254,7 @@ Invest em qualidade:
 - Hettich
 - Ferrari
 
-Custo ferragens:
-- Economia: +R$ 1.000
-- Premium: +R$ 3.000-5.000
+Ferragens mudam a leitura do closet mais do que parece: um mesmo desenho pode sair de Essencial para Superior quando entram dobradicas, corrediças e internos de linha premium.
 
 ## Otimização de Espaço
 
@@ -320,69 +318,63 @@ Opções:
 - Descartar não usado
 - Limpeza profunda
 
-## Custos 2026
+## Faixa de investimento do closet planejado
 
-### Por Metragem
-MDP:
-- R$ 2.500-4.000/m linear
-- Closet 3m: R$ 7.500-12.000
+Closet nao deve ser lido apenas por metragem. Ferragens, altura, portas, laca, internos especiais, espelhos, iluminacao e quantidade de modulos mudam muito o pacote final.
 
-MDF:
-- R$ 3.000-5.000/m linear
-- Closet 3m: R$ 9.000-15.000
+### Essencial — {{COMMERCIAL_RANGE:marcenaria-sob-medida:essencial}}
+- Closet linear mais enxuto, com modulos base e ferragens de entrada.
+- Funciona melhor para quartos menores e rotinas mais objetivas.
 
-Laca:
-- R$ 4.500-7.000/m linear
-- Closet 3m: R$ 13.500-21.000
+### Equilibrado — {{COMMERCIAL_RANGE:marcenaria-sob-medida:equilibrado}}
+- Melhor combinacao entre estrutura, internos, ferragens e acabamento.
+- Costuma ser a faixa mais comum para closets de casal bem resolvidos.
 
-### Por Tipo
-Linear 3m:
-- Básico: R$ 8.000-12.000
-- Completo: R$ 15.000-25.000
-- Premium: R$ 25.000-40.000
+### Superior — {{COMMERCIAL_RANGE:marcenaria-sob-medida:superior}}
+- Entra quando o closet pede laca, vidro, internos mais sofisticados, iluminacao integrada e desenho mais fino.
+- E a leitura mais frequente para walk-ins premium e closets com uso intenso.
 
-Walk-in 6m²:
-- Básico: R$ 15.000-25.000
-- Completo: R$ 25.000-45.000
-- Premium: R$ 45.000-80.000
+### Exclusivo — {{COMMERCIAL_RANGE:marcenaria-sob-medida:exclusivo}}
+- Vale para closets autorais com ilha, joalheria, espelhos especiais, automacao e curadoria dedicada de materiais.
+- Nao faz sentido fechar sem medicao real e detalhamento executivo.
 
-### Adicionais
-- Iluminação LED: +R$ 800-2.500
-- Espelho corpo inteiro: +R$ 400-1.200
-- Ferragens premium: +R$ 2.000-4.000
-- Gavetas extras: +R$ 300-700/cada
+### Como ler por tipo de closet
+
+- Linear 3m: normalmente orbita entre Essencial e Equilibrado; sobe para Superior com portas, laca e internos mais densos.
+- Walk-through: costuma entrar de Equilibrado para Superior pela necessidade de melhor setorizacao e acabamento.
+- Walk-in 6m² ou mais: geralmente parte de Equilibrado e entra em Superior ou Exclusivo quando ha mais iluminacao, ferragens especiais, espelhos e marcenaria de maior altura.
 
 ## Marcas Recomendadas
 
 Premium:
-- Ornare: R$ 20.000-80.000
-- Kitchens: R$ 25.000-100.000
+- Ornare
+- Kitchens
 
-Médio-alto:
-- Florense: R$ 15.000-50.000
-- Todeschini: R$ 12.000-45.000
+Medio-alto:
+- Florense
+- Todeschini
 
-Custo-benefício:
-- Madesa: R$ 8.000-25.000
-- Henn: R$ 7.000-22.000
-- Marceneiro local: R$ 6.000-30.000
+Custo-beneficio:
+- Madesa
+- Henn
+- Marceneiro local com bom detalhamento e montagem organizada
 
 ## Tecnologia
 
 ### Iluminação Inteligente
 - Acende ao abrir
 - Desliga automático
-- +R$ 500-1.500
+- Costuma aparecer de Equilibrado em diante
 
 ### Gavetas Elétricas
 - Abertura por toque
 - Fechamento suave
-- +R$ 500-1.000/gaveta
+- Empurram o closet para leitura Superior ou Exclusiva
 
 ### Araras Motorizadas
 - Desce ao comando
 - Aproveita altura
-- +R$ 2.000-5.000
+- Entram no pacote Exclusivo ou em usos muito especificos
 
 ## Checklist Projeto
 
@@ -405,8 +397,8 @@ Closet planejado:
 ✅ Valorização imóvel
 ✅ Qualidade de vida
 
-Investimento: R$ 8.000-80.000
-Retorno: Organização diária + praticidade
+Leitura de investimento: Essencial / Equilibrado / Superior / Exclusivo
+Retorno: organizacao diaria, melhor uso e marcenaria coerente com a rotina
 
 Priorizar:
 1. Boa marcenaria (durabilidade)

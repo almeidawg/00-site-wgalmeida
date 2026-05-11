@@ -1263,3 +1263,39 @@ URL limpa para validacao humana:
   - Aplicar a mesma normalizacao nas demais postagens e landings que ainda carregam nomenclatura legada (`Basico`, `Intermediaria`, `medio padrao`, `alto padrao`).
   - Rodar uma auditoria completa de divergencia entre todo o site e a base central, com relatorio por rota/campo/valor.
   - Validar visualmente o admin autenticado em sessao real depois desta camada de bloqueio de publicacao.
+
+### Normalizacao da regua de marcenaria em conteudo legado - 2026-05-10
+- Data/hora: `2026-05-10 23:35 -03:00`.
+- Branch de trabalho: `feature/marcenaria-package-governance-20260510`.
+- Contexto:
+  - Usuario confirmou manter a regua `Essencial / Equilibrado / Superior / Exclusivo` para marcenaria.
+  - Objetivo deste bloco: remover nomenclatura comercial legada e reduzir preco solto em artigos de marcenaria e closet, puxando a leitura para a base central.
+- Entrega deste bloco:
+  - `src/data/commercialGovernance.js`
+    - `closet-planejado-organizacao-otimizacao` passou a herdar o binding comercial de `marcenaria-sob-medida`.
+    - `articleBindings` do servico de marcenaria foram ampliados para incluir o artigo de closet.
+  - `src/content/blog/marcenaria-sob-medida.md`
+    - tabela antiga `2024/2025` foi substituida pela regua canonica com tokens `COMMERCIAL_RANGE`, `COMMERCIAL_SUMMARY`, `COMMERCIAL_IDEAL_FOR` e `COMMERCIAL_TIMELINE`.
+  - `src/content/blog/marcenaria-sob-medida-tendencias-2026.md`
+    - a secao de investimento deixou de usar medias soltas por ambiente e passou a expor a regua oficial WG, com leitura por tipo de ambiente.
+  - `src/content/blog/closet-planejado-organizacao-otimizacao.md`
+    - foram removidas faixas legadas `Basico/Completo/Premium`;
+    - custos soltos por tipo/marca/acessorio foram convertidos em leitura por faixa e por complexidade;
+    - o artigo passou a usar a mesma regua `Essencial / Equilibrado / Superior / Exclusivo`.
+- Comandos executados:
+  - `git fetch origin --prune`
+  - `git switch main`
+  - `git pull --ff-only origin main`
+  - `git switch -c feature/marcenaria-package-governance-20260510`
+  - `npm run verify:full`
+  - `git-sync-gate.ps1 -Stage start`
+  - `git-sync-gate.ps1 -Stage pre-commit`
+- Evidencias validadas:
+  - `validado`: `git-sync-gate -Stage start` passou com worktree limpo antes da edicao.
+  - `validado`: `npm run verify:full`.
+  - `validado`: `audit-consistency --strict` sem regressao nova de precos hardcoded.
+  - `validado`: build gerou as rotas de blog afetadas sem erro (`closet-planejado-organizacao-otimizacao`, `marcenaria-sob-medida`, `marcenaria-sob-medida-tendencias-2026`).
+  - `parcial`: `git-sync-gate -Stage pre-commit` bloqueou enquanto havia worktree suja do proprio bloco, como esperado antes do commit.
+- Pendencias/proximo passo sugerido:
+  - Commitar, subir branch e abrir PR desta normalizacao da marcenaria.
+  - Repetir a mesma limpeza editorial em outros conteudos de marcenaria que ainda usam referencias de tres niveis ou nomes de mercado nao canonicos.
