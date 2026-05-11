@@ -1413,5 +1413,6 @@ URL limpa para validacao humana:
   - `public/sitemap.xml` e `public/sitemap-index.xml` voltaram a ser ruido de build e devem ser restaurados antes do commit.
   - a auditoria do WGEasy, que estava quebrada por depender de alias frontend, voltou a ser executavel no Node e agora faz parte real do gate desta camada.
   - no primeiro `push`, o gate `audit-consistency:strict` bloqueou `src/data/companyPublic.js`; a allowlist foi atualizada em `scripts/audit-consistency.mjs` para tratar a nova base publica como fonte oficial permitida.
+  - na primeira PR, `verify:fast` e `verify:full` falharam porque `audit-structural.mjs` ainda lia `src/data/company.js`; o SSoT estrutural foi atualizado para `src/data/companyPublic.js`.
 - Proximo passo sugerido:
   - restaurar os sitemaps ruidosos, commitar este fechamento, subir branch, abrir PR, mesclar e validar em producao as rotas tocadas.
