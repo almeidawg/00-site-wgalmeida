@@ -1530,3 +1530,37 @@ URL limpa para validacao humana:
   - os `sitemap*.xml` voltaram a ser restaurados localmente depois do hook de `pre-push`, mantendo a worktree limpa ao final do bloco.
 - Proximo passo sugerido:
   - continuar a varredura dos conteudos legados restantes fora do recorte prioritario, repetindo o mesmo padrao de governanca `governar sem chutar`.
+
+### Varredura editorial complementar em banheiro pequeno, sustentabilidade e mao de obra - 2026-05-11
+- Data/hora: `2026-05-11 00:57 -03:00`.
+- Branch de trabalho: `feature/editorial-governance-sweep-20260511b`.
+- Objetivo do bloco:
+  - reduzir risco de valores publicos soltos em artigos que ainda misturavam orientacao editorial com preco nao homologado por base oficial.
+- Entrega deste bloco:
+  - `src/content/blog/reforma-banheiro-pequeno-otimizacao.md`
+    - artigo reescrito para partir da faixa oficial de `reforma-banheiro-moderno`;
+    - removidas microfaixas soltas por item, box, louca, marcenaria e acessorio;
+    - prazo e investimento voltam a ser lidos por pacote governado.
+  - `src/content/blog/sustentabilidade-construcao-civil-2026.md`
+    - removidas promessas publicas soltas de investimento, economia mensal, payback e certificacao;
+    - texto reescrito como leitura de criterio, aplicacao e governanca operacional.
+  - `src/content/blog/profissionais-capacitados-obra.md`
+    - removidas tabelas de diaria, salario e custo mensal por profissao;
+    - mao de obra passa a ser tratada como composicao do pacote oficial da obra, e nao como tabela publica universal.
+- Comandos executados:
+  - `npm run lint`
+  - `npm run test:run -- src/__tests__/blogCms.test.js`
+  - `npm run audit:public:claims:strict`
+  - `npm run audit:consistency:strict`
+  - `npm run build`
+- Evidencias validadas:
+  - `validado`: `lint`, `test`, `audit:public:claims:strict`, `audit:consistency:strict` e `build`.
+  - `validado`: build gerando normalmente:
+    - `/blog/reforma-banheiro-pequeno-otimizacao`
+    - `/blog/sustentabilidade-construcao-civil-2026`
+    - `/blog/profissionais-capacitados-obra`
+- Observacoes:
+  - a decisao desta rodada foi remover preco nao homologado e reforcar leitura governada, em vez de inventar faixa oficial sem fonte de verdade central conectada.
+  - `public/sitemap.xml` e `public/sitemap-index.xml` voltaram a sujar pelo build e devem ser restaurados antes do commit.
+- Proximo passo sugerido:
+  - restaurar sitemaps, rodar Sync Gate, commitar este bloco, subir PR e validar em producao as tres rotas atualizadas.
