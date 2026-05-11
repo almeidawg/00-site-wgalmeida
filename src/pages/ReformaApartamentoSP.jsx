@@ -6,11 +6,13 @@ import { withBasePath } from '@/utils/assetPaths'
 import { ArrowRight, CheckCircle, Clock, DollarSign, Home } from 'lucide-react'
 import { getPublicPageImageSrc } from '@/data/publicPageImageCatalog'
 import { COMPANY } from '@/data/company'
+import { getCommercialPackages, getCommercialService } from '@/data/commercialGovernance'
 
 const REFORMA_SP_HERO_IMAGE = getPublicPageImageSrc('reformaApartamentoSP', withBasePath('/images/banners/ARQ.webp'))
 
 const ReformaApartamentoSP = () => {
   const pageUrl = 'https://wgalmeida.com.br/reforma-apartamento-sp'
+  const commercialService = getCommercialService('reforma-apartamento-turn-key-sp')
 
   const etapas = [
     {
@@ -78,27 +80,11 @@ const ReformaApartamentoSP = () => {
     },
   ]
 
-  const faixasInvestimento = [
-    {
-      padrao: 'Médio Padrão',
-      valor: 'R$ 2.500 - R$ 4.000/m²',
-      itens: [
-        'Acabamentos nacionais de qualidade',
-        'Marcenaria planejada',
-        'Projeto arquitetônico',
-      ],
-    },
-    {
-      padrao: 'Alto Padrão',
-      valor: 'R$ 4.000 - R$ 6.500/m²',
-      itens: ['Materiais importados', 'Marcenaria sob medida', 'Automação básica'],
-    },
-    {
-      padrao: 'Padrão Premium',
-      valor: 'R$ 6.500 - R$ 9.000/m²',
-      itens: ['Acabamentos exclusivos', 'Tecnologia completa', 'Curadoria personalizada'],
-    },
-  ]
+  const faixasInvestimento = getCommercialPackages('reforma-apartamento-turn-key-sp').map((entry) => ({
+    padrao: entry.label,
+    valor: entry.rangeLabel,
+    itens: entry.includes,
+  }))
 
   const schema = {
     '@context': 'https://schema.org',
@@ -285,6 +271,11 @@ const ReformaApartamentoSP = () => {
               Investimento varia conforme padrão de acabamentos, complexidade e personalização
               desejada.
             </p>
+            {commercialService?.sourceOfTruth && (
+              <p className="mt-4 text-sm text-wg-gray max-w-3xl mx-auto">
+                Fonte pública vinculada à base central: {commercialService.sourceOfTruth}.
+              </p>
+            )}
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">

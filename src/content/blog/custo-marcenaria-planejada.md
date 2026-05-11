@@ -18,7 +18,8 @@ Na leitura operacional da WG Almeida, a faixa costuma se organizar assim:
 
 - investimento Essencial: módulos mais simples, ferragens de entrada e menor grau de customização;
 - investimento Equilibrado: melhor composição de materiais, detalhamento mais preciso e integração parcial com outras frentes;
-- investimento Exclusivo: desenho sob medida, ferragens superiores, internos especiais, usinagem mais complexa e compatibilização fina com elétrica, iluminação, pedra e automação.
+- investimento Superior: ferragens melhores, internos mais sofisticados e integração mais delicada com obra, pedra e iluminação;
+- investimento Exclusivo: desenho autoral, ferragens especiais, internos sob medida e coordenação fina com elétrica, iluminação, pedra e automação.
 
 Quando a marcenaria entra em apartamentos com alto nível de personalização, o valor deixa de responder só ao m² e passa a depender do pacote técnico, da logística de medição e da janela real de fabricação e instalação.
 
@@ -26,9 +27,12 @@ O ponto mais importante é este: marcenaria não deve ser lida apenas como item 
 
 ## Faixas de referência
 
-- Essencial: R$ 1.500 a R$ 2.200 por m²
-- Equilibrado: R$ 2.200 a R$ 3.500 por m²
-- Exclusivo: R$ 3.500 a R$ 5.000+ por m²
+- Essencial: {{COMMERCIAL_RANGE:marcenaria-sob-medida:essencial}}
+- Equilibrado: {{COMMERCIAL_RANGE:marcenaria-sob-medida:equilibrado}}
+- Superior: {{COMMERCIAL_RANGE:marcenaria-sob-medida:superior}}
+- Exclusivo: {{COMMERCIAL_RANGE:marcenaria-sob-medida:exclusivo}}
+
+Essas faixas agora ficam vinculadas ao snapshot central da base comercial, com atualização a partir de `pricelist_itens` e `iccri_servicos`. O objetivo é sair de médias soltas e aproximar a leitura do que realmente aparece na composição de mão de obra, item e produção.
 
 ---
 

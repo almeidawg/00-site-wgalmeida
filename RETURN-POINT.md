@@ -1151,3 +1151,115 @@ URL limpa para validacao humana:
   - Nenhum `vercel --prod` foi executado durante a limpeza.
   - Nenhum push direto para `main` foi executado.
   - Stashes locais antigos permanecem preservados como evidencias/recovery e nao participam de branch, PR, build ou deploy.
+
+### Template mestre do blog + CMS editorial integrado - 2026-05-10
+- Data/hora: `2026-05-10 22:35 -03:00`.
+- Contexto:
+  - Bloco retomado sobre repo candidato `site-wgalmeida/site-wgalmeida`.
+  - `git-sync-gate -Stage start` havia sido bloqueado antes deste bloco por worktree ja suja preexistente; trabalho mantido de forma isolada sem saneamento destrutivo.
+- Entrega deste bloco:
+  - Artigo `/blog/arquitetos-brasileiros-famosos-legado` promovido a base do novo sistema editorial.
+  - Admin de blog ampliado com aba `CMS Mestre`, CRUD local de rascunho/publicacao, duplicacao, preview de estrutura editorial, moodboard por post e moderacao basica de comentarios.
+  - Camada de dados `blogCms` criada para unificar posts markdown existentes, overrides publicados e novos posts CMS-only.
+  - Publico do blog recebeu painel de engajamento, link publico de moodboard, curtidas/comentarios locais e compartilhamento.
+  - Rota publica `/moodboard/share` corrigida para renderizar fora de `MoodboardProvider`.
+- Correcao final deste sub-bloco:
+  - `MoodboardCanvas` passou a tolerar imagens compartilhadas sem `id`.
+  - `MoodboardShare` passou a normalizar itens compartilhados com `id`, `name` e `source`.
+  - Referencias quebradas do artigo mestre foram trocadas para assets reais do slug:
+    - `/images/blog/arquitetos-brasileiros-famosos-legado/hero.webp`
+    - `/images/blog/arquitetos-brasileiros-famosos-legado/card.webp`
+- Comandos executados:
+  - `npm run lint`
+  - `npm run test:run -- src/__tests__/blogCms.test.js`
+  - `npm run build`
+  - `npx vite preview --host 127.0.0.1 --port 3012 --strictPort`
+  - auditoria Playwright headless via `.codex/tmp/audit-current-blog-master.cjs`
+- Evidencias publicas validadas:
+  - `http://127.0.0.1:3012/blog?wg_cache_bust=blog-master-20260510c`
+  - `http://127.0.0.1:3012/blog/arquitetos-brasileiros-famosos-legado?wg_cache_bust=blog-master-20260510c`
+  - `http://127.0.0.1:3012/moodboard/share?...`
+  - Resultado final da auditoria apos scroll completo/lazy loading: `broken: []` nas 3 rotas.
+- Estado de validacao:
+  - `validado`: listagem publica do blog.
+  - `validado`: artigo mestre publico com moodboard publico, curtidas/comentarios/share e imagens sem quebra.
+  - `validado`: rota compartilhavel do moodboard sem crash e sem imagens quebradas.
+  - `parcial`: admin autenticado foi validado por lint/build/testes e integracao de codigo, mas nao houve validacao visual autenticada ponta a ponta neste bloco.
+- Arquivos principais tocados:
+  - `src/pages/Blog.jsx`
+  - `src/pages/AdminBlogEditorial.jsx`
+  - `src/components/Admin/EditorialCmsWorkbench.jsx`
+  - `src/components/blog/BlogEngagementPanel.jsx`
+  - `src/components/blog/BlogMoodboardPanel.jsx`
+  - `src/components/moodboard/MoodboardCanvas.jsx`
+  - `src/pages/MoodboardShare.jsx`
+  - `src/data/blogCms.js`
+  - `src/data/blogCms.generated.js`
+  - `src/data/blogImageManifest.js`
+  - `api/blog-cms.js`
+  - `api/_blogCms.js`
+  - `docs/BLOG-MASTER-EDITORIAL-SYSTEM.md`
+  - `src/__tests__/blogCms.test.js`
+- Pendencias/proximo passo sugerido:
+  - Validacao visual autenticada do admin/CMS com sessao real controlada.
+  - Se o fluxo for seguir para entrega externa, revisar persistencia real de comentarios/curtidas alem do `localStorage`.
+
+### Governanca comercial/editorial com pacotes canonicos - 2026-05-10
+- Data/hora: `2026-05-10 23:15 -03:00`.
+- Contexto:
+  - Usuario confirmou a regua comercial canonica como `Essencial / Equilibrado / Superior / Exclusivo`.
+  - Objetivo deste bloco: substituir faixas soltas por base central versionada, aproximar conteudo publico dos valores reais de mao de obra/itens e aplicar a camada no blog, CMS e paginas comerciais prioritarias.
+  - `git-sync-gate -Stage start` continuou bloqueado por worktree suja preexistente; bloco mantido de forma isolada sem commit/push.
+- Entrega deste bloco:
+  - Criada a camada editorial por nucleo em `src/data/editorialThemes.js`.
+  - Criada a camada comercial central em `src/data/commercialGovernance.js` com bind por artigo/pagina, `publication guard`, opcoes de pacote e parse numerico de faixas.
+  - Criado o snapshot versionado `src/data/commercialGovernance.generated.js`.
+  - Criado o gerador `tools/build-commercial-governance-snapshot.mjs` e script `npm run commercial:governance:build`.
+  - O snapshot passou a usar:
+    - marcenaria: `pricelist_itens + iccri_servicos` reais;
+    - cacamba/residuos: `pricelist_itens` real;
+    - ICCRI reforma SP: regua comercial homologada versionada, com competencia do indice registrada.
+  - Blog recebeu:
+    - tokens de faixa/prazo/material em Markdown;
+    - badge de nucleo editorial;
+    - painel comercial publico com faixa, prazo, inclusos, variacoes e observacoes;
+    - tipografia/link/tabela/callout mais consistentes para leitura editorial.
+  - CMS editorial recebeu:
+    - selecao de nucleo editorial;
+    - vinculo de servico comercial e pacote foco;
+    - `publication guard` com bloqueio de publicacao inconsistente;
+    - preview do bloco comercial dentro do admin.
+  - Paginas publicas atualizadas:
+    - `/iccri`
+    - `/reforma-apartamento-sp`
+    - artigos:
+      - `/blog/custo-marcenaria-planejada`
+      - `/blog/custo-reforma-m2-sao-paulo`
+      - `/blog/reforma-cozinha-planejada-guia-completo`
+      - `/blog/reforma-banheiro-moderno-2026`
+- Correcao colateral importante:
+  - `src/pages/Blog.jsx` tinha um resumo fixo do artigo de arquitetos vazando para outros posts na caixa `Leitura Guiada`; agora usa `summary/excerpt` do artigo atual.
+- Comandos executados:
+  - `node ./tools/build-commercial-governance-snapshot.mjs`
+  - `npm run lint`
+  - `npm run test:run -- src/__tests__/blogCms.test.js`
+  - `npm run build`
+  - validacao HTTP:
+    - `http://127.0.0.1:3012/blog?wg_cache_bust=commercial-governance-20260510`
+    - `http://127.0.0.1:3012/iccri?wg_cache_bust=commercial-governance-20260510`
+    - `http://127.0.0.1:3012/reforma-apartamento-sp?wg_cache_bust=commercial-governance-20260510`
+  - auditoria headless via Playwright:
+    - `.codex/tmp/validate-commercial-governance-routes.mjs`
+    - `.codex/tmp/inspect-blog-marcenaria-panel.mjs`
+    - `.codex/tmp/validate-commercial-governance-routes-2.mjs`
+- Evidencias validadas:
+  - `validado`: `/blog/custo-marcenaria-planejada` exibindo bloco comercial, snapshot real de marcenaria e tokens resolvidos.
+  - `validado`: `/iccri` com `Superior` ativo na regua, simulador usando base central e HTTP `200`.
+  - `validado`: `/reforma-apartamento-sp` com pacotes canonicos puxados da base central e HTTP `200`.
+  - `validado`: `npm run lint`.
+  - `validado`: `npm run test:run -- src/__tests__/blogCms.test.js`.
+  - `validado`: `npm run build`.
+- Pendencias/proximo passo sugerido:
+  - Aplicar a mesma normalizacao nas demais postagens e landings que ainda carregam nomenclatura legada (`Basico`, `Intermediaria`, `medio padrao`, `alto padrao`).
+  - Rodar uma auditoria completa de divergencia entre todo o site e a base central, com relatorio por rota/campo/valor.
+  - Validar visualmente o admin autenticado em sessao real depois desta camada de bloqueio de publicacao.

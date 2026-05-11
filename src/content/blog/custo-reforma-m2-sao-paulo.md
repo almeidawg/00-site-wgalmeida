@@ -20,13 +20,14 @@ O ICCRI da WG Almeida organiza exatamente essa leitura.
 
 ---
 
-## Faixas de Custo por Padrão (ICCRI 2026)
+## Faixas de Custo por Pacote (ICCRI 2026)
 
-| Padrao | Faixa por m2 |
+| Pacote | Faixa por m2 |
 |--------|---------------|
-| Economico | R$ 1.500 a R$ 2.500 |
-| Medio padrao | R$ 2.500 a R$ 4.500 |
-| Alto padrao | R$ 4.500 a R$ 8.000 |
+| Essencial | {{COMMERCIAL_RANGE:iccri-reforma-civil-sp:essencial}} |
+| Equilibrado | {{COMMERCIAL_RANGE:iccri-reforma-civil-sp:equilibrado}} |
+| Superior | {{COMMERCIAL_RANGE:iccri-reforma-civil-sp:superior}} |
+| Exclusivo | {{COMMERCIAL_RANGE:iccri-reforma-civil-sp:exclusivo}} |
 
 Essas faixas sao referencia tecnica para validacao de orcamento. O valor final depende do projeto executivo, compatibilizacao, condicoes reais do imovel e do momento em que cada frente precisa ser acionada.
 
