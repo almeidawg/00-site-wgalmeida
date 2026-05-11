@@ -115,7 +115,7 @@ Essenciais: vaso, chuveiro, cuba dupla
 Opcional: banheira, closet integrado
 
 ### Suíte Máster (10-20m²)
-Completo: duplo de tudo, banheira, closet, área de maquiagem
+Leitura master: banho duplo, banheira, closet integrado e area de maquiagem quando o escopo pede mais conforto e detalhamento.
 
 ## Passo a Passo da Reforma
 

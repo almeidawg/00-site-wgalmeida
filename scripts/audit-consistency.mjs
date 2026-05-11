@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-import { execSync } from 'child_process'
-import fs from 'fs'
-import path from 'path'
+import { execFileSync } from 'node:child_process'
+import fs from 'node:fs'
+import path from 'node:path'
 
 const rootDir = process.cwd()
 const srcDir = path.join(rootDir, 'src')
@@ -9,6 +9,7 @@ const scriptsDir = path.join(rootDir, 'scripts')
 const baselineFile = path.join(scriptsDir, 'audit-consistency.baseline.json')
 const updateBaseline = process.argv.includes('--update-baseline')
 const strictMode = process.argv.includes('--strict')
+const sortByPath = (left, right) => left.localeCompare(right, 'en')
 
 if (!fs.existsSync(srcDir)) {
   console.error('src/ nao encontrado no diretorio atual.')
@@ -43,9 +44,9 @@ const CHECKS = [
 ]
 
 const ALLOWED_SOURCES = {
-  prices: ['src/data/company.ts', 'src/data/company.js', 'src/data/planos.ts', 'src/data/planos.js'],
-  urls: ['src/data/company.ts', 'src/data/company.js'],
-  contact: ['src/data/company.ts', 'src/data/company.js'],
+  prices: ['src/data/company.ts', 'src/data/company.js', 'src/data/companyPublic.js', 'src/data/planos.ts', 'src/data/planos.js'],
+  urls: ['src/data/company.ts', 'src/data/company.js', 'src/data/companyPublic.js'],
+  contact: ['src/data/company.ts', 'src/data/company.js', 'src/data/companyPublic.js'],
 }
 
 const DEFAULT_BASELINE = {
@@ -54,7 +55,7 @@ const DEFAULT_BASELINE = {
 }
 
 function toPosix(p) {
-  return p.replace(/\\/g, '/')
+  return p.replaceAll('\\', '/')
 }
 
 function isIgnoredFile(relPath) {
@@ -73,17 +74,24 @@ function isIgnoredFile(relPath) {
   return false
 }
 
-function run(command) {
+function run(command, args = []) {
   try {
-    return execSync(command, { cwd: rootDir, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim()
+    return execFileSync(command, args, {
+      cwd: rootDir,
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'pipe'],
+    }).trim()
   } catch (err) {
-    return ''
+    if (typeof err === 'object' && err && 'status' in err) {
+      return ''
+    }
+    throw err
   }
 }
 
 function hasCommand(command) {
   try {
-    execSync(`${command} --version`, { cwd: rootDir, stdio: 'ignore' })
+    execFileSync(command, ['--version'], { cwd: rootDir, stdio: 'ignore' })
     return true
   } catch {
     return false
@@ -122,11 +130,10 @@ function rgContent(pattern) {
           return false
         }
       })
-      .sort()
+      .sort(sortByPath)
   }
 
-  const cmd = `rg --json -n --no-heading --color never -g "*.ts" -g "*.tsx" -g "*.js" -g "*.jsx" "${pattern}" "${srcDir}"`
-  const out = run(cmd)
+  const out = run('rg', ['--json', '-n', '--no-heading', '--color', 'never', '-g', '*.ts', '-g', '*.tsx', '-g', '*.js', '-g', '*.jsx', pattern, srcDir])
   if (!out) return []
   const rows = out.split('\n').filter(Boolean)
   const files = []
@@ -145,16 +152,16 @@ function rgContent(pattern) {
     if (isIgnoredFile(rel)) continue
     files.push(rel)
   }
-  return Array.from(new Set(files)).sort()
+  return Array.from(new Set(files)).sort(sortByPath)
 }
 
 function rgFiles(pattern) {
   if (!canUseRg) {
     const rx = new RegExp(pattern, 'i')
-    return listSourceFiles().filter((rel) => rx.test(rel)).sort()
+    return listSourceFiles().filter((rel) => rx.test(rel)).sort(sortByPath)
   }
 
-  const out = run(`rg --files "${srcDir}"`)
+  const out = run('rg', ['--files', srcDir])
   if (!out) return []
   const rx = new RegExp(pattern, 'i')
   const files = out
@@ -164,7 +171,7 @@ function rgFiles(pattern) {
     .filter((rel) => rel && !rel.startsWith('..'))
     .filter((rel) => !isIgnoredFile(rel))
     .filter((rel) => rx.test(rel))
-  return Array.from(new Set(files)).sort()
+  return Array.from(new Set(files)).sort(sortByPath)
 }
 
 function loadBaseline() {
@@ -200,7 +207,13 @@ let hasError = false
 
 console.log('\n=== Audit de Consistencia (anti-drift) ===\n')
 console.log(`Projeto: ${rootDir}`)
-console.log(`Modo: ${updateBaseline ? 'UPDATE_BASELINE' : strictMode ? 'CHECK_STRICT' : 'CHECK'}`)
+let modeLabel = 'CHECK'
+if (updateBaseline) {
+  modeLabel = 'UPDATE_BASELINE'
+} else if (strictMode) {
+  modeLabel = 'CHECK_STRICT'
+}
+console.log(`Modo: ${modeLabel}`)
 
 for (const check of CHECKS) {
   const rawFiles = check.kind === 'filename' ? rgFiles(check.pattern) : rgContent(check.pattern)

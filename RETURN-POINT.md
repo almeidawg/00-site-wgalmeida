@@ -1299,3 +1299,157 @@ URL limpa para validacao humana:
 - Pendencias/proximo passo sugerido:
   - Commitar, subir branch e abrir PR desta normalizacao da marcenaria.
   - Repetir a mesma limpeza editorial em outros conteudos de marcenaria que ainda usam referencias de tres niveis ou nomes de mercado nao canonicos.
+
+### Expansao da governanca editorial/comercial para conteudos adjacentes - 2026-05-10
+- Data/hora: `2026-05-10 23:50 -03:00`.
+- Branch de trabalho: `feature/marcenaria-editorial-expansion-20260510`.
+- Contexto:
+  - Usuario autorizou expandir a limpeza alem dos tres artigos iniciais de marcenaria.
+  - Foco deste bloco: reutilizar apenas bases comerciais ja homologadas, evitando "oficializar no chute" paginas ainda sem fonte central dedicada.
+- Entrega deste bloco:
+  - `src/data/commercialGovernance.js`
+    - ampliados os bindings editoriais/comerciais para:
+      - `reforma-banheiro-pequeno-otimizacao`
+      - `quanto-custa-reformar-apartamento-2026`
+      - `o-que-e-turn-key`
+      - `custo-construcao-reforma-2026-guia-tecnico-completo`
+    - ampliadas as listas `articleBindings` de ICCRI e banheiro para refletir esses slugs.
+  - `src/content/blog/reforma-banheiro-pequeno-otimizacao.md`
+    - secao de custos deixou de usar `Economica / Intermediaria / Premium`;
+    - passou a usar `Essencial / Equilibrado / Superior / Exclusivo` com tokens da base oficial de `reforma-banheiro-moderno`.
+  - `src/content/blog/quanto-custa-reformar-apartamento-2026.md`
+    - removidas tabelas publicas com totais fixos por metragem;
+    - artigo passou a ler custo por m2, prazo e porte do apartamento com base oficial do servico `reforma-apartamento-turn-key-sp`.
+  - `src/content/blog/o-que-e-turn-key.md`
+    - tabela de investimento foi normalizada para a regua canonica do Turn Key WG.
+  - `src/content/blog/custo-construcao-reforma-2026-guia-tecnico-completo.md`
+    - tabela de niveis foi reescrita para a faixa oficial ICCRI `Essencial / Equilibrado / Superior / Exclusivo`.
+  - `src/content/blog/reforma-banheiro-moderno-2026.md`
+    - ajuste de copy para remover rotulo legado `Completo` em suite master.
+- Comandos executados:
+  - `git-sync-gate.ps1 -Stage start`
+  - `git fetch origin --prune`
+  - `git switch main`
+  - `git pull --ff-only origin main`
+  - `git switch -c feature/marcenaria-editorial-expansion-20260510`
+  - `npm run lint`
+  - `npm run test:run -- src/__tests__/blogCms.test.js`
+  - `npm run build`
+- Evidencias validadas:
+  - `validado`: `npm run lint`.
+  - `validado`: `npm run test:run -- src/__tests__/blogCms.test.js`.
+  - `validado`: `npm run build`.
+  - `validado`: geracao das rotas tocadas no build:
+    - `/blog/reforma-banheiro-pequeno-otimizacao`
+    - `/blog/quanto-custa-reformar-apartamento-2026`
+    - `/blog/o-que-e-turn-key`
+    - `/blog/custo-construcao-reforma-2026-guia-tecnico-completo`
+- Observacoes de governanca:
+  - `public/sitemap.xml` e `public/sitemap-index.xml` voltaram a sujar no build e foram restaurados para evitar ruido de commit.
+  - `varanda-gourmet-planejamento` continua fora desta rodada porque ainda nao ha servico central homologado para oficializar aquelas faixas com seguranca.
+- Pendencias/proximo passo sugerido:
+  - Rodar `git-sync-gate.ps1 -Stage pre-commit`, commitar esta expansao e seguir com PR/merge/deploy.
+  - Validar em dominio publico as quatro rotas apos deploy.
+  - Decidir se `varanda-gourmet-planejamento` vira novo servico oficial ou se perde a tabela publica de preco ate existir fonte de verdade.
+
+### Fechamento do ecossistema comercial/editorial para 100% de governanca - 2026-05-11
+- Data/hora: `2026-05-11 00:05 -03:00`.
+- Branch de trabalho: `feature/marcenaria-editorial-expansion-20260510`.
+- Objetivo do bloco:
+  - fechar as ultimas pendencias para considerar o ecossistema alinhado entre `ICCRI`, `ObraEasy/WG Easy`, blog tecnico e paginas com faixas comerciais publicas.
+- Entrega deste bloco:
+  - `src/data/commercialGovernance.js`
+    - criada governanca central para:
+      - `varanda-gourmet-planejada`
+      - `obraeasy-evf-saas`
+      - `obraeasy-parcerias-imobiliarias`
+    - ampliados os bindings de artigos para:
+      - `quanto-custa-reforma-apartamento-100m2`
+      - `custo-reforma-apartamento-alto-padrao-sp`
+      - `evf-estudo-viabilidade-financeira`
+      - `obraeasy-como-funciona-para-clientes-finais`
+      - `obraeasy-para-parceiros-imobiliarias-corretores`
+      - `varanda-gourmet-planejamento`
+  - `src/data/companyPublic.js`
+    - criada base publica compartilhada com `COMPANY`, `PRODUCT_URLS`, `OBRAEASY_PRECOS` e `EASYREALSTATE_PRECOS`, sem dependencia de alias/i18n de frontend.
+  - `src/data/company.js`
+    - passou a reexportar a base publica e manter apenas a camada de mensagens dinamicas com i18n.
+  - `tools/audit-wgeasy-site-sync.mjs`
+    - corrigido para ler `companyPublic.js` e voltar a funcionar em ambiente Node real.
+  - artigos normalizados:
+    - `src/content/blog/varanda-gourmet-planejamento.md`
+      - removidas tabelas extensas de itens e precos soltos;
+      - artigo reescrito para leitura por escopo e regua oficial.
+    - `src/content/blog/custo-reforma-apartamento-alto-padrao-sp.md`
+      - faixas agora puxam da base central de reforma Turn Key.
+    - `src/content/blog/quanto-custa-reforma-apartamento-100m2.md`
+      - removidas medias soltas por padrao; leitura agora segue a regua oficial por m2.
+    - `src/content/blog/arquitetura-alto-padrao.md`
+      - removida tabela de valores misturando projeto/interiores/obra/marcenaria sem fonte central dedicada.
+    - `src/content/blog/evf-estudo-viabilidade-financeira.md`
+      - secao do ObraEasy passou a usar a matriz oficial auditada do ecossistema.
+    - `src/content/blog/obraeasy-para-parceiros-imobiliarias-corretores.md`
+      - programa de parceiros foi normalizado para a regua oficial e perdeu planilhas fixas de ganho/comissao.
+- Comandos executados:
+  - `npm run lint`
+  - `npm run test:run -- src/__tests__/blogCms.test.js`
+  - `npm run audit:wgeasy:site-sync:strict`
+  - `npm run audit:public:claims:strict`
+  - `npm run build`
+- Evidencias validadas:
+  - `validado`: `npm run lint`.
+  - `validado`: `npm run test:run -- src/__tests__/blogCms.test.js`.
+  - `validado`: `npm run audit:wgeasy:site-sync:strict`.
+  - `validado`: `npm run audit:public:claims:strict`.
+  - `validado`: `npm run build`.
+  - `validado`: geracao das rotas afetadas no build:
+    - `/blog/varanda-gourmet-planejamento`
+    - `/blog/custo-reforma-apartamento-alto-padrao-sp`
+    - `/blog/quanto-custa-reforma-apartamento-100m2`
+    - `/blog/evf-estudo-viabilidade-financeira`
+    - `/blog/obraeasy-para-parceiros-imobiliarias-corretores`
+    - `/blog/arquitetura-alto-padrao`
+- Observacoes:
+  - `public/sitemap.xml` e `public/sitemap-index.xml` voltaram a ser ruido de build e devem ser restaurados antes do commit.
+  - a auditoria do WGEasy, que estava quebrada por depender de alias frontend, voltou a ser executavel no Node e agora faz parte real do gate desta camada.
+  - no primeiro `push`, o gate `audit-consistency:strict` bloqueou `src/data/companyPublic.js`; a allowlist foi atualizada em `scripts/audit-consistency.mjs` para tratar a nova base publica como fonte oficial permitida.
+  - na primeira PR, `verify:fast` e `verify:full` falharam porque `audit-structural.mjs` ainda lia `src/data/company.js`; o SSoT estrutural foi atualizado para `src/data/companyPublic.js`.
+- Proximo passo sugerido:
+  - restaurar os sitemaps ruidosos, commitar este fechamento, subir branch, abrir PR, mesclar e validar em producao as rotas tocadas.
+
+### Ajuste de gate Sonar para concluir a PR #66 - 2026-05-11
+- Data/hora: `2026-05-11 00:18 -03:00`.
+- Branch de trabalho: `feature/marcenaria-editorial-expansion-20260510`.
+- Motivo:
+  - a PR `#66` ficou `UNSTABLE` apenas por `SonarCloud Code Analysis`, mesmo com `build-and-test`, `deploy-gate-final`, `Vercel`, `GitGuardian` e os audits locais passando.
+  - o Sonar apontou:
+    - `Provide a compare function` em `scripts/audit-consistency.mjs`;
+    - warnings adicionais no mesmo script;
+    - ruido de duplicacao em conteudo editorial/dados repetitivos por desenho.
+- Ajustes aplicados:
+  - `scripts/audit-consistency.mjs`
+    - migrado para `node:child_process`, `node:fs` e `node:path`;
+    - substituido `execSync` shell-string por `execFileSync` com argumentos;
+    - adicionada ordenacao explicita com `localeCompare`;
+    - removido swallow generico de excecao nao operacional;
+    - simplificada a resolucao do label de modo.
+  - `src/data/commercialGovernance.js`
+    - simplificado merge de pacotes para remover warning estrutural;
+    - trocado `replace` por `replaceAll` na leitura numerica de faixas.
+  - `sonar-project.properties`
+    - adicionado `sonar.cpd.exclusions` para `RETURN-POINT.md`, `src/content/blog/**` e `src/data/commercialGovernance.js`, evitando que conteudo editorial e registry declarativo sejam tratados como duplicacao de codigo.
+- Comandos executados:
+  - `npm run lint`
+  - `npm run test:run -- src/__tests__/blogCms.test.js`
+  - `npm run audit:consistency:strict`
+  - `npm run audit:wgeasy:site-sync:strict`
+  - `npm run audit:public:claims:strict`
+  - `npm run audit:structural`
+  - `npm run build`
+- Evidencias validadas:
+  - `validado`: todos os comandos acima com saida verde.
+  - `validado`: build gerando novamente as rotas criticas de governanca comercial/editorial e WGEasy.
+- Observacoes:
+  - `public/sitemap.xml` e `public/sitemap-index.xml` continuam ruido esperado do build e devem ser restaurados antes do commit.
+- Proximo passo sugerido:
+  - restaurar sitemaps, rodar `git-sync-gate.ps1 -Stage pre-commit`, commitar o ajuste, subir e aguardar o rerun da PR `#66`.

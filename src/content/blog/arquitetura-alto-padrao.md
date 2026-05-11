@@ -110,16 +110,13 @@ Entre o executivo e a execucao, o ponto critico e transformar desenho em sequenc
 
 ## Quanto custa um projeto de alto padrao?
 
-O investimento varia conforme complexidade, escopo e nivel de personalizacao:
+O investimento varia conforme complexidade, escopo e nivel de personalizacao. Para manter coerencia comercial, a WG Almeida evita publicar nesta pagina uma tabela solta misturando projeto, interiores, obra e marcenaria como se fossem uma unica categoria.
 
-| Servico | Faixa de Valor |
-|---------|----------------|
-| Projeto Arquitetonico | R$ 150 a R$ 400/m2 |
-| Projeto de Interiores | R$ 200 a R$ 500/m2 |
-| Execucao Turn Key | R$ 3.500 a R$ 8.000/m2 |
-| Marcenaria Sob Medida | R$ 2.000 a R$ 5.000/m2 |
+O caminho correto e ler cada frente pela sua governanca:
 
-*Valores de referencia para Sao Paulo em 2025/2026.*
+- **obra turn key**: pela regua oficial de reforma integrada;
+- **marcenaria sob medida**: pela regua oficial de producao e instalacao;
+- **projeto arquitetonico e interiores**: sob leitura consultiva de escopo, briefing e detalhamento.
 
 Essas faixas ajudam na conversa inicial, mas nao explicam sozinhas o investimento total. Em alto padrao, o custo real depende da combinacao entre projeto, detalhamento, execucao, producao sob medida e capacidade de manter o cronograma sob controle.
 

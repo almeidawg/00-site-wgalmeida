@@ -1,4 +1,5 @@
 import COMMERCIAL_GOVERNANCE_GENERATED from './commercialGovernance.generated.js';
+import { OBRAEASY_PRECOS } from './companyPublic.js';
 
 const COMMERCIAL_PACKAGE_ORDER = ['essencial', 'equilibrado', 'superior', 'exclusivo'];
 
@@ -48,7 +49,7 @@ const COMMERCIAL_SERVICE_REGISTRY_BASE = {
     measurementLabel: 'por m2',
     sourceOfTruth: 'ICCRI 2026 · registry v2026.05.10',
     sourceReference: '/blog/tabela-precos-reforma-2026-iccri',
-    articleBindings: ['tabela-precos-reforma-2026-iccri', 'custo-reforma-m2-sao-paulo', 'como-calcular-custo-de-obra'],
+    articleBindings: ['tabela-precos-reforma-2026-iccri', 'custo-reforma-m2-sao-paulo', 'como-calcular-custo-de-obra', 'custo-construcao-reforma-2026-guia-tecnico-completo'],
     variationFactors: [
       'bairro, acesso e regras de condominio',
       'infraestrutura existente e idade do imovel',
@@ -264,7 +265,7 @@ const COMMERCIAL_SERVICE_REGISTRY_BASE = {
     measurementLabel: 'por ambiente',
     sourceOfTruth: 'Registry editorial/comercial WG · v2026.05.10',
     sourceReference: '/blog/reforma-banheiro-moderno-2026',
-    articleBindings: ['reforma-banheiro-moderno-2026'],
+    articleBindings: ['reforma-banheiro-moderno-2026', 'reforma-banheiro-pequeno-otimizacao'],
     variationFactors: [
       'impermeabilizacao e condicoes da infraestrutura existente',
       'nivel de loucas, metais, pedras e iluminacao',
@@ -396,6 +397,216 @@ const COMMERCIAL_SERVICE_REGISTRY_BASE = {
       }),
     },
   },
+  'varanda-gourmet-planejada': {
+    id: 'varanda-gourmet-planejada',
+    label: 'Varanda gourmet planejada',
+    nucleus: 'projetos-engenharia',
+    status: 'active',
+    measurementLabel: 'por ambiente',
+    sourceOfTruth: 'Governanca editorial/comercial WG · varanda gourmet v2026.05.10',
+    sourceReference: '/blog/varanda-gourmet-planejamento',
+    articleBindings: ['varanda-gourmet-planejamento'],
+    variationFactors: [
+      'tipo de churrasqueira, bancada e marcenaria externa',
+      'cobertura, fechamento em vidro e climatizacao',
+      'infraestrutura eletrica, hidraulica e exaustao',
+      'metragem util, condominio e nivel de acabamento',
+    ],
+    observations: [
+      'Varanda gourmet deve ser tratada como ambiente integrado, nao como soma solta de itens de lazer.',
+      'Valor final depende da interface com cozinha, area tecnica, exaustao e marcenaria externa.',
+    ],
+    packages: {
+      essencial: packageEntry({
+        rangeLabel: 'R$ 15.000 a R$ 30.000',
+        summary: 'Configuracao mais enxuta com churrasqueira objetiva, bancada funcional e mobiliario de entrada.',
+        includes: ['churrasqueira simples', 'bancada funcional', 'iluminacao basica', 'acabamento externo de boa manutencao'],
+        excludes: ['fechamento completo em vidro', 'automacao', 'cozinha externa mais complexa'],
+        idealFor: 'apartamentos e casas que querem ativar a varanda sem transformar o ambiente em mini cozinha completa.',
+        timelineBase: '4 a 6 semanas',
+        timelineTypical: '4 a 6 semanas',
+        timelineDependencies: ['infraestrutura existente aprovada', 'layout definido', 'condominio liberado'],
+        timelineFactors: ['ajustes de ponto, cobertura leve e mobiliario sob medida'],
+        variation: 'Pode subir quando a varanda exige nova infraestrutura, marcenaria externa ou fechamento adicional.',
+      }),
+      equilibrado: packageEntry({
+        rangeLabel: 'R$ 40.000 a R$ 80.000',
+        summary: 'Melhor equilibrio entre bancada, cobertura, iluminacao, mobiliario e apoio de cozinha externa.',
+        includes: ['bancada maior', 'apoio de eletros', 'melhor cobertura', 'mobiliario mais consistente'],
+        excludes: ['automacao integral', 'acabamentos raros e climatizacao premium'],
+        idealFor: 'varandas que precisam servir bem o uso social recorrente sem entrar em pacote extremo.',
+        timelineBase: '6 a 9 semanas',
+        timelineTypical: '6 a 9 semanas',
+        timelineDependencies: ['layout executivo', 'pontos tecnicos definidos', 'fornecedores homologados'],
+        timelineFactors: ['fechamento em vidro, marcenaria, exaustao e ilha de apoio'],
+        variation: 'Sobe quando entram vidro, climatizacao, marcenaria mais densa e bancada especial.',
+      }),
+      superior: packageEntry({
+        rangeLabel: 'R$ 100.000 a R$ 200.000',
+        summary: 'Ambiente premium com cozinha externa mais robusta, melhores materiais e integracao tecnica mais exigente.',
+        includes: ['cozinha externa mais completa', 'melhores materiais', 'iluminacao cenica', 'fechamento e cobertura mais refinados'],
+        excludes: ['escopo autoral raro com automacao e equipamentos especiais sob curadoria dedicada'],
+        idealFor: 'varandas premium que funcionam como extensao real da area social e pedem alto nivel de acabamento.',
+        timelineBase: '8 a 12 semanas',
+        timelineTypical: '8 a 12 semanas',
+        timelineDependencies: ['escopo congelado', 'fornecedores especiais', 'compatibilizacao com estrutura e exaustao'],
+        timelineFactors: ['equipamentos premium, vidro especial, marcenaria externa e automacao'],
+        variation: 'Pode subir com churrasqueira de design, cozinha completa e solucoes especiais de cobertura.',
+      }),
+      exclusivo: packageEntry({
+        rangeLabel: 'Sob consulta, normalmente acima de R$ 200.000',
+        summary: 'Varanda autoral com tecnologia, materiais especiais e integracao total com area social e cozinha.',
+        includes: ['curadoria dedicada', 'equipamentos especiais', 'detalhamento autoral', 'coordenacao executiva premium'],
+        excludes: ['fechamento sem levantamento tecnico, memorial e cronograma dedicados'],
+        idealFor: 'ativos em que a varanda opera como ambiente protagonista e pede execucao sob medida em alto nivel.',
+        timelineBase: 'sob cronograma dedicado',
+        timelineTypical: 'sob cronograma dedicado',
+        timelineDependencies: ['escopo executivo fechado', 'estrutura validada', 'supply chain homologado'],
+        timelineFactors: ['importacao, climatizacao, automacao e detalhes especiais de marcenaria e pedra'],
+        variation: 'Nao publicar fechamento sem leitura executiva e compatibilizacao completa.',
+      }),
+    },
+  },
+  'obraeasy-evf-saas': {
+    id: 'obraeasy-evf-saas',
+    label: 'ObraEasy · EVF e gestao de obras',
+    nucleus: 'automacao-tecnologia',
+    status: 'active',
+    measurementLabel: 'por assinatura',
+    sourceOfTruth: 'WGEasy / saas_planos auditado por audit:wgeasy:site-sync · v2026.05.10',
+    sourceReference: '/obraeasy',
+    articleBindings: ['evf-estudo-viabilidade-financeira', 'obraeasy-como-funciona-para-clientes-finais'],
+    variationFactors: [
+      'volume de projetos simultaneos',
+      'nivel de acompanhamento operacional desejado',
+      'necessidade de uso por cliente final, escritorio ou equipe ampliada',
+      'ativacao de recursos adicionais fora do plano publico base',
+    ],
+    observations: [
+      'Os valores publicos do ObraEasy devem bater com src/data/companyPublic.js e com a auditoria WGEasy x site.',
+      'Publicacao de planos SaaS exige revisao conjunta entre site, saas_planos e checkout real.',
+    ],
+    packages: {
+      essencial: packageEntry({
+        rangeLabel: OBRAEASY_PRECOS.free.price,
+        summary: 'Entrada gratuita para conhecer EVF, metodologia e primeiros fluxos do ecossistema.',
+        includes: ['acesso inicial', 'contato com a metodologia', 'entrada de aquisicao'],
+        excludes: ['operacao ampliada e suporte mais intenso'],
+        idealFor: 'quem esta validando aderencia antes de subir para uso recorrente.',
+        timelineBase: 'ativacao imediata',
+        timelineTypical: 'ativacao imediata',
+        timelineDependencies: ['cadastro valido', 'fluxo de acesso ativo'],
+        timelineFactors: ['liberacao operacional e jornada de onboarding'],
+        variation: 'Nao ha valor mensal nesta faixa; ela funciona como entrada de aquisicao.',
+      }),
+      equilibrado: packageEntry({
+        rangeLabel: `${OBRAEASY_PRECOS.pro.price}/mes`,
+        summary: 'Plano Pro com leitura operacional e EVF para uso individual ou operacao mais enxuta.',
+        includes: ['EVF completo', 'rotina basica de gestao', 'acompanhamento essencial'],
+        excludes: ['escala ampliada e suporte prioritario de negocio'],
+        idealFor: 'profissional, autonomo ou cliente final com operacao mais simples e poucos projetos simultaneos.',
+        timelineBase: 'ativacao imediata',
+        timelineTypical: 'ativacao imediata',
+        timelineDependencies: ['conta ativa', 'pagamento confirmado'],
+        timelineFactors: ['onboarding e configuracao inicial'],
+        variation: 'Valor publico auditado contra WGEasy; nao alterar sem passar pela auditoria de sync.',
+      }),
+      superior: packageEntry({
+        rangeLabel: `${OBRAEASY_PRECOS.business.price}/mes`,
+        summary: 'Plano Business para operacao recorrente com mais escala, apoio e leitura de gestao.',
+        includes: ['tudo do Pro', 'rotina mais robusta', 'escala ampliada', 'prioridade operacional'],
+        excludes: ['customizacao enterprise fora do plano publico base'],
+        idealFor: 'escritorios, pequenas construtoras e operacoes com mais projetos ou maior recorrencia.',
+        timelineBase: 'ativacao imediata',
+        timelineTypical: 'ativacao imediata',
+        timelineDependencies: ['cadastro homologado', 'pagamento ativo'],
+        timelineFactors: ['volume de equipe e configuracao de operacao'],
+        variation: 'Faixa publica homologada; qualquer mudanca precisa bater com checkout real e WGEasy.',
+      }),
+      exclusivo: packageEntry({
+        rangeLabel: 'Sob consulta para operacao dedicada',
+        summary: 'Configuracao dedicada para necessidades especiais, integracoes ou rollout comercial ampliado.',
+        includes: ['leitura consultiva dedicada', 'avaliacao de operacao especial', 'escopo sob consulta'],
+        excludes: ['publicacao automatica de valor sem politica comercial validada'],
+        idealFor: 'operacoes que pedem rollout customizado, integracoes ou apoio comercial dedicado.',
+        timelineBase: 'sob ativacao dedicada',
+        timelineTypical: 'sob ativacao dedicada',
+        timelineDependencies: ['escopo comercial aprovado', 'capacidade operacional confirmada'],
+        timelineFactors: ['integracoes, treinamento e rollout ampliado'],
+        variation: 'Nao publicar valor fechado sem confirmacao formal da politica comercial vigente.',
+      }),
+    },
+  },
+  'obraeasy-parcerias-imobiliarias': {
+    id: 'obraeasy-parcerias-imobiliarias',
+    label: 'ObraEasy · programa de parceiros',
+    nucleus: 'consultoria-planejamento',
+    status: 'active',
+    measurementLabel: 'por programa',
+    sourceOfTruth: 'Politica comercial versionada do programa de parceiros ObraEasy · v2026.05.10',
+    sourceReference: '/blog/obraeasy-para-parceiros-imobiliarias-corretores',
+    articleBindings: ['obraeasy-para-parceiros-imobiliarias-corretores'],
+    variationFactors: [
+      'volume anual de indicacoes homologadas',
+      'taxa real de conversao em obra contratada',
+      'necessidade de materiais comerciais e apoio dedicado',
+      'modelo de parceria e nivel de ativacao conjunta',
+    ],
+    observations: [
+      'Comissao de parceiro deve ser publicada apenas como politica comercial vigente e versionada.',
+      'Simulacoes de ganho anual sao orientativas e nao substituem validacao comercial real.',
+    ],
+    packages: {
+      essencial: packageEntry({
+        rangeLabel: '2% da obra · 1 a 5 indicacoes/ano',
+        summary: 'Entrada do programa com acesso ao ecossistema e ativacao comercial inicial.',
+        includes: ['acesso ao ObraEasy', 'calculadora AVM', 'rotina inicial de parceria'],
+        excludes: ['materiais dedicados e gerencia comercial especial'],
+        idealFor: 'corretores e imobiliarias que estao validando o canal com baixo volume inicial.',
+        timelineBase: 'ativacao apos homologacao',
+        timelineTypical: 'ativacao apos homologacao',
+        timelineDependencies: ['cadastro aprovado', 'alinhamento comercial', 'primeiras indicacoes'],
+        timelineFactors: ['ritmo de indicacoes e taxa de conversao'],
+        variation: 'Comissao depende de obra efetivamente contratada e regras vigentes do programa.',
+      }),
+      equilibrado: packageEntry({
+        rangeLabel: '3% da obra · 6 a 15 indicacoes/ano',
+        summary: 'Faixa mais estruturada para parceiros com recorrencia maior e melhor ativacao comercial.',
+        includes: ['tudo da faixa inicial', 'materiais de marketing', 'apoio de operacao mais consistente'],
+        excludes: ['gerente dedicado e acordos especiais de co-branding'],
+        idealFor: 'operacoes imobiliarias que ja tem recorrencia de indicacao e querem capturar mais valor.',
+        timelineBase: 'ativacao apos homologacao',
+        timelineTypical: 'ativacao apos homologacao',
+        timelineDependencies: ['cadastro homologado', 'volume recorrente', 'rotina comercial ativa'],
+        timelineFactors: ['qualidade do funil, taxa de fechamento e continuidade da parceria'],
+        variation: 'Pode variar conforme politica comercial vigente e reclassificacao de faixa por volume real.',
+      }),
+      superior: packageEntry({
+        rangeLabel: '5% da obra · 16+ indicacoes/ano',
+        summary: 'Faixa de alta recorrencia com apoio mais proximo e maior captura de valor por parceria.',
+        includes: ['tudo das faixas anteriores', 'apoio comercial ampliado', 'co-branding e operacao mais proxima'],
+        excludes: ['condicoes fora da politica homologada sem aprovacao formal'],
+        idealFor: 'parceiros com operacao recorrente e canal ativo de captacao de obras qualificadas.',
+        timelineBase: 'ativacao apos homologacao',
+        timelineTypical: 'ativacao apos homologacao',
+        timelineDependencies: ['historico comprovado', 'volume recorrente', 'alinhamento comercial formal'],
+        timelineFactors: ['qualidade das indicacoes, conversao e suporte necessario'],
+        variation: 'A permanencia na faixa depende do volume real homologado e das regras do programa.',
+      }),
+      exclusivo: packageEntry({
+        rangeLabel: 'Sob politica dedicada de parceria',
+        summary: 'Modelo especial para canais estrategicos, franquias, squads imobiliarios ou co-branding ampliado.',
+        includes: ['avaliacao dedicada', 'condicao especial sob consulta', 'desenho comercial customizado'],
+        excludes: ['publicacao automatica sem aprovacao formal da politica vigente'],
+        idealFor: 'operacoes estrategicas que exigem desenho comercial e acompanhamento dedicados.',
+        timelineBase: 'sob ativacao dedicada',
+        timelineTypical: 'sob ativacao dedicada',
+        timelineDependencies: ['escopo homologado', 'volume projetado', 'aprovação comercial formal'],
+        timelineFactors: ['capilaridade da operacao, integracoes e necessidade de apoio especial'],
+        variation: 'Nao publicar percentual fechado sem aprovacao comercial formal e registro versionado.',
+      }),
+    },
+  },
   'cacamba-residuos-sp': {
     id: 'cacamba-residuos-sp',
     label: 'Cacamba e residuos',
@@ -416,19 +627,22 @@ const mergePackageEntry = (baseEntry = {}, snapshotEntry = {}) => ({
   ...snapshotEntry,
 });
 
-const mergeServiceEntry = (baseService = {}, snapshotService = {}) => ({
-  ...baseService,
-  ...snapshotService,
-  packages: {
-    ...(baseService.packages || {}),
-    ...Object.fromEntries(
-      Object.entries(snapshotService.packages || {}).map(([packageKey, snapshotEntry]) => [
-        packageKey,
-        mergePackageEntry(baseService.packages?.[packageKey] || {}, snapshotEntry || {}),
-      ])
-    ),
-  },
-});
+const mergeServiceEntry = (baseService = {}, snapshotService = {}) => {
+  const basePackages = baseService.packages;
+  const snapshotPackages = snapshotService.packages || {};
+  const mergedSnapshotPackages = Object.fromEntries(
+    Object.entries(snapshotPackages).map(([packageKey, snapshotEntry]) => [
+      packageKey,
+      mergePackageEntry(basePackages?.[packageKey], snapshotEntry),
+    ])
+  );
+
+  return {
+    ...baseService,
+    ...snapshotService,
+    packages: basePackages ? { ...basePackages, ...mergedSnapshotPackages } : mergedSnapshotPackages,
+  };
+};
 
 export const COMMERCIAL_SERVICE_REGISTRY = Object.entries(COMMERCIAL_SERVICE_REGISTRY_BASE).reduce(
   (accumulator, [serviceId, baseService]) => {
@@ -449,6 +663,16 @@ export const ARTICLE_COMMERCIAL_BINDINGS = {
   'closet-planejado-organizacao-otimizacao': { serviceId: 'marcenaria-sob-medida', packageFocus: 'equilibrado' },
   'reforma-cozinha-planejada-guia-completo': { serviceId: 'reforma-cozinha-planejada', packageFocus: 'equilibrado' },
   'reforma-banheiro-moderno-2026': { serviceId: 'reforma-banheiro-moderno', packageFocus: 'equilibrado' },
+  'reforma-banheiro-pequeno-otimizacao': { serviceId: 'reforma-banheiro-moderno', packageFocus: 'equilibrado' },
+  'quanto-custa-reformar-apartamento-2026': { serviceId: 'reforma-apartamento-turn-key-sp', packageFocus: 'equilibrado' },
+  'quanto-custa-reforma-apartamento-100m2': { serviceId: 'reforma-apartamento-turn-key-sp', packageFocus: 'equilibrado' },
+  'custo-reforma-apartamento-alto-padrao-sp': { serviceId: 'reforma-apartamento-turn-key-sp', packageFocus: 'superior' },
+  'o-que-e-turn-key': { serviceId: 'reforma-apartamento-turn-key-sp', packageFocus: 'superior' },
+  'custo-construcao-reforma-2026-guia-tecnico-completo': { serviceId: 'iccri-reforma-civil-sp', packageFocus: 'equilibrado' },
+  'evf-estudo-viabilidade-financeira': { serviceId: 'obraeasy-evf-saas', packageFocus: 'equilibrado' },
+  'obraeasy-como-funciona-para-clientes-finais': { serviceId: 'obraeasy-evf-saas', packageFocus: 'equilibrado' },
+  'obraeasy-para-parceiros-imobiliarias-corretores': { serviceId: 'obraeasy-parcerias-imobiliarias', packageFocus: 'equilibrado' },
+  'varanda-gourmet-planejamento': { serviceId: 'varanda-gourmet-planejada', packageFocus: 'equilibrado' },
 };
 
 export const COMMERCIAL_SERVICE_OPTIONS = Object.values(COMMERCIAL_SERVICE_REGISTRY).map((service) => ({
@@ -489,7 +713,7 @@ export const getCommercialPackages = (serviceId = '') => {
 
 const parseRangeNumbersFromLabel = (rangeLabel = '') => {
   const values = Array.from(String(rangeLabel).matchAll(/R\$\s*([\d.]+(?:,\d+)?)/g))
-    .map((match) => Number(String(match[1]).replace(/\./g, '').replace(',', '.')))
+    .map((match) => Number(String(match[1]).replaceAll('.', '').replace(',', '.')))
     .filter((value) => Number.isFinite(value));
 
   return {

@@ -383,36 +383,25 @@ Acabamentos 2026:
 
 ### Banheiro 3m²
 
-Econômica (R$ 8.000-15.000):
-- Demolição: R$ 800
-- Instalações: R$ 2.500
-- Revestimentos: R$ 2.500
-- Louças básicas: R$ 1.500
-- Metais: R$ 800
-- Box: R$ 1.200
-- Mão de obra: R$ 3.000
+### Essencial ({{COMMERCIAL_RANGE:reforma-banheiro-moderno:essencial}})
+- Demolicao controlada e ajustes objetivos de infraestrutura
+- Revestimento funcional e loucas padrao
+- Metais simples, box e iluminacao basica
+- Melhor leitura para banheiros pequenos com foco em renovacao objetiva
 
-Intermediária (R$ 18.000-30.000):
-- Demolição: R$ 1.000
-- Instalações: R$ 3.500
-- Porcelanato premium: R$ 4.500
-- Louças suspensas: R$ 3.000
-- Metais preto fosco: R$ 2.000
-- Box incolor 8mm: R$ 2.500
-- Marcenaria: R$ 3.000
-- Iluminação: R$ 1.500
-- Mão de obra: R$ 5.000
+### Equilibrado ({{COMMERCIAL_RANGE:reforma-banheiro-moderno:equilibrado}})
+- Melhor composicao entre porcelanato, bancada, nicho embutido e metais
+- Pode incluir marcenaria pontual e iluminacao mais bem resolvida
+- Costuma ser a faixa mais comum para suites compactas e banheiros sociais bem acabados
 
-Premium (R$ 35.000-60.000):
-- Demolição: R$ 1.200
-- Instalações completas: R$ 5.000
-- Mármore Carrara: R$ 10.000
-- Louças Duravit: R$ 6.000
-- Metais Deca Black: R$ 4.000
-- Box sob medida: R$ 4.000
-- Marcenaria premium: R$ 6.000
-- Iluminação + automação: R$ 3.000
-- Mão de obra: R$ 7.000
+### Superior ({{COMMERCIAL_RANGE:reforma-banheiro-moderno:superior}})
+- Pedra nobre, metais premium e melhor integracao entre box, bancada e iluminacao
+- Sobe quando entram banho duplo, pedra especial, marcenaria mais fina e melhor detalhamento
+- Faz sentido para banheiros pequenos que precisam de leitura premium sem improviso
+
+### Exclusivo ({{COMMERCIAL_RANGE:reforma-banheiro-moderno:exclusivo}})
+- Vale para banheiros autorais com banheira, automacao, curadoria dedicada e detalhamento raro
+- Nao faz sentido publicar numero fechado sem visita, memorial executivo e cronograma real
 
 ## Prazo
 
@@ -426,7 +415,7 @@ Banheiro 3-4m²:
 - Instalações finais: 2 dias
 - Limpeza: 1 dia
 
-Total: 25-35 dias
+Total tipico: de {{COMMERCIAL_TIMELINE:reforma-banheiro-moderno:essencial}} ate {{COMMERCIAL_TIMELINE:reforma-banheiro-moderno:superior}}, conforme infraestrutura existente e nivel de especificacao.
 
 ## Checklist
 

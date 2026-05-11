@@ -89,15 +89,14 @@ Vistoria, ajustes finais e manual do proprietario.
 
 ## Investimento
 
-O valor varia conforme complexidade, acabamentos e nivel de personalizacao:
+O valor varia conforme complexidade, acabamentos e nivel de personalizacao. Para manter coerencia comercial, a publicacao publica da WG Almeida usa a mesma regua oficial do servico de reforma Turn Key em Sao Paulo:
 
-| Padrao | Faixa de Valor/m2 |
-|--------|-------------------|
-| Medio | R$ 2.500 a R$ 4.000 |
-| Alto | R$ 4.000 a R$ 6.000 |
-| Premium | R$ 6.000 a R$ 8.000+ |
-
-*Valores de referencia para Sao Paulo em 2024/2025.*
+| Faixa editorial | Faixa de valor/m2 |
+|-----------------|-------------------|
+| Essencial | {{COMMERCIAL_RANGE:reforma-apartamento-turn-key-sp:essencial}} |
+| Equilibrado | {{COMMERCIAL_RANGE:reforma-apartamento-turn-key-sp:equilibrado}} |
+| Superior | {{COMMERCIAL_RANGE:reforma-apartamento-turn-key-sp:superior}} |
+| Exclusivo | {{COMMERCIAL_RANGE:reforma-apartamento-turn-key-sp:exclusivo}} |
 
 Essas faixas sao leitura inicial. Em Turn Key, o diferencial esta em reduzir variacao de custo causada por falta de coordenacao entre projeto, obra e producao.
 
@@ -127,7 +126,7 @@ Turn Key e mais do que comodidade. E **gestao de risco, controle de qualidade e 
 
 ## Proximo passo
 
-Se voce busca um projeto sob medida com previsibilidade e acabamento premium, fale com o nosso time.
+Se voce busca um projeto sob medida com previsibilidade e acabamento elevado, fale com o nosso time.
 
 - Solicite uma proposta: https://wgalmeida.com.br/solicite-proposta
 - WhatsApp: +55 (11) 98465-0002
