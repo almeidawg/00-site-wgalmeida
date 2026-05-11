@@ -12,19 +12,20 @@ tags: ["reforma 100m2", "quanto custa reformar", "iccri", "orcamento reforma", "
 
 # Quanto custa reformar um apartamento de 100m2 em 2026
 
-Reformar um apartamento de 100m2 pode custar entre **R$ 150.000 e R$ 800.000**, conforme o padrao de acabamento, o nivel de personalizacao e a complexidade tecnica da obra.
+Reformar um apartamento de 100m2 exige cruzar metragem com a regua oficial de escopo. Em vez de trabalhar com medias soltas, a WG Almeida publica esta leitura a partir da base central de reforma Turn Key em Sao Paulo.
 
 Essa referencia usa o ICCRI da WG Almeida como base tecnica. Mas o ponto importante e este: dois apartamentos com a mesma metragem podem ter investimentos muito diferentes quando mudam infraestrutura, cronograma, marcenaria, esquadrias e logistica de execucao.
 
 ---
 
-## Estimativa por padrao
+## Estimativa por faixa oficial
 
-- Economico: R$ 150 mil a R$ 250 mil
-- Medio padrao: R$ 250 mil a R$ 450 mil
-- Alto padrao: R$ 450 mil a R$ 800 mil
+- **Essencial:** {{COMMERCIAL_RANGE:reforma-apartamento-turn-key-sp:essencial}}
+- **Equilibrado:** {{COMMERCIAL_RANGE:reforma-apartamento-turn-key-sp:equilibrado}}
+- **Superior:** {{COMMERCIAL_RANGE:reforma-apartamento-turn-key-sp:superior}}
+- **Exclusivo:** {{COMMERCIAL_RANGE:reforma-apartamento-turn-key-sp:exclusivo}}
 
-Essas faixas ajudam na decisao inicial e no planejamento de caixa. O valor real depende do caminho da obra, e nao apenas do tamanho do imovel.
+Para 100m2, a conta inicial e multiplicar a faixa por m2 pela area e depois ajustar por marcenaria, infraestrutura, automacao, condominio e cronograma.
 
 ---
 
@@ -36,7 +37,7 @@ Use a formula base:
 
 Exemplo:
 
-`100m2 x R$ 3.000 = R$ 300.000`
+`100m2 x faixa oficial por m2 = leitura inicial do investimento`
 
 Essa conta e o ponto de partida. O valor final precisa de ajuste por:
 
@@ -75,6 +76,13 @@ Uma estimativa melhor para 100m2 precisa responder:
 - onde o prazo pode pressionar custo.
 
 E exatamente por isso que o EVF e o ICCRI funcionam bem juntos: um organiza a leitura da obra e o outro estrutura as categorias e servicos que compoem esse investimento.
+
+### Leitura rapida para 100m2
+
+- **Essencial:** serve como ponto de partida quando a reforma e mais objetiva e a infraestrutura esta mais preservada.
+- **Equilibrado:** costuma ser a faixa mais frequente para apartamentos de 100m2 que pedem boa marcenaria, melhores acabamentos e reorganizacao de pontos.
+- **Superior:** entra quando o apartamento passa a exigir mais integracao entre obra, marmoraria, iluminacao e automacao.
+- **Exclusivo:** vale para configuracoes autorais em que a metragem deixa de ser o principal driver e o escopo passa a liderar a conta.
 
 ---
 

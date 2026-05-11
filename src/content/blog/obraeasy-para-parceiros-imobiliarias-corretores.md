@@ -24,7 +24,7 @@ O ponto forte nao e apenas indicar uma obra. E ajudar o cliente a entender custo
 
 ### O Problema que Todo Corretor Conhece
 
-Voce fecha a venda. Recebe sua comissao. E o cliente some. Nao ha razao para manter contato, nao ha servico complementar a oferecer, nao ha fidelizacao real.
+Voce fecha a venda. Recebe a sua participacao comercial. E o cliente some. Nao ha razao para manter contato, nao ha servico complementar a oferecer, nao ha fidelizacao real.
 
 Enquanto isso:
 - O cliente vai precisar de uma reforma (95% dos compradores fazem algum tipo de personalizacao)
@@ -36,7 +36,7 @@ Enquanto isso:
 Com o Programa de Parceiros ObraEasy, voce:
 
 1. Indica a WG Almeida para gestao da reforma/construcao
-2. Recebe comissao pela indicacao (2% a 5% do valor da obra)
+2. Recebe participacao comercial pela indicacao, conforme a faixa oficial do programa
 3. Oferece o ObraEasy como diferencial exclusivo no seu servico
 4. Mantem relacionamento durante toda a obra (6 a 18 meses)
 5. Ganha a preferencia na proxima transacao imobiliaria
@@ -49,21 +49,27 @@ Na pratica, o corretor ou a imobiliaria deixa de entregar so um imovel e passa a
 
 ### Modelo de Parceria
 
-| Nivel | Indicacoes/Ano | Comissao | Beneficios Extras |
-|-------|---------------|----------|-------------------|
-| Parceiro | 1 a 5 | 2% do valor da obra | Acesso ao ObraEasy + Calculadora AVM |
-| Parceiro Premium | 6 a 15 | 3% do valor da obra | Tudo anterior + Materiais de marketing |
-| Master | 16+ | 5% do valor da obra | Tudo anterior + Gerente dedicado + Co-branding |
+| Faixa oficial | Leitura comercial | Beneficios extras |
+|---------------|-------------------|-------------------|
+| Essencial | {{COMMERCIAL_RANGE:obraeasy-parcerias-imobiliarias:essencial}} | Acesso ao ObraEasy + Calculadora AVM |
+| Equilibrado | {{COMMERCIAL_RANGE:obraeasy-parcerias-imobiliarias:equilibrado}} | Tudo anterior + Materiais de marketing |
+| Superior | {{COMMERCIAL_RANGE:obraeasy-parcerias-imobiliarias:superior}} | Tudo anterior + apoio comercial ampliado |
+| Exclusivo | {{COMMERCIAL_RANGE:obraeasy-parcerias-imobiliarias:exclusivo}} | Modelo especial sob consulta |
 
 ### Calculadora de Ganhos
 
 Veja o potencial de receita com o Programa de Parceiros:
 
-| Cenario | Indicacoes/Ano | Valor Medio Obra | Comissao | Receita Anual |
-|---------|---------------|------------------|----------|---------------|
-| Conservador | 3 | R$ 180.000 | 2% | R$ 10.800 |
-| Moderado | 8 | R$ 250.000 | 3% | R$ 60.000 |
-| Agressivo | 20 | R$ 350.000 | 5% | R$ 350.000 |
+Nao faz sentido publicar uma planilha fixa de ganho como se cada parceiro tivesse o mesmo ticket, a mesma taxa de conversao e o mesmo ciclo de obra.
+
+A leitura correta combina:
+
+- volume anual homologado;
+- valor medio real das obras convertidas;
+- faixa comercial ativa do programa;
+- qualidade das indicacoes e taxa real de fechamento.
+
+Use a regua oficial acima como referencia inicial e valide o potencial real com o time comercial.
 
 ---
 
@@ -93,7 +99,7 @@ Simule o financiamento de obras e reformas para seu cliente:
 Acompanhe todas as suas indicacoes em tempo real:
 
 - Status de cada lead indicado (contato, visita, proposta, contrato)
-- Previsao de recebimento de comissao
+- Previsao de recebimento da participacao comercial
 - Historico de todas as transacoes com a WG Almeida
 - Nota de satisfacao do cliente final
 
@@ -106,7 +112,7 @@ Combinado com o EVF, isso cria um discurso mais forte:
 
 ### 4. Material de Marketing Co-branded
 
-Parceiros Premium e Master recebem:
+Parceiros nas faixas mais altas da regua recebem:
 
 - Apresentacao personalizada com sua logo + WG Almeida
 - Cards para Instagram e LinkedIn sobre gestao de obras
@@ -117,25 +123,23 @@ Parceiros Premium e Master recebem:
 
 ## Casos de Sucesso de Parceiros
 
-### Case 1: Imobiliaria no Jardins, 14 Indicacoes em 12 Meses
+### Case 1: Imobiliaria no Jardins, parceria recorrente
 
-Uma imobiliaria boutique do Jardins implementou o modelo de parceria em Jan/2025. Resultado em 12 meses:
+Uma imobiliaria boutique do Jardins implementou o modelo de parceria e passou a usar a obra como extensao real da jornada pos-venda.
 
-- 14 clientes indicados para obras e reformas
-- Valor total de obras: R$ 3,8 milhoes
-- Comissao gerada: R$ 114.000 (3%)
-- Taxa de recompra: 71% dos clientes voltaram para outra transacao imobiliaria
+- aumento de recorrencia nas indicacoes homologadas;
+- melhor taxa de contato com clientes apos a compra;
+- nova camada de valor sem depender apenas da transacao inicial.
 
 *"O ObraEasy nos deu um motivo para continuar em contato com o cliente durante a obra. Viramos parte do processo deles, nao apenas quem vendeu o apartamento."*
 
-### Case 2: Corretor Individual, Receita Recorrente com 5 Clientes
+### Case 2: Corretor individual com canal consultivo mais forte
 
-Um corretor de alto padrao em Vila Nova Conceicao comecu a oferecer a WG Almeida como solucao de reforma para seus clientes em Mar/2025:
+Um corretor de alto padrao em Vila Nova Conceicao passou a usar a WG Almeida como camada de continuidade para clientes que precisavam reformar antes de morar ou revender.
 
-- 5 indicacoes no primeiro ano
-- Valor medio das obras: R$ 380.000
-- Receita de comissao: R$ 38.000 (2%)
-- Novos clientes por indicacao dos anteriores: 3 adicionais
+- maior aprofundamento da conversa comercial;
+- mais retorno de clientes por indicacao;
+- melhor retenção do relacionamento no pos-venda.
 
 ---
 
@@ -154,13 +158,13 @@ Um corretor de alto padrao em Vila Nova Conceicao comecu a oferecer a WG Almeida
 
 ### Tipos de Obras que Indicamos
 
-| Tipo | Valor Tipico | Prazo Medio |
-|------|-------------|-------------|
-| Reforma completa de apartamento (80-150m2) | R$ 200k - R$ 800k | 4-8 meses |
-| Reforma parcial (cozinha, banheiros) | R$ 80k - R$ 250k | 2-4 meses |
-| Construcao de casa (200-400m2) | R$ 600k - R$ 2M | 12-20 meses |
-| Reforma comercial (salas, lojas) | R$ 150k - R$ 600k | 3-6 meses |
-| Reforma de cobertura/duplex | R$ 400k - R$ 1,5M | 6-12 meses |
+| Tipo | Leitura comercial | Prazo medio |
+|------|-------------------|-------------|
+| Reforma completa de apartamento (80-150m2) | Normalmente orbita entre Equilibrado e Superior | 4-8 meses |
+| Reforma parcial (cozinha, banheiros) | Costuma entrar em Essencial ou Equilibrado | 2-4 meses |
+| Construcao de casa (200-400m2) | Exige leitura executiva dedicada | 12-20 meses |
+| Reforma comercial (salas, lojas) | Depende de operacao, retrofit e prazo de ativacao | 3-6 meses |
+| Reforma de cobertura/duplex | Geralmente sobe para Superior ou Exclusivo | 6-12 meses |
 
 ---
 
@@ -176,7 +180,7 @@ Passo 3: Assine o Termo de Parceria (digital, sem burocracia)
 
 Passo 4: Receba acesso ao painel de parceiros e as ferramentas exclusivas
 
-Passo 5: Comece a indicar, e a faturar
+Passo 5: Comece a indicar e acompanhe a evolucao da parceria pela regua oficial
 
 > O cadastro e gratuito. Sem mensalidade, sem taxa de entrada. Voce recebe somente quando a obra e contratada.
 
@@ -188,7 +192,7 @@ Passo 5: Comece a indicar, e a faturar
 
 Atendemos toda a Grande Sao Paulo e interior paulista. Para obras fora do Estado, consulte disponibilidade.
 
-### Quanto tempo demora para receber a comissao?
+### Quanto tempo demora para receber a participacao comercial?
 
 O primeiro pagamento ocorre na assinatura do contrato com o cliente (30 dias apos a indicacao qualificada). O restante e pago ao final da obra.
 

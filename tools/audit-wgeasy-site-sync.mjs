@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
 import { createClient } from '@supabase/supabase-js'
-import { OBRAEASY_PRECOS, EASYREALSTATE_PRECOS } from '../src/data/company.js'
+import { OBRAEASY_PRECOS, EASYREALSTATE_PRECOS } from '../src/data/companyPublic.js'
 
 const strict = process.argv.includes('--strict')
 const root = process.cwd()
@@ -40,6 +40,7 @@ const stalePublicPricePatterns = [
 
 const staleScanFiles = [
   'src/data/company.js',
+  'src/data/companyPublic.js',
   'src/pages/ObraEasyLanding.jsx',
   'src/pages/EasyRealStateLanding.jsx',
   'src/content/blog/evf-estudo-viabilidade-financeira.md',

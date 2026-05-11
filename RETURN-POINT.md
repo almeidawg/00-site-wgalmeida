@@ -1351,3 +1351,66 @@ URL limpa para validacao humana:
   - Rodar `git-sync-gate.ps1 -Stage pre-commit`, commitar esta expansao e seguir com PR/merge/deploy.
   - Validar em dominio publico as quatro rotas apos deploy.
   - Decidir se `varanda-gourmet-planejamento` vira novo servico oficial ou se perde a tabela publica de preco ate existir fonte de verdade.
+
+### Fechamento do ecossistema comercial/editorial para 100% de governanca - 2026-05-11
+- Data/hora: `2026-05-11 00:05 -03:00`.
+- Branch de trabalho: `feature/marcenaria-editorial-expansion-20260510`.
+- Objetivo do bloco:
+  - fechar as ultimas pendencias para considerar o ecossistema alinhado entre `ICCRI`, `ObraEasy/WG Easy`, blog tecnico e paginas com faixas comerciais publicas.
+- Entrega deste bloco:
+  - `src/data/commercialGovernance.js`
+    - criada governanca central para:
+      - `varanda-gourmet-planejada`
+      - `obraeasy-evf-saas`
+      - `obraeasy-parcerias-imobiliarias`
+    - ampliados os bindings de artigos para:
+      - `quanto-custa-reforma-apartamento-100m2`
+      - `custo-reforma-apartamento-alto-padrao-sp`
+      - `evf-estudo-viabilidade-financeira`
+      - `obraeasy-como-funciona-para-clientes-finais`
+      - `obraeasy-para-parceiros-imobiliarias-corretores`
+      - `varanda-gourmet-planejamento`
+  - `src/data/companyPublic.js`
+    - criada base publica compartilhada com `COMPANY`, `PRODUCT_URLS`, `OBRAEASY_PRECOS` e `EASYREALSTATE_PRECOS`, sem dependencia de alias/i18n de frontend.
+  - `src/data/company.js`
+    - passou a reexportar a base publica e manter apenas a camada de mensagens dinamicas com i18n.
+  - `tools/audit-wgeasy-site-sync.mjs`
+    - corrigido para ler `companyPublic.js` e voltar a funcionar em ambiente Node real.
+  - artigos normalizados:
+    - `src/content/blog/varanda-gourmet-planejamento.md`
+      - removidas tabelas extensas de itens e precos soltos;
+      - artigo reescrito para leitura por escopo e regua oficial.
+    - `src/content/blog/custo-reforma-apartamento-alto-padrao-sp.md`
+      - faixas agora puxam da base central de reforma Turn Key.
+    - `src/content/blog/quanto-custa-reforma-apartamento-100m2.md`
+      - removidas medias soltas por padrao; leitura agora segue a regua oficial por m2.
+    - `src/content/blog/arquitetura-alto-padrao.md`
+      - removida tabela de valores misturando projeto/interiores/obra/marcenaria sem fonte central dedicada.
+    - `src/content/blog/evf-estudo-viabilidade-financeira.md`
+      - secao do ObraEasy passou a usar a matriz oficial auditada do ecossistema.
+    - `src/content/blog/obraeasy-para-parceiros-imobiliarias-corretores.md`
+      - programa de parceiros foi normalizado para a regua oficial e perdeu planilhas fixas de ganho/comissao.
+- Comandos executados:
+  - `npm run lint`
+  - `npm run test:run -- src/__tests__/blogCms.test.js`
+  - `npm run audit:wgeasy:site-sync:strict`
+  - `npm run audit:public:claims:strict`
+  - `npm run build`
+- Evidencias validadas:
+  - `validado`: `npm run lint`.
+  - `validado`: `npm run test:run -- src/__tests__/blogCms.test.js`.
+  - `validado`: `npm run audit:wgeasy:site-sync:strict`.
+  - `validado`: `npm run audit:public:claims:strict`.
+  - `validado`: `npm run build`.
+  - `validado`: geracao das rotas afetadas no build:
+    - `/blog/varanda-gourmet-planejamento`
+    - `/blog/custo-reforma-apartamento-alto-padrao-sp`
+    - `/blog/quanto-custa-reforma-apartamento-100m2`
+    - `/blog/evf-estudo-viabilidade-financeira`
+    - `/blog/obraeasy-para-parceiros-imobiliarias-corretores`
+    - `/blog/arquitetura-alto-padrao`
+- Observacoes:
+  - `public/sitemap.xml` e `public/sitemap-index.xml` voltaram a ser ruido de build e devem ser restaurados antes do commit.
+  - a auditoria do WGEasy, que estava quebrada por depender de alias frontend, voltou a ser executavel no Node e agora faz parte real do gate desta camada.
+- Proximo passo sugerido:
+  - restaurar os sitemaps ruidosos, commitar este fechamento, subir branch, abrir PR, mesclar e validar em producao as rotas tocadas.

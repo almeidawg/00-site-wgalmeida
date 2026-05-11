@@ -21,9 +21,10 @@ A resposta util: para alto padrao em Sao Paulo, o custo costuma ficar em **faixa
 
 ## Faixas praticas de referencia (2026)
 
-- Reforma parcial com atualizacao de acabamentos: **R$ 2.500 a R$ 4.500 / m2**
-- Reforma completa de apartamento: **R$ 4.500 a R$ 8.500 / m2**
-- Reforma premium com marcenaria sob medida e automacao: **R$ 8.500 a R$ 14.000+ / m2**
+- **Essencial:** {{COMMERCIAL_RANGE:reforma-apartamento-turn-key-sp:essencial}}
+- **Equilibrado:** {{COMMERCIAL_RANGE:reforma-apartamento-turn-key-sp:equilibrado}}
+- **Superior:** {{COMMERCIAL_RANGE:reforma-apartamento-turn-key-sp:superior}}
+- **Exclusivo:** {{COMMERCIAL_RANGE:reforma-apartamento-turn-key-sp:exclusivo}}
 
 Essas faixas nao substituem um estudo tecnico. Elas servem para decisao inicial e planejamento de caixa.
 
@@ -92,7 +93,7 @@ Se voce esta iniciando a decisao de investimento, veja tambem:
 
 ### Qual e o custo minimo para comecar uma reforma de alto padrao?
 
-Para escopo completo em Sao Paulo, normalmente o planejamento parte de faixas acima de R$ 4.500 por m2, com contingencia tecnica separada.
+Em apartamentos premium em Sao Paulo, a leitura costuma partir de {{COMMERCIAL_RANGE:reforma-apartamento-turn-key-sp:equilibrado}}, porque alto padrao raramente opera so na camada mais enxuta do escopo.
 
 ### Vale a pena fazer por etapas?
 
