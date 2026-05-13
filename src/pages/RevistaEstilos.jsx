@@ -152,12 +152,26 @@ const RevistaEstilos = () => {
     );
   }
 
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Guia de Estilos de Decoração e Interiores",
+    "description": "Catálogo completo de estilos arquitetônicos e decorativos curados pelo Grupo WG Almeida.",
+    "itemListElement": estilos.map((estilo, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "url": `https://wgalmeida.com.br/estilos/${estilo.slug}`,
+      "name": estilo.title
+    }))
+  };
+
   return (
     <>
       <Seo
         pathname="/revista-estilos"
         title="Revista de Estilos | Guia de decoração e interiores WG Almeida"
         description="Explore estilos de decoração, paletas, materiais e referências para transformar ambientes residenciais com curadoria da WG Almeida."
+        schema={itemListSchema}
       />
 
       {/* Hero Section */}

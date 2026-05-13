@@ -1,4 +1,5 @@
 import BLOG_CMS_GENERATED from './blogCms.generated.js';
+import { buildDefaultImageGovernance } from '@/lib/editorialImageIntelligence';
 
 const DRAFTS_KEY = 'wg_blog_cms_drafts_v1';
 const PUBLISHED_KEY = 'wg_blog_cms_published_v1';
@@ -125,6 +126,19 @@ const normalizePostRecord = (record = {}, fallback = {}) => {
   };
 
   const editorialThemeId = String(record.editorialThemeId || fallback.editorialThemeId || '').trim();
+  const defaultImageGovernance = buildDefaultImageGovernance({
+    ...fallback,
+    ...record,
+    title,
+    category,
+    tags,
+    slug,
+  });
+  const imageGovernance = {
+    ...defaultImageGovernance,
+    ...(fallback.imageGovernance || {}),
+    ...(record.imageGovernance || {}),
+  };
   const commercialProfile = {
     serviceId: String(record.commercialProfile?.serviceId || fallback.commercialProfile?.serviceId || '').trim(),
     packageFocus: String(record.commercialProfile?.packageFocus || fallback.commercialProfile?.packageFocus || '').trim(),
@@ -147,6 +161,7 @@ const normalizePostRecord = (record = {}, fallback = {}) => {
     status: String(record.status || fallback.status || DEFAULT_STATUS).trim(),
     templateId: String(record.templateId || fallback.templateId || MASTER_TEMPLATE_ID).trim(),
     editorialThemeId,
+    imageGovernance,
     commercialProfile,
     content: String(record.content || fallback.content || '').trim(),
     coverAlt: String(record.coverAlt || fallback.coverAlt || title).trim(),

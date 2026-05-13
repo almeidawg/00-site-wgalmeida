@@ -165,9 +165,26 @@ const Projects = () => {
     return () => window.removeEventListener('keydown', handleKey);
   }, [lightbox.open]);
 
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Portfólio de Projetos de Arquitetura e Engenharia de Alto Padrão",
+    "description": "Galeria de projetos residenciais e comerciais realizados pelo Grupo WG Almeida em São Paulo.",
+    "itemListElement": filteredProjects.map((project, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": project.title,
+      "description": project.description,
+      "url": `https://wgalmeida.com.br/projetos#${project.id}`
+    }))
+  };
+
   return (
     <>
-      <SEO pathname="/projetos" schema={SCHEMAS.breadcrumbProjects} />
+      <SEO 
+        pathname="/projetos" 
+        schema={[SCHEMAS.breadcrumbProjects, itemListSchema]} 
+      />
 
       {/* Hero Refinado */}
       <section className="wg-page-hero wg-page-hero--store hero-under-header bg-wg-black">

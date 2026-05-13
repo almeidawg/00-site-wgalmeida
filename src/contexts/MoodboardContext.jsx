@@ -203,6 +203,33 @@ export const MoodboardProvider = ({ children }) => {
     setIsModified(false);
   }, []);
 
+  const getMoodboardData = useCallback(() => ({
+    projectName,
+    colors,
+    styles,
+    customImages: customImages.slice(0, 8),
+    totalBudget,
+    budgetTier,
+  }), [projectName, colors, styles, customImages, totalBudget, budgetTier]);
+
+  const buildShareUrl = useCallback(({ clientName } = {}) => {
+    try {
+      const payload = btoa(encodeURIComponent(JSON.stringify({
+        p: projectName,
+        n: clientName || 'Visitante',
+        c: colors,
+        s: styles.map(s => s.slug || s.id),
+        i: customImages.slice(0, 8).map(img => ({
+          u: img.url || img.thumb || '',
+          t: img.name || img.title || '',
+        })),
+      })));
+      return `${window.location.origin}/moodboard/share?v=${payload}`;
+    } catch {
+      return `${window.location.origin}/moodboard/share`;
+    }
+  }, [projectName, colors, styles, customImages]);
+
   const value = {
     colors, styles, customImages, selectedMaterials, projectName,
     totalBudget, budgetTier,
@@ -210,7 +237,8 @@ export const MoodboardProvider = ({ children }) => {
     isModified, isAutoSyncing, isAutoComposing,
     setProjectName, updateColors: setColors, updateStyles,
     updateMaterials: setSelectedMaterials, addCustomImages, removeCustomImage,
-    clearMoodboard, autoComposeMoodboard
+    clearMoodboard, autoComposeMoodboard,
+    getMoodboardData, buildShareUrl,
   };
 
   return <MoodboardContext.Provider value={value}>{children}</MoodboardContext.Provider>;

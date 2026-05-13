@@ -108,6 +108,23 @@ const normalizeHeadingId = (value = '') =>
     .trim()
     .replace(/\s+/g, '-');
 
+const normalizeComparableLabel = (value = '') =>
+  String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim();
+
+const uniqueLabels = (labels = []) => {
+  const seen = new Set();
+  return labels.filter((label) => {
+    const key = normalizeComparableLabel(label);
+    if (!key || seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+};
+
 const stripMarkdownTitle = (content = '') => content.replace(/^#\s+.*(?:\r?\n)+/, '');
 
 const stripDuplicateTocSection = (markdown = '') =>
@@ -142,6 +159,10 @@ const buildContextImageInsertions = (sections = [], assets = []) => {
   assets.forEach((asset, index) => {
     const targetId = normalizeHeadingId(asset.sectionTitle || '');
     let sectionIndex = targetId ? sections.findIndex((section) => section.id === targetId) : -1;
+
+    if (targetId && sectionIndex < 0) {
+      return;
+    }
 
     if (sectionIndex < 0) {
       sectionIndex = Math.min(
@@ -624,6 +645,11 @@ const Blog = () => {
       category: selectedArticle.category,
       variant: 'hero',
     });
+    const articleCardAsset = getBlogImageAsset({
+      slug: selectedArticle.slug,
+      category: selectedArticle.category,
+      variant: 'card',
+    });
     const leadSection = articleSections.sections[0] || null;
     const leadAsset = contextAssets[0] || null;
     const leadTargetId = normalizeHeadingId(leadAsset?.sectionTitle || '');
@@ -636,6 +662,7 @@ const Blog = () => {
     const remainingAssets = useLeadLayout ? contextAssets.slice(1) : contextAssets;
     const contextInsertions = buildContextImageInsertions(remainingSections, remainingAssets);
     const articleTopic = getArticleTopic(selectedArticle);
+    const articleTheme = getArticleTheme(selectedArticle);
     const articleTagClass = getArticleTagClass(selectedArticle);
     const articleCardHoverClass = getArticleCardHoverClass(selectedArticle);
     const articleIconClass = getArticleIconClass(selectedArticle);
@@ -651,9 +678,13 @@ const Blog = () => {
       ? window.location.href
       : `https://wgalmeida.com.br/blog/${selectedArticle.slug}`;
     const articleHeroSrc = articleHeroAsset?.src || selectedArticle.imageHero || selectedArticle.image || BLOG_HERO_IMAGE;
+    const articleHeroAlt = articleHeroAsset?.alt || selectedArticle.title;
     const articleHeroObjectPosition = getHeroObjectPosition(articleHeroAsset);
-    const leadThumb = selectedArticle.imageCard || selectedArticle.imageHero || selectedArticle.image || BLOG_HERO_IMAGE;
+    const leadThumb = articleCardAsset?.src || selectedArticle.imageCard || selectedArticle.imageHero || selectedArticle.image || BLOG_HERO_IMAGE;
+    const leadThumbAlt = articleCardAsset?.alt || selectedArticle.title;
     const heroTagLabel = selectedArticle.category || selectedArticle.tags?.[0] || 'Artigo';
+    const showEditorialThemeBadge = normalizeComparableLabel(heroTagLabel) !== normalizeComparableLabel(articleTheme.label);
+    const displayArticleTags = uniqueLabels(selectedArticle.tags || []);
     const heroAuthorLabel = selectedArticle.author || 'Grupo WG Almeida';
     const heroDateLabel = selectedArticle.slug === 'arquitetos-brasileiros-famosos-legado'
       ? new Date(selectedArticle.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
@@ -669,10 +700,10 @@ const Blog = () => {
           .filter((item) => /\(\d{4}\s*-\s*\d{4}\)/.test(item.text))
           .slice(0, 7)
       : [];
-    const proseClassName = "prose prose-lg max-w-none prose-headings:font-playfair prose-headings:font-light prose-headings:leading-tight prose-headings:text-wg-black prose-h2:mb-6 prose-h2:mt-1 prose-h2:text-[clamp(1.48rem,2vw,2rem)] prose-h3:mb-3 prose-h3:mt-8 prose-h3:text-[clamp(1.05rem,1.22vw,1.24rem)] prose-h4:mb-2 prose-h4:mt-5 prose-h4:text-[clamp(0.92rem,0.95vw,1rem)] prose-h4:font-normal prose-h4:text-wg-black prose-p:my-5 prose-p:text-[1.06rem] prose-p:leading-[1.78] prose-p:text-wg-gray prose-a:font-medium prose-a:text-wg-orange prose-a:underline prose-a:decoration-wg-orange/55 prose-a:underline-offset-4 hover:prose-a:text-wg-black prose-ul:my-3 prose-ul:pl-5 prose-li:my-1 prose-li:text-wg-gray prose-blockquote:my-8 prose-blockquote:rounded-r-[20px] prose-blockquote:border-l-4 prose-blockquote:border-wg-orange/40 prose-blockquote:bg-[#faf7f2] prose-blockquote:px-5 prose-blockquote:py-4 prose-blockquote:text-wg-gray prose-table:my-8 prose-table:w-full prose-table:overflow-hidden prose-table:rounded-[18px] prose-table:border prose-table:border-[#e8e3d8] prose-thead:bg-[#f6f2ea] prose-th:px-4 prose-th:py-3 prose-th:text-left prose-th:text-[12px] prose-th:uppercase prose-th:tracking-[0.12em] prose-th:text-wg-black prose-td:border-t prose-td:border-[#ece7de] prose-td:px-4 prose-td:py-3 prose-td:text-[15px] [&_code]:rounded [&_code]:bg-gray-100 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:!text-wg-black [&_h2]:!font-light [&_h2]:!text-wg-black [&_h3]:!font-normal [&_h3]:!text-wg-black [&_h4]:!font-normal [&_h4]:!text-wg-black [&_li]:!font-normal [&_li]:!text-wg-gray [&_p]:!font-normal [&_p]:!text-wg-gray [&_strong]:!font-semibold [&_strong]:!text-wg-black";
+    const proseClassName = "wg-prose prose prose-lg max-w-none prose-headings:font-playfair prose-headings:font-light prose-headings:leading-tight prose-headings:text-wg-black prose-h2:mb-6 prose-h2:mt-1 prose-h3:mb-3 prose-h3:mt-8 prose-h4:mb-2 prose-h4:mt-5 prose-h4:font-light prose-h4:text-wg-black prose-p:my-5 prose-p:text-[1.06rem] prose-p:leading-[1.78] prose-p:text-wg-gray prose-a:font-light prose-a:text-wg-gray prose-a:underline prose-a:decoration-black/20 prose-a:underline-offset-4 hover:prose-a:text-wg-black prose-ul:my-3 prose-ul:pl-5 prose-li:my-1 prose-li:text-wg-gray prose-blockquote:my-8 prose-blockquote:rounded-r-[20px] prose-blockquote:border-l-4 prose-blockquote:border-gray-200 prose-blockquote:bg-[#F7F7F5] prose-blockquote:px-5 prose-blockquote:py-4 prose-blockquote:text-wg-gray [&_code]:rounded [&_code]:bg-gray-100 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:!text-wg-black [&_h2]:!font-light [&_h2]:!text-wg-black [&_h3]:!font-light [&_h3]:!text-wg-black [&_h4]:!font-light [&_h4]:!text-wg-black [&_li]:!font-light [&_li]:!text-wg-gray [&_p]:!font-light [&_p]:!text-wg-gray [&_strong]:!font-light [&_strong]:!text-inherit";
     const articleMarkdownComponents = {
       hr: () => <hr className="my-10 border-0 border-t border-gray-200" />,
-      a: ({ node: _node, ...props }) => <a {...props} className="font-medium underline decoration-wg-orange/55 underline-offset-4" />,
+      a: ({ node: _node, ...props }) => <a {...props} className="font-light underline decoration-black/20 underline-offset-4 hover:decoration-black/40" />,
       img: ({ node: _node, ...props }) => (
         <span className="not-prose my-12 block overflow-hidden rounded-2xl bg-gray-100">
           <img
@@ -691,7 +722,7 @@ const Blog = () => {
         </ReactMarkdown>
       </div>
     );
-    const architectsSectionClass = `${proseClassName} ${articleMarkerClass} [&_h2]:!mb-3 [&_h2]:!font-playfair [&_h2]:!text-[clamp(1.45rem,2vw,2rem)] [&_h2]:!leading-tight [&_h2]:!font-light [&_h2]:!text-wg-black [&_h3]:!mt-5 [&_h3]:!mb-2.5 [&_h3]:!text-[clamp(1rem,1.15vw,1.14rem)] [&_h3]:!font-normal [&_h3]:!tracking-[0.02em] [&_h3]:!text-wg-black [&_h4]:!mt-4 [&_h4]:!mb-2 [&_h4]:!text-[clamp(0.92rem,0.96vw,1rem)] [&_h4]:!font-normal [&_h4]:!text-wg-black [&_blockquote]:!my-5 [&_blockquote]:!border-l-2 [&_blockquote]:!border-wg-orange/50 [&_blockquote]:!pl-5 [&_blockquote]:!italic [&_blockquote]:!text-wg-gray [&_ul]:!my-3 [&_ul]:!list-disc [&_ul]:!pl-5 [&_li]:!my-1 [&_li]:!font-normal [&_li]:!text-wg-gray [&_p]:!my-3.5 [&_p]:!font-normal [&_p]:!leading-[1.72] [&_p]:!text-wg-gray [&_strong]:!font-semibold`;
+    const architectsSectionClass = `${proseClassName} ${articleMarkerClass} [&_h2]:!mb-3 [&_h2]:!font-playfair [&_h2]:!leading-tight [&_h2]:!font-light [&_h2]:!text-wg-black [&_h3]:!mt-5 [&_h3]:!mb-2.5 [&_h3]:!font-light [&_h3]:!tracking-[0.02em] [&_h3]:!text-wg-black [&_h4]:!mt-4 [&_h4]:!mb-2 [&_h4]:!font-light [&_h4]:!text-wg-black [&_blockquote]:!my-5 [&_blockquote]:!border-l-2 [&_blockquote]:!border-wg-orange/50 [&_blockquote]:!pl-5 [&_blockquote]:!italic [&_blockquote]:!text-wg-gray [&_ul]:!my-3 [&_ul]:!list-disc [&_ul]:!pl-5 [&_li]:!my-1 [&_li]:!font-light [&_li]:!text-wg-gray [&_p]:!my-3.5 [&_p]:!font-light [&_p]:!leading-[1.72] [&_p]:!text-wg-gray [&_strong]:!font-light`;
 
     return (
       <>
@@ -718,7 +749,7 @@ const Blog = () => {
               <ResponsiveWebpImage
                 key={`${selectedArticle.slug}-hero`}
                 src={articleHeroSrc}
-                alt={selectedArticle.title}
+                alt={articleHeroAlt}
                 className="h-full w-full object-cover will-change-transform"
                 style={{ objectPosition: articleHeroObjectPosition }}
                 loading="eager"
@@ -737,7 +768,7 @@ const Blog = () => {
                   <span className={`rounded-full border px-3 py-1.5 text-[10px] font-light uppercase tracking-[0.14em] ${articleTagClass}`}>
                     {heroTagLabel}
                   </span>
-                  <EditorialThemeBadge article={selectedArticle} />
+                  {showEditorialThemeBadge && <EditorialThemeBadge article={selectedArticle} />}
                 </div>
                 <h1 className="max-w-4xl font-playfair text-[calc(clamp(2.2rem,6.15vw,5.05rem)-10px)] leading-[0.98]">
                   {selectedArticle.title}
@@ -771,7 +802,7 @@ const Blog = () => {
                 <div className="min-h-[144px] overflow-hidden bg-[#ECECE8]">
                   <ResponsiveWebpImage
                     src={leadThumb}
-                    alt={selectedArticle.title}
+                    alt={leadThumbAlt}
                     className="h-full w-full scale-[1.04] object-cover transition-transform duration-[1700ms] ease-out group-hover:scale-100"
                     loading="lazy"
                   />
@@ -966,14 +997,14 @@ const Blog = () => {
 
               <ICCRILinksBlock context={articleTopic === 'arquitetura' ? 'investimento' : 'custo'} className="mt-8" />
 
-              {selectedArticle.tags?.length > 0 && (
+              {displayArticleTags.length > 0 && (
                 <div className="mt-10 border-t border-gray-200 pt-6">
                   <div className="mb-3 flex items-center gap-2">
                     <Tag className={`h-3.5 w-3.5 ${articleIconClass}`} />
                     <span className="text-[11px] font-light uppercase tracking-[0.16em] text-wg-gray">Tags</span>
                   </div>
                   <div className="flex flex-wrap items-center gap-2">
-                    {selectedArticle.tags.map((tag) => (
+                    {displayArticleTags.map((tag) => (
                       <span key={tag} className={`inline-flex min-h-[24px] items-center rounded-full border px-2.5 py-1 text-[9px] font-light uppercase leading-none tracking-[0.1em] ${articleTagClass}`}>
                         {tag}
                       </span>

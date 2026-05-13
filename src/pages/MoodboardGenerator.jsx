@@ -184,8 +184,8 @@ const StyleSelectionCard = ({ style, selected, onSelect }) => (
 
 const SelectionChip = ({ active, onClick, title, description, accent = 'orange' }) => {
   const accentClass = {
-    orange: active ? 'border-wg-orange bg-wg-orange/5 text-wg-black' : 'border-black/8 bg-white text-gray-700',
-    dark: active ? 'border-wg-black bg-black text-white' : 'border-black/8 bg-white text-gray-700',
+    orange: active ? 'border-wg-orange bg-wg-orange/5 text-wg-black' : 'border-[#E5E5E5] bg-white text-gray-700',
+    dark: active ? 'border-wg-black bg-black text-white' : 'border-[#E5E5E5] bg-white text-gray-700',
   }
 
   return (

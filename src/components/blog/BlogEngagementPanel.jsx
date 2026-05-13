@@ -85,7 +85,7 @@ export default function BlogEngagementPanel({
 
   return (
     <section className="mt-12 rounded-[28px] border border-[#E5E5E5] bg-[#FBFBFA] p-6 shadow-sm md:p-8">
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_22rem]">
+      <div className="grid gap-8">
         <div className="space-y-5">
           <div className="flex flex-wrap items-center gap-3">
             <button
@@ -93,30 +93,30 @@ export default function BlogEngagementPanel({
               onClick={handleLike}
               className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[11px] font-light uppercase tracking-[0.14em] transition-colors ${
                 metrics.liked
-                  ? 'border-wg-orange bg-wg-orange text-white'
-                  : 'border-black/10 bg-white text-wg-black hover:border-wg-orange/40 hover:text-wg-orange'
+                  ? 'border-wg-black bg-wg-black text-white'
+                  : 'border-[#E5E5E5] bg-white text-wg-black hover:border-[#CFCFC8] hover:text-wg-black'
               }`}
             >
               <Heart size={14} className={metrics.liked ? 'fill-current' : ''} />
               {metrics.likes} curtidas
             </button>
-            <span className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-4 py-2 text-[11px] font-light uppercase tracking-[0.14em] text-wg-gray">
+            <span className="inline-flex items-center gap-2 rounded-full border border-[#E5E5E5] bg-white px-4 py-2 text-[11px] font-light uppercase tracking-[0.14em] text-wg-gray">
               <MessageCircle size={14} />
               {metrics.comments} comentários
             </span>
-            <span className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-4 py-2 text-[11px] font-light uppercase tracking-[0.14em] text-wg-gray">
+            <span className="inline-flex items-center gap-2 rounded-full border border-[#E5E5E5] bg-white px-4 py-2 text-[11px] font-light uppercase tracking-[0.14em] text-wg-gray">
               <Share2 size={14} />
               {metrics.shares} compartilhamentos
             </span>
           </div>
 
-          <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-5">
             {networks.map(({ id, label, icon: Icon }) => (
               <button
                 key={id}
                 type="button"
                 onClick={() => handleShare(id)}
-                className="inline-flex items-center justify-center gap-2 rounded-2xl border border-black/8 bg-white px-4 py-3 text-sm font-light text-wg-black transition-colors hover:border-wg-orange/35 hover:text-wg-orange"
+                className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-2xl border border-[#E5E5E5] bg-white px-3 py-2 text-sm font-light text-wg-black transition-colors hover:border-[#CFCFC8] hover:text-wg-black"
               >
                 {id === 'link' && copied ? <CheckCircle2 size={15} /> : <Icon size={15} />}
                 {id === 'link' && copied ? 'Link copiado' : label}
@@ -124,44 +124,42 @@ export default function BlogEngagementPanel({
             ))}
           </div>
 
-          <form onSubmit={handleCommentSubmit} className="space-y-3 rounded-[24px] border border-black/8 bg-white p-4 md:p-5">
-            <div className="grid gap-3 md:grid-cols-[14rem_minmax(0,1fr)]">
+          <form onSubmit={handleCommentSubmit} className="rounded-[24px] border border-[#E5E5E5] bg-white p-4 md:p-5">
+            <div className="grid gap-3 lg:grid-cols-[13rem_minmax(0,1fr)_auto] lg:items-end">
               <input
                 type="text"
                 value={form.name}
                 onChange={(event) => setForm((current) => ({ ...current, name: event.target.value }))}
-                className="rounded-2xl border border-black/10 px-4 py-3 text-sm font-light text-wg-black outline-none transition-colors focus:border-wg-orange"
+                className="h-12 rounded-2xl border border-[#E5E5E5] px-4 text-sm font-light text-wg-black outline-none transition-colors focus:border-[#CFCFC8]"
                 placeholder="Seu nome"
               />
               <textarea
                 value={form.body}
                 onChange={(event) => setForm((current) => ({ ...current, body: event.target.value }))}
-                className="min-h-[120px] rounded-2xl border border-black/10 px-4 py-3 text-sm font-light text-wg-black outline-none transition-colors focus:border-wg-orange"
+                className="h-12 min-h-12 resize-none rounded-2xl border border-[#E5E5E5] px-4 py-3 text-sm font-light leading-[1.45] text-wg-black outline-none transition-colors focus:border-[#CFCFC8] md:h-[58px] md:min-h-[58px]"
                 placeholder="Compartilhe sua leitura, dúvida ou referência que gostaria de ver na próxima edição."
               />
-            </div>
-            <div className="flex items-center justify-between gap-4">
-              <p className="text-xs font-light leading-relaxed text-wg-gray">
-                Comentários publicados aqui ficam visíveis no seu ambiente atual e servem como base para a próxima camada persistida do blog.
-              </p>
               <button
                 type="submit"
-                className="inline-flex shrink-0 items-center gap-2 rounded-full bg-wg-black px-5 py-2.5 text-[11px] font-light uppercase tracking-[0.14em] text-white transition-colors hover:bg-wg-orange"
+                className="inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-full bg-wg-black px-5 text-[11px] font-light uppercase tracking-[0.14em] text-white transition-colors hover:bg-black/90"
               >
                 <Send size={14} />
                 Publicar comentário
               </button>
             </div>
+            <p className="mt-2 text-xs font-light leading-snug text-wg-gray">
+              Comentários publicados aqui ficam visíveis no seu ambiente atual e servem como base para a próxima camada persistida do blog.
+            </p>
           </form>
 
           <div className="space-y-3">
             {comments.length === 0 ? (
-              <div className="rounded-[22px] border border-dashed border-black/10 bg-white px-4 py-5 text-sm font-light text-wg-gray">
+              <div className="rounded-[22px] border border-dashed border-[#E5E5E5] bg-white px-4 py-5 text-sm font-light text-wg-gray">
                 Ainda não há comentários publicados para este artigo.
               </div>
             ) : (
               comments.map((comment) => (
-                <article key={comment.id} className="rounded-[22px] border border-black/8 bg-white px-4 py-4 shadow-sm">
+                <article key={comment.id} className="rounded-[22px] border border-[#E5E5E5] bg-white px-4 py-4 shadow-sm">
                   <div className="mb-2 flex items-center justify-between gap-3">
                     <p className="text-sm font-medium text-wg-black">{comment.name}</p>
                     <span className="text-[11px] font-light uppercase tracking-[0.14em] text-wg-gray">
@@ -175,27 +173,6 @@ export default function BlogEngagementPanel({
           </div>
         </div>
 
-        <aside className="rounded-[24px] border border-black/8 bg-white p-5">
-          <p className="text-[11px] font-light uppercase tracking-[0.16em] text-wg-orange">Distribuição editorial</p>
-          <h3 className="mt-2 font-playfair text-2xl font-light text-wg-black">Leitura pronta para circular</h3>
-          <p className="mt-3 text-sm font-light leading-[1.75] text-wg-gray">
-            Este template mestre foi preparado para publicação pública, copy link, compartilhamento social e acoplamento com o fluxo de moodboard do artigo.
-          </p>
-          <dl className="mt-5 space-y-3 text-sm font-light text-wg-gray">
-            <div className="flex items-center justify-between gap-3">
-              <dt>Template base</dt>
-              <dd className="text-wg-black">{article.templateId || 'legacy-architects-master-v1'}</dd>
-            </div>
-            <div className="flex items-center justify-between gap-3">
-              <dt>Status editorial</dt>
-              <dd className="text-wg-black">{article.status || 'published'}</dd>
-            </div>
-            <div className="flex items-center justify-between gap-3">
-              <dt>Mood board</dt>
-              <dd className="text-wg-black">{article.moodboardShareUrl ? 'vinculado' : 'não definido'}</dd>
-            </div>
-          </dl>
-        </aside>
       </div>
     </section>
   );

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { motion } from '@/lib/motion-lite';
-import { 
-  Layers, 
-  Palette, 
-  ChevronLeft, 
+import {
+  Layers,
+  Palette,
+  ChevronLeft,
   ChevronRight,
   Maximize2,
   Trash2,
@@ -20,6 +20,7 @@ import { Link } from 'react-router-dom';
 import BrandStar from '@/components/BrandStar';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
+import MoodboardSelectionSummary from './MoodboardSelectionSummary';
 
 const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, onProjectNameChange, onSave, isSaving, lizInsight }) => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -94,8 +95,13 @@ const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, 
           {children}
         </div>
 
+        {/* Painel de Representação Passo a Passo */}
+        <div className="shrink-0 p-4 border-t border-white/5 bg-black/30">
+          <MoodboardSelectionSummary />
+        </div>
+
         {/* Footer Sidebar - Status */}
-        <div className="p-4 border-t border-white/5 bg-black/20 flex items-center justify-between text-[8px] font-bold uppercase tracking-widest text-slate-600 shrink-0">
+        <div className="p-3 border-t border-white/5 bg-black/20 flex items-center justify-between text-[8px] font-bold uppercase tracking-widest text-slate-600 shrink-0">
           <span className="flex items-center gap-1.5"><div className="w-1 h-1 rounded-full bg-wg-orange/30" /> Secure</span>
           <span>WG Almeida &copy; 2026</span>
         </div>
@@ -148,12 +154,12 @@ const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, 
         </header>
 
         {/* Canvas de Edição - Área Central Otimizada */}
-        <div className="flex-1 relative overflow-hidden flex flex-col items-center p-6 lg:p-8">
+        <div className="flex-1 relative overflow-hidden flex flex-col items-center p-0 lg:p-2">
            {/* Grid Background Decorativo */}
            <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
            
            {/* O Studio real renderiza o canvas aqui - Agora alinhado ao topo */}
-           <div id="studio-canvas-root" className="w-full h-full max-w-[1400px] relative z-10 shadow-[0_100px_150px_rgba(0,0,0,0.5)] rounded-[40px]">
+           <div id="studio-canvas-root" className="w-full h-full max-w-[1400px] relative z-10 shadow-[0_20px_60px_rgba(0,0,0,0.4)] rounded-[16px]">
               <div id="main-canvas-container" className="w-full h-full"></div>
            </div>
 

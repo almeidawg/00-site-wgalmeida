@@ -225,8 +225,6 @@ const EstiloDetail = () => {
   const articleUrl = `https://wgalmeida.com.br/estilos/${estilo.slug}`;
   const tocHeadings = extractTocHeadings(contentBody);
   const sectionedContent = splitMarkdownByH2(contentBody);
-  const styleAccent = estilo.colors?.[0] || '#F25C26';
-  const styleAccentSoft = `${styleAccent}18`;
 
   // Get other styles for recommendations - prioritize same category for SEO interlinking
   const otherEstilos = allEstilos
@@ -259,8 +257,10 @@ const EstiloDetail = () => {
             url: articleUrl,
             image: heroImg?.startsWith('http') ? heroImg : `https://wgalmeida.com.br${heroImg}`,
             author: {
-              "@type": "Organization",
-              name: "Grupo WG Almeida",
+              "@type": "Person",
+              "name": "William Almeida",
+              "jobTitle": "Arquiteto e Fundador",
+              "url": "https://wgalmeida.com.br/sobre"
             },
             publisher: {
               "@type": "Organization",
@@ -270,6 +270,17 @@ const EstiloDetail = () => {
                 url: "https://wgalmeida.com.br/images/logo-96.webp",
               },
             },
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "CreativeWork",
+            "name": `Guia de Estilo ${estilo.title}`,
+            "description": estilo.excerpt,
+            "genre": "Design de Interiores",
+            "author": {
+              "@type": "Person",
+              "name": "William Almeida"
+            }
           },
           estilo.faq && estilo.faq.length > 0 && {
             "@context": "https://schema.org",
@@ -313,7 +324,7 @@ const EstiloDetail = () => {
               transition={{ duration: 0.6 }}
               className="flex flex-wrap items-center gap-3 mb-6"
             >
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/18 bg-white/8 px-4 py-2 text-[rgba(255,255,255,0.78)] font-light uppercase tracking-[0.22em] text-[11px] backdrop-blur-sm">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-[rgba(255,255,255,0.78)] font-light uppercase tracking-[0.22em] text-[11px] backdrop-blur-sm">
                 <Palette className="h-4 w-4 text-[rgba(255,255,255,0.78)]" />
                 Guia de Estilo
               </span>
@@ -374,7 +385,6 @@ const EstiloDetail = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.45 }}
             className="-mt-8 mb-7 overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-br from-white to-[#F8F8F8] shadow-sm md:-mt-12 md:mb-8"
-            style={{ borderTopColor: styleAccent, background: `linear-gradient(135deg, #ffffff 0%, ${styleAccentSoft} 100%)` }}
           >
             <div className="grid grid-cols-1 md:grid-cols-[200px_1fr]">
               <div className="relative h-40 md:h-full">
@@ -395,7 +405,7 @@ const EstiloDetail = () => {
                 {tocHeadings.slice(0, 3).map((item) => (
                   <a key={item.id} href={`#${item.id}`}
                     className="inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-white px-3 py-1 text-xs text-wg-black mr-2 mb-2 hover:border-black/20 hover:text-wg-black transition-colors">
-                    <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ backgroundColor: styleAccent }} />{item.text}
+                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-gray-400" />{item.text}
                   </a>
                 ))}
               </div>
@@ -415,7 +425,7 @@ const EstiloDetail = () => {
                           ? 'border-black/12 shadow-[0_0_0_1px_rgba(46,46,46,0.08)]'
                           : 'border-gray-200 hover:border-black/12 hover:shadow-sm'
                       }`}>
-                      <span className={`inline-block h-1.5 w-1.5 rounded-full ${activeHeadingId === item.id ? 'bg-wg-orange' : 'bg-gray-400 group-hover:bg-wg-orange/80'}`} />
+                      <span className={`inline-block h-1.5 w-1.5 rounded-full ${activeHeadingId === item.id ? 'bg-wg-black' : 'bg-gray-400 group-hover:bg-wg-black/70'}`} />
                       <span className={`flex-1 font-light ${activeHeadingId === item.id ? 'text-wg-black' : 'text-wg-gray group-hover:text-wg-black'}`}>{item.text}</span>
                     </a>
                   </li>
@@ -427,11 +437,11 @@ const EstiloDetail = () => {
           {/* Article sectioned */}
           {sectionedContent.intro && (
             <div className="wg-prose mb-7 max-w-none
-              [&>p]:text-[16px] [&>p]:font-normal [&>p]:text-wg-gray [&>p]:leading-[1.76] [&>p]:mb-5
-              [&_strong]:text-wg-black [&_strong]:font-semibold
+              [&>p]:text-[16px] [&>p]:font-light [&>p]:text-wg-gray [&>p]:leading-[1.76] [&>p]:mb-5
+              [&_strong]:text-inherit [&_strong]:font-light
               [&_a]:text-wg-gray [&_a]:underline [&_a]:decoration-black/20 [&_a]:underline-offset-4 hover:[&_a]:text-wg-black hover:[&_a]:decoration-black/40
               [&>ul]:my-6 [&>ul]:space-y-3 [&>ul]:pl-0 [&>ul]:list-none
-              [&>ul>li]:text-[16px] [&>ul>li]:font-normal [&>ul>li]:text-wg-gray [&>ul>li]:leading-[1.7] [&>ul>li]:pl-7 [&>ul>li]:relative [&>ul>li]:before:content-[''] [&>ul>li]:before:absolute [&>ul>li]:before:left-0 [&>ul>li]:before:top-[10px] [&>ul>li]:before:w-[6px] [&>ul>li]:before:h-[6px] [&>ul>li]:before:rounded-full [&>ul>li]:before:bg-wg-orange/60">
+              [&>ul>li]:text-[16px] [&>ul>li]:font-light [&>ul>li]:text-wg-gray [&>ul>li]:leading-[1.7] [&>ul>li]:pl-7 [&>ul>li]:relative [&>ul>li]:before:content-[''] [&>ul>li]:before:absolute [&>ul>li]:before:left-0 [&>ul>li]:before:top-[10px] [&>ul>li]:before:w-[6px] [&>ul>li]:before:h-[6px] [&>ul>li]:before:rounded-full [&>ul>li]:before:bg-gray-400">
               <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>{sectionedContent.intro}</ReactMarkdown>
             </div>
           )}
@@ -445,23 +455,23 @@ const EstiloDetail = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.35, delay: index * 0.03 }}
                 className="rounded-2xl border border-gray-200 bg-white p-5 transition-all hover:border-black/10 hover:shadow-md md:p-7"
-                style={{ boxShadow: index === 0 ? `inset 4px 0 0 ${styleAccent}` : undefined }}
+                style={{ boxShadow: index === 0 ? 'inset 4px 0 0 #D7D7D0' : undefined }}
               >
                 <div className="wg-prose max-w-none
                   [&>h2]:text-[clamp(1.55rem,2vw,2.05rem)] [&>h2]:font-light [&>h2]:tracking-tight [&>h2]:text-wg-black [&>h2]:mb-5 [&>h2]:mt-0
-                  [&>h3]:text-[1.12rem] [&>h3]:font-normal [&>h3]:text-wg-black [&>h3]:mb-4 [&>h3]:mt-8
-                  [&>h4]:text-[1rem] [&>h4]:font-normal [&>h4]:text-wg-black [&>h4]:mb-3 [&>h4]:mt-6
-                  [&>p]:text-[16px] [&>p]:font-normal [&>p]:text-wg-gray [&>p]:leading-[1.76] [&>p]:mb-5
-                  [&_strong]:text-wg-black [&_strong]:font-semibold
+                  [&>h3]:text-[1.12rem] [&>h3]:font-light [&>h3]:text-wg-black [&>h3]:mb-4 [&>h3]:mt-8
+                  [&>h4]:text-[1rem] [&>h4]:font-light [&>h4]:text-wg-black [&>h4]:mb-3 [&>h4]:mt-6
+                  [&>p]:text-[16px] [&>p]:font-light [&>p]:text-wg-gray [&>p]:leading-[1.76] [&>p]:mb-5
+                  [&_strong]:text-inherit [&_strong]:font-light
                   [&_a]:text-wg-gray [&_a]:underline [&_a]:decoration-black/20 [&_a]:underline-offset-4 hover:[&_a]:text-wg-black hover:[&_a]:decoration-black/40
                   [&>ul]:my-5 [&>ul]:space-y-2 [&>ul]:pl-0 [&>ul]:list-none
-                  [&>ul>li]:text-[16px] [&>ul>li]:font-normal [&>ul>li]:text-wg-gray [&>ul>li]:leading-[1.7] [&>ul>li]:pl-7 [&>ul>li]:relative [&>ul>li]:before:content-[''] [&>ul>li]:before:absolute [&>ul>li]:before:left-0 [&>ul>li]:before:top-[10px] [&>ul>li]:before:w-[6px] [&>ul>li]:before:h-[6px] [&>ul>li]:before:rounded-full [&>ul>li]:before:bg-wg-orange/60
+                  [&>ul>li]:text-[16px] [&>ul>li]:font-light [&>ul>li]:text-wg-gray [&>ul>li]:leading-[1.7] [&>ul>li]:pl-7 [&>ul>li]:relative [&>ul>li]:before:content-[''] [&>ul>li]:before:absolute [&>ul>li]:before:left-0 [&>ul>li]:before:top-[10px] [&>ul>li]:before:w-[6px] [&>ul>li]:before:h-[6px] [&>ul>li]:before:rounded-full [&>ul>li]:before:bg-gray-400
                   [&>blockquote]:border-l-2 [&>blockquote]:border-[#D7D7D0] [&>blockquote]:pl-5 [&>blockquote]:font-light [&>blockquote]:text-wg-gray [&>blockquote]:bg-gradient-to-r [&>blockquote]:from-[#F7F7F5] [&>blockquote]:to-[#FCFCFB] [&>blockquote]:py-[14px] [&>blockquote]:pr-4 [&>blockquote]:rounded-r-lg [&>blockquote]:my-8">
                   <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>{section.markdown}</ReactMarkdown>
                 </div>
               </motion.article>
             )) : (
-              <div className="wg-prose max-w-none [&>p]:text-[16px] [&>p]:font-normal [&>p]:text-wg-gray [&>p]:leading-[1.76] [&>p]:mb-5 [&_strong]:text-wg-black [&_strong]:font-semibold [&_a]:text-wg-gray [&_a]:underline [&_a]:decoration-black/20 [&_a]:underline-offset-4 hover:[&_a]:text-wg-black hover:[&_a]:decoration-black/40">
+              <div className="wg-prose max-w-none [&>p]:text-[16px] [&>p]:font-light [&>p]:text-wg-gray [&>p]:leading-[1.76] [&>p]:mb-5 [&_strong]:text-inherit [&_strong]:font-light [&_a]:text-wg-gray [&_a]:underline [&_a]:decoration-black/20 [&_a]:underline-offset-4 hover:[&_a]:text-wg-black hover:[&_a]:decoration-black/40">
                 <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>{contentBody}</ReactMarkdown>
               </div>
             )}
@@ -477,7 +487,7 @@ const EstiloDetail = () => {
               {estilo.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="inline-flex items-center rounded-full border border-black/8 bg-[#f6f6f4] px-4 py-2 text-sm font-light text-wg-black transition-all hover:border-black/14 hover:shadow-sm"
+                  className="inline-flex items-center rounded-full border border-[#E5E5E5] bg-[#f6f6f4] px-4 py-2 text-sm font-light text-wg-black transition-all hover:border-[#CFCFC8] hover:shadow-sm"
                 >
                   #{tag}
                 </span>
@@ -501,7 +511,7 @@ const EstiloDetail = () => {
           <div className="mt-12 overflow-hidden rounded-[28px] border border-[#E8E8E8] bg-white shadow-[0_20px_50px_rgba(0,0,0,0.04)]">
             <div className="grid grid-cols-1 md:grid-cols-2">
               <div className="p-8 md:p-10">
-                <span className="mb-4 block text-[11px] font-light uppercase tracking-[0.25em] text-wg-orange">
+                <span className="mb-4 block text-[11px] font-light uppercase tracking-[0.25em] text-wg-gray">
                   Ecossistema WG Almeida
                 </span>
                 <h3 className="mb-6 text-3xl font-inter font-light leading-tight text-wg-black">
@@ -517,7 +527,7 @@ const EstiloDetail = () => {
                     { label: 'Marcenaria de Luxo', desc: 'Mobiliário fixo com acabamento premium.' }
                   ].map((item, i) => (
                     <div key={i} className="flex items-start gap-3">
-                      <div className="mt-1 h-1.5 w-1.5 rounded-full bg-wg-orange" />
+                      <div className="mt-1 h-1.5 w-1.5 rounded-full bg-gray-400" />
                       <div>
                         <p className="text-sm font-light text-wg-black">{item.label}</p>
                         <p className="text-xs font-light text-wg-gray">{item.desc}</p>
@@ -541,7 +551,7 @@ const EstiloDetail = () => {
                     </p>
                     <Link
                       to="/contato"
-                      className="inline-flex items-center gap-2 rounded-full bg-wg-orange px-8 py-4 text-sm font-light text-white shadow-lg transition-all hover:bg-wg-orange-dark hover:shadow-wg-orange/20"
+                      className="inline-flex items-center gap-2 rounded-full bg-wg-black px-8 py-4 text-sm font-light text-white shadow-lg transition-all hover:bg-black/90"
                     >
                       Solicitar Consultoria <ArrowRight className="w-4 h-4" />
                     </Link>
@@ -570,9 +580,9 @@ const EstiloDetail = () => {
 
               <Link
                 to={`/solicite-proposta?service=Projeto%20${estilo.title}&context=estilo_detail&slug=${estilo.slug}`}
-                className="group flex flex-col gap-4 p-6 rounded-2xl border border-wg-orange/10 bg-wg-orange/5 transition-all hover:bg-wg-orange/10 hover:border-wg-orange/30 hover:shadow-md"
+                className="group flex flex-col gap-4 p-6 rounded-2xl border border-gray-200 bg-white transition-all hover:border-black/10 hover:shadow-md"
               >
-                <div className="flex items-center justify-between text-wg-orange">
+                <div className="flex items-center justify-between text-wg-black">
                   <span className="text-xs uppercase tracking-widest">Próximo Passo</span>
                   <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                 </div>

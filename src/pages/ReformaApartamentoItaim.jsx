@@ -83,37 +83,8 @@ const ReformaApartamentoItaim = () => {
     { titulo: 'Entrega Premium', descricao: 'Vistoria, ajustes finais e entrega com garantia.' }
   ];
 
-  const localBusinessSchema = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "name": "Reforma de Apartamento no Itaim Bibi | Grupo WG Almeida",
-    "description": "Reforma completa de apartamento no Itaim Bibi com projeto, execução e entrega integrados. Apartamentos de 80m² a 300m², com leitura guiada da obra e orçamento transparente.",
-    "url": pageUrl,
-    "provider": {
-      "@type": "Organization",
-      "name": "Grupo WG Almeida",
-      "telephone": COMPANY.phoneRaw,
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "São Paulo",
-        "addressRegion": "SP",
-        "addressCountry": "BR"
-      }
-    },
-    "areaServed": {
-      "@type": "Neighborhood",
-      "name": "Itaim Bibi",
-      "containedInPlace": {
-        "@type": "City",
-        "name": "São Paulo"
-      }
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "5.0",
-      "reviewCount": "47"
-    }
-  };
+  // Schema LocalBusiness para SEO local
+  const localBusinessSchema = schemas.localBusiness('Itaim Bibi');
 
   return (
     <>

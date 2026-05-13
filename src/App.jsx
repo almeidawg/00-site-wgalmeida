@@ -367,6 +367,7 @@ function App() {
               <Route path="/moodboard" element={<MoodboardStudio />} />
               <Route path="/moodboard/studio" element={<MoodboardStudio />} />
               <Route path="/moodboard/share" element={<MoodboardShare />} />
+              <Route path="/moodboard/s/:shareId" element={<MoodboardShare />} />
               <Route path="/moodboard-generator" element={<Navigate to="/moodboard" replace />} />
               <Route path="/gerador-moodboard" element={<Navigate to="/moodboard" replace />} />
               <Route path="/room-visualizer" element={<RoomVisualizer />} />

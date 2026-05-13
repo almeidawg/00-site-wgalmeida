@@ -509,14 +509,126 @@
   .wg-prose h4,
   .wg-prose h5,
   .wg-prose h6 {
-    font-family: 'Suisse Intl', 'Inter', sans-serif;
+    font-family: 'Playfair Display', 'Playfair Fallback', serif;
     font-weight: 300 !important;
+  }
+
+  .wg-prose h2 {
+    margin: 0 0 1.25rem;
+    font-size: clamp(1.34rem, 1.62vw, 1.72rem);
+    line-height: 1.22;
+  }
+
+  .wg-prose h3 {
+    margin: 1.75rem 0 0.7rem;
+    font-size: clamp(1rem, 1.08vw, 1.14rem);
+    line-height: 1.38;
+  }
+
+  .wg-prose h4 {
+    margin: 1.35rem 0 0.55rem;
+    font-size: clamp(0.9rem, 0.92vw, 0.98rem);
+    line-height: 1.4;
+  }
+
+  .wg-prose p {
+    margin: 1rem 0;
+    color: #4C4C4C;
+    font-size: 1.02rem;
+    font-weight: 300 !important;
+    line-height: 1.78;
+  }
+
+  .wg-prose ul,
+  .wg-prose ol {
+    margin: 1rem 0;
+    padding-left: 1.25rem;
+    font-weight: 300 !important;
+  }
+
+  .wg-prose li {
+    margin: 0.38rem 0;
+    color: #4C4C4C;
+    font-weight: 300 !important;
+    line-height: 1.7;
   }
 
   .wg-prose strong,
   .wg-prose b {
-    font-weight: 500 !important;
+    font-weight: 300 !important;
     color: inherit;
+  }
+
+  .wg-prose span,
+  .wg-prose em,
+  .wg-prose blockquote,
+  .wg-prose figcaption,
+  .wg-prose small {
+    font-weight: 300 !important;
+  }
+
+  .wg-prose a {
+    color: inherit;
+    font-weight: 300 !important;
+    text-decoration-color: rgba(46, 46, 46, 0.24);
+    text-underline-offset: 4px;
+  }
+
+  .wg-prose a:hover {
+    color: #2E2E2E;
+    text-decoration-color: rgba(46, 46, 46, 0.42);
+  }
+
+  .wg-prose hr {
+    margin: 2rem 0;
+    border: 0;
+    border-top: 1px solid #E5E5E5;
+  }
+
+  .wg-prose table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid #E5E5E5;
+    border-radius: 14px;
+    background: #FFFFFF;
+    font-weight: 300 !important;
+  }
+
+  .wg-prose thead {
+    background: #F6F5F2;
+    font-weight: 300 !important;
+  }
+
+  .wg-prose tbody,
+  .wg-prose tr {
+    font-weight: 300 !important;
+  }
+
+  .wg-prose th,
+  .wg-prose td {
+    min-width: 10rem;
+    border-bottom: 1px solid #EAEAEA;
+    padding: 0.85rem 1rem;
+    text-align: left;
+    vertical-align: top;
+    color: #4C4C4C;
+    font-size: 0.94rem;
+    font-weight: 300 !important;
+    line-height: 1.5;
+  }
+
+  .wg-prose th {
+    color: #2E2E2E;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .wg-prose tr:last-child td {
+    border-bottom: 0;
   }
 
   strong,

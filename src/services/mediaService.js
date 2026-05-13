@@ -97,6 +97,14 @@ export const searchUnsplashImages = async (query) => {
       thumb: item.urls?.small || item.urls?.thumb || item.urls?.regular || '',
       source: 'unsplash',
       author: item.photographer || item.user?.name || '',
+      photographer: item.photographer || item.user?.name || '',
+      photographerUsername: item.photographerUsername || '',
+      profileUrl: item.profileUrl || item.user?.links?.html || '',
+      pageUrl: item.unsplashPage || '',
+      unsplashPage: item.unsplashPage || '',
+      downloadLocation: item.downloadLocation || '',
+      alt: item.alt_description || item.description || 'Imagem editorial via Unsplash',
+      licenseType: 'Unsplash API',
     }));
   } catch (err) {
     console.error('[DiscoveryEngine] Falha na busca Unsplash:', err);

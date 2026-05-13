@@ -194,7 +194,7 @@ const RegionTemplate = ({
             transition={{ duration: 0.8 }}
             className="max-w-4xl mx-auto"
           >
-            <div className="prose prose-lg max-w-none">
+            <div className="wg-prose prose prose-lg max-w-none">
               {resolvedIntro.map((paragraph, index) => (
                 <p key={index} className="text-lg text-wg-gray leading-relaxed mb-6 font-light">
                   {paragraph}

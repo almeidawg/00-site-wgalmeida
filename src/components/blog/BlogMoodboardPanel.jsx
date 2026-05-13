@@ -54,12 +54,12 @@ export default function BlogMoodboardPanel({ article }) {
           </div>
         </div>
 
-        <div className="border-t border-black/8 bg-white p-6 md:p-8 lg:border-l lg:border-t-0">
+        <div className="border-t border-[#E5E5E5] bg-white p-6 md:p-8 lg:border-l lg:border-t-0">
           <p className="mb-4 text-[11px] font-light uppercase tracking-[0.16em] text-wg-gray">Paleta selecionada</p>
           <div className="grid grid-cols-5 gap-3">
             {palette.map((color) => (
               <div key={color} className="space-y-2">
-                <div className="aspect-[3/4] rounded-2xl border border-black/8 shadow-sm" style={{ backgroundColor: color }} />
+                <div className="aspect-[3/4] rounded-2xl border border-[#DAD6CE] shadow-sm" style={{ backgroundColor: color }} />
                 <p className="text-[10px] font-light uppercase tracking-[0.1em] text-wg-gray">{color}</p>
               </div>
             ))}

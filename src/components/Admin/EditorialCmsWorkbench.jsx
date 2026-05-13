@@ -19,6 +19,7 @@ import {
   COMMERCIAL_SERVICE_OPTIONS,
   getCommercialPublicationValidation,
 } from '@/data/commercialGovernance';
+import { buildEditorialImageStrategy } from '@/lib/editorialImageIntelligence';
 import {
   buildEditablePost,
   buildEmptyPost,
@@ -250,6 +251,7 @@ export default function EditorialCmsWorkbench() {
 
   const moodboardShareUrl = useMemo(() => buildBlogMoodboardShareUrl(toPostPayload(form)), [form]);
   const publicationValidation = useMemo(() => getCommercialPublicationValidation(toPostPayload(form)), [form]);
+  const imageStrategy = useMemo(() => buildEditorialImageStrategy(toPostPayload(form)), [form]);
 
   return (
     <div className="grid gap-8 xl:grid-cols-[24rem_minmax(0,1fr)]">
@@ -439,6 +441,58 @@ export default function EditorialCmsWorkbench() {
                   ))}
                 </select>
               </label>
+              <div className="md:col-span-2 rounded-[28px] border border-white/10 bg-black/20 p-5">
+                <div className="flex items-center gap-2">
+                  <Palette size={16} className="text-wg-orange" />
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">Direção editorial de imagem</span>
+                </div>
+                <p className="mt-3 text-sm font-light leading-relaxed text-slate-300">{imageStrategy.directionSummary}</p>
+                <div className="mt-4 grid gap-3 md:grid-cols-3">
+                  <label className="space-y-2">
+                    <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-slate-600">Tema principal</span>
+                    <input value={form.imageGovernance?.theme || ''} onChange={(event) => handleNestedField('imageGovernance', 'theme', event.target.value)} className="w-full rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none" />
+                  </label>
+                  <label className="space-y-2">
+                    <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-slate-600">Estilo visual</span>
+                    <input value={form.imageGovernance?.visualStyle || imageStrategy.visualFamily || ''} onChange={(event) => handleNestedField('imageGovernance', 'visualStyle', event.target.value)} className="w-full rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none" />
+                  </label>
+                  <label className="space-y-2">
+                    <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-slate-600">Prioridade visual</span>
+                    <select value={form.imageGovernance?.visualPriority || 'hero forte'} onChange={(event) => handleNestedField('imageGovernance', 'visualPriority', event.target.value)} className="w-full rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none">
+                      <option value="hero forte">hero forte</option>
+                      <option value="card forte">card forte</option>
+                      <option value="neutro">neutro</option>
+                      <option value="institucional">institucional</option>
+                    </select>
+                  </label>
+                  <label className="space-y-2 md:col-span-2">
+                    <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-slate-600">Prompt semântico para busca</span>
+                    <input value={form.imageGovernance?.semanticPrompt || imageStrategy.slots.hero.mainQuery || ''} onChange={(event) => handleNestedField('imageGovernance', 'semanticPrompt', event.target.value)} className="w-full rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none" />
+                  </label>
+                  <label className="space-y-2">
+                    <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-slate-600">Status de imagem</span>
+                    <select value={form.imageGovernance?.reviewStatus || 'sugerida'} onChange={(event) => handleNestedField('imageGovernance', 'reviewStatus', event.target.value)} className="w-full rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none">
+                      <option value="sugerida">sugerida</option>
+                      <option value="aprovada">aprovada</option>
+                      <option value="rejeitada">rejeitada</option>
+                      <option value="manual">manual</option>
+                    </select>
+                  </label>
+                  <label className="space-y-2 md:col-span-3">
+                    <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-slate-600">Justificativa IA / vínculo semântico</span>
+                    <textarea value={form.imageGovernance?.aiJustification || imageStrategy.directionSummary || ''} onChange={(event) => handleNestedField('imageGovernance', 'aiJustification', event.target.value)} className="min-h-[82px] w-full rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none" />
+                  </label>
+                </div>
+                <div className="mt-4 grid gap-3 md:grid-cols-2">
+                  {['hero', 'card'].map((slot) => (
+                    <div key={slot} className="rounded-2xl border border-white/8 bg-white/5 p-4">
+                      <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-wg-orange">{slot}</p>
+                      <p className="mt-2 text-sm text-white">{imageStrategy.slots[slot].mainQuery}</p>
+                      <p className="mt-2 text-xs font-light leading-relaxed text-slate-500">{imageStrategy.slots[slot].framing}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
               <label className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
                 <input type="checkbox" checked={Boolean(form.featured)} onChange={(event) => handleField('featured', event.target.checked)} />
                 <span className="text-sm text-white">Destacar na vitrine do blog</span>

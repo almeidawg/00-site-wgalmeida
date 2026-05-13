@@ -35,6 +35,16 @@ import { useToast } from '@/components/ui/use-toast';
 import { motion, AnimatePresence } from '@/lib/motion-lite';
 import { searchGoogleImages, searchPinterestImages, searchUnsplashImages } from '@/services/mediaService';
 import { fetchRetailProducts } from '@/services/retailService';
+import { uploadImage } from '@/services/cloudinaryAI';
+import { createCloudinarySlotState } from '@/utils/editorialSlotState';
+import {
+  buildEditorialImageStrategy,
+  getImageSourcePolicy,
+  scoreEditorialCandidate,
+} from '@/lib/editorialImageIntelligence';
+
+const BLOG_UPLOAD_STORAGE_KEY = 'wg_blog_editorial_uploads_v1';
+const BLOG_UNSPLASH_STORAGE_KEY = 'wg_blog_editorial_unsplash_v1';
 
 const CATEGORY_LABELS = {
   arquitetura: 'Arquitetura',
@@ -56,12 +66,15 @@ export default function AdminBlogEditorial() {
   const [librarySearch, setLibrarySearch] = useState('');
   const [libraryResults, setLibraryResults] = useState([]);
   const [isLibrarySearching, setIsLibrarySearching] = useState(false);
-  const [libraryMode, setLibraryMode] = useState('pinterest');
+  const [libraryMode, setLibraryMode] = useState('unsplash');
 
   const { toast } = useToast();
 
   const [localSelections, setLocalSelections] = useState(() => {
-    try { return JSON.parse(localStorage.getItem('wg_blog_editorial_unsplash_v1') || '{}'); } catch { return {}; }
+    try { return JSON.parse(localStorage.getItem(BLOG_UNSPLASH_STORAGE_KEY) || '{}'); } catch { return {}; }
+  });
+  const [localUploads, setLocalUploads] = useState(() => {
+    try { return JSON.parse(localStorage.getItem(BLOG_UPLOAD_STORAGE_KEY) || '{}'); } catch { return {}; }
   });
 
   const editorialData = useMemo(() => {
@@ -74,6 +87,7 @@ export default function AdminBlogEditorial() {
       const heroAsset = record.kind === 'style' ? { src: getStyleImageUrl({ slug, variant: 'card' }) } : getBlogImageAsset({ slug, category: record.category, variant: 'hero' });
       const cardAsset = record.kind === 'style' ? null : getBlogImageAsset({ slug, category: record.category, variant: 'card' });
       const contextItems = (manifest.context || []).map((item, idx) => ({ id: `context${idx + 1}`, title: item.sectionTitle || `Seção ${idx + 1}`, asset: item }));
+      const imageStrategy = buildEditorialImageStrategy(record);
 
       return {
         ...record,
@@ -81,6 +95,7 @@ export default function AdminBlogEditorial() {
         categoryLabel: getCategoryLabel(record.category),
         heroImage: heroAsset,
         cardImage: cardAsset,
+        imageStrategy,
         contextItems,
         status: {
           hasHero: Boolean(heroAsset && !heroAsset.isFallback),
@@ -92,7 +107,7 @@ export default function AdminBlogEditorial() {
     });
 
     return combined.filter(item => item.label.toLowerCase().includes(searchTerm.toLowerCase()));
-  }, [searchTerm, localSelections]);
+  }, [searchTerm, localSelections, localUploads]);
 
   const handleLibrarySearch = async (e) => {
     if (e) e.preventDefault();
@@ -101,18 +116,21 @@ export default function AdminBlogEditorial() {
     try {
       let images = [];
       const premium = "luxury professional architecture photography";
-      if (libraryMode === 'google') images = await searchGoogleImages(`${librarySearch} ${premium}`);
-      else if (libraryMode === 'pinterest') images = await searchPinterestImages(`${librarySearch} ${premium}`);
-      else if (libraryMode === 'retail') images = await fetchRetailProducts({ query: librarySearch });
-      
-      if (!images || images.length === 0) images = await searchUnsplashImages(librarySearch);
+      if (libraryMode === 'unsplash') images = await searchUnsplashImages(librarySearch);
+      else if (libraryMode === 'reference') {
+        const [google, pinterest] = await Promise.all([
+          searchGoogleImages(`${librarySearch} ${premium}`),
+          searchPinterestImages(`${librarySearch} ${premium}`),
+        ]);
+        images = [...google, ...pinterest].map((item) => ({ ...item, source: item.source === 'pinterest' ? 'pinterest' : 'google' }));
+      } else if (libraryMode === 'retail') images = await fetchRetailProducts({ query: librarySearch });
       setLibraryResults(images);
     } catch (err) { console.error(err); } finally { setIsLibrarySearching(false); }
   };
 
   const handleSync = () => {
     setIsSyncing(true);
-    publishEditorialOverridesToBlog({}, localSelections);
+    publishEditorialOverridesToBlog(localUploads, localSelections);
     setTimeout(() => {
        setIsSyncing(false);
        toast({ title: 'Ativos Sincronizados', description: 'O site foi atualizado com sucesso.', className: 'bg-green-600 text-white' });
@@ -153,7 +171,7 @@ export default function AdminBlogEditorial() {
                 </div>
                 <div className="grid grid-cols-1 2xl:grid-cols-2 gap-10 pb-40">
                    {editorialData.map((record) => (
-                     <PostCuratoryCard key={record.slug} post={record} onEditMedia={(slot, title) => setActiveSlot({ slug: record.slug, slotName: slot, title: title || record.label })} />
+                     <PostCuratoryCard key={record.slug} post={record} onEditMedia={(slot, title) => setActiveSlot({ slug: record.slug, slotName: slot, title: title || record.label, post: record })} />
                    ))}
                 </div>
              </div>
@@ -161,8 +179,12 @@ export default function AdminBlogEditorial() {
              <div className="max-w-[1800px] mx-auto h-full flex flex-col space-y-8">
                 <div className="flex flex-col md:flex-row gap-6 items-center bg-[#0c0c0e]/80 border border-white/5 p-8 rounded-[40px] backdrop-blur-3xl shadow-2xl">
                    <div className="flex gap-2 p-1.5 bg-slate-950 rounded-2xl border border-white/5 shrink-0">
-                      {['pinterest', 'google', 'retail'].map(mode => (
-                        <button key={mode} onClick={() => setLibraryMode(mode)} className={cn("px-6 py-3 rounded-xl text-[9px] font-bold uppercase tracking-widest transition-all", libraryMode === mode ? "bg-white/10 text-white shadow-xl" : "text-slate-600")}>{mode}</button>
+                      {[
+                        { id: 'unsplash', label: 'Unsplash API' },
+                        { id: 'retail', label: 'Acervo WG' },
+                        { id: 'reference', label: 'Referência' },
+                      ].map(mode => (
+                        <button key={mode.id} onClick={() => setLibraryMode(mode.id)} className={cn("px-6 py-3 rounded-xl text-[9px] font-bold uppercase tracking-widest transition-all", libraryMode === mode.id ? "bg-white/10 text-white shadow-xl" : "text-slate-600")}>{mode.label}</button>
                       ))}
                    </div>
                    <form onSubmit={handleLibrarySearch} className="relative flex-1 w-full group">
@@ -180,7 +202,7 @@ export default function AdminBlogEditorial() {
                         {libraryResults.map((img, idx) => (
                           <motion.div key={idx} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="aspect-[3/4] bg-slate-900 rounded-[32px] overflow-hidden border border-white/5 hover:border-wg-orange/50 transition-all cursor-pointer group relative shadow-xl">
                              <img src={img.thumb || img.url} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-1000" />
-                             <div className="absolute top-4 left-4 px-2 py-0.5 bg-black/60 rounded text-[7px] font-bold uppercase border border-white/10">{img.source}</div>
+                             <div className="absolute top-4 left-4 px-2 py-0.5 bg-black/60 rounded text-[7px] font-bold uppercase border border-white/10">{getImageSourcePolicy(img.source).label}</div>
                              <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center p-6 text-center">
                                 <p className="text-[10px] text-white font-bold leading-tight line-clamp-3">{img.title}</p>
                                 <button className="absolute bottom-4 p-3 bg-white text-black rounded-xl hover:bg-wg-orange hover:text-white transition-all shadow-lg"><Plus size={16}/></button>
@@ -206,11 +228,25 @@ export default function AdminBlogEditorial() {
         activeSlot={activeSlot}
         onClose={() => setActiveSlot(null)}
         onSelection={(imgData) => {
-          const updated = { ...localSelections, [activeSlot.slug]: { ...localSelections[activeSlot.slug], [activeSlot.slotName]: imgData } };
+          const normalizedSelection = {
+            ...imgData,
+            src: imgData.src || imgData.url || imgData.urls?.regular || '',
+            page: imgData.page || imgData.pageUrl || imgData.unsplashPage || '',
+            photoPage: imgData.page || imgData.pageUrl || imgData.unsplashPage || '',
+            alt: imgData.alt || imgData.title || '',
+          };
+          const updated = { ...localSelections, [activeSlot.slug]: { ...localSelections[activeSlot.slug], [activeSlot.slotName]: normalizedSelection } };
           setLocalSelections(updated);
-          localStorage.setItem('wg_blog_editorial_unsplash_v1', JSON.stringify(updated));
+          localStorage.setItem(BLOG_UNSPLASH_STORAGE_KEY, JSON.stringify(updated));
           setActiveSlot(null);
           toast({ title: 'Vínculo Preparado', description: 'Clique em Sincronizar para aplicar.', className: 'bg-wg-orange text-white border-none shadow-2xl' });
+        }}
+        onUploadSelection={(slotState) => {
+          const updated = { ...localUploads, [activeSlot.slug]: { ...localUploads[activeSlot.slug], [activeSlot.slotName]: slotState } };
+          setLocalUploads(updated);
+          localStorage.setItem(BLOG_UPLOAD_STORAGE_KEY, JSON.stringify(updated));
+          setActiveSlot(null);
+          toast({ title: 'Upload Preparado', description: 'Acervo WG vinculado. Clique em Sincronizar para publicar.', className: 'bg-emerald-700 text-white border-none shadow-2xl' });
         }}
       />
     </>
@@ -234,12 +270,22 @@ function PostCuratoryCard({ post, onEditMedia }) {
          <div className="flex-1 flex flex-col justify-center">
             <span className="px-3 py-1 bg-wg-orange/10 border border-wg-orange/20 rounded-lg text-[10px] font-bold uppercase tracking-[0.3em] text-wg-orange w-fit mb-4">{post.categoryLabel}</span>
             <h3 className="text-3xl font-bold text-white leading-tight font-playfair italic mb-4">{post.label}</h3>
+            <p className="mb-3 text-xs font-light leading-relaxed text-slate-400">{post.imageStrategy?.directionSummary}</p>
             <p className="text-[10px] text-slate-700 font-mono tracking-tighter uppercase font-bold">/{post.slug}</p>
          </div>
       </div>
 
       <div className="p-10 space-y-8 bg-black/10 flex-1">
          <h4 className="text-xs font-bold text-slate-500 uppercase tracking-[0.3em] flex items-center gap-4 border-b border-white/5 pb-4"><Layers size={18} className="text-wg-orange" /> Esqueleto da Postagem</h4>
+         <div className="grid gap-4 md:grid-cols-2">
+            {['hero', 'card'].map((slot) => (
+              <div key={slot} className="rounded-[28px] border border-white/5 bg-slate-950/50 p-5">
+                <p className="text-[9px] font-bold uppercase tracking-[0.22em] text-wg-orange">{slot} semântico</p>
+                <p className="mt-2 text-sm text-white">{post.imageStrategy?.slots?.[slot]?.mainQuery}</p>
+                <p className="mt-2 text-[11px] font-light leading-relaxed text-slate-500">{post.imageStrategy?.slots?.[slot]?.framing}</p>
+              </div>
+            ))}
+         </div>
          <div className="grid grid-cols-1 gap-4 max-h-[500px] overflow-y-auto no-scrollbar pr-4 pb-10">
             {post.contextItems.map((item, idx) => (
                <div key={idx} className="flex items-center gap-8 p-6 bg-slate-900/20 border border-white/5 rounded-[32px] hover:bg-slate-900/40 transition-all group/item">
@@ -259,19 +305,27 @@ function PostCuratoryCard({ post, onEditMedia }) {
   );
 }
 
-function MediaSelectorModal({ activeSlot, onClose, onSelection }) {
+function MediaSelectorModal({ activeSlot, onClose, onSelection, onUploadSelection }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [results, setResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
-  const [searchMode, setSearchMode] = useState('pinterest'); 
+  const [searchMode, setSearchMode] = useState('unsplash'); 
   const [apiError, setApiError] = useState(null);
+  const [uploadFile, setUploadFile] = useState(null);
+  const [uploadAlt, setUploadAlt] = useState('');
+  const [uploadCredit, setUploadCredit] = useState('WG Almeida');
+  const [isUploading, setIsUploading] = useState(false);
   const lastQueryRef = useRef(null);
   const { toast } = useToast();
+  const slotPlan = activeSlot?.post?.imageStrategy?.slots?.[activeSlot?.slotName] || activeSlot?.post?.imageStrategy?.slots?.hero || null;
 
   useEffect(() => {
     if (activeSlot) {
-      const cleanQuery = (activeSlot.title || '').split(':').shift().split('(').shift().trim();
+      const semanticQuery = activeSlot?.post?.imageStrategy?.slots?.[activeSlot?.slotName]?.mainQuery;
+      const cleanQuery = semanticQuery || (activeSlot.title || '').split(':').shift().split('(').shift().trim();
       setSearchQuery(cleanQuery);
+      setUploadAlt(activeSlot?.post?.imageStrategy?.slots?.[activeSlot?.slotName]?.alt || activeSlot.title || '');
+      setUploadCredit('WG Almeida');
       handleSearch(cleanQuery);
     }
   }, [activeSlot, searchMode]);
@@ -286,15 +340,54 @@ function MediaSelectorModal({ activeSlot, onClose, onSelection }) {
     try {
       let images = [];
       const premium = "luxury professional architecture photography";
-      if (searchMode === 'google') images = await searchGoogleImages(`${query} ${premium}`);
-      else if (searchMode === 'pinterest') images = await searchPinterestImages(`${query} ${premium}`);
+      if (searchMode === 'unsplash') images = await searchUnsplashImages(query);
       else if (searchMode === 'retail') images = await fetchRetailProducts({ query });
-      if ((searchMode === 'google' || searchMode === 'pinterest') && (!images || images.length === 0)) {
-        setApiError('Cota atingida. Usando Unsplash temporariamente.');
-        images = await searchUnsplashImages(query);
+      else if (searchMode === 'reference') {
+        const [google, pinterest] = await Promise.all([
+          searchGoogleImages(`${query} ${premium}`),
+          searchPinterestImages(`${query} ${premium}`),
+        ]);
+        images = [...google, ...pinterest];
       }
-      setResults(images);
+      setResults(images.map((image) => scoreEditorialCandidate(image, slotPlan || { slot: activeSlot?.slotName }, activeSlot?.post || {})));
     } catch (err) { setApiError('Erro de conexão.'); } finally { setIsSearching(false); }
+  };
+
+  const handleUploadToArchive = async () => {
+    if (!uploadFile || !activeSlot) return;
+    setIsUploading(true);
+    try {
+      const result = await uploadImage(uploadFile, {
+        folder: `editorial/blog/${activeSlot.slug}`,
+      });
+      const uploadedAt = new Date().toISOString();
+      const slotState = createCloudinarySlotState(
+        {
+          alt: uploadAlt,
+          caption: uploadCredit ? `Credito: ${uploadCredit}` : '',
+        },
+        {
+          public_id: result.publicId,
+          secure_url: result.url,
+          original_filename: uploadFile.name,
+        },
+        uploadedAt
+      );
+
+      onUploadSelection({
+        ...slotState,
+        src: result.url,
+        source: 'cloudinary',
+        sourceLabel: 'Acervo WG',
+        credit: uploadCredit,
+        licenseType: 'Acervo WG / uso aprovado',
+      });
+    } catch (err) {
+      setApiError(err?.message || 'Erro no upload da imagem.');
+      toast({ title: 'Upload não concluído', description: err?.message || 'Verifique as credenciais do Cloudinary.', className: 'bg-red-700 text-white border-none' });
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   if (!activeSlot) return null;
@@ -310,14 +403,34 @@ function MediaSelectorModal({ activeSlot, onClose, onSelection }) {
                   {apiError && <div className="flex items-center gap-2 px-3 py-1 bg-red-600/20 border border-red-500/30 text-red-500 rounded-full text-[10px] font-bold uppercase tracking-widest animate-pulse"><AlertTriangle size={12} /> {apiError}</div>}
                </div>
                <p className="text-slate-400 text-lg">Mapeando para: <span className="text-wg-orange font-bold uppercase tracking-widest font-mono">{activeSlot.title}</span></p>
+               {slotPlan && (
+                 <p className="mt-2 text-sm font-light text-slate-500">
+                   Query semântica: <span className="text-slate-300">{slotPlan.mainQuery}</span>
+                 </p>
+               )}
             </div>
             <button onClick={onClose} className="w-20 h-20 bg-white/5 rounded-[32px] flex items-center justify-center text-slate-500 border border-white/5 hover:bg-white/10 transition-all shadow-xl"><X size={40}/></button>
          </div>
          <div className="p-10 border-b border-white/5 space-y-8 bg-black/20 shrink-0 text-center">
             <div className="flex gap-3 p-2 bg-slate-950 rounded-[24px] border border-white/5 w-fit mx-auto shadow-2xl">
-               <button onClick={() => setSearchMode('pinterest')} className={cn("px-10 py-4 rounded-[18px] text-[11px] font-bold uppercase tracking-[0.2em] transition-all", searchMode === 'pinterest' ? "bg-[#BD081C] text-white shadow-2xl" : "text-slate-600 hover:text-white")}>Pinterest</button>
-               <button onClick={() => setSearchMode('google')} className={cn("px-10 py-4 rounded-[18px] text-[11px] font-bold uppercase tracking-[0.2em] transition-all", searchMode === 'google' ? "bg-blue-600 text-white shadow-2xl" : "text-slate-600 hover:text-white")}>Google Engine</button>
-               <button onClick={() => setSearchMode('retail')} className={cn("px-10 py-4 rounded-[18px] text-[11px] font-bold uppercase tracking-[0.2em] transition-all", searchMode === 'retail' ? "bg-wg-orange text-white shadow-2xl" : "text-slate-600 hover:text-white")}>WG Shopping</button>
+               <button onClick={() => setSearchMode('unsplash')} className={cn("px-10 py-4 rounded-[18px] text-[11px] font-bold uppercase tracking-[0.2em] transition-all", searchMode === 'unsplash' ? "bg-emerald-600 text-white shadow-2xl" : "text-slate-600 hover:text-white")}>Unsplash API</button>
+               <button onClick={() => setSearchMode('retail')} className={cn("px-10 py-4 rounded-[18px] text-[11px] font-bold uppercase tracking-[0.2em] transition-all", searchMode === 'retail' ? "bg-wg-orange text-white shadow-2xl" : "text-slate-600 hover:text-white")}>Acervo WG</button>
+               <button onClick={() => setSearchMode('reference')} className={cn("px-10 py-4 rounded-[18px] text-[11px] font-bold uppercase tracking-[0.2em] transition-all", searchMode === 'reference' ? "bg-blue-600 text-white shadow-2xl" : "text-slate-600 hover:text-white")}>Referência</button>
+            </div>
+            <p className="mx-auto max-w-4xl text-xs font-light leading-relaxed text-slate-500">
+              Pinterest e Google entram apenas como referência estética. Para publicar, use Unsplash API, acervo WG ou fonte aprovada com crédito, origem e revisão.
+            </p>
+            <div className="mx-auto grid max-w-5xl gap-3 rounded-[32px] border border-emerald-500/10 bg-emerald-950/10 p-4 text-left md:grid-cols-[1.15fr_1fr_0.7fr_auto]">
+              <label className="flex min-h-14 cursor-pointer items-center gap-3 rounded-2xl border border-white/10 bg-slate-950 px-4 text-xs font-bold uppercase tracking-[0.18em] text-slate-400">
+                <Upload size={18} className="text-emerald-400" />
+                <span className="line-clamp-1">{uploadFile?.name || 'Selecionar arquivo do acervo'}</span>
+                <input type="file" accept="image/*" className="hidden" onChange={(event) => setUploadFile(event.target.files?.[0] || null)} />
+              </label>
+              <input value={uploadAlt} onChange={(event) => setUploadAlt(event.target.value)} className="min-h-14 rounded-2xl border border-white/10 bg-slate-950 px-4 text-sm text-white outline-none focus:border-emerald-500/40" placeholder="Alt contextual" />
+              <input value={uploadCredit} onChange={(event) => setUploadCredit(event.target.value)} className="min-h-14 rounded-2xl border border-white/10 bg-slate-950 px-4 text-sm text-white outline-none focus:border-emerald-500/40" placeholder="Crédito" />
+              <button type="button" onClick={handleUploadToArchive} disabled={!uploadFile || isUploading} className="min-h-14 rounded-2xl bg-emerald-600 px-6 text-[10px] font-bold uppercase tracking-widest text-white shadow-xl transition-all hover:bg-emerald-500 disabled:cursor-not-allowed disabled:opacity-40">
+                {isUploading ? <Loader2 size={18} className="mx-auto animate-spin" /> : 'Subir'}
+              </button>
             </div>
             <div className="relative group max-w-4xl mx-auto shadow-2xl">
                <Search className="absolute left-8 top-1/2 -translate-y-1/2 text-slate-600 group-focus-within:text-wg-orange" size={32} />
@@ -329,7 +442,40 @@ function MediaSelectorModal({ activeSlot, onClose, onSelection }) {
          </div>
          <div className="flex-1 overflow-y-auto p-14 custom-scrollbar bg-[#050506]">
             {isSearching ? <div className="h-full flex flex-col items-center justify-center space-y-10 opacity-30"><Loader2 size={120} className="animate-spin text-blue-500" /><p className="text-sm uppercase font-bold tracking-[0.6em] text-slate-400 text-center leading-relaxed">Pipeline Sincronizando...</p></div> : <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-10 pb-40">
-               {results.map((img, idx) => (<motion.div key={idx} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: idx * 0.04 }} onClick={() => onSelection(img)} className="aspect-[3/4] bg-slate-900 rounded-[56px] overflow-hidden border border-white/5 hover:border-wg-orange/50 transition-all duration-700 cursor-pointer group relative shadow-2xl"><img src={img.thumb || img.url} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-1000" /><div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90" /><div className={cn("absolute top-8 left-8 px-4 py-1.5 rounded-full text-[9px] font-bold text-white uppercase border border-white/10 tracking-[0.2em] backdrop-blur-xl shadow-lg", img.source === 'pinterest' ? 'bg-[#BD081C]/60' : img.source === 'retail' ? 'bg-wg-orange/60' : 'bg-black/60')}>{img.source}</div><div className="absolute bottom-10 left-10 right-10 opacity-0 group-hover:opacity-100 transition-all translate-y-4 group-hover:translate-y-0 text-center"><p className="text-[11px] text-white font-bold leading-tight uppercase tracking-tight line-clamp-2 mb-4 font-playfair italic">{img.title}</p><span className="inline-flex items-center gap-3 px-8 py-4 bg-white text-black text-[10px] font-bold uppercase tracking-widest rounded-2xl shadow-2xl hover:bg-wg-orange hover:text-white transition-all">Vincular Ativo</span></div></motion.div>))}
+               {results.map((img, idx) => {
+                 const policy = getImageSourcePolicy(img.source);
+                 return (
+                   <motion.div
+                     key={idx}
+                     initial={{ opacity: 0, scale: 0.95 }}
+                     animate={{ opacity: 1, scale: 1 }}
+                     transition={{ delay: idx * 0.04 }}
+                     onClick={() => {
+                       if (!img.canPublish) {
+                         toast({ title: 'Fonte apenas referencial', description: policy.governance, className: 'bg-slate-900 text-white border border-white/10' });
+                         return;
+                       }
+                       onSelection(img);
+                     }}
+                     className={cn(
+                       "aspect-[3/4] bg-slate-900 rounded-[56px] overflow-hidden border transition-all duration-700 group relative shadow-2xl",
+                       img.canPublish ? "cursor-pointer border-white/5 hover:border-wg-orange/50" : "cursor-not-allowed border-blue-500/20 opacity-80"
+                     )}
+                   >
+                     <img src={img.thumb || img.url} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-1000" />
+                     <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90" />
+                     <div className={cn("absolute top-8 left-8 px-4 py-1.5 rounded-full text-[9px] font-bold text-white uppercase border border-white/10 tracking-[0.2em] backdrop-blur-xl shadow-lg", img.canPublish ? 'bg-emerald-700/70' : 'bg-blue-700/70')}>{policy.label}</div>
+                     <div className="absolute top-8 right-8 rounded-full bg-black/70 px-3 py-1 text-[9px] font-bold text-white">{img.scores?.final || 0}</div>
+                     <div className="absolute bottom-10 left-10 right-10 opacity-0 group-hover:opacity-100 transition-all translate-y-4 group-hover:translate-y-0 text-center">
+                       <p className="text-[11px] text-white font-bold leading-tight uppercase tracking-tight line-clamp-2 mb-3 font-playfair italic">{img.title}</p>
+                       <p className="mb-4 line-clamp-3 text-[10px] font-light leading-relaxed text-slate-300">{img.aiRationale}</p>
+                       <span className={cn("inline-flex items-center gap-3 px-8 py-4 text-[10px] font-bold uppercase tracking-widest rounded-2xl shadow-2xl transition-all", img.canPublish ? "bg-white text-black hover:bg-wg-orange hover:text-white" : "bg-blue-600/30 text-blue-100")}>
+                         {img.canPublish ? 'Vincular Ativo' : 'Usar só como referência'}
+                       </span>
+                     </div>
+                   </motion.div>
+                 );
+               })}
             </div>}
          </div>
       </motion.div>
