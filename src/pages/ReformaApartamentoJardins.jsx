@@ -71,31 +71,8 @@ const ReformaApartamentoJardins = () => {
     'Logística que respeita a tranquilidade residencial'
   ];
 
-  const localBusinessSchema = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "name": "Reforma de Apartamento nos Jardins | Grupo WG Almeida",
-    "description": "Reforma completa de apartamento e casa nos Jardins, com curadoria exclusiva e condução integrada do projeto à entrega. Projetos premium que respeitam a arquitetura histórica.",
-    "url": pageUrl,
-    "provider": {
-      "@type": "Organization",
-      "name": "Grupo WG Almeida",
-      "telephone": COMPANY.phoneRaw
-    },
-    "areaServed": {
-      "@type": "Neighborhood",
-      "name": "Jardins",
-      "containedInPlace": {
-        "@type": "City",
-        "name": "São Paulo"
-      }
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "5.0",
-      "reviewCount": "47"
-    }
-  };
+  // Schema LocalBusiness para SEO local
+  const localBusinessSchema = schemas.localBusiness('Jardins');
 
   return (
     <>

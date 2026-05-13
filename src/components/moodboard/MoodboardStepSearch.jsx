@@ -1,35 +1,53 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from '@/lib/motion-lite';
-import { Search, Loader2, Plus, Image as ImageIcon, ShoppingCart } from 'lucide-react';
+import { Search, Loader2, Plus, Image as ImageIcon, ShoppingCart, ExternalLink } from 'lucide-react';
 import { searchGoogleImages, searchPinterestImages } from '@/services/mediaService';
 import { fetchRetailProducts } from '@/services/retailService';
 import { buildStyleEditorialSearchPlan } from '@/lib/styleEditorialSearchProfile';
 import { styleCatalog } from '@/utils/styleCatalog';
 import { cn } from '@/lib/utils';
 
+const SOURCE_FILTERS = [
+  { id: 'all',       label: 'Todos' },
+  { id: 'leroy',     label: '🛒 Leroy Merlin' },
+  { id: 'pinterest', label: '📌 Pinterest' },
+  { id: 'google',    label: '🔍 Google' },
+];
+
+const getSourceBadge = (source) => {
+  if (!source) return { label: 'web', cls: 'bg-black/80 border-white/10 text-white/60' };
+  const s = String(source).toLowerCase();
+  if (s.includes('leroy') || s === 'shopping') return { label: 'Leroy', cls: 'bg-green-500/90 border-green-400 text-white' };
+  if (s === 'pinterest') return { label: 'Pinterest', cls: 'bg-red-500/90 border-red-400 text-white' };
+  if (s === 'google') return { label: 'Google', cls: 'bg-blue-500/90 border-blue-400 text-white' };
+  return { label: s, cls: 'bg-black/80 border-white/10 text-white/60' };
+};
+
+const isLeroyUrl = (img) =>
+  String(img?.url || img?.thumb || '').includes('leroymerlin') ||
+  String(img?.source || '').includes('leroy') ||
+  img?.source === 'shopping';
+
 const MoodboardStepSearch = ({ mode, style, onAssetAdd }) => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
+  const [activeSource, setActiveSource] = useState('all');
 
-  // Lógica de Sugestões Inteligentes baseadas no Estilo e Modo
   const suggestions = useMemo(() => {
     const styleEntry = styleCatalog.find(s => s.title === style || s.slug === style);
     if (!styleEntry) return [];
-    
     const plan = buildStyleEditorialSearchPlan(styleEntry, mode);
     return plan.searchTerms.filter(t => t && t.length > 2).slice(0, 6);
   }, [style, mode]);
 
-  const handleSearch = async (manualQuery) => {
+  const handleSearch = async (manualQuery, forceSource) => {
     const finalQuery = manualQuery || query;
+    const src = forceSource !== undefined ? forceSource : activeSource;
     setIsLoading(true);
     try {
       const styleEntry = styleCatalog.find(s => s.title === style || s.slug === style);
-
-      // Normalização para evitar falhas por acentuação
-      const normalizedQuery = (finalQuery || '').normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
       let searchQuery = finalQuery;
       if (!finalQuery && styleEntry) {
@@ -43,23 +61,20 @@ const MoodboardStepSearch = ({ mode, style, onAssetAdd }) => {
         return;
       }
 
-      // 1. Busca Técnica em Shopping/Varejo
-      const retailResults = await fetchRetailProducts({ 
-        query: searchQuery, 
-        style: style,
-        category: mode 
-      });
+      let retailResults = [], pinterestResults = [], googleResults = [];
 
-      // 2. Busca Estética no Pinterest somente quando a curadoria local for insuficiente.
-      const pinterestResults = retailResults.length >= 4 ? [] : await searchPinterestImages(searchQuery);
-
-      // 3. Busca de Referência no Google Imagens (Prioriza se o resto falhar)
-      let googleResults = [];
-      if (retailResults.length + pinterestResults.length < 4) {
+      if (src === 'leroy') {
+        retailResults = await fetchRetailProducts({ query: searchQuery, style, category: mode, forceLeroy: true });
+      } else if (src === 'pinterest') {
+        pinterestResults = await searchPinterestImages(searchQuery);
+      } else if (src === 'google') {
         googleResults = await searchGoogleImages(searchQuery);
+      } else {
+        retailResults = await fetchRetailProducts({ query: searchQuery, style, category: mode });
+        if (retailResults.length < 4) pinterestResults = await searchPinterestImages(searchQuery);
+        if (retailResults.length + pinterestResults.length < 4) googleResults = await searchGoogleImages(searchQuery);
       }
 
-      // Mescla e remove duplicados
       const combined = [...retailResults, ...pinterestResults, ...googleResults];
       const seen = new Set();
       const unique = combined.filter(img => {
@@ -77,10 +92,16 @@ const MoodboardStepSearch = ({ mode, style, onAssetAdd }) => {
       setIsLoading(false);
     }
   };
+
   const handleSuggestionClick = (term) => {
     setQuery(term);
     setIsFocused(false);
     handleSearch(term);
+  };
+
+  const handleSourceChange = (src) => {
+    setActiveSource(src);
+    handleSearch(query, src);
   };
 
   useEffect(() => {
@@ -88,13 +109,36 @@ const MoodboardStepSearch = ({ mode, style, onAssetAdd }) => {
   }, [mode, style]);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
+      {/* Filtros de fonte */}
+      <div className="flex gap-1.5 flex-wrap">
+        {SOURCE_FILTERS.map(f => (
+          <button
+            key={f.id}
+            onClick={() => handleSourceChange(f.id)}
+            className={cn(
+              'px-2.5 py-1 rounded-lg text-[9px] font-bold border transition-all',
+              activeSource === f.id
+                ? 'bg-wg-orange text-white border-wg-orange shadow-[0_0_10px_rgba(242,92,38,0.3)]'
+                : 'bg-white/5 text-slate-400 border-white/5 hover:border-white/20'
+            )}
+          >
+            {f.label}
+          </button>
+        ))}
+      </div>
+
       <div className="flex flex-col gap-3 relative">
         <form onSubmit={(e) => { e.preventDefault(); handleSearch(); }} className="relative z-20">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-500 w-3.5 h-3.5" />
           <input
             type="text"
-            placeholder={style ? `Procurar em fornecedores para ${style}...` : "Buscar em Leroy Merlin, Westwing..."}
+            placeholder={
+              activeSource === 'leroy' ? `Buscar em Leroy Merlin...` :
+              activeSource === 'pinterest' ? `Buscar no Pinterest...` :
+              activeSource === 'google' ? `Buscar no Google Imagens...` :
+              style ? `Procurar para ${style}...` : 'Buscar em Leroy Merlin, Pinterest...'
+            }
             value={query}
             onFocus={() => setIsFocused(true)}
             onChange={(e) => setQuery(e.target.value)}
@@ -106,7 +150,7 @@ const MoodboardStepSearch = ({ mode, style, onAssetAdd }) => {
           {isFocused && suggestions.length > 0 && (
             <>
               <div className="fixed inset-0 z-10" onClick={() => setIsFocused(false)} />
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
@@ -137,59 +181,75 @@ const MoodboardStepSearch = ({ mode, style, onAssetAdd }) => {
             <span className="text-[9px] font-bold uppercase tracking-[0.2em]">Varrendo Catálogos...</span>
           </div>
         ) : results.length > 0 ? (
-          results.map((img, idx) => (
-            <motion.div 
-              key={img.id || idx}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: (idx % 12) * 0.02 }}
-              className="group relative aspect-square bg-slate-950 rounded-xl overflow-hidden border border-white/5 hover:border-wg-orange/40 transition-all shadow-md"
-            >
-              <img 
-                src={img.thumb || img.url} 
-                className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-500" 
-                loading="lazy"
-                alt={img.title}
-              />
-              
-              <div className="absolute top-1.5 left-1.5 opacity-0 group-hover:opacity-100 transition-opacity flex gap-1">
-                <span className={cn(
-                  "px-1.5 py-0.5 rounded-md text-[6px] font-bold uppercase tracking-widest border backdrop-blur-md",
-                  img.source === 'shopping' ? "bg-green-500/80 border-green-400 text-white" : "bg-black/80 border-white/10 text-white/80"
-                )}>
-                  {img.source || 'web'}
-                </span>
-                {img.source === 'shopping' && (
-                  <ShoppingCart className="w-2.5 h-2.5 text-green-400 drop-shadow-lg" />
-                )}
-              </div>
-
-              <button 
-                onClick={() => onAssetAdd({
-                  id: `search-${idx}-${Date.now()}`,
-                  url: img.url || img.thumb,
-                  thumb: img.thumb || img.url,
-                  name: img.title || 'Referência',
-                  type: 'external',
-                  source: img.source
-                })}
-                className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-all"
+          results.map((img, idx) => {
+            const badge = getSourceBadge(img.source);
+            const isLeroy = isLeroyUrl(img);
+            return (
+              <motion.div
+                key={img.id || idx}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: (idx % 12) * 0.02 }}
+                className="group relative aspect-square bg-slate-950 rounded-xl overflow-hidden border border-white/5 hover:border-wg-orange/40 transition-all shadow-md"
               >
-                <div className="w-8 h-8 bg-wg-orange rounded-full flex items-center justify-center text-white shadow-lg transform translate-y-2 group-hover:translate-y-0 transition-transform">
-                  <Plus size={16} />
-                </div>
-              </button>
+                <img
+                  src={img.thumb || img.url}
+                  className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-500"
+                  loading="lazy"
+                  alt={img.title}
+                />
 
-              <div className="absolute bottom-0 left-0 right-0 p-1.5 bg-black/70 backdrop-blur-sm transition-transform">
-                <p className="text-[7px] text-white/90 truncate uppercase tracking-tighter">{img.title || 'Item de Design'}</p>
-                {img.price && <p className="text-[6px] text-wg-orange font-bold">{img.price}</p>}
-              </div>
-            </motion.div>
-          ))
+                {/* Badge de fonte — sempre visível */}
+                <div className="absolute top-1.5 left-1.5 flex gap-1 items-center">
+                  <span className={cn('px-1.5 py-0.5 rounded-md text-[6px] font-bold uppercase tracking-widest border backdrop-blur-md', badge.cls)}>
+                    {badge.label}
+                  </span>
+                  {isLeroy && <ShoppingCart className="w-2.5 h-2.5 text-green-400 drop-shadow-lg" />}
+                </div>
+
+                {/* Botão adicionar */}
+                <button
+                  onClick={() => onAssetAdd({
+                    id: `search-${idx}-${Date.now()}`,
+                    url: img.url || img.thumb,
+                    thumb: img.thumb || img.url,
+                    name: img.title || 'Referência',
+                    price: img.price,
+                    type: 'external',
+                    source: img.source,
+                  })}
+                  className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-all"
+                >
+                  <div className="w-8 h-8 bg-wg-orange rounded-full flex items-center justify-center text-white shadow-lg transform translate-y-2 group-hover:translate-y-0 transition-transform">
+                    <Plus size={16} />
+                  </div>
+                </button>
+
+                {/* Info footer */}
+                <div className="absolute bottom-0 left-0 right-0 p-1.5 bg-black/70 backdrop-blur-sm">
+                  <p className="text-[7px] text-white/90 truncate uppercase tracking-tighter">{img.title || 'Item de Design'}</p>
+                  <div className="flex items-center justify-between gap-1">
+                    {img.price && <p className="text-[7px] text-wg-orange font-bold">{img.price}</p>}
+                    {isLeroy && img.url && (
+                      <a
+                        href={img.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={e => e.stopPropagation()}
+                        className="text-[6px] text-green-400 hover:text-green-300 flex items-center gap-0.5 ml-auto"
+                      >
+                        Ver loja <ExternalLink className="w-2 h-2" />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })
         ) : (
           <div className="col-span-3 py-20 text-center text-slate-800">
             <ImageIcon className="w-8 h-8 mx-auto mb-2 opacity-10" />
-            <p className="text-[9px] font-bold uppercase tracking-widest opacity-30">Nenhum fornecedor encontrado</p>
+            <p className="text-[9px] font-bold uppercase tracking-widest opacity-30">Nenhum resultado encontrado</p>
           </div>
         )}
       </div>

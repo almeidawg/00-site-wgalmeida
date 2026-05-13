@@ -1,4 +1,4 @@
-import SEO from '@/components/SEO'
+import SEO, { schemas } from '@/components/SEO'
 import SmartCTA from '@/components/SmartCTA'
 import { Link } from 'react-router-dom'
 import { motion } from '@/lib/motion-lite'
@@ -86,28 +86,8 @@ const ReformaApartamentoSP = () => {
     itens: entry.includes,
   }))
 
-  const schema = {
-    '@context': 'https://schema.org',
-    '@type': 'Service',
-    name: 'Reforma de Apartamento São Paulo | Turn Key Premium',
-    description:
-      'Reforma completa de apartamentos em São Paulo, com projeto, execução e entrega integrados. Apartamentos novos e usados, com orçamento transparente e leitura guiada da obra.',
-    url: pageUrl,
-    provider: {
-      '@type': 'Organization',
-      name: 'Grupo WG Almeida',
-      telephone: COMPANY.phoneRaw,
-    },
-    areaServed: {
-      '@type': 'City',
-      name: 'São Paulo',
-    },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '5.0',
-      reviewCount: '47',
-    },
-  }
+  // Schema LocalBusiness para SEO local
+  const schema = schemas.localBusiness('São Paulo')
 
   return (
     <>

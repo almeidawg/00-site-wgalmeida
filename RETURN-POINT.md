@@ -3,6 +3,96 @@
 
 ---
 
+## Sessao: 12/05/2026 - Saneamento de baseline editorial, moodboard e share
+
+### Escopo
+- Frente: `site-wgalmeida`.
+- Objetivo: normalizar worktree critica dentro do `Portfolio status: RED`, sem push, PR, merge ou deploy.
+- Branch criada para sair da `main` protegida: `chore/site-editorial-moodboard-baseline-20260512`.
+- Sync Gate `start -AllowDirty`: PASS, repo alinhado com `origin/main` antes do fechamento.
+
+### Classificacao do dirty
+- `dirty_product`: moodboard, share publico, CMS editorial, paginas de reforma/projetos/regioes e SEO.
+- `dirty_governance`: `RETURN-POINT.md`, `docs/BLOG-MASTER-EDITORIAL-SYSTEM.md`, Supabase local config e migracao de share.
+- `dirty_asset`: remocao de `public/images/about/william-almeida.png`; referencias ativas usam `william-almeida-1200.webp`.
+
+### Correcoes de saneamento aplicadas neste bloco
+- `src/components/SEO.jsx`: importado `useTranslation` usado pelo componente.
+- `src/pages/ReformaApartamentoSP.jsx`: importado `schemas` junto do `SEO`, mantendo compatibilidade com as paginas regionais equivalentes.
+- `public/sitemap.xml` e `public/sitemap-index.xml`: restaurados apos `build:local` para remover ruido gerado sem mudanca semantica.
+
+### Validacoes executadas
+- `npm run verify:fast`: OK.
+  - lint OK;
+  - check imports OK;
+  - auditoria i18n publica OK;
+  - auditoria visual tokens OK;
+  - auditoria estrutural OK;
+  - auditoria de consistencia normal/strict OK;
+  - Vitest: 15 arquivos, 72 testes OK.
+- `npm run build:local`: OK, 161 rotas geradas em `dist-local`.
+
+### Limites
+- Nao houve push, PR, merge ou deploy por causa do release freeze do portfolio.
+- Nao houve validacao visual em navegador neste bloco; a acao foi saneamento de baseline e validacao automatizada.
+
+---
+
+## Sessao: 11/05/2026 - Padronizacao visual de blog, materias e leituras
+
+### Escopo
+- Frente: `site-wgalmeida`.
+- Pedido original: continuar correcao da apresentacao das paginas de blog, materias e leituras, usando como base o modelo `https://wgalmeida.com.br/blog/arquitetos-brasileiros-famosos-legado`.
+- Pasta de prints: `C:\Users\Atendimento\Documents\Imagens\Screenshots\05_site-wg`.
+- Governanca inicial: `PORTFOLIO-HEALTH.md` estava `GREEN`; Sync Gate `start` passou no repo alvo em `main`, limpo e alinhado com `origin/main`.
+
+### Correcoes aplicadas
+- `src/pages/Blog.jsx`
+  - deduplicacao de labels no hero quando categoria e tema editorial representam a mesma tag;
+  - tags finais passam por normalizacao para evitar repeticao visual;
+  - renderer Markdown usa `.wg-prose` real e links/strongs mais discretos;
+  - tabela do artigo de marcenaria ganhou formato consistente com borda neutra e respiro.
+- `src/components/blog/BlogEngagementPanel.jsx`
+  - removido painel publico com metadados internos (`Distribuicao editorial`, `Template base`, `Status editorial`, `Mood board`);
+  - botoes, formulario e estados vazios trocaram bordas implicitas por bordas neutras explicitas `#E5E5E5`, eliminando amarelo vivo.
+- `src/pages/EstiloDetail.jsx`
+  - detalhes estruturais de paginas `/estilos/:slug` deixaram de herdar cor da paleta do estilo como borda/linha;
+  - bullets, quick links, card do leitor, bloco ecossistema e proximo passo foram neutralizados para padrao editorial.
+- `src/index.css`
+  - adicionada base CSS para `.wg-prose` porque as classes `prose-*` nao eram suficientes sem plugin typography ativo;
+  - definidos pesos, espacamentos, tabela, links, listas e `hr` para leituras editoriais.
+
+### Evidencias visuais
+- `validado`: `audit_visual/20260511-blog-ui-final/marcenaria-desktop/screenshot.png`
+- `validado`: `audit_visual/20260511-blog-ui-final/marcenaria-mobile/screenshot.png`
+- `validado`: `audit_visual/20260511-blog-ui-final/boho-desktop/screenshot.png`
+- `validado`: computed style do painel de comentarios confirmou:
+  - botao `Copiar link`: `borderColor = rgb(229, 229, 229)`;
+  - formulario: `borderColor = rgb(229, 229, 229)`.
+
+### Validacoes executadas
+- `npm run lint`: OK.
+- `npm run build:local`: OK, sitemap local gerado com 161 rotas.
+- Auditoria headless desktop/mobile via `wg-browser-audit`: OK nas rotas acima.
+- `public/sitemap.xml` e `public/sitemap-index.xml` foram restaurados apos o build para remover ruido gerado.
+
+### Prints arquivados / registro
+- Pasta criada/corrigida: `C:\Users\Atendimento\Documents\Imagens\Screenshots\05_site-wg\_VALIDADOS_2026-05-11`.
+- Manifesto criado: `VALIDACAO-2026-05-11.md`.
+- Print fisico preservado dentro da pasta: `remover negrito.png`.
+- Observacao: durante o arquivamento, o PowerShell antigo criou inicialmente `_VALIDADOS_2026-05-11` como arquivo antes de virar pasta. A estrutura foi corrigida, mas os demais prints movidos nesse passo nao ficaram disponiveis fisicamente na pasta ativa; a validacao fica ancorada nas evidencias novas em `audit_visual/20260511-blog-ui-final/`.
+
+### Estado atual
+- Branch atual: `main`.
+- Arquivos de codigo alterados:
+  - `src/components/blog/BlogEngagementPanel.jsx`
+  - `src/index.css`
+  - `src/pages/Blog.jsx`
+  - `src/pages/EstiloDetail.jsx`
+- Nao houve commit, push, PR ou deploy neste bloco.
+
+---
+
 ## Sessao: 09/05/2026 - Correção de crashes de produção Blog/Moodboard
 
 ### Escopo
@@ -1596,3 +1686,198 @@ URL limpa para validacao humana:
   - `public/sitemap.xml` e `public/sitemap-index.xml` voltaram a sujar pelo build e devem ser restaurados antes do commit.
 - Proximo passo sugerido:
   - restaurar sitemaps, commitar, subir PR e validar em producao as tres rotas atualizadas.
+
+### Ajuste visual de peso tipografico em blog, materias e leituras - 2026-05-11
+- Data/hora: `2026-05-11 18:00 -03:00`.
+- Branch de trabalho: `main` local, sem commit/push/deploy neste bloco.
+- Objetivo do bloco:
+  - remover mistura visual de negrito nos textos de conteudo abaixo dos titulos em blog, materias e leituras;
+  - alinhar o peso do corpo editorial ao modelo da Liz: `Suisse Intl`, `15px`, `font-weight 300`, linha leve e cinza neutro.
+- Entrega deste bloco:
+  - `src/index.css`
+    - `.wg-prose` padronizado com peso 300 para paragrafos, listas, links, tabelas, cabecalhos de tabela, linhas e `strong/b`;
+    - subtitulos internos continuam em Playfair, mas com `font-weight 300`.
+  - `src/pages/Blog.jsx`
+    - classes locais que forçavam `font-normal`/400 foram trocadas para `font-light`;
+    - links markdown agora usam `font-light`.
+  - `src/pages/EstiloDetail.jsx`
+    - textos e subtitulos de leituras/estilos passaram de `font-normal` para `font-light`.
+  - `src/components/blog/BlogEngagementPanel.jsx`
+    - mantidos ajustes anteriores de compactacao do painel de engajamento.
+- Validacao executada:
+  - `npm run lint` - validado.
+  - `npm run build:local` - validado com 161 rotas geradas; `public/sitemap.xml` e `public/sitemap-index.xml` restaurados apos o build para nao misturar alteracao gerada.
+  - Playwright DOM na rota `/blog/marcenaria-sob-medida-vs-planejados`: `.wg-prose *` retornou `count_weight_gt_300=0`.
+  - Auditoria visual desktop: `audit_visual/20260511-font-visual-final/marcenaria-desktop/screenshot.png`.
+  - Auditoria visual mobile: `audit_visual/20260511-font-visual-final/marcenaria-mobile/screenshot.png`.
+  - URL aberta para validacao humana em perfil temporario: `http://localhost:3000/blog/marcenaria-sob-medida-vs-planejados?wg_cache_bust=font-visual-final-user&wg_cache_bust=20260511180029`.
+- Evidencias/prints:
+  - prints `ajustar para ficar compacto duas linhas no maximo  .png` e `deixar tudo em uma so linha .png` arquivados em `C:\Users\Atendimento\Documents\Imagens\Screenshots\05_site-wg\_VALIDADOS_2026-05-11`.
+  - checklist atualizado em `VALIDACAO-2026-05-11.md` na pasta de validados.
+- Pendencias:
+  - aguardando validacao visual do usuario na janela aberta.
+
+### Padronizacao global de conteudos de leitura - 2026-05-11
+- Data/hora: `2026-05-11 19:49 -03:00`.
+- Objetivo do bloco:
+  - replicar o padrao tipografico leve para todas as paginas publicas que renderizam conteudo de leitura: blog, materias, leituras de estilos, paginas regionais e descricoes HTML de produto.
+- Arquivos ajustados neste complemento:
+  - `src/index.css`
+    - ampliacao do `.wg-prose` para cobrir `span`, `em`, `blockquote`, `figcaption` e `small`, alem de paragrafos, listas, links, tabelas e `strong/b`.
+  - `src/pages/ProductDetailPage.jsx`
+    - descricao de produto passou de `prose` simples para `wg-prose prose`.
+  - `src/pages/regions/RegionTemplate.jsx`
+    - introducao regional passou de `prose` simples para `wg-prose prose`.
+- Cobertura verificada:
+  - Scan publico fora de admin: nao restaram blocos `prose` de leitura sem `wg-prose`.
+  - Rotas validadas por DOM/Playwright com `count_weight_gt_300=0` e `prose_without_wg=0`:
+    - `/blog/arquitetos-brasileiros-famosos-legado`
+    - `/blog/marcenaria-sob-medida-vs-planejados`
+    - `/estilos/boho`
+    - `/estilos/japandi`
+    - `/jardins`
+    - `/product/583da741-12fe-492e-9ff2-899744fab8ef`
+- Validacao visual salva:
+  - `audit_visual/20260511-global-reading-standard/blog-model-desktop/screenshot.png`
+  - `audit_visual/20260511-global-reading-standard/blog-model-mobile/screenshot.png`
+  - `audit_visual/20260511-global-reading-standard/estilo-boho-desktop/screenshot.png`
+  - `audit_visual/20260511-global-reading-standard/estilo-boho-mobile/screenshot.png`
+  - `audit_visual/20260511-global-reading-standard/regiao-jardins-desktop/screenshot.png`
+- Comandos executados:
+  - `npm run lint` - validado.
+  - `npm run build:local` - validado com 161 rotas; `public/sitemap.xml` e `public/sitemap-index.xml` restaurados apos build.
+- URL aberta para validacao humana:
+  - `http://localhost:3000/blog/arquitetos-brasileiros-famosos-legado?wg_cache_bust=global-reading-standard-user&wg_cache_bust=20260511194853`
+- Pendencias:
+  - aguardar validacao visual do usuario antes de commit/push/deploy.
+
+### Sistema editorial inteligente de imagem para admin blog - 2026-05-11
+- Data/hora: `2026-05-11 20:08 -03:00`.
+- Objetivo do bloco:
+  - refatorar a base do admin do blog para conectar card, hero, titulo, categoria, estilo visual e governanca de fonte em um fluxo editorial unico.
+  - separar fonte de inspiracao de fonte de publicacao, deixando Pinterest/Google apenas como referencia visual.
+- Entrega implementada:
+  - `src/lib/editorialImageIntelligence.js`
+    - novo motor de estrategia editorial de imagem;
+    - politica de fonte: Unsplash API publicavel, acervo/fonte aprovada por fluxo proprio, Pinterest/Google apenas referencia;
+    - score por aderencia a titulo, categoria, estilo, fonte e credito;
+    - modelo default `imageGovernance` para posts.
+  - `src/pages/AdminBlogEditorial.jsx`
+    - Mesa de Curadoria agora mostra plano semantico de hero/card por post;
+    - busca default passou para `Unsplash API`;
+    - Biblioteca Global separa `Unsplash API`, `Acervo WG` e `Referencia`;
+    - modal de selecao bloqueia fontes apenas referencia e explica o motivo;
+    - selecao Unsplash salva `src`, pagina, alt e metadados para o manifesto local.
+  - `src/components/Admin/EditorialCmsWorkbench.jsx`
+    - CMS Mestre ganhou bloco `Direcao editorial de imagem` com tema, estilo visual, prioridade, prompt semantico, status e justificativa IA.
+  - `src/data/blogCms.js`
+    - posts normalizados passam a carregar `imageGovernance`.
+  - `src/services/mediaService.js`
+    - resultados Unsplash preservam fotografo, pagina, `downloadLocation`, alt e tipo de licenca.
+  - `docs/BLOG-MASTER-EDITORIAL-SYSTEM.md`
+    - documentado diagnostico, modelo de dados, regras de fonte, regras hero/card, UX do admin, exemplo do post modelo e prioridades.
+  - `src/__tests__/editorialImageIntelligence.test.js`
+    - cobertura para classificacao do post modelo, Pinterest como referencia e Unsplash publicavel com metadados.
+- Validacao executada:
+  - `npm run lint` - validado.
+  - `npm run test:run -- src/__tests__/editorialImageIntelligence.test.js src/__tests__/blogCms.test.js` - validado, 2 arquivos / 6 testes.
+  - `npm run build:local` - validado com 161 rotas; `public/sitemap.xml` e `public/sitemap-index.xml` restaurados depois do build.
+  - Auditoria visual headless de `/admin/blog-editorial` salva em `audit_visual/20260511-editorial-image-system/admin-blog-editorial-desktop/`; sem sessao administrativa, a rota redireciona corretamente para login.
+- Pendencias:
+  - validacao visual completa da tela interna do cockpit requer login administrativo real.
+  - proximo bloco recomendado: integrar upload/acervo WG no mesmo modal para permitir publicacao de fontes proprias alem de Unsplash.
+
+### Complemento acervo WG e upload editorial - 2026-05-11
+- Data/hora: `2026-05-11 20:16 -03:00`.
+- Objetivo do bloco:
+  - conectar o fluxo de acervo proprio ao admin editorial, preservando governanca e publicacao separada de Unsplash.
+- Entrega implementada:
+  - `src/pages/AdminBlogEditorial.jsx`
+    - modal de curadoria agora permite selecionar arquivo local, informar alt contextual e credito, subir via Cloudinary e vincular ao slot ativo;
+    - estado local separado para uploads/acervo WG em `wg_blog_editorial_uploads_v1`;
+    - botao `Sincronizar` publica uploads e selecoes Unsplash em conjunto, sem misturar as fontes.
+  - `src/data/blogImageManifest.js`
+    - selecoes Unsplash passam a preservar `photographer`, `profile`, `downloadLocation`, `pageUrl` e `url`;
+    - uploads Cloudinary de hero/card preservam alt, caption, secao e origem, nao apenas `publicId`.
+  - `docs/BLOG-MASTER-EDITORIAL-SYSTEM.md`
+    - documentado armazenamento de rascunho/publicado para Unsplash e uploads WG, alem do fluxo de upload do modal.
+- Validacao executada:
+  - `npm run lint` - validado.
+  - `npm run test:run -- src/__tests__/editorialImageIntelligence.test.js src/__tests__/blogCms.test.js` - validado, 2 arquivos / 6 testes.
+  - `npm run build:local` - validado com 161 rotas; `public/sitemap.xml` e `public/sitemap-index.xml` restaurados depois do build.
+  - Auditoria visual desktop/mobile da pagina modelo salva em:
+    - `audit_visual/20260511-editorial-image-system/modelo-blog-desktop/`
+    - `audit_visual/20260511-editorial-image-system/modelo-blog-mobile/`
+  - Auditoria visual de `/admin/blog-editorial` salva em `audit_visual/20260511-editorial-image-system/admin-upload-desktop/`; sem sessao administrativa, redirecionou para `/login`.
+  - Playwright DOM na rota `/blog/arquitetos-brasileiros-famosos-legado`: textos longos em `.wg-prose` retornaram `checked=18`, `heavyCount=0`.
+- Pendencias:
+  - validar visualmente o modal de upload dentro do cockpit com sessao administrativa real.
+  - confirmar variaveis `VITE_CLOUDINARY_CLOUD_NAME` e `VITE_CLOUDINARY_UPLOAD_PRESET` antes de usar upload em producao.
+
+### Validacao funcional e visual blog/editorial - 2026-05-11
+- Data/hora: `2026-05-11 20:31 -03:00`.
+- Objetivo do bloco:
+  - validar funcional e visualmente o padrao de leitura, o sistema editorial de imagem e a protecao do admin.
+- Rotas validadas:
+  - `/blog/arquitetos-brasileiros-famosos-legado` desktop e mobile: HTTP 200, `heavyCount=0`, imagens carregadas, sem erros de console relevantes.
+  - `/blog/marcenaria-sob-medida-vs-planejados`: HTTP 200, `heavyCount=0`, imagens carregadas.
+  - `/estilos/boho` mobile: HTTP 200, `heavyCount=0`, imagens carregadas.
+  - `/jardins`: HTTP 200, `heavyCount=0`, imagens carregadas.
+  - `/admin/blog-editorial`: rota protegida redirecionou para `/login`, comportamento esperado sem sessao administrativa.
+- Funcional validado:
+  - ancora do indice do artigo modelo levou para `#oscar-niemeyer-1907-2012`.
+  - botao de compartilhamento abriu opcoes de compartilhamento.
+  - override publicado em `wg_blog_editorial_published_unsplash_v1` trocou hero/card para imagem Unsplash e preservou `naturalWidth > 0`.
+- Correcao feita durante validacao:
+  - `src/pages/Blog.jsx`
+    - hero e card da leitura guiada passaram a usar `articleHeroAsset.alt` e `articleCardAsset.alt`, preservando alt contextual salvo pelo fluxo editorial;
+    - reteste confirmou alt `Imagem de validacao editorial para hero` e `Imagem de validacao editorial para card`.
+- Evidencias:
+  - `audit_visual/20260511-functional-visual-validation/functional-report.json`
+  - `audit_visual/20260511-functional-visual-validation/VALIDACAO.md`
+  - screenshots:
+    - `blog-model.png`
+    - `blog-model-mobile.png`
+    - `blog-marcenaria.png`
+    - `style-boho-mobile.png`
+    - `region-jardins.png`
+    - `admin-protected.png`
+    - `blog-model-interactions.png`
+- Validacao tecnica:
+  - `npm run lint` - validado.
+  - `npm run test:run -- src/__tests__/editorialImageIntelligence.test.js src/__tests__/blogCms.test.js src/__tests__/blogImageManifest.test.js` - validado, 3 arquivos / 8 testes.
+  - `npm run build:local` - validado com 161 rotas; `public/sitemap.xml` e `public/sitemap-index.xml` restaurados depois do build.
+- Pendencias:
+  - validacao visual do cockpit interno e modal de upload ainda requer login administrativo real.
+  - confirmar variaveis Cloudinary antes do primeiro upload produtivo.
+
+### Correcao contorno amarelo e amarracao imagem/titulo - 2026-05-11
+- Data/hora: `2026-05-11 20:58 -03:00`.
+- Print recebido:
+  - `C:\Users\Atendimento\Documents\Imagens\Screenshots\05_site-wg\contorno maarelo novamente .png`
+- Causa identificada:
+  - classes Tailwind `border-black/8` estavam computando como `rgb(255, 255, 0)` no bloco `Mood board editorial`, gerando linha divisoria e swatches com contorno amarelo.
+- Arquivos ajustados:
+  - `src/components/blog/BlogMoodboardPanel.jsx`
+    - substituido `border-black/8` por bordas explicitas `border-[#E5E5E5]` e `border-[#DAD6CE]`.
+  - `src/pages/MoodboardGenerator.jsx`
+    - removidas ocorrencias publicas de `border-black/8` em chips de selecao para evitar retorno do amarelo.
+  - `src/pages/Blog.jsx`
+    - imagens contextuais com `sectionTitle` agora so entram em secoes de titulo correspondente; sem fallback automatico quando ha titulo declarado.
+  - `src/components/moodboard/MoodboardStepSearch.jsx`
+    - removido comentario eslint para regra inexistente `react-hooks/exhaustive-deps`, liberando lint.
+- Validacao executada:
+  - `npm run lint` - validado.
+  - `npm run test:run -- src/__tests__/editorialImageIntelligence.test.js src/__tests__/blogCms.test.js src/__tests__/blogImageManifest.test.js` - validado, 3 arquivos / 8 testes.
+  - Playwright na pagina modelo:
+    - divisoria do moodboard: `rgb(229, 229, 229)`;
+    - swatches: `rgb(218, 214, 206)`;
+    - 7 imagens contextuais alinhadas aos respectivos titulos Oscar, Paulo, Lina, Vilanova, Lucio, Ruy e Reidy;
+    - sem erros de console relevantes.
+  - `npm run build:local` - validado com 161 rotas; sitemaps restaurados depois do build.
+- Evidencia:
+  - `audit_visual/20260511-yellow-outline-fix/blog-moodboard-fixed.png`
+- Arquivamento:
+  - print movido para `C:\Users\Atendimento\Documents\Imagens\Screenshots\05_site-wg\_VALIDADOS_2026-05-11\contorno maarelo novamente .png`.
+- URL aberta para validacao humana:
+  - `http://localhost:3000/blog/arquitetos-brasileiros-famosos-legado?wg_cache_bust=sem-contorno-amarelo-20260511-2059#moodboard&wg_cache_bust=20260511205612`

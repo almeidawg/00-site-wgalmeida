@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
 import { getSEOConfig } from '@/data/seoConfig';
 import { COMPANY } from '@/data/company';
 
@@ -76,9 +77,11 @@ export function SEO({
   twitter = {},
   robots,
   noindex = false,
-  lang = 'pt-BR',
   alternates = []
 }) {
+  const { i18n } = useTranslation();
+  const lang = i18n.language || 'pt-BR';
+
   const normalizePathname = (input = '/') => {
     let value = input || '/';
     if (!value.startsWith('/')) value = `/${value}`;
@@ -101,6 +104,15 @@ export function SEO({
   const resolvedPathname = normalizePathname(resolvePathname());
   const config = getSEOConfig(resolvedPathname);
   const resolvedCanonical = toAbsoluteUrl(canonical || url || config.canonical || `${BASE_URL}${resolvedPathname}`);
+  
+  // Automate international alternates if none provided
+  const finalAlternates = alternates.length > 0 ? alternates : [
+    { hrefLang: 'pt-br', href: resolvedCanonical },
+    { hrefLang: 'en',    href: resolvedCanonical },
+    { hrefLang: 'es',    href: resolvedCanonical },
+    { hrefLang: 'x-default', href: resolvedCanonical }
+  ];
+
   const resolvedTitle = title || config.title;
   const resolvedDescription = description || config.description;
   const resolvedOgImage = toAbsoluteUrl(og.image || config.og?.image);
@@ -186,12 +198,9 @@ export function SEO({
       <link rel="canonical" href={meta.canonical} />
 
       {/* hreflang alternates para conteúdo multilingual */}
-      {alternates.map(({ hrefLang, href }) => (
+      {finalAlternates.map(({ hrefLang, href }) => (
         <link key={hrefLang} rel="alternate" hrefLang={hrefLang} href={href} />
       ))}
-      {alternates.length > 0 && (
-        <link rel="alternate" hrefLang="x-default" href={meta.canonical} />
-      )}
 
       <meta charSet="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -237,6 +246,18 @@ export function SEO({
 // Mantém compatibilidade com imports default existentes
 export default SEO;
 
+const WILLIAM_ALMEIDA = {
+  '@type': 'Person',
+  name: 'William Almeida',
+  jobTitle: 'Arquiteto e Fundador',
+  url: 'https://wgalmeida.com.br/sobre',
+  sameAs: [
+    'https://www.linkedin.com/in/william-almeida-wg',
+    'https://www.behance.net/wgalmeida'
+  ],
+  image: 'https://wgalmeida.com.br/images/about/william-almeida-1200.webp'
+};
+
 // Helpers antigos preservados para compatibilidade com páginas que os utilizam
 export const schemas = {
   service: (name, description, url) => ({
@@ -248,7 +269,8 @@ export const schemas = {
     provider: {
       '@type': 'Organization',
       name: 'Grupo WG Almeida',
-      url: 'https://wgalmeida.com.br'
+      url: 'https://wgalmeida.com.br',
+      logo: 'https://wgalmeida.com.br/images/logo-192.webp'
     },
     areaServed: {
       '@type': 'City',
@@ -263,7 +285,7 @@ export const schemas = {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
     name: `Arquitetura Alto Padrão ${safeNeighborhood} - Grupo WG Almeida`,
-    description: `Serviços de arquitetura, engenharia e marcenaria de alto padrão em ${safeNeighborhood}, São Paulo.`,
+    description: `Especialistas em arquitetura, engenharia e marcenaria de alto padrão em ${safeNeighborhood}, São Paulo. Metodologia STAR e inteligência ICCRI integrada.`,
     url: `https://wgalmeida.com.br/${safeNeighborhood
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
@@ -271,11 +293,17 @@ export const schemas = {
       .replace(/\s+/g, '-')}`,
     telephone: COMPANY.phoneRaw,
     email: COMPANY.email,
+    priceRange: '$$$',
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'São Paulo',
       addressRegion: 'SP',
       addressCountry: 'BR'
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: '-23.6139',
+      longitude: '-46.6926' // Coordenadas aproximadas do Brooklin/Berrini
     },
     areaServed: {
       '@type': 'Neighborhood',
@@ -288,7 +316,7 @@ export const schemas = {
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: '5.0',
-      reviewCount: '50'
+      reviewCount: '120'
     }
   });
   },
@@ -306,10 +334,7 @@ export const schemas = {
     datePublished,
     dateModified: datePublished,
     image: Array.isArray(image) ? image.filter(Boolean).map(toAbsoluteUrl) : toAbsoluteUrl(image),
-    author: {
-      '@type': 'Organization',
-      name: 'Grupo WG Almeida'
-    },
+    author: WILLIAM_ALMEIDA,
     publisher: {
       '@type': 'Organization',
       name: 'Grupo WG Almeida',

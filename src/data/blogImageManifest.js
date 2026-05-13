@@ -682,14 +682,27 @@ const normalizeUnsplashSelectionValue = (value) => {
       alt: typeof value.alt === 'string' ? value.alt : '',
       src: typeof value.src === 'string'
         ? value.src.trim()
-        : typeof value.downloadUrl === 'string'
-          ? value.downloadUrl.trim()
-          : '',
+        : typeof value.url === 'string'
+          ? value.url.trim()
+          : typeof value.downloadUrl === 'string'
+            ? value.downloadUrl.trim()
+            : '',
       page: typeof value.page === 'string'
         ? value.page
-        : typeof value.photoPage === 'string'
-          ? value.photoPage
+        : typeof value.pageUrl === 'string'
+          ? value.pageUrl
+          : typeof value.unsplashPage === 'string'
+            ? value.unsplashPage
+            : typeof value.photoPage === 'string'
+              ? value.photoPage
+              : '',
+      photographer: typeof value.photographer === 'string' ? value.photographer : '',
+      profile: typeof value.profile === 'string'
+        ? value.profile
+        : typeof value.profileUrl === 'string'
+          ? value.profileUrl
           : '',
+      downloadLocation: typeof value.downloadLocation === 'string' ? value.downloadLocation : '',
     };
   }
   return { id: '', alt: '', src: '', page: '' };
@@ -907,7 +920,16 @@ const buildLocalUploadManifestEntry = (slug) => {
 
     const publicId = typeof slotValue.publicId === 'string' ? slotValue.publicId.trim() : '';
     if (publicId && !/^context\d+$/.test(slotName)) {
-      assignSlotEntryValue(entry, slotName, publicId);
+      assignSlotEntryValue(entry, slotName, {
+        publicId,
+        source: 'cloudinary',
+        alt: typeof slotValue.alt === 'string' ? slotValue.alt : '',
+        caption: typeof slotValue.caption === 'string' ? slotValue.caption : '',
+        sectionTitle: typeof slotValue.sectionTitle === 'string' ? slotValue.sectionTitle : '',
+        sectionId: typeof slotValue.sectionId === 'string' ? slotValue.sectionId : '',
+        focalPoint: typeof slotValue.focalPoint === 'string' ? slotValue.focalPoint : '',
+        pageUrl: typeof slotValue.pageUrl === 'string' ? slotValue.pageUrl : '',
+      });
       continue;
     }
 
@@ -967,6 +989,9 @@ const buildLocalUnsplashSelectionEntry = (slug) => {
       src: hero.src || buildUnsplashDownloadUrl(hero.id, 'hero'),
       alt: hero.alt || '',
       page: hero.page || buildUnsplashPhotoPageUrl(hero.id),
+      photographer: hero.photographer || '',
+      profile: hero.profile || '',
+      downloadLocation: hero.downloadLocation || '',
       sourceLabel: 'Unsplash (sessão local)',
     };
     assignSlotEntryValue(entry, 'hero', heroValue);
@@ -978,6 +1003,9 @@ const buildLocalUnsplashSelectionEntry = (slug) => {
       src: card.src || buildUnsplashDownloadUrl(card.id, 'card'),
       alt: card.alt || '',
       page: card.page || buildUnsplashPhotoPageUrl(card.id),
+      photographer: card.photographer || '',
+      profile: card.profile || '',
+      downloadLocation: card.downloadLocation || '',
       sourceLabel: 'Unsplash (sessão local)',
     };
     assignSlotEntryValue(entry, 'card', cardValue);
@@ -992,6 +1020,9 @@ const buildLocalUnsplashSelectionEntry = (slug) => {
       src: slotSelection.src || buildUnsplashDownloadUrl(slotSelection.id, 'context'),
       alt: slotSelection.alt || '',
       page: slotSelection.page || buildUnsplashPhotoPageUrl(slotSelection.id),
+      photographer: slotSelection.photographer || '',
+      profile: slotSelection.profile || '',
+      downloadLocation: slotSelection.downloadLocation || '',
       sourceLabel: 'Unsplash (sessão local)',
     });
   });

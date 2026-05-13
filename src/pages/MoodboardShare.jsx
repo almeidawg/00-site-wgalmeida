@@ -1,38 +1,77 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import { useSearchParams, Link } from 'react-router-dom';
+import { useSearchParams, useParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from '@/lib/motion-lite';
-import { Download, Share2, Home, FileText, CheckCircle2, ShieldCheck, Sparkles, ArrowRight } from 'lucide-react';
+import { Download, CheckCircle2, ShieldCheck, Sparkles, ArrowRight, Loader2 } from 'lucide-react';
 import { MoodboardCanvas } from '@/components/moodboard';
+import MoodboardSocialPanel from '@/components/moodboard/MoodboardSocialPanel';
 import BrandStar from '@/components/BrandStar';
 import SEO from '@/components/SEO';
 import { styleCatalog } from '@/utils/styleCatalog';
+import { getMoodboardShare, incrementViews } from '@/services/moodboardShareService';
 
 const MoodboardShare = () => {
   const [searchParams] = useSearchParams();
+  const { shareId } = useParams();
   const [showIntro, setShowSuggestions] = useState(true);
+  const [dbData, setDbData] = useState(null);
+  const [dbLoading, setDbLoading] = useState(!!shareId);
+  const [dbError, setDbError] = useState(false);
   const encodedData = searchParams.get('v');
 
-  const data = useMemo(() => {
+  // Modo persistente: buscar do Supabase
+  useEffect(() => {
+    if (!shareId) return;
+    setDbLoading(true);
+    getMoodboardShare(shareId)
+      .then(row => {
+        const resolvedStyles = (row.styles || []).map(slug =>
+          styleCatalog.find(s => (s.slug || s.id) === slug)
+        ).filter(Boolean);
+        setDbData({
+          projectName: row.project_name,
+          clientName: row.client_name,
+          colors: row.colors || [],
+          styles: resolvedStyles,
+          customImages: (row.images || []).map((img, i) => ({
+            id: `db-${i}`,
+            url: img.u,
+            thumb: img.u,
+            name: img.t || `Referência ${i + 1}`,
+            price: img.p,
+            source: img.s,
+          })),
+          likes: row.likes || 0,
+          shareUrl: `${window.location.origin}/moodboard/s/${shareId}`,
+        });
+        incrementViews(shareId).catch(() => {});
+      })
+      .catch(() => setDbError(true))
+      .finally(() => setDbLoading(false));
+  }, [shareId]);
+
+  const legacyData = useMemo(() => {
     if (!encodedData) return null;
     try {
       const decoded = JSON.parse(decodeURIComponent(atob(encodedData)));
-      const resolvedStyles = (decoded.s || []).map(slug => 
+      const resolvedStyles = (decoded.s || []).map(slug =>
         styleCatalog.find(s => (s.slug || s.id) === slug)
       ).filter(Boolean);
 
       return {
         projectName: decoded.p || 'Meu Novo Refúgio',
-        clientName: decoded.n || 'Cliente Especial', // Nome do cliente se disponível
+        clientName: decoded.n || 'Visitante',
         colors: decoded.c || [],
         styles: resolvedStyles,
         customImages: (decoded.i || []).map((img, index) => ({
           id: `share-${index + 1}`,
           url: img.u,
+          thumb: img.u,
           title: img.t,
           name: img.t || `Referência ${index + 1}`,
           source: 'share',
         })),
-        wgeasyId: decoded.ext || null // Preparado para integração WGEasy
+        likes: 0,
+        shareUrl: window.location.href,
       };
     } catch (err) {
       console.error('Erro ao decodificar projeto:', err);
@@ -40,13 +79,24 @@ const MoodboardShare = () => {
     }
   }, [encodedData]);
 
+  // Dados finais: DB tem prioridade sobre Base64 legado
+  const data = dbData || legacyData;
+
   // Efeito de entrada: esconde a intro após 3 segundos
   useEffect(() => {
     const timer = setTimeout(() => setShowSuggestions(false), 3500);
     return () => clearTimeout(timer);
   }, []);
 
-  if (!data) {
+  if (dbLoading) {
+    return (
+      <div className="min-h-screen bg-[#0a0a0b] flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-wg-orange animate-spin" />
+      </div>
+    );
+  }
+
+  if (!data || dbError) {
     return (
       <div className="min-h-screen bg-[#0a0a0b] text-slate-200 flex flex-col items-center justify-center p-6 text-center">
         <BrandStar className="w-12 h-12 text-wg-orange mb-6" />
@@ -204,6 +254,15 @@ const MoodboardShare = () => {
                </div>
             </section>
           </div>
+
+          {/* Social: curtidas + comentários */}
+          {(shareId || encodedData) && (
+            <MoodboardSocialPanel
+              shareId={shareId || 'legacy'}
+              initialLikes={data.likes || 0}
+              shareUrl={data.shareUrl || window.location.href}
+            />
+          )}
 
           {/* Rodapé Dossiê: Garantia e Próximos Passos */}
           <footer className="pt-24 pb-40">

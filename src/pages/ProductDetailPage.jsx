@@ -429,7 +429,7 @@ function ProductDetailPage() {
             </div>
 
             <div
-              className="prose text-wg-gray mb-6"
+              className="wg-prose prose mb-6 text-wg-gray"
               dangerouslySetInnerHTML={{ __html: product.description }}
             />
 

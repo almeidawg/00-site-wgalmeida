@@ -78,7 +78,7 @@ const MoodboardCanvas = ({
     <div
       ref={canvasRef}
       id="moodboard-canvas"
-      className="bg-[#050506] h-full w-full relative overflow-hidden flex flex-col pt-24"
+      className="bg-[#050506] h-full w-full relative overflow-hidden flex flex-col pt-6"
     >
       {/* 1. INVESTMENT INTELLIGENCE HEADER */}
       <div className="px-10 mb-8">
