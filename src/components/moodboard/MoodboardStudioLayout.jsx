@@ -154,12 +154,12 @@ const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, 
         </header>
 
         {/* Canvas de Edição - Área Central Otimizada */}
-        <div className="flex-1 relative overflow-hidden flex flex-col items-center p-6 lg:p-8">
+        <div className="flex-1 relative overflow-hidden flex flex-col items-center p-0 lg:p-2">
            {/* Grid Background Decorativo */}
            <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
            
            {/* O Studio real renderiza o canvas aqui - Agora alinhado ao topo */}
-           <div id="studio-canvas-root" className="w-full h-full max-w-[1400px] relative z-10 shadow-[0_100px_150px_rgba(0,0,0,0.5)] rounded-[40px]">
+           <div id="studio-canvas-root" className="w-full h-full max-w-[1400px] relative z-10 shadow-[0_20px_60px_rgba(0,0,0,0.4)] rounded-[16px]">
               <div id="main-canvas-container" className="w-full h-full"></div>
            </div>
 
