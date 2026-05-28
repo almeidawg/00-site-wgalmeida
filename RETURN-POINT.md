@@ -1,7 +1,7 @@
 # SEO & IA — RETURN-POINT
 > Atualizado em: 2026-05-27 | Branch: fix/seo-schema-sitemap
 
-## Status: PRONTO PARA MERGE E DEPLOY
+## Status: SITEMAP SUBMETIDO AO GOOGLE / PRONTO PARA MERGE E DEPLOY
 
 ---
 
@@ -17,6 +17,10 @@
    - `scripts/submit-sitemap.cjs` — Submissão do sitemap ao Google Search Console
 5. **Relatório inicial gerado:** `reports/seo/latest/ai-readiness-2026-05-27.json` — Score: **75/100**
 6. **Governança:** AGENTS.md e RETURN-POINT.md atualizados com regras SEO & IA.
+7. **Google Search Console:** `npm run google:indexing:submit-sitemap` executado com sucesso após reautenticação ADC do `gcloud` com escopo `webmasters`.
+   - Sitemap submetido: `https://wgalmeida.com.br/sitemap.xml`
+   - Propriedade: `sc-domain:wgalmeida.com.br`
+   - Evidência adicional: sitemap em produção respondeu HTTP 200, `application/xml`, com **161 URLs**.
 
 ---
 
@@ -47,11 +51,10 @@
    vercel --prod
    ```
 
-3. **Submeter Sitemap ao Google Search Console:**
+3. **Submeter Sitemap ao Google Search Console:** CONCLUÍDO em 2026-05-28 via:
    ```bash
-   node scripts/submit-sitemap.cjs
+   npm run google:indexing:submit-sitemap
    ```
-   Ou manualmente: `https://search.google.com/search-console` → Sitemaps → Adicionar `https://wgalmeida.com.br/sitemap.xml`
 
 4. **(Opcional) API Key PageSpeed:**
    - Configure `PAGESPEED_API_KEY=` no `.env` para remover rate-limit da auditoria.

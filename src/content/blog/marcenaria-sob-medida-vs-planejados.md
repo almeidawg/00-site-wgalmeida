@@ -4,7 +4,7 @@ slug: "marcenaria-sob-medida-vs-planejados"
 date: "2026-05-10"
 author: "Grupo WG Almeida"
 category: "marcenaria"
-image: "/images/blog/sob-medida-vs-planejados.webp"
+image: "/images/blog/marcenaria-sob-medida.webp"
 excerpt: "Muitos confundem, mas os processos e resultados são opostos. Descubra qual modelo valoriza mais o seu projeto de interiores."
 tags:
   - "marcenaria"

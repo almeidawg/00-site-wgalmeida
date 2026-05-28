@@ -336,6 +336,297 @@ function buildSeoFallback(route, config) {
 </div>`;
 }
 
+const COMPANY_PHONE = "+5511984650002";
+const COMPANY_EMAIL = "contato@wgalmeida.com.br";
+
+const PERSON_WILLIAM = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": "https://wgalmeida.com.br/sobre#william-almeida",
+  "name": "William Almeida",
+  "jobTitle": "CEO e Diretor de Arquitetura",
+  "url": "https://wgalmeida.com.br/sobre",
+  "worksFor": { "@id": "https://wgalmeida.com.br/#organization" },
+  "knowsAbout": [
+    "Arquitetura de alto padrao",
+    "Arquitetura de alto padrão",
+    "Engenharia de obras",
+    "Marcenaria sob medida",
+    "Gestão de obras turn key",
+    "Tecnologia aplicada à construção"
+  ],
+  "sameAs": [
+    "https://www.linkedin.com/in/william-almeida-wg",
+    "https://www.behance.net/wgalmeida"
+  ],
+  "image": "https://wgalmeida.com.br/images/about/william-almeida-1200.webp"
+};
+
+const ORGANIZATION_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://wgalmeida.com.br/#organization",
+  "name": "Grupo WG Almeida",
+  "url": "https://wgalmeida.com.br",
+  "logo": "https://wgalmeida.com.br/images/logo-96.webp",
+  "email": COMPANY_EMAIL,
+  "telephone": COMPANY_PHONE,
+  "founder": { "@id": "https://wgalmeida.com.br/sobre#william-almeida" },
+  "hasPart": [
+    { "@id": "https://wgalmeida.com.br/buildtech#softwareapplication" },
+    { "@id": "https://wgalmeida.com.br/moodboard-generator#softwareapplication" },
+    { "@id": "https://wgalmeida.com.br/room-visualizer#softwareapplication" }
+  ],
+  "makesOffer": [
+    { "@id": "https://wgalmeida.com.br/servicos/arquitetura#service" },
+    { "@id": "https://wgalmeida.com.br/servicos/engenharia#service" },
+    { "@id": "https://wgalmeida.com.br/servicos/marcenaria#service" },
+    { "@id": "https://wgalmeida.com.br/servicos/turn-key#service" },
+    { "@id": "https://wgalmeida.com.br/servicos/experiencia-visual#service" }
+  ]
+};
+
+const WEBSITE_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://wgalmeida.com.br/#website",
+  "url": "https://wgalmeida.com.br",
+  "name": "Grupo WG Almeida",
+  "publisher": { "@id": "https://wgalmeida.com.br/#organization" },
+  "inLanguage": "pt-BR",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://wgalmeida.com.br/blog?busca={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+};
+
+const LOCAL_BUSINESS_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Grupo WG Almeida",
+  "url": "https://wgalmeida.com.br",
+  "telephone": COMPANY_PHONE,
+  "email": COMPANY_EMAIL,
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "São Paulo",
+    "addressRegion": "SP",
+    "addressCountry": "BR"
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": "São Paulo"
+  }
+};
+
+const KNOWLEDGE_GRAPH_SCHEMA = {
+  "@context": "https://schema.org",
+  "@graph": [
+    ORGANIZATION_SCHEMA,
+    PERSON_WILLIAM,
+    {
+      "@type": "Service",
+      "@id": "https://wgalmeida.com.br/servicos/arquitetura#service",
+      "name": "Arquitetura de Alto Padrão",
+      "serviceType": "Arquitetura",
+      "url": "https://wgalmeida.com.br/arquitetura",
+      "provider": { "@id": "https://wgalmeida.com.br/#organization" }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://wgalmeida.com.br/servicos/engenharia#service",
+      "name": "Engenharia Integrada",
+      "serviceType": "Engenharia",
+      "url": "https://wgalmeida.com.br/engenharia",
+      "provider": { "@id": "https://wgalmeida.com.br/#organization" }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://wgalmeida.com.br/servicos/marcenaria#service",
+      "name": "Marcenaria Sob Medida",
+      "serviceType": "Marcenaria",
+      "url": "https://wgalmeida.com.br/marcenaria",
+      "provider": { "@id": "https://wgalmeida.com.br/#organization" }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://wgalmeida.com.br/servicos/turn-key#service",
+      "name": "Obra Turn Key",
+      "serviceType": "Execucao turn key",
+      "url": "https://wgalmeida.com.br/obra-turn-key",
+      "provider": { "@id": "https://wgalmeida.com.br/#organization" }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://wgalmeida.com.br/servicos/experiencia-visual#service",
+      "name": "Sistema de Experiência Visual",
+      "serviceType": "Experiência visual aplicada a projeto e pré-venda",
+      "url": "https://wgalmeida.com.br/moodboard",
+      "provider": { "@id": "https://wgalmeida.com.br/#organization" }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://wgalmeida.com.br/buildtech#softwareapplication",
+      "name": "WG_Build.tech",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "url": "https://wgalmeida.com.br/buildtech",
+      "provider": { "@id": "https://wgalmeida.com.br/#organization" }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://wgalmeida.com.br/moodboard-generator#softwareapplication",
+      "name": "WG Moodboard Generator",
+      "applicationCategory": "DesignApplication",
+      "operatingSystem": "Web",
+      "url": "https://wgalmeida.com.br/moodboard-generator",
+      "provider": { "@id": "https://wgalmeida.com.br/#organization" }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://wgalmeida.com.br/room-visualizer#softwareapplication",
+      "name": "WG Room Visualizer",
+      "applicationCategory": "DesignApplication",
+      "operatingSystem": "Web",
+      "url": "https://wgalmeida.com.br/room-visualizer",
+      "provider": { "@id": "https://wgalmeida.com.br/#organization" }
+    },
+    {
+      "@type": "CreativeWorkSeries",
+      "@id": "https://wgalmeida.com.br/projetos#creativework-series",
+      "name": "Projetos Grupo WG Almeida",
+      "url": "https://wgalmeida.com.br/projetos",
+      "creator": { "@id": "https://wgalmeida.com.br/#organization" }
+    },
+    WEBSITE_SCHEMA
+  ]
+};
+
+const HOME_FAQ_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "O que e o Grupo WG Almeida?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "O Grupo WG Almeida e um ecossistema unificado que integra arquitetura de alto padrao, engenharia de obras com controle de custos e marcenaria sob medida premium em Sao Paulo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Como funciona o orcamento integrado?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Trabalhamos com metodologia de orcamento fechado e transparente, compatibilizando o projeto de arquitetura, o planejamento de engenharia e a marcenaria sob medida antes de iniciar a execucao."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "O que e o indice ICCRI?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "O Indice de Custo de Construcao e Reforma Inteligente (ICCRI) e o motor proprietario do Grupo WG Almeida para precificacao e simulacao de custos reais de obra por m2."
+      }
+    }
+  ]
+};
+
+function buildBreadcrumbsSchema(route) {
+  if (route === "/") return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://wgalmeida.com.br/"
+      }
+    ]
+  };
+
+  const segments = route.split("/").filter(Boolean);
+  const items = [{ name: "Home", url: "https://wgalmeida.com.br/" }];
+
+  const labelMap = {
+    sobre: "Sobre", processo: "Processo", projetos: "Projetos",
+    blog: "Blog", store: "Loja", arquitetura: "Arquitetura",
+    engenharia: "Engenharia", marcenaria: "Marcenaria", contato: "Contato",
+    depoimentos: "Depoimentos", faq: "FAQ", "a-marca": "A Marca",
+    "solicite-proposta": "Solicite Proposta",
+  };
+
+  let pathStr = "";
+  for (const seg of segments) {
+    pathStr += `/${seg}`;
+    const label = labelMap[seg] || seg.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+    items.push({ name: label, url: `https://wgalmeida.com.br${pathStr}` });
+  }
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": items.map((item, i) => ({
+      "@type": "ListItem",
+      "position": i + 1,
+      "name": item.name,
+      "item": item.url
+    }))
+  };
+}
+
+function getRouteSchemas(route) {
+  const schemas = [];
+
+  // Adiciona Breadcrumbs para todas as rotas
+  schemas.push(buildBreadcrumbsSchema(route));
+
+  if (route === "/") {
+    schemas.push(KNOWLEDGE_GRAPH_SCHEMA);
+    schemas.push(LOCAL_BUSINESS_SCHEMA);
+    schemas.push(PERSON_WILLIAM);
+    schemas.push(ORGANIZATION_SCHEMA);
+    schemas.push(HOME_FAQ_SCHEMA);
+  } else if (route === "/sobre") {
+    schemas.push(KNOWLEDGE_GRAPH_SCHEMA);
+    schemas.push(PERSON_WILLIAM);
+  } else if (route === "/arquitetura") {
+    schemas.push({
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Arquitetura de Alto Padrão em São Paulo",
+      "description": "Projetos de arquitetura residencial e corporativa com execução integrada.",
+      "url": "https://wgalmeida.com.br/arquitetura",
+      "provider": { "@id": "https://wgalmeida.com.br/#organization" }
+    });
+  } else if (route === "/engenharia") {
+    schemas.push({
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Engenharia Integrada em São Paulo",
+      "description": "Engenharia para obras com planejamento, controle e previsibilidade.",
+      "url": "https://wgalmeida.com.br/engenharia",
+      "provider": { "@id": "https://wgalmeida.com.br/#organization" }
+    });
+  } else if (route === "/marcenaria") {
+    schemas.push({
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Marcenaria Sob Medida em São Paulo",
+      "description": "Marcenaria premium integrada ao projeto arquitetônico.",
+      "url": "https://wgalmeida.com.br/marcenaria",
+      "provider": { "@id": "https://wgalmeida.com.br/#organization" }
+    });
+  } else if (route === "/faq") {
+    schemas.push(HOME_FAQ_SCHEMA);
+  }
+
+  return schemas;
+}
+
 function applySeo(template, route, config) {
   const title = escapeHtml(config.title);
   const desc = escapeHtml(config.description);
@@ -366,6 +657,13 @@ function applySeo(template, route, config) {
     /<script>\s*\(function\(\)\s*\{[\s\S]*?dynamic-canonical[\s\S]*?<\/script>/i,
     `<script>(function(){var canonical=document.querySelector('link[rel="canonical"]');if(canonical){canonical.href='${canonical}';}})();</script>`
   );
+
+  const routeSchemas = getRouteSchemas(route);
+  if (routeSchemas.length > 0) {
+    const schemaHtml = routeSchemas.map(s => `<script type="application/ld+json">${JSON.stringify(s)}</script>`).join("\n");
+    html = html.replace("</head>", `${schemaHtml}\n</head>`);
+  }
+
   if (route === "/") {
     html = replaceOne(
       html,

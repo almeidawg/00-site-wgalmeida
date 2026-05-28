@@ -4,7 +4,7 @@ slug: "arquiteto-vs-mestre-de-obras-direto"
 date: "2026-05-10"
 author: "Grupo WG Almeida"
 category: "engenharia"
-image: "/images/blog/gestao-vs-mestre-obras.webp"
+image: "/images/blog/o-que-e-turn-key.webp"
 excerpt: "Muitos buscam economizar contratando direto, mas acabam pagando mais caro em retrabalho. Saiba por que a gestão técnica é um investimento."
 tags:
   - "gestao de obra"
