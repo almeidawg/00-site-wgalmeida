@@ -1,4 +1,4 @@
-# AGENTS.md — site-wgalmeida
+﻿# AGENTS.md — site-wgalmeida
 
 ## Heranca obrigatoria WG
 Este AGENTS deve ser usado em conjunto com:
@@ -11,113 +11,42 @@ Este AGENTS deve ser usado em conjunto com:
 - Responsavel: Time Marketing + BuildTech
 - Status: CORE / ACTIVE
 
+## SEO & IA 2026 (NOVO)
+- **Missão:** Priorizar indexação real e prontidão para IA (Gemini, SGE, ChatGPT) antes de novos conteúdos.
+- **Sitemap:** Build gera automaticamente `dist/sitemap.xml` com ~161 rotas. Validar sempre após build.
+- **Schema.org:** Tags JSON-LD em `public/schemas/` (Organization, Person, FAQ) são obrigatórias.
+- **E-E-A-T:** Todo conteúdo deve ter autoria explícita (William Almeida), cases reais e sinais de confiança.
+- **Auditoria Recorrente:** Executar `node scripts/pagespeed-monitor.js` e `node scripts/ai-readiness-audit.js` a cada 5 dias.
+- **Indexação:** Monitorar "Crawled - currently not indexed" no GSC. Se subir >10%, tratar como INCIDENTE.
+
 ## WG_BUILD.TECH
 - Nome publico oficial: `WG_Build.tech`.
-- Nomes operacionais permitidos: `BuildTech` e `projeto BT`.
 - Dominio oficial: `https://buildtech.wgalmeida.com.br`.
-- A home do dominio dedicado deve renderizar a pagina `src/pages/BuildTech.jsx`.
 
 ## STACK
-- Frontend: React + Vite
-- Backend: API serverless + integracoes
+- Frontend: React + Vite + TypeScript
 - Infra: Vercel
 
-## DEPLOY
-- URL producao: https://wgalmeida.com.br
-- URL preview: Vercel Preview Deploys
-- Vercel project: site-wgalmeida
-- Visibilidade Git: PUBLICO
+## AUDIT & COMMANDS
+- `npm run build`: Consolida assets, sitemap e schemas.
+- `node scripts/generate-schemas.cjs`: Atualiza arquivos JSON-LD.
+- `node scripts/pagespeed-monitor.js`: Monitora performance Core Web Vitals.
+- `node scripts/ai-readiness-audit.js`: Valida prontidão para consumo por LLMs.
+- `npm run verify:deploy`: Valida saúde pós-publicação.
 
-## SSoT
-- company.ts: `src/data/company.js`
-- planos.ts: centralizado em `src/data/company.js` (espelho de planos publicos)
-- urls.ts: centralizado em `src/data/company.js`
-
-## AUDIT
-- `npm run verify:fast`
-- `npm run verify:full`
-- `npm run verify:deploy`
-- `npm run check:imports`
-- `npm run audit:consistency`
-- `npm run audit:consistency:strict`
-- `npm run lint`
-- `npm run build`
-- Ao tocar em blog/conteudo editorial: `npm run blog:editorial:status`
-- Para rodada automatica da fila/editorial: `npm run blog:editorial:auto`
-- Ao tocar em i18n/blog/header responsivo: `npm run blog:i18n:audit`
-- Para fechar saude estrutural de imagens/editorial: `npm run editorial:health`
-
-## REGRAS DE MIDIA, BLOG E PRODUCAO
-- Hero video nao deve depender de MP4 local grande em producao. Cloudinary/CDN e a fonte canonica; `/public/videos/hero/*.mp4` e copias locais antigas nao devem voltar ao repo.
-- Ao alterar video, validar em producao:
-  - `video.currentSrc`
-  - `video.readyState`
-  - `video.networkState`
-  - `video.videoWidth`
-  - `video.videoHeight`
-  - console sem bloqueio de CSP para a midia
-- Ao usar Cloudinary ou outra CDN para video/audio, `vercel.json` deve permitir o host em `media-src` na CSP ativa e report-only.
-- Ao usar CDN externa para imagem, revisar `img-src`; ao usar API externa, revisar `connect-src`; ao usar embed, revisar `frame-src`.
-- Admin Blog e paginas publicas nao usam necessariamente o mesmo slot:
-  - blog post: validar slots do post, como `cover`
-  - pagina publica: validar `hero`
-  - estilos/guias: validar o slot definido no catalogo do tipo
-- Ao tocar em Admin Blog, validar upload local e Unsplash nos dois caminhos:
-  - estado publicado no navegador do admin
-  - manifest/override versionado para visitante sem localStorage
-- Imagem de blog so pode ser considerada quebrada depois de rolar ate ela e aguardar lazy loading. Validar `naturalWidth > 0` apenas depois de `scrollIntoView`/scroll real.
-- Depois de merge na `main`, confirmar Vercel Production `Ready` e revalidar `https://wgalmeida.com.br`; preview aprovado nao encerra o bloco.
-- Se `public/sitemap.xml` aparecer apos build sem mudanca semantica, descartar o ruido antes do commit.
-
-## REGRAS
-- Proibido hardcode de dominios de produtos (easy/obraeasy/easyrealstate/buildtech).
-- Contatos institucionais devem sair de `src/data/company.js`.
-- Nao considerar deploy seguro se `lint` local nao foi executado.
-- Ao tocar em imagem editorial do blog ou dos guias, validar sempre os dois caminhos:
-  - `ContextImageCard`
-  - renderer integrado por secao
-- Ao tocar em manifesto/override editorial gerado, revisar duplicidade e garantir que o bloco canonico final nao sera sobrescrito por entrada antiga.
-- Se a preocupacao for regressao de sumir imagem, a validacao obrigatoria minima e:
-  - `npm run editorial:health`
-  - `npm run blog:editorial:status`
-  - `npm run blog:editorial:repetition:audit`
-  - `npm run style:editorial:status`
-- So considerar a regressao estrutural de imagem fechada quando o health estiver com:
-  - `blogStructuralClosed: true`
-  - `stylesStructuralClosed: true`
-  - `editorialStructuralClosed: true`
-- Strict mode e build sao bloqueadores de deploy.
-- Antes de alterar conteudo tecnico, validar impacto em SEO + schema + rotas.
-- Remocao de rota, pagina, landing ou asset publico exige limpeza no mesmo bloco de codigo, sitemap, redirects e docs de inventario/mapeamento.
-- Conteudo publico com numeros, metodologia, benchmarks ou claims de produto deve ser validado contra a ferramenta e a metodologia ativa do ecossistema.
-- Blog, landing e pagina institucional nao podem descrever metodologia desatualizada em relacao ao produto ativo.
-- Quando houver diferenca entre benchmark externo e motor interno, registrar a diferenca e explicitar a natureza da fonte em vez de misturar os dados.
-- Revisoes de blog que envolvam AVM, EVF, ROI, valorizacao, prazo, faixa ou precisao devem consultar a auditoria editorial central do EasyRealState.
+## REGRAS DE MIDIA E PRODUCAO
+- Cloudinary/CDN é a fonte canônica de vídeos; MP4 grande no repo é proibido.
+- Validar `video.readyState` e console sem CSP blocks em produção.
+- Imagem quebrada? Validar `naturalWidth > 0` APÓS lazy loading (scroll real).
 
 ## GIT / CI / DEPLOY
-- `main` e branch protegida. Nao fazer push direto para `main`.
-- Fluxo obrigatorio: criar branch curta por bloco, commitar, abrir PR contra `main`, aguardar `build-and-test` e `deploy-gate-final`, mesclar e acompanhar pipeline da `main`.
-- Checks obrigatorios de protecao da `main`:
-  - `build-and-test`
-  - `deploy-gate-final`
-- SonarCloud pode aparecer como check externo nao bloqueante enquanto nao houver baseline oficial aprovado.
-- Deploy de producao e feito pela integracao Git da Vercel. Nao tratar job placeholder de GitHub Actions como fonte canonica de deploy.
-- Antes de push/PR, preferir `npm run verify:full`. Para fechamento de deploy com SEO, usar `npm run verify:deploy`.
-- Se um push direto para `main` falhar com `GH006`, nao alterar protecao para contornar: abrir PR e seguir o fluxo protegido.
+- `main` é branch protegida (GH006). Push direto proibido.
+- **Fluxo:** Branch `fix/*` ou `feat/*` -> PR -> Merge -> Vercel Production Auto-Deploy.
+- Se deploy via CLI for necessário: `vercel login` seguido de `vercel --prod`.
 
 ## ROLLBACK
-- Deploy: rollback pelo painel Vercel.
-- Codigo: reverter commit e rerodar validacoes obrigatorias.
-- SEO/rotas: rebuild completo e revalidacao de sitemap.
+- Deploy: Painel Vercel.
+- SEO: Rebuild completo para regenerar sitemap.xml íntegro.
 
 ## CONTEXTO RAPIDO
-Site institucional e camada de aquisicao do ecossistema WG, integrado com produtos SaaS e SEO tecnico. Projeto com baseline zerado e governanca anti-drift ativa.
-
-## FLUXO OPERACIONAL
-1. Ler `IA-START-HERE-WG.md`.
-2. Ler `RETURN-POINT.md`.
-3. Definir alteracao por bloco.
-4. Implementar sem duplicar fonte de dados.
-5. Em blog/i18n, validar `pt-BR`, `en` e `es` em listagem + detalhe e checar header responsivo.
-6. Rodar `npm run verify:full` antes de PR/deploy.
-7. Registrar evidencias no `RETURN-POINT.md`.
+Camada de aquisição do ecossistema WG, focada em autoridade técnica e visibilidade híbrida (Search + AI).
