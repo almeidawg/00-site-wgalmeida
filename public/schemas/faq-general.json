@@ -1,0 +1,22 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Quais serviços o Grupo WG Almeida oferece?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oferecemos serviços completos de Arquitetura, Engenharia e Marcenaria sob medida, focados em alto padrão e tecnologia BuildTech."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Como funciona o processo BuildTech?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nosso processo integra design inteligente, gestão eficiente de obra e fabricação própria de marcenaria para garantir prazos e qualidade superior."
+      }
+    }
+  ]
+}

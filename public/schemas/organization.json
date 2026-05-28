@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Grupo WG Almeida",
+  "url": "https://wgalmeida.com.br",
+  "logo": "https://wgalmeida.com.br/logo.png",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+55-11-99999-9999",
+    "contactType": "customer service",
+    "areaServed": "BR",
+    "availableLanguage": "Portuguese"
+  },
+  "sameAs": [
+    "https://www.instagram.com/wgalmeida",
+    "https://www.linkedin.com/company/grupo-wg-almeida"
+  ]
+}

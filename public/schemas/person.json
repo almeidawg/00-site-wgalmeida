@@ -1,0 +1,14 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "William Almeida",
+  "jobTitle": "CEO & Founder",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Grupo WG Almeida"
+  },
+  "url": "https://wgalmeida.com.br/sobre",
+  "sameAs": [
+    "https://www.linkedin.com/in/williamalmeida"
+  ]
+}
