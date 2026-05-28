@@ -20,7 +20,6 @@ import { Link } from 'react-router-dom';
 import BrandStar from '@/components/BrandStar';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
-import MoodboardSelectionSummary from './MoodboardSelectionSummary';
 
 const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, onProjectNameChange, onSave, isSaving, lizInsight }) => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -93,11 +92,6 @@ const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, 
         {/* Conteúdo Dinâmico da Sidebar */}
         <div className="flex-1 overflow-y-auto custom-scrollbar p-6 bg-black/5">
           {children}
-        </div>
-
-        {/* Painel de Representação Passo a Passo */}
-        <div className="shrink-0 p-4 border-t border-white/5 bg-black/30">
-          <MoodboardSelectionSummary />
         </div>
 
         {/* Footer Sidebar - Status */}
