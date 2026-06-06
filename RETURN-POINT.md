@@ -3,6 +3,92 @@
 
 ---
 
+## AUDITORIA SEO RECORRENTE — 2026-06-06
+
+### Tabela de Saúde SEO
+
+| Métrica | Valor | Status |
+|---|---|---|
+| AI Readiness Score | 72/100 (estimativa manual — script ausente) | MÉDIA |
+| Rotas no sitemap (local) | 161 | OK |
+| Rotas no sitemap (prod) | Inacessível do ambiente (403/allowlist) | AVISO |
+| Audit i18n público | OK — 227 chaves em pt-BR, en, es | OK |
+| Audit brand visual tokens | OK — 138 arquivos verificados | OK |
+| Audit estrutural | OK | OK |
+| Audit consistência (preços/URLs/contatos hardcoded) | OK — sem regressão | OK |
+| Check imports | OK | OK |
+| PageSpeed (LCP/CLS) | Não testado — script ausente | N/A |
+| Último commit em main | `af80674` — 2026-05-13 | OK |
+
+### Achados
+
+#### MÉDIA — Scripts de auditoria ausentes no repo
+- `scripts/ai-readiness-audit.js`: **NÃO EXISTE** no repositório.
+- `scripts/pagespeed-monitor.js`: **NÃO EXISTE** no repositório.
+- Score de AI Readiness foi estimado manualmente (72/100) com base nas auditorias disponíveis e no estado do site documentado nas sessões anteriores.
+- Ação: criar ambos os scripts para permitir auditoria automatizada nas próximas rodadas.
+
+#### AVISO — Sitemap de produção inacessível por allowlist
+- `curl https://wgalmeida.com.br/sitemap.xml` retorna `403 Host not in allowlist` deste ambiente remoto (restrição de rede do container, não falha do site).
+- Sitemap local (`public/sitemap.xml`) validado com **161 rotas** — dentro do esperado (≥145).
+- Não é ALERTA CRÍTICO: a restrição é do ambiente de execução, não do site em produção.
+
+#### OK — Auditorias disponíveis passaram todas
+- i18n público: 227 chaves verificadas em pt-BR, en, es. Sem vazamento de chaves cruas.
+- Brand visual tokens: 138 arquivos sem amarelo/amber fora da marca.
+- Estrutural: sem regressão estrutural.
+- Consistência: sem preços, URLs ou contatos hardcoded novos.
+- Imports: sem importação quebrada.
+
+### Baseline de Referência (última sessão documentada — 2026-05-13)
+- Sitemap local: 161 rotas (build local validado `npm run build:local`).
+- Branch canônica: `main`, commit `af80674`.
+- Cobertura blog multilíngue: PT-BR ~78 posts, EN/ES ~20 posts (26% multilingual).
+- Schemas SEO: article, localBusiness, CreativeWork implementados.
+- Governança comercial: ICCRI / Turn Key / Marcenaria via `commercialGovernance.js`.
+
+### AI Readiness Score — Estimativa Manual (72/100)
+Fatores positivos (elevam score):
+- Schemas implementados (article, localBusiness, CreativeWork)
+- Sitemap com 161 rotas, sitemap-index presente
+- i18n trilíngue (pt-BR, en, es) sem vazamento de chaves cruas
+- FAQ estruturado em `/faq`
+- Blog com conteúdo editorial governado (~78 posts PT-BR)
+- Preços governados por fonte central (ICCRI/commercialGovernance)
+- Open Graph, Twitter Cards e meta keywords implementados
+- Canonical URLs e meta description dinâmicos
+
+Fatores limitantes (reduzem score):
+- EN/ES: apenas ~26% dos posts traduzidos (58 slugs faltantes por idioma)
+- Scripts de auditoria AI Readiness e PageSpeed ausentes no repo
+- Validação autenticada de admin/CMS pendente
+- Instagram e fallback não validados em produção recente
+- 2 vulnerabilidades de segurança de alta gravidade nas dependências (npm audit)
+
+### Plano de Ação — Próximos 5 dias (até 2026-06-11)
+
+| Prioridade | Ação | Responsável |
+|---|---|---|
+| ALTA | Criar `scripts/ai-readiness-audit.js` com score automatizado (schema, i18n, sitemap, meta) | Dev |
+| ALTA | Criar `scripts/pagespeed-monitor.js` integrado à API PageSpeed (necessita API key) | Dev |
+| ALTA | Corrigir/documentar acesso ao sitemap de produção no ambiente remoto | Ops |
+| MÉDIA | Expandir cobertura EN/ES do blog: priorizar os 10 posts de maior tráfego | Editorial |
+| MÉDIA | Rodar `npm audit fix` para reduzir as 2 vulnerabilidades high/5 moderate | Dev |
+| BAIXA | Validar Instagram e fallback em produção após próximo deploy | QA |
+| BAIXA | Validação autenticada de admin/CMS com sessão real | QA |
+
+### Próxima Auditoria: 2026-06-11
+
+---
+
+## HISTÓRICO DE AUDITORIAS SEO RECORRENTES
+
+| Data | AI Readiness Score | Rotas Sitemap | Status Geral |
+|---|---|---|---|
+| 2026-06-06 | 72/100 (estimativa manual) | 161 (local) / 403 prod | MÉDIA |
+
+---
+
 ## Sessao: 12/05/2026 - Saneamento de baseline editorial, moodboard e share
 
 ### Escopo
