@@ -1,0 +1,52 @@
+{
+  "date": "2026-06-23",
+  "url": "https://wgalmeida.com.br",
+  "score": 100,
+  "checks": [
+    {
+      "name": "Sitemap XML",
+      "pass": true,
+      "detail": "161 rotas (esperado ≥145)",
+      "weight": 15
+    },
+    {
+      "name": "robots.txt",
+      "pass": true,
+      "detail": "sitemap declarado: true | permite Googlebot: true",
+      "weight": 10
+    },
+    {
+      "name": "Schemas JSON-LD",
+      "pass": true,
+      "detail": "5/5: Organization:✓ | Person:✓ | FAQPage:✓ | ProfessionalService:✓ | BreadcrumbList:✓",
+      "weight": 25,
+      "schemas": {
+        "Organization": true,
+        "Person": true,
+        "FAQPage": true,
+        "ProfessionalService": true,
+        "BreadcrumbList": true
+      }
+    },
+    {
+      "name": "E-E-A-T (autoridade/autoria)",
+      "pass": true,
+      "detail": "authorName:✓ | authorTitle:✓ | contactInfo:✓ | casesMentioned:✓ | trustSignals:✗",
+      "weight": 20
+    },
+    {
+      "name": "Meta Tags (SEO/OG)",
+      "pass": true,
+      "detail": "title:✓ | desc:✓ | canonical:✓ | og:title:✓ | og:image:✓",
+      "weight": 15
+    },
+    {
+      "name": "Estrutura Escaneável (LLM)",
+      "pass": true,
+      "detail": "h1:✓ | faq:✓ | lang=pt:✓ | sem keywords:✓",
+      "weight": 15
+    }
+  ],
+  "alerts": [],
+  "fetchError": null
+}
