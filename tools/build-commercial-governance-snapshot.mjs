@@ -270,6 +270,10 @@ async function buildCacambaSnapshot(supabase) {
     { min: 300, max: 2000 }
   )
 
+  if (bucketCandidates.length === 0 && operationCandidates.length === 0) {
+    return null;
+  }
+
   const bucketBase = percentile(bucketCandidates, 0.5) || 350
   const operationBase = percentile(operationCandidates, 0.5) || 850
 

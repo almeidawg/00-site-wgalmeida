@@ -1,5 +1,5 @@
 const COMMERCIAL_GOVERNANCE_GENERATED = {
-  "generatedAt": "2026-07-19T13:25:28.369Z",
+  "generatedAt": "2026-07-19T14:02:46.213Z",
   "services": {
     "iccri-reforma-civil-sp": {
       "sourceOfTruth": "ICCRI editorial/comercial homologado · competencia 2026-06-01",
@@ -29,35 +29,6 @@ const COMMERCIAL_GOVERNANCE_GENERATED = {
           "minValue": 6500,
           "maxValue": null,
           "rangeLabel": "R$ 6.500+ por m2"
-        }
-      }
-    },
-    "cacamba-residuos-sp": {
-      "status": "active",
-      "sourceOfTruth": "Supabase · pricelist_itens residuos/logistica · snapshot 2026-07-19",
-      "sourceBreakdown": [
-        "pricelist_itens (nome~cacamba|entulho|remocao|ensacar) · 0 registro(s) validado(s)"
-      ],
-      "packages": {
-        "essencial": {
-          "minValue": 300,
-          "maxValue": 500,
-          "rangeLabel": "R$ 300 a R$ 500 por retirada"
-        },
-        "equilibrado": {
-          "minValue": 800,
-          "maxValue": 1200,
-          "rangeLabel": "R$ 800 a R$ 1.200 por retirada"
-        },
-        "superior": {
-          "minValue": 1200,
-          "maxValue": 1500,
-          "rangeLabel": "R$ 1.200 a R$ 1.500 por retirada"
-        },
-        "exclusivo": {
-          "minValue": 1800,
-          "maxValue": null,
-          "rangeLabel": "R$ 1.800+ por operacao dedicada"
         }
       }
     }
