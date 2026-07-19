@@ -14,39 +14,39 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
       {
         "slot": "hero",
-        "mainQuery": "residencia contemporanea acapulco club",
+        "mainQuery": "residencia contemporary architecture acapulco club",
         "searchTerms": [
-          "modern architecture exterior",
-          "residencia contemporanea acapulco club facade design",
-          "neutral architecture photography",
-          "clean residential facade",
-          "soft light exterior"
+          "minimalist interior design",
+          "residencia contemporary architecture acapulco club home aesthetic",
+          "neutral living room",
+          "soft color decor",
+          "modern furniture layout"
         ],
-        "searchQuery": "residencia contemporanea acapulco club",
-        "intent": "architecture",
+        "searchQuery": "residencia contemporary architecture acapulco club",
+        "intent": "decor",
         "targetLocalFile": "public/images/blog/acapulco-club-house-residencia-luxo/hero.webp",
         "targetCloudinaryId": "editorial/blog/acapulco-club-house-residencia-luxo/hero",
         "orientation": "landscape"
       },
       {
         "slot": "card",
-        "mainQuery": "residencia contemporanea acapulco club",
+        "mainQuery": "residencia contemporary architecture acapulco club",
         "searchTerms": [
-          "architectural facade detail",
-          "residencia contemporanea acapulco club facade material",
-          "clean geometry facade",
-          "neutral exterior detail",
-          "architectural lines detail"
+          "interior styling detail",
+          "residencia contemporary architecture acapulco club decor detail",
+          "minimalist furniture detail",
+          "soft light interior detail",
+          "clean home composition"
         ],
-        "searchQuery": "residencia contemporanea acapulco club",
-        "intent": "architecture",
+        "searchQuery": "residencia contemporary architecture acapulco club",
+        "intent": "decor",
         "targetLocalFile": "public/images/blog/acapulco-club-house-residencia-luxo/card.webp",
         "targetCloudinaryId": "editorial/blog/acapulco-club-house-residencia-luxo/card",
         "orientation": "landscape"
@@ -54,8 +54,62 @@
     ]
   },
   {
+    "slug": "arquiteto-vs-mestre-de-obras-direto",
+    "title": "Gestão Profissional vs. Empreiteiro Direto: O Custo do Barato",
+    "category": "engenharia",
+    "currentImage": "/images/blog/gestao-vs-mestre-obras.webp",
+    "boldCount": 11,
+    "inlineImageCount": 0,
+    "needsCopyNormalization": false,
+    "status": {
+      "hasFrontmatterImage": true,
+      "hasInlineImages": false,
+      "hasManifestEntry": false,
+      "isVariantEntry": false,
+      "hasCloudinaryHero": false,
+      "hasCloudinaryCard": false,
+      "hasLocalHero": false,
+      "hasLocalCard": false,
+      "readyForTwoSlotEditorial": false
+    },
+    "slots": [
+      {
+        "slot": "hero",
+        "mainQuery": "gestao profissional empreiteiro direto",
+        "searchTerms": [
+          "modern renovation interior",
+          "gestao profissional empreiteiro direto site detail",
+          "architectural renovation",
+          "clean material palette",
+          "high-end construction"
+        ],
+        "searchQuery": "gestao profissional empreiteiro direto",
+        "intent": "construction",
+        "targetLocalFile": "public/images/blog/arquiteto-vs-mestre-de-obras-direto/hero.webp",
+        "targetCloudinaryId": "editorial/blog/arquiteto-vs-mestre-de-obras-direto/hero",
+        "orientation": "landscape"
+      },
+      {
+        "slot": "card",
+        "mainQuery": "gestao profissional empreiteiro direto",
+        "searchTerms": [
+          "construction material detail",
+          "gestao profissional empreiteiro direto detail interior",
+          "architectural finish detail",
+          "clean building texture",
+          "engineering detail"
+        ],
+        "searchQuery": "gestao profissional empreiteiro direto",
+        "intent": "construction",
+        "targetLocalFile": "public/images/blog/arquiteto-vs-mestre-de-obras-direto/card.webp",
+        "targetCloudinaryId": "editorial/blog/arquiteto-vs-mestre-de-obras-direto/card",
+        "orientation": "landscape"
+      }
+    ]
+  },
+  {
     "slug": "arquitetos-brasileiros-famosos-legado",
-    "title": "Arquitetos Brasileiros Famosos: 12 Nomes, Obras e Lições para Projetos Atuais",
+    "title": "Arquitetos Brasileiros Famosos: 7 Nomes, Obras e Lições para Projetos Atuais",
     "category": "arquitetura",
     "currentImage": "/images/banners/ARQ.webp",
     "boldCount": 0,
@@ -68,8 +122,8 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
@@ -121,39 +175,39 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
       {
         "slot": "hero",
-        "mainQuery": "arquitetos internacionais famosos construction 2026",
+        "mainQuery": "architect portrait 2026",
         "searchTerms": [
-          "modern renovation interior",
-          "arquitetos internacionais famosos construction site detail",
-          "architectural renovation",
-          "clean material palette",
-          "high-end construction"
+          "architect portrait",
+          "brazilian architect portrait",
+          "architect studio portrait",
+          "modernist architect portrait",
+          "design master portrait"
         ],
-        "searchQuery": "arquitetos internacionais famosos construction 2026",
-        "intent": "construction",
+        "searchQuery": "architect portrait 2026",
+        "intent": "person",
         "targetLocalFile": "public/images/blog/arquitetos-internacionais-famosos-obras/hero.webp",
         "targetCloudinaryId": "editorial/blog/arquitetos-internacionais-famosos-obras/hero",
         "orientation": "landscape"
       },
       {
         "slot": "card",
-        "mainQuery": "arquitetos internacionais famosos construction 2026",
+        "mainQuery": "iconic architecture 2026",
         "searchTerms": [
-          "construction material detail",
-          "arquitetos internacionais famosos construction detail interior",
-          "architectural finish detail",
-          "clean building texture",
-          "engineering detail"
+          "iconic architecture facade",
+          "modernist building detail",
+          "signature building exterior",
+          "architectural landmark detail",
+          "historical architecture archive"
         ],
-        "searchQuery": "arquitetos internacionais famosos construction 2026",
-        "intent": "construction",
+        "searchQuery": "iconic architecture 2026",
+        "intent": "person",
         "targetLocalFile": "public/images/blog/arquitetos-internacionais-famosos-obras/card.webp",
         "targetCloudinaryId": "editorial/blog/arquitetos-internacionais-famosos-obras/card",
         "orientation": "landscape"
@@ -165,7 +219,7 @@
     "title": "O Que E Arquitetura de Alto Padrão? Descubra os Diferenciais de um Projeto Premium",
     "category": "arquitetura",
     "currentImage": "/images/blog/arquitetura-alto-padrao.webp",
-    "boldCount": 4,
+    "boldCount": 7,
     "inlineImageCount": 0,
     "needsCopyNormalization": false,
     "status": {
@@ -236,15 +290,15 @@
     "slots": [
       {
         "slot": "hero",
-        "mainQuery": "amsterdam architecture",
+        "mainQuery": "amsterdam skyline architecture",
         "searchTerms": [
-          "amsterdam modern architecture exterior",
-          "architecture charme canais gables facade design",
-          "neutral architecture photography",
-          "clean residential facade",
-          "soft light exterior"
+          "amsterdam city skyline",
+          "amsterdam architecture exterior",
+          "amsterdam urban landmark",
+          "modern architecture exterior",
+          "minimalist facade design"
         ],
-        "searchQuery": "amsterdam architecture",
+        "searchQuery": "amsterdam skyline architecture",
         "intent": "architecture",
         "targetLocalFile": "public/images/blog/arquitetura-amsterdam-holanda/hero.webp",
         "targetCloudinaryId": "editorial/blog/arquitetura-amsterdam-holanda/hero",
@@ -252,15 +306,15 @@
       },
       {
         "slot": "card",
-        "mainQuery": "amsterdam architecture",
+        "mainQuery": "amsterdam landmark architecture detail",
         "searchTerms": [
-          "amsterdam architectural facade detail",
-          "architecture charme canais gables facade material",
-          "clean geometry facade",
-          "neutral exterior detail",
-          "architectural lines detail"
+          "amsterdam architectural detail",
+          "amsterdam iconic facade",
+          "amsterdam urban landmark detail",
+          "architectural facade detail",
+          "modern facade material"
         ],
-        "searchQuery": "amsterdam architecture",
+        "searchQuery": "amsterdam landmark architecture detail",
         "intent": "architecture",
         "targetLocalFile": "public/images/blog/arquitetura-amsterdam-holanda/card.webp",
         "targetCloudinaryId": "editorial/blog/arquitetura-amsterdam-holanda/card",
@@ -290,15 +344,15 @@
     "slots": [
       {
         "slot": "hero",
-        "mainQuery": "barcelona architecture",
+        "mainQuery": "barcelona skyline architecture",
         "searchTerms": [
-          "barcelona modern architecture exterior",
-          "architecture gaudi modernisme icones facade design",
-          "neutral architecture photography",
-          "clean residential facade",
-          "soft light exterior"
+          "barcelona city skyline",
+          "barcelona architecture exterior",
+          "barcelona urban landmark",
+          "modern architecture exterior",
+          "minimalist facade design"
         ],
-        "searchQuery": "barcelona architecture",
+        "searchQuery": "barcelona skyline architecture",
         "intent": "architecture",
         "targetLocalFile": "public/images/blog/arquitetura-barcelona-espanha/hero.webp",
         "targetCloudinaryId": "editorial/blog/arquitetura-barcelona-espanha/hero",
@@ -306,15 +360,15 @@
       },
       {
         "slot": "card",
-        "mainQuery": "barcelona architecture",
+        "mainQuery": "barcelona landmark architecture detail",
         "searchTerms": [
-          "barcelona architectural facade detail",
-          "architecture gaudi modernisme icones facade material",
-          "clean geometry facade",
-          "neutral exterior detail",
-          "architectural lines detail"
+          "barcelona architectural detail",
+          "barcelona iconic facade",
+          "barcelona urban landmark detail",
+          "architectural facade detail",
+          "modern facade material"
         ],
-        "searchQuery": "barcelona architecture",
+        "searchQuery": "barcelona landmark architecture detail",
         "intent": "architecture",
         "targetLocalFile": "public/images/blog/arquitetura-barcelona-espanha/card.webp",
         "targetCloudinaryId": "editorial/blog/arquitetura-barcelona-espanha/card",
@@ -336,7 +390,7 @@
       "hasManifestEntry": true,
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
-      "hasCloudinaryCard": true,
+      "hasCloudinaryCard": false,
       "hasLocalHero": true,
       "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
@@ -344,15 +398,15 @@
     "slots": [
       {
         "slot": "hero",
-        "mainQuery": "bruges architecture",
+        "mainQuery": "bruges skyline architecture",
         "searchTerms": [
-          "bruges modern architecture exterior",
-          "architecture veneza norte seu facade design",
-          "neutral architecture photography",
-          "clean residential facade",
-          "soft light exterior"
+          "bruges city skyline",
+          "bruges architecture exterior",
+          "bruges urban landmark",
+          "modern architecture exterior",
+          "minimalist facade design"
         ],
-        "searchQuery": "bruges architecture",
+        "searchQuery": "bruges skyline architecture",
         "intent": "architecture",
         "targetLocalFile": "public/images/blog/arquitetura-bruges-belgica/hero.webp",
         "targetCloudinaryId": "editorial/blog/arquitetura-bruges-belgica/hero",
@@ -360,15 +414,15 @@
       },
       {
         "slot": "card",
-        "mainQuery": "bruges architecture",
+        "mainQuery": "bruges landmark architecture detail",
         "searchTerms": [
-          "bruges architectural facade detail",
-          "architecture veneza norte seu facade material",
-          "clean geometry facade",
-          "neutral exterior detail",
-          "architectural lines detail"
+          "bruges architectural detail",
+          "bruges iconic facade",
+          "bruges urban landmark detail",
+          "architectural facade detail",
+          "modern facade material"
         ],
-        "searchQuery": "bruges architecture",
+        "searchQuery": "bruges landmark architecture detail",
         "intent": "architecture",
         "targetLocalFile": "public/images/blog/arquitetura-bruges-belgica/card.webp",
         "targetCloudinaryId": "editorial/blog/arquitetura-bruges-belgica/card",
@@ -398,15 +452,15 @@
     "slots": [
       {
         "slot": "hero",
-        "mainQuery": "brussels architecture",
+        "mainQuery": "brussels skyline architecture",
         "searchTerms": [
-          "brussels modern architecture exterior",
-          "architecture art nouveau grand facade design",
-          "neutral architecture photography",
-          "clean residential facade",
-          "soft light exterior"
+          "brussels city skyline",
+          "brussels architecture exterior",
+          "brussels urban landmark",
+          "modern architecture exterior",
+          "minimalist facade design"
         ],
-        "searchQuery": "brussels architecture",
+        "searchQuery": "brussels skyline architecture",
         "intent": "architecture",
         "targetLocalFile": "public/images/blog/arquitetura-bruxelas-belgica/hero.webp",
         "targetCloudinaryId": "editorial/blog/arquitetura-bruxelas-belgica/hero",
@@ -414,15 +468,15 @@
       },
       {
         "slot": "card",
-        "mainQuery": "brussels architecture",
+        "mainQuery": "brussels landmark architecture detail",
         "searchTerms": [
-          "brussels architectural facade detail",
-          "architecture art nouveau grand facade material",
-          "clean geometry facade",
-          "neutral exterior detail",
-          "architectural lines detail"
+          "brussels architectural detail",
+          "brussels iconic facade",
+          "brussels urban landmark detail",
+          "architectural facade detail",
+          "modern facade material"
         ],
-        "searchQuery": "brussels architecture",
+        "searchQuery": "brussels landmark architecture detail",
         "intent": "architecture",
         "targetLocalFile": "public/images/blog/arquitetura-bruxelas-belgica/card.webp",
         "targetCloudinaryId": "editorial/blog/arquitetura-bruxelas-belgica/card",
@@ -445,22 +499,22 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
       {
         "slot": "hero",
-        "mainQuery": "haarlem architecture",
+        "mainQuery": "haarlem skyline architecture",
         "searchTerms": [
-          "haarlem modern architecture exterior",
-          "architecture joia medieval hofjes facade design",
-          "neutral architecture photography",
-          "clean residential facade",
-          "soft light exterior"
+          "haarlem city skyline",
+          "haarlem architecture exterior",
+          "haarlem urban landmark",
+          "modern architecture exterior",
+          "minimalist facade design"
         ],
-        "searchQuery": "haarlem architecture",
+        "searchQuery": "haarlem skyline architecture",
         "intent": "architecture",
         "targetLocalFile": "public/images/blog/arquitetura-haarlem-holanda/hero.webp",
         "targetCloudinaryId": "editorial/blog/arquitetura-haarlem-holanda/hero",
@@ -468,15 +522,15 @@
       },
       {
         "slot": "card",
-        "mainQuery": "haarlem architecture",
+        "mainQuery": "haarlem landmark architecture detail",
         "searchTerms": [
-          "haarlem architectural facade detail",
-          "architecture joia medieval hofjes facade material",
-          "clean geometry facade",
-          "neutral exterior detail",
-          "architectural lines detail"
+          "haarlem architectural detail",
+          "haarlem iconic facade",
+          "haarlem urban landmark detail",
+          "architectural facade detail",
+          "modern facade material"
         ],
-        "searchQuery": "haarlem architecture",
+        "searchQuery": "haarlem landmark architecture detail",
         "intent": "architecture",
         "targetLocalFile": "public/images/blog/arquitetura-haarlem-holanda/card.webp",
         "targetCloudinaryId": "editorial/blog/arquitetura-haarlem-holanda/card",
@@ -499,22 +553,22 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
       {
         "slot": "hero",
-        "mainQuery": "lisbon architecture",
+        "mainQuery": "lisbon skyline architecture",
         "searchTerms": [
-          "lisbon modern architecture exterior",
-          "architecture azulejos sete colinas facade design",
-          "neutral architecture photography",
-          "clean residential facade",
-          "soft light exterior"
+          "lisbon city skyline",
+          "lisbon architecture exterior",
+          "lisbon urban landmark",
+          "modern architecture exterior",
+          "minimalist facade design"
         ],
-        "searchQuery": "lisbon architecture",
+        "searchQuery": "lisbon skyline architecture",
         "intent": "architecture",
         "targetLocalFile": "public/images/blog/arquitetura-lisboa-portugal/hero.webp",
         "targetCloudinaryId": "editorial/blog/arquitetura-lisboa-portugal/hero",
@@ -522,15 +576,15 @@
       },
       {
         "slot": "card",
-        "mainQuery": "lisbon architecture",
+        "mainQuery": "lisbon landmark architecture detail",
         "searchTerms": [
-          "lisbon architectural facade detail",
-          "architecture azulejos sete colinas facade material",
-          "clean geometry facade",
-          "neutral exterior detail",
-          "architectural lines detail"
+          "lisbon architectural detail",
+          "lisbon iconic facade",
+          "lisbon urban landmark detail",
+          "architectural facade detail",
+          "modern facade material"
         ],
-        "searchQuery": "lisbon architecture",
+        "searchQuery": "lisbon landmark architecture detail",
         "intent": "architecture",
         "targetLocalFile": "public/images/blog/arquitetura-lisboa-portugal/card.webp",
         "targetCloudinaryId": "editorial/blog/arquitetura-lisboa-portugal/card",
@@ -553,39 +607,39 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
       {
         "slot": "hero",
-        "mainQuery": "paris interior design",
+        "mainQuery": "paris skyline architecture",
         "searchTerms": [
-          "paris minimalist interior design",
-          "architecture styles boulevards haussmannianos home aesthetic",
-          "neutral living room",
-          "soft color decor",
-          "modern furniture layout"
+          "paris city skyline",
+          "paris architecture exterior",
+          "paris urban landmark",
+          "modern architecture exterior",
+          "minimalist facade design"
         ],
-        "searchQuery": "paris interior design",
-        "intent": "decor",
+        "searchQuery": "paris skyline architecture",
+        "intent": "architecture",
         "targetLocalFile": "public/images/blog/arquitetura-paris-franca/hero.webp",
         "targetCloudinaryId": "editorial/blog/arquitetura-paris-franca/hero",
         "orientation": "landscape"
       },
       {
         "slot": "card",
-        "mainQuery": "paris interior design",
+        "mainQuery": "paris landmark architecture detail",
         "searchTerms": [
-          "paris interior styling detail",
-          "architecture styles boulevards haussmannianos decor detail",
-          "minimalist furniture detail",
-          "soft light interior detail",
-          "clean home composition"
+          "paris architectural detail",
+          "paris iconic facade",
+          "paris urban landmark detail",
+          "architectural facade detail",
+          "modern facade material"
         ],
-        "searchQuery": "paris interior design",
-        "intent": "decor",
+        "searchQuery": "paris landmark architecture detail",
+        "intent": "architecture",
         "targetLocalFile": "public/images/blog/arquitetura-paris-franca/card.webp",
         "targetCloudinaryId": "editorial/blog/arquitetura-paris-franca/card",
         "orientation": "landscape"
@@ -607,39 +661,39 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
       {
         "slot": "hero",
-        "mainQuery": "architecture sustentavel certificacoes leed",
+        "mainQuery": "architecture sustentavel certificacoes sustainable green building",
         "searchTerms": [
-          "modern architecture exterior",
-          "architecture sustentavel certificacoes leed facade design",
-          "neutral architecture photography",
-          "clean residential facade",
-          "soft light exterior"
+          "biophilic design interior",
+          "architecture sustentavel certificacoes sustainable green building plant wall",
+          "sustainable architecture natural light",
+          "eco house interior",
+          "passive house design"
         ],
-        "searchQuery": "architecture sustentavel certificacoes leed",
-        "intent": "architecture",
+        "searchQuery": "architecture sustentavel certificacoes sustainable green building",
+        "intent": "sustainability",
         "targetLocalFile": "public/images/blog/arquitetura-sustentavel-certificacoes/hero.webp",
         "targetCloudinaryId": "editorial/blog/arquitetura-sustentavel-certificacoes/hero",
         "orientation": "landscape"
       },
       {
         "slot": "card",
-        "mainQuery": "architecture sustentavel certificacoes leed",
+        "mainQuery": "architecture sustentavel certificacoes sustainable green building",
         "searchTerms": [
-          "architectural facade detail",
-          "architecture sustentavel certificacoes leed facade material",
-          "clean geometry facade",
-          "neutral exterior detail",
-          "architectural lines detail"
+          "plant detail interior",
+          "architecture sustentavel certificacoes sustainable green building material texture",
+          "solar panel architecture",
+          "green building facade",
+          "sustainable material detail"
         ],
-        "searchQuery": "architecture sustentavel certificacoes leed",
-        "intent": "architecture",
+        "searchQuery": "architecture sustentavel certificacoes sustainable green building",
+        "intent": "sustainability",
         "targetLocalFile": "public/images/blog/arquitetura-sustentavel-certificacoes/card.webp",
         "targetCloudinaryId": "editorial/blog/arquitetura-sustentavel-certificacoes/card",
         "orientation": "landscape"
@@ -648,10 +702,10 @@
   },
   {
     "slug": "automacao-residencial-2026-guia",
-    "title": "Automação Residencial em 2026: Quanto Custa e Como Montar uma Smart Home",
+    "title": "Automação Residencial em 2026: Como Planejar uma Smart Home sem Chute",
     "category": "tecnologia",
     "currentImage": "/images/banners/PROCESSOS.webp",
-    "boldCount": 0,
+    "boldCount": 8,
     "inlineImageCount": 0,
     "needsCopyNormalization": false,
     "status": {
@@ -661,22 +715,22 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
       {
         "slot": "hero",
-        "mainQuery": "automation residential 2026 quanto",
+        "mainQuery": "automation residential 2026 planejar",
         "searchTerms": [
           "smart home interior",
-          "automation residential 2026 quanto automation interior",
+          "automation residential 2026 planejar automation interior",
           "clean tech living room",
           "minimal connected home",
           "neutral smart interior"
         ],
-        "searchQuery": "automation residential 2026 quanto",
+        "searchQuery": "automation residential 2026 planejar",
         "intent": "technology",
         "targetLocalFile": "public/images/blog/automacao-residencial-2026-guia/hero.webp",
         "targetCloudinaryId": "editorial/blog/automacao-residencial-2026-guia/hero",
@@ -684,15 +738,15 @@
       },
       {
         "slot": "card",
-        "mainQuery": "automation residential 2026 quanto",
+        "mainQuery": "automation residential 2026 planejar",
         "searchTerms": [
           "smart home detail",
-          "automation residential 2026 quanto panel detail",
+          "automation residential 2026 planejar panel detail",
           "tech interior detail",
           "modern switch detail",
           "connected home styling"
         ],
-        "searchQuery": "automation residential 2026 quanto",
+        "searchQuery": "automation residential 2026 planejar",
         "intent": "technology",
         "targetLocalFile": "public/images/blog/automacao-residencial-2026-guia/card.webp",
         "targetCloudinaryId": "editorial/blog/automacao-residencial-2026-guia/card",
@@ -809,6 +863,60 @@
     ]
   },
   {
+    "slug": "blum-ferragens-sistemas-luxo-marcenaria",
+    "title": "Ferragens Blum: Tecnologia e Movimento Perfeito na Marcenaria de Luxo",
+    "category": "materiais",
+    "currentImage": "/images/banners/MARCENARIA.webp",
+    "boldCount": 17,
+    "inlineImageCount": 0,
+    "needsCopyNormalization": false,
+    "status": {
+      "hasFrontmatterImage": true,
+      "hasInlineImages": false,
+      "hasManifestEntry": false,
+      "isVariantEntry": false,
+      "hasCloudinaryHero": false,
+      "hasCloudinaryCard": false,
+      "hasLocalHero": false,
+      "hasLocalCard": false,
+      "readyForTwoSlotEditorial": false
+    },
+    "slots": [
+      {
+        "slot": "hero",
+        "mainQuery": "ferragens blum technology movimento",
+        "searchTerms": [
+          "custom carpentry interior",
+          "ferragens blum technology movimento millwork design",
+          "neutral wood interior",
+          "luxury joinery interior",
+          "clean woodwork composition"
+        ],
+        "searchQuery": "ferragens blum technology movimento",
+        "intent": "carpentry",
+        "targetLocalFile": "public/images/blog/blum-ferragens-sistemas-luxo-marcenaria/hero.webp",
+        "targetCloudinaryId": "editorial/blog/blum-ferragens-sistemas-luxo-marcenaria/hero",
+        "orientation": "landscape"
+      },
+      {
+        "slot": "card",
+        "mainQuery": "ferragens blum technology movimento",
+        "searchTerms": [
+          "woodwork detail craftsmanship",
+          "ferragens blum technology movimento joinery detail",
+          "wood texture interior",
+          "custom shelving detail",
+          "minimal millwork detail"
+        ],
+        "searchQuery": "ferragens blum technology movimento",
+        "intent": "carpentry",
+        "targetLocalFile": "public/images/blog/blum-ferragens-sistemas-luxo-marcenaria/card.webp",
+        "targetCloudinaryId": "editorial/blog/blum-ferragens-sistemas-luxo-marcenaria/card",
+        "orientation": "landscape"
+      }
+    ]
+  },
+  {
     "slug": "briefing-projeto-dos-sonhos",
     "title": "Briefing: Como Planejar o Projeto dos Seus Sonhos",
     "category": "dicas",
@@ -823,8 +931,8 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
@@ -877,8 +985,8 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
@@ -918,7 +1026,7 @@
   },
   {
     "slug": "casa-cor-2026-mente-coracao",
-    "title": "Casa Cor 2026: Tema Mente e Coracao e Tendencias da Mostra de Arquitetura",
+    "title": "Casa Cor 2026: Tema Mente e Coração e Tendências da Mostra de Arquitetura",
     "category": "arquitetura",
     "currentImage": "/images/banners/ARQ.webp",
     "boldCount": 0,
@@ -931,8 +1039,8 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
@@ -985,8 +1093,8 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
@@ -994,14 +1102,14 @@
         "slot": "hero",
         "mainQuery": "closet planejado medidas certas",
         "searchTerms": [
-          "minimalist interior design",
-          "closet planejado medidas certas home aesthetic",
-          "neutral living room",
-          "soft color decor",
-          "modern furniture layout"
+          "custom carpentry interior",
+          "closet planejado medidas certas millwork design",
+          "neutral wood interior",
+          "luxury joinery interior",
+          "clean woodwork composition"
         ],
         "searchQuery": "closet planejado medidas certas",
-        "intent": "decor",
+        "intent": "carpentry",
         "targetLocalFile": "public/images/blog/closet-planejado-organizacao-otimizacao/hero.webp",
         "targetCloudinaryId": "editorial/blog/closet-planejado-organizacao-otimizacao/hero",
         "orientation": "landscape"
@@ -1010,14 +1118,14 @@
         "slot": "card",
         "mainQuery": "closet planejado medidas certas",
         "searchTerms": [
-          "interior styling detail",
-          "closet planejado medidas certas decor detail",
-          "minimalist furniture detail",
-          "soft light interior detail",
-          "clean home composition"
+          "woodwork detail craftsmanship",
+          "closet planejado medidas certas joinery detail",
+          "wood texture interior",
+          "custom shelving detail",
+          "minimal millwork detail"
         ],
         "searchQuery": "closet planejado medidas certas",
-        "intent": "decor",
+        "intent": "carpentry",
         "targetLocalFile": "public/images/blog/closet-planejado-organizacao-otimizacao/card.webp",
         "targetCloudinaryId": "editorial/blog/closet-planejado-organizacao-otimizacao/card",
         "orientation": "landscape"
@@ -1026,10 +1134,10 @@
   },
   {
     "slug": "como-calcular-custo-de-obra",
-    "title": "Como Calcular o Custo de uma Obra ou Reforma: Metodo Pratico",
+    "title": "Como Calcular o Custo de uma Obra ou Reforma: Método Prático",
     "category": "engenharia",
     "currentImage": "/images/banners/PROCESSOS.webp",
-    "boldCount": 10,
+    "boldCount": 0,
     "inlineImageCount": 0,
     "needsCopyNormalization": false,
     "status": {
@@ -1137,7 +1245,7 @@
     "title": "Quanto Custa Construir e Reformar em 2026: Guia Tecnico Completo com Referencias SINAPI",
     "category": "engenharia",
     "currentImage": "/images/banners/ENGENHARIA.webp",
-    "boldCount": 1,
+    "boldCount": 6,
     "inlineImageCount": 0,
     "needsCopyNormalization": false,
     "status": {
@@ -1188,10 +1296,10 @@
   },
   {
     "slug": "custo-marcenaria-planejada",
-    "title": "Custo de Marcenaria Planejada em 2026: Faixas e Fatores Tecnicos",
+    "title": "Custo de marcenaria planejada em 2026: faixas e fatores técnicos",
     "category": "marcenaria",
     "currentImage": "/images/banners/MARCENARIA.webp",
-    "boldCount": 1,
+    "boldCount": 0,
     "inlineImageCount": 0,
     "needsCopyNormalization": false,
     "status": {
@@ -1245,7 +1353,7 @@
     "title": "Quanto custa reformar um apartamento de alto padrao em Sao Paulo?",
     "category": "engenharia",
     "currentImage": "/images/banners/ENGENHARIA.webp",
-    "boldCount": 4,
+    "boldCount": 5,
     "inlineImageCount": 0,
     "needsCopyNormalization": false,
     "status": {
@@ -1296,7 +1404,7 @@
   },
   {
     "slug": "custo-reforma-m2-sao-paulo",
-    "title": "Custo de Reforma por m2 em Sao Paulo em 2026: Faixas Reais por Padrao",
+    "title": "Custo de Reforma por m² em São Paulo em 2026: Faixas Reais por Padrão",
     "category": "engenharia",
     "currentImage": "/images/banners/ENGENHARIA.webp",
     "boldCount": 1,
@@ -1316,15 +1424,15 @@
     "slots": [
       {
         "slot": "hero",
-        "mainQuery": "custo renovation m2 sao 2026",
+        "mainQuery": "custo renovation m sao 2026",
         "searchTerms": [
           "modern renovation interior",
-          "custo renovation m2 sao site detail",
+          "custo renovation m sao site detail",
           "architectural renovation",
           "clean material palette",
           "high-end construction"
         ],
-        "searchQuery": "custo renovation m2 sao 2026",
+        "searchQuery": "custo renovation m sao 2026",
         "intent": "construction",
         "targetLocalFile": "public/images/blog/custo-reforma-m2-sao-paulo/hero.webp",
         "targetCloudinaryId": "editorial/blog/custo-reforma-m2-sao-paulo/hero",
@@ -1332,15 +1440,15 @@
       },
       {
         "slot": "card",
-        "mainQuery": "custo renovation m2 sao 2026",
+        "mainQuery": "custo renovation m sao 2026",
         "searchTerms": [
           "construction material detail",
-          "custo renovation m2 sao detail interior",
+          "custo renovation m sao detail interior",
           "architectural finish detail",
           "clean building texture",
           "engineering detail"
         ],
-        "searchQuery": "custo renovation m2 sao 2026",
+        "searchQuery": "custo renovation m sao 2026",
         "intent": "construction",
         "targetLocalFile": "public/images/blog/custo-reforma-m2-sao-paulo/card.webp",
         "targetCloudinaryId": "editorial/blog/custo-reforma-m2-sao-paulo/card",
@@ -1403,6 +1511,60 @@
     ]
   },
   {
+    "slug": "duratex-mdf-paineis-marcenaria-alto-padrao",
+    "title": "Painéis de MDF Duratex: Sofisticação e Textura na Marcenaria Sob Medida",
+    "category": "materiais",
+    "currentImage": "/images/banners/MARCENARIA.webp",
+    "boldCount": 14,
+    "inlineImageCount": 0,
+    "needsCopyNormalization": false,
+    "status": {
+      "hasFrontmatterImage": true,
+      "hasInlineImages": false,
+      "hasManifestEntry": false,
+      "isVariantEntry": false,
+      "hasCloudinaryHero": false,
+      "hasCloudinaryCard": false,
+      "hasLocalHero": false,
+      "hasLocalCard": false,
+      "readyForTwoSlotEditorial": false
+    },
+    "slots": [
+      {
+        "slot": "hero",
+        "mainQuery": "paineis mdf duratex sofisticacao",
+        "searchTerms": [
+          "custom carpentry interior",
+          "paineis mdf duratex sofisticacao millwork design",
+          "neutral wood interior",
+          "luxury joinery interior",
+          "clean woodwork composition"
+        ],
+        "searchQuery": "paineis mdf duratex sofisticacao",
+        "intent": "carpentry",
+        "targetLocalFile": "public/images/blog/duratex-mdf-paineis-marcenaria-alto-padrao/hero.webp",
+        "targetCloudinaryId": "editorial/blog/duratex-mdf-paineis-marcenaria-alto-padrao/hero",
+        "orientation": "landscape"
+      },
+      {
+        "slot": "card",
+        "mainQuery": "paineis mdf duratex sofisticacao",
+        "searchTerms": [
+          "woodwork detail craftsmanship",
+          "paineis mdf duratex sofisticacao joinery detail",
+          "wood texture interior",
+          "custom shelving detail",
+          "minimal millwork detail"
+        ],
+        "searchQuery": "paineis mdf duratex sofisticacao",
+        "intent": "carpentry",
+        "targetLocalFile": "public/images/blog/duratex-mdf-paineis-marcenaria-alto-padrao/card.webp",
+        "targetCloudinaryId": "editorial/blog/duratex-mdf-paineis-marcenaria-alto-padrao/card",
+        "orientation": "landscape"
+      }
+    ]
+  },
+  {
     "slug": "dyson-tecnologia-design-residencial",
     "title": "Dyson Vale a Pena? Engenharia, Design Residencial e Custo-Beneficio",
     "category": "tecnologia",
@@ -1417,8 +1579,8 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
@@ -1457,6 +1619,60 @@
     ]
   },
   {
+    "slug": "elettromec-eletrodomesticos-luxo-cozinha-alto-padrao",
+    "title": "Elettromec: Tecnologia e Design Italiano em Eletrodomésticos de Luxo",
+    "category": "materiais",
+    "currentImage": "/images/banners/ARQ.webp",
+    "boldCount": 13,
+    "inlineImageCount": 0,
+    "needsCopyNormalization": false,
+    "status": {
+      "hasFrontmatterImage": true,
+      "hasInlineImages": false,
+      "hasManifestEntry": false,
+      "isVariantEntry": false,
+      "hasCloudinaryHero": false,
+      "hasCloudinaryCard": false,
+      "hasLocalHero": false,
+      "hasLocalCard": false,
+      "readyForTwoSlotEditorial": false
+    },
+    "slots": [
+      {
+        "slot": "hero",
+        "mainQuery": "elettromec technology italiano eletrodomesticos",
+        "searchTerms": [
+          "modern kitchen interior",
+          "elettromec technology italiano eletrodomesticos kitchen design",
+          "neutral kitchen palette",
+          "elegant kitchen photography",
+          "clean kitchen layout"
+        ],
+        "searchQuery": "elettromec technology italiano eletrodomesticos",
+        "intent": "kitchen",
+        "targetLocalFile": "public/images/blog/elettromec-eletrodomesticos-luxo-cozinha-alto-padrao/hero.webp",
+        "targetCloudinaryId": "editorial/blog/elettromec-eletrodomesticos-luxo-cozinha-alto-padrao/hero",
+        "orientation": "landscape"
+      },
+      {
+        "slot": "card",
+        "mainQuery": "elettromec technology italiano eletrodomesticos",
+        "searchTerms": [
+          "kitchen island detail",
+          "elettromec technology italiano eletrodomesticos finish detail",
+          "modern kitchen styling",
+          "neutral countertop detail",
+          "minimal kitchen composition"
+        ],
+        "searchQuery": "elettromec technology italiano eletrodomesticos",
+        "intent": "kitchen",
+        "targetLocalFile": "public/images/blog/elettromec-eletrodomesticos-luxo-cozinha-alto-padrao/card.webp",
+        "targetCloudinaryId": "editorial/blog/elettromec-eletrodomesticos-luxo-cozinha-alto-padrao/card",
+        "orientation": "landscape"
+      }
+    ]
+  },
+  {
     "slug": "erros-comuns-reforma-como-evitar",
     "title": "10 Erros Mais Comuns em Reformas e Como Evita-los",
     "category": "reforma",
@@ -1471,8 +1687,8 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
@@ -1480,14 +1696,14 @@
         "slot": "hero",
         "mainQuery": "10 erros comuns reformas",
         "searchTerms": [
-          "minimalist interior design",
-          "10 erros comuns reformas home aesthetic",
-          "neutral living room",
-          "soft color decor",
-          "modern furniture layout"
+          "modern renovation interior",
+          "10 erros comuns reformas site detail",
+          "architectural renovation",
+          "clean material palette",
+          "high-end construction"
         ],
         "searchQuery": "10 erros comuns reformas",
-        "intent": "decor",
+        "intent": "construction",
         "targetLocalFile": "public/images/blog/erros-comuns-reforma-como-evitar/hero.webp",
         "targetCloudinaryId": "editorial/blog/erros-comuns-reforma-como-evitar/hero",
         "orientation": "landscape"
@@ -1496,14 +1712,14 @@
         "slot": "card",
         "mainQuery": "10 erros comuns reformas",
         "searchTerms": [
-          "interior styling detail",
-          "10 erros comuns reformas decor detail",
-          "minimalist furniture detail",
-          "soft light interior detail",
-          "clean home composition"
+          "construction material detail",
+          "10 erros comuns reformas detail interior",
+          "architectural finish detail",
+          "clean building texture",
+          "engineering detail"
         ],
         "searchQuery": "10 erros comuns reformas",
-        "intent": "decor",
+        "intent": "construction",
         "targetLocalFile": "public/images/blog/erros-comuns-reforma-como-evitar/card.webp",
         "targetCloudinaryId": "editorial/blog/erros-comuns-reforma-como-evitar/card",
         "orientation": "landscape"
@@ -1674,10 +1890,10 @@
   },
   {
     "slug": "evf-estudo-viabilidade-financeira",
-    "title": "EVF na Obra: Como Validar Custos e Evitar Estouro de Orçamento Antes de Construir",
+    "title": "EVF na Obra: Como validar custos e evitar estouro de orçamento antes de construir",
     "category": "planejamento",
     "currentImage": "/images/banners/PROCESSOS.webp",
-    "boldCount": 3,
+    "boldCount": 2,
     "inlineImageCount": 0,
     "needsCopyNormalization": false,
     "status": {
@@ -1687,8 +1903,8 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
@@ -1835,6 +2051,60 @@
     ]
   },
   {
+    "slug": "hafele-ferragens-solucoes-inteligentes-marcenaria",
+    "title": "Häfele: Engenharia Alemã e Organização Inteligente na Marcenaria",
+    "category": "materiais",
+    "currentImage": "/images/banners/MARCENARIA.webp",
+    "boldCount": 15,
+    "inlineImageCount": 0,
+    "needsCopyNormalization": false,
+    "status": {
+      "hasFrontmatterImage": true,
+      "hasInlineImages": false,
+      "hasManifestEntry": false,
+      "isVariantEntry": false,
+      "hasCloudinaryHero": false,
+      "hasCloudinaryCard": false,
+      "hasLocalHero": false,
+      "hasLocalCard": false,
+      "readyForTwoSlotEditorial": false
+    },
+    "slots": [
+      {
+        "slot": "hero",
+        "mainQuery": "hafele engineering alema organizacao",
+        "searchTerms": [
+          "architectural lighting interior",
+          "hafele engineering alema organizacao lighting design",
+          "soft light living room",
+          "minimalist ambient lighting",
+          "neutral interior lighting"
+        ],
+        "searchQuery": "hafele engineering alema organizacao",
+        "intent": "lighting",
+        "targetLocalFile": "public/images/blog/hafele-ferragens-solucoes-inteligentes-marcenaria/hero.webp",
+        "targetCloudinaryId": "editorial/blog/hafele-ferragens-solucoes-inteligentes-marcenaria/hero",
+        "orientation": "landscape"
+      },
+      {
+        "slot": "card",
+        "mainQuery": "hafele engineering alema organizacao",
+        "searchTerms": [
+          "lighting fixture detail",
+          "hafele engineering alema organizacao light detail",
+          "soft ambient light",
+          "architectural lighting detail",
+          "minimalist lamp styling"
+        ],
+        "searchQuery": "hafele engineering alema organizacao",
+        "intent": "lighting",
+        "targetLocalFile": "public/images/blog/hafele-ferragens-solucoes-inteligentes-marcenaria/card.webp",
+        "targetCloudinaryId": "editorial/blog/hafele-ferragens-solucoes-inteligentes-marcenaria/card",
+        "orientation": "landscape"
+      }
+    ]
+  },
+  {
     "slug": "harman-kardon-som-ambientes",
     "title": "Harman Kardon Vale a Pena? Audio Premium e Design para Ambientes Sofisticados",
     "category": "tecnologia",
@@ -1849,8 +2119,8 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
@@ -1903,8 +2173,8 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
@@ -1957,8 +2227,8 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
@@ -1992,6 +2262,60 @@
         "intent": "lighting",
         "targetLocalFile": "public/images/blog/iluminacao-residencial-guia-completo/card.webp",
         "targetCloudinaryId": "editorial/blog/iluminacao-residencial-guia-completo/card",
+        "orientation": "landscape"
+      }
+    ]
+  },
+  {
+    "slug": "iluminacao-tecnica-arquitetural-interlight",
+    "title": "Iluminação Técnica e Arquitetural: Como a Interlight Transforma Ambientes de Alto Padrão",
+    "category": "materiais",
+    "currentImage": "/images/banners/ARQ.webp",
+    "boldCount": 39,
+    "inlineImageCount": 0,
+    "needsCopyNormalization": true,
+    "status": {
+      "hasFrontmatterImage": true,
+      "hasInlineImages": false,
+      "hasManifestEntry": true,
+      "isVariantEntry": true,
+      "hasCloudinaryHero": false,
+      "hasCloudinaryCard": false,
+      "hasLocalHero": false,
+      "hasLocalCard": false,
+      "readyForTwoSlotEditorial": false
+    },
+    "slots": [
+      {
+        "slot": "hero",
+        "mainQuery": "lighting tecnica arquitetural interlight",
+        "searchTerms": [
+          "architectural lighting interior",
+          "lighting tecnica arquitetural interlight lighting design",
+          "soft light living room",
+          "minimalist ambient lighting",
+          "neutral interior lighting"
+        ],
+        "searchQuery": "lighting tecnica arquitetural interlight",
+        "intent": "lighting",
+        "targetLocalFile": "public/images/blog/iluminacao-tecnica-arquitetural-interlight/hero.webp",
+        "targetCloudinaryId": "editorial/blog/iluminacao-tecnica-arquitetural-interlight/hero",
+        "orientation": "landscape"
+      },
+      {
+        "slot": "card",
+        "mainQuery": "lighting tecnica arquitetural interlight",
+        "searchTerms": [
+          "lighting fixture detail",
+          "lighting tecnica arquitetural interlight light detail",
+          "soft ambient light",
+          "architectural lighting detail",
+          "minimalist lamp styling"
+        ],
+        "searchQuery": "lighting tecnica arquitetural interlight",
+        "intent": "lighting",
+        "targetLocalFile": "public/images/blog/iluminacao-tecnica-arquitetural-interlight/card.webp",
+        "targetCloudinaryId": "editorial/blog/iluminacao-tecnica-arquitetural-interlight/card",
         "orientation": "landscape"
       }
     ]
@@ -2065,39 +2389,38 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
       {
         "slot": "hero",
-        "mainQuery": "contratar arquiteto importancia profissional",
+        "mainQuery": "architect portrait",
         "searchTerms": [
-          "modern architecture exterior",
-          "contratar arquiteto importancia profissional facade design",
-          "neutral architecture photography",
-          "clean residential facade",
-          "soft light exterior"
+          "brazilian architect portrait",
+          "architect studio portrait",
+          "modernist architect portrait",
+          "design master portrait"
         ],
-        "searchQuery": "contratar arquiteto importancia profissional",
-        "intent": "architecture",
+        "searchQuery": "architect portrait",
+        "intent": "person",
         "targetLocalFile": "public/images/blog/importancia-contratar-arquiteto/hero.webp",
         "targetCloudinaryId": "editorial/blog/importancia-contratar-arquiteto/hero",
         "orientation": "landscape"
       },
       {
         "slot": "card",
-        "mainQuery": "contratar arquiteto importancia profissional",
+        "mainQuery": "iconic architecture",
         "searchTerms": [
-          "architectural facade detail",
-          "contratar arquiteto importancia profissional facade material",
-          "clean geometry facade",
-          "neutral exterior detail",
-          "architectural lines detail"
+          "iconic architecture facade",
+          "modernist building detail",
+          "signature building exterior",
+          "architectural landmark detail",
+          "historical architecture archive"
         ],
-        "searchQuery": "contratar arquiteto importancia profissional",
-        "intent": "architecture",
+        "searchQuery": "iconic architecture",
+        "intent": "person",
         "targetLocalFile": "public/images/blog/importancia-contratar-arquiteto/card.webp",
         "targetCloudinaryId": "editorial/blog/importancia-contratar-arquiteto/card",
         "orientation": "landscape"
@@ -2159,6 +2482,114 @@
     ]
   },
   {
+    "slug": "laca-vs-melamina-vs-folha-natural",
+    "title": "Laca, Melamina ou Folha Natural: Qual o Melhor Acabamento?",
+    "category": "materiais",
+    "currentImage": "/images/blog/marcenaria-sob-medida.webp",
+    "boldCount": 7,
+    "inlineImageCount": 0,
+    "needsCopyNormalization": false,
+    "status": {
+      "hasFrontmatterImage": true,
+      "hasInlineImages": false,
+      "hasManifestEntry": false,
+      "isVariantEntry": false,
+      "hasCloudinaryHero": false,
+      "hasCloudinaryCard": false,
+      "hasLocalHero": false,
+      "hasLocalCard": false,
+      "readyForTwoSlotEditorial": false
+    },
+    "slots": [
+      {
+        "slot": "hero",
+        "mainQuery": "laca melamina folha natural",
+        "searchTerms": [
+          "custom carpentry interior",
+          "laca melamina folha natural millwork design",
+          "neutral wood interior",
+          "luxury joinery interior",
+          "clean woodwork composition"
+        ],
+        "searchQuery": "laca melamina folha natural",
+        "intent": "carpentry",
+        "targetLocalFile": "public/images/blog/laca-vs-melamina-vs-folha-natural/hero.webp",
+        "targetCloudinaryId": "editorial/blog/laca-vs-melamina-vs-folha-natural/hero",
+        "orientation": "landscape"
+      },
+      {
+        "slot": "card",
+        "mainQuery": "laca melamina folha natural",
+        "searchTerms": [
+          "woodwork detail craftsmanship",
+          "laca melamina folha natural joinery detail",
+          "wood texture interior",
+          "custom shelving detail",
+          "minimal millwork detail"
+        ],
+        "searchQuery": "laca melamina folha natural",
+        "intent": "carpentry",
+        "targetLocalFile": "public/images/blog/laca-vs-melamina-vs-folha-natural/card.webp",
+        "targetCloudinaryId": "editorial/blog/laca-vs-melamina-vs-folha-natural/card",
+        "orientation": "landscape"
+      }
+    ]
+  },
+  {
+    "slug": "laminas-naturais-marcenaria-alto-padrao-vieira",
+    "title": "Lâminas de Madeiras Naturais: O Segredo da Marcenaria de Alto Padrão com a Vieira Lâminas",
+    "category": "materiais",
+    "currentImage": "/images/banners/MARCENARIA.webp",
+    "boldCount": 29,
+    "inlineImageCount": 0,
+    "needsCopyNormalization": true,
+    "status": {
+      "hasFrontmatterImage": true,
+      "hasInlineImages": false,
+      "hasManifestEntry": false,
+      "isVariantEntry": false,
+      "hasCloudinaryHero": false,
+      "hasCloudinaryCard": false,
+      "hasLocalHero": false,
+      "hasLocalCard": false,
+      "readyForTwoSlotEditorial": false
+    },
+    "slots": [
+      {
+        "slot": "hero",
+        "mainQuery": "laminas madeiras naturais segredo",
+        "searchTerms": [
+          "custom carpentry interior",
+          "laminas madeiras naturais segredo millwork design",
+          "neutral wood interior",
+          "luxury joinery interior",
+          "clean woodwork composition"
+        ],
+        "searchQuery": "laminas madeiras naturais segredo",
+        "intent": "carpentry",
+        "targetLocalFile": "public/images/blog/laminas-naturais-marcenaria-alto-padrao-vieira/hero.webp",
+        "targetCloudinaryId": "editorial/blog/laminas-naturais-marcenaria-alto-padrao-vieira/hero",
+        "orientation": "landscape"
+      },
+      {
+        "slot": "card",
+        "mainQuery": "laminas madeiras naturais segredo",
+        "searchTerms": [
+          "woodwork detail craftsmanship",
+          "laminas madeiras naturais segredo joinery detail",
+          "wood texture interior",
+          "custom shelving detail",
+          "minimal millwork detail"
+        ],
+        "searchQuery": "laminas madeiras naturais segredo",
+        "intent": "carpentry",
+        "targetLocalFile": "public/images/blog/laminas-naturais-marcenaria-alto-padrao-vieira/card.webp",
+        "targetCloudinaryId": "editorial/blog/laminas-naturais-marcenaria-alto-padrao-vieira/card",
+        "orientation": "landscape"
+      }
+    ]
+  },
+  {
     "slug": "le-creuset-panelas-design",
     "title": "Le Creuset Vale a Pena em 2026? Design, Durabilidade e Custo-Beneficio",
     "category": "design",
@@ -2173,8 +2604,8 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
@@ -2182,14 +2613,14 @@
         "slot": "hero",
         "mainQuery": "le creuset vale pena 2026",
         "searchTerms": [
-          "minimalist interior design",
-          "le creuset vale pena home aesthetic",
-          "neutral living room",
-          "soft color decor",
-          "modern furniture layout"
+          "modern kitchen interior",
+          "le creuset vale pena kitchen design",
+          "neutral kitchen palette",
+          "elegant kitchen photography",
+          "clean kitchen layout"
         ],
         "searchQuery": "le creuset vale pena 2026",
-        "intent": "decor",
+        "intent": "kitchen",
         "targetLocalFile": "public/images/blog/le-creuset-panelas-design/hero.webp",
         "targetCloudinaryId": "editorial/blog/le-creuset-panelas-design/hero",
         "orientation": "landscape"
@@ -2198,14 +2629,14 @@
         "slot": "card",
         "mainQuery": "le creuset vale pena 2026",
         "searchTerms": [
-          "interior styling detail",
-          "le creuset vale pena decor detail",
-          "minimalist furniture detail",
-          "soft light interior detail",
-          "clean home composition"
+          "kitchen island detail",
+          "le creuset vale pena finish detail",
+          "modern kitchen styling",
+          "neutral countertop detail",
+          "minimal kitchen composition"
         ],
         "searchQuery": "le creuset vale pena 2026",
-        "intent": "decor",
+        "intent": "kitchen",
         "targetLocalFile": "public/images/blog/le-creuset-panelas-design/card.webp",
         "targetCloudinaryId": "editorial/blog/le-creuset-panelas-design/card",
         "orientation": "landscape"
@@ -2236,14 +2667,14 @@
         "slot": "hero",
         "mainQuery": "curadoria materials liz padrao",
         "searchTerms": [
-          "modern architecture exterior",
-          "curadoria materials liz padrao facade design",
-          "neutral architecture photography",
-          "clean residential facade",
-          "soft light exterior"
+          "minimalist interior design",
+          "curadoria materials liz padrao home aesthetic",
+          "neutral living room",
+          "soft color decor",
+          "modern furniture layout"
         ],
         "searchQuery": "curadoria materials liz padrao",
-        "intent": "architecture",
+        "intent": "decor",
         "targetLocalFile": "public/images/blog/liz-curadoria-wg-almeida/hero.webp",
         "targetCloudinaryId": "editorial/blog/liz-curadoria-wg-almeida/hero",
         "orientation": "landscape"
@@ -2252,14 +2683,14 @@
         "slot": "card",
         "mainQuery": "curadoria materials liz padrao",
         "searchTerms": [
-          "architectural facade detail",
-          "curadoria materials liz padrao facade material",
-          "clean geometry facade",
-          "neutral exterior detail",
-          "architectural lines detail"
+          "interior styling detail",
+          "curadoria materials liz padrao decor detail",
+          "minimalist furniture detail",
+          "soft light interior detail",
+          "clean home composition"
         ],
         "searchQuery": "curadoria materials liz padrao",
-        "intent": "architecture",
+        "intent": "decor",
         "targetLocalFile": "public/images/blog/liz-curadoria-wg-almeida/card.webp",
         "targetCloudinaryId": "editorial/blog/liz-curadoria-wg-almeida/card",
         "orientation": "landscape"
@@ -2281,39 +2712,39 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
       {
         "slot": "hero",
-        "mainQuery": "marcas luxury internacionais 10",
+        "mainQuery": "luxury brand editorial",
         "searchTerms": [
-          "minimalist interior design",
-          "marcas luxury internacionais 10 home aesthetic",
-          "neutral living room",
-          "soft color decor",
-          "modern furniture layout"
+          "luxury brand showroom interior",
+          "premium product editorial",
+          "designer brand environment",
+          "brand identity interior",
+          "luxury retail interior"
         ],
-        "searchQuery": "marcas luxury internacionais 10",
-        "intent": "decor",
+        "searchQuery": "luxury brand editorial",
+        "intent": "brand",
         "targetLocalFile": "public/images/blog/marcas-luxo-internacionais-moveis-design/hero.webp",
         "targetCloudinaryId": "editorial/blog/marcas-luxo-internacionais-moveis-design/hero",
         "orientation": "landscape"
       },
       {
         "slot": "card",
-        "mainQuery": "marcas luxury internacionais 10",
+        "mainQuery": "premium brand product detail",
         "searchTerms": [
-          "interior styling detail",
-          "marcas luxury internacionais 10 decor detail",
-          "minimalist furniture detail",
-          "soft light interior detail",
-          "clean home composition"
+          "premium product detail",
+          "brand logo detail",
+          "luxury showroom detail",
+          "editorial product close up",
+          "material finish premium"
         ],
-        "searchQuery": "marcas luxury internacionais 10",
-        "intent": "decor",
+        "searchQuery": "premium brand product detail",
+        "intent": "brand",
         "targetLocalFile": "public/images/blog/marcas-luxo-internacionais-moveis-design/card.webp",
         "targetCloudinaryId": "editorial/blog/marcas-luxo-internacionais-moveis-design/card",
         "orientation": "landscape"
@@ -2335,39 +2766,39 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
       {
         "slot": "hero",
-        "mainQuery": "marcas luxury nacionais melhor",
+        "mainQuery": "luxury brand editorial",
         "searchTerms": [
-          "minimalist interior design",
-          "marcas luxury nacionais melhor home aesthetic",
-          "neutral living room",
-          "soft color decor",
-          "modern furniture layout"
+          "luxury brand showroom interior",
+          "premium product editorial",
+          "designer brand environment",
+          "brand identity interior",
+          "luxury retail interior"
         ],
-        "searchQuery": "marcas luxury nacionais melhor",
-        "intent": "decor",
+        "searchQuery": "luxury brand editorial",
+        "intent": "brand",
         "targetLocalFile": "public/images/blog/marcas-luxo-nacionais-moveis-decoracao/hero.webp",
         "targetCloudinaryId": "editorial/blog/marcas-luxo-nacionais-moveis-decoracao/hero",
         "orientation": "landscape"
       },
       {
         "slot": "card",
-        "mainQuery": "marcas luxury nacionais melhor",
+        "mainQuery": "premium brand product detail",
         "searchTerms": [
-          "interior styling detail",
-          "marcas luxury nacionais melhor decor detail",
-          "minimalist furniture detail",
-          "soft light interior detail",
-          "clean home composition"
+          "premium product detail",
+          "brand logo detail",
+          "luxury showroom detail",
+          "editorial product close up",
+          "material finish premium"
         ],
-        "searchQuery": "marcas luxury nacionais melhor",
-        "intent": "decor",
+        "searchQuery": "premium brand product detail",
+        "intent": "brand",
         "targetLocalFile": "public/images/blog/marcas-luxo-nacionais-moveis-decoracao/card.webp",
         "targetCloudinaryId": "editorial/blog/marcas-luxo-nacionais-moveis-decoracao/card",
         "orientation": "landscape"
@@ -2376,10 +2807,10 @@
   },
   {
     "slug": "marcenaria-sob-medida-tendencias-2026",
-    "title": "Marcenaria Sob Medida 2026: Tendencias, Materiais e Soluções para Otimizar Espacos",
+    "title": "Marcenaria Sob Medida 2026: Tendências, Materiais e Soluções para Otimizar Espaços",
     "category": "marcenaria",
     "currentImage": "/images/banners/MARCENARIA.webp",
-    "boldCount": 9,
+    "boldCount": 5,
     "inlineImageCount": 0,
     "needsCopyNormalization": false,
     "status": {
@@ -2424,6 +2855,60 @@
         "intent": "carpentry",
         "targetLocalFile": "public/images/blog/marcenaria-sob-medida-tendencias-2026/card.webp",
         "targetCloudinaryId": "editorial/blog/marcenaria-sob-medida-tendencias-2026/card",
+        "orientation": "landscape"
+      }
+    ]
+  },
+  {
+    "slug": "marcenaria-sob-medida-vs-planejados",
+    "title": "Marcenaria Sob Medida vs. Móveis Planejados: Entenda as Diferenças Reais",
+    "category": "marcenaria",
+    "currentImage": "/images/blog/sob-medida-vs-planejados.webp",
+    "boldCount": 10,
+    "inlineImageCount": 0,
+    "needsCopyNormalization": false,
+    "status": {
+      "hasFrontmatterImage": true,
+      "hasInlineImages": false,
+      "hasManifestEntry": false,
+      "isVariantEntry": false,
+      "hasCloudinaryHero": false,
+      "hasCloudinaryCard": false,
+      "hasLocalHero": false,
+      "hasLocalCard": false,
+      "readyForTwoSlotEditorial": false
+    },
+    "slots": [
+      {
+        "slot": "hero",
+        "mainQuery": "custom carpentry sob medida furniture",
+        "searchTerms": [
+          "custom carpentry interior",
+          "custom carpentry sob medida furniture millwork design",
+          "neutral wood interior",
+          "luxury joinery interior",
+          "clean woodwork composition"
+        ],
+        "searchQuery": "custom carpentry sob medida furniture",
+        "intent": "carpentry",
+        "targetLocalFile": "public/images/blog/marcenaria-sob-medida-vs-planejados/hero.webp",
+        "targetCloudinaryId": "editorial/blog/marcenaria-sob-medida-vs-planejados/hero",
+        "orientation": "landscape"
+      },
+      {
+        "slot": "card",
+        "mainQuery": "custom carpentry sob medida furniture",
+        "searchTerms": [
+          "woodwork detail craftsmanship",
+          "custom carpentry sob medida furniture joinery detail",
+          "wood texture interior",
+          "custom shelving detail",
+          "minimal millwork detail"
+        ],
+        "searchQuery": "custom carpentry sob medida furniture",
+        "intent": "carpentry",
+        "targetLocalFile": "public/images/blog/marcenaria-sob-medida-vs-planejados/card.webp",
+        "targetCloudinaryId": "editorial/blog/marcenaria-sob-medida-vs-planejados/card",
         "orientation": "landscape"
       }
     ]
@@ -2560,14 +3045,14 @@
         "slot": "hero",
         "mainQuery": "moodboard mapa visual seu",
         "searchTerms": [
-          "modern architecture exterior",
-          "moodboard mapa visual seu facade design",
-          "neutral architecture photography",
-          "clean residential facade",
-          "soft light exterior"
+          "minimalist interior design",
+          "moodboard mapa visual seu home aesthetic",
+          "neutral living room",
+          "soft color decor",
+          "modern furniture layout"
         ],
         "searchQuery": "moodboard mapa visual seu",
-        "intent": "architecture",
+        "intent": "decor",
         "targetLocalFile": "public/images/blog/moodboard-mapa-visual/hero.webp",
         "targetCloudinaryId": "editorial/blog/moodboard-mapa-visual/hero",
         "orientation": "landscape"
@@ -2576,14 +3061,14 @@
         "slot": "card",
         "mainQuery": "moodboard mapa visual seu",
         "searchTerms": [
-          "architectural facade detail",
-          "moodboard mapa visual seu facade material",
-          "clean geometry facade",
-          "neutral exterior detail",
-          "architectural lines detail"
+          "interior styling detail",
+          "moodboard mapa visual seu decor detail",
+          "minimalist furniture detail",
+          "soft light interior detail",
+          "clean home composition"
         ],
         "searchQuery": "moodboard mapa visual seu",
-        "intent": "architecture",
+        "intent": "decor",
         "targetLocalFile": "public/images/blog/moodboard-mapa-visual/card.webp",
         "targetCloudinaryId": "editorial/blog/moodboard-mapa-visual/card",
         "orientation": "landscape"
@@ -2659,8 +3144,8 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
@@ -2713,14 +3198,14 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
       {
         "slot": "hero",
-        "mainQuery": "obraeasy plataforma gestao construction",
+        "mainQuery": "obraeasy plataforma gestao construction 2026",
         "searchTerms": [
           "smart home interior",
           "obraeasy plataforma gestao construction automation interior",
@@ -2728,7 +3213,7 @@
           "minimal connected home",
           "neutral smart interior"
         ],
-        "searchQuery": "obraeasy plataforma gestao construction",
+        "searchQuery": "obraeasy plataforma gestao construction 2026",
         "intent": "technology",
         "targetLocalFile": "public/images/blog/obraeasy-como-funciona-para-clientes-finais/hero.webp",
         "targetCloudinaryId": "editorial/blog/obraeasy-como-funciona-para-clientes-finais/hero",
@@ -2736,7 +3221,7 @@
       },
       {
         "slot": "card",
-        "mainQuery": "obraeasy plataforma gestao construction",
+        "mainQuery": "obraeasy plataforma gestao construction 2026",
         "searchTerms": [
           "smart home detail",
           "obraeasy plataforma gestao construction panel detail",
@@ -2744,7 +3229,7 @@
           "modern switch detail",
           "connected home styling"
         ],
-        "searchQuery": "obraeasy plataforma gestao construction",
+        "searchQuery": "obraeasy plataforma gestao construction 2026",
         "intent": "technology",
         "targetLocalFile": "public/images/blog/obraeasy-como-funciona-para-clientes-finais/card.webp",
         "targetCloudinaryId": "editorial/blog/obraeasy-como-funciona-para-clientes-finais/card",
@@ -2767,14 +3252,14 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
       {
         "slot": "hero",
-        "mainQuery": "obraeasy parceiros imobiliarias corretores",
+        "mainQuery": "obraeasy parceiros imobiliarias corretores 2026",
         "searchTerms": [
           "modern renovation interior",
           "obraeasy parceiros imobiliarias corretores site detail",
@@ -2782,7 +3267,7 @@
           "clean material palette",
           "high-end construction"
         ],
-        "searchQuery": "obraeasy parceiros imobiliarias corretores",
+        "searchQuery": "obraeasy parceiros imobiliarias corretores 2026",
         "intent": "construction",
         "targetLocalFile": "public/images/blog/obraeasy-para-parceiros-imobiliarias-corretores/hero.webp",
         "targetCloudinaryId": "editorial/blog/obraeasy-para-parceiros-imobiliarias-corretores/hero",
@@ -2790,7 +3275,7 @@
       },
       {
         "slot": "card",
-        "mainQuery": "obraeasy parceiros imobiliarias corretores",
+        "mainQuery": "obraeasy parceiros imobiliarias corretores 2026",
         "searchTerms": [
           "construction material detail",
           "obraeasy parceiros imobiliarias corretores detail interior",
@@ -2798,7 +3283,7 @@
           "clean building texture",
           "engineering detail"
         ],
-        "searchQuery": "obraeasy parceiros imobiliarias corretores",
+        "searchQuery": "obraeasy parceiros imobiliarias corretores 2026",
         "intent": "construction",
         "targetLocalFile": "public/images/blog/obraeasy-para-parceiros-imobiliarias-corretores/card.webp",
         "targetCloudinaryId": "editorial/blog/obraeasy-para-parceiros-imobiliarias-corretores/card",
@@ -2821,8 +3306,8 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
@@ -2875,8 +3360,8 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
@@ -2929,8 +3414,8 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
@@ -2969,11 +3454,65 @@
     ]
   },
   {
+    "slug": "portobello-shop-porcelanatos-revestimentos-alto-padrao",
+    "title": "Portobello Shop: Porcelanatos e Grandes Formatos no Design de Luxo",
+    "category": "materiais",
+    "currentImage": "/images/banners/PROJETOS.webp",
+    "boldCount": 20,
+    "inlineImageCount": 0,
+    "needsCopyNormalization": true,
+    "status": {
+      "hasFrontmatterImage": true,
+      "hasInlineImages": false,
+      "hasManifestEntry": false,
+      "isVariantEntry": false,
+      "hasCloudinaryHero": false,
+      "hasCloudinaryCard": false,
+      "hasLocalHero": false,
+      "hasLocalCard": false,
+      "readyForTwoSlotEditorial": false
+    },
+    "slots": [
+      {
+        "slot": "hero",
+        "mainQuery": "portobello shop porcelanatos grandes",
+        "searchTerms": [
+          "minimalist interior design",
+          "portobello shop porcelanatos grandes home aesthetic",
+          "neutral living room",
+          "soft color decor",
+          "modern furniture layout"
+        ],
+        "searchQuery": "portobello shop porcelanatos grandes",
+        "intent": "decor",
+        "targetLocalFile": "public/images/blog/portobello-shop-porcelanatos-revestimentos-alto-padrao/hero.webp",
+        "targetCloudinaryId": "editorial/blog/portobello-shop-porcelanatos-revestimentos-alto-padrao/hero",
+        "orientation": "landscape"
+      },
+      {
+        "slot": "card",
+        "mainQuery": "portobello shop porcelanatos grandes",
+        "searchTerms": [
+          "interior styling detail",
+          "portobello shop porcelanatos grandes decor detail",
+          "minimalist furniture detail",
+          "soft light interior detail",
+          "clean home composition"
+        ],
+        "searchQuery": "portobello shop porcelanatos grandes",
+        "intent": "decor",
+        "targetLocalFile": "public/images/blog/portobello-shop-porcelanatos-revestimentos-alto-padrao/card.webp",
+        "targetCloudinaryId": "editorial/blog/portobello-shop-porcelanatos-revestimentos-alto-padrao/card",
+        "orientation": "landscape"
+      }
+    ]
+  },
+  {
     "slug": "profissionais-capacitados-obra",
-    "title": "Profissionais Capacitados na Obra: A Importância de uma Equipe Qualificada",
+    "title": "Profissionais Capacitados na Obra: A Importancia de uma Equipe Qualificada",
     "category": "construção",
     "currentImage": "/images/banners/ENGENHARIA.webp",
-    "boldCount": 0,
+    "boldCount": 5,
     "inlineImageCount": 0,
     "needsCopyNormalization": false,
     "status": {
@@ -2983,8 +3522,8 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
@@ -3078,10 +3617,10 @@
   },
   {
     "slug": "quanto-custa-reforma-apartamento-100m2",
-    "title": "Quanto Custa Reformar um Apartamento de 100m2 em 2026",
+    "title": "Quanto Custa Reformar um Apartamento de 100 m² em 2026",
     "category": "engenharia",
     "currentImage": "/images/banners/foto-obra-4.jpg",
-    "boldCount": 1,
+    "boldCount": 8,
     "inlineImageCount": 0,
     "needsCopyNormalization": false,
     "status": {
@@ -3135,7 +3674,7 @@
     "title": "Quanto Custa Reformar um Apartamento em 2026? Guia Completo de Precos",
     "category": "engenharia",
     "currentImage": "/images/banners/ENGENHARIA.webp",
-    "boldCount": 7,
+    "boldCount": 18,
     "inlineImageCount": 0,
     "needsCopyNormalization": false,
     "status": {
@@ -3199,8 +3738,8 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
@@ -3240,7 +3779,7 @@
   },
   {
     "slug": "quanto-tempo-leva-reforma-completa-alto-padrao",
-    "title": "Quanto tempo leva uma reforma completa de alto padrao?",
+    "title": "Quanto tempo leva uma reforma completa de alto padrão?",
     "category": "engenharia",
     "currentImage": "/images/banners/PROCESSOS.webp",
     "boldCount": 4,
@@ -3294,7 +3833,7 @@
   },
   {
     "slug": "quanto-valoriza-apartamento-apos-reforma",
-    "title": "Quanto Valoriza um Apartamento Após Reforma? Como Ler o EVF com Critério",
+    "title": "Quanto valoriza um apartamento após reforma? Como ler o EVF com critério",
     "category": "mercado-imobiliario",
     "currentImage": "/images/banners/foto-obra-3.jpg",
     "boldCount": 0,
@@ -3307,8 +3846,8 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
@@ -3361,8 +3900,8 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
@@ -3370,14 +3909,14 @@
         "slot": "hero",
         "mainQuery": "ralo linear areas molhadas",
         "searchTerms": [
-          "modern renovation interior",
-          "ralo linear areas molhadas site detail",
-          "architectural renovation",
-          "clean material palette",
-          "high-end construction"
+          "minimalist bathroom interior",
+          "ralo linear areas molhadas bathroom design",
+          "neutral bathroom palette",
+          "elegant bathroom photography",
+          "clean spa bathroom"
         ],
         "searchQuery": "ralo linear areas molhadas",
-        "intent": "construction",
+        "intent": "bathroom",
         "targetLocalFile": "public/images/blog/ralo-linear-areas-molhadas/hero.webp",
         "targetCloudinaryId": "editorial/blog/ralo-linear-areas-molhadas/hero",
         "orientation": "landscape"
@@ -3386,14 +3925,14 @@
         "slot": "card",
         "mainQuery": "ralo linear areas molhadas",
         "searchTerms": [
-          "construction material detail",
-          "ralo linear areas molhadas detail interior",
-          "architectural finish detail",
-          "clean building texture",
-          "engineering detail"
+          "bathroom fixture detail",
+          "ralo linear areas molhadas bathroom detail",
+          "modern vanity detail",
+          "neutral bathroom styling",
+          "soft light bathroom detail"
         ],
         "searchQuery": "ralo linear areas molhadas",
-        "intent": "construction",
+        "intent": "bathroom",
         "targetLocalFile": "public/images/blog/ralo-linear-areas-molhadas/card.webp",
         "targetCloudinaryId": "editorial/blog/ralo-linear-areas-molhadas/card",
         "orientation": "landscape"
@@ -3402,7 +3941,7 @@
   },
   {
     "slug": "reforma-banheiro-moderno-2026",
-    "title": "Reforma de Banheiro Moderno: Tendencias, Custos e Etapas em 2026",
+    "title": "Reforma de Banheiro Moderno: Tendências, Custos e Etapas em 2026",
     "category": "reforma",
     "currentImage": "/images/banners/PROCESSOS.webp",
     "boldCount": 3,
@@ -3456,10 +3995,10 @@
   },
   {
     "slug": "reforma-banheiro-pequeno-otimizacao",
-    "title": "Reforma de Banheiro Pequeno 2026: 20 Soluções para Ganhar Espaco",
+    "title": "Reforma de Banheiro Pequeno 2026: 20 Solucoes para Ganhar Espaco",
     "category": "reforma",
     "currentImage": "/images/banners/PROCESSOS.webp",
-    "boldCount": 0,
+    "boldCount": 5,
     "inlineImageCount": 0,
     "needsCopyNormalization": false,
     "status": {
@@ -3469,8 +4008,8 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
@@ -3523,8 +4062,8 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
@@ -3631,8 +4170,8 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
@@ -3640,14 +4179,14 @@
         "slot": "hero",
         "mainQuery": "scandia home vale pena",
         "searchTerms": [
-          "minimalist interior design",
-          "scandia home vale pena home aesthetic",
-          "neutral living room",
-          "soft color decor",
-          "modern furniture layout"
+          "minimalist bedroom interior",
+          "scandia home vale pena bedroom design",
+          "neutral bedroom palette",
+          "soft light bedroom",
+          "clean bedroom styling"
         ],
         "searchQuery": "scandia home vale pena",
-        "intent": "decor",
+        "intent": "bedroom",
         "targetLocalFile": "public/images/blog/scandia-home-roupa-cama-luxo/hero.webp",
         "targetCloudinaryId": "editorial/blog/scandia-home-roupa-cama-luxo/hero",
         "orientation": "landscape"
@@ -3656,16 +4195,70 @@
         "slot": "card",
         "mainQuery": "scandia home vale pena",
         "searchTerms": [
+          "bedroom headboard detail",
+          "scandia home vale pena bedding styling",
+          "modern bedside detail",
+          "soft bedroom texture",
+          "minimal bedroom composition"
+        ],
+        "searchQuery": "scandia home vale pena",
+        "intent": "bedroom",
+        "targetLocalFile": "public/images/blog/scandia-home-roupa-cama-luxo/card.webp",
+        "targetCloudinaryId": "editorial/blog/scandia-home-roupa-cama-luxo/card",
+        "orientation": "landscape"
+      }
+    ]
+  },
+  {
+    "slug": "silestone-cosentino-superficies-quartzo-alto-padrao",
+    "title": "Silestone e Dekton: Superfícies de Luxo da Cosentino",
+    "category": "materiais",
+    "currentImage": "/images/banners/SOBRE.webp",
+    "boldCount": 20,
+    "inlineImageCount": 0,
+    "needsCopyNormalization": true,
+    "status": {
+      "hasFrontmatterImage": true,
+      "hasInlineImages": false,
+      "hasManifestEntry": false,
+      "isVariantEntry": false,
+      "hasCloudinaryHero": false,
+      "hasCloudinaryCard": false,
+      "hasLocalHero": false,
+      "hasLocalCard": false,
+      "readyForTwoSlotEditorial": false
+    },
+    "slots": [
+      {
+        "slot": "hero",
+        "mainQuery": "silestone dekton superficies luxury",
+        "searchTerms": [
+          "minimalist interior design",
+          "silestone dekton superficies luxury home aesthetic",
+          "neutral living room",
+          "soft color decor",
+          "modern furniture layout"
+        ],
+        "searchQuery": "silestone dekton superficies luxury",
+        "intent": "decor",
+        "targetLocalFile": "public/images/blog/silestone-cosentino-superficies-quartzo-alto-padrao/hero.webp",
+        "targetCloudinaryId": "editorial/blog/silestone-cosentino-superficies-quartzo-alto-padrao/hero",
+        "orientation": "landscape"
+      },
+      {
+        "slot": "card",
+        "mainQuery": "silestone dekton superficies luxury",
+        "searchTerms": [
           "interior styling detail",
-          "scandia home vale pena decor detail",
+          "silestone dekton superficies luxury decor detail",
           "minimalist furniture detail",
           "soft light interior detail",
           "clean home composition"
         ],
-        "searchQuery": "scandia home vale pena",
+        "searchQuery": "silestone dekton superficies luxury",
         "intent": "decor",
-        "targetLocalFile": "public/images/blog/scandia-home-roupa-cama-luxo/card.webp",
-        "targetCloudinaryId": "editorial/blog/scandia-home-roupa-cama-luxo/card",
+        "targetLocalFile": "public/images/blog/silestone-cosentino-superficies-quartzo-alto-padrao/card.webp",
+        "targetCloudinaryId": "editorial/blog/silestone-cosentino-superficies-quartzo-alto-padrao/card",
         "orientation": "landscape"
       }
     ]
@@ -3685,8 +4278,8 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
@@ -3739,8 +4332,8 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
@@ -3748,14 +4341,14 @@
         "slot": "hero",
         "mainQuery": "steel frame alvenaria 2026",
         "searchTerms": [
-          "minimalist interior design",
-          "steel frame alvenaria 2026 home aesthetic",
-          "neutral living room",
-          "soft color decor",
-          "modern furniture layout"
+          "modern renovation interior",
+          "steel frame alvenaria 2026 site detail",
+          "architectural renovation",
+          "clean material palette",
+          "high-end construction"
         ],
         "searchQuery": "steel frame alvenaria 2026",
-        "intent": "decor",
+        "intent": "construction",
         "targetLocalFile": "public/images/blog/steel-frame-vs-alvenaria-qual-escolher/hero.webp",
         "targetCloudinaryId": "editorial/blog/steel-frame-vs-alvenaria-qual-escolher/hero",
         "orientation": "landscape"
@@ -3764,14 +4357,14 @@
         "slot": "card",
         "mainQuery": "steel frame alvenaria 2026",
         "searchTerms": [
-          "interior styling detail",
-          "steel frame alvenaria 2026 decor detail",
-          "minimalist furniture detail",
-          "soft light interior detail",
-          "clean home composition"
+          "construction material detail",
+          "steel frame alvenaria 2026 detail interior",
+          "architectural finish detail",
+          "clean building texture",
+          "engineering detail"
         ],
         "searchQuery": "steel frame alvenaria 2026",
-        "intent": "decor",
+        "intent": "construction",
         "targetLocalFile": "public/images/blog/steel-frame-vs-alvenaria-qual-escolher/card.webp",
         "targetCloudinaryId": "editorial/blog/steel-frame-vs-alvenaria-qual-escolher/card",
         "orientation": "landscape"
@@ -3793,8 +4386,8 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
@@ -3834,10 +4427,10 @@
   },
   {
     "slug": "tabela-precos-reforma-2026-iccri",
-    "title": "Tabela de Precos de Reforma 2026 — ICCRI: O Indice de Referencia para Obras em Sao Paulo",
+    "title": "Tabela de Preços de Reforma 2026 — ICCRI: índice de referência para obras em São Paulo",
     "category": "engenharia",
     "currentImage": "/images/banners/foto-obra-2.jpg",
-    "boldCount": 3,
+    "boldCount": 13,
     "inlineImageCount": 0,
     "needsCopyNormalization": false,
     "status": {
@@ -3847,8 +4440,8 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
@@ -3888,7 +4481,7 @@
   },
   {
     "slug": "tendencias-construcao-civil-2026",
-    "title": "Construção Civil 2026: 12 Tendencias para Reduzir Prazo, Custo e Risco",
+    "title": "Construção Civil 2026: 12 Tendências para Reduzir Prazo, Custo e Risco",
     "category": "construção civil",
     "currentImage": "/images/banners/ENGENHARIA.webp",
     "boldCount": 14,
@@ -3910,14 +4503,14 @@
         "slot": "hero",
         "mainQuery": "construction civil 2026 12",
         "searchTerms": [
-          "modern renovation interior",
-          "construction civil 2026 12 site detail",
-          "architectural renovation",
-          "clean material palette",
-          "high-end construction"
+          "smart home interior",
+          "construction civil 2026 12 automation interior",
+          "clean tech living room",
+          "minimal connected home",
+          "neutral smart interior"
         ],
         "searchQuery": "construction civil 2026 12",
-        "intent": "construction",
+        "intent": "technology",
         "targetLocalFile": "public/images/blog/tendencias-construcao-civil-2026/hero.webp",
         "targetCloudinaryId": "editorial/blog/tendencias-construcao-civil-2026/hero",
         "orientation": "landscape"
@@ -3926,14 +4519,14 @@
         "slot": "card",
         "mainQuery": "construction civil 2026 12",
         "searchTerms": [
-          "construction material detail",
-          "construction civil 2026 12 detail interior",
-          "architectural finish detail",
-          "clean building texture",
-          "engineering detail"
+          "smart home detail",
+          "construction civil 2026 12 panel detail",
+          "tech interior detail",
+          "modern switch detail",
+          "connected home styling"
         ],
         "searchQuery": "construction civil 2026 12",
-        "intent": "construction",
+        "intent": "technology",
         "targetLocalFile": "public/images/blog/tendencias-construcao-civil-2026/card.webp",
         "targetCloudinaryId": "editorial/blog/tendencias-construcao-civil-2026/card",
         "orientation": "landscape"
@@ -3942,7 +4535,7 @@
   },
   {
     "slug": "tendencias-decoracao-interiores-2026",
-    "title": "Tendencias de Decoração 2026: 20 Ideias Prontas para Sala, Quarto e Cozinha",
+    "title": "Tendências de Decoração 2026: 20 Ideias Prontas para Sala, Quarto e Cozinha",
     "category": "decoração",
     "currentImage": "/images/banners/ARQ.webp",
     "boldCount": 0,
@@ -3955,8 +4548,8 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
@@ -4009,8 +4602,8 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
@@ -4070,32 +4663,31 @@
     "slots": [
       {
         "slot": "hero",
-        "mainQuery": "vale pena contratar arquiteto",
+        "mainQuery": "architect portrait",
         "searchTerms": [
-          "modern architecture exterior",
-          "vale pena contratar arquiteto facade design",
-          "neutral architecture photography",
-          "clean residential facade",
-          "soft light exterior"
+          "brazilian architect portrait",
+          "architect studio portrait",
+          "modernist architect portrait",
+          "design master portrait"
         ],
-        "searchQuery": "vale pena contratar arquiteto",
-        "intent": "architecture",
+        "searchQuery": "architect portrait",
+        "intent": "person",
         "targetLocalFile": "public/images/blog/vale-a-pena-contratar-arquiteto-turn-key/hero.webp",
         "targetCloudinaryId": "editorial/blog/vale-a-pena-contratar-arquiteto-turn-key/hero",
         "orientation": "landscape"
       },
       {
         "slot": "card",
-        "mainQuery": "vale pena contratar arquiteto",
+        "mainQuery": "iconic architecture",
         "searchTerms": [
-          "architectural facade detail",
-          "vale pena contratar arquiteto facade material",
-          "clean geometry facade",
-          "neutral exterior detail",
-          "architectural lines detail"
+          "iconic architecture facade",
+          "modernist building detail",
+          "signature building exterior",
+          "architectural landmark detail",
+          "historical architecture archive"
         ],
-        "searchQuery": "vale pena contratar arquiteto",
-        "intent": "architecture",
+        "searchQuery": "iconic architecture",
+        "intent": "person",
         "targetLocalFile": "public/images/blog/vale-a-pena-contratar-arquiteto-turn-key/card.webp",
         "targetCloudinaryId": "editorial/blog/vale-a-pena-contratar-arquiteto-turn-key/card",
         "orientation": "landscape"
@@ -4104,10 +4696,10 @@
   },
   {
     "slug": "varanda-gourmet-planejamento",
-    "title": "Varanda Gourmet: Planejamento, Layout e Custos para Executar sem Erro",
+    "title": "Varanda Gourmet: Planejamento, Layout e Governanca de Escopo",
     "category": "design",
     "currentImage": "/images/banners/ARQ.webp",
-    "boldCount": 0,
+    "boldCount": 16,
     "inlineImageCount": 0,
     "needsCopyNormalization": false,
     "status": {
@@ -4117,8 +4709,8 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
@@ -4171,39 +4763,39 @@
       "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
-      "hasLocalHero": false,
-      "hasLocalCard": false,
+      "hasLocalHero": true,
+      "hasLocalCard": true,
       "readyForTwoSlotEditorial": false
     },
     "slots": [
       {
         "slot": "hero",
-        "mainQuery": "williams sonoma vale pena",
+        "mainQuery": "luxury brand editorial",
         "searchTerms": [
-          "minimalist interior design",
-          "williams sonoma vale pena home aesthetic",
-          "neutral living room",
-          "soft color decor",
-          "modern furniture layout"
+          "luxury brand showroom interior",
+          "premium product editorial",
+          "designer brand environment",
+          "brand identity interior",
+          "luxury retail interior"
         ],
-        "searchQuery": "williams sonoma vale pena",
-        "intent": "decor",
+        "searchQuery": "luxury brand editorial",
+        "intent": "brand",
         "targetLocalFile": "public/images/blog/williams-sonoma-cozinha-luxo/hero.webp",
         "targetCloudinaryId": "editorial/blog/williams-sonoma-cozinha-luxo/hero",
         "orientation": "landscape"
       },
       {
         "slot": "card",
-        "mainQuery": "williams sonoma vale pena",
+        "mainQuery": "premium brand product detail",
         "searchTerms": [
-          "interior styling detail",
-          "williams sonoma vale pena decor detail",
-          "minimalist furniture detail",
-          "soft light interior detail",
-          "clean home composition"
+          "premium product detail",
+          "brand logo detail",
+          "luxury showroom detail",
+          "editorial product close up",
+          "material finish premium"
         ],
-        "searchQuery": "williams sonoma vale pena",
-        "intent": "decor",
+        "searchQuery": "premium brand product detail",
+        "intent": "brand",
         "targetLocalFile": "public/images/blog/williams-sonoma-cozinha-luxo/card.webp",
         "targetCloudinaryId": "editorial/blog/williams-sonoma-cozinha-luxo/card",
         "orientation": "landscape"

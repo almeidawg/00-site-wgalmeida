@@ -478,6 +478,46 @@
         "id": "1761078658647-1f6ac6f8e436",
         "alt": "Recorte visual para ObraEasy: Como Funciona a Plataforma de Gestão de Obras para Clientes Finais, reforcando detalhe material e atmosfera do tema"
       }
+    },
+    "iluminacao-tecnica-arquitetural-interlight": {
+      "hero": {
+        "id": "1703289773827-7f838dbd5558",
+        "alt": "Imagem editorial para Iluminação Técnica e Arquitetural: Como a Interlight Transforma Ambientes de Alto Padrão, com leitura contemporanea e composicao premium"
+      },
+      "card": {
+        "id": "1584259097630-4d5cb684a0ec",
+        "alt": "Recorte visual para Iluminação Técnica e Arquitetural: Como a Interlight Transforma Ambientes de Alto Padrão, reforcando detalhe material e atmosfera do tema"
+      }
+    },
+    "laminas-naturais-marcenaria-alto-padrao-vieira": {
+      "hero": {
+        "id": "1590814087319-e8111a9a6404",
+        "alt": "Imagem editorial para Lâminas de Madeiras Naturais: O Segredo da Marcenaria de Alto Padrão com a Vieira Lâminas, com leitura contemporanea e composicao premium"
+      },
+      "card": {
+        "id": "1599695557512-ddf7fb487815",
+        "alt": "Recorte visual para Lâminas de Madeiras Naturais: O Segredo da Marcenaria de Alto Padrão com a Vieira Lâminas, reforcando detalhe material e atmosfera do tema"
+      }
+    },
+    "portobello-shop-porcelanatos-revestimentos-alto-padrao": {
+      "hero": {
+        "id": "1782935757909-cc220e714ca7",
+        "alt": "Imagem editorial para Portobello Shop: Porcelanatos e Grandes Formatos no Design de Luxo, com leitura contemporanea e composicao premium"
+      },
+      "card": {
+        "id": "1782025419629-d69df1556e0c",
+        "alt": "Recorte visual para Portobello Shop: Porcelanatos e Grandes Formatos no Design de Luxo, reforcando detalhe material e atmosfera do tema"
+      }
+    },
+    "silestone-cosentino-superficies-quartzo-alto-padrao": {
+      "hero": {
+        "id": "1784149703725-4cb28d7146e0",
+        "alt": "Imagem editorial para Silestone e Dekton: Superfícies de Luxo da Cosentino, com leitura contemporanea e composicao premium"
+      },
+      "card": {
+        "id": "1723639906196-b2157ee7897d",
+        "alt": "Recorte visual para Silestone e Dekton: Superfícies de Luxo da Cosentino, reforcando detalhe material e atmosfera do tema"
+      }
     }
   }
 }

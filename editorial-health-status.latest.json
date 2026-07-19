@@ -1,30 +1,30 @@
 {
-  "generatedAt": "2026-04-16T16:57:11.462Z",
+  "generatedAt": "2026-07-19T11:19:04.632Z",
   "summary": {
-    "blogStructuralClosed": true,
-    "stylesStructuralClosed": true,
-    "stylesCloudinaryClosed": true,
-    "editorialStructuralClosed": true
+    "blogStructuralClosed": false,
+    "stylesStructuralClosed": false,
+    "stylesCloudinaryClosed": false,
+    "editorialStructuralClosed": false
   },
   "blog": {
-    "totalPosts": 78,
-    "publishedWithManifest": 78,
-    "publishedWithRemoteCuratedAsset": 0,
-    "genericBannerFallback": 0,
-    "needsSearch": 0,
-    "heroUnsplashOrRemote": 0,
-    "cardUnsplashOrRemote": 0,
-    "problematicDuplicates": 0,
-    "allThreeEqual": 0
+    "totalPosts": 82,
+    "publishedWithManifest": 76,
+    "publishedWithRemoteCuratedAsset": 2,
+    "genericBannerFallback": 1,
+    "needsSearch": 43,
+    "heroUnsplashOrRemote": 39,
+    "cardUnsplashOrRemote": 37,
+    "problematicDuplicates": 4,
+    "allThreeEqual": 4
   },
   "styles": {
     "totalStyles": 31,
     "localWebp": 31,
-    "localSvg": 31,
+    "localSvg": 0,
     "publicReady": 31,
     "cloudinaryManifest": 31,
-    "cloudinaryReachable": 31,
-    "cloudinaryBroken": 0,
+    "cloudinaryReachable": 25,
+    "cloudinaryBroken": 6,
     "missingCloudinary": 0
   },
   "evidence": {
