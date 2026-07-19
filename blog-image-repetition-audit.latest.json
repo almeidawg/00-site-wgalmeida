@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-04-16T16:57:10.067Z",
+  "generatedAt": "2026-07-19T12:38:59.410Z",
   "summary": {
-    "slugs": 26,
-    "missingHero": 0,
-    "missingCard": 0,
-    "missingThumb": 0,
-    "heroEqualsCard": 0,
-    "heroEqualsThumb": 0,
-    "cardEqualsThumb": 9,
-    "allThreeEqual": 0,
-    "problematicDuplicates": 0
+    "slugs": 35,
+    "missingHero": 1,
+    "missingCard": 1,
+    "missingThumb": 1,
+    "heroEqualsCard": 4,
+    "heroEqualsThumb": 4,
+    "cardEqualsThumb": 13,
+    "allThreeEqual": 4,
+    "problematicDuplicates": 4
   },
   "results": [
     {
@@ -22,9 +22,9 @@
       "heroEqualsThumb": false,
       "cardEqualsThumb": true,
       "allThreeEqual": false,
-      "heroSource": "local",
-      "cardSource": "local",
-      "thumbSource": "local"
+      "heroSource": "remote",
+      "cardSource": "remote",
+      "thumbSource": "remote"
     },
     {
       "slug": "arquitetura-alto-padrao",
@@ -125,6 +125,20 @@
       "thumbSource": "local"
     },
     {
+      "slug": "como-calcular-custo-de-obra",
+      "hasEntry": true,
+      "missingHero": false,
+      "missingCard": false,
+      "missingThumb": false,
+      "heroEqualsCard": false,
+      "heroEqualsThumb": false,
+      "cardEqualsThumb": true,
+      "allThreeEqual": false,
+      "heroSource": "unsplash",
+      "cardSource": "local",
+      "thumbSource": "local"
+    },
+    {
       "slug": "cronograma-obra-acompanhamento",
       "hasEntry": true,
       "missingHero": false,
@@ -137,6 +151,34 @@
       "heroSource": "cloudinary",
       "cardSource": "cloudinary",
       "thumbSource": "cloudinary"
+    },
+    {
+      "slug": "custo-marcenaria-planejada",
+      "hasEntry": true,
+      "missingHero": false,
+      "missingCard": false,
+      "missingThumb": false,
+      "heroEqualsCard": true,
+      "heroEqualsThumb": true,
+      "cardEqualsThumb": true,
+      "allThreeEqual": true,
+      "heroSource": "local",
+      "cardSource": "local",
+      "thumbSource": "local"
+    },
+    {
+      "slug": "custo-reforma-m2-sao-paulo",
+      "hasEntry": true,
+      "missingHero": false,
+      "missingCard": false,
+      "missingThumb": false,
+      "heroEqualsCard": true,
+      "heroEqualsThumb": true,
+      "cardEqualsThumb": true,
+      "allThreeEqual": true,
+      "heroSource": "local",
+      "cardSource": "local",
+      "thumbSource": "local"
     },
     {
       "slug": "documentacao-obra-condominio",
@@ -195,6 +237,20 @@
       "thumbSource": "cloudinary"
     },
     {
+      "slug": "evf-estudo-viabilidade-financeira",
+      "hasEntry": true,
+      "missingHero": false,
+      "missingCard": false,
+      "missingThumb": false,
+      "heroEqualsCard": false,
+      "heroEqualsThumb": false,
+      "cardEqualsThumb": false,
+      "allThreeEqual": false,
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "thumbSource": "unsplash"
+    },
+    {
       "slug": "guia-estilos-ambientes-residenciais",
       "hasEntry": true,
       "missingHero": false,
@@ -249,6 +305,20 @@
       "heroSource": "cloudinary",
       "cardSource": "cloudinary",
       "thumbSource": "cloudinary"
+    },
+    {
+      "slug": "marcas-luxo-internacionais-moveis-design",
+      "hasEntry": true,
+      "missingHero": false,
+      "missingCard": false,
+      "missingThumb": false,
+      "heroEqualsCard": false,
+      "heroEqualsThumb": false,
+      "cardEqualsThumb": false,
+      "allThreeEqual": false,
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "thumbSource": "unsplash"
     },
     {
       "slug": "marcenaria-sob-medida",
@@ -323,16 +393,58 @@
     {
       "slug": "projeto-executivo-o-que-e",
       "hasEntry": true,
+      "missingHero": true,
+      "missingCard": true,
+      "missingThumb": true,
+      "heroEqualsCard": false,
+      "heroEqualsThumb": false,
+      "cardEqualsThumb": false,
+      "allThreeEqual": false,
+      "heroSource": "",
+      "cardSource": "",
+      "thumbSource": ""
+    },
+    {
+      "slug": "quanto-custa-reforma-apartamento-100m2",
+      "hasEntry": true,
+      "missingHero": false,
+      "missingCard": false,
+      "missingThumb": false,
+      "heroEqualsCard": true,
+      "heroEqualsThumb": true,
+      "cardEqualsThumb": true,
+      "allThreeEqual": true,
+      "heroSource": "local",
+      "cardSource": "local",
+      "thumbSource": "local"
+    },
+    {
+      "slug": "quanto-tempo-leva-reforma-completa-alto-padrao",
+      "hasEntry": true,
+      "missingHero": false,
+      "missingCard": false,
+      "missingThumb": false,
+      "heroEqualsCard": true,
+      "heroEqualsThumb": true,
+      "cardEqualsThumb": true,
+      "allThreeEqual": true,
+      "heroSource": "local",
+      "cardSource": "local",
+      "thumbSource": "local"
+    },
+    {
+      "slug": "quanto-valoriza-apartamento-apos-reforma",
+      "hasEntry": true,
       "missingHero": false,
       "missingCard": false,
       "missingThumb": false,
       "heroEqualsCard": false,
       "heroEqualsThumb": false,
-      "cardEqualsThumb": true,
+      "cardEqualsThumb": false,
       "allThreeEqual": false,
-      "heroSource": "local",
-      "cardSource": "local",
-      "thumbSource": "local"
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "thumbSource": "unsplash"
     },
     {
       "slug": "ralo-linear-areas-molhadas",
@@ -358,9 +470,23 @@
       "heroEqualsThumb": false,
       "cardEqualsThumb": true,
       "allThreeEqual": false,
-      "heroSource": "local",
-      "cardSource": "local",
-      "thumbSource": "local"
+      "heroSource": "remote",
+      "cardSource": "remote",
+      "thumbSource": "remote"
+    },
+    {
+      "slug": "tabela-precos-reforma-2026-iccri",
+      "hasEntry": true,
+      "missingHero": false,
+      "missingCard": false,
+      "missingThumb": false,
+      "heroEqualsCard": false,
+      "heroEqualsThumb": false,
+      "cardEqualsThumb": false,
+      "allThreeEqual": false,
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "thumbSource": "unsplash"
     },
     {
       "slug": "termo-responsabilidade-nbr16280",

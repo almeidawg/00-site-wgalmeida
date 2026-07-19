@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-04-16T16:57:10.009Z",
+  "generatedAt": "2026-07-19T11:19:03.385Z",
   "summary": {
     "styles": 31,
     "stylesWithCloudinary": 31,
-    "blogPosts": 78,
-    "blogNeedsSearch": 0,
-    "blogHeroUnsplashOrRemote": 0,
-    "blogCardUnsplashOrRemote": 0
+    "blogPosts": 82,
+    "blogNeedsSearch": 43,
+    "blogHeroUnsplashOrRemote": 39,
+    "blogCardUnsplashOrRemote": 37
   },
   "styles": [
     {
@@ -19,12 +19,17 @@
         "art deco interior",
         "luxury geometric interior",
         "brass marble interior",
-        "guia",
+        "art déco",
+        "glamour",
+        "anos 20",
+        "geométrico",
+        "dourado",
         "prático",
-        "estilo",
         "déco",
         "referências",
-        "anos"
+        "anos",
+        "20-30",
+        "metais"
       ],
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=art%20deco%20interior",
@@ -41,12 +46,17 @@
         "art nouveau interior",
         "organic curves interior",
         "decorative floral interior",
-        "descubra",
-        "estilo",
-        "nouveau",
+        "art nouveau",
+        "orgânico",
         "curvas",
+        "natureza",
+        "art",
+        "floral",
+        "descubra",
+        "nouveau",
         "orgânicas",
-        "vitrais"
+        "vitrais",
+        "ornamentos"
       ],
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=art%20nouveau%20interior",
@@ -63,12 +73,15 @@
         "boho chic interior",
         "layered bohemian living room",
         "natural textured boho interior",
-        "veja",
-        "como",
-        "aplicar",
-        "estilo",
         "boho",
-        "texturas"
+        "étnico",
+        "conforto",
+        "texturas",
+        "artesanal",
+        "tons",
+        "terrosos",
+        "referências",
+        "étnicas"
       ],
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=boho%20chic%20interior",
@@ -85,12 +98,15 @@
         "classic interior design",
         "timeless elegant living room",
         "ornate moulding marble interior",
-        "como",
-        "decorar",
-        "estilo",
         "clássico",
+        "elegante",
+        "atemporal",
+        "ornamentos",
+        "decorar",
         "molduras",
-        "mármore"
+        "mármore",
+        "dourado",
+        "tecidos"
       ],
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=classic%20interior%20design",
@@ -107,12 +123,16 @@
         "coastal interior design",
         "light airy beach house interior",
         "neutral coastal living room",
-        "aprenda",
-        "aplicar",
-        "estilo",
         "coastal",
+        "náutico",
+        "praia",
+        "mar",
+        "relaxante",
+        "azul",
+        "aprenda",
         "paleta",
-        "azul"
+        "branca",
+        "fibras"
       ],
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=coastal%20interior%20design",
@@ -129,12 +149,16 @@
         "contemporary interior design",
         "refined modern living room",
         "clean sophisticated interior",
-        "entenda",
-        "como",
-        "aplicar",
-        "estilo",
         "contemporâneo",
-        "materiais"
+        "atual",
+        "eclético",
+        "flexível",
+        "moderno",
+        "entenda",
+        "materiais",
+        "atuais",
+        "integrados",
+        "escolhas"
       ],
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=contemporary%20interior%20design",
@@ -151,12 +175,17 @@
         "cottage interior design",
         "cozy cottage living room",
         "soft rustic cottage interior",
-        "descubra",
-        "como",
-        "decorar",
-        "estilo",
         "cottage",
-        "florais"
+        "inglês",
+        "campo",
+        "aconchegante",
+        "floral",
+        "tradicional",
+        "descubra",
+        "decorar",
+        "florais",
+        "móveis",
+        "acolhedores"
       ],
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=cottage%20interior%20design",
@@ -173,12 +202,17 @@
         "eclectic interior design",
         "collected layered interior",
         "mix and match luxury interior",
+        "eclético",
+        "mix",
+        "personalidade",
+        "criativo",
+        "único",
+        "diverso",
         "aprenda",
         "combinar",
         "estilos",
         "épocas",
-        "cores",
-        "estilo"
+        "cores"
       ],
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=eclectic%20interior%20design",
@@ -195,12 +229,16 @@
         "scandinavian interior design",
         "minimal nordic living room",
         "light wood neutral interior",
-        "aprenda",
-        "aplicar",
-        "estilo",
         "escandinavo",
+        "nórdico",
+        "minimalista",
+        "funcional",
+        "hygge",
+        "aprenda",
         "paleta",
-        "clara"
+        "clara",
+        "madeira",
+        "natural"
       ],
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=scandinavian%20interior%20design",
@@ -217,12 +255,16 @@
         "farmhouse interior design",
         "modern farmhouse living room",
         "rustic refined farmhouse interior",
+        "farmhouse",
+        "fazenda",
+        "americana",
+        "branco",
+        "rústico",
+        "acolhedor",
         "aprenda",
         "decorar",
-        "estilo",
-        "farmhouse",
-        "branco",
-        "madeira"
+        "madeira",
+        "natural"
       ],
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=farmhouse%20interior%20design",
@@ -239,12 +281,15 @@
         "glam interior design",
         "luxury glamorous living room",
         "gold velvet elegant interior",
-        "descubra",
-        "como",
-        "aplicar",
-        "estilo",
         "glam",
-        "veludo"
+        "glamour",
+        "dourado",
+        "elegante",
+        "descubra",
+        "veludo",
+        "metais",
+        "espelhos",
+        "criar"
       ],
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=glam%20interior%20design",
@@ -261,12 +306,16 @@
         "hamptons interior design",
         "coastal luxury living room",
         "bright elegant hamptons interior",
-        "aprenda",
-        "aplicar",
-        "estilo",
         "hampton",
+        "hamptons",
+        "praia",
+        "elegante",
+        "americano",
+        "aprenda",
         "branco",
-        "azul-marinho"
+        "azul-marinho",
+        "materiais",
+        "naturais"
       ],
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=hamptons%20interior%20design",
@@ -283,12 +332,16 @@
         "hollywood regency interior",
         "bold glamorous interior",
         "high contrast luxury room",
+        "hollywood regency",
+        "glamour",
+        "teatral",
+        "drama",
+        "espelhos",
         "aprenda",
         "criar",
-        "ambientes",
         "hollywood",
         "regency",
-        "espelhos"
+        "metais"
       ],
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=hollywood%20regency%20interior",
@@ -305,12 +358,15 @@
         "industrial interior design",
         "loft concrete metal interior",
         "urban industrial living room",
-        "como",
-        "decorar",
-        "estilo",
         "industrial",
+        "urbano",
+        "loft",
+        "metal",
         "tijolo",
-        "aparente"
+        "moderno",
+        "decorar",
+        "aparente",
+        "escovado"
       ],
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=industrial%20interior%20design",
@@ -327,12 +383,16 @@
         "japandi interior design",
         "minimal warm wood interior",
         "japanese scandinavian living room",
-        "estilo",
         "japandi",
-        "minimalismo",
+        "zen",
+        "minimalista",
+        "escandinavo",
         "japonês",
+        "wabi-sabi",
+        "minimalismo",
         "funcionalidade",
-        "escandinava"
+        "escandinava",
+        "paleta"
       ],
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=japandi%20interior%20design",
@@ -349,12 +409,16 @@
         "maximalist interior design",
         "bold layered luxury interior",
         "colorful expressive living room",
-        "descubra",
-        "como",
-        "aplicar",
-        "estilo",
         "maximalista",
-        "cores"
+        "cores",
+        "ousado",
+        "eclético",
+        "vibrante",
+        "expressivo",
+        "descubra",
+        "vibrantes",
+        "estampas",
+        "composição"
       ],
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=maximalist%20interior%20design",
@@ -371,12 +435,17 @@
         "mediterranean interior design",
         "warm plaster arch interior",
         "sunlit mediterranean living room",
-        "veja",
-        "como",
+        "mediterrâneo",
+        "grego",
+        "italiano",
+        "costeiro",
+        "azul",
+        "terracota",
         "criar",
-        "ambientes",
-        "estilo",
-        "mediterrâneo"
+        "cores",
+        "claras",
+        "materiais",
+        "naturais"
       ],
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=mediterranean%20interior%20design",
@@ -393,12 +462,17 @@
         "mid century modern interior",
         "walnut vintage modern living room",
         "retro modern interior",
-        "entenda",
-        "estilo",
         "mid-century",
+        "anos 50",
+        "retro",
+        "eames",
+        "atemporal",
+        "funcional",
+        "entenda",
         "modern",
         "aprenda",
-        "usar"
+        "usar",
+        "móveis"
       ],
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=mid%20century%20modern%20interior",
@@ -415,12 +489,16 @@
         "minimalist interior design",
         "quiet neutral luxury interior",
         "clean serene living room",
-        "veja",
-        "como",
+        "minimalismo",
+        "funcional",
+        "neutro",
+        "moderno",
         "criar",
-        "ambientes",
         "minimalistas",
-        "linhas"
+        "linhas",
+        "limpas",
+        "paleta",
+        "neutra"
       ],
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=minimalist%20interior%20design",
@@ -437,12 +515,15 @@
         "modern interior design",
         "sleek contemporary living room",
         "architectural modern interior",
-        "entenda",
-        "estilo",
         "moderno",
-        "decoração",
+        "contemporâneo",
+        "tecnologia",
+        "funcional",
+        "clean",
+        "entenda",
         "linhas",
-        "limpas"
+        "limpas",
+        "funcionalidade"
       ],
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=modern%20interior%20design",
@@ -459,12 +540,16 @@
         "neoclassical interior design",
         "symmetrical refined interior",
         "elegant moulding salon",
-        "descubra",
-        "como",
-        "aplicar",
-        "estilo",
         "neoclássico",
-        "interiores"
+        "clássico",
+        "elegante",
+        "simetria",
+        "refinado",
+        "atemporal",
+        "descubra",
+        "elegantes",
+        "molduras",
+        "refinadas"
       ],
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=neoclassical%20interior%20design",
@@ -481,12 +566,17 @@
         "provencal interior design",
         "french country elegant interior",
         "soft rustic chic living room",
-        "veja",
-        "como",
-        "aplicar",
-        "estilo",
         "provençal",
-        "tons"
+        "francês",
+        "romântico",
+        "lavanda",
+        "campo",
+        "vintage",
+        "tons",
+        "suaves",
+        "móveis",
+        "patinados",
+        "referências"
       ],
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=provencal%20interior%20design",
@@ -503,12 +593,16 @@
         "rustic interior design",
         "natural wood stone living room",
         "warm rustic luxury interior",
-        "descubra",
-        "como",
-        "aplicar",
-        "estilo",
         "rústico",
-        "materiais"
+        "campo",
+        "madeira",
+        "natural",
+        "aconchegante",
+        "descubra",
+        "materiais",
+        "naturais",
+        "textura",
+        "artesanal"
       ],
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=rustic%20interior%20design",
@@ -525,12 +619,18 @@
         "shabby chic interior design",
         "romantic distressed furniture interior",
         "soft vintage chic room",
+        "shabby chic",
+        "romântico",
+        "vintage",
+        "branco",
+        "desgastado",
+        "flores",
         "aprenda",
         "criar",
-        "ambientes",
         "shabby",
         "chic",
-        "móveis"
+        "móveis",
+        "patinados"
       ],
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=shabby%20chic%20interior%20design",
@@ -547,10 +647,13 @@
         "southwest interior design",
         "desert warm earthy interior",
         "terracotta southwestern living room",
-        "entenda",
-        "estilo",
         "southwest",
+        "deserto",
         "terracota",
+        "nativo",
+        "americano",
+        "quente",
+        "entenda",
         "turquesa",
         "artesanato"
       ],
@@ -569,12 +672,17 @@
         "transitional interior design",
         "classic modern balanced interior",
         "soft luxury transitional room",
-        "entenda",
-        "estilo",
         "transitional",
+        "equilibrado",
+        "atemporal",
+        "elegante",
+        "versátil",
+        "neutro",
+        "entenda",
         "combine",
         "referências",
-        "clássicas"
+        "clássicas",
+        "modernas"
       ],
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=transitional%20interior%20design",
@@ -591,12 +699,17 @@
         "tropical interior design",
         "lush natural airy interior",
         "resort style living room",
+        "tropical",
+        "natureza",
+        "plantas",
+        "brasil",
+        "verde",
         "descubra",
-        "como",
         "criar",
-        "ambientes",
         "tropicais",
-        "folhagens"
+        "folhagens",
+        "paleta",
+        "vibrante"
       ],
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=tropical%20interior%20design",
@@ -613,12 +726,16 @@
         "tulum style interior",
         "organic earthy luxury interior",
         "boho mediterranean resort interior",
-        "veja",
-        "como",
-        "aplicar",
-        "estilo",
         "tulum",
-        "cimento"
+        "resort",
+        "tropical",
+        "cimento",
+        "palha",
+        "luxo rústico",
+        "mexicano",
+        "texturas",
+        "naturais",
+        "atmosfera"
       ],
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=tulum%20style%20interior",
@@ -635,12 +752,15 @@
         "urban modern interior design",
         "city luxury apartment interior",
         "modern metropolitan living room",
-        "veja",
-        "como",
-        "aplicar",
         "urban",
+        "moderno",
+        "urbano",
+        "minimalista",
+        "tecnologia",
         "modern",
-        "design"
+        "clean",
+        "integrada",
+        "materiais"
       ],
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=urban%20modern%20interior%20design",
@@ -657,12 +777,15 @@
         "vintage interior design",
         "nostalgic curated living room",
         "retro elegant interior",
-        "descubra",
-        "como",
-        "aplicar",
-        "estilo",
         "vintage",
-        "móveis"
+        "retrô",
+        "nostálgico",
+        "anos 60",
+        "restauração",
+        "descubra",
+        "móveis",
+        "originais",
+        "composição"
       ],
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=vintage%20interior%20design",
@@ -679,12 +802,17 @@
         "wabi sabi interior design",
         "organic imperfect serene interior",
         "earthy minimalist textured room",
-        "entenda",
-        "estilo",
         "wabi-sabi",
+        "japonês",
+        "zen",
+        "minimalista",
+        "natural",
+        "imperfeito",
+        "entenda",
         "aprenda",
         "criar",
-        "ambientes"
+        "serenos",
+        "texturas"
       ],
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=wabi%20sabi%20interior%20design",
@@ -692,5 +820,1510 @@
       }
     }
   ],
-  "blogNeedsSearch": []
+  "blogNeedsSearch": [
+    {
+      "kind": "blog",
+      "slug": "acapulco-club-house-residencia-luxo",
+      "title": "Residência Contemporânea Acapulco Club House: Arquitetura de Luxo e Experiência Residencial",
+      "category": "projetos",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "residencia contemporary architecture acapulco club",
+      "cardQuery": "residencia contemporary architecture acapulco club",
+      "searchTerms": {
+        "hero": [
+          "minimalist interior design",
+          "residencia contemporary architecture acapulco club home aesthetic",
+          "neutral living room",
+          "soft color decor",
+          "modern furniture layout"
+        ],
+        "card": [
+          "interior styling detail",
+          "residencia contemporary architecture acapulco club decor detail",
+          "minimalist furniture detail",
+          "soft light interior detail",
+          "clean home composition"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=residencia%20contemporary%20architecture%20acapulco%20club",
+        "heroUnsplash": "https://unsplash.com/s/photos/residencia%20contemporary%20architecture%20acapulco%20club",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=residencia%20contemporary%20architecture%20acapulco%20club",
+        "cardUnsplash": "https://unsplash.com/s/photos/residencia%20contemporary%20architecture%20acapulco%20club"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "arquitetos-internacionais-famosos-obras",
+      "title": "Arquitetos Internacionais Famosos: Obras Iconicas e Lições para 2026",
+      "category": "arquitetura",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "architect portrait 2026",
+      "cardQuery": "iconic architecture 2026",
+      "searchTerms": {
+        "hero": [
+          "architect portrait",
+          "brazilian architect portrait",
+          "architect studio portrait",
+          "modernist architect portrait",
+          "design master portrait"
+        ],
+        "card": [
+          "iconic architecture facade",
+          "modernist building detail",
+          "signature building exterior",
+          "architectural landmark detail",
+          "historical architecture archive"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=architect%20portrait%202026",
+        "heroUnsplash": "https://unsplash.com/s/photos/architect%20portrait%202026",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=iconic%20architecture%202026",
+        "cardUnsplash": "https://unsplash.com/s/photos/iconic%20architecture%202026"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "arquitetura-haarlem-holanda",
+      "title": "Arquitetura de Haarlem: Joia Medieval da Holanda e os Hofjes Secretos",
+      "category": "Arquitetura Internacional",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "haarlem architecture",
+      "cardQuery": "haarlem architecture",
+      "searchTerms": {
+        "hero": [
+          "haarlem modern architecture exterior",
+          "architecture joia medieval hofjes facade design",
+          "neutral architecture photography",
+          "clean residential facade",
+          "soft light exterior"
+        ],
+        "card": [
+          "haarlem architectural facade detail",
+          "architecture joia medieval hofjes facade material",
+          "clean geometry facade",
+          "neutral exterior detail",
+          "architectural lines detail"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=haarlem%20architecture",
+        "heroUnsplash": "https://unsplash.com/s/photos/haarlem%20architecture",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=haarlem%20architecture",
+        "cardUnsplash": "https://unsplash.com/s/photos/haarlem%20architecture"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "arquitetura-lisboa-portugal",
+      "title": "Arquitetura de Lisboa: Azulejos, Sete Colinas e o Legado Pombalino",
+      "category": "Arquitetura Internacional",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "lisbon architecture",
+      "cardQuery": "lisbon architecture",
+      "searchTerms": {
+        "hero": [
+          "lisbon modern architecture exterior",
+          "architecture azulejos sete colinas facade design",
+          "neutral architecture photography",
+          "clean residential facade",
+          "soft light exterior"
+        ],
+        "card": [
+          "lisbon architectural facade detail",
+          "architecture azulejos sete colinas facade material",
+          "clean geometry facade",
+          "neutral exterior detail",
+          "architectural lines detail"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=lisbon%20architecture",
+        "heroUnsplash": "https://unsplash.com/s/photos/lisbon%20architecture",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=lisbon%20architecture",
+        "cardUnsplash": "https://unsplash.com/s/photos/lisbon%20architecture"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "arquitetura-paris-franca",
+      "title": "Arquitetura de Paris: Guia dos Estilos, Boulevards Haussmannianos e Icones",
+      "category": "Arquitetura Internacional",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "paris interior design",
+      "cardQuery": "paris interior design",
+      "searchTerms": {
+        "hero": [
+          "paris minimalist interior design",
+          "architecture styles boulevards haussmannianos home aesthetic",
+          "neutral living room",
+          "soft color decor",
+          "modern furniture layout"
+        ],
+        "card": [
+          "paris interior styling detail",
+          "architecture styles boulevards haussmannianos decor detail",
+          "minimalist furniture detail",
+          "soft light interior detail",
+          "clean home composition"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=paris%20interior%20design",
+        "heroUnsplash": "https://unsplash.com/s/photos/paris%20interior%20design",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=paris%20interior%20design",
+        "cardUnsplash": "https://unsplash.com/s/photos/paris%20interior%20design"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "arquitetura-sustentavel-certificacoes",
+      "title": "Arquitetura Sustentavel: Certificacoes LEED, AQUA e Casa Azul no Brasil",
+      "category": "sustentabilidade",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "architecture sustentavel certificacoes sustainable green building",
+      "cardQuery": "architecture sustentavel certificacoes sustainable green building",
+      "searchTerms": {
+        "hero": [
+          "modern architecture exterior",
+          "architecture sustentavel certificacoes sustainable green building facade design",
+          "neutral architecture photography",
+          "clean residential facade",
+          "soft light exterior"
+        ],
+        "card": [
+          "architectural facade detail",
+          "architecture sustentavel certificacoes sustainable green building facade material",
+          "clean geometry facade",
+          "neutral exterior detail",
+          "architectural lines detail"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=architecture%20sustentavel%20certificacoes%20sustainable%20green%20building",
+        "heroUnsplash": "https://unsplash.com/s/photos/architecture%20sustentavel%20certificacoes%20sustainable%20green%20building",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=architecture%20sustentavel%20certificacoes%20sustainable%20green%20building",
+        "cardUnsplash": "https://unsplash.com/s/photos/architecture%20sustentavel%20certificacoes%20sustainable%20green%20building"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "automacao-residencial-2026-guia",
+      "title": "Automação Residencial em 2026: Como Planejar uma Smart Home sem Chute",
+      "category": "tecnologia",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "automation residential 2026 planejar",
+      "cardQuery": "automation residential 2026 planejar",
+      "searchTerms": {
+        "hero": [
+          "smart home interior",
+          "automation residential 2026 planejar automation interior",
+          "clean tech living room",
+          "minimal connected home",
+          "neutral smart interior"
+        ],
+        "card": [
+          "smart home detail",
+          "automation residential 2026 planejar panel detail",
+          "tech interior detail",
+          "modern switch detail",
+          "connected home styling"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=automation%20residential%202026%20planejar",
+        "heroUnsplash": "https://unsplash.com/s/photos/automation%20residential%202026%20planejar",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=automation%20residential%202026%20planejar",
+        "cardUnsplash": "https://unsplash.com/s/photos/automation%20residential%202026%20planejar"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "calculadora-preco-m2-corretores-imobiliarias",
+      "title": "Calculadora de Preço por m² para Corretores e Imobiliárias: Como Avaliar Imóveis com Critério em 2026",
+      "category": "mercado-imobiliario",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "calculadora preco m corretores 2026",
+      "cardQuery": "calculadora preco m corretores 2026",
+      "searchTerms": {
+        "hero": [
+          "minimalist interior design",
+          "calculadora preco m corretores home aesthetic",
+          "neutral living room",
+          "soft color decor",
+          "modern furniture layout"
+        ],
+        "card": [
+          "interior styling detail",
+          "calculadora preco m corretores decor detail",
+          "minimalist furniture detail",
+          "soft light interior detail",
+          "clean home composition"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=calculadora%20preco%20m%20corretores%202026",
+        "heroUnsplash": "https://unsplash.com/s/photos/calculadora%20preco%20m%20corretores%202026",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=calculadora%20preco%20m%20corretores%202026",
+        "cardUnsplash": "https://unsplash.com/s/photos/calculadora%20preco%20m%20corretores%202026"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "casa-cor-2026-mente-coracao",
+      "title": "Casa Cor 2026: Tema Mente e Coração e Tendências da Mostra de Arquitetura",
+      "category": "arquitetura",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "house cor 2026 tema",
+      "cardQuery": "house cor 2026 tema",
+      "searchTerms": {
+        "hero": [
+          "minimalist interior design",
+          "house cor 2026 tema home aesthetic",
+          "neutral living room",
+          "soft color decor",
+          "modern furniture layout"
+        ],
+        "card": [
+          "interior styling detail",
+          "house cor 2026 tema decor detail",
+          "minimalist furniture detail",
+          "soft light interior detail",
+          "clean home composition"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=house%20cor%202026%20tema",
+        "heroUnsplash": "https://unsplash.com/s/photos/house%20cor%202026%20tema",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=house%20cor%202026%20tema",
+        "cardUnsplash": "https://unsplash.com/s/photos/house%20cor%202026%20tema"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "closet-planejado-organizacao-otimizacao",
+      "title": "Closet Planejado: Medidas Certas para Organizar Melhor e Ganhar Espaco",
+      "category": "design",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "closet planejado medidas certas",
+      "cardQuery": "closet planejado medidas certas",
+      "searchTerms": {
+        "hero": [
+          "minimalist interior design",
+          "closet planejado medidas certas home aesthetic",
+          "neutral living room",
+          "soft color decor",
+          "modern furniture layout"
+        ],
+        "card": [
+          "interior styling detail",
+          "closet planejado medidas certas decor detail",
+          "minimalist furniture detail",
+          "soft light interior detail",
+          "clean home composition"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=closet%20planejado%20medidas%20certas",
+        "heroUnsplash": "https://unsplash.com/s/photos/closet%20planejado%20medidas%20certas",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=closet%20planejado%20medidas%20certas",
+        "cardUnsplash": "https://unsplash.com/s/photos/closet%20planejado%20medidas%20certas"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "como-calcular-custo-de-obra",
+      "title": "Como Calcular o Custo de uma Obra ou Reforma: Método Prático",
+      "category": "engenharia",
+      "heroSource": "unsplash",
+      "cardSource": "local",
+      "heroCurated": false,
+      "cardCurated": true,
+      "needsSearch": true,
+      "heroQuery": "calcular custo construction renovation",
+      "cardQuery": "calcular custo construction renovation",
+      "searchTerms": {
+        "hero": [
+          "modern renovation interior",
+          "calcular custo construction renovation site detail",
+          "architectural renovation",
+          "clean material palette",
+          "high-end construction"
+        ],
+        "card": [
+          "construction material detail",
+          "calcular custo construction renovation detail interior",
+          "architectural finish detail",
+          "clean building texture",
+          "engineering detail"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=calcular%20custo%20construction%20renovation",
+        "heroUnsplash": "https://unsplash.com/s/photos/calcular%20custo%20construction%20renovation",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=calcular%20custo%20construction%20renovation",
+        "cardUnsplash": "https://unsplash.com/s/photos/calcular%20custo%20construction%20renovation"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "custo-construcao-reforma-2026-guia-tecnico-completo",
+      "title": "Quanto Custa Construir e Reformar em 2026: Guia Tecnico Completo com Referencias SINAPI",
+      "category": "engenharia",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "quanto custa construir reformar 2026",
+      "cardQuery": "quanto custa construir reformar 2026",
+      "searchTerms": {
+        "hero": [
+          "modern renovation interior",
+          "quanto custa construir reformar site detail",
+          "architectural renovation",
+          "clean material palette",
+          "high-end construction"
+        ],
+        "card": [
+          "construction material detail",
+          "quanto custa construir reformar detail interior",
+          "architectural finish detail",
+          "clean building texture",
+          "engineering detail"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=quanto%20custa%20construir%20reformar%202026",
+        "heroUnsplash": "https://unsplash.com/s/photos/quanto%20custa%20construir%20reformar%202026",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=quanto%20custa%20construir%20reformar%202026",
+        "cardUnsplash": "https://unsplash.com/s/photos/quanto%20custa%20construir%20reformar%202026"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "dyson-tecnologia-design-residencial",
+      "title": "Dyson Vale a Pena? Engenharia, Design Residencial e Custo-Beneficio",
+      "category": "tecnologia",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "dyson vale pena engineering",
+      "cardQuery": "dyson vale pena engineering",
+      "searchTerms": {
+        "hero": [
+          "smart home interior",
+          "dyson vale pena engineering automation interior",
+          "clean tech living room",
+          "minimal connected home",
+          "neutral smart interior"
+        ],
+        "card": [
+          "smart home detail",
+          "dyson vale pena engineering panel detail",
+          "tech interior detail",
+          "modern switch detail",
+          "connected home styling"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=dyson%20vale%20pena%20engineering",
+        "heroUnsplash": "https://unsplash.com/s/photos/dyson%20vale%20pena%20engineering",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=dyson%20vale%20pena%20engineering",
+        "cardUnsplash": "https://unsplash.com/s/photos/dyson%20vale%20pena%20engineering"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "erros-comuns-reforma-como-evitar",
+      "title": "10 Erros Mais Comuns em Reformas e Como Evita-los",
+      "category": "reforma",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "10 erros comuns reformas",
+      "cardQuery": "10 erros comuns reformas",
+      "searchTerms": {
+        "hero": [
+          "minimalist interior design",
+          "10 erros comuns reformas home aesthetic",
+          "neutral living room",
+          "soft color decor",
+          "modern furniture layout"
+        ],
+        "card": [
+          "interior styling detail",
+          "10 erros comuns reformas decor detail",
+          "minimalist furniture detail",
+          "soft light interior detail",
+          "clean home composition"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=10%20erros%20comuns%20reformas",
+        "heroUnsplash": "https://unsplash.com/s/photos/10%20erros%20comuns%20reformas",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=10%20erros%20comuns%20reformas",
+        "cardUnsplash": "https://unsplash.com/s/photos/10%20erros%20comuns%20reformas"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "evf-estudo-viabilidade-financeira",
+      "title": "EVF na Obra: Como validar custos e evitar estouro de orçamento antes de construir",
+      "category": "planejamento",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "evf construction validar custos",
+      "cardQuery": "evf construction validar custos",
+      "searchTerms": {
+        "hero": [
+          "modern renovation interior",
+          "evf construction validar custos site detail",
+          "architectural renovation",
+          "clean material palette",
+          "high-end construction"
+        ],
+        "card": [
+          "construction material detail",
+          "evf construction validar custos detail interior",
+          "architectural finish detail",
+          "clean building texture",
+          "engineering detail"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=evf%20construction%20validar%20custos",
+        "heroUnsplash": "https://unsplash.com/s/photos/evf%20construction%20validar%20custos",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=evf%20construction%20validar%20custos",
+        "cardUnsplash": "https://unsplash.com/s/photos/evf%20construction%20validar%20custos"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "harman-kardon-som-ambientes",
+      "title": "Harman Kardon Vale a Pena? Audio Premium e Design para Ambientes Sofisticados",
+      "category": "tecnologia",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "harman kardon vale pena",
+      "cardQuery": "harman kardon vale pena",
+      "searchTerms": {
+        "hero": [
+          "smart home interior",
+          "harman kardon vale pena automation interior",
+          "clean tech living room",
+          "minimal connected home",
+          "neutral smart interior"
+        ],
+        "card": [
+          "smart home detail",
+          "harman kardon vale pena panel detail",
+          "tech interior detail",
+          "modern switch detail",
+          "connected home styling"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=harman%20kardon%20vale%20pena",
+        "heroUnsplash": "https://unsplash.com/s/photos/harman%20kardon%20vale%20pena",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=harman%20kardon%20vale%20pena",
+        "cardUnsplash": "https://unsplash.com/s/photos/harman%20kardon%20vale%20pena"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "home-office-ergonomia-produtividade",
+      "title": "Home Office: Guia de Ergonomia e Produtividade para Trabalhar Melhor em Casa",
+      "category": "design",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "home office ergonomia produtividade",
+      "cardQuery": "home office ergonomia produtividade",
+      "searchTerms": {
+        "hero": [
+          "modern office interior",
+          "home office ergonomia produtividade lobby design",
+          "neutral workspace interior",
+          "clean meeting room",
+          "minimal office architecture"
+        ],
+        "card": [
+          "office detail interior",
+          "home office ergonomia produtividade room detail",
+          "workspace material detail",
+          "corporate reception detail",
+          "clean office styling"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=home%20office%20ergonomia%20produtividade",
+        "heroUnsplash": "https://unsplash.com/s/photos/home%20office%20ergonomia%20produtividade",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=home%20office%20ergonomia%20produtividade",
+        "cardUnsplash": "https://unsplash.com/s/photos/home%20office%20ergonomia%20produtividade"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "iluminacao-residencial-guia-completo",
+      "title": "Iluminação Residencial: Guia Completo para Iluminar Sua Casa",
+      "category": "design",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "lighting residential iluminar sua",
+      "cardQuery": "lighting residential iluminar sua",
+      "searchTerms": {
+        "hero": [
+          "architectural lighting interior",
+          "lighting residential iluminar sua lighting design",
+          "soft light living room",
+          "minimalist ambient lighting",
+          "neutral interior lighting"
+        ],
+        "card": [
+          "lighting fixture detail",
+          "lighting residential iluminar sua light detail",
+          "soft ambient light",
+          "architectural lighting detail",
+          "minimalist lamp styling"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=lighting%20residential%20iluminar%20sua",
+        "heroUnsplash": "https://unsplash.com/s/photos/lighting%20residential%20iluminar%20sua",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=lighting%20residential%20iluminar%20sua",
+        "cardUnsplash": "https://unsplash.com/s/photos/lighting%20residential%20iluminar%20sua"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "iluminacao-tecnica-arquitetural-interlight",
+      "title": "Iluminação Técnica e Arquitetural: Como a Interlight Transforma Ambientes de Alto Padrão",
+      "category": "materiais",
+      "heroSource": "missing",
+      "cardSource": "missing",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "lighting tecnica arquitetural interlight",
+      "cardQuery": "lighting tecnica arquitetural interlight",
+      "searchTerms": {
+        "hero": [
+          "architectural lighting interior",
+          "lighting tecnica arquitetural interlight lighting design",
+          "soft light living room",
+          "minimalist ambient lighting",
+          "neutral interior lighting"
+        ],
+        "card": [
+          "lighting fixture detail",
+          "lighting tecnica arquitetural interlight light detail",
+          "soft ambient light",
+          "architectural lighting detail",
+          "minimalist lamp styling"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=lighting%20tecnica%20arquitetural%20interlight",
+        "heroUnsplash": "https://unsplash.com/s/photos/lighting%20tecnica%20arquitetural%20interlight",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=lighting%20tecnica%20arquitetural%20interlight",
+        "cardUnsplash": "https://unsplash.com/s/photos/lighting%20tecnica%20arquitetural%20interlight"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "importancia-contratar-arquiteto",
+      "title": "Por Que Contratar um Arquiteto? A Importância do Profissional Capacitado",
+      "category": "arquitetura",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "architect portrait",
+      "cardQuery": "iconic architecture",
+      "searchTerms": {
+        "hero": [
+          "brazilian architect portrait",
+          "architect studio portrait",
+          "modernist architect portrait",
+          "design master portrait"
+        ],
+        "card": [
+          "iconic architecture facade",
+          "modernist building detail",
+          "signature building exterior",
+          "architectural landmark detail",
+          "historical architecture archive"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=architect%20portrait",
+        "heroUnsplash": "https://unsplash.com/s/photos/architect%20portrait",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=iconic%20architecture",
+        "cardUnsplash": "https://unsplash.com/s/photos/iconic%20architecture"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "laca-vs-melamina-vs-folha-natural",
+      "title": "Laca, Melamina ou Folha Natural: Qual o Melhor Acabamento?",
+      "category": "materiais",
+      "heroSource": "missing",
+      "cardSource": "missing",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "laca melamina folha natural",
+      "cardQuery": "laca melamina folha natural",
+      "searchTerms": {
+        "hero": [
+          "minimalist interior design",
+          "laca melamina folha natural home aesthetic",
+          "neutral living room",
+          "soft color decor",
+          "modern furniture layout"
+        ],
+        "card": [
+          "interior styling detail",
+          "laca melamina folha natural decor detail",
+          "minimalist furniture detail",
+          "soft light interior detail",
+          "clean home composition"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=laca%20melamina%20folha%20natural",
+        "heroUnsplash": "https://unsplash.com/s/photos/laca%20melamina%20folha%20natural",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=laca%20melamina%20folha%20natural",
+        "cardUnsplash": "https://unsplash.com/s/photos/laca%20melamina%20folha%20natural"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "le-creuset-panelas-design",
+      "title": "Le Creuset Vale a Pena em 2026? Design, Durabilidade e Custo-Beneficio",
+      "category": "design",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "le creuset vale pena 2026",
+      "cardQuery": "le creuset vale pena 2026",
+      "searchTerms": {
+        "hero": [
+          "minimalist interior design",
+          "le creuset vale pena home aesthetic",
+          "neutral living room",
+          "soft color decor",
+          "modern furniture layout"
+        ],
+        "card": [
+          "interior styling detail",
+          "le creuset vale pena decor detail",
+          "minimalist furniture detail",
+          "soft light interior detail",
+          "clean home composition"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=le%20creuset%20vale%20pena%202026",
+        "heroUnsplash": "https://unsplash.com/s/photos/le%20creuset%20vale%20pena%202026",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=le%20creuset%20vale%20pena%202026",
+        "cardUnsplash": "https://unsplash.com/s/photos/le%20creuset%20vale%20pena%202026"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "marcas-luxo-internacionais-moveis-design",
+      "title": "Marcas de Luxo Internacionais: 10 Griffes que Definem o Design de Alto Padrão",
+      "category": "design",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "luxury brand editorial",
+      "cardQuery": "premium brand product detail",
+      "searchTerms": {
+        "hero": [
+          "luxury brand showroom interior",
+          "premium product editorial",
+          "designer brand environment",
+          "brand identity interior",
+          "luxury retail interior"
+        ],
+        "card": [
+          "premium product detail",
+          "brand logo detail",
+          "luxury showroom detail",
+          "editorial product close up",
+          "material finish premium"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=luxury%20brand%20editorial",
+        "heroUnsplash": "https://unsplash.com/s/photos/luxury%20brand%20editorial",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=premium%20brand%20product%20detail",
+        "cardUnsplash": "https://unsplash.com/s/photos/premium%20brand%20product%20detail"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "marcas-luxo-nacionais-moveis-decoracao",
+      "title": "Marcas de Luxo Nacionais: O Melhor do Design Brasileiro para Sua Casa",
+      "category": "design",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "luxury brand editorial",
+      "cardQuery": "premium brand product detail",
+      "searchTerms": {
+        "hero": [
+          "luxury brand showroom interior",
+          "premium product editorial",
+          "designer brand environment",
+          "brand identity interior",
+          "luxury retail interior"
+        ],
+        "card": [
+          "premium product detail",
+          "brand logo detail",
+          "luxury showroom detail",
+          "editorial product close up",
+          "material finish premium"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=luxury%20brand%20editorial",
+        "heroUnsplash": "https://unsplash.com/s/photos/luxury%20brand%20editorial",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=premium%20brand%20product%20detail",
+        "cardUnsplash": "https://unsplash.com/s/photos/premium%20brand%20product%20detail"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "obraeasy-como-funciona-para-clientes-finais",
+      "title": "ObraEasy: Como Funciona a Plataforma de Gestão de Obras para Clientes Finais",
+      "category": "tecnologia",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "obraeasy plataforma gestao construction",
+      "cardQuery": "obraeasy plataforma gestao construction",
+      "searchTerms": {
+        "hero": [
+          "smart home interior",
+          "obraeasy plataforma gestao construction automation interior",
+          "clean tech living room",
+          "minimal connected home",
+          "neutral smart interior"
+        ],
+        "card": [
+          "smart home detail",
+          "obraeasy plataforma gestao construction panel detail",
+          "tech interior detail",
+          "modern switch detail",
+          "connected home styling"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=obraeasy%20plataforma%20gestao%20construction",
+        "heroUnsplash": "https://unsplash.com/s/photos/obraeasy%20plataforma%20gestao%20construction",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=obraeasy%20plataforma%20gestao%20construction",
+        "cardUnsplash": "https://unsplash.com/s/photos/obraeasy%20plataforma%20gestao%20construction"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "obraeasy-para-parceiros-imobiliarias-corretores",
+      "title": "ObraEasy para Parceiros: Como Imobiliarias e Corretores Geram Receita com Gestão de Obras",
+      "category": "parceiros",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "obraeasy parceiros imobiliarias corretores",
+      "cardQuery": "obraeasy parceiros imobiliarias corretores",
+      "searchTerms": {
+        "hero": [
+          "modern renovation interior",
+          "obraeasy parceiros imobiliarias corretores site detail",
+          "architectural renovation",
+          "clean material palette",
+          "high-end construction"
+        ],
+        "card": [
+          "construction material detail",
+          "obraeasy parceiros imobiliarias corretores detail interior",
+          "architectural finish detail",
+          "clean building texture",
+          "engineering detail"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=obraeasy%20parceiros%20imobiliarias%20corretores",
+        "heroUnsplash": "https://unsplash.com/s/photos/obraeasy%20parceiros%20imobiliarias%20corretores",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=obraeasy%20parceiros%20imobiliarias%20corretores",
+        "cardUnsplash": "https://unsplash.com/s/photos/obraeasy%20parceiros%20imobiliarias%20corretores"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "onboarding-processo-wg-almeida",
+      "title": "Onboarding WG Almeida: Como Funciona o Processo do Seu Projeto",
+      "category": "processo",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "onboarding processo seu projeto",
+      "cardQuery": "onboarding processo seu projeto",
+      "searchTerms": {
+        "hero": [
+          "minimalist interior design",
+          "onboarding processo seu projeto home aesthetic",
+          "neutral living room",
+          "soft color decor",
+          "modern furniture layout"
+        ],
+        "card": [
+          "interior styling detail",
+          "onboarding processo seu projeto decor detail",
+          "minimalist furniture detail",
+          "soft light interior detail",
+          "clean home composition"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=onboarding%20processo%20seu%20projeto",
+        "heroUnsplash": "https://unsplash.com/s/photos/onboarding%20processo%20seu%20projeto",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=onboarding%20processo%20seu%20projeto",
+        "cardUnsplash": "https://unsplash.com/s/photos/onboarding%20processo%20seu%20projeto"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "paleta-cores-2026-cor-do-ano",
+      "title": "Cor do Ano 2026: Quais São, Como Combinar e Por Que Essa Paleta Dominou o Design",
+      "category": "design",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "cor ano 2026 quais",
+      "cardQuery": "cor ano 2026 quais",
+      "searchTerms": {
+        "hero": [
+          "minimalist interior design",
+          "cor ano 2026 quais home aesthetic",
+          "neutral living room",
+          "soft color decor",
+          "modern furniture layout"
+        ],
+        "card": [
+          "interior styling detail",
+          "cor ano 2026 quais decor detail",
+          "minimalist furniture detail",
+          "soft light interior detail",
+          "clean home composition"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=cor%20ano%202026%20quais",
+        "heroUnsplash": "https://unsplash.com/s/photos/cor%20ano%202026%20quais",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=cor%20ano%202026%20quais",
+        "cardUnsplash": "https://unsplash.com/s/photos/cor%20ano%202026%20quais"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "plantas-interiores-purificam-ar",
+      "title": "20 Plantas para Interiores que Purificam o Ar e Valorizam o Ambiente",
+      "category": "design",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "20 plantas interiors purificam",
+      "cardQuery": "20 plantas interiors purificam",
+      "searchTerms": {
+        "hero": [
+          "minimalist interior design",
+          "20 plantas interiors purificam home aesthetic",
+          "neutral living room",
+          "soft color decor",
+          "modern furniture layout"
+        ],
+        "card": [
+          "interior styling detail",
+          "20 plantas interiors purificam decor detail",
+          "minimalist furniture detail",
+          "soft light interior detail",
+          "clean home composition"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=20%20plantas%20interiors%20purificam",
+        "heroUnsplash": "https://unsplash.com/s/photos/20%20plantas%20interiors%20purificam",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=20%20plantas%20interiors%20purificam",
+        "cardUnsplash": "https://unsplash.com/s/photos/20%20plantas%20interiors%20purificam"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "profissionais-capacitados-obra",
+      "title": "Profissionais Capacitados na Obra: A Importancia de uma Equipe Qualificada",
+      "category": "construção",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "profissionais capacitados construction importancia",
+      "cardQuery": "profissionais capacitados construction importancia",
+      "searchTerms": {
+        "hero": [
+          "modern renovation interior",
+          "profissionais capacitados construction importancia site detail",
+          "architectural renovation",
+          "clean material palette",
+          "high-end construction"
+        ],
+        "card": [
+          "construction material detail",
+          "profissionais capacitados construction importancia detail interior",
+          "architectural finish detail",
+          "clean building texture",
+          "engineering detail"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=profissionais%20capacitados%20construction%20importancia",
+        "heroUnsplash": "https://unsplash.com/s/photos/profissionais%20capacitados%20construction%20importancia",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=profissionais%20capacitados%20construction%20importancia",
+        "cardUnsplash": "https://unsplash.com/s/photos/profissionais%20capacitados%20construction%20importancia"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "quanto-tempo-dura-reforma-apartamento",
+      "title": "Quanto Tempo Dura uma Reforma de Apartamento? Prazo Real por Etapa",
+      "category": "reforma",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "quanto tempo dura renovation",
+      "cardQuery": "quanto tempo dura renovation",
+      "searchTerms": {
+        "hero": [
+          "modern renovation interior",
+          "quanto tempo dura renovation site detail",
+          "architectural renovation",
+          "clean material palette",
+          "high-end construction"
+        ],
+        "card": [
+          "construction material detail",
+          "quanto tempo dura renovation detail interior",
+          "architectural finish detail",
+          "clean building texture",
+          "engineering detail"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=quanto%20tempo%20dura%20renovation",
+        "heroUnsplash": "https://unsplash.com/s/photos/quanto%20tempo%20dura%20renovation",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=quanto%20tempo%20dura%20renovation",
+        "cardUnsplash": "https://unsplash.com/s/photos/quanto%20tempo%20dura%20renovation"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "quanto-valoriza-apartamento-apos-reforma",
+      "title": "Quanto valoriza um apartamento após reforma? Como ler o EVF com critério",
+      "category": "mercado-imobiliario",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "quanto valoriza apartment apos",
+      "cardQuery": "quanto valoriza apartment apos",
+      "searchTerms": {
+        "hero": [
+          "modern renovation interior",
+          "quanto valoriza apartment apos site detail",
+          "architectural renovation",
+          "clean material palette",
+          "high-end construction"
+        ],
+        "card": [
+          "construction material detail",
+          "quanto valoriza apartment apos detail interior",
+          "architectural finish detail",
+          "clean building texture",
+          "engineering detail"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=quanto%20valoriza%20apartment%20apos",
+        "heroUnsplash": "https://unsplash.com/s/photos/quanto%20valoriza%20apartment%20apos",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=quanto%20valoriza%20apartment%20apos",
+        "cardUnsplash": "https://unsplash.com/s/photos/quanto%20valoriza%20apartment%20apos"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "reforma-banheiro-moderno-2026",
+      "title": "Reforma de Banheiro Moderno: Tendências, Custos e Etapas em 2026",
+      "category": "reforma",
+      "heroSource": "missing",
+      "cardSource": "missing",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "renovation bathroom modern trends 2026",
+      "cardQuery": "renovation bathroom modern trends 2026",
+      "searchTerms": {
+        "hero": [
+          "minimalist bathroom interior",
+          "renovation bathroom modern trends bathroom design",
+          "neutral bathroom palette",
+          "elegant bathroom photography",
+          "clean spa bathroom"
+        ],
+        "card": [
+          "bathroom fixture detail",
+          "renovation bathroom modern trends bathroom detail",
+          "modern vanity detail",
+          "neutral bathroom styling",
+          "soft light bathroom detail"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=renovation%20bathroom%20modern%20trends%202026",
+        "heroUnsplash": "https://unsplash.com/s/photos/renovation%20bathroom%20modern%20trends%202026",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=renovation%20bathroom%20modern%20trends%202026",
+        "cardUnsplash": "https://unsplash.com/s/photos/renovation%20bathroom%20modern%20trends%202026"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "reforma-banheiro-pequeno-otimizacao",
+      "title": "Reforma de Banheiro Pequeno 2026: 20 Solucoes para Ganhar Espaco",
+      "category": "reforma",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "renovation bathroom pequeno 2026",
+      "cardQuery": "renovation bathroom pequeno 2026",
+      "searchTerms": {
+        "hero": [
+          "minimalist bathroom interior",
+          "renovation bathroom pequeno 2026 bathroom design",
+          "neutral bathroom palette",
+          "elegant bathroom photography",
+          "clean spa bathroom"
+        ],
+        "card": [
+          "bathroom fixture detail",
+          "renovation bathroom pequeno 2026 bathroom detail",
+          "modern vanity detail",
+          "neutral bathroom styling",
+          "soft light bathroom detail"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=renovation%20bathroom%20pequeno%202026",
+        "heroUnsplash": "https://unsplash.com/s/photos/renovation%20bathroom%20pequeno%202026",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=renovation%20bathroom%20pequeno%202026",
+        "cardUnsplash": "https://unsplash.com/s/photos/renovation%20bathroom%20pequeno%202026"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "reforma-cozinha-planejada-guia-completo",
+      "title": "Reforma de Cozinha Planejada 2026: Quanto Custa, Etapas e Como Evitar Erros",
+      "category": "reforma",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "renovation kitchen planejada 2026",
+      "cardQuery": "renovation kitchen planejada 2026",
+      "searchTerms": {
+        "hero": [
+          "modern kitchen interior",
+          "renovation kitchen planejada 2026 kitchen design",
+          "neutral kitchen palette",
+          "elegant kitchen photography",
+          "clean kitchen layout"
+        ],
+        "card": [
+          "kitchen island detail",
+          "renovation kitchen planejada 2026 finish detail",
+          "modern kitchen styling",
+          "neutral countertop detail",
+          "minimal kitchen composition"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=renovation%20kitchen%20planejada%202026",
+        "heroUnsplash": "https://unsplash.com/s/photos/renovation%20kitchen%20planejada%202026",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=renovation%20kitchen%20planejada%202026",
+        "cardUnsplash": "https://unsplash.com/s/photos/renovation%20kitchen%20planejada%202026"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "sistema-easy-metodologia-wg-almeida",
+      "title": "Sistema Easy: Como a Metodologia WG Almeida Organiza Projetos com Mais Clareza",
+      "category": "metodologia",
+      "heroSource": "unsplash",
+      "cardSource": "local",
+      "heroCurated": false,
+      "cardCurated": true,
+      "needsSearch": true,
+      "heroQuery": "sistema easy metodologia organiza",
+      "cardQuery": "sistema easy metodologia organiza",
+      "searchTerms": {
+        "hero": [
+          "minimalist interior design",
+          "sistema easy metodologia organiza home aesthetic",
+          "neutral living room",
+          "soft color decor",
+          "modern furniture layout"
+        ],
+        "card": [
+          "interior styling detail",
+          "sistema easy metodologia organiza decor detail",
+          "minimalist furniture detail",
+          "soft light interior detail",
+          "clean home composition"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=sistema%20easy%20metodologia%20organiza",
+        "heroUnsplash": "https://unsplash.com/s/photos/sistema%20easy%20metodologia%20organiza",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=sistema%20easy%20metodologia%20organiza",
+        "cardUnsplash": "https://unsplash.com/s/photos/sistema%20easy%20metodologia%20organiza"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "steel-frame-vs-alvenaria-qual-escolher",
+      "title": "Steel Frame vs Alvenaria 2026: Qual Entrega Melhor Resultado?",
+      "category": "construcao civil",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "steel frame alvenaria 2026",
+      "cardQuery": "steel frame alvenaria 2026",
+      "searchTerms": {
+        "hero": [
+          "modern renovation interior",
+          "steel frame alvenaria 2026 site detail",
+          "architectural renovation",
+          "clean material palette",
+          "high-end construction"
+        ],
+        "card": [
+          "construction material detail",
+          "steel frame alvenaria 2026 detail interior",
+          "architectural finish detail",
+          "clean building texture",
+          "engineering detail"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=steel%20frame%20alvenaria%202026",
+        "heroUnsplash": "https://unsplash.com/s/photos/steel%20frame%20alvenaria%202026",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=steel%20frame%20alvenaria%202026",
+        "cardUnsplash": "https://unsplash.com/s/photos/steel%20frame%20alvenaria%202026"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "sustentabilidade-construcao-civil-2026",
+      "title": "Sustentabilidade na Construção Civil 2026: 15 Praticas para Reduzir Custo e Desperdicio",
+      "category": "sustentabilidade",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "sustainability construction civil 2026",
+      "cardQuery": "sustainability construction civil 2026",
+      "searchTerms": {
+        "hero": [
+          "modern renovation interior",
+          "sustainability construction civil 2026 site detail",
+          "architectural renovation",
+          "clean material palette",
+          "high-end construction"
+        ],
+        "card": [
+          "construction material detail",
+          "sustainability construction civil 2026 detail interior",
+          "architectural finish detail",
+          "clean building texture",
+          "engineering detail"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=sustainability%20construction%20civil%202026",
+        "heroUnsplash": "https://unsplash.com/s/photos/sustainability%20construction%20civil%202026",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=sustainability%20construction%20civil%202026",
+        "cardUnsplash": "https://unsplash.com/s/photos/sustainability%20construction%20civil%202026"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "tabela-precos-reforma-2026-iccri",
+      "title": "Tabela de Preços de Reforma 2026 — ICCRI: índice de referência para obras em São Paulo",
+      "category": "engenharia",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "tabela precos renovation 2026",
+      "cardQuery": "tabela precos renovation 2026",
+      "searchTerms": {
+        "hero": [
+          "modern renovation interior",
+          "tabela precos renovation 2026 site detail",
+          "architectural renovation",
+          "clean material palette",
+          "high-end construction"
+        ],
+        "card": [
+          "construction material detail",
+          "tabela precos renovation 2026 detail interior",
+          "architectural finish detail",
+          "clean building texture",
+          "engineering detail"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=tabela%20precos%20renovation%202026",
+        "heroUnsplash": "https://unsplash.com/s/photos/tabela%20precos%20renovation%202026",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=tabela%20precos%20renovation%202026",
+        "cardUnsplash": "https://unsplash.com/s/photos/tabela%20precos%20renovation%202026"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "tendencias-construcao-civil-2026",
+      "title": "Construção Civil 2026: 12 Tendências para Reduzir Prazo, Custo e Risco",
+      "category": "construção civil",
+      "heroSource": "missing",
+      "cardSource": "missing",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "construction civil 2026 12",
+      "cardQuery": "construction civil 2026 12",
+      "searchTerms": {
+        "hero": [
+          "modern renovation interior",
+          "construction civil 2026 12 site detail",
+          "architectural renovation",
+          "clean material palette",
+          "high-end construction"
+        ],
+        "card": [
+          "construction material detail",
+          "construction civil 2026 12 detail interior",
+          "architectural finish detail",
+          "clean building texture",
+          "engineering detail"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=construction%20civil%202026%2012",
+        "heroUnsplash": "https://unsplash.com/s/photos/construction%20civil%202026%2012",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=construction%20civil%202026%2012",
+        "cardUnsplash": "https://unsplash.com/s/photos/construction%20civil%202026%2012"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "tendencias-decoracao-interiores-2026",
+      "title": "Tendências de Decoração 2026: 20 Ideias Prontas para Sala, Quarto e Cozinha",
+      "category": "decoração",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "trends decor 2026 20",
+      "cardQuery": "trends decor 2026 20",
+      "searchTerms": {
+        "hero": [
+          "modern kitchen interior",
+          "trends decor 2026 20 kitchen design",
+          "neutral kitchen palette",
+          "elegant kitchen photography",
+          "clean kitchen layout"
+        ],
+        "card": [
+          "kitchen island detail",
+          "trends decor 2026 20 finish detail",
+          "modern kitchen styling",
+          "neutral countertop detail",
+          "minimal kitchen composition"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=trends%20decor%202026%2020",
+        "heroUnsplash": "https://unsplash.com/s/photos/trends%20decor%202026%2020",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=trends%20decor%202026%2020",
+        "cardUnsplash": "https://unsplash.com/s/photos/trends%20decor%202026%2020"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "varanda-gourmet-planejamento",
+      "title": "Varanda Gourmet: Planejamento, Layout e Governanca de Escopo",
+      "category": "design",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "varanda gourmet planejamento layout",
+      "cardQuery": "varanda gourmet planejamento layout",
+      "searchTerms": {
+        "hero": [
+          "minimalist interior design",
+          "varanda gourmet planejamento layout home aesthetic",
+          "neutral living room",
+          "soft color decor",
+          "modern furniture layout"
+        ],
+        "card": [
+          "interior styling detail",
+          "varanda gourmet planejamento layout decor detail",
+          "minimalist furniture detail",
+          "soft light interior detail",
+          "clean home composition"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=varanda%20gourmet%20planejamento%20layout",
+        "heroUnsplash": "https://unsplash.com/s/photos/varanda%20gourmet%20planejamento%20layout",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=varanda%20gourmet%20planejamento%20layout",
+        "cardUnsplash": "https://unsplash.com/s/photos/varanda%20gourmet%20planejamento%20layout"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "williams-sonoma-cozinha-luxo",
+      "title": "Williams Sonoma Vale a Pena? Utensilios Premium para Cozinhas de Alto Padrão",
+      "category": "design",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "williams sonoma vale pena",
+      "cardQuery": "williams sonoma vale pena",
+      "searchTerms": {
+        "hero": [
+          "minimalist interior design",
+          "williams sonoma vale pena home aesthetic",
+          "neutral living room",
+          "soft color decor",
+          "modern furniture layout"
+        ],
+        "card": [
+          "interior styling detail",
+          "williams sonoma vale pena decor detail",
+          "minimalist furniture detail",
+          "soft light interior detail",
+          "clean home composition"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=williams%20sonoma%20vale%20pena",
+        "heroUnsplash": "https://unsplash.com/s/photos/williams%20sonoma%20vale%20pena",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=williams%20sonoma%20vale%20pena",
+        "cardUnsplash": "https://unsplash.com/s/photos/williams%20sonoma%20vale%20pena"
+      }
+    }
+  ]
 }

@@ -1,18 +1,27 @@
 {
   "summary": {
-    "generatedAt": "2026-04-25T03:18:25.033Z",
-    "totalPosts": 78,
+    "generatedAt": "2026-07-19T13:05:40.431Z",
+    "totalPosts": 89,
     "coverage": {
-      "published-manifest": 78
+      "published-manifest": 80,
+      "published-local": 3,
+      "published-remote-curated": 2,
+      "generic-banner-fallback": 4
     },
     "manifestTypes": {
-      "two-slot": 51,
+      "two-slot": 55,
+      "none": 7,
       "single": 13,
       "variant": 14
     },
-    "queueTracked": 78,
+    "queueTracked": 89,
     "queueReadyForTwoSlotEditorial": 4,
-    "pendingSlugs": []
+    "pendingSlugs": [
+      "blum-ferragens-sistemas-luxo-marcenaria",
+      "duratex-mdf-paineis-marcenaria-alto-padrao",
+      "elettromec-eletrodomesticos-luxo-cozinha-alto-padrao",
+      "hafele-ferragens-solucoes-inteligentes-marcenaria"
+    ]
   },
   "details": [
     {
@@ -27,13 +36,24 @@
       "queueReady": false
     },
     {
+      "slug": "arquiteto-vs-mestre-de-obras-direto",
+      "title": "Gestão Profissional vs. Empreiteiro Direto: O Custo do Barato",
+      "category": "engenharia",
+      "currentImage": "/images/blog/gestao-vs-mestre-obras.webp",
+      "queueTracked": true,
+      "queueReadyForTwoSlotEditorial": false,
+      "coverage": "published-local",
+      "manifestType": "none",
+      "queueReady": false
+    },
+    {
       "slug": "arquitetos-brasileiros-famosos-legado",
-      "title": "Arquitetos Brasileiros Famosos: 12 Nomes, Obras e Lições para Projetos Atuais",
+      "title": "Arquitetos Brasileiros Famosos: 7 Nomes, Obras e Lições para Projetos Atuais",
       "category": "arquitetura",
       "currentImage": "/images/banners/ARQ.webp",
       "queueTracked": true,
       "queueReadyForTwoSlotEditorial": false,
-      "coverage": "published-manifest",
+      "coverage": "published-remote-curated",
       "manifestType": "two-slot",
       "queueReady": false
     },
@@ -149,7 +169,7 @@
     },
     {
       "slug": "automacao-residencial-2026-guia",
-      "title": "Automação Residencial em 2026: Quanto Custa e Como Montar uma Smart Home",
+      "title": "Automação Residencial em 2026: Como Planejar uma Smart Home sem Chute",
       "category": "tecnologia",
       "currentImage": "/images/banners/PROCESSOS.webp",
       "queueTracked": true,
@@ -181,6 +201,17 @@
       "queueReady": false
     },
     {
+      "slug": "blum-ferragens-sistemas-luxo-marcenaria",
+      "title": "Ferragens Blum: Tecnologia e Movimento Perfeito na Marcenaria de Luxo",
+      "category": "materiais",
+      "currentImage": "/images/banners/MARCENARIA.webp",
+      "queueTracked": true,
+      "queueReadyForTwoSlotEditorial": false,
+      "coverage": "generic-banner-fallback",
+      "manifestType": "none",
+      "queueReady": false
+    },
+    {
       "slug": "briefing-projeto-dos-sonhos",
       "title": "Briefing: Como Planejar o Projeto dos Seus Sonhos",
       "category": "dicas",
@@ -204,7 +235,7 @@
     },
     {
       "slug": "casa-cor-2026-mente-coracao",
-      "title": "Casa Cor 2026: Tema Mente e Coracao e Tendencias da Mostra de Arquitetura",
+      "title": "Casa Cor 2026: Tema Mente e Coração e Tendências da Mostra de Arquitetura",
       "category": "arquitetura",
       "currentImage": "/images/banners/ARQ.webp",
       "queueTracked": true,
@@ -302,6 +333,17 @@
       "queueReady": false
     },
     {
+      "slug": "duratex-mdf-paineis-marcenaria-alto-padrao",
+      "title": "Painéis de MDF Duratex: Sofisticação e Textura na Marcenaria Sob Medida",
+      "category": "materiais",
+      "currentImage": "/images/banners/MARCENARIA.webp",
+      "queueTracked": true,
+      "queueReadyForTwoSlotEditorial": false,
+      "coverage": "generic-banner-fallback",
+      "manifestType": "none",
+      "queueReady": false
+    },
+    {
       "slug": "dyson-tecnologia-design-residencial",
       "title": "Dyson Vale a Pena? Engenharia, Design Residencial e Custo-Beneficio",
       "category": "tecnologia",
@@ -310,6 +352,17 @@
       "queueReadyForTwoSlotEditorial": false,
       "coverage": "published-manifest",
       "manifestType": "two-slot",
+      "queueReady": false
+    },
+    {
+      "slug": "elettromec-eletrodomesticos-luxo-cozinha-alto-padrao",
+      "title": "Elettromec: Tecnologia e Design Italiano em Eletrodomésticos de Luxo",
+      "category": "materiais",
+      "currentImage": "/images/banners/ARQ.webp",
+      "queueTracked": true,
+      "queueReadyForTwoSlotEditorial": false,
+      "coverage": "generic-banner-fallback",
+      "manifestType": "none",
       "queueReady": false
     },
     {
@@ -390,6 +443,17 @@
       "queueReady": false
     },
     {
+      "slug": "hafele-ferragens-solucoes-inteligentes-marcenaria",
+      "title": "Häfele: Engenharia Alemã e Organização Inteligente na Marcenaria",
+      "category": "materiais",
+      "currentImage": "/images/banners/MARCENARIA.webp",
+      "queueTracked": true,
+      "queueReadyForTwoSlotEditorial": false,
+      "coverage": "generic-banner-fallback",
+      "manifestType": "none",
+      "queueReady": false
+    },
+    {
       "slug": "harman-kardon-som-ambientes",
       "title": "Harman Kardon Vale a Pena? Audio Premium e Design para Ambientes Sofisticados",
       "category": "tecnologia",
@@ -415,6 +479,17 @@
       "slug": "iluminacao-residencial-guia-completo",
       "title": "Iluminação Residencial: Guia Completo para Iluminar Sua Casa",
       "category": "design",
+      "currentImage": "/images/banners/ARQ.webp",
+      "queueTracked": true,
+      "queueReadyForTwoSlotEditorial": false,
+      "coverage": "published-manifest",
+      "manifestType": "two-slot",
+      "queueReady": false
+    },
+    {
+      "slug": "iluminacao-tecnica-arquitetural-interlight",
+      "title": "Iluminação Técnica e Arquitetural: Como a Interlight Transforma Ambientes de Alto Padrão",
+      "category": "materiais",
       "currentImage": "/images/banners/ARQ.webp",
       "queueTracked": true,
       "queueReadyForTwoSlotEditorial": false,
@@ -453,6 +528,28 @@
       "queueReadyForTwoSlotEditorial": false,
       "coverage": "published-manifest",
       "manifestType": "single",
+      "queueReady": false
+    },
+    {
+      "slug": "laca-vs-melamina-vs-folha-natural",
+      "title": "Laca, Melamina ou Folha Natural: Qual o Melhor Acabamento?",
+      "category": "materiais",
+      "currentImage": "/images/blog/marcenaria-sob-medida.webp",
+      "queueTracked": true,
+      "queueReadyForTwoSlotEditorial": false,
+      "coverage": "published-local",
+      "manifestType": "none",
+      "queueReady": false
+    },
+    {
+      "slug": "laminas-naturais-marcenaria-alto-padrao-vieira",
+      "title": "Lâminas de Madeiras Naturais: O Segredo da Marcenaria de Alto Padrão com a Vieira Lâminas",
+      "category": "materiais",
+      "currentImage": "/images/banners/MARCENARIA.webp",
+      "queueTracked": true,
+      "queueReadyForTwoSlotEditorial": false,
+      "coverage": "published-manifest",
+      "manifestType": "two-slot",
       "queueReady": false
     },
     {
@@ -512,13 +609,24 @@
     },
     {
       "slug": "marcenaria-sob-medida-tendencias-2026",
-      "title": "Marcenaria Sob Medida 2026: Tendencias, Materiais e Soluções para Otimizar Espacos",
+      "title": "Marcenaria Sob Medida 2026: Tendências, Materiais e Soluções para Otimizar Espaços",
       "category": "marcenaria",
       "currentImage": "/images/banners/MARCENARIA.webp",
       "queueTracked": true,
       "queueReadyForTwoSlotEditorial": false,
       "coverage": "published-manifest",
       "manifestType": "variant",
+      "queueReady": false
+    },
+    {
+      "slug": "marcenaria-sob-medida-vs-planejados",
+      "title": "Marcenaria Sob Medida vs. Móveis Planejados: Entenda as Diferenças Reais",
+      "category": "marcenaria",
+      "currentImage": "/images/blog/sob-medida-vs-planejados.webp",
+      "queueTracked": true,
+      "queueReadyForTwoSlotEditorial": false,
+      "coverage": "published-local",
+      "manifestType": "none",
       "queueReady": false
     },
     {
@@ -621,8 +729,19 @@
       "queueReady": false
     },
     {
+      "slug": "portobello-shop-porcelanatos-revestimentos-alto-padrao",
+      "title": "Portobello Shop: Porcelanatos e Grandes Formatos no Design de Luxo",
+      "category": "materiais",
+      "currentImage": "/images/banners/PROJETOS.webp",
+      "queueTracked": true,
+      "queueReadyForTwoSlotEditorial": false,
+      "coverage": "published-manifest",
+      "manifestType": "two-slot",
+      "queueReady": false
+    },
+    {
       "slug": "profissionais-capacitados-obra",
-      "title": "Profissionais Capacitados na Obra: A Importância de uma Equipe Qualificada",
+      "title": "Profissionais Capacitados na Obra: A Importancia de uma Equipe Qualificada",
       "category": "construção",
       "currentImage": "/images/banners/ENGENHARIA.webp",
       "queueTracked": true,
@@ -710,7 +829,7 @@
     },
     {
       "slug": "reforma-banheiro-moderno-2026",
-      "title": "Reforma de Banheiro Moderno: Tendencias, Custos e Etapas em 2026",
+      "title": "Reforma de Banheiro Moderno: Tendências, Custos e Etapas em 2026",
       "category": "reforma",
       "currentImage": "/images/banners/PROCESSOS.webp",
       "queueTracked": true,
@@ -721,7 +840,7 @@
     },
     {
       "slug": "reforma-banheiro-pequeno-otimizacao",
-      "title": "Reforma de Banheiro Pequeno 2026: 20 Soluções para Ganhar Espaco",
+      "title": "Reforma de Banheiro Pequeno 2026: 20 Solucoes para Ganhar Espaco",
       "category": "reforma",
       "currentImage": "/images/banners/PROCESSOS.webp",
       "queueTracked": true,
@@ -757,6 +876,17 @@
       "title": "Scandia Home Vale a Pena? 50 Anos de Excelencia em Roupa de Cama de Luxo",
       "category": "design",
       "currentImage": "/images/banners/ARQ.webp",
+      "queueTracked": true,
+      "queueReadyForTwoSlotEditorial": false,
+      "coverage": "published-remote-curated",
+      "manifestType": "two-slot",
+      "queueReady": false
+    },
+    {
+      "slug": "silestone-cosentino-superficies-quartzo-alto-padrao",
+      "title": "Silestone e Dekton: Superfícies de Luxo da Cosentino",
+      "category": "materiais",
+      "currentImage": "/images/banners/SOBRE.webp",
       "queueTracked": true,
       "queueReadyForTwoSlotEditorial": false,
       "coverage": "published-manifest",
@@ -798,7 +928,7 @@
     },
     {
       "slug": "tabela-precos-reforma-2026-iccri",
-      "title": "Tabela de Preços de Reforma 2026 — ICCRI: O índice de referência para obras em São Paulo",
+      "title": "Tabela de Preços de Reforma 2026 — ICCRI: índice de referência para obras em São Paulo",
       "category": "engenharia",
       "currentImage": "/images/banners/foto-obra-2.jpg",
       "queueTracked": true,
@@ -809,7 +939,7 @@
     },
     {
       "slug": "tendencias-construcao-civil-2026",
-      "title": "Construção Civil 2026: 12 Tendencias para Reduzir Prazo, Custo e Risco",
+      "title": "Construção Civil 2026: 12 Tendências para Reduzir Prazo, Custo e Risco",
       "category": "construção civil",
       "currentImage": "/images/banners/ENGENHARIA.webp",
       "queueTracked": true,
@@ -820,7 +950,7 @@
     },
     {
       "slug": "tendencias-decoracao-interiores-2026",
-      "title": "Tendencias de Decoração 2026: 20 Ideias Prontas para Sala, Quarto e Cozinha",
+      "title": "Tendências de Decoração 2026: 20 Ideias Prontas para Sala, Quarto e Cozinha",
       "category": "decoração",
       "currentImage": "/images/banners/ARQ.webp",
       "queueTracked": true,
@@ -853,7 +983,7 @@
     },
     {
       "slug": "varanda-gourmet-planejamento",
-      "title": "Varanda Gourmet: Planejamento, Layout e Custos para Executar sem Erro",
+      "title": "Varanda Gourmet: Planejamento, Layout e Governanca de Escopo",
       "category": "design",
       "currentImage": "/images/banners/ARQ.webp",
       "queueTracked": true,
