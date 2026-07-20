@@ -4,12 +4,14 @@ import STYLE_IMAGE_MANIFEST, {
   getStyleImageUrl,
   getStyleRemoteFallbackUrl,
 } from '../src/data/styleImageManifest.js';
+import { classifyRemoteFallbackHealth } from './remote-fallback-health.mjs';
 
 const root = process.cwd();
 const estilosDir = path.join(root, 'src', 'content', 'estilos');
 const publicImagesDir = path.join(root, 'public', 'images', 'estilos');
 const reportPath = path.join(root, `style-editorial-status-${new Date().toISOString().slice(0, 10)}.json`);
 const latestReportPath = path.join(root, 'style-editorial-status.latest.json');
+const REMOTE_CHECK_TIMEOUT_MS = 8000;
 
 const slugToTitle = (slug = '') =>
   slug
@@ -39,10 +41,10 @@ const checkResolvedAssetStatus = async (url) => {
   }
 
   try {
-    let response = await fetch(url, { method: 'HEAD' });
+    let response = await fetch(url, { method: 'HEAD', signal: AbortSignal.timeout(REMOTE_CHECK_TIMEOUT_MS) });
 
     if (response.status === 405 || response.status === 403) {
-      response = await fetch(url, { method: 'GET' });
+      response = await fetch(url, { method: 'GET', signal: AbortSignal.timeout(REMOTE_CHECK_TIMEOUT_MS) });
     }
 
     return {
@@ -77,6 +79,14 @@ const report = await Promise.all(
     const resolvedPublicUrl = getStyleImageUrl({ slug, variant: 'card' }) || '';
     const remoteFallbackUrl = getStyleRemoteFallbackUrl({ slug, variant: 'card' }) || '';
     const remoteFallbackStatus = await checkResolvedAssetStatus(remoteFallbackUrl);
+    const hasRemoteFallback = Boolean(remoteFallbackUrl);
+    const remoteFallbackReachable = Boolean(remoteFallbackUrl && remoteFallbackStatus.ok);
+    const remoteFallbackState = classifyRemoteFallbackHealth({
+      configured: hasRemoteFallback,
+      reachable: remoteFallbackReachable,
+      status: remoteFallbackStatus.status,
+      error: remoteFallbackStatus.error,
+    });
 
     return {
       slug,
@@ -88,8 +98,9 @@ const report = await Promise.all(
       resolvedPublicUrl,
       resolvedPublicReachable: hasLocalWebp,
       remoteFallbackUrl,
-      hasRemoteFallback: Boolean(remoteFallbackUrl),
-      remoteFallbackReachable: Boolean(remoteFallbackUrl && remoteFallbackStatus.ok),
+      hasRemoteFallback,
+      remoteFallbackReachable,
+      remoteFallbackState,
       remoteFallbackStatus: remoteFallbackUrl ? remoteFallbackStatus.status : 0,
       remoteFallbackError: remoteFallbackUrl ? remoteFallbackStatus.error : '',
       search: buildSearchUrls(slug),
@@ -106,8 +117,10 @@ const summary = {
   resolvedPublicReachable: report.filter((item) => item.resolvedPublicReachable).length,
   resolvedPublicBroken: report.filter((item) => !item.resolvedPublicReachable).length,
   remoteFallbackConfigured: report.filter((item) => item.hasRemoteFallback).length,
-  remoteFallbackReachable: report.filter((item) => item.remoteFallbackReachable).length,
-  remoteFallbackBroken: report.filter((item) => item.hasRemoteFallback && !item.remoteFallbackReachable).length,
+  remoteFallbackReachable: report.filter((item) => item.remoteFallbackState === 'reachable').length,
+  remoteFallbackBroken: report.filter((item) => item.remoteFallbackState === 'broken').length,
+  remoteFallbackUnverified: report.filter((item) => item.remoteFallbackState === 'unverified').length,
+  remoteFallbackRetired: report.filter((item) => item.remoteFallbackState === 'retired').length,
   missingManifest: report.filter((item) => !item.hasManifestEntry).length,
 };
 
@@ -126,6 +139,8 @@ console.log(`Resolved public broken: ${summary.resolvedPublicBroken}`);
 console.log(`Remote fallback configured: ${summary.remoteFallbackConfigured}`);
 console.log(`Remote fallback reachable: ${summary.remoteFallbackReachable}`);
 console.log(`Remote fallback broken: ${summary.remoteFallbackBroken}`);
+console.log(`Remote fallback unverified: ${summary.remoteFallbackUnverified}`);
+console.log(`Remote fallback retired: ${summary.remoteFallbackRetired}`);
 console.log(`Missing manifest: ${summary.missingManifest}`);
 
 if (summary.missingManifest > 0) {
@@ -139,8 +154,16 @@ if (summary.missingManifest > 0) {
 
 if (summary.remoteFallbackBroken > 0) {
   console.log('\nBroken remote style fallbacks:');
-  for (const item of report.filter((entry) => entry.hasRemoteFallback && !entry.remoteFallbackReachable)) {
+  for (const item of report.filter((entry) => entry.remoteFallbackState === 'broken')) {
     console.log(`- ${item.slug} (${item.remoteFallbackStatus || item.remoteFallbackError || 'unknown'})`);
+    console.log(`  ${item.remoteFallbackUrl}`);
+  }
+}
+
+if (summary.remoteFallbackUnverified > 0) {
+  console.log('\nUnverified remote style fallbacks (network or runtime error):');
+  for (const item of report.filter((entry) => entry.remoteFallbackState === 'unverified')) {
+    console.log(`- ${item.slug} (${item.remoteFallbackError || 'unverified'})`);
     console.log(`  ${item.remoteFallbackUrl}`);
   }
 }

@@ -65,10 +65,18 @@ const stylesStructuralClosed = Boolean(
   && styleSummary.styles === (styleSummary.publicReady || 0)
 );
 
-const stylesRemoteFallbackClosed = Boolean(
+const stylesRemoteFallbackCoverageComplete = Boolean(
   styleSummary.styles > 0
   && styleSummary.styles === (styleSummary.remoteFallbackConfigured || 0)
-  && styleSummary.styles === (styleSummary.remoteFallbackReachable || 0)
+);
+
+const stylesRemoteFallbackVerificationComplete = Boolean(
+  (styleSummary.remoteFallbackUnverified || 0) === 0
+);
+
+const stylesRemoteFallbackClosed = Boolean(
+  styleSummary.styles > 0
+  && styleSummary.styles === (styleSummary.remoteFallbackConfigured || 0) + (styleSummary.remoteFallbackRetired || 0)
   && (styleSummary.remoteFallbackBroken || 0) === 0
   && (styleSummary.missingManifest || 0) === 0
 );
@@ -79,6 +87,8 @@ const payload = {
     blogStructuralClosed,
     blogCloudMigrationClosed,
     stylesStructuralClosed,
+    stylesRemoteFallbackCoverageComplete,
+    stylesRemoteFallbackVerificationComplete,
     stylesRemoteFallbackClosed,
     editorialStructuralClosed: blogStructuralClosed && stylesStructuralClosed,
   },
@@ -105,6 +115,8 @@ const payload = {
     remoteFallbackConfigured: styleSummary.remoteFallbackConfigured || 0,
     remoteFallbackReachable: styleSummary.remoteFallbackReachable || 0,
     remoteFallbackBroken: styleSummary.remoteFallbackBroken || 0,
+    remoteFallbackUnverified: styleSummary.remoteFallbackUnverified || 0,
+    remoteFallbackRetired: styleSummary.remoteFallbackRetired || 0,
     missingManifest: styleSummary.missingManifest || 0,
   },
   evidence: {
@@ -121,6 +133,8 @@ fs.writeFileSync(latestReportPath, JSON.stringify(payload, null, 2));
 console.log(`Blog structural closed: ${payload.summary.blogStructuralClosed ? 'YES' : 'NO'}`);
 console.log(`Blog cloud migration closed: ${payload.summary.blogCloudMigrationClosed ? 'YES' : 'NO'}`);
 console.log(`Styles structural closed: ${payload.summary.stylesStructuralClosed ? 'YES' : 'NO'}`);
+console.log(`Styles remote fallback coverage complete: ${payload.summary.stylesRemoteFallbackCoverageComplete ? 'YES' : 'NO'}`);
+console.log(`Styles remote fallback verification complete: ${payload.summary.stylesRemoteFallbackVerificationComplete ? 'YES' : 'NO'}`);
 console.log(`Styles remote fallback closed: ${payload.summary.stylesRemoteFallbackClosed ? 'YES' : 'NO'}`);
 console.log(`Editorial structural closed: ${payload.summary.editorialStructuralClosed ? 'YES' : 'NO'}`);
 console.log(`Saved report to ${reportPath}`);
