@@ -16,6 +16,8 @@ const buildSharedBlogVariantSlots = (asset) => ({
   square: asset,
 });
 
+const buildUnsplashBlogAsset = (src, page, alt) => ({ source: 'unsplash', src, page, alt });
+
 export const BLOG_IMAGE_MANIFEST = {
   slugs: {
     'arquitetura-amsterdam-holanda': {
@@ -379,12 +381,7 @@ export const BLOG_IMAGE_MANIFEST = {
       ],
     },
     'custo-reforma-m2-sao-paulo': {
-      ...buildSharedBlogVariantSlots({
-        source: 'unsplash',
-        src: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2',
-        page: 'https://unsplash.com/photos/uO8MXVpKCFg',
-        alt: 'Apartamento moderno em São Paulo com interiores luminosos e acabamento premium',
-      }),
+      ...buildSharedBlogVariantSlots(buildUnsplashBlogAsset('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2', 'https://unsplash.com/photos/uO8MXVpKCFg', 'Apartamento moderno em São Paulo com interiores luminosos e acabamento premium')),
       context: [
         {
           source: 'unsplash',
@@ -457,12 +454,7 @@ export const BLOG_IMAGE_MANIFEST = {
       ],
     },
     'quanto-custa-reforma-apartamento-100m2': {
-      ...buildSharedBlogVariantSlots({
-        source: 'unsplash',
-        src: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2',
-        page: 'https://unsplash.com/photos/uO8MXVpKCFg',
-        alt: 'Apartamento de 100m² reformado com sala integrada e cozinha aberta em São Paulo',
-      }),
+      ...buildSharedBlogVariantSlots(buildUnsplashBlogAsset('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2', 'https://unsplash.com/photos/uO8MXVpKCFg', 'Apartamento de 100m² reformado com sala integrada e cozinha aberta em São Paulo')),
       context: [
         {
           source: 'unsplash',
@@ -499,12 +491,7 @@ export const BLOG_IMAGE_MANIFEST = {
       ],
     },
     'quanto-tempo-leva-reforma-completa-alto-padrao': {
-      ...buildSharedBlogVariantSlots({
-        source: 'unsplash',
-        src: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd',
-        page: 'https://unsplash.com/photos/qAjM1RIKL_A',
-        alt: 'Canteiro de reforma residencial com etapas executivas em andamento',
-      }),
+      ...buildSharedBlogVariantSlots(buildUnsplashBlogAsset('https://images.unsplash.com/photo-1504307651254-35680f356dfd', 'https://unsplash.com/photos/qAjM1RIKL_A', 'Canteiro de reforma residencial com etapas executivas em andamento')),
       context: [
         {
           source: 'unsplash',
@@ -613,12 +600,7 @@ export const BLOG_IMAGE_MANIFEST = {
       ],
     },
     'custo-marcenaria-planejada': {
-      ...buildSharedBlogVariantSlots({
-        source: 'unsplash',
-        src: 'https://images.unsplash.com/photo-1565538810643-b5bdb714032a',
-        page: 'https://unsplash.com/photos/RFDP7_80v5A',
-        alt: 'Marcenaria planejada de alto padrão com detalhes em madeira e ferragens premium',
-      }),
+      ...buildSharedBlogVariantSlots(buildUnsplashBlogAsset('https://images.unsplash.com/photo-1565538810643-b5bdb714032a', 'https://unsplash.com/photos/RFDP7_80v5A', 'Marcenaria planejada de alto padrão com detalhes em madeira e ferragens premium')),
       context: [
         {
           source: 'unsplash',
