@@ -19,7 +19,6 @@ const mdRawPlugin = {
   },
 };
 
-const isDev = process.argv.includes("serve") || process.argv.includes("dev");
 const enableEditorDevPlugins = process.env.ENABLE_VISUAL_EDITOR_DEV === "true";
 const coreJsInternalsPath = path.resolve(
   __dirname,
@@ -238,7 +237,7 @@ const reactPathMarkers = [
   "react-router",
 ];
 
-const addTransformIndexHtml = {
+const createTransformIndexHtmlPlugin = (isDev) => ({
   name: "add-transform-index-html",
   transformIndexHtml(html) {
     const optimizedHtml = html
@@ -278,7 +277,7 @@ const addTransformIndexHtml = {
       tags,
     };
   },
-};
+});
 
 console.warn = () => {};
 
@@ -293,7 +292,7 @@ logger.error = (msg, options) => {
   loggerError(msg, options);
 };
 
-export default defineConfig({
+const createViteConfig = (isDev) => ({
   appType: "spa",
   base: appBasePath,
   customLogger: logger,
@@ -309,7 +308,7 @@ export default defineConfig({
       : []),
     mdRawPlugin,
     react(),
-    ...(isDev ? [] : [addTransformIndexHtml]),
+    ...(isDev ? [] : [createTransformIndexHtmlPlugin(isDev)]),
     coreJsAliasPlugin,
     // Compressão Gzip + Brotli dos assets no build
     ...(isDev
@@ -415,3 +414,7 @@ export default defineConfig({
     chunkSizeWarningLimit: 500,
   },
 });
+
+export default defineConfig(({ command, isPreview }) =>
+  createViteConfig(command === "serve" && !isPreview),
+);
