@@ -1,5 +1,9 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { getStyleImageAsset, getStyleImageUrl } from '@/data/styleImageManifest';
+import {
+  getCloudinaryStyleImage,
+  getStyleImageAsset,
+  getStyleImageUrl,
+} from '@/data/styleImageManifest';
 
 describe('style image manifest delivery', () => {
   beforeEach(() => {
@@ -15,6 +19,8 @@ describe('style image manifest delivery', () => {
 
     expect(getStyleImageUrl({ slug: 'minimalismo', variant: 'card' }))
       .toBe('/portal/images/estilos/minimalismo.webp');
+    expect(getCloudinaryStyleImage({ slug: 'minimalismo', variant: 'seo' }))
+      .toBe('https://wgalmeida.com.br/portal/images/estilos/minimalismo.webp');
   });
 
   it('uses the committed local WEBP as the canonical public asset', () => {

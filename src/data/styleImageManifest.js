@@ -1,3 +1,4 @@
+import { PRODUCT_URLS } from './companyPublic.js';
 import { buildCloudinaryEditorialUrl } from '../utils/cloudinaryEditorial.js';
 import { withBasePath } from '../utils/assetPaths.js';
 
@@ -98,5 +99,12 @@ export const getStyleImageAsset = ({ slug, variant = 'hero' } = {}) => {
 
 export const getStyleImageUrl = ({ slug, variant = 'hero' } = {}) =>
   getStyleImageAsset({ slug, variant })?.src || null;
+
+// Compatibilidade do builder SEO legado. O auditor usa os helpers explícitos
+// de entrega local e fallback remoto, evitando inferências incorretas de CDN.
+export const getCloudinaryStyleImage = ({ slug } = {}) => {
+  const localSrc = getCommittedStyleLocalSrc(slug);
+  return localSrc ? `${PRODUCT_URLS.site}${localSrc}` : '';
+};
 
 export default STYLE_IMAGE_MANIFEST;
