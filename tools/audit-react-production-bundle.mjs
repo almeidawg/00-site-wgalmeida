@@ -1,8 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-const root = process.cwd();
-const distDir = path.resolve(root, process.argv[2] || process.env.BUILD_OUT_DIR || 'dist');
+const root = path.resolve(process.cwd());
+const distDir = path.join(root, 'dist');
 const assetsDir = path.join(distDir, 'assets');
 const MAX_VENDOR_REACT_BYTES = 230 * 1024;
 const DEV_ONLY_MARKERS = [
