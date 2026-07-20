@@ -65,12 +65,12 @@ const stylesStructuralClosed = Boolean(
   && styleSummary.styles === (styleSummary.publicReady || 0)
 );
 
-const stylesCloudinaryClosed = Boolean(
+const stylesRemoteFallbackClosed = Boolean(
   styleSummary.styles > 0
-  && styleSummary.styles === (styleSummary.cloudinaryManifest || styleSummary.cloudinary || 0)
-  && styleSummary.styles === (styleSummary.cloudinaryReachable || 0)
-  && (styleSummary.cloudinaryBroken || 0) === 0
-  && styleSummary.missingCloudinary === 0
+  && styleSummary.styles === (styleSummary.remoteFallbackConfigured || 0)
+  && styleSummary.styles === (styleSummary.remoteFallbackReachable || 0)
+  && (styleSummary.remoteFallbackBroken || 0) === 0
+  && (styleSummary.missingManifest || 0) === 0
 );
 
 const payload = {
@@ -79,7 +79,7 @@ const payload = {
     blogStructuralClosed,
     blogCloudMigrationClosed,
     stylesStructuralClosed,
-    stylesCloudinaryClosed,
+    stylesRemoteFallbackClosed,
     editorialStructuralClosed: blogStructuralClosed && stylesStructuralClosed,
   },
   blog: {
@@ -99,10 +99,13 @@ const payload = {
     localWebp: styleSummary.localWebp || 0,
     localSvg: styleSummary.localSvg || 0,
     publicReady: styleSummary.publicReady || 0,
-    cloudinaryManifest: styleSummary.cloudinaryManifest || styleSummary.cloudinary || 0,
-    cloudinaryReachable: styleSummary.cloudinaryReachable || 0,
-    cloudinaryBroken: styleSummary.cloudinaryBroken || 0,
-    missingCloudinary: styleSummary.missingCloudinary || 0,
+    manifestEntries: styleSummary.manifestEntries || 0,
+    resolvedPublicReachable: styleSummary.resolvedPublicReachable || 0,
+    resolvedPublicBroken: styleSummary.resolvedPublicBroken || 0,
+    remoteFallbackConfigured: styleSummary.remoteFallbackConfigured || 0,
+    remoteFallbackReachable: styleSummary.remoteFallbackReachable || 0,
+    remoteFallbackBroken: styleSummary.remoteFallbackBroken || 0,
+    missingManifest: styleSummary.missingManifest || 0,
   },
   evidence: {
     blogStatus: 'blog-editorial-status.latest.json',
@@ -118,7 +121,7 @@ fs.writeFileSync(latestReportPath, JSON.stringify(payload, null, 2));
 console.log(`Blog structural closed: ${payload.summary.blogStructuralClosed ? 'YES' : 'NO'}`);
 console.log(`Blog cloud migration closed: ${payload.summary.blogCloudMigrationClosed ? 'YES' : 'NO'}`);
 console.log(`Styles structural closed: ${payload.summary.stylesStructuralClosed ? 'YES' : 'NO'}`);
-console.log(`Styles Cloudinary closed: ${payload.summary.stylesCloudinaryClosed ? 'YES' : 'NO'}`);
+console.log(`Styles remote fallback closed: ${payload.summary.stylesRemoteFallbackClosed ? 'YES' : 'NO'}`);
 console.log(`Editorial structural closed: ${payload.summary.editorialStructuralClosed ? 'YES' : 'NO'}`);
 console.log(`Saved report to ${reportPath}`);
 console.log(`Saved latest report to ${latestReportPath}`);

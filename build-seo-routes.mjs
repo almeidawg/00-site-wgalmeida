@@ -3,7 +3,7 @@ import path from "node:path";
 import { SEO_CONFIG, getSEOConfig } from "./src/data/seoConfig.js";
 import { getCloudinaryBlogImage } from "./src/data/blogImageManifest.js";
 import { getBlogImageUrl } from "./src/data/blogImageManifest.js";
-import { getCloudinaryStyleImage } from "./src/data/styleImageManifest.js";
+import { getStyleImageUrl } from "./src/data/styleImageManifest.js";
 
 const BASE_URL = "https://wgalmeida.com.br";
 const STYLE_BANNERS = [
@@ -39,6 +39,11 @@ function getStyleCoverPath(slug) {
   }
 
   return STYLE_BANNERS[hash % STYLE_BANNERS.length];
+}
+
+function toAbsoluteSiteUrl(value) {
+  if (!value) return '';
+  return value.startsWith('http') ? value : `${BASE_URL}${value}`;
 }
 /** Get SEO config for a blog article from its markdown file */
 function getBlogArticleSEO(slug) {
@@ -82,8 +87,8 @@ function getEstiloSEO(slug) {
   const displayName = slug.split('-').map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(' ');
   const title = fm.title ? `${fm.title} - Guia Completo de Estilo | WG Almeida` : `${displayName} - Guia Completo de Estilo | WG Almeida`;
   const description = fm.excerpt || `Descubra o estilo ${displayName}: caracteristicas, cores e como aplicar na sua casa com a curadoria do Grupo WG Almeida.`;
-  const cloudinaryImage = getCloudinaryStyleImage({ slug, variant: "seo" });
-  const image = cloudinaryImage || `${BASE_URL}${getStyleCoverPath(slug)}`;
+  const styleImage = getStyleImageUrl({ slug, variant: "seo" });
+  const image = toAbsoluteSiteUrl(styleImage || getStyleCoverPath(slug));
   const canonical = `${BASE_URL}/estilos/${slug}`;
   return { title, description, canonical, og: { title, description, image, url: canonical }, twitter: { card: "summary_large_image", title, description, image } };
 }

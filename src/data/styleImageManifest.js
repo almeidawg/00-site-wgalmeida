@@ -1,4 +1,5 @@
 import { buildCloudinaryEditorialUrl } from '../utils/cloudinaryEditorial.js';
+import { withBasePath } from '../utils/assetPaths.js';
 
 const STYLE_UPLOAD_STORAGE_KEY = 'wg_blog_editorial_uploads_v1';
 const STYLE_UNSPLASH_STORAGE_KEY = 'wg_blog_editorial_unsplash_v1';
@@ -48,15 +49,17 @@ export const STYLE_IMAGE_MANIFEST = {
 };
 
 const getCommittedStyleLocalSrc = (slug) =>
-  slug ? `/images/estilos/${slug}.webp` : '';
+  slug ? withBasePath(`/images/estilos/${slug}.webp`) : '';
 
-export const getCloudinaryStyleImage = ({ slug, variant = 'card' } = {}) => {
+export const getStyleRemoteFallbackUrl = ({ slug, variant = 'card' } = {}) => {
   const entry = slug ? STYLE_IMAGE_MANIFEST[slug] : null;
-  if (!entry) return buildCloudinaryEditorialUrl(null, variant);
-  return getCommittedStyleLocalSrc(slug);
+  if (!entry) return '';
+  if (typeof entry === 'string') return buildCloudinaryEditorialUrl(entry, variant);
+  return entry.src || '';
 };
 
-export const hasCloudinaryStyleImage = (slug) => Boolean(slug && STYLE_IMAGE_MANIFEST[slug]);
+export const hasStyleRemoteFallback = (slug) =>
+  Boolean(getStyleRemoteFallbackUrl({ slug }));
 
 export const getStyleImageAsset = ({ slug, variant = 'hero' } = {}) => {
   if (!slug) return null;

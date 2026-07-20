@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-07-20T18:19:15.164Z",
+  "generatedAt": "2026-07-20T18:26:15.303Z",
   "summary": {
     "blogStructuralClosed": true,
     "blogCloudMigrationClosed": false,
     "stylesStructuralClosed": true,
-    "stylesCloudinaryClosed": true,
+    "stylesRemoteFallbackClosed": false,
     "editorialStructuralClosed": true
   },
   "blog": {
@@ -24,10 +24,13 @@
     "localWebp": 31,
     "localSvg": 0,
     "publicReady": 31,
-    "cloudinaryManifest": 31,
-    "cloudinaryReachable": 31,
-    "cloudinaryBroken": 0,
-    "missingCloudinary": 0
+    "manifestEntries": 31,
+    "resolvedPublicReachable": 31,
+    "resolvedPublicBroken": 0,
+    "remoteFallbackConfigured": 31,
+    "remoteFallbackReachable": 25,
+    "remoteFallbackBroken": 6,
+    "missingManifest": 0
   },
   "evidence": {
     "blogStatus": "blog-editorial-status.latest.json",

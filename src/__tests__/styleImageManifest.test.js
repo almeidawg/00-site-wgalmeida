@@ -1,9 +1,20 @@
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { getStyleImageAsset, getStyleImageUrl } from '@/data/styleImageManifest';
 
 describe('style image manifest delivery', () => {
   beforeEach(() => {
     window.localStorage.clear();
+  });
+
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  it('preserves the configured base path for committed style assets', () => {
+    vi.stubEnv('BASE_URL', '/portal/');
+
+    expect(getStyleImageUrl({ slug: 'minimalismo', variant: 'card' }))
+      .toBe('/portal/images/estilos/minimalismo.webp');
   });
 
   it('uses the committed local WEBP as the canonical public asset', () => {

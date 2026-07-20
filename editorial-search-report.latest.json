@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-07-20T18:19:15.056Z",
+  "generatedAt": "2026-07-20T18:26:15.010Z",
   "summary": {
     "styles": 31,
-    "stylesWithCloudinary": 31,
+    "stylesWithManifest": 31,
     "blogPosts": 89,
     "blogNeedsSearch": 54,
     "blogHeroUnsplashOrRemote": 47,
@@ -13,7 +13,7 @@
       "kind": "style",
       "slug": "art-deco",
       "title": "Art Deco",
-      "hasCloudinary": true,
+      "hasManifestEntry": true,
       "mainQuery": "art deco interior",
       "searchTerms": [
         "art deco interior",
@@ -40,7 +40,7 @@
       "kind": "style",
       "slug": "art-nouveau",
       "title": "Art Nouveau",
-      "hasCloudinary": true,
+      "hasManifestEntry": true,
       "mainQuery": "art nouveau interior",
       "searchTerms": [
         "art nouveau interior",
@@ -67,7 +67,7 @@
       "kind": "style",
       "slug": "boho",
       "title": "Boho",
-      "hasCloudinary": true,
+      "hasManifestEntry": true,
       "mainQuery": "boho chic interior",
       "searchTerms": [
         "boho chic interior",
@@ -92,7 +92,7 @@
       "kind": "style",
       "slug": "classico",
       "title": "Classico",
-      "hasCloudinary": true,
+      "hasManifestEntry": true,
       "mainQuery": "classic interior design",
       "searchTerms": [
         "classic interior design",
@@ -117,7 +117,7 @@
       "kind": "style",
       "slug": "coastal",
       "title": "Coastal",
-      "hasCloudinary": true,
+      "hasManifestEntry": true,
       "mainQuery": "coastal interior design",
       "searchTerms": [
         "coastal interior design",
@@ -143,7 +143,7 @@
       "kind": "style",
       "slug": "contemporaneo",
       "title": "Contemporaneo",
-      "hasCloudinary": true,
+      "hasManifestEntry": true,
       "mainQuery": "contemporary interior design",
       "searchTerms": [
         "contemporary interior design",
@@ -169,7 +169,7 @@
       "kind": "style",
       "slug": "cottage",
       "title": "Cottage",
-      "hasCloudinary": true,
+      "hasManifestEntry": true,
       "mainQuery": "cottage interior design",
       "searchTerms": [
         "cottage interior design",
@@ -196,7 +196,7 @@
       "kind": "style",
       "slug": "ecletico",
       "title": "Ecletico",
-      "hasCloudinary": true,
+      "hasManifestEntry": true,
       "mainQuery": "eclectic interior design",
       "searchTerms": [
         "eclectic interior design",
@@ -223,7 +223,7 @@
       "kind": "style",
       "slug": "escandinavo",
       "title": "Escandinavo",
-      "hasCloudinary": true,
+      "hasManifestEntry": true,
       "mainQuery": "scandinavian interior design",
       "searchTerms": [
         "scandinavian interior design",
@@ -249,7 +249,7 @@
       "kind": "style",
       "slug": "farmhouse",
       "title": "Farmhouse",
-      "hasCloudinary": true,
+      "hasManifestEntry": true,
       "mainQuery": "farmhouse interior design",
       "searchTerms": [
         "farmhouse interior design",
@@ -275,7 +275,7 @@
       "kind": "style",
       "slug": "glam",
       "title": "Glam",
-      "hasCloudinary": true,
+      "hasManifestEntry": true,
       "mainQuery": "glam interior design",
       "searchTerms": [
         "glam interior design",
@@ -300,7 +300,7 @@
       "kind": "style",
       "slug": "hampton",
       "title": "Hampton",
-      "hasCloudinary": true,
+      "hasManifestEntry": true,
       "mainQuery": "hamptons interior design",
       "searchTerms": [
         "hamptons interior design",
@@ -326,7 +326,7 @@
       "kind": "style",
       "slug": "hollywood-regency",
       "title": "Hollywood Regency",
-      "hasCloudinary": true,
+      "hasManifestEntry": true,
       "mainQuery": "hollywood regency interior",
       "searchTerms": [
         "hollywood regency interior",
@@ -352,7 +352,7 @@
       "kind": "style",
       "slug": "industrial",
       "title": "Industrial",
-      "hasCloudinary": true,
+      "hasManifestEntry": true,
       "mainQuery": "industrial interior design",
       "searchTerms": [
         "industrial interior design",
@@ -377,7 +377,7 @@
       "kind": "style",
       "slug": "japandi",
       "title": "Japandi",
-      "hasCloudinary": true,
+      "hasManifestEntry": true,
       "mainQuery": "japandi interior design",
       "searchTerms": [
         "japandi interior design",
@@ -403,7 +403,7 @@
       "kind": "style",
       "slug": "maximalista",
       "title": "Maximalista",
-      "hasCloudinary": true,
+      "hasManifestEntry": true,
       "mainQuery": "maximalist interior design",
       "searchTerms": [
         "maximalist interior design",
@@ -429,7 +429,7 @@
       "kind": "style",
       "slug": "mediterraneo",
       "title": "Mediterraneo",
-      "hasCloudinary": true,
+      "hasManifestEntry": true,
       "mainQuery": "mediterranean interior design",
       "searchTerms": [
         "mediterranean interior design",
@@ -456,7 +456,7 @@
       "kind": "style",
       "slug": "mid-century",
       "title": "Mid Century",
-      "hasCloudinary": true,
+      "hasManifestEntry": true,
       "mainQuery": "mid century modern interior",
       "searchTerms": [
         "mid century modern interior",
@@ -483,7 +483,7 @@
       "kind": "style",
       "slug": "minimalismo",
       "title": "Minimalismo",
-      "hasCloudinary": true,
+      "hasManifestEntry": true,
       "mainQuery": "minimalist interior design",
       "searchTerms": [
         "minimalist interior design",
@@ -509,7 +509,7 @@
       "kind": "style",
       "slug": "moderno",
       "title": "Moderno",
-      "hasCloudinary": true,
+      "hasManifestEntry": true,
       "mainQuery": "modern interior design",
       "searchTerms": [
         "modern interior design",
@@ -534,7 +534,7 @@
       "kind": "style",
       "slug": "neoclassico",
       "title": "Neoclassico",
-      "hasCloudinary": true,
+      "hasManifestEntry": true,
       "mainQuery": "neoclassical interior design",
       "searchTerms": [
         "neoclassical interior design",
@@ -560,7 +560,7 @@
       "kind": "style",
       "slug": "provencal",
       "title": "Provencal",
-      "hasCloudinary": true,
+      "hasManifestEntry": true,
       "mainQuery": "provencal interior design",
       "searchTerms": [
         "provencal interior design",
@@ -587,7 +587,7 @@
       "kind": "style",
       "slug": "rustico",
       "title": "Rustico",
-      "hasCloudinary": true,
+      "hasManifestEntry": true,
       "mainQuery": "rustic interior design",
       "searchTerms": [
         "rustic interior design",
@@ -613,7 +613,7 @@
       "kind": "style",
       "slug": "shabby-chic",
       "title": "Shabby Chic",
-      "hasCloudinary": true,
+      "hasManifestEntry": true,
       "mainQuery": "shabby chic interior design",
       "searchTerms": [
         "shabby chic interior design",
@@ -641,7 +641,7 @@
       "kind": "style",
       "slug": "southwest",
       "title": "Southwest",
-      "hasCloudinary": true,
+      "hasManifestEntry": true,
       "mainQuery": "southwest interior design",
       "searchTerms": [
         "southwest interior design",
@@ -666,7 +666,7 @@
       "kind": "style",
       "slug": "transitional",
       "title": "Transitional",
-      "hasCloudinary": true,
+      "hasManifestEntry": true,
       "mainQuery": "transitional interior design",
       "searchTerms": [
         "transitional interior design",
@@ -693,7 +693,7 @@
       "kind": "style",
       "slug": "tropical",
       "title": "Tropical",
-      "hasCloudinary": true,
+      "hasManifestEntry": true,
       "mainQuery": "tropical interior design",
       "searchTerms": [
         "tropical interior design",
@@ -720,7 +720,7 @@
       "kind": "style",
       "slug": "tulum",
       "title": "Tulum",
-      "hasCloudinary": true,
+      "hasManifestEntry": true,
       "mainQuery": "tulum style interior",
       "searchTerms": [
         "tulum style interior",
@@ -746,7 +746,7 @@
       "kind": "style",
       "slug": "urban-modern",
       "title": "Urban Modern",
-      "hasCloudinary": true,
+      "hasManifestEntry": true,
       "mainQuery": "urban modern interior design",
       "searchTerms": [
         "urban modern interior design",
@@ -771,7 +771,7 @@
       "kind": "style",
       "slug": "vintage",
       "title": "Vintage",
-      "hasCloudinary": true,
+      "hasManifestEntry": true,
       "mainQuery": "vintage interior design",
       "searchTerms": [
         "vintage interior design",
@@ -796,7 +796,7 @@
       "kind": "style",
       "slug": "wabi-sabi",
       "title": "Wabi Sabi",
-      "hasCloudinary": true,
+      "hasManifestEntry": true,
       "mainQuery": "wabi sabi interior design",
       "searchTerms": [
         "wabi sabi interior design",
