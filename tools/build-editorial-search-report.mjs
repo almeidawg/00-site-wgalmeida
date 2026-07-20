@@ -69,7 +69,7 @@ const styleQueue = styleSlugs.map((slug) => {
     kind: 'style',
     slug,
     title,
-    hasCloudinary: Boolean(STYLE_IMAGE_MANIFEST?.[slug]),
+    hasManifestEntry: Boolean(STYLE_IMAGE_MANIFEST?.[slug]),
     mainQuery: payload.mainQuery,
     searchTerms: payload.searchTerms,
     search: {
@@ -129,7 +129,7 @@ const hotlinkCandidates = blogQueue.filter((item) => item.needsSearch);
 
 const summary = {
   styles: styleQueue.length,
-  stylesWithCloudinary: styleQueue.filter((item) => item.hasCloudinary).length,
+  stylesWithManifest: styleQueue.filter((item) => item.hasManifestEntry).length,
   blogPosts: blogQueue.length,
   blogNeedsSearch: hotlinkCandidates.length,
   blogHeroUnsplashOrRemote: blogQueue.filter((item) => item.heroSource === 'unsplash' || (item.heroSource === 'remote' && !item.heroCurated)).length,
@@ -147,7 +147,7 @@ fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
 fs.writeFileSync(latestReportPath, JSON.stringify(report, null, 2));
 
 console.log(`Styles queued: ${summary.styles}`);
-console.log(`Styles with Cloudinary: ${summary.stylesWithCloudinary}`);
+console.log(`Styles with manifest entry: ${summary.stylesWithManifest}`);
 console.log(`Blog posts queued for search: ${summary.blogNeedsSearch}`);
 console.log(`Blog hero still unsplash/remote: ${summary.blogHeroUnsplashOrRemote}`);
 console.log(`Blog card still unsplash/remote: ${summary.blogCardUnsplashOrRemote}`);

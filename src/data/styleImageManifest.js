@@ -1,4 +1,6 @@
+import { PRODUCT_URLS } from './companyPublic.js';
 import { buildCloudinaryEditorialUrl } from '../utils/cloudinaryEditorial.js';
+import { withBasePath } from '../utils/assetPaths.js';
 
 const STYLE_UPLOAD_STORAGE_KEY = 'wg_blog_editorial_uploads_v1';
 const STYLE_UNSPLASH_STORAGE_KEY = 'wg_blog_editorial_unsplash_v1';
@@ -47,14 +49,18 @@ export const STYLE_IMAGE_MANIFEST = {
   'wabi-sabi': { src: 'https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=1600&q=80', alt: 'Wabi-Sabi Natural Vibe' },
 };
 
-export const getCloudinaryStyleImage = ({ slug, variant = 'card' } = {}) => {
+const getCommittedStyleLocalSrc = (slug) =>
+  slug ? withBasePath(`/images/estilos/${slug}.webp`) : '';
+
+export const getStyleRemoteFallbackUrl = ({ slug, variant = 'card' } = {}) => {
   const entry = slug ? STYLE_IMAGE_MANIFEST[slug] : null;
-  if (!entry) return buildCloudinaryEditorialUrl(null, variant);
-  if (typeof entry === 'object' && entry.src) return entry.src;
-  return buildCloudinaryEditorialUrl(entry, variant);
+  if (!entry) return '';
+  if (typeof entry === 'string') return buildCloudinaryEditorialUrl(entry, variant);
+  return entry.src || '';
 };
 
-export const hasCloudinaryStyleImage = (slug) => Boolean(slug && STYLE_IMAGE_MANIFEST[slug]);
+export const hasStyleRemoteFallback = (slug) =>
+  Boolean(getStyleRemoteFallbackUrl({ slug }));
 
 export const getStyleImageAsset = ({ slug, variant = 'hero' } = {}) => {
   if (!slug) return null;
@@ -78,20 +84,27 @@ export const getStyleImageAsset = ({ slug, variant = 'hero' } = {}) => {
     return { kind: 'unsplash', src, alt: slotData.alt || '', page: slotData.page || '' };
   }
 
-  // 3. Committed manifest
+  // 3. Manifest versionado: o WEBP local e a fonte canonica de entrega.
+  // A URL externa permanece apenas como referencia editorial no manifesto.
   const entry = STYLE_IMAGE_MANIFEST[slug];
   if (!entry) return null;
-  if (typeof entry === 'string') {
-    return { kind: 'cloudinary', src: buildCloudinaryEditorialUrl(entry, variant), publicId: entry };
-  }
-  if (typeof entry === 'object' && entry.src) {
-    return { kind: 'remote', src: entry.src, alt: entry.alt || '' };
-  }
 
-  return null;
+  return {
+    kind: 'local',
+    src: getCommittedStyleLocalSrc(slug),
+    alt: typeof entry === 'object' ? entry.alt || '' : '',
+    remoteFallback: typeof entry === 'object' ? entry.src || '' : '',
+  };
 };
 
 export const getStyleImageUrl = ({ slug, variant = 'hero' } = {}) =>
   getStyleImageAsset({ slug, variant })?.src || null;
+
+// Compatibilidade do builder SEO legado. O auditor usa os helpers explícitos
+// de entrega local e fallback remoto, evitando inferências incorretas de CDN.
+export const getCloudinaryStyleImage = ({ slug } = {}) => {
+  const localSrc = getCommittedStyleLocalSrc(slug);
+  return localSrc ? `${PRODUCT_URLS.site}${localSrc}` : '';
+};
 
 export default STYLE_IMAGE_MANIFEST;

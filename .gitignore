@@ -178,6 +178,11 @@ link-audit-*.json
 cloudinary-*.json
 blog-editorial-queue-*.json
 blog-editorial-status-*.json
+blog-image-repetition-audit-*.json
+editorial-health-status-*.json
+editorial-search-report-*.json
+style-editorial-status-*.json
+.codex/
 unsplash-collection-*.json
 
 # Evidencias visuais locais de auditoria/validacao humana

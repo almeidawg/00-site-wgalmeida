@@ -21,6 +21,14 @@ vi.mock('@/data/blogImageOverrides.generated.js', () => ({
           alt: 'Novo hero publicado',
         },
       },
+      'projeto-executivo-o-que-e': {
+        hero: { source: 'local', src: '/og-engenharia-1200x630.jpg' },
+        seo: { source: 'local', src: '/og-engenharia-1200x630.jpg' },
+        card: { source: 'local', src: '/images/banners/PROCESSOS.webp' },
+        thumb: { source: 'local', src: '/images/banners/PROCESSOS.webp' },
+        square: { source: 'local', src: '/images/banners/PROCESSOS.webp' },
+        default: { source: 'local', src: '/og-engenharia-1200x630.jpg' },
+      },
     },
   },
 }));
@@ -62,6 +70,19 @@ describe('blog image manifest precedence', () => {
 
     expect(asset.src).toBe('https://cdn.example.com/new-hero.webp');
     expect(asset.alt).toBe('Novo hero publicado');
+  });
+
+  it('preserves a string Cloudinary fallback after generic generated slots are sanitized', () => {
+    const asset = getBlogImageAsset({
+      slug: 'projeto-executivo-o-que-e',
+      variant: 'hero',
+      allowCategoryFallback: false,
+    });
+
+    expect(asset.source).toBe('cloudinary');
+    expect(asset.publicId).toBe('editorial/blog/projeto-executivo');
+    expect(asset.src).toContain('/editorial/blog/projeto-executivo');
+    expect(asset.src).not.toContain('/og-engenharia-1200x630.jpg');
   });
 
   it('treats canonical legacy entries as fallback when a curated manifest exists', () => {

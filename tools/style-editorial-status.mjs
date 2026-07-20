@@ -1,7 +1,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import STYLE_IMAGE_MANIFEST from '../src/data/styleImageManifest.js';
-import { getCloudinaryStyleImage } from '../src/data/styleImageManifest.js';
+import STYLE_IMAGE_MANIFEST, {
+  getStyleImageUrl,
+  getStyleRemoteFallbackUrl,
+} from '../src/data/styleImageManifest.js';
 
 const root = process.cwd();
 const estilosDir = path.join(root, 'src', 'content', 'estilos');
@@ -23,8 +25,18 @@ const buildSearchUrls = (slug) => {
   };
 };
 
-const checkHttpStatus = async (url) => {
-  if (!url) return { ok: false, status: 0, error: 'missing-url' };
+const checkResolvedAssetStatus = async (url) => {
+  if (!url) return { ok: false, status: 0, error: 'missing-url', source: 'missing' };
+
+  if (url.startsWith('/')) {
+    const localPath = path.join(root, 'public', url.replace(/^\/+/, ''));
+    return {
+      ok: fs.existsSync(localPath),
+      status: fs.existsSync(localPath) ? 200 : 404,
+      error: fs.existsSync(localPath) ? '' : 'missing-local-file',
+      source: 'local',
+    };
+  }
 
   try {
     let response = await fetch(url, { method: 'HEAD' });
@@ -37,12 +49,14 @@ const checkHttpStatus = async (url) => {
       ok: response.ok,
       status: response.status,
       error: '',
+      source: 'remote',
     };
   } catch (error) {
     return {
       ok: false,
       status: 0,
       error: error.message,
+      source: 'remote',
     };
   }
 };
@@ -59,9 +73,10 @@ const report = await Promise.all(
     const localSvg = path.join(publicImagesDir, `${slug}.svg`);
     const hasLocalWebp = fs.existsSync(localWebp);
     const hasLocalSvg = fs.existsSync(localSvg);
-    const cloudinaryPublicId = STYLE_IMAGE_MANIFEST?.[slug] || '';
-    const resolvedCard = getCloudinaryStyleImage({ slug, variant: 'card' }) || '';
-    const cloudinaryStatus = await checkHttpStatus(resolvedCard);
+    const manifestEntry = STYLE_IMAGE_MANIFEST?.[slug] || null;
+    const resolvedPublicUrl = getStyleImageUrl({ slug, variant: 'card' }) || '';
+    const remoteFallbackUrl = getStyleRemoteFallbackUrl({ slug, variant: 'card' }) || '';
+    const remoteFallbackStatus = await checkResolvedAssetStatus(remoteFallbackUrl);
 
     return {
       slug,
@@ -69,12 +84,14 @@ const report = await Promise.all(
       hasLocalWebp,
       hasLocalSvg,
       publicReady: hasLocalWebp,
-      cloudinaryPublicId,
-      hasCloudinary: Boolean(cloudinaryPublicId),
-      cloudinaryReachable: Boolean(cloudinaryPublicId && cloudinaryStatus.ok),
-      cloudinaryStatus: cloudinaryPublicId ? cloudinaryStatus.status : 0,
-      cloudinaryError: cloudinaryPublicId ? cloudinaryStatus.error : '',
-      resolvedCard,
+      hasManifestEntry: Boolean(manifestEntry),
+      resolvedPublicUrl,
+      resolvedPublicReachable: hasLocalWebp,
+      remoteFallbackUrl,
+      hasRemoteFallback: Boolean(remoteFallbackUrl),
+      remoteFallbackReachable: Boolean(remoteFallbackUrl && remoteFallbackStatus.ok),
+      remoteFallbackStatus: remoteFallbackUrl ? remoteFallbackStatus.status : 0,
+      remoteFallbackError: remoteFallbackUrl ? remoteFallbackStatus.error : '',
       search: buildSearchUrls(slug),
     };
   })
@@ -85,10 +102,13 @@ const summary = {
   localWebp: report.filter((item) => item.hasLocalWebp).length,
   localSvg: report.filter((item) => item.hasLocalSvg).length,
   publicReady: report.filter((item) => item.publicReady).length,
-  cloudinaryManifest: report.filter((item) => item.hasCloudinary).length,
-  cloudinaryReachable: report.filter((item) => item.cloudinaryReachable).length,
-  cloudinaryBroken: report.filter((item) => item.hasCloudinary && !item.cloudinaryReachable).length,
-  missingCloudinary: report.filter((item) => !item.hasCloudinary).length,
+  manifestEntries: report.filter((item) => item.hasManifestEntry).length,
+  resolvedPublicReachable: report.filter((item) => item.resolvedPublicReachable).length,
+  resolvedPublicBroken: report.filter((item) => !item.resolvedPublicReachable).length,
+  remoteFallbackConfigured: report.filter((item) => item.hasRemoteFallback).length,
+  remoteFallbackReachable: report.filter((item) => item.remoteFallbackReachable).length,
+  remoteFallbackBroken: report.filter((item) => item.hasRemoteFallback && !item.remoteFallbackReachable).length,
+  missingManifest: report.filter((item) => !item.hasManifestEntry).length,
 };
 
 const payload = { generatedAt: new Date().toISOString(), summary, report };
@@ -100,25 +120,28 @@ console.log(`Styles: ${summary.styles}`);
 console.log(`Local WEBP: ${summary.localWebp}`);
 console.log(`Local SVG: ${summary.localSvg}`);
 console.log(`Public ready: ${summary.publicReady}`);
-console.log(`Cloudinary manifest: ${summary.cloudinaryManifest}`);
-console.log(`Cloudinary reachable: ${summary.cloudinaryReachable}`);
-console.log(`Cloudinary broken: ${summary.cloudinaryBroken}`);
-console.log(`Missing Cloudinary manifest: ${summary.missingCloudinary}`);
+console.log(`Manifest entries: ${summary.manifestEntries}`);
+console.log(`Resolved public reachable: ${summary.resolvedPublicReachable}`);
+console.log(`Resolved public broken: ${summary.resolvedPublicBroken}`);
+console.log(`Remote fallback configured: ${summary.remoteFallbackConfigured}`);
+console.log(`Remote fallback reachable: ${summary.remoteFallbackReachable}`);
+console.log(`Remote fallback broken: ${summary.remoteFallbackBroken}`);
+console.log(`Missing manifest: ${summary.missingManifest}`);
 
-if (summary.missingCloudinary > 0) {
-  console.log('\nMissing Cloudinary entries:');
-  for (const item of report.filter((entry) => !entry.hasCloudinary)) {
+if (summary.missingManifest > 0) {
+  console.log('\nMissing style manifest entries:');
+  for (const item of report.filter((entry) => !entry.hasManifestEntry)) {
     console.log(`- ${item.slug}`);
     console.log(`  Google Images: ${item.search.googleImages}`);
     console.log(`  Unsplash: ${item.search.unsplash}`);
   }
 }
 
-if (summary.cloudinaryBroken > 0) {
-  console.log('\nBroken Cloudinary style assets:');
-  for (const item of report.filter((entry) => entry.hasCloudinary && !entry.cloudinaryReachable)) {
-    console.log(`- ${item.slug} (${item.cloudinaryStatus || item.cloudinaryError || 'unknown'})`);
-    console.log(`  ${item.resolvedCard}`);
+if (summary.remoteFallbackBroken > 0) {
+  console.log('\nBroken remote style fallbacks:');
+  for (const item of report.filter((entry) => entry.hasRemoteFallback && !entry.remoteFallbackReachable)) {
+    console.log(`- ${item.slug} (${item.remoteFallbackStatus || item.remoteFallbackError || 'unknown'})`);
+    console.log(`  ${item.remoteFallbackUrl}`);
   }
 }
 
