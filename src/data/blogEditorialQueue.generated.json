@@ -2546,8 +2546,8 @@
     "status": {
       "hasFrontmatterImage": true,
       "hasInlineImages": false,
-      "hasManifestEntry": false,
-      "isVariantEntry": false,
+      "hasManifestEntry": true,
+      "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
       "hasLocalHero": false,
@@ -3464,8 +3464,8 @@
     "status": {
       "hasFrontmatterImage": true,
       "hasInlineImages": false,
-      "hasManifestEntry": false,
-      "isVariantEntry": false,
+      "hasManifestEntry": true,
+      "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
       "hasLocalHero": false,
@@ -4220,8 +4220,8 @@
     "status": {
       "hasFrontmatterImage": true,
       "hasInlineImages": false,
-      "hasManifestEntry": false,
-      "isVariantEntry": false,
+      "hasManifestEntry": true,
+      "isVariantEntry": true,
       "hasCloudinaryHero": false,
       "hasCloudinaryCard": false,
       "hasLocalHero": false,
