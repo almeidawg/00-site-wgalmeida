@@ -673,51 +673,51 @@ const readLocalStorageJson = (key) => {
   }
 };
 
-const shouldUseEditorialSessionOverrides = () => {
-  if (typeof window === 'undefined') return false;
-  // Admin page: usa rascunho (STORAGE_KEY / UNSPLASH_STORAGE_KEY)
-  // Demais páginas: usa versão publicada (PUBLISHED_UPLOADS_KEY / PUBLISHED_UNSPLASH_KEY)
-  return true;
+const shouldUseEditorialSessionOverrides = () => typeof window !== 'undefined';
+
+const isAdminEditorialPage = () =>
+  typeof window !== 'undefined'
+  && Boolean(window.location?.pathname?.startsWith('/admin/blog-editorial'));
+
+const readStringField = (value, key, { trim = false } = {}) => {
+  const fieldValue = value?.[key];
+  if (typeof fieldValue !== 'string') return '';
+  return trim ? fieldValue.trim() : fieldValue;
 };
 
-const isAdminEditorialPage = () => {
-  if (typeof window === 'undefined') return false;
-  return window.location?.pathname?.startsWith('/admin/blog-editorial') ?? false;
+const readFirstStringField = (value, keys, options) => {
+  for (const key of keys) {
+    const fieldValue = readStringField(value, key, options);
+    if (fieldValue) return fieldValue;
+  }
+  return '';
 };
+
+const createEmptyUnsplashSelection = () => ({
+  id: '',
+  alt: '',
+  src: '',
+  page: '',
+  photographer: '',
+  profile: '',
+  downloadLocation: '',
+});
 
 const normalizeUnsplashSelectionValue = (value) => {
-  if (!value) return { id: '', alt: '' };
-  if (typeof value === 'string') return { id: value.trim(), alt: '', src: '', page: '' };
-  if (typeof value === 'object') {
-    return {
-      id: typeof value.id === 'string' ? value.id.trim() : '',
-      alt: typeof value.alt === 'string' ? value.alt : '',
-      src: typeof value.src === 'string'
-        ? value.src.trim()
-        : typeof value.url === 'string'
-          ? value.url.trim()
-          : typeof value.downloadUrl === 'string'
-            ? value.downloadUrl.trim()
-            : '',
-      page: typeof value.page === 'string'
-        ? value.page
-        : typeof value.pageUrl === 'string'
-          ? value.pageUrl
-          : typeof value.unsplashPage === 'string'
-            ? value.unsplashPage
-            : typeof value.photoPage === 'string'
-              ? value.photoPage
-              : '',
-      photographer: typeof value.photographer === 'string' ? value.photographer : '',
-      profile: typeof value.profile === 'string'
-        ? value.profile
-        : typeof value.profileUrl === 'string'
-          ? value.profileUrl
-          : '',
-      downloadLocation: typeof value.downloadLocation === 'string' ? value.downloadLocation : '',
-    };
+  if (typeof value === 'string') {
+    return { ...createEmptyUnsplashSelection(), id: value.trim() };
   }
-  return { id: '', alt: '', src: '', page: '' };
+  if (!value || typeof value !== 'object') return createEmptyUnsplashSelection();
+
+  return {
+    id: readStringField(value, 'id', { trim: true }),
+    alt: readStringField(value, 'alt'),
+    src: readFirstStringField(value, ['src', 'url', 'downloadUrl'], { trim: true }),
+    page: readFirstStringField(value, ['page', 'pageUrl', 'unsplashPage', 'photoPage']),
+    photographer: readStringField(value, 'photographer'),
+    profile: readFirstStringField(value, ['profile', 'profileUrl']),
+    downloadLocation: readStringField(value, 'downloadLocation'),
+  };
 };
 
 const buildUnsplashPhotoPageUrl = (photoId) =>
@@ -753,13 +753,8 @@ const assignContextEntryValue = (entry, slotIndex, value) => {
   entry.context[slotIndex] = value;
 };
 
-const getUnsplashUtmSource = () => {
-  if (typeof import.meta !== 'undefined' && import.meta.env?.VITE_UNSPLASH_UTM_SOURCE) {
-    return import.meta.env.VITE_UNSPLASH_UTM_SOURCE;
-  }
-
-  return 'wg-almeida-blog';
-};
+const getUnsplashUtmSource = () =>
+  import.meta.env?.VITE_UNSPLASH_UTM_SOURCE || 'wg-almeida-blog';
 
 const buildCloudinaryBlogImageUrl = (publicId, variant = 'card') => {
   return buildCloudinaryEditorialUrl(publicId, variant);
@@ -808,6 +803,12 @@ const buildRemoteAssetUrl = (src, variant = 'card') => {
   }
 };
 
+const resolveRemoteAssetSourceUrl = (value, source, variant) => {
+  if (source === 'unsplash') return buildRemoteAssetUrl(value.src, variant);
+  if (source === 'local') return withBasePath(value.src);
+  return value.src;
+};
+
 const buildRemoteAsset = (value, variant = 'card') => {
   if (!value) return null;
 
@@ -839,11 +840,7 @@ const buildRemoteAsset = (value, variant = 'card') => {
 
   const rawSource = (value.source || (isUnsplashImageUrl(value.src) ? 'unsplash' : 'remote')).toLowerCase();
   const source = rawSource === 'unsplash-image' ? 'unsplash' : rawSource;
-  const src = source === 'unsplash'
-    ? buildRemoteAssetUrl(value.src, variant)
-    : source === 'local'
-      ? withBasePath(value.src)
-      : value.src;
+  const src = resolveRemoteAssetSourceUrl(value, source, variant);
   const photographerUrl = source === 'unsplash'
     ? appendUnsplashAttributionParams(value.profile || '')
     : value.profile || '';
@@ -920,6 +917,86 @@ const sanitizeGenericOverrideEntry = (overrideEntry, curatedEntry) => {
   return normalized;
 };
 
+const EDITORIAL_UPLOAD_SLOT_NAMES = [
+  'hero',
+  'card',
+  'context1',
+  'context2',
+  'context3',
+  'context4',
+];
+
+const isContextSlotName = (slotName) => /^context\d+$/.test(slotName);
+
+const getContextSlotIndex = (slotName) =>
+  isContextSlotName(slotName) ? Number(slotName.replace('context', '')) - 1 : -1;
+
+const buildCloudinaryUploadValue = (slotName, slotValue) => {
+  if (isContextSlotName(slotName)) return null;
+
+  const publicId = readStringField(slotValue, 'publicId', { trim: true });
+  if (!publicId) return null;
+
+  return {
+    publicId,
+    source: 'cloudinary',
+    alt: readStringField(slotValue, 'alt'),
+    caption: readStringField(slotValue, 'caption'),
+    sectionTitle: readStringField(slotValue, 'sectionTitle'),
+    sectionId: readStringField(slotValue, 'sectionId'),
+    focalPoint: readStringField(slotValue, 'focalPoint'),
+    pageUrl: readStringField(slotValue, 'pageUrl'),
+  };
+};
+
+const normalizeUploadSource = (slotValue, src) => {
+  let source = readStringField(slotValue, 'source');
+  if (!source) source = isUnsplashImageUrl(src) ? 'unsplash' : 'remote';
+
+  const normalized = source.toLowerCase();
+  return normalized === 'unsplash-image' ? 'unsplash' : normalized;
+};
+
+const buildRemoteUploadValue = (slotValue) => {
+  const src = readFirstStringField(slotValue, ['src', 'secureUrl'], { trim: true });
+  if (!src) return null;
+
+  const source = normalizeUploadSource(slotValue, src);
+  const unsplashPhotoId = readStringField(slotValue, 'unsplashPhotoId', { trim: true });
+  const fallbackPageUrl = source === 'unsplash' && unsplashPhotoId
+    ? buildUnsplashPhotoPageUrl(unsplashPhotoId)
+    : '';
+
+  return {
+    source,
+    src,
+    alt: readStringField(slotValue, 'alt'),
+    page: readStringField(slotValue, 'pageUrl') || fallbackPageUrl,
+    caption: readStringField(slotValue, 'caption'),
+    sectionTitle: readStringField(slotValue, 'sectionTitle'),
+    sectionId: readStringField(slotValue, 'sectionId'),
+    sourceLabel: source === 'unsplash' ? 'Unsplash (sessão local)' : 'URL local (sessão)',
+  };
+};
+
+const applyLocalUploadSlot = (entry, slotName, slotValue) => {
+  const cloudinaryValue = buildCloudinaryUploadValue(slotName, slotValue);
+  if (cloudinaryValue) {
+    assignSlotEntryValue(entry, slotName, cloudinaryValue);
+    return;
+  }
+
+  const remoteValue = buildRemoteUploadValue(slotValue);
+  if (!remoteValue) return;
+
+  const contextIndex = getContextSlotIndex(slotName);
+  if (contextIndex >= 0) {
+    assignContextEntryValue(entry, contextIndex, remoteValue);
+    return;
+  }
+  assignSlotEntryValue(entry, slotName, remoteValue);
+};
+
 const buildLocalUploadManifestEntry = (slug) => {
   if (!shouldUseEditorialSessionOverrides()) return null;
 
@@ -930,59 +1007,10 @@ const buildLocalUploadManifestEntry = (slug) => {
   if (!slotMap || typeof slotMap !== 'object') return null;
 
   const entry = {};
-
-  for (const slotName of ['hero', 'card', 'context1', 'context2', 'context3', 'context4']) {
-    const slotValue = slotMap?.[slotName];
+  for (const slotName of EDITORIAL_UPLOAD_SLOT_NAMES) {
+    const slotValue = slotMap[slotName];
     if (!slotValue || typeof slotValue !== 'object') continue;
-
-    const publicId = typeof slotValue.publicId === 'string' ? slotValue.publicId.trim() : '';
-    if (publicId && !/^context\d+$/.test(slotName)) {
-      assignSlotEntryValue(entry, slotName, {
-        publicId,
-        source: 'cloudinary',
-        alt: typeof slotValue.alt === 'string' ? slotValue.alt : '',
-        caption: typeof slotValue.caption === 'string' ? slotValue.caption : '',
-        sectionTitle: typeof slotValue.sectionTitle === 'string' ? slotValue.sectionTitle : '',
-        sectionId: typeof slotValue.sectionId === 'string' ? slotValue.sectionId : '',
-        focalPoint: typeof slotValue.focalPoint === 'string' ? slotValue.focalPoint : '',
-        pageUrl: typeof slotValue.pageUrl === 'string' ? slotValue.pageUrl : '',
-      });
-      continue;
-    }
-
-    const src = typeof slotValue.src === 'string'
-      ? slotValue.src.trim()
-      : typeof slotValue.secureUrl === 'string'
-        ? slotValue.secureUrl.trim()
-        : '';
-    if (!src) continue;
-
-    const sourceRaw = String(slotValue.source || (isUnsplashImageUrl(src) ? 'unsplash' : 'remote')).toLowerCase();
-    const source = sourceRaw === 'unsplash-image' ? 'unsplash' : sourceRaw;
-    const unsplashPhotoId = typeof slotValue.unsplashPhotoId === 'string' ? slotValue.unsplashPhotoId.trim() : '';
-    const fallbackPageUrl = source === 'unsplash' && unsplashPhotoId
-      ? buildUnsplashPhotoPageUrl(unsplashPhotoId)
-      : '';
-    const pageUrl = typeof slotValue.pageUrl === 'string' ? slotValue.pageUrl : fallbackPageUrl;
-    const alt = typeof slotValue.alt === 'string' ? slotValue.alt : '';
-
-    const remoteValue = {
-      source,
-      src,
-      alt,
-      page: pageUrl,
-      caption: typeof slotValue.caption === 'string' ? slotValue.caption : '',
-      sectionTitle: typeof slotValue.sectionTitle === 'string' ? slotValue.sectionTitle : '',
-      sectionId: typeof slotValue.sectionId === 'string' ? slotValue.sectionId : '',
-      sourceLabel: source === 'unsplash' ? 'Unsplash (sessão local)' : 'URL local (sessão)',
-    };
-
-    if (/^context\d+$/.test(slotName)) {
-      const slotIndex = Number(slotName.replace('context', '')) - 1;
-      assignContextEntryValue(entry, slotIndex, remoteValue);
-    } else {
-      assignSlotEntryValue(entry, slotName, remoteValue);
-    }
+    applyLocalUploadSlot(entry, slotName, slotValue);
   }
 
   return Object.keys(entry).length ? entry : null;

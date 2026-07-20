@@ -1,7 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import STYLE_IMAGE_MANIFEST from '../src/data/styleImageManifest.js';
-import { getCloudinaryStyleImage } from '../src/data/styleImageManifest.js';
+import STYLE_IMAGE_MANIFEST, { getCloudinaryStyleImage } from '../src/data/styleImageManifest.js';
 
 const root = process.cwd();
 const estilosDir = path.join(root, 'src', 'content', 'estilos');
