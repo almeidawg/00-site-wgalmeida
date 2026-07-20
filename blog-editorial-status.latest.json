@@ -1,27 +1,21 @@
 {
   "summary": {
-    "generatedAt": "2026-07-19T13:05:40.431Z",
+    "generatedAt": "2026-07-20T15:40:46.130Z",
     "totalPosts": 89,
     "coverage": {
-      "published-manifest": 80,
+      "published-manifest": 84,
       "published-local": 3,
-      "published-remote-curated": 2,
-      "generic-banner-fallback": 4
+      "published-remote-curated": 2
     },
     "manifestTypes": {
-      "two-slot": 55,
-      "none": 7,
+      "two-slot": 59,
+      "none": 3,
       "single": 13,
       "variant": 14
     },
     "queueTracked": 89,
     "queueReadyForTwoSlotEditorial": 4,
-    "pendingSlugs": [
-      "blum-ferragens-sistemas-luxo-marcenaria",
-      "duratex-mdf-paineis-marcenaria-alto-padrao",
-      "elettromec-eletrodomesticos-luxo-cozinha-alto-padrao",
-      "hafele-ferragens-solucoes-inteligentes-marcenaria"
-    ]
+    "pendingSlugs": []
   },
   "details": [
     {
@@ -207,8 +201,8 @@
       "currentImage": "/images/banners/MARCENARIA.webp",
       "queueTracked": true,
       "queueReadyForTwoSlotEditorial": false,
-      "coverage": "generic-banner-fallback",
-      "manifestType": "none",
+      "coverage": "published-manifest",
+      "manifestType": "two-slot",
       "queueReady": false
     },
     {
@@ -339,8 +333,8 @@
       "currentImage": "/images/banners/MARCENARIA.webp",
       "queueTracked": true,
       "queueReadyForTwoSlotEditorial": false,
-      "coverage": "generic-banner-fallback",
-      "manifestType": "none",
+      "coverage": "published-manifest",
+      "manifestType": "two-slot",
       "queueReady": false
     },
     {
@@ -361,8 +355,8 @@
       "currentImage": "/images/banners/ARQ.webp",
       "queueTracked": true,
       "queueReadyForTwoSlotEditorial": false,
-      "coverage": "generic-banner-fallback",
-      "manifestType": "none",
+      "coverage": "published-manifest",
+      "manifestType": "two-slot",
       "queueReady": false
     },
     {
@@ -449,8 +443,8 @@
       "currentImage": "/images/banners/MARCENARIA.webp",
       "queueTracked": true,
       "queueReadyForTwoSlotEditorial": false,
-      "coverage": "generic-banner-fallback",
-      "manifestType": "none",
+      "coverage": "published-manifest",
+      "manifestType": "two-slot",
       "queueReady": false
     },
     {

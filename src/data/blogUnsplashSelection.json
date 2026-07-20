@@ -518,6 +518,46 @@
         "id": "1723639906196-b2157ee7897d",
         "alt": "Recorte visual para Silestone e Dekton: Superfícies de Luxo da Cosentino, reforcando detalhe material e atmosfera do tema"
       }
+    },
+    "blum-ferragens-sistemas-luxo-marcenaria": {
+      "hero": {
+        "id": "1678108040468-0cc9addd984d",
+        "alt": "Gavetas modernas de cozinha com corrediças e ferragens premium Blum em acabamento escuro de luxo"
+      },
+      "card": {
+        "id": "1676907228185-6869277a9f8f",
+        "alt": "Detalhe técnico de dobradiça de luxo Blum instalada em armário de alto padrão"
+      }
+    },
+    "duratex-mdf-paineis-marcenaria-alto-padrao": {
+      "hero": {
+        "id": "1622372738946-62e02505feb3",
+        "alt": "Painéis de MDF Duratex revestindo paredes de sala de estar moderna com texturas sofisticadas"
+      },
+      "card": {
+        "id": "1635841582997-8acd24605d8c",
+        "alt": "Detalhe de marcenaria sob medida de alto padrão mostrando texturas de madeira e acabamento fosco"
+      }
+    },
+    "elettromec-eletrodomesticos-luxo-cozinha-alto-padrao": {
+      "hero": {
+        "id": "1639405069836-f82aa6dcb900",
+        "alt": "Eletrodomésticos premium de embutir Elettromec integrados à cozinha de design italiano moderno"
+      },
+      "card": {
+        "id": "1599083549933-838ea352c1cc",
+        "alt": "Adega de vinhos Elettromec iluminada em aço inox em cozinha planejada de luxo"
+      }
+    },
+    "hafele-ferragens-solucoes-inteligentes-marcenaria": {
+      "hero": {
+        "id": "1784203572351-1a1125b874a6",
+        "alt": "Sistema inteligente de organização de closet e armário Häfele com iluminação embutida e portas de correr"
+      },
+      "card": {
+        "id": "1784013225847-3c364a6c802a",
+        "alt": "Detalhe de ferragem de gaveta com corrediça oculta e organização interna inteligente Häfele"
+      }
     }
   }
 }
