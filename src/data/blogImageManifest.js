@@ -10,6 +10,12 @@ const UNSPLASH_STORAGE_KEY = 'wg_blog_editorial_unsplash_v1';
 const PUBLISHED_UPLOADS_KEY = 'wg_blog_editorial_published_uploads_v1';
 const PUBLISHED_UNSPLASH_KEY = 'wg_blog_editorial_published_unsplash_v1';
 
+const buildSharedBlogVariantSlots = (asset) => ({
+  card: asset,
+  thumb: asset,
+  square: asset,
+});
+
 export const BLOG_IMAGE_MANIFEST = {
   slugs: {
     'arquitetura-amsterdam-holanda': {
@@ -373,24 +379,12 @@ export const BLOG_IMAGE_MANIFEST = {
       ],
     },
     'custo-reforma-m2-sao-paulo': {
-      card: {
+      ...buildSharedBlogVariantSlots({
         source: 'unsplash',
         src: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2',
         page: 'https://unsplash.com/photos/uO8MXVpKCFg',
         alt: 'Apartamento moderno em São Paulo com interiores luminosos e acabamento premium',
-      },
-      thumb: {
-        source: 'unsplash',
-        src: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2',
-        page: 'https://unsplash.com/photos/uO8MXVpKCFg',
-        alt: 'Apartamento moderno em São Paulo com interiores luminosos e acabamento premium',
-      },
-      square: {
-        source: 'unsplash',
-        src: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2',
-        page: 'https://unsplash.com/photos/uO8MXVpKCFg',
-        alt: 'Apartamento moderno em São Paulo com interiores luminosos e acabamento premium',
-      },
+      }),
       context: [
         {
           source: 'unsplash',
@@ -463,24 +457,12 @@ export const BLOG_IMAGE_MANIFEST = {
       ],
     },
     'quanto-custa-reforma-apartamento-100m2': {
-      card: {
+      ...buildSharedBlogVariantSlots({
         source: 'unsplash',
         src: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2',
         page: 'https://unsplash.com/photos/uO8MXVpKCFg',
         alt: 'Apartamento de 100m² reformado com sala integrada e cozinha aberta em São Paulo',
-      },
-      thumb: {
-        source: 'unsplash',
-        src: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2',
-        page: 'https://unsplash.com/photos/uO8MXVpKCFg',
-        alt: 'Apartamento de 100m² reformado com sala integrada e cozinha aberta em São Paulo',
-      },
-      square: {
-        source: 'unsplash',
-        src: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2',
-        page: 'https://unsplash.com/photos/uO8MXVpKCFg',
-        alt: 'Apartamento de 100m² reformado com sala integrada e cozinha aberta em São Paulo',
-      },
+      }),
       context: [
         {
           source: 'unsplash',
@@ -517,24 +499,12 @@ export const BLOG_IMAGE_MANIFEST = {
       ],
     },
     'quanto-tempo-leva-reforma-completa-alto-padrao': {
-      card: {
+      ...buildSharedBlogVariantSlots({
         source: 'unsplash',
         src: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd',
         page: 'https://unsplash.com/photos/qAjM1RIKL_A',
         alt: 'Canteiro de reforma residencial com etapas executivas em andamento',
-      },
-      thumb: {
-        source: 'unsplash',
-        src: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd',
-        page: 'https://unsplash.com/photos/qAjM1RIKL_A',
-        alt: 'Canteiro de reforma residencial com etapas executivas em andamento',
-      },
-      square: {
-        source: 'unsplash',
-        src: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd',
-        page: 'https://unsplash.com/photos/qAjM1RIKL_A',
-        alt: 'Canteiro de reforma residencial com etapas executivas em andamento',
-      },
+      }),
       context: [
         {
           source: 'unsplash',
@@ -643,24 +613,12 @@ export const BLOG_IMAGE_MANIFEST = {
       ],
     },
     'custo-marcenaria-planejada': {
-      card: {
+      ...buildSharedBlogVariantSlots({
         source: 'unsplash',
         src: 'https://images.unsplash.com/photo-1565538810643-b5bdb714032a',
         page: 'https://unsplash.com/photos/RFDP7_80v5A',
         alt: 'Marcenaria planejada de alto padrão com detalhes em madeira e ferragens premium',
-      },
-      thumb: {
-        source: 'unsplash',
-        src: 'https://images.unsplash.com/photo-1565538810643-b5bdb714032a',
-        page: 'https://unsplash.com/photos/RFDP7_80v5A',
-        alt: 'Marcenaria planejada de alto padrão com detalhes em madeira e ferragens premium',
-      },
-      square: {
-        source: 'unsplash',
-        src: 'https://images.unsplash.com/photo-1565538810643-b5bdb714032a',
-        page: 'https://unsplash.com/photos/RFDP7_80v5A',
-        alt: 'Marcenaria planejada de alto padrão com detalhes em madeira e ferragens premium',
-      },
+      }),
       context: [
         {
           source: 'unsplash',
