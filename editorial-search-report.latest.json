@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-07-19T11:19:03.385Z",
+  "generatedAt": "2026-07-20T17:46:20.195Z",
   "summary": {
     "styles": 31,
     "stylesWithCloudinary": 31,
-    "blogPosts": 82,
-    "blogNeedsSearch": 43,
-    "blogHeroUnsplashOrRemote": 39,
-    "blogCardUnsplashOrRemote": 37
+    "blogPosts": 89,
+    "blogNeedsSearch": 54,
+    "blogHeroUnsplashOrRemote": 47,
+    "blogCardUnsplashOrRemote": 49
   },
   "styles": [
     {
@@ -1068,6 +1068,41 @@
     },
     {
       "kind": "blog",
+      "slug": "blum-ferragens-sistemas-luxo-marcenaria",
+      "title": "Ferragens Blum: Tecnologia e Movimento Perfeito na Marcenaria de Luxo",
+      "category": "materiais",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "ferragens blum technology movimento",
+      "cardQuery": "ferragens blum technology movimento",
+      "searchTerms": {
+        "hero": [
+          "custom carpentry interior",
+          "ferragens blum technology movimento millwork design",
+          "neutral wood interior",
+          "luxury joinery interior",
+          "clean woodwork composition"
+        ],
+        "card": [
+          "woodwork detail craftsmanship",
+          "ferragens blum technology movimento joinery detail",
+          "wood texture interior",
+          "custom shelving detail",
+          "minimal millwork detail"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=ferragens%20blum%20technology%20movimento",
+        "heroUnsplash": "https://unsplash.com/s/photos/ferragens%20blum%20technology%20movimento",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=ferragens%20blum%20technology%20movimento",
+        "cardUnsplash": "https://unsplash.com/s/photos/ferragens%20blum%20technology%20movimento"
+      }
+    },
+    {
+      "kind": "blog",
       "slug": "calculadora-preco-m2-corretores-imobiliarias",
       "title": "Calculadora de Preço por m² para Corretores e Imobiliárias: Como Avaliar Imóveis com Critério em 2026",
       "category": "mercado-imobiliario",
@@ -1243,6 +1278,111 @@
     },
     {
       "kind": "blog",
+      "slug": "custo-marcenaria-planejada",
+      "title": "Custo de marcenaria planejada em 2026: faixas e fatores técnicos",
+      "category": "marcenaria",
+      "heroSource": "local",
+      "cardSource": "unsplash",
+      "heroCurated": true,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "custo custom carpentry planejada 2026",
+      "cardQuery": "custo custom carpentry planejada 2026",
+      "searchTerms": {
+        "hero": [
+          "custom carpentry interior",
+          "custo custom carpentry planejada 2026 millwork design",
+          "neutral wood interior",
+          "luxury joinery interior",
+          "clean woodwork composition"
+        ],
+        "card": [
+          "woodwork detail craftsmanship",
+          "custo custom carpentry planejada 2026 joinery detail",
+          "wood texture interior",
+          "custom shelving detail",
+          "minimal millwork detail"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=custo%20custom%20carpentry%20planejada%202026",
+        "heroUnsplash": "https://unsplash.com/s/photos/custo%20custom%20carpentry%20planejada%202026",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=custo%20custom%20carpentry%20planejada%202026",
+        "cardUnsplash": "https://unsplash.com/s/photos/custo%20custom%20carpentry%20planejada%202026"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "custo-reforma-m2-sao-paulo",
+      "title": "Custo de Reforma por m² em São Paulo em 2026: Faixas Reais por Padrão",
+      "category": "engenharia",
+      "heroSource": "local",
+      "cardSource": "unsplash",
+      "heroCurated": true,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "custo renovation m sao 2026",
+      "cardQuery": "custo renovation m sao 2026",
+      "searchTerms": {
+        "hero": [
+          "modern renovation interior",
+          "custo renovation m sao site detail",
+          "architectural renovation",
+          "clean material palette",
+          "high-end construction"
+        ],
+        "card": [
+          "construction material detail",
+          "custo renovation m sao detail interior",
+          "architectural finish detail",
+          "clean building texture",
+          "engineering detail"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=custo%20renovation%20m%20sao%202026",
+        "heroUnsplash": "https://unsplash.com/s/photos/custo%20renovation%20m%20sao%202026",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=custo%20renovation%20m%20sao%202026",
+        "cardUnsplash": "https://unsplash.com/s/photos/custo%20renovation%20m%20sao%202026"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "duratex-mdf-paineis-marcenaria-alto-padrao",
+      "title": "Painéis de MDF Duratex: Sofisticação e Textura na Marcenaria Sob Medida",
+      "category": "materiais",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "paineis mdf duratex sofisticacao",
+      "cardQuery": "paineis mdf duratex sofisticacao",
+      "searchTerms": {
+        "hero": [
+          "custom carpentry interior",
+          "paineis mdf duratex sofisticacao millwork design",
+          "neutral wood interior",
+          "luxury joinery interior",
+          "clean woodwork composition"
+        ],
+        "card": [
+          "woodwork detail craftsmanship",
+          "paineis mdf duratex sofisticacao joinery detail",
+          "wood texture interior",
+          "custom shelving detail",
+          "minimal millwork detail"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=paineis%20mdf%20duratex%20sofisticacao",
+        "heroUnsplash": "https://unsplash.com/s/photos/paineis%20mdf%20duratex%20sofisticacao",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=paineis%20mdf%20duratex%20sofisticacao",
+        "cardUnsplash": "https://unsplash.com/s/photos/paineis%20mdf%20duratex%20sofisticacao"
+      }
+    },
+    {
+      "kind": "blog",
       "slug": "dyson-tecnologia-design-residencial",
       "title": "Dyson Vale a Pena? Engenharia, Design Residencial e Custo-Beneficio",
       "category": "tecnologia",
@@ -1274,6 +1414,41 @@
         "heroUnsplash": "https://unsplash.com/s/photos/dyson%20vale%20pena%20engineering",
         "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=dyson%20vale%20pena%20engineering",
         "cardUnsplash": "https://unsplash.com/s/photos/dyson%20vale%20pena%20engineering"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "elettromec-eletrodomesticos-luxo-cozinha-alto-padrao",
+      "title": "Elettromec: Tecnologia e Design Italiano em Eletrodomésticos de Luxo",
+      "category": "materiais",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "elettromec technology italiano eletrodomesticos",
+      "cardQuery": "elettromec technology italiano eletrodomesticos",
+      "searchTerms": {
+        "hero": [
+          "smart home interior",
+          "elettromec technology italiano eletrodomesticos automation interior",
+          "clean tech living room",
+          "minimal connected home",
+          "neutral smart interior"
+        ],
+        "card": [
+          "smart home detail",
+          "elettromec technology italiano eletrodomesticos panel detail",
+          "tech interior detail",
+          "modern switch detail",
+          "connected home styling"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=elettromec%20technology%20italiano%20eletrodomesticos",
+        "heroUnsplash": "https://unsplash.com/s/photos/elettromec%20technology%20italiano%20eletrodomesticos",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=elettromec%20technology%20italiano%20eletrodomesticos",
+        "cardUnsplash": "https://unsplash.com/s/photos/elettromec%20technology%20italiano%20eletrodomesticos"
       }
     },
     {
@@ -1344,6 +1519,41 @@
         "heroUnsplash": "https://unsplash.com/s/photos/evf%20construction%20validar%20custos",
         "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=evf%20construction%20validar%20custos",
         "cardUnsplash": "https://unsplash.com/s/photos/evf%20construction%20validar%20custos"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "hafele-ferragens-solucoes-inteligentes-marcenaria",
+      "title": "Häfele: Engenharia Alemã e Organização Inteligente na Marcenaria",
+      "category": "materiais",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "hafele engineering alema organizacao",
+      "cardQuery": "hafele engineering alema organizacao",
+      "searchTerms": {
+        "hero": [
+          "custom carpentry interior",
+          "hafele engineering alema organizacao millwork design",
+          "neutral wood interior",
+          "luxury joinery interior",
+          "clean woodwork composition"
+        ],
+        "card": [
+          "woodwork detail craftsmanship",
+          "hafele engineering alema organizacao joinery detail",
+          "wood texture interior",
+          "custom shelving detail",
+          "minimal millwork detail"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=hafele%20engineering%20alema%20organizacao",
+        "heroUnsplash": "https://unsplash.com/s/photos/hafele%20engineering%20alema%20organizacao",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=hafele%20engineering%20alema%20organizacao",
+        "cardUnsplash": "https://unsplash.com/s/photos/hafele%20engineering%20alema%20organizacao"
       }
     },
     {
@@ -1456,8 +1666,8 @@
       "slug": "iluminacao-tecnica-arquitetural-interlight",
       "title": "Iluminação Técnica e Arquitetural: Como a Interlight Transforma Ambientes de Alto Padrão",
       "category": "materiais",
-      "heroSource": "missing",
-      "cardSource": "missing",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
       "heroCurated": false,
       "cardCurated": false,
       "needsSearch": true,
@@ -1553,6 +1763,41 @@
         "heroUnsplash": "https://unsplash.com/s/photos/laca%20melamina%20folha%20natural",
         "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=laca%20melamina%20folha%20natural",
         "cardUnsplash": "https://unsplash.com/s/photos/laca%20melamina%20folha%20natural"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "laminas-naturais-marcenaria-alto-padrao-vieira",
+      "title": "Lâminas de Madeiras Naturais: O Segredo da Marcenaria de Alto Padrão com a Vieira Lâminas",
+      "category": "materiais",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "laminas madeiras naturais segredo",
+      "cardQuery": "laminas madeiras naturais segredo",
+      "searchTerms": {
+        "hero": [
+          "custom carpentry interior",
+          "laminas madeiras naturais segredo millwork design",
+          "neutral wood interior",
+          "luxury joinery interior",
+          "clean woodwork composition"
+        ],
+        "card": [
+          "woodwork detail craftsmanship",
+          "laminas madeiras naturais segredo joinery detail",
+          "wood texture interior",
+          "custom shelving detail",
+          "minimal millwork detail"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=laminas%20madeiras%20naturais%20segredo",
+        "heroUnsplash": "https://unsplash.com/s/photos/laminas%20madeiras%20naturais%20segredo",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=laminas%20madeiras%20naturais%20segredo",
+        "cardUnsplash": "https://unsplash.com/s/photos/laminas%20madeiras%20naturais%20segredo"
       }
     },
     {
@@ -1837,6 +2082,41 @@
     },
     {
       "kind": "blog",
+      "slug": "portobello-shop-porcelanatos-revestimentos-alto-padrao",
+      "title": "Portobello Shop: Porcelanatos e Grandes Formatos no Design de Luxo",
+      "category": "materiais",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "portobello shop porcelanatos grandes",
+      "cardQuery": "portobello shop porcelanatos grandes",
+      "searchTerms": {
+        "hero": [
+          "minimalist interior design",
+          "portobello shop porcelanatos grandes home aesthetic",
+          "neutral living room",
+          "soft color decor",
+          "modern furniture layout"
+        ],
+        "card": [
+          "interior styling detail",
+          "portobello shop porcelanatos grandes decor detail",
+          "minimalist furniture detail",
+          "soft light interior detail",
+          "clean home composition"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=portobello%20shop%20porcelanatos%20grandes",
+        "heroUnsplash": "https://unsplash.com/s/photos/portobello%20shop%20porcelanatos%20grandes",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=portobello%20shop%20porcelanatos%20grandes",
+        "cardUnsplash": "https://unsplash.com/s/photos/portobello%20shop%20porcelanatos%20grandes"
+      }
+    },
+    {
+      "kind": "blog",
       "slug": "profissionais-capacitados-obra",
       "title": "Profissionais Capacitados na Obra: A Importancia de uma Equipe Qualificada",
       "category": "construção",
@@ -1872,6 +2152,41 @@
     },
     {
       "kind": "blog",
+      "slug": "quanto-custa-reforma-apartamento-100m2",
+      "title": "Quanto Custa Reformar um Apartamento de 100 m² em 2026",
+      "category": "engenharia",
+      "heroSource": "local",
+      "cardSource": "unsplash",
+      "heroCurated": true,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "quanto custa reformar apartment 2026",
+      "cardQuery": "quanto custa reformar apartment 2026",
+      "searchTerms": {
+        "hero": [
+          "modern renovation interior",
+          "quanto custa reformar apartment site detail",
+          "architectural renovation",
+          "clean material palette",
+          "high-end construction"
+        ],
+        "card": [
+          "construction material detail",
+          "quanto custa reformar apartment detail interior",
+          "architectural finish detail",
+          "clean building texture",
+          "engineering detail"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=quanto%20custa%20reformar%20apartment%202026",
+        "heroUnsplash": "https://unsplash.com/s/photos/quanto%20custa%20reformar%20apartment%202026",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=quanto%20custa%20reformar%20apartment%202026",
+        "cardUnsplash": "https://unsplash.com/s/photos/quanto%20custa%20reformar%20apartment%202026"
+      }
+    },
+    {
+      "kind": "blog",
       "slug": "quanto-tempo-dura-reforma-apartamento",
       "title": "Quanto Tempo Dura uma Reforma de Apartamento? Prazo Real por Etapa",
       "category": "reforma",
@@ -1903,6 +2218,41 @@
         "heroUnsplash": "https://unsplash.com/s/photos/quanto%20tempo%20dura%20renovation",
         "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=quanto%20tempo%20dura%20renovation",
         "cardUnsplash": "https://unsplash.com/s/photos/quanto%20tempo%20dura%20renovation"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "quanto-tempo-leva-reforma-completa-alto-padrao",
+      "title": "Quanto tempo leva uma reforma completa de alto padrão?",
+      "category": "engenharia",
+      "heroSource": "local",
+      "cardSource": "unsplash",
+      "heroCurated": true,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "quanto tempo leva renovation",
+      "cardQuery": "quanto tempo leva renovation",
+      "searchTerms": {
+        "hero": [
+          "modern renovation interior",
+          "quanto tempo leva renovation site detail",
+          "architectural renovation",
+          "clean material palette",
+          "high-end construction"
+        ],
+        "card": [
+          "construction material detail",
+          "quanto tempo leva renovation detail interior",
+          "architectural finish detail",
+          "clean building texture",
+          "engineering detail"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=quanto%20tempo%20leva%20renovation",
+        "heroUnsplash": "https://unsplash.com/s/photos/quanto%20tempo%20leva%20renovation",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=quanto%20tempo%20leva%20renovation",
+        "cardUnsplash": "https://unsplash.com/s/photos/quanto%20tempo%20leva%20renovation"
       }
     },
     {
@@ -2043,6 +2393,41 @@
         "heroUnsplash": "https://unsplash.com/s/photos/renovation%20kitchen%20planejada%202026",
         "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=renovation%20kitchen%20planejada%202026",
         "cardUnsplash": "https://unsplash.com/s/photos/renovation%20kitchen%20planejada%202026"
+      }
+    },
+    {
+      "kind": "blog",
+      "slug": "silestone-cosentino-superficies-quartzo-alto-padrao",
+      "title": "Silestone e Dekton: Superfícies de Luxo da Cosentino",
+      "category": "materiais",
+      "heroSource": "unsplash",
+      "cardSource": "unsplash",
+      "heroCurated": false,
+      "cardCurated": false,
+      "needsSearch": true,
+      "heroQuery": "silestone dekton superficies luxury",
+      "cardQuery": "silestone dekton superficies luxury",
+      "searchTerms": {
+        "hero": [
+          "minimalist interior design",
+          "silestone dekton superficies luxury home aesthetic",
+          "neutral living room",
+          "soft color decor",
+          "modern furniture layout"
+        ],
+        "card": [
+          "interior styling detail",
+          "silestone dekton superficies luxury decor detail",
+          "minimalist furniture detail",
+          "soft light interior detail",
+          "clean home composition"
+        ]
+      },
+      "search": {
+        "heroGoogleImages": "https://www.google.com/search?tbm=isch&q=silestone%20dekton%20superficies%20luxury",
+        "heroUnsplash": "https://unsplash.com/s/photos/silestone%20dekton%20superficies%20luxury",
+        "cardGoogleImages": "https://www.google.com/search?tbm=isch&q=silestone%20dekton%20superficies%20luxury",
+        "cardUnsplash": "https://unsplash.com/s/photos/silestone%20dekton%20superficies%20luxury"
       }
     },
     {

@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-07-20T15:38:26.388Z",
+  "generatedAt": "2026-07-20T17:46:20.374Z",
   "summary": {
     "slugs": 35,
-    "missingHero": 1,
-    "missingCard": 1,
-    "missingThumb": 1,
-    "heroEqualsCard": 4,
-    "heroEqualsThumb": 4,
-    "cardEqualsThumb": 13,
-    "allThreeEqual": 4,
-    "problematicDuplicates": 4
+    "missingHero": 0,
+    "missingCard": 0,
+    "missingThumb": 0,
+    "heroEqualsCard": 0,
+    "heroEqualsThumb": 0,
+    "cardEqualsThumb": 9,
+    "allThreeEqual": 0,
+    "problematicDuplicates": 0
   },
   "results": [
     {
@@ -158,13 +158,13 @@
       "missingHero": false,
       "missingCard": false,
       "missingThumb": false,
-      "heroEqualsCard": true,
-      "heroEqualsThumb": true,
-      "cardEqualsThumb": true,
-      "allThreeEqual": true,
+      "heroEqualsCard": false,
+      "heroEqualsThumb": false,
+      "cardEqualsThumb": false,
+      "allThreeEqual": false,
       "heroSource": "local",
-      "cardSource": "local",
-      "thumbSource": "local"
+      "cardSource": "unsplash",
+      "thumbSource": "unsplash"
     },
     {
       "slug": "custo-reforma-m2-sao-paulo",
@@ -172,13 +172,13 @@
       "missingHero": false,
       "missingCard": false,
       "missingThumb": false,
-      "heroEqualsCard": true,
-      "heroEqualsThumb": true,
-      "cardEqualsThumb": true,
-      "allThreeEqual": true,
+      "heroEqualsCard": false,
+      "heroEqualsThumb": false,
+      "cardEqualsThumb": false,
+      "allThreeEqual": false,
       "heroSource": "local",
-      "cardSource": "local",
-      "thumbSource": "local"
+      "cardSource": "unsplash",
+      "thumbSource": "unsplash"
     },
     {
       "slug": "documentacao-obra-condominio",
@@ -393,16 +393,16 @@
     {
       "slug": "projeto-executivo-o-que-e",
       "hasEntry": true,
-      "missingHero": true,
-      "missingCard": true,
-      "missingThumb": true,
+      "missingHero": false,
+      "missingCard": false,
+      "missingThumb": false,
       "heroEqualsCard": false,
       "heroEqualsThumb": false,
       "cardEqualsThumb": false,
       "allThreeEqual": false,
-      "heroSource": "",
-      "cardSource": "",
-      "thumbSource": ""
+      "heroSource": "cloudinary",
+      "cardSource": "cloudinary",
+      "thumbSource": "cloudinary"
     },
     {
       "slug": "quanto-custa-reforma-apartamento-100m2",
@@ -410,13 +410,13 @@
       "missingHero": false,
       "missingCard": false,
       "missingThumb": false,
-      "heroEqualsCard": true,
-      "heroEqualsThumb": true,
-      "cardEqualsThumb": true,
-      "allThreeEqual": true,
+      "heroEqualsCard": false,
+      "heroEqualsThumb": false,
+      "cardEqualsThumb": false,
+      "allThreeEqual": false,
       "heroSource": "local",
-      "cardSource": "local",
-      "thumbSource": "local"
+      "cardSource": "unsplash",
+      "thumbSource": "unsplash"
     },
     {
       "slug": "quanto-tempo-leva-reforma-completa-alto-padrao",
@@ -424,13 +424,13 @@
       "missingHero": false,
       "missingCard": false,
       "missingThumb": false,
-      "heroEqualsCard": true,
-      "heroEqualsThumb": true,
-      "cardEqualsThumb": true,
-      "allThreeEqual": true,
+      "heroEqualsCard": false,
+      "heroEqualsThumb": false,
+      "cardEqualsThumb": false,
+      "allThreeEqual": false,
       "heroSource": "local",
-      "cardSource": "local",
-      "thumbSource": "local"
+      "cardSource": "unsplash",
+      "thumbSource": "unsplash"
     },
     {
       "slug": "quanto-valoriza-apartamento-apos-reforma",

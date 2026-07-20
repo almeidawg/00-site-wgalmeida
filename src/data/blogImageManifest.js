@@ -373,6 +373,24 @@ export const BLOG_IMAGE_MANIFEST = {
       ],
     },
     'custo-reforma-m2-sao-paulo': {
+      card: {
+        source: 'unsplash',
+        src: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2',
+        page: 'https://unsplash.com/photos/uO8MXVpKCFg',
+        alt: 'Apartamento moderno em São Paulo com interiores luminosos e acabamento premium',
+      },
+      thumb: {
+        source: 'unsplash',
+        src: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2',
+        page: 'https://unsplash.com/photos/uO8MXVpKCFg',
+        alt: 'Apartamento moderno em São Paulo com interiores luminosos e acabamento premium',
+      },
+      square: {
+        source: 'unsplash',
+        src: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2',
+        page: 'https://unsplash.com/photos/uO8MXVpKCFg',
+        alt: 'Apartamento moderno em São Paulo com interiores luminosos e acabamento premium',
+      },
       context: [
         {
           source: 'unsplash',
@@ -445,6 +463,24 @@ export const BLOG_IMAGE_MANIFEST = {
       ],
     },
     'quanto-custa-reforma-apartamento-100m2': {
+      card: {
+        source: 'unsplash',
+        src: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2',
+        page: 'https://unsplash.com/photos/uO8MXVpKCFg',
+        alt: 'Apartamento de 100m² reformado com sala integrada e cozinha aberta em São Paulo',
+      },
+      thumb: {
+        source: 'unsplash',
+        src: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2',
+        page: 'https://unsplash.com/photos/uO8MXVpKCFg',
+        alt: 'Apartamento de 100m² reformado com sala integrada e cozinha aberta em São Paulo',
+      },
+      square: {
+        source: 'unsplash',
+        src: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2',
+        page: 'https://unsplash.com/photos/uO8MXVpKCFg',
+        alt: 'Apartamento de 100m² reformado com sala integrada e cozinha aberta em São Paulo',
+      },
       context: [
         {
           source: 'unsplash',
@@ -481,6 +517,24 @@ export const BLOG_IMAGE_MANIFEST = {
       ],
     },
     'quanto-tempo-leva-reforma-completa-alto-padrao': {
+      card: {
+        source: 'unsplash',
+        src: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd',
+        page: 'https://unsplash.com/photos/qAjM1RIKL_A',
+        alt: 'Canteiro de reforma residencial com etapas executivas em andamento',
+      },
+      thumb: {
+        source: 'unsplash',
+        src: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd',
+        page: 'https://unsplash.com/photos/qAjM1RIKL_A',
+        alt: 'Canteiro de reforma residencial com etapas executivas em andamento',
+      },
+      square: {
+        source: 'unsplash',
+        src: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd',
+        page: 'https://unsplash.com/photos/qAjM1RIKL_A',
+        alt: 'Canteiro de reforma residencial com etapas executivas em andamento',
+      },
       context: [
         {
           source: 'unsplash',
@@ -589,6 +643,24 @@ export const BLOG_IMAGE_MANIFEST = {
       ],
     },
     'custo-marcenaria-planejada': {
+      card: {
+        source: 'unsplash',
+        src: 'https://images.unsplash.com/photo-1565538810643-b5bdb714032a',
+        page: 'https://unsplash.com/photos/RFDP7_80v5A',
+        alt: 'Marcenaria planejada de alto padrão com detalhes em madeira e ferragens premium',
+      },
+      thumb: {
+        source: 'unsplash',
+        src: 'https://images.unsplash.com/photo-1565538810643-b5bdb714032a',
+        page: 'https://unsplash.com/photos/RFDP7_80v5A',
+        alt: 'Marcenaria planejada de alto padrão com detalhes em madeira e ferragens premium',
+      },
+      square: {
+        source: 'unsplash',
+        src: 'https://images.unsplash.com/photo-1565538810643-b5bdb714032a',
+        page: 'https://unsplash.com/photos/RFDP7_80v5A',
+        alt: 'Marcenaria planejada de alto padrão com detalhes em madeira e ferragens premium',
+      },
       context: [
         {
           source: 'unsplash',
@@ -862,7 +934,12 @@ const mergeManifestEntries = (primaryEntry, secondaryEntry) => {
   if (!secondaryEntry) return primaryEntry || null;
 
   if (typeof primaryEntry !== 'object' || isRemoteAsset(primaryEntry)) return primaryEntry;
-  if (typeof secondaryEntry !== 'object' || isRemoteAsset(secondaryEntry)) return primaryEntry;
+  if (typeof secondaryEntry !== 'object' || isRemoteAsset(secondaryEntry)) {
+    return {
+      ...primaryEntry,
+      __fallback: secondaryEntry,
+    };
+  }
 
   return {
     ...secondaryEntry,
@@ -1034,13 +1111,20 @@ const resolveBlogManifestValue = (entry, variant = 'card') => {
   if (!entry) return null;
   if (typeof entry === 'string' || isRemoteAsset(entry)) return entry;
 
-  return (
+  const directValue = (
     entry[variant] ||
     entry.default ||
     entry.hero ||
     entry.card ||
     null
   );
+
+  if (directValue) return directValue;
+  if (entry.__fallback && entry.__fallback !== entry) {
+    return resolveBlogManifestValue(entry.__fallback, variant);
+  }
+
+  return null;
 };
 
 export const resolveBlogPublicId = (entry, variant = 'card') => {

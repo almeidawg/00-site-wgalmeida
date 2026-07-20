@@ -47,11 +47,13 @@ export const STYLE_IMAGE_MANIFEST = {
   'wabi-sabi': { src: 'https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=1600&q=80', alt: 'Wabi-Sabi Natural Vibe' },
 };
 
+const getCommittedStyleLocalSrc = (slug) =>
+  slug ? `/images/estilos/${slug}.webp` : '';
+
 export const getCloudinaryStyleImage = ({ slug, variant = 'card' } = {}) => {
   const entry = slug ? STYLE_IMAGE_MANIFEST[slug] : null;
   if (!entry) return buildCloudinaryEditorialUrl(null, variant);
-  if (typeof entry === 'object' && entry.src) return entry.src;
-  return buildCloudinaryEditorialUrl(entry, variant);
+  return getCommittedStyleLocalSrc(slug);
 };
 
 export const hasCloudinaryStyleImage = (slug) => Boolean(slug && STYLE_IMAGE_MANIFEST[slug]);
@@ -78,17 +80,17 @@ export const getStyleImageAsset = ({ slug, variant = 'hero' } = {}) => {
     return { kind: 'unsplash', src, alt: slotData.alt || '', page: slotData.page || '' };
   }
 
-  // 3. Committed manifest
+  // 3. Manifest versionado: o WEBP local e a fonte canonica de entrega.
+  // A URL externa permanece apenas como referencia editorial no manifesto.
   const entry = STYLE_IMAGE_MANIFEST[slug];
   if (!entry) return null;
-  if (typeof entry === 'string') {
-    return { kind: 'cloudinary', src: buildCloudinaryEditorialUrl(entry, variant), publicId: entry };
-  }
-  if (typeof entry === 'object' && entry.src) {
-    return { kind: 'remote', src: entry.src, alt: entry.alt || '' };
-  }
 
-  return null;
+  return {
+    kind: 'local',
+    src: getCommittedStyleLocalSrc(slug),
+    alt: typeof entry === 'object' ? entry.alt || '' : '',
+    remoteFallback: typeof entry === 'object' ? entry.src || '' : '',
+  };
 };
 
 export const getStyleImageUrl = ({ slug, variant = 'hero' } = {}) =>

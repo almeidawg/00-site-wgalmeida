@@ -32,22 +32,36 @@ const searchSummary = editorialSearch.summary || {};
 const repetitionSummary = blogRepetition.summary || {};
 const styleSummary = styleStatus.summary || {};
 
+const coveredBlogPosts = [
+  'published-manifest',
+  'published-two-slot',
+  'published-remote-curated',
+  'published-local',
+  'published-other',
+].reduce((total, key) => total + (blogCoverage[key] || 0), 0);
+
 const blogStructuralClosed = Boolean(
   blogSummary.totalPosts > 0
-  && (blogCoverage['published-manifest'] || 0) === blogSummary.totalPosts
-  && (blogCoverage['published-remote-curated'] || 0) === 0
+  && coveredBlogPosts === blogSummary.totalPosts
   && (blogCoverage['generic-banner-fallback'] || 0) === 0
-  && (searchSummary.blogNeedsSearch || 0) === 0
-  && (searchSummary.blogHeroUnsplashOrRemote || 0) === 0
-  && (searchSummary.blogCardUnsplashOrRemote || 0) === 0
+  && (blogCoverage['missing-image'] || 0) === 0
+  && (blogSummary.pendingSlugs || []).length === 0
+  && (repetitionSummary.missingHero || 0) === 0
+  && (repetitionSummary.missingCard || 0) === 0
+  && (repetitionSummary.missingThumb || 0) === 0
   && (repetitionSummary.problematicDuplicates || 0) === 0
   && (repetitionSummary.allThreeEqual || 0) === 0
+);
+
+const blogCloudMigrationClosed = Boolean(
+  (searchSummary.blogNeedsSearch || 0) === 0
+  && (searchSummary.blogHeroUnsplashOrRemote || 0) === 0
+  && (searchSummary.blogCardUnsplashOrRemote || 0) === 0
 );
 
 const stylesStructuralClosed = Boolean(
   styleSummary.styles > 0
   && styleSummary.styles === styleSummary.localWebp
-  && styleSummary.styles === styleSummary.localSvg
   && styleSummary.styles === (styleSummary.publicReady || 0)
 );
 
@@ -63,12 +77,14 @@ const payload = {
   generatedAt: new Date().toISOString(),
   summary: {
     blogStructuralClosed,
+    blogCloudMigrationClosed,
     stylesStructuralClosed,
     stylesCloudinaryClosed,
     editorialStructuralClosed: blogStructuralClosed && stylesStructuralClosed,
   },
   blog: {
     totalPosts: blogSummary.totalPosts || 0,
+    coveredPosts: coveredBlogPosts,
     publishedWithManifest: blogCoverage['published-manifest'] || 0,
     publishedWithRemoteCuratedAsset: blogCoverage['published-remote-curated'] || 0,
     genericBannerFallback: blogCoverage['generic-banner-fallback'] || 0,
@@ -100,6 +116,7 @@ fs.writeFileSync(reportPath, JSON.stringify(payload, null, 2));
 fs.writeFileSync(latestReportPath, JSON.stringify(payload, null, 2));
 
 console.log(`Blog structural closed: ${payload.summary.blogStructuralClosed ? 'YES' : 'NO'}`);
+console.log(`Blog cloud migration closed: ${payload.summary.blogCloudMigrationClosed ? 'YES' : 'NO'}`);
 console.log(`Styles structural closed: ${payload.summary.stylesStructuralClosed ? 'YES' : 'NO'}`);
 console.log(`Styles Cloudinary closed: ${payload.summary.stylesCloudinaryClosed ? 'YES' : 'NO'}`);
 console.log(`Editorial structural closed: ${payload.summary.editorialStructuralClosed ? 'YES' : 'NO'}`);

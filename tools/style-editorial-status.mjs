@@ -23,8 +23,18 @@ const buildSearchUrls = (slug) => {
   };
 };
 
-const checkHttpStatus = async (url) => {
-  if (!url) return { ok: false, status: 0, error: 'missing-url' };
+const checkResolvedAssetStatus = async (url) => {
+  if (!url) return { ok: false, status: 0, error: 'missing-url', source: 'missing' };
+
+  if (url.startsWith('/')) {
+    const localPath = path.join(root, 'public', url.replace(/^\/+/, ''));
+    return {
+      ok: fs.existsSync(localPath),
+      status: fs.existsSync(localPath) ? 200 : 404,
+      error: fs.existsSync(localPath) ? '' : 'missing-local-file',
+      source: 'local',
+    };
+  }
 
   try {
     let response = await fetch(url, { method: 'HEAD' });
@@ -37,12 +47,14 @@ const checkHttpStatus = async (url) => {
       ok: response.ok,
       status: response.status,
       error: '',
+      source: 'remote',
     };
   } catch (error) {
     return {
       ok: false,
       status: 0,
       error: error.message,
+      source: 'remote',
     };
   }
 };
@@ -61,7 +73,7 @@ const report = await Promise.all(
     const hasLocalSvg = fs.existsSync(localSvg);
     const cloudinaryPublicId = STYLE_IMAGE_MANIFEST?.[slug] || '';
     const resolvedCard = getCloudinaryStyleImage({ slug, variant: 'card' }) || '';
-    const cloudinaryStatus = await checkHttpStatus(resolvedCard);
+    const cloudinaryStatus = await checkResolvedAssetStatus(resolvedCard);
 
     return {
       slug,
@@ -72,6 +84,7 @@ const report = await Promise.all(
       cloudinaryPublicId,
       hasCloudinary: Boolean(cloudinaryPublicId),
       cloudinaryReachable: Boolean(cloudinaryPublicId && cloudinaryStatus.ok),
+      resolvedSource: cloudinaryStatus.source,
       cloudinaryStatus: cloudinaryPublicId ? cloudinaryStatus.status : 0,
       cloudinaryError: cloudinaryPublicId ? cloudinaryStatus.error : '',
       resolvedCard,

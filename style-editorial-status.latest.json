@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-07-19T11:19:04.612Z",
+  "generatedAt": "2026-07-20T17:46:20.526Z",
   "summary": {
     "styles": 31,
     "localWebp": 31,
     "localSvg": 0,
     "publicReady": 31,
     "cloudinaryManifest": 31,
-    "cloudinaryReachable": 25,
-    "cloudinaryBroken": 6,
+    "cloudinaryReachable": 31,
+    "cloudinaryBroken": 0,
     "missingCloudinary": 0
   },
   "report": [
@@ -23,9 +23,10 @@
       },
       "hasCloudinary": true,
       "cloudinaryReachable": true,
+      "resolvedSource": "local",
       "cloudinaryStatus": 200,
       "cloudinaryError": "",
-      "resolvedCard": "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=1600&q=80",
+      "resolvedCard": "/images/estilos/art-deco.webp",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Art%20Deco%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Art%20Deco%20interior%20design"
@@ -43,9 +44,10 @@
       },
       "hasCloudinary": true,
       "cloudinaryReachable": true,
+      "resolvedSource": "local",
       "cloudinaryStatus": 200,
       "cloudinaryError": "",
-      "resolvedCard": "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=1600&q=80",
+      "resolvedCard": "/images/estilos/art-nouveau.webp",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Art%20Nouveau%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Art%20Nouveau%20interior%20design"
@@ -63,9 +65,10 @@
       },
       "hasCloudinary": true,
       "cloudinaryReachable": true,
+      "resolvedSource": "local",
       "cloudinaryStatus": 200,
       "cloudinaryError": "",
-      "resolvedCard": "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=1600&q=80",
+      "resolvedCard": "/images/estilos/boho.webp",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Boho%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Boho%20interior%20design"
@@ -83,9 +86,10 @@
       },
       "hasCloudinary": true,
       "cloudinaryReachable": true,
+      "resolvedSource": "local",
       "cloudinaryStatus": 200,
       "cloudinaryError": "",
-      "resolvedCard": "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1600&q=80",
+      "resolvedCard": "/images/estilos/classico.webp",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Classico%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Classico%20interior%20design"
@@ -103,9 +107,10 @@
       },
       "hasCloudinary": true,
       "cloudinaryReachable": true,
+      "resolvedSource": "local",
       "cloudinaryStatus": 200,
       "cloudinaryError": "",
-      "resolvedCard": "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&w=1600&q=80",
+      "resolvedCard": "/images/estilos/coastal.webp",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Coastal%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Coastal%20interior%20design"
@@ -123,9 +128,10 @@
       },
       "hasCloudinary": true,
       "cloudinaryReachable": true,
+      "resolvedSource": "local",
       "cloudinaryStatus": 200,
       "cloudinaryError": "",
-      "resolvedCard": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1600&q=80",
+      "resolvedCard": "/images/estilos/contemporaneo.webp",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Contemporaneo%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Contemporaneo%20interior%20design"
@@ -142,10 +148,11 @@
         "alt": "Cozy Cottage Vibe"
       },
       "hasCloudinary": true,
-      "cloudinaryReachable": false,
-      "cloudinaryStatus": 404,
+      "cloudinaryReachable": true,
+      "resolvedSource": "local",
+      "cloudinaryStatus": 200,
       "cloudinaryError": "",
-      "resolvedCard": "https://images.unsplash.com/photo-1505691938895-1758d7bef511?auto=format&fit=crop&w=1600&q=80",
+      "resolvedCard": "/images/estilos/cottage.webp",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Cottage%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Cottage%20interior%20design"
@@ -163,9 +170,10 @@
       },
       "hasCloudinary": true,
       "cloudinaryReachable": true,
+      "resolvedSource": "local",
       "cloudinaryStatus": 200,
       "cloudinaryError": "",
-      "resolvedCard": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1600&q=80",
+      "resolvedCard": "/images/estilos/ecletico.webp",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Ecletico%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Ecletico%20interior%20design"
@@ -183,9 +191,10 @@
       },
       "hasCloudinary": true,
       "cloudinaryReachable": true,
+      "resolvedSource": "local",
       "cloudinaryStatus": 200,
       "cloudinaryError": "",
-      "resolvedCard": "https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&w=1600&q=80",
+      "resolvedCard": "/images/estilos/escandinavo.webp",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Escandinavo%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Escandinavo%20interior%20design"
@@ -203,9 +212,10 @@
       },
       "hasCloudinary": true,
       "cloudinaryReachable": true,
+      "resolvedSource": "local",
       "cloudinaryStatus": 200,
       "cloudinaryError": "",
-      "resolvedCard": "https://images.unsplash.com/photo-1556912173-3bb406ef7e77?auto=format&fit=crop&w=1600&q=80",
+      "resolvedCard": "/images/estilos/farmhouse.webp",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Farmhouse%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Farmhouse%20interior%20design"
@@ -223,9 +233,10 @@
       },
       "hasCloudinary": true,
       "cloudinaryReachable": true,
+      "resolvedSource": "local",
       "cloudinaryStatus": 200,
       "cloudinaryError": "",
-      "resolvedCard": "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1600&q=80",
+      "resolvedCard": "/images/estilos/glam.webp",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Glam%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Glam%20interior%20design"
@@ -243,9 +254,10 @@
       },
       "hasCloudinary": true,
       "cloudinaryReachable": true,
+      "resolvedSource": "local",
       "cloudinaryStatus": 200,
       "cloudinaryError": "",
-      "resolvedCard": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1600&q=80",
+      "resolvedCard": "/images/estilos/hampton.webp",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Hampton%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Hampton%20interior%20design"
@@ -263,9 +275,10 @@
       },
       "hasCloudinary": true,
       "cloudinaryReachable": true,
+      "resolvedSource": "local",
       "cloudinaryStatus": 200,
       "cloudinaryError": "",
-      "resolvedCard": "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?auto=format&fit=crop&w=1600&q=80",
+      "resolvedCard": "/images/estilos/hollywood-regency.webp",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Hollywood%20Regency%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Hollywood%20Regency%20interior%20design"
@@ -282,10 +295,11 @@
         "alt": "Pinterest Industrial Aesthetic"
       },
       "hasCloudinary": true,
-      "cloudinaryReachable": false,
-      "cloudinaryStatus": 404,
+      "cloudinaryReachable": true,
+      "resolvedSource": "local",
+      "cloudinaryStatus": 200,
       "cloudinaryError": "",
-      "resolvedCard": "https://images.unsplash.com/photo-1515542706656-8e6ef17a1ed2?auto=format&fit=crop&w=1600&q=80",
+      "resolvedCard": "/images/estilos/industrial.webp",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Industrial%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Industrial%20interior%20design"
@@ -303,9 +317,10 @@
       },
       "hasCloudinary": true,
       "cloudinaryReachable": true,
+      "resolvedSource": "local",
       "cloudinaryStatus": 200,
       "cloudinaryError": "",
-      "resolvedCard": "https://images.unsplash.com/photo-1594026112284-02bb6f3352fe?auto=format&fit=crop&w=1600&q=80",
+      "resolvedCard": "/images/estilos/japandi.webp",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Japandi%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Japandi%20interior%20design"
@@ -323,9 +338,10 @@
       },
       "hasCloudinary": true,
       "cloudinaryReachable": true,
+      "resolvedSource": "local",
       "cloudinaryStatus": 200,
       "cloudinaryError": "",
-      "resolvedCard": "https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?auto=format&fit=crop&w=1600&q=80",
+      "resolvedCard": "/images/estilos/maximalista.webp",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Maximalista%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Maximalista%20interior%20design"
@@ -342,10 +358,11 @@
         "alt": "Mediterranean White Vibe"
       },
       "hasCloudinary": true,
-      "cloudinaryReachable": false,
-      "cloudinaryStatus": 404,
+      "cloudinaryReachable": true,
+      "resolvedSource": "local",
+      "cloudinaryStatus": 200,
       "cloudinaryError": "",
-      "resolvedCard": "https://images.unsplash.com/photo-1515510756287-5c4750c33592?auto=format&fit=crop&w=1600&q=80",
+      "resolvedCard": "/images/estilos/mediterraneo.webp",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Mediterraneo%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Mediterraneo%20interior%20design"
@@ -362,10 +379,11 @@
         "alt": "Pinterest Mid-Century Modern"
       },
       "hasCloudinary": true,
-      "cloudinaryReachable": false,
-      "cloudinaryStatus": 404,
+      "cloudinaryReachable": true,
+      "resolvedSource": "local",
+      "cloudinaryStatus": 200,
       "cloudinaryError": "",
-      "resolvedCard": "https://images.unsplash.com/photo-1567016432779-094069958ad5?auto=format&fit=crop&w=1600&q=80",
+      "resolvedCard": "/images/estilos/mid-century.webp",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Mid%20Century%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Mid%20Century%20interior%20design"
@@ -382,10 +400,11 @@
         "alt": "Pure Minimalist Aesthetic"
       },
       "hasCloudinary": true,
-      "cloudinaryReachable": false,
-      "cloudinaryStatus": 404,
+      "cloudinaryReachable": true,
+      "resolvedSource": "local",
+      "cloudinaryStatus": 200,
       "cloudinaryError": "",
-      "resolvedCard": "https://images.unsplash.com/photo-1449247704656-1a64117ee11f?auto=format&fit=crop&w=1600&q=80",
+      "resolvedCard": "/images/estilos/minimalismo.webp",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Minimalismo%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Minimalismo%20interior%20design"
@@ -403,9 +422,10 @@
       },
       "hasCloudinary": true,
       "cloudinaryReachable": true,
+      "resolvedSource": "local",
       "cloudinaryStatus": 200,
       "cloudinaryError": "",
-      "resolvedCard": "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=1600&q=80",
+      "resolvedCard": "/images/estilos/moderno.webp",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Moderno%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Moderno%20interior%20design"
@@ -422,10 +442,11 @@
         "alt": "Neoclassic Grandeur"
       },
       "hasCloudinary": true,
-      "cloudinaryReachable": false,
-      "cloudinaryStatus": 404,
+      "cloudinaryReachable": true,
+      "resolvedSource": "local",
+      "cloudinaryStatus": 200,
       "cloudinaryError": "",
-      "resolvedCard": "https://images.unsplash.com/photo-1600566753086-00f18fb6f3ea?auto=format&fit=crop&w=1600&q=80",
+      "resolvedCard": "/images/estilos/neoclassico.webp",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Neoclassico%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Neoclassico%20interior%20design"
@@ -443,9 +464,10 @@
       },
       "hasCloudinary": true,
       "cloudinaryReachable": true,
+      "resolvedSource": "local",
       "cloudinaryStatus": 200,
       "cloudinaryError": "",
-      "resolvedCard": "https://images.unsplash.com/photo-1523217582562-09d0def993a6?auto=format&fit=crop&w=1600&q=80",
+      "resolvedCard": "/images/estilos/provencal.webp",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Provencal%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Provencal%20interior%20design"
@@ -463,9 +485,10 @@
       },
       "hasCloudinary": true,
       "cloudinaryReachable": true,
+      "resolvedSource": "local",
       "cloudinaryStatus": 200,
       "cloudinaryError": "",
-      "resolvedCard": "https://images.unsplash.com/photo-1542718610-a1d656d1884c?auto=format&fit=crop&w=1600&q=80",
+      "resolvedCard": "/images/estilos/rustico.webp",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Rustico%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Rustico%20interior%20design"
@@ -483,9 +506,10 @@
       },
       "hasCloudinary": true,
       "cloudinaryReachable": true,
+      "resolvedSource": "local",
       "cloudinaryStatus": 200,
       "cloudinaryError": "",
-      "resolvedCard": "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=1600&q=80",
+      "resolvedCard": "/images/estilos/shabby-chic.webp",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Shabby%20Chic%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Shabby%20Chic%20interior%20design"
@@ -503,9 +527,10 @@
       },
       "hasCloudinary": true,
       "cloudinaryReachable": true,
+      "resolvedSource": "local",
       "cloudinaryStatus": 200,
       "cloudinaryError": "",
-      "resolvedCard": "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1600&q=80",
+      "resolvedCard": "/images/estilos/southwest.webp",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Southwest%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Southwest%20interior%20design"
@@ -523,9 +548,10 @@
       },
       "hasCloudinary": true,
       "cloudinaryReachable": true,
+      "resolvedSource": "local",
       "cloudinaryStatus": 200,
       "cloudinaryError": "",
-      "resolvedCard": "https://images.unsplash.com/photo-1556912173-3bb406ef7e77?auto=format&fit=crop&w=1600&q=80",
+      "resolvedCard": "/images/estilos/transitional.webp",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Transitional%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Transitional%20interior%20design"
@@ -543,9 +569,10 @@
       },
       "hasCloudinary": true,
       "cloudinaryReachable": true,
+      "resolvedSource": "local",
       "cloudinaryStatus": 200,
       "cloudinaryError": "",
-      "resolvedCard": "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&w=1600&q=80",
+      "resolvedCard": "/images/estilos/tropical.webp",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Tropical%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Tropical%20interior%20design"
@@ -563,9 +590,10 @@
       },
       "hasCloudinary": true,
       "cloudinaryReachable": true,
+      "resolvedSource": "local",
       "cloudinaryStatus": 200,
       "cloudinaryError": "",
-      "resolvedCard": "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=1600&q=80",
+      "resolvedCard": "/images/estilos/tulum.webp",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Tulum%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Tulum%20interior%20design"
@@ -583,9 +611,10 @@
       },
       "hasCloudinary": true,
       "cloudinaryReachable": true,
+      "resolvedSource": "local",
       "cloudinaryStatus": 200,
       "cloudinaryError": "",
-      "resolvedCard": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1600&q=80",
+      "resolvedCard": "/images/estilos/urban-modern.webp",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Urban%20Modern%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Urban%20Modern%20interior%20design"
@@ -603,9 +632,10 @@
       },
       "hasCloudinary": true,
       "cloudinaryReachable": true,
+      "resolvedSource": "local",
       "cloudinaryStatus": 200,
       "cloudinaryError": "",
-      "resolvedCard": "https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?auto=format&fit=crop&w=1600&q=80",
+      "resolvedCard": "/images/estilos/vintage.webp",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Vintage%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Vintage%20interior%20design"
@@ -623,9 +653,10 @@
       },
       "hasCloudinary": true,
       "cloudinaryReachable": true,
+      "resolvedSource": "local",
       "cloudinaryStatus": 200,
       "cloudinaryError": "",
-      "resolvedCard": "https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=1600&q=80",
+      "resolvedCard": "/images/estilos/wabi-sabi.webp",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Wabi%20Sabi%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Wabi%20Sabi%20interior%20design"
