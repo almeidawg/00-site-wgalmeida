@@ -1,10 +1,11 @@
 {
-  "generatedAt": "2026-07-20T18:26:15.303Z",
+  "generatedAt": "2026-07-20T19:03:19.991Z",
   "summary": {
     "blogStructuralClosed": true,
     "blogCloudMigrationClosed": false,
     "stylesStructuralClosed": true,
-    "stylesRemoteFallbackClosed": false,
+    "stylesRemoteFallbackCoverageComplete": false,
+    "stylesRemoteFallbackClosed": true,
     "editorialStructuralClosed": true
   },
   "blog": {
@@ -27,9 +28,10 @@
     "manifestEntries": 31,
     "resolvedPublicReachable": 31,
     "resolvedPublicBroken": 0,
-    "remoteFallbackConfigured": 31,
+    "remoteFallbackConfigured": 25,
     "remoteFallbackReachable": 25,
-    "remoteFallbackBroken": 6,
+    "remoteFallbackBroken": 0,
+    "remoteFallbackRetired": 6,
     "missingManifest": 0
   },
   "evidence": {

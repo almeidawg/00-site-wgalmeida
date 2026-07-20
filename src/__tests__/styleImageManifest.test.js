@@ -3,6 +3,8 @@ import {
   getCloudinaryStyleImage,
   getStyleImageAsset,
   getStyleImageUrl,
+  getStyleRemoteFallbackUrl,
+  hasStyleRemoteFallback,
 } from '@/data/styleImageManifest';
 
 describe('style image manifest delivery', () => {
@@ -24,11 +26,21 @@ describe('style image manifest delivery', () => {
   });
 
   it('uses the committed local WEBP as the canonical public asset', () => {
-    const asset = getStyleImageAsset({ slug: 'minimalismo', variant: 'hero' });
+    const asset = getStyleImageAsset({ slug: 'art-deco', variant: 'hero' });
 
     expect(asset.kind).toBe('local');
-    expect(asset.src).toBe('/images/estilos/minimalismo.webp');
+    expect(asset.src).toBe('/images/estilos/art-deco.webp');
     expect(asset.remoteFallback).toContain('images.unsplash.com');
-    expect(getStyleImageUrl({ slug: 'minimalismo', variant: 'card' })).toBe('/images/estilos/minimalismo.webp');
+    expect(getStyleImageUrl({ slug: 'art-deco', variant: 'card' })).toBe('/images/estilos/art-deco.webp');
+  });
+
+  it('retires broken remote references without affecting local delivery', () => {
+    const retiredSlugs = ['cottage', 'industrial', 'mediterraneo', 'mid-century', 'minimalismo', 'neoclassico'];
+
+    for (const slug of retiredSlugs) {
+      expect(getStyleRemoteFallbackUrl({ slug })).toBe('');
+      expect(hasStyleRemoteFallback(slug)).toBe(false);
+      expect(getStyleImageUrl({ slug })).toBe(`/images/estilos/${slug}.webp`);
+    }
   });
 });

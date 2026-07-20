@@ -108,6 +108,7 @@ const summary = {
   remoteFallbackConfigured: report.filter((item) => item.hasRemoteFallback).length,
   remoteFallbackReachable: report.filter((item) => item.remoteFallbackReachable).length,
   remoteFallbackBroken: report.filter((item) => item.hasRemoteFallback && !item.remoteFallbackReachable).length,
+  remoteFallbackRetired: report.filter((item) => !item.hasRemoteFallback).length,
   missingManifest: report.filter((item) => !item.hasManifestEntry).length,
 };
 
@@ -126,6 +127,7 @@ console.log(`Resolved public broken: ${summary.resolvedPublicBroken}`);
 console.log(`Remote fallback configured: ${summary.remoteFallbackConfigured}`);
 console.log(`Remote fallback reachable: ${summary.remoteFallbackReachable}`);
 console.log(`Remote fallback broken: ${summary.remoteFallbackBroken}`);
+console.log(`Remote fallback retired: ${summary.remoteFallbackRetired}`);
 console.log(`Missing manifest: ${summary.missingManifest}`);
 
 if (summary.missingManifest > 0) {
