@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-20T19:03:19.976Z",
+  "generatedAt": "2026-07-20T19:38:00.520Z",
   "summary": {
     "styles": 31,
     "localWebp": 31,
@@ -9,8 +9,9 @@
     "resolvedPublicReachable": 31,
     "resolvedPublicBroken": 0,
     "remoteFallbackConfigured": 25,
-    "remoteFallbackReachable": 25,
+    "remoteFallbackReachable": 5,
     "remoteFallbackBroken": 0,
+    "remoteFallbackUnverified": 20,
     "remoteFallbackRetired": 6,
     "missingManifest": 0
   },
@@ -27,6 +28,7 @@
       "remoteFallbackUrl": "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=1600&q=80",
       "hasRemoteFallback": true,
       "remoteFallbackReachable": true,
+      "remoteFallbackState": "reachable",
       "remoteFallbackStatus": 200,
       "remoteFallbackError": "",
       "search": {
@@ -46,6 +48,7 @@
       "remoteFallbackUrl": "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=1600&q=80",
       "hasRemoteFallback": true,
       "remoteFallbackReachable": true,
+      "remoteFallbackState": "reachable",
       "remoteFallbackStatus": 200,
       "remoteFallbackError": "",
       "search": {
@@ -65,6 +68,7 @@
       "remoteFallbackUrl": "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=1600&q=80",
       "hasRemoteFallback": true,
       "remoteFallbackReachable": true,
+      "remoteFallbackState": "reachable",
       "remoteFallbackStatus": 200,
       "remoteFallbackError": "",
       "search": {
@@ -84,6 +88,7 @@
       "remoteFallbackUrl": "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1600&q=80",
       "hasRemoteFallback": true,
       "remoteFallbackReachable": true,
+      "remoteFallbackState": "reachable",
       "remoteFallbackStatus": 200,
       "remoteFallbackError": "",
       "search": {
@@ -103,6 +108,7 @@
       "remoteFallbackUrl": "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&w=1600&q=80",
       "hasRemoteFallback": true,
       "remoteFallbackReachable": true,
+      "remoteFallbackState": "reachable",
       "remoteFallbackStatus": 200,
       "remoteFallbackError": "",
       "search": {
@@ -121,9 +127,10 @@
       "resolvedPublicReachable": true,
       "remoteFallbackUrl": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1600&q=80",
       "hasRemoteFallback": true,
-      "remoteFallbackReachable": true,
-      "remoteFallbackStatus": 200,
-      "remoteFallbackError": "",
+      "remoteFallbackReachable": false,
+      "remoteFallbackState": "unverified",
+      "remoteFallbackStatus": 0,
+      "remoteFallbackError": "fetch failed",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Contemporaneo%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Contemporaneo%20interior%20design"
@@ -141,6 +148,7 @@
       "remoteFallbackUrl": "",
       "hasRemoteFallback": false,
       "remoteFallbackReachable": false,
+      "remoteFallbackState": "retired",
       "remoteFallbackStatus": 0,
       "remoteFallbackError": "",
       "search": {
@@ -159,9 +167,10 @@
       "resolvedPublicReachable": true,
       "remoteFallbackUrl": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1600&q=80",
       "hasRemoteFallback": true,
-      "remoteFallbackReachable": true,
-      "remoteFallbackStatus": 200,
-      "remoteFallbackError": "",
+      "remoteFallbackReachable": false,
+      "remoteFallbackState": "unverified",
+      "remoteFallbackStatus": 0,
+      "remoteFallbackError": "fetch failed",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Ecletico%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Ecletico%20interior%20design"
@@ -178,9 +187,10 @@
       "resolvedPublicReachable": true,
       "remoteFallbackUrl": "https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&w=1600&q=80",
       "hasRemoteFallback": true,
-      "remoteFallbackReachable": true,
-      "remoteFallbackStatus": 200,
-      "remoteFallbackError": "",
+      "remoteFallbackReachable": false,
+      "remoteFallbackState": "unverified",
+      "remoteFallbackStatus": 0,
+      "remoteFallbackError": "fetch failed",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Escandinavo%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Escandinavo%20interior%20design"
@@ -197,9 +207,10 @@
       "resolvedPublicReachable": true,
       "remoteFallbackUrl": "https://images.unsplash.com/photo-1556912173-3bb406ef7e77?auto=format&fit=crop&w=1600&q=80",
       "hasRemoteFallback": true,
-      "remoteFallbackReachable": true,
-      "remoteFallbackStatus": 200,
-      "remoteFallbackError": "",
+      "remoteFallbackReachable": false,
+      "remoteFallbackState": "unverified",
+      "remoteFallbackStatus": 0,
+      "remoteFallbackError": "fetch failed",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Farmhouse%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Farmhouse%20interior%20design"
@@ -216,9 +227,10 @@
       "resolvedPublicReachable": true,
       "remoteFallbackUrl": "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1600&q=80",
       "hasRemoteFallback": true,
-      "remoteFallbackReachable": true,
-      "remoteFallbackStatus": 200,
-      "remoteFallbackError": "",
+      "remoteFallbackReachable": false,
+      "remoteFallbackState": "unverified",
+      "remoteFallbackStatus": 0,
+      "remoteFallbackError": "fetch failed",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Glam%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Glam%20interior%20design"
@@ -235,9 +247,10 @@
       "resolvedPublicReachable": true,
       "remoteFallbackUrl": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1600&q=80",
       "hasRemoteFallback": true,
-      "remoteFallbackReachable": true,
-      "remoteFallbackStatus": 200,
-      "remoteFallbackError": "",
+      "remoteFallbackReachable": false,
+      "remoteFallbackState": "unverified",
+      "remoteFallbackStatus": 0,
+      "remoteFallbackError": "fetch failed",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Hampton%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Hampton%20interior%20design"
@@ -254,9 +267,10 @@
       "resolvedPublicReachable": true,
       "remoteFallbackUrl": "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?auto=format&fit=crop&w=1600&q=80",
       "hasRemoteFallback": true,
-      "remoteFallbackReachable": true,
-      "remoteFallbackStatus": 200,
-      "remoteFallbackError": "",
+      "remoteFallbackReachable": false,
+      "remoteFallbackState": "unverified",
+      "remoteFallbackStatus": 0,
+      "remoteFallbackError": "fetch failed",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Hollywood%20Regency%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Hollywood%20Regency%20interior%20design"
@@ -274,6 +288,7 @@
       "remoteFallbackUrl": "",
       "hasRemoteFallback": false,
       "remoteFallbackReachable": false,
+      "remoteFallbackState": "retired",
       "remoteFallbackStatus": 0,
       "remoteFallbackError": "",
       "search": {
@@ -292,9 +307,10 @@
       "resolvedPublicReachable": true,
       "remoteFallbackUrl": "https://images.unsplash.com/photo-1594026112284-02bb6f3352fe?auto=format&fit=crop&w=1600&q=80",
       "hasRemoteFallback": true,
-      "remoteFallbackReachable": true,
-      "remoteFallbackStatus": 200,
-      "remoteFallbackError": "",
+      "remoteFallbackReachable": false,
+      "remoteFallbackState": "unverified",
+      "remoteFallbackStatus": 0,
+      "remoteFallbackError": "fetch failed",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Japandi%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Japandi%20interior%20design"
@@ -311,9 +327,10 @@
       "resolvedPublicReachable": true,
       "remoteFallbackUrl": "https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?auto=format&fit=crop&w=1600&q=80",
       "hasRemoteFallback": true,
-      "remoteFallbackReachable": true,
-      "remoteFallbackStatus": 200,
-      "remoteFallbackError": "",
+      "remoteFallbackReachable": false,
+      "remoteFallbackState": "unverified",
+      "remoteFallbackStatus": 0,
+      "remoteFallbackError": "fetch failed",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Maximalista%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Maximalista%20interior%20design"
@@ -331,6 +348,7 @@
       "remoteFallbackUrl": "",
       "hasRemoteFallback": false,
       "remoteFallbackReachable": false,
+      "remoteFallbackState": "retired",
       "remoteFallbackStatus": 0,
       "remoteFallbackError": "",
       "search": {
@@ -350,6 +368,7 @@
       "remoteFallbackUrl": "",
       "hasRemoteFallback": false,
       "remoteFallbackReachable": false,
+      "remoteFallbackState": "retired",
       "remoteFallbackStatus": 0,
       "remoteFallbackError": "",
       "search": {
@@ -369,6 +388,7 @@
       "remoteFallbackUrl": "",
       "hasRemoteFallback": false,
       "remoteFallbackReachable": false,
+      "remoteFallbackState": "retired",
       "remoteFallbackStatus": 0,
       "remoteFallbackError": "",
       "search": {
@@ -387,9 +407,10 @@
       "resolvedPublicReachable": true,
       "remoteFallbackUrl": "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=1600&q=80",
       "hasRemoteFallback": true,
-      "remoteFallbackReachable": true,
-      "remoteFallbackStatus": 200,
-      "remoteFallbackError": "",
+      "remoteFallbackReachable": false,
+      "remoteFallbackState": "unverified",
+      "remoteFallbackStatus": 0,
+      "remoteFallbackError": "fetch failed",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Moderno%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Moderno%20interior%20design"
@@ -407,6 +428,7 @@
       "remoteFallbackUrl": "",
       "hasRemoteFallback": false,
       "remoteFallbackReachable": false,
+      "remoteFallbackState": "retired",
       "remoteFallbackStatus": 0,
       "remoteFallbackError": "",
       "search": {
@@ -425,9 +447,10 @@
       "resolvedPublicReachable": true,
       "remoteFallbackUrl": "https://images.unsplash.com/photo-1523217582562-09d0def993a6?auto=format&fit=crop&w=1600&q=80",
       "hasRemoteFallback": true,
-      "remoteFallbackReachable": true,
-      "remoteFallbackStatus": 200,
-      "remoteFallbackError": "",
+      "remoteFallbackReachable": false,
+      "remoteFallbackState": "unverified",
+      "remoteFallbackStatus": 0,
+      "remoteFallbackError": "fetch failed",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Provencal%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Provencal%20interior%20design"
@@ -444,9 +467,10 @@
       "resolvedPublicReachable": true,
       "remoteFallbackUrl": "https://images.unsplash.com/photo-1542718610-a1d656d1884c?auto=format&fit=crop&w=1600&q=80",
       "hasRemoteFallback": true,
-      "remoteFallbackReachable": true,
-      "remoteFallbackStatus": 200,
-      "remoteFallbackError": "",
+      "remoteFallbackReachable": false,
+      "remoteFallbackState": "unverified",
+      "remoteFallbackStatus": 0,
+      "remoteFallbackError": "fetch failed",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Rustico%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Rustico%20interior%20design"
@@ -463,9 +487,10 @@
       "resolvedPublicReachable": true,
       "remoteFallbackUrl": "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=1600&q=80",
       "hasRemoteFallback": true,
-      "remoteFallbackReachable": true,
-      "remoteFallbackStatus": 200,
-      "remoteFallbackError": "",
+      "remoteFallbackReachable": false,
+      "remoteFallbackState": "unverified",
+      "remoteFallbackStatus": 0,
+      "remoteFallbackError": "fetch failed",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Shabby%20Chic%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Shabby%20Chic%20interior%20design"
@@ -482,9 +507,10 @@
       "resolvedPublicReachable": true,
       "remoteFallbackUrl": "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1600&q=80",
       "hasRemoteFallback": true,
-      "remoteFallbackReachable": true,
-      "remoteFallbackStatus": 200,
-      "remoteFallbackError": "",
+      "remoteFallbackReachable": false,
+      "remoteFallbackState": "unverified",
+      "remoteFallbackStatus": 0,
+      "remoteFallbackError": "fetch failed",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Southwest%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Southwest%20interior%20design"
@@ -501,9 +527,10 @@
       "resolvedPublicReachable": true,
       "remoteFallbackUrl": "https://images.unsplash.com/photo-1556912173-3bb406ef7e77?auto=format&fit=crop&w=1600&q=80",
       "hasRemoteFallback": true,
-      "remoteFallbackReachable": true,
-      "remoteFallbackStatus": 200,
-      "remoteFallbackError": "",
+      "remoteFallbackReachable": false,
+      "remoteFallbackState": "unverified",
+      "remoteFallbackStatus": 0,
+      "remoteFallbackError": "fetch failed",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Transitional%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Transitional%20interior%20design"
@@ -520,9 +547,10 @@
       "resolvedPublicReachable": true,
       "remoteFallbackUrl": "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&w=1600&q=80",
       "hasRemoteFallback": true,
-      "remoteFallbackReachable": true,
-      "remoteFallbackStatus": 200,
-      "remoteFallbackError": "",
+      "remoteFallbackReachable": false,
+      "remoteFallbackState": "unverified",
+      "remoteFallbackStatus": 0,
+      "remoteFallbackError": "fetch failed",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Tropical%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Tropical%20interior%20design"
@@ -539,9 +567,10 @@
       "resolvedPublicReachable": true,
       "remoteFallbackUrl": "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=1600&q=80",
       "hasRemoteFallback": true,
-      "remoteFallbackReachable": true,
-      "remoteFallbackStatus": 200,
-      "remoteFallbackError": "",
+      "remoteFallbackReachable": false,
+      "remoteFallbackState": "unverified",
+      "remoteFallbackStatus": 0,
+      "remoteFallbackError": "fetch failed",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Tulum%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Tulum%20interior%20design"
@@ -558,9 +587,10 @@
       "resolvedPublicReachable": true,
       "remoteFallbackUrl": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1600&q=80",
       "hasRemoteFallback": true,
-      "remoteFallbackReachable": true,
-      "remoteFallbackStatus": 200,
-      "remoteFallbackError": "",
+      "remoteFallbackReachable": false,
+      "remoteFallbackState": "unverified",
+      "remoteFallbackStatus": 0,
+      "remoteFallbackError": "fetch failed",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Urban%20Modern%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Urban%20Modern%20interior%20design"
@@ -577,9 +607,10 @@
       "resolvedPublicReachable": true,
       "remoteFallbackUrl": "https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?auto=format&fit=crop&w=1600&q=80",
       "hasRemoteFallback": true,
-      "remoteFallbackReachable": true,
-      "remoteFallbackStatus": 200,
-      "remoteFallbackError": "",
+      "remoteFallbackReachable": false,
+      "remoteFallbackState": "unverified",
+      "remoteFallbackStatus": 0,
+      "remoteFallbackError": "fetch failed",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Vintage%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Vintage%20interior%20design"
@@ -596,9 +627,10 @@
       "resolvedPublicReachable": true,
       "remoteFallbackUrl": "https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=1600&q=80",
       "hasRemoteFallback": true,
-      "remoteFallbackReachable": true,
-      "remoteFallbackStatus": 200,
-      "remoteFallbackError": "",
+      "remoteFallbackReachable": false,
+      "remoteFallbackState": "unverified",
+      "remoteFallbackStatus": 0,
+      "remoteFallbackError": "fetch failed",
       "search": {
         "googleImages": "https://www.google.com/search?tbm=isch&q=Wabi%20Sabi%20interior%20design",
         "unsplash": "https://unsplash.com/s/photos/Wabi%20Sabi%20interior%20design"
