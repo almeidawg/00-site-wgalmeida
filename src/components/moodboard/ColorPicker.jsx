@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from '@/lib/motion-lite';
-import { Check, Plus, X, Upload, Image as ImageIcon, Trash2, Link as LinkIcon, Pipette } from 'lucide-react';
+import { Check, Plus, X, Upload, Link as LinkIcon, Pipette } from 'lucide-react';
 import ColorEyedropper from './ColorEyedropper';
 
 import { styleCatalog } from '@/utils/styleCatalog';
@@ -162,6 +162,7 @@ const ColorPicker = ({
         {!extractorImage ? (
           <div className="grid grid-cols-2 gap-2">
             <button
+              type="button"
               onClick={() => fileInputRef.current?.click()}
               className="flex flex-col items-center gap-2 p-4 rounded-xl border border-white/5 bg-white/5 hover:bg-white/10 transition-all group"
             >
@@ -169,6 +170,7 @@ const ColorPicker = ({
               <span className="text-[9px] font-bold uppercase tracking-tighter">Upload</span>
             </button>
             <button
+              type="button"
               onClick={() => setShowUrlInput(!showUrlInput)}
               className="flex flex-col items-center gap-2 p-4 rounded-xl border border-white/5 bg-white/5 hover:bg-white/10 transition-all group"
             >
@@ -196,7 +198,7 @@ const ColorPicker = ({
                   onChange={(e) => setUrlInput(e.target.value)}
                   className="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs outline-none focus:ring-1 focus:ring-wg-orange"
                 />
-                <button onClick={handleUrlSubmit} className="px-3 bg-wg-orange text-white rounded-xl text-[9px] font-bold uppercase tracking-widest">
+                <button type="button" onClick={handleUrlSubmit} className="px-3 bg-wg-orange text-white rounded-xl text-[9px] font-bold uppercase tracking-widest">
                   OK
                 </button>
               </div>
@@ -211,6 +213,7 @@ const ColorPicker = ({
         <div className="flex flex-wrap gap-1 max-h-[100px] overflow-y-auto pr-1 custom-scrollbar">
           {Object.entries(PRESET_PALETTES).map(([key, item]) => (
             <button
+              type="button"
               key={key}
               onClick={() => setActiveCategory(key)}
               className={`px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-tighter transition-all border ${
@@ -237,6 +240,7 @@ const ColorPicker = ({
             ))}
           </div>
           <button
+            type="button"
             onClick={() => handleApplyPalette(activeCategory)}
             className="ml-4 shrink-0 px-3 py-2 bg-slate-800 text-slate-300 rounded-lg hover:bg-slate-700 hover:text-white transition-all flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest"
           >

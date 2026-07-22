@@ -1,6 +1,30 @@
 import React, { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from '@/lib/motion-lite';
-import { Upload, X, Image as ImageIcon, Link as LinkIcon, Loader2 } from 'lucide-react';
+import { Upload, Image as ImageIcon, Link as LinkIcon, Loader2 } from 'lucide-react';
+
+let imageIdSequence = 0;
+
+const createImageId = () => {
+  const randomId = globalThis.crypto?.randomUUID?.();
+  if (randomId) return `img-${randomId}`;
+
+  imageIdSequence += 1;
+  return `img-${Date.now()}-${imageIdSequence}`;
+};
+
+const readFileAsDataUrl = (file) => new Promise((resolve, reject) => {
+  const reader = new FileReader();
+  reader.addEventListener('load', () => resolve(reader.result), { once: true });
+  reader.addEventListener('error', () => reject(reader.error || new Error('Falha ao ler imagem')), { once: true });
+  reader.readAsDataURL(file);
+});
+
+const buildLocalImage = async (file) => ({
+  id: createImageId(),
+  url: await readFileAsDataUrl(file),
+  name: file.name,
+  type: 'local',
+});
 
 const ImageUploader = ({ onImagesAdd, maxImages = 6, currentCount = 0 }) => {
   const [isDragging, setIsDragging] = useState(false);
@@ -21,7 +45,7 @@ const ImageUploader = ({ onImagesAdd, maxImages = 6, currentCount = 0 }) => {
     setIsDragging(false);
   }, []);
 
-  const processFiles = async (files) => {
+  const processFiles = useCallback(async (files) => {
     if (remainingSlots <= 0) {
       setError(`Limite de ${maxImages} imagens atingido`);
       return;
@@ -41,29 +65,15 @@ const ImageUploader = ({ onImagesAdd, maxImages = 6, currentCount = 0 }) => {
     }
 
     try {
-      const imagePromises = validFiles.map((file) => {
-        return new Promise((resolve) => {
-          const reader = new FileReader();
-          reader.onload = (e) => {
-            resolve({
-              id: `img-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-              url: e.target.result,
-              name: file.name,
-              type: 'local',
-            });
-          };
-          reader.readAsDataURL(file);
-        });
-      });
-
-      const images = await Promise.all(imagePromises);
+      const images = await Promise.all(validFiles.map(buildLocalImage));
       onImagesAdd(images);
-    } catch (err) {
+    } catch (error) {
+      console.error('[Moodboard] Falha ao processar imagens:', error);
       setError('Erro ao processar imagens');
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [maxImages, onImagesAdd, remainingSlots]);
 
   const handleDrop = useCallback(
     (e) => {
@@ -71,7 +81,7 @@ const ImageUploader = ({ onImagesAdd, maxImages = 6, currentCount = 0 }) => {
       setIsDragging(false);
       processFiles(e.dataTransfer.files);
     },
-    [remainingSlots]
+    [processFiles]
   );
 
   const handleFileSelect = (e) => {
@@ -102,7 +112,7 @@ const ImageUploader = ({ onImagesAdd, maxImages = 6, currentCount = 0 }) => {
     }
 
     const newImage = {
-      id: `img-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      id: createImageId(),
       url: urlInput,
       name: 'Imagem da URL',
       type: 'url',
@@ -170,6 +180,7 @@ const ImageUploader = ({ onImagesAdd, maxImages = 6, currentCount = 0 }) => {
       {/* URL Input Toggle */}
       <div>
         <button
+          type="button"
           onClick={() => setShowUrlInput(!showUrlInput)}
           className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-wg-orange transition-colors"
         >
@@ -195,6 +206,7 @@ const ImageUploader = ({ onImagesAdd, maxImages = 6, currentCount = 0 }) => {
               className="flex-1 px-4 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-400 focus:ring-1 focus:ring-wg-orange outline-none transition-all placeholder:text-slate-800"
             />
             <button
+              type="button"
               onClick={handleUrlAdd}
               className="px-4 py-2 bg-wg-orange text-white rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-wg-orange/90 transition-colors"
             >

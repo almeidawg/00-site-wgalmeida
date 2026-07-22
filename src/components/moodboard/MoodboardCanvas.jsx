@@ -1,7 +1,6 @@
 import React, { useContext, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from '@/lib/motion-lite';
 import {
-  Image as ImageIcon,
   Palette,
   Type,
   Trash2,
@@ -24,12 +23,12 @@ const calculateBudget = (items = []) =>
     if (!img?.price) return sum;
     try {
       const cleanPrice = String(img.price)
-        .replace('R$', '')
-        .replace(/\./g, '')
+        .replaceAll('R$', '')
+        .replaceAll('.', '')
         .replace(',', '.')
         .split('/')[0]
         .trim();
-      const numericValue = parseFloat(cleanPrice);
+      const numericValue = Number.parseFloat(cleanPrice);
       return Number.isNaN(numericValue) ? sum : sum + numericValue;
     } catch {
       return sum;

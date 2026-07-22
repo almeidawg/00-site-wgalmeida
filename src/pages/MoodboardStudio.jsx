@@ -7,7 +7,7 @@ import {
   ImageUploader
 } from '@/components/moodboard';
 import MoodboardStepSearch from '@/components/moodboard/MoodboardStepSearch';
-import SEO from '@/components/SEO';
+import Seo from '@/components/SEO';
 import { useState, useEffect } from 'react';
 import { ArrowRight, Layers, Loader2 } from 'lucide-react';
 import { createPortal } from 'react-dom';
@@ -29,7 +29,6 @@ const StudioContent = () => {
     selectedMaterials,
     updateColors,
     updateStyles,
-    updateMaterials,
     removeCustomImage,
     addCustomImages,
     clearMoodboard,
@@ -100,7 +99,7 @@ const StudioContent = () => {
 
   return (
     <>
-      <SEO title="Studio | Moodboard Imersivo" noindex />
+      <Seo title="Studio | Moodboard Imersivo" noindex />
       <MoodboardStudioLayout
         activeTab={activeTab}
         onTabChange={setActiveTab}
@@ -122,6 +121,7 @@ const StudioContent = () => {
 
                 {styles.length > 0 && (
                   <button
+                    type="button"
                     onClick={handleAutoCompose}
                     disabled={isAutoComposing}
                     className="w-full py-4 bg-wg-orange/10 hover:bg-wg-orange/20 border border-wg-orange/30 rounded-2xl text-wg-orange text-[10px] font-bold uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-2 group shadow-[0_0_20px_rgba(242,92,38,0.1)]"
@@ -182,6 +182,7 @@ const StudioContent = () => {
             <div className="pt-6 border-t border-white/5 space-y-3">
               {activeTab === 'styles' && styles.length > 0 && (
                 <button
+                  type="button"
                   onClick={() => setActiveTab('colors')}
                   className="w-full py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl text-white text-[10px] font-bold uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-2 group"
                 >
@@ -190,6 +191,7 @@ const StudioContent = () => {
               )}
               {activeTab === 'colors' && colors.length > 0 && (
                 <button
+                  type="button"
                   onClick={() => setActiveTab('finishes')}
                   className="w-full py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl text-white text-[10px] font-bold uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-2 group"
                 >
@@ -198,6 +200,7 @@ const StudioContent = () => {
               )}
               {activeTab === 'finishes' && (
                 <button
+                  type="button"
                   onClick={() => setActiveTab('decor')}
                   className="w-full py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl text-white text-[10px] font-bold uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-2 group"
                 >
@@ -206,6 +209,7 @@ const StudioContent = () => {
               )}
               {activeTab === 'decor' && (
                 <button
+                  type="button"
                   onClick={() => setActiveTab('assets')}
                   className="w-full py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl text-white text-[10px] font-bold uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-2 group"
                 >
@@ -214,6 +218,7 @@ const StudioContent = () => {
               )}
 
               <button
+                type="button"
                 onClick={handleClear}
                 className="w-full py-3 text-slate-600 hover:text-red-400 text-[8px] font-bold uppercase tracking-[0.2em] transition-all"
               >

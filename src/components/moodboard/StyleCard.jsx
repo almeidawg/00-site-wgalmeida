@@ -11,7 +11,7 @@ const StyleCard = ({
   onFavorite,
   isFavorite = false
 }) => {
-  const { id, name, slug, description, tags } = style;
+  const { name, slug, tags } = style;
 
   // Usa a variante 'card' para a grade, mas garante que pegamos a imagem real do manifesto se disponível
   const styleImage = getStyleImageUrl({ slug: slug, variant: 'card' }) || style.image;

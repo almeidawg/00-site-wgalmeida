@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import { fetchRetailProducts } from '@/services/retailService';
-import { buildStyleEditorialSearchPlan } from '@/lib/styleEditorialSearchProfile';
 
 const MoodboardContext = createContext(null);
 
@@ -94,29 +93,22 @@ export const MoodboardProvider = ({ children }) => {
   const [selectedMaterials, setSelectedMaterials] = useState([]);
   const [projectName, setProjectName] = useState('Meu Novo Refúgio');
   const [isModified, setIsModified] = useState(false);
-  const [isAutoSyncing, setIsAutoSyncing] = useState(false);
   const [isAutoComposing, setIsAutoComposing] = useState(false);
 
   // --- INTELIGÊNCIA FINANCEIRA: Cálculo de Orçamento ---
   const totalBudget = useMemo(() => {
     if (!customImages || customImages.length === 0) return 0;
 
-    return customImages.reduce((sum, img) => {
-      if (!img.price) return sum;
-      try {
-        // Extrai valor numérico de strings como "R$ 1.500,00" ou "R$ 289,90/m²"
-        const cleanPrice = img.price
-          .replace('R$', '')
-          .replace(/\./g, '')
-          .replace(',', '.')
-          .split('/')[0] // Pega o valor base antes da unidade (/m², /un)
-          .trim();
-
-        const numericValue = parseFloat(cleanPrice);
-        return isNaN(numericValue) ? sum : sum + numericValue;
-      } catch (e) {
-        return sum;
-      }
+    return customImages.reduce((sum, image) => {
+      if (!image?.price) return sum;
+      const cleanPrice = String(image.price)
+        .replaceAll('R$', '')
+        .replaceAll('.', '')
+        .replace(',', '.')
+        .split('/')[0]
+        .trim();
+      const numericValue = Number.parseFloat(cleanPrice);
+      return Number.isNaN(numericValue) ? sum : sum + numericValue;
     }, 0);
   }, [customImages]);
 
@@ -138,7 +130,8 @@ export const MoodboardProvider = ({ children }) => {
         setCustomImages(Array.isArray(data.customImages) ? data.customImages : []);
         setSelectedMaterials(Array.isArray(data.selectedMaterials) ? data.selectedMaterials : []);
         if (data.projectName) setProjectName(data.projectName);
-      } catch (err) {
+      } catch (error) {
+        console.warn('[Moodboard] Dados locais inválidos foram descartados.', error);
         localStorage.removeItem(STORAGE_KEY);
       }
     }
@@ -185,6 +178,16 @@ export const MoodboardProvider = ({ children }) => {
   }, []);
 
   // --- HANDLERS ---
+  const updateColors = useCallback((newColors) => {
+    setColors(Array.isArray(newColors) ? newColors : []);
+    setIsModified(true);
+  }, []);
+
+  const updateMaterials = useCallback((newMaterials) => {
+    setSelectedMaterials(Array.isArray(newMaterials) ? newMaterials : []);
+    setIsModified(true);
+  }, []);
+
   const updateStyles = useCallback((newStyles) => {
     const safeStyles = Array.isArray(newStyles) ? newStyles : [];
     setStyles(safeStyles);
@@ -259,21 +262,32 @@ export const MoodboardProvider = ({ children }) => {
         })),
       })));
       return `${window.location.origin}/moodboard/share?v=${payload}`;
-    } catch {
+    } catch (error) {
+      console.warn('[Moodboard] Não foi possível gerar o link compartilhável.', error);
       return `${window.location.origin}/moodboard/share`;
     }
   }, [projectName, colors, styles, customImages]);
 
-  const value = {
+  const hasContent = useMemo(
+    () => colors.length > 0 || styles.length > 0 || customImages.length > 0,
+    [colors.length, styles.length, customImages.length]
+  );
+
+  const value = useMemo(() => ({
     colors, styles, customImages, selectedMaterials, projectName,
-    totalBudget, budgetTier,
-    hasContent: (colors?.length || 0) > 0 || (styles?.length || 0) > 0 || (customImages?.length || 0) > 0,
-    isModified, isAutoSyncing, isAutoComposing,
-    setProjectName: updateProjectName, updateProjectName, updateColors: setColors, updateStyles,
-    updateMaterials: setSelectedMaterials, addCustomImages, removeCustomImage,
+    totalBudget, budgetTier, hasContent,
+    isModified, isAutoComposing,
+    setProjectName: updateProjectName, updateProjectName, updateColors, updateStyles,
+    updateMaterials, addCustomImages, removeCustomImage,
     clearMoodboard, saveMoodboard, autoComposeMoodboard,
     getMoodboardData, buildShareUrl,
-  };
+  }), [
+    colors, styles, customImages, selectedMaterials, projectName,
+    totalBudget, budgetTier, hasContent, isModified, isAutoComposing,
+    updateProjectName, updateColors, updateStyles, updateMaterials,
+    addCustomImages, removeCustomImage, clearMoodboard, saveMoodboard,
+    autoComposeMoodboard, getMoodboardData, buildShareUrl,
+  ]);
 
   return <MoodboardContext.Provider value={value}>{children}</MoodboardContext.Provider>;
 };

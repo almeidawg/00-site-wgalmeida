@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from '@/lib/motion-lite';
-import { Search, Filter, Grid, List } from 'lucide-react';
+import { Search, Grid, List } from 'lucide-react';
 import StyleCard from './StyleCard';
 import { styleCatalog } from '@/utils/styleCatalog';
 
@@ -109,6 +109,7 @@ const StyleGrid = ({ selectedStyles, onStylesChange, maxStyles = 3 }) => {
         <div className="flex flex-wrap gap-1">
           {CATEGORIES.map((category) => (
             <button
+              type="button"
               key={category.id}
               onClick={() => setActiveCategory(category.id)}
               className={`px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-tighter transition-all ${

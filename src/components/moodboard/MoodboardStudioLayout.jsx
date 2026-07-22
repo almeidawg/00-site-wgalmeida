@@ -86,6 +86,7 @@ const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, 
         <div className="flex flex-wrap gap-1 border-b border-white/5 p-2 bg-black/20 shrink-0">
           {tabs.map((tab) => (
             <button
+              type="button"
               key={tab.id}
               onClick={() => onTabChange(tab.id)}
               className={cn(
