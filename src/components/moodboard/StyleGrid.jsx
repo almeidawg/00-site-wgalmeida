@@ -69,6 +69,9 @@ const StyleGrid = ({ selectedStyles, onStylesChange, maxStyles = 3 }) => {
         </p>
         <div className="flex items-center gap-1">
           <button
+            type="button"
+            aria-label="Visualizar estilos em grade"
+            aria-pressed={viewMode === 'grid'}
             onClick={() => setViewMode('grid')}
             className={`p-1.5 rounded ${
               viewMode === 'grid' ? 'bg-wg-orange text-white' : 'text-slate-500 hover:text-slate-300'
@@ -77,6 +80,9 @@ const StyleGrid = ({ selectedStyles, onStylesChange, maxStyles = 3 }) => {
             <Grid className="w-4 h-4" />
           </button>
           <button
+            type="button"
+            aria-label="Visualizar estilos em lista"
+            aria-pressed={viewMode === 'list'}
             onClick={() => setViewMode('list')}
             className={`p-1.5 rounded ${
               viewMode === 'list' ? 'bg-wg-orange text-white' : 'text-slate-500 hover:text-slate-300'

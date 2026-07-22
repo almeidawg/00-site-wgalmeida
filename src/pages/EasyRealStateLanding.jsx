@@ -18,7 +18,7 @@ import { Link } from 'react-router-dom';
 import { WG_PRODUCT_MESSAGES, COMPANY, PRODUCT_URLS } from '@/data/company';
 import { useTranslation } from 'react-i18next';
 
-const EASYREALSTATE_HERO_IMAGE = withBasePath('/images/banners/ARQUITETURA.webp');
+const EASYREALSTATE_HERO_IMAGE = withBasePath('/images/banners/ARQ.webp');
 
 const EasyRealStateLanding = () => {
   const { t } = useTranslation();

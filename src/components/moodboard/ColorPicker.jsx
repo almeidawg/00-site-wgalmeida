@@ -31,7 +31,17 @@ const ColorSwatch = ({ color, isSelected, onClick, onRemove, size = 'md' }) => {
         isSelected ? 'border-orange-500 shadow-orange-500/20' : 'border-white/10'
       }`}
       style={{ backgroundColor: color }}
+      role="button"
+      tabIndex={0}
+      aria-label={`Selecionar cor ${color}`}
+      aria-pressed={isSelected}
       onClick={() => onClick(color)}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          onClick(color);
+        }
+      }}
     >
       {isSelected && (
         <div className="absolute inset-0 flex items-center justify-center">
@@ -40,6 +50,9 @@ const ColorSwatch = ({ color, isSelected, onClick, onRemove, size = 'md' }) => {
       )}
       {onRemove && (
         <button
+          type="button"
+          aria-label={`Remover cor ${color}`}
+          title={`Remover cor ${color}`}
           onClick={(e) => {
             e.stopPropagation();
             onRemove(color);
@@ -162,7 +175,7 @@ const ColorPicker = ({
               <LinkIcon size={18} className="text-slate-500 group-hover:text-wg-orange" />
               <span className="text-[9px] font-bold uppercase tracking-tighter">Link / URL</span>
             </button>
-            <input type="file" ref={fileInputRef} onChange={handleFileUpload} className="hidden" accept="image/*" />
+            <input type="file" aria-label="Enviar imagem para identificar cores" ref={fileInputRef} onChange={handleFileUpload} className="hidden" accept="image/*" />
           </div>
         ) : (
           <ColorEyedropper
@@ -238,18 +251,23 @@ const ColorPicker = ({
         <div className="flex items-center gap-3">
           <input
             type="color"
+            aria-label="Selecionar cor personalizada"
             value={customColor}
             onChange={(e) => setCustomColor(e.target.value)}
             className="w-10 h-10 rounded-lg cursor-pointer bg-transparent border-none"
           />
           <input
             type="text"
+            aria-label="Código hexadecimal da cor personalizada"
             value={customColor}
             onChange={(e) => setCustomColor(e.target.value)}
             className="flex-1 bg-slate-950 border border-slate-800 rounded-lg py-2 px-3 text-xs font-mono text-slate-400 focus:border-wg-orange outline-none transition-all"
             placeholder="#000000"
           />
           <button
+            type="button"
+            aria-label="Adicionar cor personalizada"
+            title="Adicionar cor personalizada"
             onClick={handleAddCustomColor}
             disabled={selectedColors.length >= maxColors}
             className="p-2 bg-wg-orange text-white rounded-lg hover:bg-[#de5423] transition-all disabled:opacity-30"

@@ -1,203 +1,75 @@
-# Local Source Of Truth: EasyRealState + ObraEasy
+# Fonte local e operacional — Easy Real State e Obra Easy
 
-Atualizado em `2026-04-10`.
+Atualizado em `2026-07-21` após auditoria governada de GitHub, Vercel e produção.
 
-## Objetivo
+## Regra principal
 
-Este documento existe para eliminar ambiguidade sobre:
+Os produtos abaixo possuem repositórios próprios. As páginas existentes em `site-wgalmeida` são apenas landings e integrações de aquisição; não são a fonte principal dos SaaS.
 
-- onde cada projeto realmente esta
-- qual pasta deve ser usada para desenvolvimento local
-- quais pastas sao piloto, copia, embed ou arquivo morto
-- como subir os projetos localmente antes de abrir tuneis
+Nunca iniciar evolução a partir de cópia histórica, pasta de piloto, build exportado, embed ou diretório encontrado apenas por nome. Antes de editar, validar Git, branch, remote, deployment e domínio.
 
-## Fonte oficial atual
+## Easy Real State
 
-### ObraEasy
+- Repositório canônico atual: `almeidawg/02-easy-real-state`
+- Branch principal: `main`
+- Domínio oficial: `https://easyrealstate.wgalmeida.com.br`
+- Projeto Vercel observado: `easyrealstate`
+- Stack observada: Next.js + Supabase + Vercel
+- Rotas públicas críticas:
+  - `/`
+  - `/calculo`
+  - `/evf`
+  - `/login`
+  - `/cadastro`
+  - `/planos`
+  - `/demo/index.html`
 
-- Pasta oficial para desenvolvimento local:
-  `C:\Users\Atendimento\Documents\_GRUPO_WG_ALMEIDA\01_APPS\02_BUILDTECH\04_OPERACIONAL\02_20260310_Projetos\02_20260310_Desenvolvimento\03_SaaS\ObraEasy`
-- Remote Git identificado:
-  `https://github.com/almeidawg/obra-easy.git`
-- Estrutura real encontrada:
-  - `frontend`
-  - `backend`
-  - `database`
-- Status operacional:
-  - projeto executavel localmente
-  - backend e frontend separados
-  - banco baseado em Supabase
+O deployment utiliza o package localizado em `app/`, conforme `vercel.json` da raiz. A pasta aninhada `app/app/` é a árvore de rotas do Next.js, não uma raiz alternativa para comandos Git.
 
-### EasyRealState
+## Obra Easy
 
-- Pasta oficial para desenvolvimento local:
-  `C:\Users\Atendimento\Documents\_GRUPO_WG_ALMEIDA\01_APPS\02_BUILDTECH\04_OPERACIONAL\02_20260310_Projetos\04_20260310_Prod\easy-realstate`
-- Remote Git identificado:
-  `https://github.com/almeidawg/easyrealstate.git`
-- Estrutura real encontrada:
-  - app Next.js unica
-  - `app`
-  - `components`
-  - `lib`
-- Status operacional:
-  - projeto executavel localmente
-  - frontend Next.js
-  - integracoes com Supabase
+- Repositório canônico atual: `almeidawg/03-obra-easy`
+- Branch principal: `main`
+- Domínio oficial: `https://obraeasy.wgalmeida.com.br`
+- Projeto Vercel observado: `obraeasy`
+- Stack observada: React + TypeScript + Vite + Supabase + Vercel
+- Estrutura:
+  - `frontend/`
+  - `backend/`
+  - `api/`
+  - `database/`
+- Rotas públicas críticas:
+  - `/`
+  - `/evf4`
+  - `/entrar`
+  - `/cadastro`
+  - `/parceiro/entrar`
+  - `/privacidade`
+  - `/termos`
 
-## Pastas encontradas que NAO devem ser tratadas como fonte principal
+## Pastas antigas
 
-### EasyRealState piloto e documentacao
+As referências anteriores sob `C:\Users\Atendimento\Documents\...` não existem no host auditado em 2026-07-21 e não devem ser usadas como ponteiro canônico.
 
-- Pasta:
-  `C:\Users\Atendimento\Documents\_GRUPO_WG_ALMEIDA\01_APPS\02_BUILDTECH\04_OPERACIONAL\02_20260310_Projetos\02_20260310_Desenvolvimento\03_SaaS\clientes\001_Capadocia-Brokers\EasyRealState_Piloto_20260331`
-- Uso correto:
-  - referencia de produto
-  - piloto
-  - documentacao
-- Nao usar como raiz principal de desenvolvimento continuo do produto.
+Clones temporários criados em `C:\WG_TEMP\...` são ambientes de laboratório e podem ser removidos após merge, validação de produção e preservação das evidências. Eles não substituem o repositório remoto como fonte de verdade.
 
-### Espelhos, embeds e referencias dentro de outros projetos
+## Gate obrigatório antes de qualquer ação
 
-Foram encontradas referencias de `EasyRealState` e `ObraEasy` dentro de:
+Validar e registrar:
 
-- `site-wgalmeida`
-- `WGEasy`
-- `04_20260310_Prod\wgeasy`
-- `_Grupo_WG_Almeida\EasyRealState`
-- `_WG_build.tech\...assets\...`
+1. produto e repositório;
+2. root e package realmente implantado;
+3. branch e HEAD;
+4. remote e divergência com `origin/main`;
+5. working tree;
+6. domínio e projeto Vercel;
+7. deployment associado ao SHA;
+8. runtime Node/npm;
+9. Supabase e políticas quando houver alteração de dados;
+10. return point mais recente.
 
-Uso correto dessas ocorrencias:
+## Fluxo de entrega
 
-- landing pages
-- copias de producao
-- componentes compartilhados
-- codigo embutido em outros apps
+`branch curta -> backup -> patch mínimo -> testes -> auditoria visual -> commit -> push -> PR -> checks -> merge normal -> deployment do SHA -> smoke de produção -> return point`
 
-Nao usar essas pastas como origem principal sem justificativa explicita.
-
-### Arquivo morto
-
-Tambem existem copias em `99_ARQUIVO_MORTO`.
-
-Regra:
-
-- nunca iniciar trabalho novo a partir de `99_ARQUIVO_MORTO`
-- usar apenas para consulta historica, se necessario
-
-## Regra operacional de trabalho
-
-Quando a conversa mencionar os projetos abaixo, assumir estas pastas por padrao:
-
-### "ObraEasy"
-
-Usar:
-
-`C:\Users\Atendimento\Documents\_GRUPO_WG_ALMEIDA\01_APPS\02_BUILDTECH\04_OPERACIONAL\02_20260310_Projetos\02_20260310_Desenvolvimento\03_SaaS\ObraEasy`
-
-### "EasyRealState"
-
-Usar:
-
-`C:\Users\Atendimento\Documents\_GRUPO_WG_ALMEIDA\01_APPS\02_BUILDTECH\04_OPERACIONAL\02_20260310_Projetos\04_20260310_Prod\easy-realstate`
-
-Se aparecer outra pasta com o mesmo nome, validar antes de editar.
-
-## Como rodar localmente
-
-### ObraEasy
-
-Backend:
-
-```powershell
-cd C:\Users\Atendimento\Documents\_GRUPO_WG_ALMEIDA\01_APPS\02_BUILDTECH\04_OPERACIONAL\02_20260310_Projetos\02_20260310_Desenvolvimento\03_SaaS\ObraEasy\backend
-npm install
-copy .env.example .env
-npm run check:env
-npm run dev
-```
-
-Frontend:
-
-```powershell
-cd C:\Users\Atendimento\Documents\_GRUPO_WG_ALMEIDA\01_APPS\02_BUILDTECH\04_OPERACIONAL\02_20260310_Projetos\02_20260310_Desenvolvimento\03_SaaS\ObraEasy\frontend
-npm install
-copy .env.example .env
-npm run dev
-```
-
-Portas esperadas:
-
-- backend: `3010`
-- frontend: `5173` por padrao do Vite
-
-Validacao minima:
-
-```powershell
-curl http://localhost:3010/health
-curl http://localhost:3010/iccri/stats
-```
-
-### EasyRealState
-
-```powershell
-cd C:\Users\Atendimento\Documents\_GRUPO_WG_ALMEIDA\01_APPS\02_BUILDTECH\04_OPERACIONAL\02_20260310_Projetos\04_20260310_Prod\easy-realstate
-npm install
-copy .env.local.example .env.local
-npm run dev
-```
-
-Porta esperada:
-
-- frontend Next.js: `3000`
-
-Validacao minima:
-
-- abrir `http://localhost:3000`
-- confirmar carregamento da home e das rotas principais
-
-## Regra antes de abrir tuneis
-
-So criar `ngrok` ou `cloudflared` depois de validar:
-
-- projeto sobe sem erro
-- porta correta esta respondendo
-- `.env` esta alinhado com a URL local certa
-- CORS esta coerente entre frontend e backend
-
-## Validacao local executada em 2026-04-10
-
-### ObraEasy
-
-- `backend` validado com `npm run validate`
-- `frontend` validado com `npm run build`
-- backend respondendo em `http://localhost:3010/health`
-- backend respondendo em `http://localhost:3010/iccri/stats`
-- frontend respondendo em `http://localhost:5173`
-
-### EasyRealState
-
-- build validado com `npm run build`
-- uma instancia `next dev` ja estava ativa na mesma raiz e segurando o lock de `.next/dev/lock`
-- instancia ativa respondendo em `http://localhost:3100`
-
-### Implicacao pratica
-
-Antes de iniciar outra instancia do `EasyRealState`, verificar se ja existe um `next dev` rodando na mesma pasta.
-
-Se quiser iniciar manualmente em uma porta nova:
-
-```powershell
-cd C:\Users\Atendimento\Documents\_GRUPO_WG_ALMEIDA\01_APPS\02_BUILDTECH\04_OPERACIONAL\02_20260310_Projetos\04_20260310_Prod\easy-realstate
-npm run dev -- --port 4100
-```
-
-Se houver erro de lock, primeiro encerrar a instancia ja existente da mesma raiz.
-
-## Checklist rapido
-
-- confirmar pasta oficial do projeto
-- confirmar se nao esta dentro de piloto, copia ou arquivo morto
-- confirmar `node_modules`
-- subir local
-- validar portas
-- so depois abrir tunel publico
+Não fazer push direto em `main`, não usar bypass, não executar `npm audit fix --force` e não expor segredos.

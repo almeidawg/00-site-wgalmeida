@@ -25,7 +25,17 @@ const StyleCard = ({
           ? 'ring-2 ring-wg-orange border-wg-orange/50 shadow-[0_0_20px_rgba(242,92,38,0.2)]' 
           : 'border-slate-800 bg-slate-900/40 hover:border-slate-700'
       }`}
+      role="button"
+      tabIndex={0}
+      aria-label={`${isSelected ? 'Remover' : 'Selecionar'} estilo ${name}`}
+      aria-pressed={isSelected}
       onClick={() => onSelect(style)}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          onSelect(style);
+        }
+      }}
     >
       <div className="aspect-[4/3] overflow-hidden relative">
         <img
@@ -48,6 +58,10 @@ const StyleCard = ({
 
       {/* Favorite button */}
       <button
+        type="button"
+        aria-label={`${isFavorite ? 'Remover' : 'Adicionar'} ${name} dos favoritos`}
+        aria-pressed={isFavorite}
+        title={isFavorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
         onClick={(e) => {
           e.stopPropagation();
           onFavorite?.(style);

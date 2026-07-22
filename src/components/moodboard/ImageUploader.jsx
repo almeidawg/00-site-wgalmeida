@@ -141,6 +141,7 @@ const ImageUploader = ({ onImagesAdd, maxImages = 6, currentCount = 0 }) => {
       >
         <input
           type="file"
+          aria-label="Enviar imagens de referência"
           accept="image/*"
           multiple
           onChange={handleFileSelect}
