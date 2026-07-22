@@ -43,13 +43,15 @@ const StudioContent = () => {
 
   const [lizInsight, setLizInsight] = useState("Seja bem-vindo ao Studio. Comece selecionando seus estilos favoritos para compormos sua visão.");
 
-  const handleSave = async () => {
+  const handleSave = () => {
     setIsSaving(true);
     setSaveMessage('');
-    await new Promise(resolve => setTimeout(resolve, 250));
-    const savedAt = saveMoodboard();
-    setSaveMessage(`Salvo localmente às ${new Date(savedAt).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`);
-    setIsSaving(false);
+    try {
+      const savedAt = saveMoodboard();
+      setSaveMessage(`Salvo localmente às ${new Date(savedAt).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`);
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   const handleClear = () => {
