@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from '@/lib/motion-lite';
-import { Check, Plus, X, Upload, Image as ImageIcon, Trash2, Link as LinkIcon, Pipette } from 'lucide-react';
+import { Check, Plus, X, Upload, Link as LinkIcon, Pipette } from 'lucide-react';
 import ColorEyedropper from './ColorEyedropper';
 
 import { styleCatalog } from '@/utils/styleCatalog';
@@ -31,7 +31,17 @@ const ColorSwatch = ({ color, isSelected, onClick, onRemove, size = 'md' }) => {
         isSelected ? 'border-orange-500 shadow-orange-500/20' : 'border-white/10'
       }`}
       style={{ backgroundColor: color }}
+      role="button"
+      tabIndex={0}
+      aria-label={`Selecionar cor ${color}`}
+      aria-pressed={isSelected}
       onClick={() => onClick(color)}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          onClick(color);
+        }
+      }}
     >
       {isSelected && (
         <div className="absolute inset-0 flex items-center justify-center">
@@ -40,6 +50,9 @@ const ColorSwatch = ({ color, isSelected, onClick, onRemove, size = 'md' }) => {
       )}
       {onRemove && (
         <button
+          type="button"
+          aria-label={`Remover cor ${color}`}
+          title={`Remover cor ${color}`}
           onClick={(e) => {
             e.stopPropagation();
             onRemove(color);
@@ -149,6 +162,7 @@ const ColorPicker = ({
         {!extractorImage ? (
           <div className="grid grid-cols-2 gap-2">
             <button
+              type="button"
               onClick={() => fileInputRef.current?.click()}
               className="flex flex-col items-center gap-2 p-4 rounded-xl border border-white/5 bg-white/5 hover:bg-white/10 transition-all group"
             >
@@ -156,13 +170,14 @@ const ColorPicker = ({
               <span className="text-[9px] font-bold uppercase tracking-tighter">Upload</span>
             </button>
             <button
+              type="button"
               onClick={() => setShowUrlInput(!showUrlInput)}
               className="flex flex-col items-center gap-2 p-4 rounded-xl border border-white/5 bg-white/5 hover:bg-white/10 transition-all group"
             >
               <LinkIcon size={18} className="text-slate-500 group-hover:text-wg-orange" />
               <span className="text-[9px] font-bold uppercase tracking-tighter">Link / URL</span>
             </button>
-            <input type="file" ref={fileInputRef} onChange={handleFileUpload} className="hidden" accept="image/*" />
+            <input type="file" aria-label="Enviar imagem para identificar cores" ref={fileInputRef} onChange={handleFileUpload} className="hidden" accept="image/*" />
           </div>
         ) : (
           <ColorEyedropper
@@ -183,7 +198,7 @@ const ColorPicker = ({
                   onChange={(e) => setUrlInput(e.target.value)}
                   className="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs outline-none focus:ring-1 focus:ring-wg-orange"
                 />
-                <button onClick={handleUrlSubmit} className="px-3 bg-wg-orange text-white rounded-xl text-[9px] font-bold uppercase tracking-widest">
+                <button type="button" onClick={handleUrlSubmit} className="px-3 bg-wg-orange text-white rounded-xl text-[9px] font-bold uppercase tracking-widest">
                   OK
                 </button>
               </div>
@@ -198,6 +213,7 @@ const ColorPicker = ({
         <div className="flex flex-wrap gap-1 max-h-[100px] overflow-y-auto pr-1 custom-scrollbar">
           {Object.entries(PRESET_PALETTES).map(([key, item]) => (
             <button
+              type="button"
               key={key}
               onClick={() => setActiveCategory(key)}
               className={`px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-tighter transition-all border ${
@@ -224,6 +240,7 @@ const ColorPicker = ({
             ))}
           </div>
           <button
+            type="button"
             onClick={() => handleApplyPalette(activeCategory)}
             className="ml-4 shrink-0 px-3 py-2 bg-slate-800 text-slate-300 rounded-lg hover:bg-slate-700 hover:text-white transition-all flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest"
           >
@@ -238,18 +255,23 @@ const ColorPicker = ({
         <div className="flex items-center gap-3">
           <input
             type="color"
+            aria-label="Selecionar cor personalizada"
             value={customColor}
             onChange={(e) => setCustomColor(e.target.value)}
             className="w-10 h-10 rounded-lg cursor-pointer bg-transparent border-none"
           />
           <input
             type="text"
+            aria-label="Código hexadecimal da cor personalizada"
             value={customColor}
             onChange={(e) => setCustomColor(e.target.value)}
             className="flex-1 bg-slate-950 border border-slate-800 rounded-lg py-2 px-3 text-xs font-mono text-slate-400 focus:border-wg-orange outline-none transition-all"
             placeholder="#000000"
           />
           <button
+            type="button"
+            aria-label="Adicionar cor personalizada"
+            title="Adicionar cor personalizada"
             onClick={handleAddCustomColor}
             disabled={selectedColors.length >= maxColors}
             className="p-2 bg-wg-orange text-white rounded-lg hover:bg-[#de5423] transition-all disabled:opacity-30"

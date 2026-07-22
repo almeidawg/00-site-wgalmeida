@@ -1,7 +1,6 @@
 import React, { useContext, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from '@/lib/motion-lite';
 import {
-  Image as ImageIcon,
   Palette,
   Type,
   Trash2,
@@ -24,12 +23,12 @@ const calculateBudget = (items = []) =>
     if (!img?.price) return sum;
     try {
       const cleanPrice = String(img.price)
-        .replace('R$', '')
-        .replace(/\./g, '')
+        .replaceAll('R$', '')
+        .replaceAll('.', '')
         .replace(',', '.')
         .split('/')[0]
         .trim();
-      const numericValue = parseFloat(cleanPrice);
+      const numericValue = Number.parseFloat(cleanPrice);
       return Number.isNaN(numericValue) ? sum : sum + numericValue;
     } catch {
       return sum;
@@ -119,10 +118,10 @@ const MoodboardCanvas = ({
             )}
 
             <div className="flex gap-2">
-              <button className="p-3 bg-white/5 hover:bg-wg-orange text-white rounded-full transition-all border border-white/10">
+              <button type="button" aria-label="Baixar moodboard" title="Baixar moodboard" className="p-3 bg-white/5 hover:bg-wg-orange text-white rounded-full transition-all border border-white/10">
                 <Download size={18} />
               </button>
-              <button className="p-3 bg-white/5 hover:bg-white/10 text-white rounded-full transition-all border border-white/10">
+              <button type="button" aria-label="Compartilhar moodboard" title="Compartilhar moodboard" className="p-3 bg-white/5 hover:bg-white/10 text-white rounded-full transition-all border border-white/10">
                 <Share2 size={18} />
               </button>
             </div>
@@ -252,6 +251,9 @@ const MoodboardCanvas = ({
                     )}
 
                     <button
+                      type="button"
+                      aria-label={`Remover ${img.name || img.title || 'referência'}`}
+                      title="Remover referência"
                       onClick={() => onRemoveImage?.(img)}
                       className="absolute top-1.5 right-1.5 w-6 h-6 bg-red-500/80 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all z-20"
                     >

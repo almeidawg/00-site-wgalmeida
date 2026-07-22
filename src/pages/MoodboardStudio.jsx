@@ -7,15 +7,15 @@ import {
   ImageUploader
 } from '@/components/moodboard';
 import MoodboardStepSearch from '@/components/moodboard/MoodboardStepSearch';
-import SEO from '@/components/SEO';
+import Seo from '@/components/SEO';
 import { useState, useEffect } from 'react';
 import { ArrowRight, Layers, Loader2 } from 'lucide-react';
 import { createPortal } from 'react-dom';
 
 const StudioContent = () => {
   const [activeTab, setActiveTab] = useState('styles');
-  const [projectName, setProjectName] = useState('');
   const [isSaving, setIsSaving] = useState(false);
+  const [saveMessage, setSaveMessage] = useState('');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -29,22 +29,35 @@ const StudioContent = () => {
     selectedMaterials,
     updateColors,
     updateStyles,
-    updateMaterials,
     removeCustomImage,
     addCustomImages,
     clearMoodboard,
+    projectName,
+    updateProjectName,
+    saveMoodboard,
     autoComposeMoodboard,
     isAutoComposing
   } = useMoodboard();
 
   const primaryStyleTitle = styles[0]?.title || styles[0]?.name || '';
 
-  const [lizInsight, setLizInsight] = useState("Seja bem-vindo ao Studio, William. Comece selecionando seus estilos favoritos para compormos sua visão.");
+  const [lizInsight, setLizInsight] = useState("Seja bem-vindo ao Studio. Comece selecionando seus estilos favoritos para compormos sua visão.");
 
   const handleSave = async () => {
     setIsSaving(true);
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    setSaveMessage('');
+    await new Promise(resolve => setTimeout(resolve, 250));
+    const savedAt = saveMoodboard();
+    setSaveMessage(`Salvo localmente às ${new Date(savedAt).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`);
     setIsSaving(false);
+  };
+
+  const handleClear = () => {
+    if (confirm('Deseja limpar todo o seu trabalho atual no Studio?')) {
+      clearMoodboard();
+      setActiveTab('styles');
+      setSaveMessage('Workspace limpo.');
+    }
   };
 
   const handleAutoCompose = async () => {
@@ -54,7 +67,7 @@ const StudioContent = () => {
     }
     const styleEntry = styles[0];
     await autoComposeMoodboard(styleEntry);
-    setLizInsight(`William, analisei o catálogo e montei uma composição inicial baseada em ${styleEntry.name}. Injetei referências técnicas de acabamentos e decoração no seu Canvas.`);
+    setLizInsight(`Analisei o catálogo e montei uma composição inicial baseada em ${styleEntry.name}. Injetei referências técnicas de acabamentos e decoração no seu Canvas.`);
   };
 
   useEffect(() => {
@@ -63,7 +76,7 @@ const StudioContent = () => {
     // 1. Lógica de Mensagens Dinâmicas da Liz (Modo Consultor Técnico)
     if (activeTab === 'styles') {
       if (styles.length === 0) {
-        setLizInsight("William, comece selecionando a base da sua visão. Qual destes estilos mais ressoa com o projeto?");
+        setLizInsight("Comece selecionando a base da sua visão. Qual destes estilos mais ressoa com o projeto?");
       } else {
         const names = styles.map(s => s.name || s.title).join(' & ');
         setLizInsight(`Ótima escolha. O mix entre ${names} cria uma base sofisticada. Você pode compor manualmente ou gerar uma base técnica inicial.`);
@@ -76,7 +89,7 @@ const StudioContent = () => {
       const styleName = styles[0]?.name || styles[0]?.title || 'escolhido';
       setLizInsight(`Para o estilo ${styleName}, priorizei no motor de busca revestimentos de grande formato e metais com acabamento brushed.`);
     } else if (activeTab === 'decor') {
-      setLizInsight("William, a curadoria de decoração agora foca em texturas naturais e iluminação de cena para dar vida à composição.");
+      setLizInsight("A curadoria de decoração agora foca em texturas naturais e iluminação de cena para dar vida à composição.");
     } else if (activeTab === 'assets') {
       setLizInsight("Espaço para referências externas. Você pode vincular fotos de fornecedores ou do local da obra para fechar o dossiê.");
     }
@@ -86,14 +99,16 @@ const StudioContent = () => {
 
   return (
     <>
-      <SEO title="Studio | Moodboard Imersivo" noindex />
+      <Seo title="Studio | Moodboard Imersivo" noindex />
       <MoodboardStudioLayout
         activeTab={activeTab}
         onTabChange={setActiveTab}
         projectName={projectName}
-        onProjectNameChange={setProjectName}
+        onProjectNameChange={updateProjectName}
         onSave={handleSave}
         isSaving={isSaving}
+        saveMessage={saveMessage}
+        onClear={handleClear}
         lizInsight={lizInsight}
       >
          <div className="space-y-8">
@@ -106,6 +121,7 @@ const StudioContent = () => {
 
                 {styles.length > 0 && (
                   <button
+                    type="button"
                     onClick={handleAutoCompose}
                     disabled={isAutoComposing}
                     className="w-full py-4 bg-wg-orange/10 hover:bg-wg-orange/20 border border-wg-orange/30 rounded-2xl text-wg-orange text-[10px] font-bold uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-2 group shadow-[0_0_20px_rgba(242,92,38,0.1)]"
@@ -166,6 +182,7 @@ const StudioContent = () => {
             <div className="pt-6 border-t border-white/5 space-y-3">
               {activeTab === 'styles' && styles.length > 0 && (
                 <button
+                  type="button"
                   onClick={() => setActiveTab('colors')}
                   className="w-full py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl text-white text-[10px] font-bold uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-2 group"
                 >
@@ -174,6 +191,7 @@ const StudioContent = () => {
               )}
               {activeTab === 'colors' && colors.length > 0 && (
                 <button
+                  type="button"
                   onClick={() => setActiveTab('finishes')}
                   className="w-full py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl text-white text-[10px] font-bold uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-2 group"
                 >
@@ -182,6 +200,7 @@ const StudioContent = () => {
               )}
               {activeTab === 'finishes' && (
                 <button
+                  type="button"
                   onClick={() => setActiveTab('decor')}
                   className="w-full py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl text-white text-[10px] font-bold uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-2 group"
                 >
@@ -190,6 +209,7 @@ const StudioContent = () => {
               )}
               {activeTab === 'decor' && (
                 <button
+                  type="button"
                   onClick={() => setActiveTab('assets')}
                   className="w-full py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl text-white text-[10px] font-bold uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-2 group"
                 >
@@ -198,12 +218,8 @@ const StudioContent = () => {
               )}
 
               <button
-                onClick={() => {
-                   if(confirm('Deseja limpar todo o seu trabalho atual no Studio?')) {
-                     clearMoodboard();
-                     setActiveTab('styles');
-                   }
-                }}
+                type="button"
+                onClick={handleClear}
                 className="w-full py-3 text-slate-600 hover:text-red-400 text-[8px] font-bold uppercase tracking-[0.2em] transition-all"
               >
                 Limpar Workspace

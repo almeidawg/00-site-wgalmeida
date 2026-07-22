@@ -1,31 +1,25 @@
 import React from 'react';
 import { motion } from '@/lib/motion-lite';
-import SEO from '@/components/SEO';
+import Seo from '@/components/SEO';
 import { withBasePath } from '@/utils/assetPaths';
 import ResponsiveWebpImage from '@/components/ResponsiveWebpImage';
-import { 
-  BarChart3, 
-  CheckCircle2, 
-  TrendingUp, 
-  ShieldCheck, 
-  Clock, 
+import {
+  BarChart3,
+  CheckCircle2,
   ArrowRight,
-  Database,
-  Calculator,
   Search
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import { WG_PRODUCT_MESSAGES, COMPANY, PRODUCT_URLS } from '@/data/company';
 import { useTranslation } from 'react-i18next';
 
-const EASYREALSTATE_HERO_IMAGE = withBasePath('/images/banners/ARQUITETURA.webp');
+const EASYREALSTATE_HERO_IMAGE = withBasePath('/images/banners/ARQ.webp');
 
 const EasyRealStateLanding = () => {
   const { t } = useTranslation();
 
   return (
     <>
-      <SEO 
+      <Seo
         title="Easy Real State | Inteligência Imobiliária e Avaliação (AVM)"
         description="Plataforma de inteligência para defesa de valor imobiliário e análise de potencial de mercado."
       />

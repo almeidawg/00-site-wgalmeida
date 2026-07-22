@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from '@/lib/motion-lite';
-import { Search, Filter, Grid, List } from 'lucide-react';
+import { Search, Grid, List } from 'lucide-react';
 import StyleCard from './StyleCard';
 import { styleCatalog } from '@/utils/styleCatalog';
 
@@ -69,6 +69,9 @@ const StyleGrid = ({ selectedStyles, onStylesChange, maxStyles = 3 }) => {
         </p>
         <div className="flex items-center gap-1">
           <button
+            type="button"
+            aria-label="Visualizar estilos em grade"
+            aria-pressed={viewMode === 'grid'}
             onClick={() => setViewMode('grid')}
             className={`p-1.5 rounded ${
               viewMode === 'grid' ? 'bg-wg-orange text-white' : 'text-slate-500 hover:text-slate-300'
@@ -77,6 +80,9 @@ const StyleGrid = ({ selectedStyles, onStylesChange, maxStyles = 3 }) => {
             <Grid className="w-4 h-4" />
           </button>
           <button
+            type="button"
+            aria-label="Visualizar estilos em lista"
+            aria-pressed={viewMode === 'list'}
             onClick={() => setViewMode('list')}
             className={`p-1.5 rounded ${
               viewMode === 'list' ? 'bg-wg-orange text-white' : 'text-slate-500 hover:text-slate-300'
@@ -103,6 +109,7 @@ const StyleGrid = ({ selectedStyles, onStylesChange, maxStyles = 3 }) => {
         <div className="flex flex-wrap gap-1">
           {CATEGORIES.map((category) => (
             <button
+              type="button"
               key={category.id}
               onClick={() => setActiveCategory(category.id)}
               className={`px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-tighter transition-all ${

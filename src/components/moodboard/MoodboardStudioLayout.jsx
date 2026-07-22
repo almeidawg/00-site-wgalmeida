@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from '@/lib/motion-lite';
 import {
   Layers,
@@ -22,9 +22,21 @@ import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
 import MoodboardSelectionSummary from './MoodboardSelectionSummary';
 
-const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, onProjectNameChange, onSave, isSaving, lizInsight }) => {
+const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, onProjectNameChange, onSave, isSaving, saveMessage, onClear, lizInsight }) => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const { t } = useTranslation();
+
+  useEffect(() => {
+    const syncFullscreen = () => setIsFullscreen(Boolean(document.fullscreenElement));
+    document.addEventListener('fullscreenchange', syncFullscreen);
+    return () => document.removeEventListener('fullscreenchange', syncFullscreen);
+  }, []);
+
+  const toggleFullscreen = async () => {
+    if (document.fullscreenElement) await document.exitFullscreen();
+    else await document.documentElement.requestFullscreen();
+  };
 
   const tabs = [
     { id: 'styles', label: t('moodboardPage.studio.tabs.styles'), icon: LayoutGrid },
@@ -39,8 +51,8 @@ const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, 
       {/* Sidebar de Ferramentas */}
       <motion.aside
         initial={false}
-        animate={{ width: sidebarOpen ? '475px' : '0px', opacity: sidebarOpen ? 1 : 0 }}
-        className="relative h-full bg-[#0c0c0e] border-r border-white/5 flex flex-col z-40 overflow-hidden w-[475px] min-w-[475px] max-w-[475px]"
+        animate={{ width: sidebarOpen ? 'min(475px, 100vw)' : '0px', opacity: sidebarOpen ? 1 : 0 }}
+        className="relative h-full bg-[#0c0c0e] border-r border-white/5 flex flex-col z-40 overflow-hidden max-w-full min-w-0 md:min-w-[475px]"
       >
         <div className="p-6 border-b border-white/5 flex flex-col gap-6 shrink-0">
           <div className="flex items-start justify-between">
@@ -51,7 +63,7 @@ const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, 
                 <span className="text-[7px] text-slate-500 font-bold uppercase tracking-tighter mt-1">{t('moodboardPage.studio.subtitle')}</span>
               </div>
             </div>
-            <button onClick={() => setSidebarOpen(false)} className="text-slate-600 hover:text-white transition-colors p-1.5 -mt-1">
+            <button type="button" aria-label="Recolher painel de ferramentas" title="Recolher painel" onClick={() => setSidebarOpen(false)} className="text-slate-600 hover:text-white transition-colors p-1.5 -mt-1">
               <ChevronLeft size={18} />
             </button>
           </div>
@@ -74,6 +86,7 @@ const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, 
         <div className="flex flex-wrap gap-1 border-b border-white/5 p-2 bg-black/20 shrink-0">
           {tabs.map((tab) => (
             <button
+              type="button"
               key={tab.id}
               onClick={() => onTabChange(tab.id)}
               className={cn(
@@ -113,7 +126,7 @@ const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, 
         <header className="h-20 px-10 flex items-center justify-between bg-black/40 backdrop-blur-xl border-b border-white/5 z-30 shrink-0">
           <div className="flex items-center gap-8">
             {!sidebarOpen && (
-              <button onClick={() => setSidebarOpen(true)} className="w-10 h-10 flex items-center justify-center bg-slate-900 border border-white/5 rounded-2xl text-wg-orange hover:text-white shadow-2xl transition-all">
+              <button type="button" aria-label="Abrir painel de ferramentas" title="Abrir painel" onClick={() => setSidebarOpen(true)} className="w-10 h-10 flex items-center justify-center bg-slate-900 border border-white/5 rounded-2xl text-wg-orange hover:text-white shadow-2xl transition-all">
                 <ChevronRight size={20} />
               </button>
             )}
@@ -124,6 +137,8 @@ const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, 
                 value={projectName}
                 onChange={(e) => onProjectNameChange(e.target.value)}
                 placeholder={t('moodboardPage.studio.projectNamePlaceholder')}
+                aria-label="Nome do projeto"
+                maxLength={120}
                 className="bg-transparent border-none text-white text-xl font-medium outline-none font-playfair italic focus:ring-0 p-0 placeholder:text-slate-800 w-64 md:w-96"
               />
               <span className="text-[8px] font-bold text-slate-600 uppercase tracking-[0.2em] mt-0.5">{t('moodboardPage.studio.editingNow')} &bull; {t('moodboardPage.studio.editMode')}</span>
@@ -137,6 +152,7 @@ const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, 
             </div>
 
             <button 
+              type="button"
               onClick={onSave}
               disabled={isSaving}
               className="flex items-center gap-3 px-8 py-3 bg-wg-orange hover:bg-[#de5423] text-white rounded-full text-xs font-light transition-all shadow-[0_16px_34px_rgba(242,92,38,0.18)] hover:shadow-[0_20px_40px_rgba(242,92,38,0.24)] hover:-translate-y-0.5 uppercase tracking-widest disabled:opacity-50 disabled:pointer-events-none"
@@ -144,10 +160,11 @@ const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, 
               {isSaving ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
               {isSaving ? t('moodboardPage.studio.saving') : t('moodboardPage.studio.saveButton')}
             </button>
+            {saveMessage && <span className="sr-only" role="status" aria-live="polite">{saveMessage}</span>}
             
             <div className="h-8 w-[1px] bg-white/10 mx-2" />
             
-            <Link to="/" className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-all border border-white/5">
+            <Link to="/" aria-label="Sair do Moodboard Studio" title="Sair do Studio" className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-all border border-white/5">
               <X size={20} />
             </Link>
           </div>
@@ -165,12 +182,12 @@ const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, 
 
            {/* Toolbar Flutuante Inferior */}
            <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-2 p-2 bg-black/60 backdrop-blur-2xl rounded-3xl border border-white/10 shadow-2xl z-40">
-              <button className="p-4 hover:bg-white/10 rounded-2xl transition-colors text-slate-400 hover:text-white" title={t('moodboardPage.studio.tooltips.undo')}><Undo size={20}/></button>
-              <button className="p-4 hover:bg-white/10 rounded-2xl transition-colors text-slate-400 hover:text-white" title={t('moodboardPage.studio.tooltips.redo')}><Redo size={20}/></button>
+              <button type="button" disabled aria-label="Desfazer indisponível" className="p-4 rounded-2xl text-slate-700 cursor-not-allowed" title="Histórico de desfazer em desenvolvimento"><Undo size={20}/></button>
+              <button type="button" disabled aria-label="Refazer indisponível" className="p-4 rounded-2xl text-slate-700 cursor-not-allowed" title="Histórico de refazer em desenvolvimento"><Redo size={20}/></button>
               <div className="w-[1px] h-8 bg-white/10 mx-2" />
-              <button className="p-4 hover:bg-white/10 rounded-2xl transition-colors text-slate-400 hover:text-white" title={t('moodboardPage.studio.tooltips.clear')}><Trash2 size={20}/></button>
+              <button type="button" onClick={onClear} aria-label="Limpar workspace" className="p-4 hover:bg-white/10 rounded-2xl transition-colors text-slate-400 hover:text-white" title={t('moodboardPage.studio.tooltips.clear')}><Trash2 size={20}/></button>
               <div className="w-[1px] h-8 bg-white/10 mx-2" />
-              <button className="p-4 bg-wg-orange/10 text-wg-orange rounded-2xl border border-wg-orange/20" title={t('moodboardPage.studio.tooltips.fullscreen')}><Maximize2 size={20}/></button>
+              <button type="button" onClick={toggleFullscreen} aria-label={isFullscreen ? 'Sair da tela cheia' : 'Entrar em tela cheia'} aria-pressed={isFullscreen} className="p-4 bg-wg-orange/10 text-wg-orange rounded-2xl border border-wg-orange/20" title={t('moodboardPage.studio.tooltips.fullscreen')}><Maximize2 size={20}/></button>
            </div>
         </div>
       </main>
