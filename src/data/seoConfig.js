@@ -107,6 +107,12 @@ export const SEO_CONFIG = {
     "Índice proprietário da WG Almeida para estimar custo de reforma por m2 com base em dados reais de obras e variação de mercado.",
     `${BASE_URL}/og-engenharia-1200x630.jpg`
   ),
+  "/wgeasy": page(
+    "/wgeasy",
+    "WG Easy | Orçamento e gestão de projetos e obras",
+    "Plataforma do Grupo WG Almeida para organizar briefing, quantitativos, orçamento, proposta e acompanhamento.",
+    `${BASE_URL}/og-engenharia-1200x630.jpg`
+  ),
   "/iccri-para-imobiliarias": page(
     "/iccri-para-imobiliarias",
     "ICCRI para Imobiliarias, Corretores e Bancos | WG Almeida",

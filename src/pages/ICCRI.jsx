@@ -1,67 +1,22 @@
 import SEO from '@/components/SEO'
 import ICCRILinksBlock from '@/components/ICCRILinksBlock'
 import LizAssistant from '@/components/LizAssistant'
+import WGEasyEstimateCalculator from '@/components/WGEasyEstimateCalculator'
 import { motion } from '@/lib/motion-lite'
-import { ArrowRight, BarChart3, Building2, Calculator, Landmark, Users } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { ArrowRight, BarChart3, Building2, Landmark, Users } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { PRODUCT_URLS, WG_PRODUCT_MESSAGES } from '@/data/company';
 import {
   getCommercialPackages,
-  getCommercialPackageNumericRange,
   getCommercialService,
 } from '@/data/commercialGovernance';
 
 const ICCRI_PAGE_URL = 'https://wgalmeida.com.br/iccri'
 const ICCRI_SERVICE_ID = 'iccri-reforma-civil-sp'
 
-const CITY_FACTOR = {
-  'sao paulo': 1,
-  'sao paulo - sp': 1,
-  default: 0.9,
-}
-
-const toBrl = (value) =>
-  Number(value || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 })
-
-const getCityFactor = (city) => {
-  const normalized = String(city || '')
-    .trim()
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-
-  return CITY_FACTOR[normalized] || CITY_FACTOR.default
-}
-
 export default function ICCRI() {
-  const [area, setArea] = useState('80')
-  const [standard, setStandard] = useState('equilibrado')
-  const [city, setCity] = useState('São Paulo')
-
   const commercialService = getCommercialService(ICCRI_SERVICE_ID)
   const commercialPackages = getCommercialPackages(ICCRI_SERVICE_ID)
-
-  const simulation = useMemo(() => {
-    const parsedArea = Number.parseFloat(area)
-    if (!Number.isFinite(parsedArea) || parsedArea <= 0) return null
-
-    const rawRange = getCommercialPackageNumericRange(ICCRI_SERVICE_ID, standard)
-    const range = {
-      min: rawRange.minValue || 2500,
-      max: rawRange.maxValue || Math.round((rawRange.minValue || 6500) * 1.25),
-    }
-    const factor = getCityFactor(city)
-    const min = parsedArea * range.min * factor
-    const max = parsedArea * range.max * factor
-
-    return {
-      min,
-      max,
-      cityFactor: factor,
-      parsedArea,
-    }
-  }, [area, city, standard])
 
   const schema = [
     {
@@ -188,67 +143,8 @@ export default function ICCRI() {
               )}
             </div>
 
-            <div className="rounded-2xl border border-wg-orange/30 bg-white p-6 shadow-sm">
-              <div className="flex items-center gap-2 mb-4 text-wg-orange">
-                <Calculator className="w-5 h-5" />
-                <h2 className="text-2xl font-inter font-light text-wg-black">Simule seu custo agora</h2>
-              </div>
-              <p className="text-wg-gray mb-5">
-                Preencha metragem, padrão e cidade para obter uma faixa rápida de investimento.
-              </p>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <label className="flex flex-col gap-2 text-sm text-wg-gray">
-                  Metragem (m2)
-                  <input
-                    type="number"
-                    min="1"
-                    value={area}
-                    onChange={(event) => setArea(event.target.value)}
-                    className="rounded-lg border border-gray-300 px-3 py-2 text-wg-black"
-                  />
-                </label>
-
-                <label className="flex flex-col gap-2 text-sm text-wg-gray">
-                  Padrão
-                  <select
-                    value={standard}
-                    onChange={(event) => setStandard(event.target.value)}
-                    className="rounded-lg border border-gray-300 px-3 py-2 text-wg-black"
-                  >
-                    <option value="essencial">Essencial</option>
-                    <option value="equilibrado">Equilibrado</option>
-                    <option value="superior">Superior</option>
-                    <option value="exclusivo">Exclusivo</option>
-                  </select>
-                </label>
-
-                <label className="flex flex-col gap-2 text-sm text-wg-gray">
-                  Cidade
-                  <input
-                    type="text"
-                    value={city}
-                    onChange={(event) => setCity(event.target.value)}
-                    className="rounded-lg border border-gray-300 px-3 py-2 text-wg-black"
-                  />
-                </label>
-              </div>
-
-              <div className="mt-5 rounded-xl bg-wg-black p-5 text-white">
-                {simulation ? (
-                  <>
-                    <p className="text-white/70 text-sm mb-1">
-                      Estimativa para {simulation.parsedArea}m2 · fator cidade {simulation.cityFactor.toFixed(2)}
-                    </p>
-                    <p className="text-2xl font-light">
-                      {toBrl(simulation.min)} até {toBrl(simulation.max)}
-                    </p>
-                  </>
-                ) : (
-                  <p className="text-white/75">Informe uma metragem válida para calcular.</p>
-                )}
-              </div>
-
+            <div>
+              <WGEasyEstimateCalculator />
               <div className="mt-5 flex flex-wrap gap-3">
                 <a
                   href={`${PRODUCT_URLS.obraeasy}/evf4`}
