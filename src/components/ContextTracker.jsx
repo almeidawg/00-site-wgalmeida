@@ -8,6 +8,7 @@ import {
   inferStage,
 } from '@/lib/decisionEngine'
 import { promoteStage } from '@/lib/userContext'
+import { decorateProductUrl, ensureEcosystemContext } from '@/lib/ecosystemContext'
 
 const getSignalsFromPath = (pathname = '') => ({
   viewedProposal: pathname.startsWith('/solicite-proposta'),
@@ -38,7 +39,8 @@ export default function ContextTracker() {
         tipoImovel: prev.tipoImovel || query.get('propertyType') || tipoImovel || null,
         faixaValor: prev.faixaValor || query.get('valueRange') || null,
         origem: prev.origem || query.get('source') || pathname,
-        partnerId: prev.partnerId || query.get('partner') || null,
+        partnerId: prev.partnerId || query.get('wg_partner') || query.get('ref') || query.get('partner') || null,
+        journeyId: prev.journeyId || query.get('wg_journey') || localStorage.getItem('wg_journey') || null,
         lastPath: pathname,
         updatedAt: new Date().toISOString(),
         signals: {
@@ -69,6 +71,24 @@ export default function ContextTracker() {
       }
     })
   }, [location.pathname, location.search, setContext])
+
+  useEffect(() => {
+    const context = ensureEcosystemContext(location.search, window.localStorage)
+
+    const decorateClick = (event) => {
+      const anchor = event.target instanceof Element
+        ? event.target.closest('a[href]')
+        : null
+      if (!anchor) return
+      const currentHref = anchor.getAttribute('href')
+      if (!currentHref) return
+      const decorated = decorateProductUrl(currentHref, context)
+      if (decorated !== currentHref) anchor.setAttribute('href', decorated)
+    }
+
+    document.addEventListener('click', decorateClick, true)
+    return () => document.removeEventListener('click', decorateClick, true)
+  }, [location.search])
 
   return null
 }

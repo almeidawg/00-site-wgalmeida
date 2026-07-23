@@ -47,12 +47,12 @@ const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, 
   ];
 
   return (
-    <div className="flex h-screen bg-[#08080a] text-slate-200 overflow-hidden font-inter">
+    <div className="relative flex h-screen bg-[#08080a] text-slate-200 overflow-hidden font-inter">
       {/* Sidebar de Ferramentas */}
       <motion.aside
         initial={false}
         animate={{ width: sidebarOpen ? 'min(475px, 100vw)' : '0px', opacity: sidebarOpen ? 1 : 0 }}
-        className="relative h-full bg-[#0c0c0e] border-r border-white/5 flex flex-col z-40 overflow-hidden max-w-full min-w-0 md:min-w-[475px]"
+        className="absolute lg:relative h-full bg-[#0c0c0e] border-r border-white/5 flex flex-col z-40 overflow-hidden max-w-full min-w-0 lg:min-w-[475px]"
       >
         <div className="p-6 border-b border-white/5 flex flex-col gap-6 shrink-0">
           <div className="flex items-start justify-between">
@@ -123,15 +123,15 @@ const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, 
       {/* Main Studio Area */}
       <main className="flex-1 relative flex flex-col bg-[#050506]">
         {/* Top bar de Ações - Compacta */}
-        <header className="h-20 px-10 flex items-center justify-between bg-black/40 backdrop-blur-xl border-b border-white/5 z-30 shrink-0">
-          <div className="flex items-center gap-8">
+        <header className="h-20 px-3 sm:px-5 lg:px-10 flex items-center justify-between gap-2 bg-black/40 backdrop-blur-xl border-b border-white/5 z-30 shrink-0">
+          <div className="flex min-w-0 items-center gap-2 lg:gap-8">
             {!sidebarOpen && (
               <button type="button" aria-label="Abrir painel de ferramentas" title="Abrir painel" onClick={() => setSidebarOpen(true)} className="w-10 h-10 flex items-center justify-center bg-slate-900 border border-white/5 rounded-2xl text-wg-orange hover:text-white shadow-2xl transition-all">
                 <ChevronRight size={20} />
               </button>
             )}
             
-            <div className="flex flex-col">
+            <div className="flex min-w-0 flex-col">
               <input 
                 type="text" 
                 value={projectName}
@@ -139,14 +139,14 @@ const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, 
                 placeholder={t('moodboardPage.studio.projectNamePlaceholder')}
                 aria-label="Nome do projeto"
                 maxLength={120}
-                className="bg-transparent border-none text-white text-xl font-medium outline-none font-playfair italic focus:ring-0 p-0 placeholder:text-slate-800 w-64 md:w-96"
+                className="w-28 bg-transparent border-none p-0 font-playfair text-base font-medium italic text-white outline-none placeholder:text-slate-800 focus:ring-0 sm:w-44 md:w-64 lg:w-96 lg:text-xl"
               />
               <span className="text-[8px] font-bold text-slate-600 uppercase tracking-[0.2em] mt-0.5">{t('moodboardPage.studio.editingNow')} &bull; {t('moodboardPage.studio.editMode')}</span>
             </div>
           </div>
 
-          <div className="flex items-center gap-4">
-            <div className="hidden md:flex items-center gap-2 px-4 py-2 bg-wg-green/10 rounded-full border border-wg-green/20 mr-4">
+          <div className="flex shrink-0 items-center gap-1 sm:gap-2 lg:gap-4">
+            <div className="hidden lg:flex items-center gap-2 px-4 py-2 bg-wg-green/10 rounded-full border border-wg-green/20 mr-4">
                <span className="w-1.5 h-1.5 rounded-full bg-wg-green animate-pulse" />
                <span className="text-[9px] font-bold text-wg-green uppercase tracking-widest">{t('moodboardPage.studio.statusActive')}</span>
             </div>
@@ -155,16 +155,18 @@ const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, 
               type="button"
               onClick={onSave}
               disabled={isSaving}
-              className="flex items-center gap-3 px-8 py-3 bg-wg-orange hover:bg-[#de5423] text-white rounded-full text-xs font-light transition-all shadow-[0_16px_34px_rgba(242,92,38,0.18)] hover:shadow-[0_20px_40px_rgba(242,92,38,0.24)] hover:-translate-y-0.5 uppercase tracking-widest disabled:opacity-50 disabled:pointer-events-none"
+              className="flex items-center gap-2 px-3 py-3 bg-wg-orange hover:bg-[#de5423] text-white rounded-full text-xs font-light transition-all shadow-[0_16px_34px_rgba(242,92,38,0.18)] hover:shadow-[0_20px_40px_rgba(242,92,38,0.24)] hover:-translate-y-0.5 uppercase tracking-widest disabled:opacity-50 disabled:pointer-events-none sm:px-4 lg:gap-3 lg:px-8"
             >
               {isSaving ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
-              {isSaving ? t('moodboardPage.studio.saving') : t('moodboardPage.studio.saveButton')}
+              <span className="hidden sm:inline">
+                {isSaving ? t('moodboardPage.studio.saving') : t('moodboardPage.studio.saveButton')}
+              </span>
             </button>
             {saveMessage && <span className="sr-only" role="status" aria-live="polite">{saveMessage}</span>}
             
-            <div className="h-8 w-[1px] bg-white/10 mx-2" />
+            <div className="mx-1 hidden h-8 w-[1px] bg-white/10 sm:block lg:mx-2" />
             
-            <Link to="/" aria-label="Sair do Moodboard Studio" title="Sair do Studio" className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-all border border-white/5">
+            <Link to="/" aria-label="Sair do Moodboard Studio" title="Sair do Studio" className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/5 bg-white/5 text-slate-400 transition-all hover:bg-white/10 hover:text-white lg:h-12 lg:w-12 lg:rounded-2xl">
               <X size={20} />
             </Link>
           </div>
