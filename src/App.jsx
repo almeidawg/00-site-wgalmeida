@@ -6,6 +6,7 @@ import { AuthProvider } from '@/contexts/SupabaseAuthContext'
 import { Loader2 } from 'lucide-react'
 import { PRODUCT_URLS } from '@/data/company'
 import { ContextProvider } from '@/providers/ContextProvider'
+import { decorateProductUrl, ensureEcosystemContext } from '@/lib/ecosystemContext'
 
 // Lazy load pages
 const Footer = lazy(() => import('@/components/layout/Footer'))
@@ -76,7 +77,12 @@ const EasyRealStateLanding = lazy(() => import('@/pages/EasyRealStateLanding'))
 // Redirect component para ObraEasy parceiros (externo)
 function ObraEasyParceiroRedirect() {
   useEffect(() => {
-    window.location.replace(`${PRODUCT_URLS.obraeasy}/landing/corretor`)
+    const context = ensureEcosystemContext(window.location.search, window.localStorage)
+    const target = decorateProductUrl(
+      `${PRODUCT_URLS.obraeasy}/landing/corretor`,
+      context
+    )
+    window.location.replace(target)
   }, [])
   return null
 }
