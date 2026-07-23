@@ -67,6 +67,7 @@ const BuildTech = lazy(() => import('@/pages/BuildTech'))
 const BuildTechClientProposal = lazy(() => import('@/pages/BuildTechClientProposal'))
 const ICCRI = lazy(() => import('@/pages/ICCRI'))
 const ICCRIParaImobiliarias = lazy(() => import('@/pages/ICCRIParaImobiliarias'))
+const WGEasy = lazy(() => import('@/pages/WGEasy'))
 
 // Landing Pages SaaS · ObraEasy e EasyRealState
 const ObraEasyLanding      = lazy(() => import('@/pages/ObraEasyLanding'))
@@ -338,6 +339,7 @@ function App() {
               <Route path="/buildtech/clientes/:slug" element={<BuildTechClientProposal />} />
               <Route path="/iccri" element={<ICCRI />} />
               <Route path="/iccri-para-imobiliarias" element={<ICCRIParaImobiliarias />} />
+              <Route path="/wgeasy" element={<WGEasy />} />
               <Route path="/obraeasy" element={<ObraEasyLanding />} />
               <Route path="/parceiros" element={<ObraEasyParceiroRedirect />} />
               <Route path="/corretor" element={<ObraEasyParceiroRedirect />} />
