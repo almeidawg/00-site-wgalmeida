@@ -1,11 +1,12 @@
+import { PRODUCT_URLS } from '../data/companyPublic.js'
+
 export const WG_JOURNEY_KEY = 'wg_journey'
 export const WG_PARTNER_KEY = 'wg_partner'
 
-const PRODUCT_HOSTS = new Set([
-  'obraeasy.wgalmeida.com.br',
-  'easyrealstate.wgalmeida.com.br',
-  'easy.wgalmeida.com.br',
-])
+const PRODUCT_HOSTS = new Set(
+  [PRODUCT_URLS.obraeasy, PRODUCT_URLS.easyrealstate, PRODUCT_URLS.wgeasy]
+    .map((href) => new URL(href).hostname)
+)
 
 const clean = (value, max = 160) => {
   const normalized = String(value || '').trim()
@@ -46,4 +47,3 @@ export function decorateProductUrl(href, context, baseUrl = window.location.orig
   if (context.campaign) url.searchParams.set('wg_campaign', context.campaign)
   return url.toString()
 }
-
