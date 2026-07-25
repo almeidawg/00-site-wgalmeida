@@ -3,7 +3,7 @@ import SEO from '@/components/SEO';
 import { motion } from '@/lib/motion-lite';
 import { Link } from 'react-router-dom';
 import {
-  Palette, Type, Target, Heart, Lightbulb, Users, Ruler, HardHat,
+  Palette, Type, Target, Heart, Lightbulb, Users, Ruler, HardHat, Hammer,
   ArrowRight, CheckCircle2, Eye, Flag, Award, Shield, Zap,
   Clock, Users2, TrendingUp
 } from 'lucide-react';
@@ -24,12 +24,13 @@ const AMarca = () => {
   const turnKeySteps = t('brandPage.turnKey.steps', { returnObjects: true });
 
   const valueIcons = [Target, Heart, Zap, Users2, TrendingUp, Shield, Lightbulb, Award];
-  const nucleusIcons = [Zap, HardHat, Ruler];
+  const nucleusIcons = [Zap, HardHat, Ruler, Hammer];
   const DEFAULT_NUCLEUS_ICON = Ruler;
   const nucleusLogos = [
     withBasePath('/Logos/logo-wg-buildtech-nucleo.webp'),
     withBasePath('/Logos/logo-engenharia-84.webp'),
     withBasePath('/Logos/logo-arquitetura-84.webp'),
+    withBasePath('/Logos/logo-marcenaria-84.webp'),
   ];
 
   return (
@@ -242,7 +243,7 @@ const AMarca = () => {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {brandColors.map((color, index) => (
               <motion.div
                 key={color.name}
@@ -363,7 +364,7 @@ const AMarca = () => {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {nucleos.map((nucleo, index) => (
               <motion.div
                 key={nucleo.name}
