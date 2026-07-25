@@ -398,14 +398,14 @@
       "title": "Mission",
       "paragraphs": [
         "To design, plan, and execute high-end spaces with method, precision, and care at every stage.",
-        "To reduce friction between design, construction, and bespoke joinery through an integrated, data-oriented operation."
+        "To reduce friction between design, construction, and execution through an integrated, data-oriented operation, supported by proprietary technology."
       ],
       "quote": "Excellence is not improvisation. It is process, criteria, and follow-up."
     },
     "vision": {
       "title": "Vision",
       "paragraphs": [
-        "To become a reference in integrating architecture, engineering, bespoke joinery, and technology applied to the construction journey.",
+        "To become a reference in integrating architecture, engineering, and technology applied to the construction journey.",
         "To continuously evolve in order to deliver more clarity, control, and experience in residential and corporate projects."
       ],
       "tags": ["Integration", "Precision", "Experience", "Technology"]
@@ -418,7 +418,7 @@
       { "title": "Clarity", "description": "Objective communication, traceable decisions, and well-aligned expectations." },
       { "title": "Responsibility", "description": "Commitment to schedule, budget, technique, and the impact of each choice." },
       { "title": "Precision", "description": "Detailing, coordination, and control to reduce rework." },
-      { "title": "Integration", "description": "Architecture, engineering, and joinery working with the same logic." },
+      { "title": "Integration", "description": "Architecture, engineering, and technology working with the same logic." },
       { "title": "Evolution", "description": "Continuous improvement of processes, tools, and client experience." },
       { "title": "Safety", "description": "Technical decisions supported by criteria, documentation, and accountability." },
       { "title": "Creativity", "description": "Authorial solutions connected to real use and lifestyle." },
@@ -469,7 +469,7 @@
     },
     "cta": {
       "title": "Let's build a coherent experience from the first contact to delivery.",
-      "subtitle": "Talk to Grupo WG Almeida and understand how architecture, engineering, and bespoke joinery can work together in your project.",
+      "subtitle": "Talk to Grupo WG Almeida and understand how architecture, engineering, and technology can work together in your project.",
       "primary": "Talk to Grupo WG",
       "secondary": "View projects"
     }

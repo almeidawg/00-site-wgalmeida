@@ -398,14 +398,14 @@
       "title": "Mision",
       "paragraphs": [
         "Disenar, planificar y ejecutar espacios de alto nivel con metodo, precision y cuidado en cada etapa.",
-        "Reducir fricciones entre proyecto, obra y carpinteria a medida mediante una operacion integrada y orientada por datos."
+        "Reducir fricciones entre proyecto, obra y ejecucion mediante una operacion integrada, orientada por datos y respaldada por tecnologia propia."
       ],
       "quote": "La excelencia no es improvisacion. Es proceso, criterio y acompanamiento."
     },
     "vision": {
       "title": "Vision",
       "paragraphs": [
-        "Ser referencia en la integracion entre arquitectura, ingenieria, carpinteria a medida y tecnologia aplicada a la jornada de obra.",
+        "Ser referencia en la integracion entre arquitectura, ingenieria y tecnologia aplicada a la jornada de obra.",
         "Evolucionar continuamente para entregar mas claridad, control y experiencia en proyectos residenciales y corporativos."
       ],
       "tags": ["Integracion", "Precision", "Experiencia", "Tecnologia"]
@@ -418,7 +418,7 @@
       { "title": "Claridad", "description": "Comunicacion objetiva, decisiones trazables y expectativas bien alineadas." },
       { "title": "Responsabilidad", "description": "Compromiso con plazo, presupuesto, tecnica e impacto de cada eleccion." },
       { "title": "Precision", "description": "Detalle, compatibilizacion y control para reducir retrabajo." },
-      { "title": "Integracion", "description": "Arquitectura, ingenieria y carpinteria trabajando con la misma logica." },
+      { "title": "Integracion", "description": "Arquitectura, ingenieria y tecnologia trabajando con la misma logica." },
       { "title": "Evolucion", "description": "Mejora continua de procesos, herramientas y experiencia del cliente." },
       { "title": "Seguridad", "description": "Decisiones tecnicas con criterios, documentacion y responsabilidad." },
       { "title": "Creatividad", "description": "Soluciones autorales conectadas al uso real y al estilo de vida." },
@@ -469,7 +469,7 @@
     },
     "cta": {
       "title": "Construyamos una experiencia coherente desde el primer contacto hasta la entrega.",
-      "subtitle": "Hable con Grupo WG Almeida y entienda como arquitectura, ingenieria y carpinteria pueden actuar integradas en su proyecto.",
+      "subtitle": "Hable con Grupo WG Almeida y entienda como arquitectura, ingenieria y tecnologia pueden actuar integradas en su proyecto.",
       "primary": "Hablar con Grupo WG",
       "secondary": "Ver proyectos"
     }
