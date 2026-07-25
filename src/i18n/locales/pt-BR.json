@@ -47,7 +47,7 @@
     "requestProposal": "Solicite Proposta"
   },
   "header": {
-    "unitsLabel": "Núcleos",
+    "unitsLabel": "Especialidades",
     "cartAria": "Abrir carrinho",
     "wgEasyAccess": "Acessar WG Easy",
     "openMenu": "Abrir menu",
@@ -58,7 +58,7 @@
   "footer": {
     "description": "Transformamos histórias em espaços que unem técnica, design e propósito.",
     "navigation": "Navegação",
-    "units": "Núcleos",
+    "units": "Especialidades",
     "regions": "Onde Atuamos",
     "contact": "Contato",
     "whatsapp": "WhatsApp",
