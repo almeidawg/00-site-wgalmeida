@@ -3,7 +3,7 @@ import SEO from '@/components/SEO';
 import { motion } from '@/lib/motion-lite';
 import { Link } from 'react-router-dom';
 import {
-  Palette, Type, Target, Heart, Lightbulb, Users, Ruler, Building2, Hammer,
+  Palette, Type, Target, Heart, Lightbulb, Users, Ruler, HardHat,
   ArrowRight, CheckCircle2, Eye, Flag, Award, Shield, Zap,
   Clock, Users2, TrendingUp
 } from 'lucide-react';
@@ -24,7 +24,13 @@ const AMarca = () => {
   const turnKeySteps = t('brandPage.turnKey.steps', { returnObjects: true });
 
   const valueIcons = [Target, Heart, Zap, Users2, TrendingUp, Shield, Lightbulb, Award];
-  const nucleusIcons = [Ruler, Building2, Hammer];
+  const nucleusIcons = [Zap, HardHat, Ruler];
+  const DEFAULT_NUCLEUS_ICON = Ruler;
+  const nucleusLogos = [
+    withBasePath('/Logos/logo-wg-buildtech-nucleo.webp'),
+    withBasePath('/Logos/logo-engenharia-84.webp'),
+    withBasePath('/Logos/logo-arquitetura-84.webp'),
+  ];
 
   return (
     <div className="min-h-screen bg-white">
@@ -236,7 +242,7 @@ const AMarca = () => {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
             {brandColors.map((color, index) => (
               <motion.div
                 key={color.name}
@@ -373,13 +379,22 @@ const AMarca = () => {
                 />
                 <div className="relative bg-white rounded-2xl p-8 text-center shadow-sm group-hover:shadow-lg transition-all">
                   <div
-                    className="w-20 h-20 mx-auto rounded-2xl flex items-center justify-center mb-6"
+                    className="w-20 h-20 mx-auto rounded-2xl flex items-center justify-center mb-6 p-3"
                     style={{ backgroundColor: nucleo.color + '15' }}
                   >
-                    {React.createElement(nucleusIcons[index], {
-                      className: 'w-10 h-10',
-                      style: { color: nucleo.color }
-                    })}
+                    {nucleusLogos[index] ? (
+                      <img
+                        src={nucleusLogos[index]}
+                        alt=""
+                        className="w-full h-full object-contain"
+                        loading="lazy"
+                      />
+                    ) : (
+                      React.createElement(nucleusIcons[index] ?? DEFAULT_NUCLEUS_ICON, {
+                        className: 'w-10 h-10',
+                        style: { color: nucleo.color }
+                      })
+                    )}
                   </div>
                   <h3 className="font-inter font-light text-2xl text-wg-black mb-4 tracking-tight">
                     {nucleo.name}

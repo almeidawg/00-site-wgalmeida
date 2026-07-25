@@ -47,7 +47,7 @@
     "requestProposal": "Solicitar Propuesta"
   },
   "header": {
-    "unitsLabel": "Núcleos",
+    "unitsLabel": "Especialidades",
     "cartAria": "Abrir carrito",
     "wgEasyAccess": "Acceder a WG Easy",
     "openMenu": "Abrir menú",
@@ -58,7 +58,7 @@
   "footer": {
     "description": "Transformamos historias en espacios que unen tecnica, diseno y proposito.",
     "navigation": "Navegacion",
-    "units": "Núcleos",
+    "units": "Especialidades",
     "regions": "Donde Actuamos",
     "contact": "Contacto",
     "whatsapp": "WhatsApp",
@@ -398,14 +398,14 @@
       "title": "Mision",
       "paragraphs": [
         "Disenar, planificar y ejecutar espacios de alto nivel con metodo, precision y cuidado en cada etapa.",
-        "Reducir fricciones entre proyecto, obra y carpinteria a medida mediante una operacion integrada y orientada por datos."
+        "Reducir fricciones entre proyecto, obra y ejecución mediante una operación integrada, orientada por datos y respaldada por tecnología propia."
       ],
       "quote": "La excelencia no es improvisacion. Es proceso, criterio y acompanamiento."
     },
     "vision": {
       "title": "Vision",
       "paragraphs": [
-        "Ser referencia en la integracion entre arquitectura, ingenieria, carpinteria a medida y tecnologia aplicada a la jornada de obra.",
+        "Ser referencia en la integración entre arquitectura, ingeniería y tecnología aplicada a la jornada de obra.",
         "Evolucionar continuamente para entregar mas claridad, control y experiencia en proyectos residenciales y corporativos."
       ],
       "tags": ["Integracion", "Precision", "Experiencia", "Tecnologia"]
@@ -418,7 +418,7 @@
       { "title": "Claridad", "description": "Comunicacion objetiva, decisiones trazables y expectativas bien alineadas." },
       { "title": "Responsabilidad", "description": "Compromiso con plazo, presupuesto, tecnica e impacto de cada eleccion." },
       { "title": "Precision", "description": "Detalle, compatibilizacion y control para reducir retrabajo." },
-      { "title": "Integracion", "description": "Arquitectura, ingenieria y carpinteria trabajando con la misma logica." },
+      { "title": "Integracion", "description": "Arquitectura, ingeniería y tecnología trabajando con la misma lógica." },
       { "title": "Evolucion", "description": "Mejora continua de procesos, herramientas y experiencia del cliente." },
       { "title": "Seguridad", "description": "Decisiones tecnicas con criterios, documentacion y responsabilidad." },
       { "title": "Creatividad", "description": "Soluciones autorales conectadas al uso real y al estilo de vida." },
@@ -429,10 +429,11 @@
       "subtitle": "Colores organizados por significado, uso y conexion con los nucleos del grupo."
     },
     "colors": [
-      { "name": "Negro WG", "hex": "#2E2E2E", "rgb": "46, 46, 46", "meaning": "Sofisticacion, contraste y presencia institucional.", "usage": "Base premium, titulos y fondos de impacto." },
-      { "name": "Naranja WG", "hex": "#F25C26", "rgb": "242, 92, 38", "meaning": "Energia, accion y proximidad comercial.", "usage": "Llamadas, destacados y puntos de conversion." },
-      { "name": "Verde Ingenieria", "hex": "#5E9B94", "rgb": "94, 155, 148", "meaning": "Tecnica, seguridad y obra controlada.", "usage": "Nucleo ingenieria, indicadores y validaciones." },
-      { "name": "Marron Carpinteria", "hex": "#8B5E3C", "rgb": "139, 94, 60", "meaning": "Materia, textura y acabado a medida.", "usage": "Nucleo carpinteria, madera y detalles artesanales." }
+      { "name": "Negro WG", "hex": "#2E2E2E", "rgb": "46, 46, 46", "meaning": "Sofisticación, contraste y presencia institucional.", "usage": "Base premium, títulos y fondos de impacto." },
+      { "name": "Naranja WG", "hex": "#F25C26", "rgb": "242, 92, 38", "meaning": "Energía, acción y proximidad comercial (holding).", "usage": "Llamadas, destacados y puntos de conversión." },
+      { "name": "Verde Build.tech", "hex": "#00AB26", "rgb": "0, 171, 38", "meaning": "Núcleo tecnológico, sistemas y automatización.", "usage": "Núcleo Build.tech, productos digitales." },
+      { "name": "Verde Ingeniería", "hex": "#22C55E", "rgb": "34, 197, 94", "meaning": "Técnica, seguridad y obra controlada.", "usage": "Núcleo ingeniería, indicadores y validaciones." },
+      { "name": "Cian Arquitectura", "hex": "#06B6D4", "rgb": "6, 182, 212", "meaning": "Diseño, estética y experiencia espacial.", "usage": "Núcleo arquitectura, proyectos y briefing." }
     ],
     "typography": {
       "title": "Tipografia con presencia ligera",
@@ -445,12 +446,12 @@
       "sampleText": "La tipografia sostiene una experiencia visual mas silenciosa, organizada y premium."
     },
     "nuclei": {
-      "title": "Tres nucleos, una sola experiencia",
-      "subtitle": "La fuerza de la marca esta en conectar concepto, estructura y ejecucion final.",
+      "title": "Tres núcleos, una sola experiencia",
+      "subtitle": "Tecnología, ingeniería y arquitectura operando con la misma lógica de marca.",
       "items": [
-        { "name": "Arquitectura", "description": "Concepto, briefing, layout, estetica y experiencia espacial.", "color": "#F25C26" },
-        { "name": "Ingenieria", "description": "Planificacion, viabilidad, ejecucion, control tecnico y obra.", "color": "#5E9B94" },
-        { "name": "Carpinteria a medida", "description": "Mobiliario a medida, acabado, fabricacion e instalacion.", "color": "#8B5E3C" }
+        { "name": "WG Build.tech", "description": "Núcleo tecnológico. Sistemas que piensan: productos digitales y automatización aplicados al proceso de obra.", "color": "#00AB26" },
+        { "name": "WG Ingeniería", "description": "Planificación, viabilidad, ejecución, control técnico y obra.", "color": "#22C55E" },
+        { "name": "WG Arquitectura", "description": "Concepto, briefing, diseño, estética y experiencia espacial.", "color": "#06B6D4" }
       ]
     },
     "turnKey": {
@@ -468,7 +469,7 @@
     },
     "cta": {
       "title": "Construyamos una experiencia coherente desde el primer contacto hasta la entrega.",
-      "subtitle": "Hable con Grupo WG Almeida y entienda como arquitectura, ingenieria y carpinteria pueden actuar integradas en su proyecto.",
+      "subtitle": "Hable con Grupo WG Almeida y entienda cómo arquitectura, ingeniería y tecnología pueden actuar integradas en su proyecto.",
       "primary": "Hablar con Grupo WG",
       "secondary": "Ver proyectos"
     }

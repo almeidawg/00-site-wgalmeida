@@ -47,7 +47,7 @@
     "requestProposal": "Solicite Proposta"
   },
   "header": {
-    "unitsLabel": "Núcleos",
+    "unitsLabel": "Especialidades",
     "cartAria": "Abrir carrinho",
     "wgEasyAccess": "Acessar WG Easy",
     "openMenu": "Abrir menu",
@@ -58,7 +58,7 @@
   "footer": {
     "description": "Transformamos histórias em espaços que unem técnica, design e propósito.",
     "navigation": "Navegação",
-    "units": "Núcleos",
+    "units": "Especialidades",
     "regions": "Onde Atuamos",
     "contact": "Contato",
     "whatsapp": "WhatsApp",
@@ -399,14 +399,14 @@
       "title": "Missão",
       "paragraphs": [
         "Projetar, planejar e executar espaços de alto padrão com método, precisão e cuidado com cada etapa.",
-        "Reduzir atritos entre projeto, obra e marcenaria por meio de uma operação integrada e orientada por dados."
+        "Reduzir atritos entre projeto, obra e execução por meio de uma operação integrada, orientada por dados e apoiada por tecnologia própria."
       ],
       "quote": "Excelência não é improviso. É processo, critério e acompanhamento."
     },
     "vision": {
       "title": "Visão",
       "paragraphs": [
-        "Ser referência em integração entre arquitetura, engenharia, marcenaria e tecnologia aplicada à jornada da obra.",
+        "Ser referência em integração entre arquitetura, engenharia e tecnologia aplicada à jornada da obra.",
         "Evoluir continuamente para entregar mais clareza, controle e experiência em projetos residenciais e corporativos."
       ],
       "tags": ["Integração", "Precisão", "Experiência", "Tecnologia"]
@@ -419,7 +419,7 @@
       { "title": "Clareza", "description": "Comunicação objetiva, decisões rastreáveis e expectativas bem alinhadas." },
       { "title": "Responsabilidade", "description": "Compromisso com prazo, orçamento, técnica e impacto de cada escolha." },
       { "title": "Precisão", "description": "Detalhamento, compatibilização e controle para reduzir retrabalho." },
-      { "title": "Integração", "description": "Arquitetura, engenharia e marcenaria trabalhando com a mesma lógica." },
+      { "title": "Integração", "description": "Arquitetura, engenharia e tecnologia trabalhando com a mesma lógica." },
       { "title": "Evolução", "description": "Melhoria contínua de processos, ferramentas e experiência do cliente." },
       { "title": "Segurança", "description": "Decisões técnicas com critérios, documentação e responsabilidade." },
       { "title": "Criatividade", "description": "Soluções autorais conectadas ao uso real e ao estilo de vida." },
@@ -431,10 +431,10 @@
     },
     "colors": [
       { "name": "Preto WG", "hex": "#2E2E2E", "rgb": "46, 46, 46", "meaning": "Sofisticação, contraste e presença institucional.", "usage": "Base premium, títulos e fundos de impacto." },
-      { "name": "Laranja WG", "hex": "#F25C26", "rgb": "242, 92, 38", "meaning": "Energia, ação e proximidade comercial.", "usage": "Chamadas, destaques e pontos de conversão." },
-      { "name": "Verde Arquitetura", "hex": "#5E9B94", "rgb": "94, 155, 148", "meaning": "Design, estética e experiência espacial.", "usage": "Núcleo arquitetura, projetos e briefing." },
-      { "name": "Azul Engenharia", "hex": "#2B4580", "rgb": "43, 69, 128", "meaning": "Técnica, segurança e obra controlada.", "usage": "Núcleo engenharia, indicadores e validações." },
-      { "name": "Marrom Marcenaria", "hex": "#8B5E3C", "rgb": "139, 94, 60", "meaning": "Matéria, textura e acabamento sob medida.", "usage": "Núcleo marcenaria, madeira e detalhes artesanais." }
+      { "name": "Laranja WG", "hex": "#F25C26", "rgb": "242, 92, 38", "meaning": "Energia, ação e proximidade comercial (holding).", "usage": "Chamadas, destaques e pontos de conversão." },
+      { "name": "Verde Build.tech", "hex": "#00AB26", "rgb": "0, 171, 38", "meaning": "Núcleo tecnológico, sistemas e automação.", "usage": "Núcleo Build.tech, produtos digitais." },
+      { "name": "Verde Engenharia", "hex": "#22C55E", "rgb": "34, 197, 94", "meaning": "Técnica, segurança e obra controlada.", "usage": "Núcleo engenharia, indicadores e validações." },
+      { "name": "Ciano Arquitetura", "hex": "#06B6D4", "rgb": "6, 182, 212", "meaning": "Design, estética e experiência espacial.", "usage": "Núcleo arquitetura, projetos e briefing." }
     ],
     "typography": {
       "title": "Tipografia com presença leve",
@@ -448,11 +448,11 @@
     },
     "nuclei": {
       "title": "Três núcleos, uma só experiência",
-      "subtitle": "A força da marca está em conectar conceito, estrutura e execução final.",
+      "subtitle": "Tecnologia, engenharia e arquitetura operando com a mesma lógica de marca.",
       "items": [
-        { "name": "Arquitetura", "description": "Conceito, briefing, layout, estética e experiência espacial.", "color": "#5E9B94" },
-        { "name": "Engenharia", "description": "Planejamento, viabilidade, execução, controle técnico e obra.", "color": "#2B4580" },
-        { "name": "Marcenaria", "description": "Mobiliário sob medida, acabamento, fabricação e instalação.", "color": "#8B5E3C" }
+        { "name": "WG Build.tech", "description": "Núcleo tecnológico. Sistemas que pensam: produtos digitais e automação aplicados à jornada da obra.", "color": "#00AB26" },
+        { "name": "WG Engenharia", "description": "Planejamento, viabilidade, execução, controle técnico e obra.", "color": "#22C55E" },
+        { "name": "WG Arquitetura", "description": "Conceito, briefing, layout, estética e experiência espacial.", "color": "#06B6D4" }
       ]
     },
     "turnKey": {
@@ -470,7 +470,7 @@
     },
     "cta": {
       "title": "Vamos construir uma experiência coerente do primeiro contato à entrega.",
-      "subtitle": "Converse com o Grupo WG Almeida e entenda como arquitetura, engenharia e marcenaria podem atuar integradas no seu projeto.",
+      "subtitle": "Converse com o Grupo WG Almeida e entenda como arquitetura, engenharia e tecnologia podem atuar integradas no seu projeto.",
       "primary": "Falar com o Grupo WG",
       "secondary": "Ver projetos"
     }
