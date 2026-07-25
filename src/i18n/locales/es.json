@@ -117,6 +117,11 @@
       "title": "Contacto | Grupo WG Almeida",
       "description": "Hable con Grupo WG Almeida sobre arquitectura, ingenieria, carpintería a medida y obras llave en mano de alto nivel en Sao Paulo.",
       "keywords": "contacto Grupo WG Almeida, arquitectura Sao Paulo, ingenieria Sao Paulo, carpintería alto nivel, obra llave en mano"
+    },
+    "testimonials": {
+      "title": "Testimonios | Grupo WG Almeida",
+      "description": "Opiniones reales de clientes de Grupo WG Almeida en proyectos de arquitectura, ingeniería y carpintería de alto nivel en Sao Paulo.",
+      "keywords": "testimonios Grupo WG Almeida, opiniones de clientes, arquitectura Sao Paulo, ingeniería Sao Paulo, carpintería alto nivel"
     }
   },
   "home": {
@@ -680,6 +685,39 @@
         "avatar": "A"
       }
     ]
+  },
+  "testimonialsPage": {
+    "hero": {
+      "kicker": "Testimonios",
+      "title": "Quienes ya construyeron con Grupo WG Almeida.",
+      "subtitle": "Opiniones reales de clientes que pasaron por proyectos de arquitectura, ingeniería y carpintería, desde el primer briefing hasta la entrega final.",
+      "imageAlt": "Ambiente de alto nivel entregado por Grupo WG Almeida"
+    },
+    "google": {
+      "kicker": "Reseñas en Google",
+      "title": "Una nota real, evaluada por clientes reales.",
+      "subtitle": "La nota de abajo viene directamente del perfil de Grupo WG Almeida en Google, con reseñas públicas de quienes ya fueron clientes.",
+      "note": "Basado en",
+      "ctaMaps": "Ver en Google Maps",
+      "ctaReview": "Dejar una reseña en Google"
+    },
+    "stats": [
+      "Años de experiencia",
+      "Proyectos entregados",
+      "Compromiso con el resultado"
+    ],
+    "partners": {
+      "kicker": "Socios de suministro",
+      "title": "Marcas que sostienen la calidad de ejecución.",
+      "subtitle": "Trabajamos con proveedores de referencia para garantizar acabado, durabilidad y consistencia técnica en cada entrega."
+    },
+    "cta": {
+      "title": "¿Quiere ser nuestro próximo testimonio?",
+      "subtitle": "Hable con Grupo WG Almeida y entienda cómo llevamos un proyecto del concepto a la entrega.",
+      "whatsapp": "Hablar por WhatsApp",
+      "message": "Enviar mensaje",
+      "whatsappMessage": "¡Hola! Vi los testimonios en el sitio de Grupo WG Almeida y quiero saber más sobre un proyecto."
+    }
   },
   "architecturePage": {
     "hero": {

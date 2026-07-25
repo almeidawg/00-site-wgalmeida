@@ -117,6 +117,11 @@
       "title": "Contact | Grupo WG Almeida",
       "description": "Contact Grupo WG Almeida for high-end architecture, engineering, bespoke joinery, and turn key work in Sao Paulo.",
       "keywords": "Grupo WG Almeida contact, architecture Sao Paulo, engineering Sao Paulo, high-end joinery, turn key work"
+    },
+    "testimonials": {
+      "title": "Testimonials | Grupo WG Almeida",
+      "description": "Real client reviews for Grupo WG Almeida on high-end architecture, engineering, and joinery projects in Sao Paulo.",
+      "keywords": "Grupo WG Almeida testimonials, client reviews, architecture Sao Paulo, engineering Sao Paulo, high-end joinery"
     }
   },
   "home": {
@@ -680,6 +685,39 @@
         "avatar": "A"
       }
     ]
+  },
+  "testimonialsPage": {
+    "hero": {
+      "kicker": "Testimonials",
+      "title": "Clients who already built with Grupo WG Almeida.",
+      "subtitle": "Real reviews from clients who went through architecture, engineering, and joinery projects, from the first briefing to final delivery.",
+      "imageAlt": "High-end environment delivered by Grupo WG Almeida"
+    },
+    "google": {
+      "kicker": "Google Reviews",
+      "title": "A real rating, from real clients.",
+      "subtitle": "The rating below comes directly from the Grupo WG Almeida Google profile, with public reviews from past clients.",
+      "note": "Based on",
+      "ctaMaps": "View on Google Maps",
+      "ctaReview": "Leave a review on Google"
+    },
+    "stats": [
+      "Years of experience",
+      "Projects delivered",
+      "Committed to the result"
+    ],
+    "partners": {
+      "kicker": "Supply partners",
+      "title": "Brands that back execution quality.",
+      "subtitle": "We work with reference suppliers to guarantee finish, durability, and technical consistency in every delivery."
+    },
+    "cta": {
+      "title": "Want to be our next testimonial?",
+      "subtitle": "Talk to Grupo WG Almeida and see how we run a project from concept to delivery.",
+      "whatsapp": "Talk on WhatsApp",
+      "message": "Send a message",
+      "whatsappMessage": "Hello! I saw the testimonials on the Grupo WG Almeida website and I want to know more about a project."
+    }
   },
   "architecturePage": {
     "hero": {

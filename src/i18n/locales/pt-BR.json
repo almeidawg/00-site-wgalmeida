@@ -116,6 +116,11 @@
       "title": "Contato | Grupo WG Almeida",
       "description": "Fale com o Grupo WG Almeida para projetos de arquitetura, engenharia, marcenaria e obras turn key de alto padrão em São Paulo.",
       "keywords": "contato Grupo WG Almeida, arquitetura São Paulo, engenharia São Paulo, marcenaria alto padrão, obra turn key"
+    },
+    "testimonials": {
+      "title": "Depoimentos | Grupo WG Almeida",
+      "description": "Avaliações reais de clientes do Grupo WG Almeida em projetos de arquitetura, engenharia e marcenaria de alto padrão em São Paulo.",
+      "keywords": "depoimentos Grupo WG Almeida, avaliações clientes, arquitetura São Paulo, engenharia São Paulo, marcenaria alto padrão"
     }
   },
   "home": {
@@ -681,6 +686,39 @@
         "avatar": "A"
       }
     ]
+  },
+  "testimonialsPage": {
+    "hero": {
+      "kicker": "Depoimentos",
+      "title": "Quem já construiu com o Grupo WG Almeida.",
+      "subtitle": "Avaliações reais de clientes que passaram por projetos de arquitetura, engenharia e marcenaria conduzidos do primeiro briefing à entrega final.",
+      "imageAlt": "Ambiente de alto padrão entregue pelo Grupo WG Almeida"
+    },
+    "google": {
+      "kicker": "Avaliações no Google",
+      "title": "Nota real, avaliada por clientes reais.",
+      "subtitle": "A nota abaixo vem diretamente do perfil do Grupo WG Almeida no Google, com avaliações públicas de quem já foi cliente.",
+      "note": "Baseado em",
+      "ctaMaps": "Ver no Google Maps",
+      "ctaReview": "Avaliar no Google"
+    },
+    "stats": [
+      "Anos de experiência",
+      "Projetos entregues",
+      "Compromisso com o resultado"
+    ],
+    "partners": {
+      "kicker": "Parceiros de fornecimento",
+      "title": "Marcas que sustentam a qualidade de execução.",
+      "subtitle": "Trabalhamos com fornecedores de referência para garantir acabamento, durabilidade e consistência técnica em cada entrega."
+    },
+    "cta": {
+      "title": "Quer ser o próximo depoimento?",
+      "subtitle": "Fale com o Grupo WG Almeida e entenda como conduzimos um projeto do conceito à entrega.",
+      "whatsapp": "Falar no WhatsApp",
+      "message": "Enviar mensagem",
+      "whatsappMessage": "Olá! Vi os depoimentos no site do Grupo WG Almeida e quero saber mais sobre um projeto."
+    }
   },
   "architecturePage": {
     "hero": {
