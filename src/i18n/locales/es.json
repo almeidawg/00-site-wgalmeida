@@ -432,8 +432,9 @@
       { "name": "Negro WG", "hex": "#2E2E2E", "rgb": "46, 46, 46", "meaning": "Sofisticación, contraste y presencia institucional.", "usage": "Base premium, títulos y fondos de impacto." },
       { "name": "Naranja WG", "hex": "#F25C26", "rgb": "242, 92, 38", "meaning": "Energía, acción y proximidad comercial (holding).", "usage": "Llamadas, destacados y puntos de conversión." },
       { "name": "Verde Build.tech", "hex": "#00AB26", "rgb": "0, 171, 38", "meaning": "Núcleo tecnológico, sistemas y automatización.", "usage": "Núcleo Build.tech, productos digitales." },
-      { "name": "Verde Ingeniería", "hex": "#22C55E", "rgb": "34, 197, 94", "meaning": "Técnica, seguridad y obra controlada.", "usage": "Núcleo ingeniería, indicadores y validaciones." },
-      { "name": "Cian Arquitectura", "hex": "#06B6D4", "rgb": "6, 182, 212", "meaning": "Diseño, estética y experiencia espacial.", "usage": "Núcleo arquitectura, proyectos y briefing." }
+      { "name": "Azul Técnico", "hex": "#2B4580", "rgb": "43, 69, 128", "meaning": "Técnica, seguridad y obra controlada.", "usage": "Núcleo ingeniería, indicadores y validaciones." },
+      { "name": "Verde Mineral", "hex": "#5E9B94", "rgb": "94, 155, 148", "meaning": "Diseño, estética y experiencia espacial.", "usage": "Núcleo arquitectura, proyectos y briefing." },
+      { "name": "Marrón Roble", "hex": "#8B5E3C", "rgb": "139, 94, 60", "meaning": "Materia, textura y acabado a medida.", "usage": "Núcleo carpintería, madera y detalles artesanales." }
     ],
     "typography": {
       "title": "Tipografia con presencia ligera",
@@ -446,12 +447,13 @@
       "sampleText": "La tipografia sostiene una experiencia visual mas silenciosa, organizada y premium."
     },
     "nuclei": {
-      "title": "Tres núcleos, una sola experiencia",
-      "subtitle": "Tecnología, ingeniería y arquitectura operando con la misma lógica de marca.",
+      "title": "Cuatro núcleos, una sola experiencia",
+      "subtitle": "Arquitectura, ingeniería, carpintería y tecnología operando con la misma lógica de marca.",
       "items": [
-        { "name": "WG Build.tech", "description": "Núcleo tecnológico. Sistemas que piensan: productos digitales y automatización aplicados al proceso de obra.", "color": "#00AB26" },
-        { "name": "WG Ingeniería", "description": "Planificación, viabilidad, ejecución, control técnico y obra.", "color": "#22C55E" },
-        { "name": "WG Arquitectura", "description": "Concepto, briefing, diseño, estética y experiencia espacial.", "color": "#06B6D4" }
+        { "name": "WG Arquitectura", "description": "Concepto, briefing, diseño, estética y experiencia espacial.", "color": "#5E9B94" },
+        { "name": "WG Ingeniería", "description": "Planificación, viabilidad, ejecución, control técnico y obra.", "color": "#2B4580" },
+        { "name": "WG Carpintería", "description": "Mobiliario a medida, acabado, fabricación e instalación.", "color": "#8B5E3C" },
+        { "name": "WG Build.tech", "description": "Núcleo tecnológico. Sistemas que piensan: productos digitales y automatización aplicados al proceso de obra.", "color": "#00AB26" }
       ]
     },
     "turnKey": {
