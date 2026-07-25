@@ -65,6 +65,16 @@ const normalizeLegacyReview = (review, index) => ({
   photoUrl: review.profile_photo_url || null,
 });
 
+// O widget do site exibe uma vitrine curada de depoimentos, nao o feed bruto do Google.
+// A nota media e o total de avaliacoes continuam vindo 100% reais da API (nunca filtrados);
+// so os textos individuais em destaque respeitam essa nota minima. Quem quiser ver todas as
+// avaliacoes, incluindo as negativas, sempre pode clicar no link "ver todas" que aponta pro
+// Google Maps real, sem filtro nenhum.
+const MIN_DISPLAY_RATING = 4;
+
+const filterDisplayable = (reviews) =>
+  reviews.filter((review) => Number(review.rating) >= MIN_DISPLAY_RATING);
+
 const extractErrorReason = (errorPayload) =>
   errorPayload?.error?.details?.find((detail) => detail?.reason)?.reason || '';
 
@@ -103,7 +113,7 @@ const fetchPlacesNew = async ({ placeId, apiKey }) => {
   }
 
   const reviews = Array.isArray(payload?.reviews)
-    ? payload.reviews.map(normalizeReview).slice(0, 5)
+    ? filterDisplayable(payload.reviews.map(normalizeReview)).slice(0, 5)
     : [];
 
   if (!reviews.length) {
@@ -135,7 +145,7 @@ const fetchPlacesLegacy = async ({ placeId, apiKey }) => {
   }
 
   const reviews = Array.isArray(payload?.result?.reviews)
-    ? payload.result.reviews.map(normalizeLegacyReview).slice(0, 5)
+    ? filterDisplayable(payload.result.reviews.map(normalizeLegacyReview)).slice(0, 5)
     : [];
 
   if (!reviews.length) {
