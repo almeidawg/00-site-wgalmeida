@@ -430,9 +430,10 @@
     },
     "colors": [
       { "name": "WG Black", "hex": "#2E2E2E", "rgb": "46, 46, 46", "meaning": "Sophistication, contrast, and institutional presence.", "usage": "Premium base, titles, and high-impact backgrounds." },
-      { "name": "WG Orange", "hex": "#F25C26", "rgb": "242, 92, 38", "meaning": "Energy, action, and commercial proximity.", "usage": "Calls to action, highlights, and conversion points." },
-      { "name": "Engineering Green", "hex": "#5E9B94", "rgb": "94, 155, 148", "meaning": "Technique, safety, and controlled construction.", "usage": "Engineering division, indicators, and validations." },
-      { "name": "Joinery Brown", "hex": "#8B5E3C", "rgb": "139, 94, 60", "meaning": "Material, texture, and bespoke finish.", "usage": "Joinery division, wood, and crafted details." }
+      { "name": "WG Orange", "hex": "#F25C26", "rgb": "242, 92, 38", "meaning": "Energy, action, and commercial proximity (holding).", "usage": "Calls to action, highlights, and conversion points." },
+      { "name": "Build.tech Green", "hex": "#00AB26", "rgb": "0, 171, 38", "meaning": "Technology core, systems and automation.", "usage": "Build.tech core, digital products." },
+      { "name": "Engineering Green", "hex": "#22C55E", "rgb": "34, 197, 94", "meaning": "Technique, safety, and controlled construction.", "usage": "Engineering core, indicators, and validations." },
+      { "name": "Architecture Cyan", "hex": "#06B6D4", "rgb": "6, 182, 212", "meaning": "Design, aesthetics, and spatial experience.", "usage": "Architecture core, projects, and briefing." }
     ],
     "typography": {
       "title": "Typography with quiet presence",
@@ -445,12 +446,12 @@
       "sampleText": "Typography supports a quieter, more organized, premium visual experience."
     },
     "nuclei": {
-      "title": "Three divisions, one experience",
-      "subtitle": "The strength of the brand lies in connecting concept, structure, and final execution.",
+      "title": "Three cores, one experience",
+      "subtitle": "Technology, engineering, and architecture operating with the same brand logic.",
       "items": [
-        { "name": "Architecture", "description": "Concept, briefing, layout, aesthetics, and spatial experience.", "color": "#F25C26" },
-        { "name": "Engineering", "description": "Planning, feasibility, execution, technical control, and construction.", "color": "#5E9B94" },
-        { "name": "Bespoke Joinery", "description": "Custom furniture, finishing, manufacturing, and installation.", "color": "#8B5E3C" }
+        { "name": "WG Build.tech", "description": "Technology core. Systems that think: digital products and automation applied to the construction journey.", "color": "#00AB26" },
+        { "name": "WG Engineering", "description": "Planning, feasibility, execution, technical control, and construction.", "color": "#22C55E" },
+        { "name": "WG Architecture", "description": "Concept, briefing, layout, aesthetics, and spatial experience.", "color": "#06B6D4" }
       ]
     },
     "turnKey": {
