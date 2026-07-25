@@ -25,6 +25,7 @@ const AMarca = () => {
 
   const valueIcons = [Target, Heart, Zap, Users2, TrendingUp, Shield, Lightbulb, Award];
   const nucleusIcons = [Zap, HardHat, Ruler];
+  const DEFAULT_NUCLEUS_ICON = Ruler;
   const nucleusLogos = [
     withBasePath('/Logos/logo-wg-buildtech-nucleo.webp'),
     withBasePath('/Logos/logo-engenharia-84.webp'),
@@ -241,7 +242,7 @@ const AMarca = () => {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
             {brandColors.map((color, index) => (
               <motion.div
                 key={color.name}
@@ -384,12 +385,12 @@ const AMarca = () => {
                     {nucleusLogos[index] ? (
                       <img
                         src={nucleusLogos[index]}
-                        alt={`Logo ${nucleo.name}`}
+                        alt=""
                         className="w-full h-full object-contain"
                         loading="lazy"
                       />
                     ) : (
-                      React.createElement(nucleusIcons[index], {
+                      React.createElement(nucleusIcons[index] ?? DEFAULT_NUCLEUS_ICON, {
                         className: 'w-10 h-10',
                         style: { color: nucleo.color }
                       })
