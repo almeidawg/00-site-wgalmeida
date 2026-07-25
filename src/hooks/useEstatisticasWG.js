@@ -10,6 +10,21 @@ import { useState, useEffect } from "react";
 const DATA_FUNDACAO = new Date("2011-10-28");
 const ANOS_MERCADO_BASE = 15;
 
+// Metros de revestimentos: base histórica validada para a vitrine (não é dado
+// ao vivo, ver nota abaixo em "contratos_itens").
+const METROS_REVESTIMENTOS_FALLBACK = 3898;
+
+// Detecta erro de "tabela/relação não existe" do PostgREST (schema drift),
+// para não tratar como falha genérica de rede/permissão nem logar como se
+// fosse um bug inesperado. Ver governança WG: padrão "isSchemaAbsenceError"
+// (WGEasy, regra 1.23).
+function isSchemaAbsenceError(error) {
+  if (!error) return false;
+  if (error.code === "PGRST205") return true;
+  const message = String(error.message || "");
+  return message.includes("schema cache") || message.includes("Could not find the table");
+}
+
 export function useEstatisticasWG(options = {}) {
   const { enabled = true } = options;
   // Valores fallback renderizam imediatamente (não bloqueia LCP)
@@ -49,41 +64,48 @@ export function useEstatisticasWG(options = {}) {
         const { supabase } = await import("@/lib/customSupabaseClient");
 
         // Buscar contratos ativos (projetos em andamento)
-        // eslint-disable-next-line no-unused-vars
         const { data: contratosAtivos, error: errorAtivos } = await supabase
           .from("contratos")
           .select("id, valor_total")
           .eq("status", "ativo");
 
         // Buscar todos os contratos (ativos + concluídos = clientes atendidos)
-        // eslint-disable-next-line no-unused-vars
         const { data: todosContratos, error: errorTodos } = await supabase
           .from("contratos")
           .select("id, valor_total, status")
           .in("status", ["ativo", "concluido"]);
 
-        // Buscar itens de contrato para calcular metros de revestimentos
-        // Assumindo que existe um campo para metros ou quantidade
-        // eslint-disable-next-line no-unused-vars
-        const { data: itensContratos, error: errorItens } = await supabase
-          .from("contratos_itens")
-          .select("quantidade, unidade, contrato_id")
-          .or("unidade.ilike.%m2%,unidade.ilike.%m²%,unidade.eq.m2");
+        // Erro inesperado (não ausência de schema conhecida) nas duas queries
+        // acima: sinaliza em DEV para não repetir o mesmo tipo de silêncio que
+        // escondeu o schema drift de "contratos_itens" por tempo indeterminado.
+        if (import.meta.env.DEV) {
+          [errorAtivos, errorTodos].forEach((err) => {
+            if (err && !isSchemaAbsenceError(err)) {
+              console.warn("[useEstatisticasWG] Erro ao buscar contratos:", err.message);
+            }
+          });
+        }
+
+        // Metros de revestimentos: NÃO consultamos mais "contratos_itens" aqui.
+        // NOTA (2026-07-24): confirmado via probe read-only direto no PostgREST
+        // deste projeto (ahlqzzkxuutwoepirpzr) que a tabela "contratos_itens"
+        // não existe mais no schema público (PGRST205 "Could not find the table
+        // 'public.contratos_itens' in the schema cache", mesmo erro que uma
+        // tabela inventada de controle, confirmando ausência real, não RLS/
+        // permissão). Não existe hoje tabela sucessora com o mesmo formato
+        // (contrato_id + quantidade + unidade) legível pela chave anônima:
+        // "propostas_itens" tem quantidade/unidade mas é por proposta, não por
+        // contrato assinado, e "contratos_nucleos" não tem essas colunas.
+        // A query antiga sempre resultava em 404 silencioso no browser e nunca
+        // teve efeito real (o cálculo já caía neste mesmo valor de fallback).
+        // Fica um número estático documentado; se uma tabela real de itens de
+        // contrato voltar a existir, trocar aqui para consultá-la ao vivo em
+        // vez de reintroduzir uma chamada fadada a falhar.
+        const metrosRevestimentos = METROS_REVESTIMENTOS_FALLBACK;
 
         // Calcular métricas
         const projetosAndamento = contratosAtivos?.length || 6;
         const clientesAtendidos = todosContratos?.length || 400;
-
-        // Somar metros de revestimentos
-        let metrosRevestimentos = 3898; // Base historica validada para a vitrine
-        if (itensContratos && itensContratos.length > 0) {
-          const somaMetros = itensContratos.reduce((acc, item) => {
-            return acc + (item.quantidade || 0);
-          }, 0);
-          if (somaMetros > 0) {
-            metrosRevestimentos = Math.round(somaMetros);
-          }
-        }
 
         // Calcular horas e anos
         const horasProjetando = calcularHorasDesdeDataFundacao();
