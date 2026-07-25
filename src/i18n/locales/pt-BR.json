@@ -449,12 +449,12 @@
     },
     "nuclei": {
       "title": "Quatro núcleos, uma só experiência",
-      "subtitle": "Tecnologia, engenharia, arquitetura e marcenaria operando com a mesma lógica de marca.",
+      "subtitle": "Arquitetura, engenharia, marcenaria e tecnologia operando com a mesma lógica de marca.",
       "items": [
-        { "name": "WG Build.tech", "description": "Núcleo tecnológico. Sistemas que pensam: produtos digitais e automação aplicados à jornada da obra.", "color": "#00AB26" },
-        { "name": "WG Engenharia", "description": "Planejamento, viabilidade, execução, controle técnico e obra.", "color": "#2B4580" },
         { "name": "WG Arquitetura", "description": "Conceito, briefing, layout, estética e experiência espacial.", "color": "#5E9B94" },
-        { "name": "WG Marcenaria", "description": "Mobiliário sob medida, acabamento, fabricação e instalação.", "color": "#8B5E3C" }
+        { "name": "WG Engenharia", "description": "Planejamento, viabilidade, execução, controle técnico e obra.", "color": "#2B4580" },
+        { "name": "WG Marcenaria", "description": "Mobiliário sob medida, acabamento, fabricação e instalação.", "color": "#8B5E3C" },
+        { "name": "WG Build.tech", "description": "Núcleo tecnológico. Sistemas que pensam: produtos digitais e automação aplicados à jornada da obra.", "color": "#00AB26" }
       ]
     },
     "turnKey": {

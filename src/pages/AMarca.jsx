@@ -24,13 +24,13 @@ const AMarca = () => {
   const turnKeySteps = t('brandPage.turnKey.steps', { returnObjects: true });
 
   const valueIcons = [Target, Heart, Zap, Users2, TrendingUp, Shield, Lightbulb, Award];
-  const nucleusIcons = [Zap, HardHat, Ruler, Hammer];
+  const nucleusIcons = [Ruler, HardHat, Hammer, Zap];
   const DEFAULT_NUCLEUS_ICON = Ruler;
   const nucleusLogos = [
-    withBasePath('/Logos/logo-wg-buildtech-nucleo.webp'),
-    withBasePath('/Logos/logo-engenharia-84.webp'),
     withBasePath('/Logos/logo-arquitetura-84.webp'),
+    withBasePath('/Logos/logo-engenharia-84.webp'),
     withBasePath('/Logos/logo-marcenaria-84.webp'),
+    withBasePath('/Logos/logo-wg-buildtech-nucleo.webp'),
   ];
 
   return (
@@ -364,7 +364,7 @@ const AMarca = () => {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {nucleos.map((nucleo, index) => (
               <motion.div
                 key={nucleo.name}
@@ -372,7 +372,7 @@ const AMarca = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="relative group"
+                className={`relative group${index === nucleos.length - 1 && nucleos.length % 3 === 1 ? ' lg:col-start-2' : ''}`}
               >
                 <div
                   className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"
@@ -380,7 +380,7 @@ const AMarca = () => {
                 />
                 <div className="relative bg-white rounded-2xl p-8 text-center shadow-sm group-hover:shadow-lg transition-all">
                   <div
-                    className="w-20 h-20 mx-auto rounded-2xl flex items-center justify-center mb-6 p-3"
+                    className="w-20 h-20 mx-auto rounded-2xl flex items-center justify-center mb-6 overflow-hidden"
                     style={{ backgroundColor: nucleo.color + '15' }}
                   >
                     {nucleusLogos[index] ? (

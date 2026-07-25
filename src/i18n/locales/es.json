@@ -448,12 +448,12 @@
     },
     "nuclei": {
       "title": "Cuatro núcleos, una sola experiencia",
-      "subtitle": "Tecnología, ingeniería, arquitectura y carpintería operando con la misma lógica de marca.",
+      "subtitle": "Arquitectura, ingeniería, carpintería y tecnología operando con la misma lógica de marca.",
       "items": [
-        { "name": "WG Build.tech", "description": "Núcleo tecnológico. Sistemas que piensan: productos digitales y automatización aplicados al proceso de obra.", "color": "#00AB26" },
-        { "name": "WG Ingeniería", "description": "Planificación, viabilidad, ejecución, control técnico y obra.", "color": "#2B4580" },
         { "name": "WG Arquitectura", "description": "Concepto, briefing, diseño, estética y experiencia espacial.", "color": "#5E9B94" },
-        { "name": "WG Carpintería", "description": "Mobiliario a medida, acabado, fabricación e instalación.", "color": "#8B5E3C" }
+        { "name": "WG Ingeniería", "description": "Planificación, viabilidad, ejecución, control técnico y obra.", "color": "#2B4580" },
+        { "name": "WG Carpintería", "description": "Mobiliario a medida, acabado, fabricación e instalación.", "color": "#8B5E3C" },
+        { "name": "WG Build.tech", "description": "Núcleo tecnológico. Sistemas que piensan: productos digitales y automatización aplicados al proceso de obra.", "color": "#00AB26" }
       ]
     },
     "turnKey": {

@@ -448,12 +448,12 @@
     },
     "nuclei": {
       "title": "Four cores, one experience",
-      "subtitle": "Technology, engineering, architecture, and carpentry operating with the same brand logic.",
+      "subtitle": "Architecture, engineering, carpentry, and technology operating with the same brand logic.",
       "items": [
-        { "name": "WG Build.tech", "description": "Technology core. Systems that think: digital products and automation applied to the construction journey.", "color": "#00AB26" },
-        { "name": "WG Engineering", "description": "Planning, feasibility, execution, technical control, and construction.", "color": "#2B4580" },
         { "name": "WG Architecture", "description": "Concept, briefing, layout, aesthetics, and spatial experience.", "color": "#5E9B94" },
-        { "name": "WG Carpentry", "description": "Custom furniture, finishing, manufacturing, and installation.", "color": "#8B5E3C" }
+        { "name": "WG Engineering", "description": "Planning, feasibility, execution, technical control, and construction.", "color": "#2B4580" },
+        { "name": "WG Carpentry", "description": "Custom furniture, finishing, manufacturing, and installation.", "color": "#8B5E3C" },
+        { "name": "WG Build.tech", "description": "Technology core. Systems that think: digital products and automation applied to the construction journey.", "color": "#00AB26" }
       ]
     },
     "turnKey": {
