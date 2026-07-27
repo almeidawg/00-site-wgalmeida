@@ -1053,6 +1053,24 @@
     }
   },
   "storePage": {
+    "hero": {
+      "imageAlt": "Loja de decoração e design premium Grupo WG Almeida",
+      "title": "Loja de Decoração e Design Premium",
+      "subtitle": "Peças selecionadas para complementar projetos de arquitetura, interiores e marcenaria de alto padrão.",
+      "badge": "Curadoria WG Almeida"
+    },
+    "loading": "Carregando produtos...",
+    "errors": {
+      "loadFailed": "Não foi possível carregar os produtos.",
+      "loadError": "Erro ao carregar produtos: {{error}}"
+    },
+    "empty": {
+      "title": "Nenhum produto disponível no momento.",
+      "subtitle": "Volte em breve para conferir novidades da curadoria WG Almeida."
+    },
+    "productFallback": {
+      "add": "Adicionar"
+    },
     "cart": {
       "title": "Carrinho de compras",
       "empty": "Seu carrinho está vazio.",
@@ -1062,7 +1080,26 @@
       "total": "Total",
       "remove": "Remover",
       "checkoutErrorTitle": "Não foi possível iniciar o checkout",
-      "checkoutErrorDescription": "Tente novamente em alguns instantes."
+      "checkoutErrorDescription": "Tente novamente em alguns instantes.",
+      "errorTitle": "Não foi possível adicionar ao carrinho",
+      "addedTitle": "Produto adicionado",
+      "addedDescription": "{{title}} foi adicionado ao carrinho."
+    },
+    "productDetail": {
+      "addedTitle": "Produto adicionado",
+      "addedDescription": "{{quantity}}x {{title}} ({{variant}}) adicionado ao carrinho.",
+      "errorTitle": "Não foi possível adicionar ao carrinho",
+      "loadFailed": "Não foi possível carregar este produto.",
+      "backToStore": "Voltar para a loja",
+      "loadError": "Erro ao carregar produto: {{error}}",
+      "prevImage": "Imagem anterior",
+      "nextImage": "Próxima imagem",
+      "goToImage": "Ir para imagem {{index}}",
+      "options": "Opções",
+      "addToCart": "Adicionar ao carrinho",
+      "inStock": "{{count}} em estoque",
+      "lowStock": "Últimas {{count}} unidades",
+      "unavailable": "Produto indisponível"
     }
   },
   "moodboardPage": {

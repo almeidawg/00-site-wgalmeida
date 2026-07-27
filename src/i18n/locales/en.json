@@ -1052,6 +1052,24 @@
     }
   },
   "storePage": {
+    "hero": {
+      "imageAlt": "Grupo WG Almeida premium decor and design store",
+      "title": "Premium Decor and Design Store",
+      "subtitle": "Curated pieces to complement high-end architecture, interior and carpentry projects.",
+      "badge": "WG Almeida Curation"
+    },
+    "loading": "Loading products...",
+    "errors": {
+      "loadFailed": "Could not load products.",
+      "loadError": "Error loading products: {{error}}"
+    },
+    "empty": {
+      "title": "No products available right now.",
+      "subtitle": "Check back soon for new items from WG Almeida's curation."
+    },
+    "productFallback": {
+      "add": "Add"
+    },
     "cart": {
       "title": "Shopping cart",
       "empty": "Your cart is empty.",
@@ -1061,7 +1079,26 @@
       "total": "Total",
       "remove": "Remove",
       "checkoutErrorTitle": "Checkout could not be started",
-      "checkoutErrorDescription": "Please try again in a few moments."
+      "checkoutErrorDescription": "Please try again in a few moments.",
+      "errorTitle": "Could not add to cart",
+      "addedTitle": "Product added",
+      "addedDescription": "{{title}} was added to your cart."
+    },
+    "productDetail": {
+      "addedTitle": "Product added",
+      "addedDescription": "{{quantity}}x {{title}} ({{variant}}) added to your cart.",
+      "errorTitle": "Could not add to cart",
+      "loadFailed": "Could not load this product.",
+      "backToStore": "Back to store",
+      "loadError": "Error loading product: {{error}}",
+      "prevImage": "Previous image",
+      "nextImage": "Next image",
+      "goToImage": "Go to image {{index}}",
+      "options": "Options",
+      "addToCart": "Add to cart",
+      "inStock": "{{count}} in stock",
+      "lowStock": "Only {{count}} left",
+      "unavailable": "Product unavailable"
     }
   },
   "blogPage": {

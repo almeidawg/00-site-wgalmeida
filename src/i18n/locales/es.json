@@ -1052,6 +1052,24 @@
     }
   },
   "storePage": {
+    "hero": {
+      "imageAlt": "Tienda de decoración y diseño premium Grupo WG Almeida",
+      "title": "Tienda de Decoración y Diseño Premium",
+      "subtitle": "Piezas seleccionadas para complementar proyectos de arquitectura, interiores y carpintería de alto nivel.",
+      "badge": "Curaduría WG Almeida"
+    },
+    "loading": "Cargando productos...",
+    "errors": {
+      "loadFailed": "No fue posible cargar los productos.",
+      "loadError": "Error al cargar productos: {{error}}"
+    },
+    "empty": {
+      "title": "No hay productos disponibles por el momento.",
+      "subtitle": "Vuelve pronto para ver novedades de la curaduría WG Almeida."
+    },
+    "productFallback": {
+      "add": "Agregar"
+    },
     "cart": {
       "title": "Carrito de compras",
       "empty": "Tu carrito está vacío.",
@@ -1061,7 +1079,26 @@
       "total": "Total",
       "remove": "Eliminar",
       "checkoutErrorTitle": "No fue posible iniciar el checkout",
-      "checkoutErrorDescription": "Inténtalo nuevamente en unos instantes."
+      "checkoutErrorDescription": "Inténtalo nuevamente en unos instantes.",
+      "errorTitle": "No fue posible agregar al carrito",
+      "addedTitle": "Producto agregado",
+      "addedDescription": "{{title}} fue agregado al carrito."
+    },
+    "productDetail": {
+      "addedTitle": "Producto agregado",
+      "addedDescription": "{{quantity}}x {{title}} ({{variant}}) agregado al carrito.",
+      "errorTitle": "No fue posible agregar al carrito",
+      "loadFailed": "No fue posible cargar este producto.",
+      "backToStore": "Volver a la tienda",
+      "loadError": "Error al cargar producto: {{error}}",
+      "prevImage": "Imagen anterior",
+      "nextImage": "Imagen siguiente",
+      "goToImage": "Ir a la imagen {{index}}",
+      "options": "Opciones",
+      "addToCart": "Agregar al carrito",
+      "inStock": "{{count}} en stock",
+      "lowStock": "Últimas {{count}} unidades",
+      "unavailable": "Producto no disponible"
     }
   },
   "blogPage": {
