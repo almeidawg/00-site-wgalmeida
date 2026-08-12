@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from '@/lib/motion-lite';
 import { Download, CheckCircle2, ShieldCheck, Sparkles, ArrowRight, Loader2 } from 'lucide-react';
 import { MoodboardCanvas } from '@/components/moodboard';
 import BrandStar from '@/components/BrandStar';
-import SEO from '@/components/SEO';
+import Seo from '@/components/SEO';
 import { styleCatalog } from '@/utils/styleCatalog';
 import useMoodboardExport from '@/hooks/useMoodboardExport';
 
@@ -122,7 +122,7 @@ const MoodboardShare = () => {
 
   return (
     <>
-      <SEO title={`${data.projectName} | Dossiê WG Almeida`} noindex />
+      <Seo title={`${data.projectName} | Dossiê WG Almeida`} noindex />
       
       <AnimatePresence>
         {showIntro && (
@@ -207,7 +207,7 @@ const MoodboardShare = () => {
                   <h2 className="text-4xl font-playfair italic text-white">A Alma do Projeto</h2>
                </div>
                <div className="flex items-center gap-4 text-slate-500 font-mono text-[10px] bg-white/5 px-4 py-2 rounded-full border border-white/5">
-                  <CheckCircle2 size={12} className="text-green-500" /> CÓDIGO DE VALIDAÇÃO: {Math.random().toString(36).substr(2, 6).toUpperCase()}
+                  <CheckCircle2 size={12} className="text-green-500" /> CÓDIGO DE VALIDAÇÃO: {Math.random().toString(36).slice(2, 8).toUpperCase()}
                </div>
             </div>
             
@@ -226,7 +226,7 @@ const MoodboardShare = () => {
                   <div className="space-y-4">
                     {data.styles.map((style, idx) => (
                       <motion.div 
-                        key={idx}
+                        key={style.slug || style.id || style.name}
                         initial={{ x: -20, opacity: 0 }}
                         whileInView={{ x: 0, opacity: 1 }}
                         transition={{ delay: idx * 0.1 }}
@@ -247,7 +247,7 @@ const MoodboardShare = () => {
                   <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.3em] border-l-2 border-wg-orange pl-4">Paleta Cromática Técnica</h3>
                   <div className="grid grid-cols-5 gap-4">
                       {data.colors.map((color, idx) => (
-                        <div key={idx} className="group">
+                        <div key={color} className="group">
                           <div className="aspect-[3/4] rounded-2xl shadow-xl border border-white/10 transition-transform group-hover:scale-105" style={{ backgroundColor: color }} />
                           <p className="text-[10px] font-mono text-center text-slate-600 mt-3">{color.toUpperCase()}</p>
                         </div>
@@ -262,7 +262,7 @@ const MoodboardShare = () => {
                <div className="grid grid-cols-2 gap-4">
                   {data.customImages.map((img, idx) => (
                     <motion.div 
-                      key={idx}
+                      key={img.id || img.url}
                       whileHover={{ y: -10 }}
                       className="group bg-slate-900/50 rounded-3xl overflow-hidden border border-white/5"
                     >

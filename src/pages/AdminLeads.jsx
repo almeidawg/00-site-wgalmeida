@@ -1,28 +1,25 @@
-import { 
-  Users, 
-  Search, 
-  Filter, 
-  Download, 
-  MoreHorizontal, 
-  Phone, 
-  Mail, 
-  Calendar,
+import {
+  Users,
+  Search,
+  Download,
+  Phone,
+  Mail,
   MessageSquare,
-  CheckCircle2,
-  Clock,
-  ExternalLink,
-  ChevronLeft,
-  ChevronRight,
   Loader2,
   RefreshCcw,
-  Star,
-  ArrowUpRight,
-  Rocket
+  Rocket,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/components/ui/use-toast';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
+
+const buildWhatsAppHref = (lead) => {
+  const phone = lead.telefone?.replace(/\D/g, '') || '';
+  const project = lead.origem || 'projeto';
+  const message = `Olá ${lead.nome}, vi que você solicitou uma proposta de ${project} no site da WG Almeida. Como posso ajudar?`;
+  return `https://wa.me/55${phone}?text=${encodeURIComponent(message)}`;
+};
 
 export default function AdminLeads() {
   const { toast } = useToast();
@@ -125,14 +122,14 @@ export default function AdminLeads() {
           <p className="text-slate-400 text-sm mt-1">Triagem de marketing para o ecossistema WG Almeida.</p>
         </div>
         <div className="flex items-center gap-3">
-          <button 
+          <button type="button"
             onClick={fetchLeads}
             aria-label="Atualizar lista de leads"
             className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition-all"
           >
             <RefreshCcw size={18} className={loading ? "animate-spin" : ""} />
           </button>
-          <button disabled title="ExportaÃ§Ã£o em preparaÃ§Ã£o" className="flex items-center gap-2 px-4 py-2.5 bg-slate-800 text-slate-500 rounded-xl text-sm font-bold cursor-not-allowed border border-slate-700">
+          <button type="button"disabled title="ExportaÃ§Ã£o em preparaÃ§Ã£o" className="flex items-center gap-2 px-4 py-2.5 bg-slate-800 text-slate-500 rounded-xl text-sm font-bold cursor-not-allowed border border-slate-700">
             <Download size={18} /> Exportar
           </button>
         </div>
@@ -183,7 +180,7 @@ export default function AdminLeads() {
                { id: 'convertido', label: 'Convertidos' },
                { id: 'descartado', label: 'Descartados' },
             ].map(item => (
-               <button
+               <button type="button"
                   key={item.id}
                   onClick={() => setFilter(item.id)}
                   className={cn(
@@ -284,7 +281,7 @@ export default function AdminLeads() {
                            </td>
                            <td className="px-6 py-5">
                               <div className="flex items-center gap-2">
-                                 <button 
+                                 <button type="button"
                                     onClick={() => promoteToWGEasy(lead.id, lead.tipo)}
                                     disabled={promotingId === lead.id || lead.status === 'convertido'}
                                     className={cn(
@@ -302,7 +299,7 @@ export default function AdminLeads() {
                                     Promover WGEasy
                                  </button>
                                  <a 
-                                    href={`https://wa.me/55${lead.telefone?.replace(/\D/g, '')}?text=${encodeURIComponent(`OlÃ¡ ${lead.nome}, vi que vocÃª solicitou uma proposta de ${lead.origem || 'projeto'} no site da WG Almeida. Como posso ajudar?`)}`}
+                                    href={buildWhatsAppHref(lead)}
                                     target="_blank" 
                                     rel="noreferrer"
                                     className="p-2 rounded-xl bg-emerald-500/10 text-emerald-500 hover:bg-emerald-500 hover:text-white transition-all"

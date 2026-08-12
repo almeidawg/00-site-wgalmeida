@@ -53,7 +53,7 @@ const Paraiso = lazy(() => import('@/pages/regions/Paraiso'))
 const Aclimacao = lazy(() => import('@/pages/regions/Aclimacao'))
 const SoliciteProposta = lazy(() => import('@/pages/SoliciteProposta'))
 const Blog = lazy(() => import('@/pages/Blog'))
-const FAQ = lazy(() => import('@/pages/FAQ'))
+const Faq = lazy(() => import('@/pages/FAQ'))
 const MoodboardStudio = lazy(() => import('@/pages/MoodboardStudio'))
 const MoodboardShare = lazy(() => import('@/pages/MoodboardShare'))
 const RoomVisualizer = lazy(() => import('@/pages/RoomVisualizer'))
@@ -66,8 +66,8 @@ const DataDeletion = lazy(() => import('@/pages/DataDeletion'))
 const EasyLocker = lazy(() => import('@/pages/EasyLocker'))
 const BuildTech = lazy(() => import('@/pages/BuildTech'))
 const BuildTechClientProposal = lazy(() => import('@/pages/BuildTechClientProposal'))
-const ICCRI = lazy(() => import('@/pages/ICCRI'))
-const ICCRIParaImobiliarias = lazy(() => import('@/pages/ICCRIParaImobiliarias'))
+const Iccri = lazy(() => import('@/pages/ICCRI'))
+const IccriParaImobiliarias = lazy(() => import('@/pages/ICCRIParaImobiliarias'))
 const WGEasy = lazy(() => import('@/pages/WGEasy'))
 
 // Landing Pages SaaS · ObraEasy e EasyRealState
@@ -343,8 +343,8 @@ function App() {
               />
               <Route path="/clientes/:slug" element={<BuildTechClientProposal />} />
               <Route path="/buildtech/clientes/:slug" element={<BuildTechClientProposal />} />
-              <Route path="/iccri" element={<ICCRI />} />
-              <Route path="/iccri-para-imobiliarias" element={<ICCRIParaImobiliarias />} />
+              <Route path="/iccri" element={<Iccri />} />
+              <Route path="/iccri-para-imobiliarias" element={<IccriParaImobiliarias />} />
               <Route path="/wgeasy" element={<WGEasy />} />
               <Route path="/obraeasy" element={<ObraEasyLanding />} />
               <Route path="/parceiros" element={<ObraEasyParceiroRedirect />} />
@@ -367,7 +367,7 @@ function App() {
               <Route path="/blog/:slug" element={<Blog />} />
               <Route path="/conteudo" element={<ConteudoRedirect />} />
               <Route path="/conteudo/:slug" element={<ConteudoRedirect />} />
-              <Route path="/faq" element={<FAQ />} />
+              <Route path="/faq" element={<Faq />} />
               <Route path="/privacidade" element={<PrivacyPolicy />} />
               <Route path="/exclusao-de-dados" element={<DataDeletion />} />
               <Route path="/revista-estilos" element={<RevistaEstilos />} />

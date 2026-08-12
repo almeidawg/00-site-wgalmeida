@@ -1,5 +1,5 @@
 import ResponsiveWebpImage from '@/components/ResponsiveWebpImage'
-import SEO from '@/components/SEO'
+import Seo from '@/components/SEO'
 import { Button } from '@/components/ui/button'
 import { useToast } from '@/components/ui/use-toast'
 import { motion } from '@/lib/motion-lite'
@@ -198,7 +198,7 @@ const Contact = () => {
 
   return (
     <>
-      <SEO
+      <Seo
         pathname="/contato"
         title={t('seo.contact.title')}
         description={t('seo.contact.description')}
