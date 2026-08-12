@@ -99,6 +99,7 @@ const StyleGrid = ({ selectedStyles, onStylesChange, maxStyles = 3 }) => {
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-500 w-3.5 h-3.5" />
           <input
             type="text"
+            aria-label="Filtrar estilos"
             placeholder="Filtrar estilos..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}

@@ -11,8 +11,6 @@ import { decorateProductUrl, ensureEcosystemContext } from '@/lib/ecosystemConte
 // Lazy load pages
 const Footer = lazy(() => import('@/components/layout/Footer'))
 const ContextTracker = lazy(() => import('@/components/ContextTracker'))
-const NextBestActionPanel = lazy(() => import('@/components/NextBestActionPanel'))
-const LizAssistant = lazy(() => import('@/components/LizAssistant'))
 const Home = lazy(() => import('@/pages/Home'))
 const About = lazy(() => import('@/pages/About'))
 const AMarca = lazy(() => import('@/pages/AMarca'))
@@ -31,6 +29,7 @@ const Register = lazy(() => import('@/pages/Register'))
 const Account = lazy(() => import('@/pages/Account'))
 const Admin = lazy(() => import('@/pages/Admin'))
 const AdminBlogEditorial = lazy(() => import('@/pages/AdminBlogEditorial'))
+const AdminLeads = lazy(() => import('@/pages/AdminLeads'))
 const AdminLayout = lazy(() => import('@/components/Admin/AdminLayout'))
 const MediaManager = lazy(() => import('@/pages/AdminMediaManager'))
 const PremiumCinematicIntro = lazy(() => import('@/components/PremiumCinematicIntro'))
@@ -55,7 +54,6 @@ const Aclimacao = lazy(() => import('@/pages/regions/Aclimacao'))
 const SoliciteProposta = lazy(() => import('@/pages/SoliciteProposta'))
 const Blog = lazy(() => import('@/pages/Blog'))
 const FAQ = lazy(() => import('@/pages/FAQ'))
-const Moodboard = lazy(() => import('@/pages/Moodboard'))
 const MoodboardStudio = lazy(() => import('@/pages/MoodboardStudio'))
 const MoodboardShare = lazy(() => import('@/pages/MoodboardShare'))
 const RoomVisualizer = lazy(() => import('@/pages/RoomVisualizer'))
@@ -455,6 +453,7 @@ function App() {
                       <Routes>
                         <Route index element={<Admin />} />
                         <Route path="blog-editorial" element={<AdminBlogEditorial />} />
+                        <Route path="leads" element={<AdminLeads />} />
                         <Route path="media" element={<MediaManager />} />
                         <Route path="seo" element={<div className="text-slate-500 py-20 text-center italic">SEO Manager em breve...</div>} />
                         <Route path="settings" element={<div className="text-slate-500 py-20 text-center italic">Configurações em breve...</div>} />

@@ -476,6 +476,7 @@ const ElementColorSelector = ({ element, selectedColor, onColorSelect, available
           <span
             role="button"
             tabIndex={0}
+            aria-label={`Remover cor de ${element.name}`}
             onClick={(e) => {
               e.stopPropagation();
               onColorSelect(element.id, null);
@@ -1108,6 +1109,7 @@ const ColorTransformer = ({ externalColors = [] }) => {
                 </div>
                 <button
                   onClick={() => setIsFullscreen(true)}
+                  aria-label="Abrir comparação em tela cheia"
                   className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
                 >
                   <Maximize2 className="w-5 h-5 text-gray-600" />

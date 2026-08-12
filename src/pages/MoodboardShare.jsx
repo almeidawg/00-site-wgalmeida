@@ -1,13 +1,14 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { Suspense, lazy, useMemo, useState, useEffect } from 'react';
 import { useSearchParams, useParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from '@/lib/motion-lite';
 import { Download, CheckCircle2, ShieldCheck, Sparkles, ArrowRight, Loader2 } from 'lucide-react';
 import { MoodboardCanvas } from '@/components/moodboard';
-import MoodboardSocialPanel from '@/components/moodboard/MoodboardSocialPanel';
 import BrandStar from '@/components/BrandStar';
 import SEO from '@/components/SEO';
 import { styleCatalog } from '@/utils/styleCatalog';
-import { getMoodboardShare, incrementViews } from '@/services/moodboardShareService';
+import useMoodboardExport from '@/hooks/useMoodboardExport';
+
+const MoodboardSocialPanel = lazy(() => import('@/components/moodboard/MoodboardSocialPanel'));
 
 const MoodboardShare = () => {
   const [searchParams] = useSearchParams();
@@ -17,13 +18,18 @@ const MoodboardShare = () => {
   const [dbLoading, setDbLoading] = useState(!!shareId);
   const [dbError, setDbError] = useState(false);
   const encodedData = searchParams.get('v');
+  const { exportAsPDF, isExporting, error: exportError } = useMoodboardExport();
 
   // Modo persistente: buscar do Supabase
   useEffect(() => {
-    if (!shareId) return;
+    if (!shareId) return undefined;
+    let cancelled = false;
     setDbLoading(true);
-    getMoodboardShare(shareId)
-      .then(row => {
+
+    import('@/services/moodboardShareService')
+      .then(async ({ getMoodboardShare, incrementViews }) => {
+        const row = await getMoodboardShare(shareId);
+        if (cancelled) return;
         const resolvedStyles = (row.styles || []).map(slug =>
           styleCatalog.find(s => (s.slug || s.id) === slug)
         ).filter(Boolean);
@@ -45,8 +51,16 @@ const MoodboardShare = () => {
         });
         incrementViews(shareId).catch(() => {});
       })
-      .catch(() => setDbError(true))
-      .finally(() => setDbLoading(false));
+      .catch(() => {
+        if (!cancelled) setDbError(true);
+      })
+      .finally(() => {
+        if (!cancelled) setDbLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
   }, [shareId]);
 
   const legacyData = useMemo(() => {
@@ -164,11 +178,24 @@ const MoodboardShare = () => {
               <Link to="/moodboard/studio" className="hidden sm:flex items-center gap-2 px-5 py-2.5 bg-slate-900 border border-white/10 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition-all">
                  <Sparkles size={14} className="text-wg-orange" /> Editar no Studio
               </Link>
-              <button className="flex items-center gap-2 px-6 py-3 bg-wg-orange text-white rounded-xl text-xs font-bold hover:bg-wg-orange/90 transition-all shadow-[0_0_30px_rgba(242,92,38,0.3)]">
-                 <Download size={14} /> Download PDF
+              <button
+                type="button"
+                onClick={() => exportAsPDF('moodboard-canvas')}
+                disabled={isExporting}
+                aria-label="Salvar dossiê em PDF"
+                className="flex items-center gap-2 px-6 py-3 bg-wg-orange text-white rounded-xl text-xs font-bold hover:bg-wg-orange/90 transition-all shadow-[0_0_30px_rgba(242,92,38,0.3)] disabled:opacity-60 disabled:cursor-wait"
+              >
+                 {isExporting ? <Loader2 size={14} className="animate-spin" /> : <Download size={14} />}
+                 {isExporting ? 'Gerando PDF...' : 'Salvar PDF'}
               </button>
            </div>
         </header>
+
+        {exportError && (
+          <div role="alert" className="max-w-6xl mx-auto w-full px-6 pt-6 text-sm text-red-300">
+            Não foi possível gerar o PDF agora. Tente novamente.
+          </div>
+        )}
 
         <main className="max-w-6xl mx-auto w-full py-16 px-6 space-y-32 relative z-10">
           
@@ -256,12 +283,14 @@ const MoodboardShare = () => {
           </div>
 
           {/* Social: curtidas + comentários */}
-          {(shareId || encodedData) && (
-            <MoodboardSocialPanel
-              shareId={shareId || 'legacy'}
-              initialLikes={data.likes || 0}
-              shareUrl={data.shareUrl || window.location.href}
-            />
+          {shareId && (
+            <Suspense fallback={null}>
+              <MoodboardSocialPanel
+                shareId={shareId}
+                initialLikes={data.likes || 0}
+                shareUrl={data.shareUrl || window.location.href}
+              />
+            </Suspense>
           )}
 
           {/* Rodapé Dossiê: Garantia e Próximos Passos */}

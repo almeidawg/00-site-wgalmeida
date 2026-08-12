@@ -1,7 +1,7 @@
 import { parseFrontmatter } from '@/utils/frontmatter';
 import { withBasePath } from '@/utils/assetPaths';
 
-const estilosFiles = import.meta.glob('/src/content/estilos/*.md', { as: 'raw', eager: true });
+const estilosFiles = import.meta.glob('/src/content/estilos/*.md', { query: '?raw', import: 'default', eager: true });
 
 const DISPLAY_NAME_MAP = {
   'art-deco': 'Art Deco',

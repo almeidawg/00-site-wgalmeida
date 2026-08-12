@@ -8,7 +8,8 @@ import {
   LogOut,
   ChevronLeft,
   ChevronRight,
-  Globe
+  Globe,
+  Users
 } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
@@ -19,6 +20,7 @@ const MENU_ITEMS = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, path: '/admin' },
   { id: 'editorial', label: 'Editorial Blog', icon: BookOpen, path: '/admin/blog-editorial' },
   { id: 'media', label: 'Media Manager', icon: ImageIcon, path: '/admin/media' },
+  { id: 'leads', label: 'Leads & CRM', icon: Users, path: '/admin/leads' },
   { id: 'seo', label: 'SEO & Search', icon: Search, path: '/admin/seo' },
   { id: 'settings', label: 'Configurações', icon: Settings, path: '/admin/settings' },
 ];

@@ -4,7 +4,8 @@ import { fetchRetailProducts } from '@/services/retailService';
 const MoodboardContext = createContext(null);
 
 const STORAGE_KEY = 'wg-moodboard-v3'; // Versão incrementada para nova estrutura de preços
-const MAX_PERSISTED_IMAGES = 12;
+export const MAX_MOODBOARD_IMAGES = 12;
+const MAX_PERSISTED_IMAGES = MAX_MOODBOARD_IMAGES;
 let storageWarningShown = false;
 
 const isQuotaExceededError = (error) =>
@@ -212,7 +213,7 @@ export const MoodboardProvider = ({ children }) => {
   const addCustomImages = useCallback((images) => {
     if (!images) return;
     const imagesArray = Array.isArray(images) ? images : [images];
-    setCustomImages((prev) => [...(prev || []), ...imagesArray]);
+    setCustomImages((prev) => [...(prev || []), ...imagesArray].slice(0, MAX_MOODBOARD_IMAGES));
     setIsModified(true);
   }, []);
 

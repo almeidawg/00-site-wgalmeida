@@ -200,6 +200,7 @@ const MoodboardSocialPanel = ({ shareId, initialLikes = 0, shareUrl }) => {
         <form onSubmit={handleComment} className="space-y-3">
           <input
             type="text"
+            aria-label="Seu nome no comentário"
             placeholder="Seu nome"
             value={author}
             onChange={e => setAuthor(e.target.value)}
@@ -208,6 +209,7 @@ const MoodboardSocialPanel = ({ shareId, initialLikes = 0, shareUrl }) => {
           />
           <div className="flex gap-2">
             <textarea
+              aria-label="Comentário sobre o projeto"
               placeholder="Deixe um comentário sobre este projeto..."
               value={content}
               onChange={e => setContent(e.target.value)}

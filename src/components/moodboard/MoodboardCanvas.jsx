@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useMemo } from 'react';
-import { motion, AnimatePresence } from '@/lib/motion-lite';
+import { motion } from '@/lib/motion-lite';
 import {
   Palette,
   Type,
@@ -51,6 +51,9 @@ const MoodboardCanvas = ({
   totalBudget: totalBudgetProp,
   budgetTier: budgetTierProp,
   projectName: projectNameProp = 'Dossiê WG Almeida',
+  onDownload,
+  onShare,
+  isExporting = false,
 }) => {
   const canvasRef = useRef(null);
   const moodboardContext = useContext(MoodboardContext);
@@ -118,10 +121,10 @@ const MoodboardCanvas = ({
             )}
 
             <div className="flex gap-2">
-              <button type="button" aria-label="Baixar moodboard" title="Baixar moodboard" className="p-3 bg-white/5 hover:bg-wg-orange text-white rounded-full transition-all border border-white/10">
+              <button type="button" aria-label="Baixar moodboard" title="Baixar moodboard" onClick={onDownload} disabled={!onDownload || isExporting} className="p-3 bg-white/5 hover:bg-wg-orange text-white rounded-full transition-all border border-white/10 disabled:opacity-40 disabled:pointer-events-none">
                 <Download size={18} />
               </button>
-              <button type="button" aria-label="Compartilhar moodboard" title="Compartilhar moodboard" className="p-3 bg-white/5 hover:bg-white/10 text-white rounded-full transition-all border border-white/10">
+              <button type="button" aria-label="Compartilhar moodboard" title="Compartilhar moodboard" onClick={onShare} disabled={!onShare} className="p-3 bg-white/5 hover:bg-white/10 text-white rounded-full transition-all border border-white/10 disabled:opacity-40 disabled:pointer-events-none">
                 <Share2 size={18} />
               </button>
             </div>

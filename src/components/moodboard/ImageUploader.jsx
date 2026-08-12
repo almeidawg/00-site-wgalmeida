@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from '@/lib/motion-lite';
 import { Upload, Image as ImageIcon, Link as LinkIcon, Loader2 } from 'lucide-react';
 
 let imageIdSequence = 0;
+const MAX_UPLOAD_BYTES = 8 * 1024 * 1024;
+const ALLOWED_UPLOAD_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp', 'image/gif']);
 
 const createImageId = () => {
   const randomId = globalThis.crypto?.randomUUID?.();
@@ -54,14 +56,22 @@ const ImageUploader = ({ onImagesAdd, maxImages = 6, currentCount = 0 }) => {
     setIsLoading(true);
     setError('');
 
-    const validFiles = Array.from(files)
-      .filter((file) => file.type.startsWith('image/'))
+    const selectedFiles = Array.from(files);
+    const validFiles = selectedFiles
+      .filter((file) => ALLOWED_UPLOAD_TYPES.has(file.type) && file.size <= MAX_UPLOAD_BYTES)
       .slice(0, remainingSlots);
 
     if (validFiles.length === 0) {
-      setError('Por favor, selecione apenas arquivos de imagem');
+      const hasOversizedFile = selectedFiles.some((file) => file.size > MAX_UPLOAD_BYTES);
+      setError(hasOversizedFile
+        ? 'Cada imagem deve ter no máximo 8 MB'
+        : 'Use apenas imagens JPG, PNG, WEBP ou GIF');
       setIsLoading(false);
       return;
+    }
+
+    if (validFiles.length < selectedFiles.length) {
+      setError('Alguns arquivos foram ignorados por tipo, tamanho ou limite do projeto');
     }
 
     try {
@@ -101,8 +111,24 @@ const ImageUploader = ({ onImagesAdd, maxImages = 6, currentCount = 0 }) => {
       return;
     }
 
-    const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg'];
-    const isImageUrl = imageExtensions.some((ext) =>
+    const normalizedUrl = urlInput.trim();
+    const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp'];
+    const allowedDataImage = /^data:image\/(jpeg|png|webp|gif);base64,/i.test(normalizedUrl);
+    let isImageUrl = false;
+
+    if (!allowedDataImage) {
+      try {
+        const parsedUrl = new URL(normalizedUrl);
+        if (parsedUrl.protocol !== 'https:' && parsedUrl.protocol !== 'http:') {
+          setError('Use uma URL HTTP(S) de imagem');
+          return;
+        }
+      } catch {
+        setError('Por favor, insira uma URL válida');
+        return;
+      }
+    }
+    isImageUrl = imageExtensions.some((ext) =>
       urlInput.toLowerCase().includes(ext)
     ) || urlInput.includes('unsplash.com') || urlInput.includes('cloudinary.com');
 
@@ -152,7 +178,7 @@ const ImageUploader = ({ onImagesAdd, maxImages = 6, currentCount = 0 }) => {
         <input
           type="file"
           aria-label="Enviar imagens de referência"
-          accept="image/*"
+          accept="image/jpeg,image/png,image/webp,image/gif"
           multiple
           onChange={handleFileSelect}
           disabled={remainingSlots <= 0 || isLoading}
@@ -200,6 +226,7 @@ const ImageUploader = ({ onImagesAdd, maxImages = 6, currentCount = 0 }) => {
           >
             <input
               type="url"
+              aria-label="URL externa da imagem"
               value={urlInput}
               onChange={(e) => setUrlInput(e.target.value)}
               placeholder="https://exemplo.com/imagem.jpg"

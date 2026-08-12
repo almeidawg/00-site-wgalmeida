@@ -1,15 +1,47 @@
 import { motion, AnimatePresence } from '@/lib/motion-lite';
 import { X, Send, CheckCircle2, MessageSquare, Loader2, FileText, Database, ShieldCheck, Palette } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { useMoodboard } from '@/contexts/MoodboardContext';
 import BrandStar from '@/components/BrandStar';
 
+const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY;
+let turnstileScriptPromise = null;
+
+const loadTurnstileScript = () => {
+  if (!TURNSTILE_SITE_KEY || typeof window === 'undefined') return Promise.resolve();
+  if (window.turnstile) return Promise.resolve();
+  if (turnstileScriptPromise) return turnstileScriptPromise;
+
+  turnstileScriptPromise = new Promise((resolve, reject) => {
+    const existing = document.getElementById('wg-turnstile-script');
+    if (existing) {
+      existing.addEventListener('load', resolve, { once: true });
+      existing.addEventListener('error', reject, { once: true });
+      return;
+    }
+    const script = document.createElement('script');
+    script.id = 'wg-turnstile-script';
+    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+    script.async = true;
+    script.defer = true;
+    script.onload = resolve;
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+
+  return turnstileScriptPromise;
+};
+
 export default function MoodboardLeadModal({ isOpen, onClose }) {
   const [step, setStep] = useState('form'); // form | generating | success
   const [loading, setLoading] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const [formData, setFormData] = useState({ name: '', email: '', whatsapp: '' });
   const [processIndex, setProcessIndex] = useState(0);
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const turnstileContainerRef = useRef(null);
+  const turnstileWidgetIdRef = useRef(null);
   
   const { projectName, getMoodboardData, buildShareUrl } = useMoodboard();
 
@@ -20,6 +52,38 @@ export default function MoodboardLeadModal({ isOpen, onClose }) {
     { text: "Validando especificações técnicas...", icon: ShieldCheck },
     { text: "Gerando Link Único do Dossiê...", icon: FileText }
   ];
+
+  useEffect(() => {
+    if (!isOpen || step !== 'form' || !TURNSTILE_SITE_KEY || !turnstileContainerRef.current) return undefined;
+    let cancelled = false;
+
+    const renderTurnstile = async () => {
+      try {
+        await loadTurnstileScript();
+        if (cancelled || !window.turnstile || !turnstileContainerRef.current || turnstileWidgetIdRef.current !== null) return;
+        turnstileWidgetIdRef.current = window.turnstile.render(turnstileContainerRef.current, {
+          sitekey: TURNSTILE_SITE_KEY,
+          action: 'contact_form',
+          theme: 'dark',
+          callback: (token) => setTurnstileToken(token || ''),
+          'expired-callback': () => setTurnstileToken(''),
+          'error-callback': () => setTurnstileToken(''),
+        });
+      } catch {
+        if (!cancelled) setSubmitError('Não foi possível carregar a verificação anti-spam. Tente novamente.');
+      }
+    };
+
+    renderTurnstile();
+    return () => {
+      cancelled = true;
+      if (window.turnstile && turnstileWidgetIdRef.current !== null) {
+        try { window.turnstile.remove(turnstileWidgetIdRef.current); } catch { /* noop */ }
+      }
+      turnstileWidgetIdRef.current = null;
+      setTurnstileToken('');
+    };
+  }, [isOpen, step]);
 
   useEffect(() => {
     if (isOpen && step === 'generating') {
@@ -39,8 +103,14 @@ export default function MoodboardLeadModal({ isOpen, onClose }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setSubmitError('');
 
+    if (TURNSTILE_SITE_KEY && !turnstileToken) {
+      setSubmitError('Conclua a verificação anti-spam antes de enviar.');
+      return;
+    }
+
+    setLoading(true);
     const shareUrl = buildShareUrl();
     const moodboardData = getMoodboardData();
     const stylesStr = moodboardData.styles.map(s => s.name).join(', ');
@@ -52,23 +122,28 @@ export default function MoodboardLeadModal({ isOpen, onClose }) {
       subject: `Dossiê Moodboard Studio: ${formData.name}`,
       message: `Projeto: ${projectName} | Estilos: ${stylesStr} | Link: ${shareUrl}`,
       context: 'moodboard-studio-v2',
+      turnstileToken: turnstileToken || undefined,
       metadata: { projectName, shareUrl, styles: stylesStr }
     };
 
     try {
       // Envia para o pipeline de integração (Supabase / Email / Liz)
-      await fetch('/api/contact', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
 
-      setLoading(false);
+      if (!response.ok) {
+        throw new Error(`Falha ao enviar dossiê (${response.status})`);
+      }
+
       setStep('generating');
     } catch (err) {
       console.error('Erro ao processar lead:', err);
+      setSubmitError('Não foi possível enviar seus dados agora. Revise a conexão e tente novamente.');
+    } finally {
       setLoading(false);
-      setStep('generating'); // Segue o fluxo para não frustrar o usuário
     }
   };
 
@@ -108,7 +183,7 @@ export default function MoodboardLeadModal({ isOpen, onClose }) {
                   <div className="w-12 h-12 bg-gradient-to-tr from-wg-orange to-[#ff7a38] rounded-2xl flex items-center justify-center text-white shadow-lg shadow-wg-orange/20">
                     <FileText size={24} />
                   </div>
-                  <button onClick={onClose} className="p-2 hover:bg-white/5 rounded-full transition-colors text-slate-500"><X size={20}/></button>
+                  <button type="button" aria-label="Fechar formulário do dossiê" onClick={onClose} className="p-2 hover:bg-white/5 rounded-full transition-colors text-slate-500"><X size={20}/></button>
                 </div>
                 
                 <div>
@@ -123,6 +198,7 @@ export default function MoodboardLeadModal({ isOpen, onClose }) {
                       <input 
                         required
                         type="text"
+                        aria-label="Seu nome completo"
                         placeholder="Seu nome completo"
                         className="w-full bg-slate-950/50 border border-slate-800/80 rounded-2xl py-4 px-5 text-sm text-white focus:border-wg-orange focus:ring-4 focus:ring-wg-orange/10 outline-none transition-all"
                         value={formData.name}
@@ -134,6 +210,7 @@ export default function MoodboardLeadModal({ isOpen, onClose }) {
                         <input 
                           required
                           type="email"
+                          aria-label="Seu melhor e-mail"
                           placeholder="Seu melhor e-mail"
                           className="w-full bg-slate-950/50 border border-slate-800/80 rounded-2xl py-4 px-5 text-sm text-white focus:border-wg-orange focus:ring-4 focus:ring-wg-orange/10 outline-none transition-all"
                           value={formData.email}
@@ -144,6 +221,7 @@ export default function MoodboardLeadModal({ isOpen, onClose }) {
                         <input 
                           required
                           type="tel"
+                          aria-label="WhatsApp com DDD"
                           placeholder="WhatsApp com DDD"
                           className="w-full bg-slate-950/50 border border-slate-800/80 rounded-2xl py-4 px-5 text-sm text-white focus:border-wg-orange focus:ring-4 focus:ring-wg-orange/10 outline-none transition-all"
                           value={formData.whatsapp}
@@ -151,6 +229,18 @@ export default function MoodboardLeadModal({ isOpen, onClose }) {
                         />
                       </div>
                    </div>
+
+                   {TURNSTILE_SITE_KEY && (
+                     <div className="flex justify-center py-1">
+                       <div ref={turnstileContainerRef} aria-label="Verificação anti-spam" />
+                     </div>
+                   )}
+
+                   {submitError && (
+                     <p role="alert" className="text-sm text-red-300 bg-red-500/10 border border-red-500/20 rounded-2xl px-4 py-3">
+                       {submitError}
+                     </p>
+                   )}
 
                    <Button type="submit" disabled={loading} className="w-full h-16 bg-wg-orange hover:bg-[#de5423] rounded-2xl text-white font-bold text-lg shadow-xl shadow-wg-orange/20 group border-none mt-4 transition-all hover:scale-[1.02]">
                       {loading ? <Loader2 className="animate-spin" /> : (

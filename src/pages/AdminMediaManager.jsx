@@ -70,7 +70,7 @@ export default function AdminMediaManager() {
     if (error) {
       toast({ title: 'Erro ao vincular', description: error.message, variant: 'destructive' });
     } else {
-      toast({ title: 'Sucesso!', description: 'Imagem vinculada e salva no banco.' });
+      toast({ title: 'Salvo em staging', description: 'Override registrado no banco. A publicação no site depende do pipeline editorial canônico.' });
       // Refresh local
       setMediaList([{ image_url: imgData.url, ...imgData }, ...mediaList]);
     }
@@ -85,7 +85,7 @@ export default function AdminMediaManager() {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h2 className="text-2xl font-bold text-white">Gerenciador de Mídia</h2>
-            <p className="text-slate-500 text-sm mt-1">Organize, edite e vincule imagens sem sobrecarregar o site.</p>
+            <p className="text-slate-500 text-sm mt-1">Organize e prepare overrides de mídia em staging. A publicação no site segue o pipeline editorial canônico.</p>
           </div>
           
           <div className="flex items-center gap-2">
