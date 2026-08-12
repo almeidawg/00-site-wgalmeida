@@ -34,6 +34,7 @@ describe('admin service-role APIs', () => {
     vi.resetModules();
     vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', 'service-role-test');
     vi.stubEnv('SUPABASE_ANON_KEY', 'anon-test');
+    vi.stubEnv('VITE_SUPABASE_URL', 'https://qa.invalid');
     global.fetch = vi.fn();
   });
 

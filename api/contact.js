@@ -5,17 +5,23 @@ const SUPABASE_ORIGIN = 'https://ahlqzzkxuutwoepirpzr.supabase.co'
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
 const TURNSTILE_SECRET_KEY = process.env.TURNSTILE_SECRET_KEY
 const CONTACT_TURNSTILE_REQUIRED = process.env.CONTACT_TURNSTILE_REQUIRED === 'true'
-const ALLOWED_EXTRA_ORIGINS = String(process.env.CONTACT_ALLOWED_ORIGINS || '')
-  .split(',')
-  .map((origin) => origin.trim())
-  .filter(Boolean)
+const CONTACT_AUTO_PROMOTE_WGEASY = process.env.CONTACT_AUTO_PROMOTE_WGEASY === 'true'
+const ALLOWED_EXTRA_ORIGINS = new Set(
+  String(process.env.CONTACT_ALLOWED_ORIGINS || '')
+    .split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean)
+)
 const MAX_BODY_BYTES = 16 * 1024
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000
 const RATE_LIMIT_MAX = 8
+const IDEMPOTENCY_WINDOW_MS = 2 * 60 * 1000
 const TOKEN_REPLAY_TTL_MS = 10 * 60 * 1000
 const rateLimitStore = globalThis.__wgContactRateLimit || new Map()
 const turnstileTokenStore = globalThis.__wgTurnstileTokenStore || new Map()
+const idempotencyStore = globalThis.__wgContactIdempotency || new Map()
 globalThis.__wgContactRateLimit = rateLimitStore
+globalThis.__wgContactIdempotency = idempotencyStore
 globalThis.__wgTurnstileTokenStore = turnstileTokenStore
 
 const ALLOWED_ORIGINS = new Set([
@@ -82,7 +88,7 @@ const isAllowedOrigin = (req) => {
   const origin = req.headers.origin
   if (!origin) return true
   if (ALLOWED_ORIGINS.has(origin)) return true
-  if (ALLOWED_EXTRA_ORIGINS.includes(origin)) return true
+  if (ALLOWED_EXTRA_ORIGINS.has(origin)) return true
   return process.env.VERCEL_ENV !== 'production' && /^https:\/\/[a-z0-9-]+\.vercel\.app$/i.test(origin)
 }
 
@@ -91,6 +97,11 @@ const pruneMap = (store, now) => {
     if ((value.expiresAt || value.resetAt || 0) <= now) store.delete(key)
   }
 }
+
+const makeRequestId = () => crypto.randomUUID()
+
+const makeContactFingerprint = ({ name, email, phone, subject, message, context }) =>
+  crypto.createHash('sha256').update(JSON.stringify({ name, email, phone, subject, message, context })).digest('hex')
 
 const checkRateLimit = (key) => {
   const now = Date.now()
@@ -121,6 +132,63 @@ const tokenAlreadyUsed = (token) => {
   return false
 }
 
+const persistContactOnce = async (fingerprint, payload, requestId) => {
+  const now = Date.now()
+  pruneMap(idempotencyStore, now)
+  const existing = idempotencyStore.get(fingerprint)
+  if (existing?.promise) {
+    return { rpcResult: await existing.promise, localDuplicate: true }
+  }
+
+  const promise = (async () => {
+    const response = await fetch(`${SUPABASE_ORIGIN}/rest/v1/rpc/ingest_site_contact_idempotent`, {
+      method: 'POST',
+      headers: {
+        apikey: SUPABASE_SERVICE_KEY,
+        Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        p_fingerprint: fingerprint,
+        p_request_id: requestId,
+        p_name: payload.name,
+        p_email: payload.email,
+        p_phone: payload.phone || null,
+        p_subject: payload.subject || null,
+        p_message: payload.message,
+        p_utm_source: payload.utm_source || null,
+        p_utm_medium: payload.utm_medium || null,
+        p_utm_campaign: payload.utm_campaign || null,
+        p_origem: payload.origem || 'site',
+        p_context: payload.context || null,
+        p_promote: CONTACT_AUTO_PROMOTE_WGEASY,
+        p_ttl_seconds: Math.round(IDEMPOTENCY_WINDOW_MS / 1000),
+      }),
+    })
+    if (!response.ok) {
+      const error = new Error('contact_persist_failed')
+      error.statusCode = 502
+      error.upstreamStatus = response.status
+      throw error
+    }
+    const savedPayload = await response.json()
+    const rpcResult = Array.isArray(savedPayload) ? savedPayload[0] : savedPayload
+    if (!rpcResult?.outcome) {
+      const error = new Error('contact_persist_invalid_response')
+      error.statusCode = 502
+      throw error
+    }
+    return rpcResult
+  })()
+
+  idempotencyStore.set(fingerprint, { promise, expiresAt: now + IDEMPOTENCY_WINDOW_MS })
+  try {
+    return { rpcResult: await promise, localDuplicate: false }
+  } catch (error) {
+    idempotencyStore.delete(fingerprint)
+    throw error
+  }
+}
 const verifyTurnstile = async (token, remoteip) => {
   if (!TURNSTILE_SECRET_KEY) {
     throw new Error('TURNSTILE_SECRET_KEY not configured')
@@ -149,6 +217,8 @@ const verifyTurnstile = async (token, remoteip) => {
 }
 
 export default async function handler(req, res) {
+  const requestId = makeRequestId()
+  res.setHeader('X-Request-ID', requestId)
   res.setHeader('Vary', 'Origin')
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
@@ -228,54 +298,25 @@ export default async function handler(req, res) {
       utm_medium: clean(body.utm_medium, 120) || null,
       utm_campaign: clean(body.utm_campaign, 180) || null,
       origem: body.context === 'buildtech' ? 'site-buildtech' : 'site',
-      status: 'nova',
+      context: clean(body.context, 120) || null,
     }
 
-    const response = await fetch(`${SUPABASE_ORIGIN}/rest/v1/contacts`, {
-      method: 'POST',
-      headers: {
-        apikey: SUPABASE_SERVICE_KEY,
-        Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
-        'Content-Type': 'application/json',
-        Prefer: 'return=representation',
-      },
-      body: JSON.stringify(payload),
-    })
+    const fingerprint = makeContactFingerprint({ name, email, phone, subject, message, context: body.context })
+    const { rpcResult, localDuplicate } = await persistContactOnce(fingerprint, payload, requestId)
+    const outcome = localDuplicate ? 'duplicate' : rpcResult.outcome
+    const promotion = rpcResult.promotion_outcome || 'promotion_skipped'
 
-    if (!response.ok) {
-      console.error('contact api supabase error:', response.status)
-      return json(res, 502, { error: 'Falha ao registrar contato.' })
-    }
-
-    const savedPayload = await response.json()
-    const savedContact = Array.isArray(savedPayload) ? savedPayload[0] : savedPayload
-
-    // AUTO-PROMOTION: Dispara promoção automática para WGEasy
-    // Como estamos no mesmo runtime Vercel, podemos chamar a lógica de promoção diretamente ou via fetch interno
-    try {
-      if (!savedContact?.id) {
-        return json(res, 200, { ok: true })
-      }
-
-       const protocol = req.headers['x-forwarded-proto'] || 'http'
-       const host = req.headers.host
-       fetch(`${protocol}://${host}/api/leads`, {
-         method: 'POST',
-         headers: { 
-           'Content-Type': 'application/json',
-           'Authorization': `Bearer ${SUPABASE_SERVICE_KEY}` // Usando service key para bypass auth admin em promo auto
-         },
-          body: JSON.stringify({ id: savedContact?.id, tipo: 'contato' })
-       }).catch(e => console.error('Auto-promotion background error:', e))
-    } catch (e) {
-       console.error('Failed to trigger auto-promotion:', e)
-    }
-
-    return json(res, 200, { ok: true })
+    res.setHeader('X-WG-Outcome', outcome)
+    return json(res, 200, { ok: true, outcome, promotion, requestId })
   } catch (error) {
     console.error('contact api error:', error)
+    res.setHeader('X-WG-Outcome', 'rejected')
     if (error.statusCode === 413) {
       return json(res, 413, { error: 'Mensagem muito grande.' })
+    }
+    if (error.statusCode === 502) {
+      console.error('contact api upstream persist error:', error.upstreamStatus || 'unknown')
+      return json(res, 502, { error: 'Falha ao registrar contato.' })
     }
     return json(res, 500, { error: 'Erro inesperado ao processar contato.' })
   }

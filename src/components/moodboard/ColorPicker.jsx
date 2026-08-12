@@ -194,6 +194,7 @@ const ColorPicker = ({
               <div className="flex gap-2">
                 <input
                   type="text"
+                  aria-label="Link da imagem para identificar cores"
                   placeholder="Cole o link da imagem..."
                   value={urlInput}
                   onChange={(e) => setUrlInput(e.target.value)}

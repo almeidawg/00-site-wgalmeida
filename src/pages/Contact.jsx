@@ -1,9 +1,7 @@
 import ResponsiveWebpImage from '@/components/ResponsiveWebpImage'
-import SEO from '@/components/SEO'
+import Seo from '@/components/SEO'
 import { Button } from '@/components/ui/button'
 import { useToast } from '@/components/ui/use-toast'
-import { supabase } from '@/lib/customSupabaseClient'
-import { notificarNovoContato } from '@/lib/emailService'
 import { motion } from '@/lib/motion-lite'
 import { Clock, Loader2, Mail, MapPin, MessageCircle, Phone, Send } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
@@ -13,7 +11,7 @@ import { COMPANY } from '@/data/company';
 import { getPublicPageImageSrc } from '@/data/publicPageImageCatalog';
 import { trackFormSubmit, trackWhatsappClick } from '@/lib/analytics'
 
-// Animações elegantes
+// AnimaÃ§Ãµes elegantes
 const fadeInUp = {
   initial: { opacity: 0, y: 40 },
   whileInView: { opacity: 1, y: 0 },
@@ -113,7 +111,7 @@ const Contact = () => {
     website: '',
   })
 
-  // Formatar telefone (apenas números brasileiros)
+  // Formatar telefone (apenas nÃºmeros brasileiros)
   const formatPhone = (value) => {
     const numbers = value.replace(/\D/g, '')
     const limitedNumbers = numbers.slice(0, 11)
@@ -139,52 +137,26 @@ const Contact = () => {
         throw new Error(t('contactPage.form.validation.invalidEmail'))
       }
 
-      if (TURNSTILE_SITE_KEY) {
-        if (!turnstileToken) {
-          throw new Error(t('contactPage.form.validation.antiSpamRequired'))
-        }
+      if (TURNSTILE_SITE_KEY && !turnstileToken) {
+        throw new Error(t('contactPage.form.validation.antiSpamRequired'))
+      }
 
-        const response = await fetch('/api/contact', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            ...formData,
-            turnstileToken,
-            utm_source: searchParams.get('utm_source') || null,
-            utm_medium: searchParams.get('utm_medium') || null,
-            utm_campaign: searchParams.get('utm_campaign') || null,
-            context: searchParams.get('context') || null,
-          }),
-        })
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...formData,
+          turnstileToken: turnstileToken || null,
+          utm_source: searchParams.get('utm_source') || null,
+          utm_medium: searchParams.get('utm_medium') || null,
+          utm_campaign: searchParams.get('utm_campaign') || null,
+          context: searchParams.get('context') || null,
+        }),
+      })
 
-        if (!response.ok) {
-          const data = await response.json().catch(() => ({}))
-          throw new Error(data.error || t('contactPage.form.validation.generalError'))
-        }
-      } else {
-        const { error } = await supabase.from('contacts').insert([
-          {
-            name: formData.name,
-            email: formData.email,
-            phone: formData.phone,
-            subject: formData.subject,
-            message: formData.message,
-            utm_source: searchParams.get('utm_source') || null,
-            utm_medium: searchParams.get('utm_medium') || null,
-            utm_campaign: searchParams.get('utm_campaign') || null,
-            origem: searchParams.get('context') === 'buildtech' ? 'site-buildtech' : 'site',
-          },
-        ])
-
-        if (error) throw error
-
-        await notificarNovoContato(
-          formData.name,
-          formData.email,
-          formData.phone,
-          formData.subject,
-          formData.message
-        )
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}))
+        throw new Error(data.error || t('contactPage.form.validation.generalError'))
       }
 
       toast({
@@ -226,7 +198,7 @@ const Contact = () => {
 
   return (
     <>
-      <SEO
+      <Seo
         pathname="/contato"
         title={t('seo.contact.title')}
         description={t('seo.contact.description')}

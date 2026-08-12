@@ -41,7 +41,7 @@ const MoodboardSocialPanel = ({ shareId, initialLikes = 0, shareUrl }) => {
 
     const channel = subscribeToComments(shareId, (newComment) => {
       setComments(prev => {
-        if (prev.find(c => c.id === newComment.id)) return prev;
+        if (prev.some(c => c.id === newComment.id)) return prev;
         return [...prev, newComment];
       });
     });
@@ -85,7 +85,7 @@ const MoodboardSocialPanel = ({ shareId, initialLikes = 0, shareUrl }) => {
   const handleShare = (platform) => {
     const url = shareUrl || window.location.href;
     const text = encodeURIComponent(`Veja meu projeto de design de interiores: ${url}`);
-    if (platform === 'whatsapp') window.open(`https://wa.me/?text=${text}`, '_blank');
+    if (platform === 'whatsapp') window.open(`https://wa.me/?text=${text}`, '_blank', 'noopener,noreferrer');
     if (platform === 'copy') {
       navigator.clipboard.writeText(url).then(() => {
         setCopied(true);
@@ -133,12 +133,14 @@ const MoodboardSocialPanel = ({ shareId, initialLikes = 0, shareUrl }) => {
           {/* Share buttons */}
           <div className="flex items-center gap-2">
             <button
+              type="button"
               onClick={() => handleShare('whatsapp')}
               className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-green-500/10 border border-green-500/20 text-green-400 hover:bg-green-500/20 text-xs font-bold transition-all"
             >
               <Share2 className="w-3.5 h-3.5" /> WhatsApp
             </button>
             <button
+              type="button"
               onClick={() => handleShare('copy')}
               className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 text-xs font-bold transition-all"
             >
@@ -200,6 +202,7 @@ const MoodboardSocialPanel = ({ shareId, initialLikes = 0, shareUrl }) => {
         <form onSubmit={handleComment} className="space-y-3">
           <input
             type="text"
+            aria-label="Seu nome no comentário"
             placeholder="Seu nome"
             value={author}
             onChange={e => setAuthor(e.target.value)}
@@ -208,6 +211,7 @@ const MoodboardSocialPanel = ({ shareId, initialLikes = 0, shareUrl }) => {
           />
           <div className="flex gap-2">
             <textarea
+              aria-label="Comentário sobre o projeto"
               placeholder="Deixe um comentário sobre este projeto..."
               value={content}
               onChange={e => setContent(e.target.value)}

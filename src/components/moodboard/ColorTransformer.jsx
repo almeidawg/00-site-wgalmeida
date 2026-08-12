@@ -352,7 +352,7 @@ const generateRecolorUrl = (publicId, elementColorMap, cloudName = CLOUDINARY_CL
 
   // Gera transformações para cada elemento com sua cor
   const transformations = Object.entries(elementColorMap)
-    .filter(([_, color]) => color) // Só elementos com cor atribuída
+    .filter(([, color]) => color) // Só elementos com cor atribuída
     .map(([elementId, color]) => {
       const element = RECOLOR_ELEMENTS.find(e => e.id === elementId);
       if (!element) return null;
@@ -448,7 +448,7 @@ const ElementColorSelector = ({ element, selectedColor, onColorSelect, available
 
   return (
     <div className="relative">
-      <button
+      <button type="button"
         onClick={() => setIsOpen(!isOpen)}
         className={`flex items-center gap-3 w-full p-3 rounded-xl border-2 transition-all ${
           selectedColor
@@ -472,26 +472,18 @@ const ElementColorSelector = ({ element, selectedColor, onColorSelect, available
             <p className="text-sm text-gray-400">Clique para escolher cor</p>
           )}
         </div>
-        {selectedColor && (
-          <span
-            role="button"
-            tabIndex={0}
-            onClick={(e) => {
-              e.stopPropagation();
-              onColorSelect(element.id, null);
-            }}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.stopPropagation();
-                onColorSelect(element.id, null);
-              }
-            }}
-            className="p-1 hover:bg-gray-100 rounded-full cursor-pointer"
-          >
-            <X className="w-4 h-4 text-gray-400" />
-          </span>
-        )}
+
       </button>
+      {selectedColor && (
+        <button
+          type="button"
+          aria-label={`Remover cor de ${element.name}`}
+          onClick={() => onColorSelect(element.id, null)}
+          className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-gray-100 rounded-full"
+        >
+          <X className="w-4 h-4 text-gray-400" />
+        </button>
+      )}
 
       {/* Dropdown de cores */}
       <AnimatePresence>
@@ -504,7 +496,7 @@ const ElementColorSelector = ({ element, selectedColor, onColorSelect, available
           >
             <div className="flex flex-wrap gap-2">
               {availableColors.map((color) => (
-                <button
+                <button type="button"
                   key={color}
                   onClick={() => {
                     onColorSelect(element.id, color);
@@ -617,7 +609,7 @@ const ColorTransformer = ({ externalColors = [] }) => {
         a.download = 'ambiente-transformado-wgalmeida.jpg';
         document.body.appendChild(a);
         a.click();
-        document.body.removeChild(a);
+        a.remove();
         URL.revokeObjectURL(url);
         setIsDownloading(false);
       }, 'image/jpeg', 0.95);
@@ -631,7 +623,7 @@ const ColorTransformer = ({ externalColors = [] }) => {
         a.target = '_blank';
         document.body.appendChild(a);
         a.click();
-        document.body.removeChild(a);
+        a.remove();
       } catch {
         setError('Erro ao baixar. Clique com botão direito na imagem e escolha "Salvar imagem".');
       }
@@ -823,8 +815,9 @@ const ColorTransformer = ({ externalColors = [] }) => {
   const handleElementColorSelect = (elementId, color) => {
     setElementColors(prev => {
       if (color === null) {
-        const { [elementId]: _, ...rest } = prev;
-        return rest;
+        const next = { ...prev };
+        delete next[elementId];
+        return next;
       }
       return { ...prev, [elementId]: color };
     });
@@ -868,7 +861,7 @@ const ColorTransformer = ({ externalColors = [] }) => {
             {/* Grid de Estilos */}
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
               {COLOR_PALETTES.map((palette) => (
-                <button
+                <button type="button"
                   key={palette.id}
                   onClick={() => setSelectedPalette(palette)}
                   className={`group relative p-3 rounded-xl border-2 transition-all ${
@@ -991,7 +984,7 @@ const ColorTransformer = ({ externalColors = [] }) => {
           {/* Filtros de Categoria */}
           <div className="flex flex-wrap gap-2 mb-4">
             {AMBIENTE_CATEGORIES.map((cat) => (
-              <button
+              <button type="button"
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`px-4 py-2 rounded-full text-sm font-light transition-all ${
@@ -1106,8 +1099,9 @@ const ColorTransformer = ({ externalColors = [] }) => {
                     Resultado - Arraste para Comparar
                   </h3>
                 </div>
-                <button
+                <button type="button"
                   onClick={() => setIsFullscreen(true)}
+                  aria-label="Abrir comparação em tela cheia"
                   className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
                 >
                   <Maximize2 className="w-5 h-5 text-gray-600" />
@@ -1117,9 +1111,19 @@ const ColorTransformer = ({ externalColors = [] }) => {
               {/* Slider Container */}
               <div
                 ref={containerRef}
+                role="slider"
+                tabIndex={0}
+                aria-label="Comparar imagem original e transformada"
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-valuenow={Math.round(sliderPosition)}
                 className="relative aspect-video rounded-xl overflow-hidden cursor-ew-resize select-none shadow-xl bg-gray-100"
                 onMouseDown={() => setIsDragging(true)}
                 onTouchStart={() => setIsDragging(true)}
+                onKeyDown={(event) => {
+                  if (event.key === 'ArrowLeft') setSliderPosition((value) => Math.max(0, value - 5));
+                  if (event.key === 'ArrowRight') setSliderPosition((value) => Math.min(100, value + 5));
+                }}
               >
                 {/* Imagem Transformada (direita) */}
                 <img
@@ -1195,7 +1199,7 @@ const ColorTransformer = ({ externalColors = [] }) => {
                   Exportar & Compartilhar
                 </p>
                 <div className="flex flex-wrap gap-3">
-                  <button
+                  <button type="button"
                     onClick={downloadWithWatermark}
                     disabled={isDownloading}
                     className="flex items-center gap-2 px-4 py-2 bg-wg-orange text-white rounded-lg text-sm font-light hover:bg-wg-orange/90 transition-colors disabled:opacity-50"
@@ -1212,18 +1216,18 @@ const ColorTransformer = ({ externalColors = [] }) => {
                       </>
                     )}
                   </button>
-                  <button
+                  <button type="button"
                     onClick={() => {
                       const shareUrl = getShareableUrl();
                       const text = encodeURIComponent(`Confira minha transformação de ambiente com a WG Almeida!\n${shareUrl}`);
-                      window.open(`https://wa.me/?text=${text}`, '_blank');
+                      window.open(`https://wa.me/?text=${text}`, '_blank', 'noopener,noreferrer');
                     }}
                     className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg text-sm font-light hover:bg-green-600 transition-colors"
                   >
                     <Share2 className="w-4 h-4" />
                     WhatsApp
                   </button>
-                  <button
+                  <button type="button"
                     onClick={() => {
                       const shareUrl = getShareableUrl();
                       const subject = encodeURIComponent('Minha Transformação de Ambiente - WG Almeida');
@@ -1235,7 +1239,7 @@ const ColorTransformer = ({ externalColors = [] }) => {
                     <Mail className="w-4 h-4" />
                     Email
                   </button>
-                  <button
+                  <button type="button"
                     onClick={async () => {
                       const shareUrl = getShareableUrl();
                       await navigator.clipboard.writeText(shareUrl);
@@ -1266,7 +1270,7 @@ const ColorTransformer = ({ externalColors = [] }) => {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 bg-black flex items-center justify-center p-4"
           >
-            <button
+            <button type="button"
               onClick={() => setIsFullscreen(false)}
               className="absolute top-4 right-4 p-3 bg-white/10 text-white rounded-full hover:bg-white/20 transition-colors z-10"
             >
@@ -1274,9 +1278,19 @@ const ColorTransformer = ({ externalColors = [] }) => {
             </button>
 
             <div
+              role="slider"
+              tabIndex={0}
+              aria-label="Comparar imagem original e transformada em tela cheia"
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-valuenow={Math.round(sliderPosition)}
               className="relative w-full max-w-6xl aspect-video cursor-ew-resize select-none overflow-hidden rounded-xl"
               onMouseDown={() => setIsDragging(true)}
               onTouchStart={() => setIsDragging(true)}
+              onKeyDown={(event) => {
+                if (event.key === 'ArrowLeft') setSliderPosition((value) => Math.max(0, value - 5));
+                if (event.key === 'ArrowRight') setSliderPosition((value) => Math.min(100, value + 5));
+              }}
             >
               <img
                 src={transformedUrl}

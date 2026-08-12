@@ -28,6 +28,14 @@ const isLeroyUrl = (img) =>
   String(img?.source || '').includes('leroy') ||
   img?.source === 'shopping';
 
+const getSearchPlaceholder = (activeSource, style) => {
+  if (activeSource === 'leroy') return 'Buscar em Leroy Merlin...';
+  if (activeSource === 'pinterest') return 'Buscar no Pinterest...';
+  if (activeSource === 'google') return 'Buscar no Google Imagens...';
+  if (style) return `Procurar para ${style}...`;
+  return 'Buscar em Leroy Merlin, Pinterest...';
+};
+
 const MoodboardStepSearch = ({ mode, style, onAssetAdd }) => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
@@ -113,7 +121,7 @@ const MoodboardStepSearch = ({ mode, style, onAssetAdd }) => {
       {/* Filtros de fonte */}
       <div className="flex gap-1.5 flex-wrap">
         {SOURCE_FILTERS.map(f => (
-          <button
+          <button type="button"
             key={f.id}
             onClick={() => handleSourceChange(f.id)}
             className={cn(
@@ -133,12 +141,8 @@ const MoodboardStepSearch = ({ mode, style, onAssetAdd }) => {
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-500 w-3.5 h-3.5" />
           <input
             type="text"
-            placeholder={
-              activeSource === 'leroy' ? `Buscar em Leroy Merlin...` :
-              activeSource === 'pinterest' ? `Buscar no Pinterest...` :
-              activeSource === 'google' ? `Buscar no Google Imagens...` :
-              style ? `Procurar para ${style}...` : 'Buscar em Leroy Merlin, Pinterest...'
-            }
+            aria-label="Buscar referências para o moodboard"
+            placeholder={getSearchPlaceholder(activeSource, style)}
             value={query}
             onFocus={() => setIsFocused(true)}
             onChange={(e) => setQuery(e.target.value)}
@@ -149,7 +153,12 @@ const MoodboardStepSearch = ({ mode, style, onAssetAdd }) => {
         <AnimatePresence>
           {isFocused && suggestions.length > 0 && (
             <>
-              <div className="fixed inset-0 z-10" onClick={() => setIsFocused(false)} />
+              <button
+                type="button"
+                aria-label="Fechar sugestões de busca"
+                className="fixed inset-0 z-10 bg-transparent"
+                onClick={() => setIsFocused(false)}
+              />
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -159,8 +168,8 @@ const MoodboardStepSearch = ({ mode, style, onAssetAdd }) => {
                 <p className="px-1 py-1 text-[8px] font-bold text-slate-500 uppercase tracking-widest border-b border-white/5 mb-3">Sugestões de Curadoria</p>
                 <div className="flex flex-wrap gap-1.5">
                   {suggestions.map((term, i) => (
-                    <button
-                      key={i}
+                    <button type="button"
+                      key={term}
                       onClick={() => handleSuggestionClick(term)}
                       className="px-2.5 py-1.5 bg-white/5 hover:bg-wg-orange hover:text-white rounded-lg text-[9px] text-slate-400 transition-all border border-white/5 font-medium"
                     >
@@ -208,7 +217,7 @@ const MoodboardStepSearch = ({ mode, style, onAssetAdd }) => {
                 </div>
 
                 {/* Botão adicionar */}
-                <button
+                <button type="button"
                   onClick={() => onAssetAdd({
                     id: `search-${idx}-${Date.now()}`,
                     url: img.url || img.thumb,

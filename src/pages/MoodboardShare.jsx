@@ -1,29 +1,45 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { Suspense, lazy, useMemo, useState, useEffect } from 'react';
 import { useSearchParams, useParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from '@/lib/motion-lite';
 import { Download, CheckCircle2, ShieldCheck, Sparkles, ArrowRight, Loader2 } from 'lucide-react';
 import { MoodboardCanvas } from '@/components/moodboard';
-import MoodboardSocialPanel from '@/components/moodboard/MoodboardSocialPanel';
 import BrandStar from '@/components/BrandStar';
-import SEO from '@/components/SEO';
+import Seo from '@/components/SEO';
 import { styleCatalog } from '@/utils/styleCatalog';
-import { getMoodboardShare, incrementViews } from '@/services/moodboardShareService';
+import useMoodboardExport from '@/hooks/useMoodboardExport';
+
+const MoodboardSocialPanel = lazy(() => import('@/components/moodboard/MoodboardSocialPanel'));
+
+const createValidationCode = () => {
+  const bytes = new Uint8Array(4);
+  globalThis.crypto.getRandomValues(bytes);
+  return Array.from(bytes, (value) => value.toString(36).padStart(2, '0'))
+    .join('')
+    .slice(0, 6)
+    .toUpperCase();
+};
 
 const MoodboardShare = () => {
   const [searchParams] = useSearchParams();
   const { shareId } = useParams();
-  const [showIntro, setShowSuggestions] = useState(true);
+  const [showIntro, setShowIntro] = useState(true);
   const [dbData, setDbData] = useState(null);
   const [dbLoading, setDbLoading] = useState(!!shareId);
   const [dbError, setDbError] = useState(false);
   const encodedData = searchParams.get('v');
+  const validationCode = useMemo(createValidationCode, []);
+  const { exportAsPDF, isExporting, error: exportError } = useMoodboardExport();
 
   // Modo persistente: buscar do Supabase
   useEffect(() => {
-    if (!shareId) return;
+    if (!shareId) return undefined;
+    let cancelled = false;
     setDbLoading(true);
-    getMoodboardShare(shareId)
-      .then(row => {
+
+    import('@/services/moodboardShareService')
+      .then(async ({ getMoodboardShare, incrementViews }) => {
+        const row = await getMoodboardShare(shareId);
+        if (cancelled) return;
         const resolvedStyles = (row.styles || []).map(slug =>
           styleCatalog.find(s => (s.slug || s.id) === slug)
         ).filter(Boolean);
@@ -45,8 +61,16 @@ const MoodboardShare = () => {
         });
         incrementViews(shareId).catch(() => {});
       })
-      .catch(() => setDbError(true))
-      .finally(() => setDbLoading(false));
+      .catch(() => {
+        if (!cancelled) setDbError(true);
+      })
+      .finally(() => {
+        if (!cancelled) setDbLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
   }, [shareId]);
 
   const legacyData = useMemo(() => {
@@ -84,7 +108,7 @@ const MoodboardShare = () => {
 
   // Efeito de entrada: esconde a intro após 3 segundos
   useEffect(() => {
-    const timer = setTimeout(() => setShowSuggestions(false), 3500);
+    const timer = setTimeout(() => setShowIntro(false), 3500);
     return () => clearTimeout(timer);
   }, []);
 
@@ -108,7 +132,7 @@ const MoodboardShare = () => {
 
   return (
     <>
-      <SEO title={`${data.projectName} | Dossiê WG Almeida`} noindex />
+      <Seo title={`${data.projectName} | Dossiê WG Almeida`} noindex />
       
       <AnimatePresence>
         {showIntro && (
@@ -164,11 +188,24 @@ const MoodboardShare = () => {
               <Link to="/moodboard/studio" className="hidden sm:flex items-center gap-2 px-5 py-2.5 bg-slate-900 border border-white/10 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition-all">
                  <Sparkles size={14} className="text-wg-orange" /> Editar no Studio
               </Link>
-              <button className="flex items-center gap-2 px-6 py-3 bg-wg-orange text-white rounded-xl text-xs font-bold hover:bg-wg-orange/90 transition-all shadow-[0_0_30px_rgba(242,92,38,0.3)]">
-                 <Download size={14} /> Download PDF
+              <button
+                type="button"
+                onClick={() => exportAsPDF('moodboard-canvas')}
+                disabled={isExporting}
+                aria-label="Salvar dossiê em PDF"
+                className="flex items-center gap-2 px-6 py-3 bg-wg-orange text-white rounded-xl text-xs font-bold hover:bg-wg-orange/90 transition-all shadow-[0_0_30px_rgba(242,92,38,0.3)] disabled:opacity-60 disabled:cursor-wait"
+              >
+                 {isExporting ? <Loader2 size={14} className="animate-spin" /> : <Download size={14} />}
+                 {isExporting ? 'Gerando PDF...' : 'Salvar PDF'}
               </button>
            </div>
         </header>
+
+        {exportError && (
+          <div role="alert" className="max-w-6xl mx-auto w-full px-6 pt-6 text-sm text-red-300">
+            Não foi possível gerar o PDF agora. Tente novamente.
+          </div>
+        )}
 
         <main className="max-w-6xl mx-auto w-full py-16 px-6 space-y-32 relative z-10">
           
@@ -180,7 +217,7 @@ const MoodboardShare = () => {
                   <h2 className="text-4xl font-playfair italic text-white">A Alma do Projeto</h2>
                </div>
                <div className="flex items-center gap-4 text-slate-500 font-mono text-[10px] bg-white/5 px-4 py-2 rounded-full border border-white/5">
-                  <CheckCircle2 size={12} className="text-green-500" /> CÓDIGO DE VALIDAÇÃO: {Math.random().toString(36).substr(2, 6).toUpperCase()}
+                  <CheckCircle2 size={12} className="text-green-500" /> CÓDIGO DE VALIDAÇÃO: {validationCode}
                </div>
             </div>
             
@@ -199,7 +236,7 @@ const MoodboardShare = () => {
                   <div className="space-y-4">
                     {data.styles.map((style, idx) => (
                       <motion.div 
-                        key={idx}
+                        key={style.slug || style.id || style.name}
                         initial={{ x: -20, opacity: 0 }}
                         whileInView={{ x: 0, opacity: 1 }}
                         transition={{ delay: idx * 0.1 }}
@@ -220,7 +257,7 @@ const MoodboardShare = () => {
                   <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.3em] border-l-2 border-wg-orange pl-4">Paleta Cromática Técnica</h3>
                   <div className="grid grid-cols-5 gap-4">
                       {data.colors.map((color, idx) => (
-                        <div key={idx} className="group">
+                        <div key={color} className="group">
                           <div className="aspect-[3/4] rounded-2xl shadow-xl border border-white/10 transition-transform group-hover:scale-105" style={{ backgroundColor: color }} />
                           <p className="text-[10px] font-mono text-center text-slate-600 mt-3">{color.toUpperCase()}</p>
                         </div>
@@ -235,7 +272,7 @@ const MoodboardShare = () => {
                <div className="grid grid-cols-2 gap-4">
                   {data.customImages.map((img, idx) => (
                     <motion.div 
-                      key={idx}
+                      key={img.id || img.url}
                       whileHover={{ y: -10 }}
                       className="group bg-slate-900/50 rounded-3xl overflow-hidden border border-white/5"
                     >
@@ -256,12 +293,14 @@ const MoodboardShare = () => {
           </div>
 
           {/* Social: curtidas + comentários */}
-          {(shareId || encodedData) && (
-            <MoodboardSocialPanel
-              shareId={shareId || 'legacy'}
-              initialLikes={data.likes || 0}
-              shareUrl={data.shareUrl || window.location.href}
-            />
+          {shareId && (
+            <Suspense fallback={null}>
+              <MoodboardSocialPanel
+                shareId={shareId}
+                initialLikes={data.likes || 0}
+                shareUrl={data.shareUrl || window.location.href}
+              />
+            </Suspense>
           )}
 
           {/* Rodapé Dossiê: Garantia e Próximos Passos */}

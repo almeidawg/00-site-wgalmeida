@@ -7,9 +7,11 @@ import {
   ImageUploader
 } from '@/components/moodboard';
 import MoodboardStepSearch from '@/components/moodboard/MoodboardStepSearch';
+import MoodboardLeadModal from '@/components/moodboard/MoodboardLeadModal';
+import useMoodboardExport from '@/hooks/useMoodboardExport';
 import Seo from '@/components/SEO';
 import { useState, useEffect } from 'react';
-import { ArrowRight, Layers, Loader2 } from 'lucide-react';
+import { ArrowRight, Layers, Loader2, ShieldCheck } from 'lucide-react';
 import { createPortal } from 'react-dom';
 
 const StudioContent = () => {
@@ -17,6 +19,7 @@ const StudioContent = () => {
   const [isSaving, setIsSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState('');
   const [mounted, setMounted] = useState(false);
+  const [isLeadModalOpen, setIsLeadModalOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -35,10 +38,12 @@ const StudioContent = () => {
     projectName,
     updateProjectName,
     saveMoodboard,
+    buildShareUrl,
     autoComposeMoodboard,
     isAutoComposing
   } = useMoodboard();
 
+  const { exportAsImage, isExporting } = useMoodboardExport();
   const primaryStyleTitle = styles[0]?.title || styles[0]?.name || '';
 
   const [lizInsight, setLizInsight] = useState("Seja bem-vindo ao Studio. Comece selecionando seus estilos favoritos para compormos sua visão.");
@@ -51,6 +56,21 @@ const StudioContent = () => {
       setSaveMessage(`Salvo localmente às ${new Date(savedAt).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`);
     } finally {
       setIsSaving(false);
+    }
+  };
+
+  const handleDownload = async () => {
+    const ok = await exportAsImage('moodboard-canvas');
+    setSaveMessage(ok ? 'Imagem do moodboard gerada.' : 'Não foi possível gerar a imagem.');
+  };
+
+  const handleShare = async () => {
+    const shareUrl = buildShareUrl();
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setSaveMessage('Link do moodboard copiado.');
+    } catch {
+      setSaveMessage('Link gerado. Copie pela barra de endereço se necessário.');
     }
   };
 
@@ -219,6 +239,17 @@ const StudioContent = () => {
                 </button>
               )}
 
+              {styles.length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setIsLeadModalOpen(true)}
+                  className="w-full py-4 bg-emerald-500/10 hover:bg-emerald-500/15 border border-emerald-500/20 rounded-2xl text-emerald-300 text-[10px] font-bold uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-2"
+                >
+                  <ShieldCheck size={14} />
+                  Solicitar validação técnica
+                </button>
+              )}
+
               <button
                 type="button"
                 onClick={handleClear}
@@ -238,9 +269,17 @@ const StudioContent = () => {
           onRemoveImage={removeCustomImage}
           selectedMaterials={selectedMaterials}
           studioMode={true}
+          onDownload={handleDownload}
+          onShare={handleShare}
+          isExporting={isExporting}
         />,
         canvasTarget
       )}
+
+      <MoodboardLeadModal
+        isOpen={isLeadModalOpen}
+        onClose={() => setIsLeadModalOpen(false)}
+      />
     </>
   );
 };

@@ -41,29 +41,29 @@ const STOP_WORDS = new Set([
 export const STYLE_MATERIAL_MAPPING = {
   'art-deco': ['Latão Dourado', 'Mármore Nero Marquina', 'Laca Brilhante', 'Vidro Canelado'],
   'boho': ['Palha Natural', 'Terracota', 'Madeira de Demolição', 'Ladrilho Hidráulico'],
-  'classico': ['Mármore Calacatta', 'Piso Chevron', 'Boiserie Branca', 'Molduras Clássicas'],
+  'classico': ['Mármore Calacatta', 'Piso Chevron', 'Boiserie Branca', 'Molduras Clássicas', 'Mármore Carrara', 'Metais Gold ou Rosé Gold', 'Rodapé Alto Branco', 'Papel de Parede Adamascado', 'Sanca com Detalhes em Gesso'],
   'contemporaneo': ['Concreto Aparente', 'Metal Preto Fosco', 'Porcelanato Grandes Formatos', 'Painel Ripado'],
   'escandinavo': ['Pinus', 'Carvalho Americano', 'Cerâmica Artesanal', 'Tecido Linho'],
-  'industrial': ['Tijolinho Aparente', 'Aço Corten', 'Cimento Queimado', 'Tubulação Aparente'],
-  'japandi': ['Madeira Clara', 'Pedra Natural Basalto', 'Papel Arroz', 'Bambu'],
-  'minimalismo': ['Microcimento', 'Gesso Acetinado', 'Mobiliário Oculto', 'Pedra Sabão'],
-  'moderno': ['Nogueira', 'Aço Inox Escovado', 'Terrazzo', 'Vidro Fumê'],
+  'industrial': ['Tijolinho Aparente', 'Aço Corten', 'Cimento Queimado', 'Tubulação Aparente', 'Cimento Queimado Platinum', 'Tijolo Aparente London Brick', 'Porcelanato Aço Corten', 'Eletrocalhas Pretas Aparentes', 'Piso Vinílico Concreto', 'Metais Preto Fosco (Matte Black)', 'Vidro Canelado com Caixilho'],
+  'japandi': ['Madeira Clara', 'Pedra Natural Basalto', 'Papel Arroz', 'Bambu', 'Madeira Carvalho Light', 'Pedra Basalto', 'Revestimento Ripado de Bambu', 'Papel de Parede de Palha Natural', 'Cerâmica Artesanal Mate', 'Metais em Cobre Escovado', 'Pintura em Tons de Areia'],
+  'minimalismo': ['Microcimento', 'Gesso Acetinado', 'Mobiliário Oculto', 'Pedra Sabão', 'Mármore Branco Paraná', 'Microcimento Off-White', 'Porcelanato Extra-Large (120x240)', 'Metais Monocomando Minimalistas', 'Painéis de Madeira Nude', 'Rodapé Invertido', 'Pintura Velvet Toque de Seda'],
+  'moderno': ['Nogueira', 'Aço Inox Escovado', 'Terrazzo', 'Vidro Fumê', 'Painéis em Nogueira', 'Piso em Granilite Polido', 'Metais em Aço Inox Escovado', 'Laminados de Alta Pressão', 'Pedras de Quartzo Cinza', 'Revestimentos Geométricos', 'Esquadrias de Alumínio Slim'],
   'rustico': ['Vigas de Madeira', 'Parede de Pedra', 'Cobre Envelhecido', 'Tijolo de Barro'],
-  'tropical': ['Bambu', 'Pedra Vulcânica', 'Palha trançada', 'Madeira Tropical'],
+  'tropical': ['Bambu', 'Pedra Vulcânica', 'Palha trançada', 'Madeira Tropical', 'Pedra Moledo Aparente', 'Deck de Madeira Cumaru', 'Piso de Ladrilho Hidráulico', 'Metais em Bronze Antigo', 'Revestimento de Palha ou Palhinha', 'Pintura Verde Floresta', 'Pedra de Rio para Banheiros'],
 };
 
 export const STYLE_DECOR_MAPPING = {
   'art-deco': ['Espelho Sol', 'Poltrona de Veludo', 'Luminária Geométrica', 'Escultura Metálica'],
   'boho': ['Tapete Kilim', 'Macramê', 'Plantas Tropicais', 'Almofada Étnica'],
-  'classico': ['Lustre de Cristal', 'Sofá Chesterfield', 'Pintura a Óleo', 'Vaso de Porcelana'],
+  'classico': ['Lustre de Cristal', 'Sofá Chesterfield', 'Pintura a Óleo', 'Vaso de Porcelana', 'Lustre de Cristal de Rocha', 'Sofá Chesterfield de Veludo', 'Espelhos com Moldura Dourada', 'Mesa de Jantar em Mármore', 'Poltronas Estilo Luis XV', 'Vasos de Murano', 'Tapetes Persas ou Orientais'],
   'contemporaneo': ['Sofá Modular', 'Mesa de Centro Escultural', 'Quadro Abstrato', 'Luminária de Trilho'],
   'escandinavo': ['Pele de Carneiro', 'Cadeira Wishbone', 'Prints Minimalistas', 'Vela Aromática'],
-  'industrial': ['Sofá de Couro Conhaque', 'Lâmpada de Edison', 'Estante de Ferro', 'Relógio de Estação'],
-  'japandi': ['Cama Baixa', 'Bonsai', 'Vaso de Cerâmica Wabi-sabi', 'Luminária de Papel'],
-  'minimalismo': ['Cortina de Linho', 'Mesa Monolítica', 'Escultura de Linha única', 'Vaso Solitário'],
-  'moderno': ['Poltrona Eames', 'Luminária Arco', 'Tapete Geométrico', 'Mesa Saarinen'],
+  'industrial': ['Sofá de Couro Conhaque', 'Lâmpada de Edison', 'Estante de Ferro', 'Relógio de Estação', 'Mesa de Jantar em Madeira de Demolição', 'Luminária Trilho Industrial', 'Estante de Ferro e Madeira', 'Cadeiras Tolix', 'Pendentes de Metal e Filamento', 'Quadros de Arte Urbana'],
+  'japandi': ['Cama Baixa', 'Bonsai', 'Vaso de Cerâmica Wabi-sabi', 'Luminária de Papel', 'Mobiliário de Linhas Baixas', 'Luminária de Papel de Arroz', 'Tapete de Fibra de Juta', 'Plantas como Bonsai ou Oliveira', 'Cama Futon Moderna', 'Objetos de Madeira Wabi-Sabi', 'Bancos de Madeira Clara'],
+  'minimalismo': ['Cortina de Linho', 'Mesa Monolítica', 'Escultura de Linha única', 'Vaso Solitário', 'Sofá Modular de Linho Cru', 'Mesa de Centro Orgânica Branca', 'Iluminação Linear em LED', 'Adornos em Cerâmica Branca', 'Poltrona de Design Escultural', 'Cortinas em Voil de Linho', 'Espelhos com Moldura Invisível'],
+  'moderno': ['Poltrona Eames', 'Luminária Arco', 'Tapete Geométrico', 'Mesa Saarinen', 'Poltrona Charles Eames', 'Luminária de Piso Arco', 'Aparador em Laca Brilhante', 'Sofá de Veludo Azul Navy', 'Mesas Laterais em Acrílico', 'Arandelas de Design Assinado', 'Obras de Arte Abstrata'],
   'rustico': ['Tapete de Couro', 'Lustre de Ferro Forjado', 'Artesanato em Barro', 'Manta de Lã'],
-  'tropical': ['Palmeira Imperial', 'Móveis de Fibra', 'Objetos de Concha', 'Rede de Descanso'],
+  'tropical': ['Palmeira Imperial', 'Móveis de Fibra', 'Objetos de Concha', 'Rede de Descanso', 'Móveis em Rattan e Vime', 'Rede de Descanso de Luxo', 'Quadros de Botânica', 'Almofadas com Estampas Exóticas', 'Luminárias de Palha Trançada', 'Bancos de Tronco Natural', 'Plantas Grandes (Costela de Adão)'],
 };
 
 export const buildStyleEditorialSearchPlan = (style = {}, mode = 'cover') => {

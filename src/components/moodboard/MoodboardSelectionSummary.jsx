@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from '@/lib/motion-lite';
-import { CheckCircle2, Circle, Layers, Trophy } from 'lucide-react';
+import { CheckCircle2, Layers, Trophy } from 'lucide-react';
 import { useMoodboard } from '@/contexts/MoodboardContext';
 import { getStyleImageUrl } from '@/data/styleImageManifest';
 
@@ -67,7 +67,7 @@ const MoodboardSelectionSummary = () => {
 
   const finishes = customImages.filter(i => i.source === 'shopping' || String(i.id || '').includes('auto'));
   const decor = customImages.filter(i => !finishes.includes(i) && i.source !== 'upload').slice(0, 4);
-  const assets = customImages.filter(i => i.source === 'upload' || i.type === 'upload').slice(0, 4);
+  const assets = customImages.filter(i => i.source === 'upload' || ['upload', 'local', 'url'].includes(i.type)).slice(0, 4);
 
   const totalCount = styles.length + colors.length + customImages.length;
   const maxSteps = 5;

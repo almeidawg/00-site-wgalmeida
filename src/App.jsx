@@ -11,8 +11,6 @@ import { decorateProductUrl, ensureEcosystemContext } from '@/lib/ecosystemConte
 // Lazy load pages
 const Footer = lazy(() => import('@/components/layout/Footer'))
 const ContextTracker = lazy(() => import('@/components/ContextTracker'))
-const NextBestActionPanel = lazy(() => import('@/components/NextBestActionPanel'))
-const LizAssistant = lazy(() => import('@/components/LizAssistant'))
 const Home = lazy(() => import('@/pages/Home'))
 const About = lazy(() => import('@/pages/About'))
 const AMarca = lazy(() => import('@/pages/AMarca'))
@@ -31,6 +29,7 @@ const Register = lazy(() => import('@/pages/Register'))
 const Account = lazy(() => import('@/pages/Account'))
 const Admin = lazy(() => import('@/pages/Admin'))
 const AdminBlogEditorial = lazy(() => import('@/pages/AdminBlogEditorial'))
+const AdminLeads = lazy(() => import('@/pages/AdminLeads'))
 const AdminLayout = lazy(() => import('@/components/Admin/AdminLayout'))
 const MediaManager = lazy(() => import('@/pages/AdminMediaManager'))
 const PremiumCinematicIntro = lazy(() => import('@/components/PremiumCinematicIntro'))
@@ -54,8 +53,7 @@ const Paraiso = lazy(() => import('@/pages/regions/Paraiso'))
 const Aclimacao = lazy(() => import('@/pages/regions/Aclimacao'))
 const SoliciteProposta = lazy(() => import('@/pages/SoliciteProposta'))
 const Blog = lazy(() => import('@/pages/Blog'))
-const FAQ = lazy(() => import('@/pages/FAQ'))
-const Moodboard = lazy(() => import('@/pages/Moodboard'))
+const Faq = lazy(() => import('@/pages/FAQ'))
 const MoodboardStudio = lazy(() => import('@/pages/MoodboardStudio'))
 const MoodboardShare = lazy(() => import('@/pages/MoodboardShare'))
 const RoomVisualizer = lazy(() => import('@/pages/RoomVisualizer'))
@@ -68,8 +66,8 @@ const DataDeletion = lazy(() => import('@/pages/DataDeletion'))
 const EasyLocker = lazy(() => import('@/pages/EasyLocker'))
 const BuildTech = lazy(() => import('@/pages/BuildTech'))
 const BuildTechClientProposal = lazy(() => import('@/pages/BuildTechClientProposal'))
-const ICCRI = lazy(() => import('@/pages/ICCRI'))
-const ICCRIParaImobiliarias = lazy(() => import('@/pages/ICCRIParaImobiliarias'))
+const Iccri = lazy(() => import('@/pages/ICCRI'))
+const IccriParaImobiliarias = lazy(() => import('@/pages/ICCRIParaImobiliarias'))
 const WGEasy = lazy(() => import('@/pages/WGEasy'))
 
 // Landing Pages SaaS · ObraEasy e EasyRealState
@@ -345,8 +343,8 @@ function App() {
               />
               <Route path="/clientes/:slug" element={<BuildTechClientProposal />} />
               <Route path="/buildtech/clientes/:slug" element={<BuildTechClientProposal />} />
-              <Route path="/iccri" element={<ICCRI />} />
-              <Route path="/iccri-para-imobiliarias" element={<ICCRIParaImobiliarias />} />
+              <Route path="/iccri" element={<Iccri />} />
+              <Route path="/iccri-para-imobiliarias" element={<IccriParaImobiliarias />} />
               <Route path="/wgeasy" element={<WGEasy />} />
               <Route path="/obraeasy" element={<ObraEasyLanding />} />
               <Route path="/parceiros" element={<ObraEasyParceiroRedirect />} />
@@ -369,7 +367,7 @@ function App() {
               <Route path="/blog/:slug" element={<Blog />} />
               <Route path="/conteudo" element={<ConteudoRedirect />} />
               <Route path="/conteudo/:slug" element={<ConteudoRedirect />} />
-              <Route path="/faq" element={<FAQ />} />
+              <Route path="/faq" element={<Faq />} />
               <Route path="/privacidade" element={<PrivacyPolicy />} />
               <Route path="/exclusao-de-dados" element={<DataDeletion />} />
               <Route path="/revista-estilos" element={<RevistaEstilos />} />
@@ -459,6 +457,7 @@ function App() {
                       <Routes>
                         <Route index element={<Admin />} />
                         <Route path="blog-editorial" element={<AdminBlogEditorial />} />
+                        <Route path="leads" element={<AdminLeads />} />
                         <Route path="media" element={<MediaManager />} />
                         <Route path="seo" element={<div className="text-slate-500 py-20 text-center italic">SEO Manager em breve...</div>} />
                         <Route path="settings" element={<div className="text-slate-500 py-20 text-center italic">Configurações em breve...</div>} />

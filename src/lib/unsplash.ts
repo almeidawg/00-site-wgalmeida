@@ -31,6 +31,15 @@ interface SearchParams {
   orientation?: 'landscape' | 'portrait' | 'squarish';
   color?: string;
   perPage?: number;
+  page?: number;
+}
+
+export interface UnsplashSearchPage {
+  images: UnsplashImage[];
+  page: number;
+  perPage: number;
+  total: number;
+  totalPages: number;
 }
 
 interface UnsplashTransformOptions {
@@ -98,17 +107,46 @@ export function buildUnsplashSrcSet(value: string, variants: UnsplashSrcSetVaria
     .join(', ');
 }
 
-export async function searchUnsplashImages({
+const mapUnsplashPhoto = (photo: any): UnsplashImage => ({
+  id: photo.id,
+  urls: {
+    regular: photo.urls?.regular || '',
+    full: photo.urls?.full || '',
+    raw: photo.urls?.raw || '',
+    thumb: photo.urls?.thumb || '',
+    small: photo.urls?.small || '',
+  },
+  alt_description: photo.alt || photo.description || '',
+  description: photo.description || photo.alt || '',
+  photographer: photo.photographer || '',
+  photographerUsername: photo.photographerUsername || '',
+  profileUrl: photo.profileUrl || '',
+  unsplashPage: photo.unsplashPage || '',
+  downloadLocation: photo.downloadLocation || '',
+  user: {
+    name: photo.photographer || '',
+    links: {
+      html: photo.profileUrl || '',
+    },
+  },
+});
+
+export async function searchUnsplashPage({
   query,
   orientation = 'landscape',
   color,
   perPage = 10,
-}: SearchParams): Promise<UnsplashImage[]> {
+  page = 1,
+}: SearchParams): Promise<UnsplashSearchPage> {
+  const safePage = Number.isFinite(page) && page > 0 ? Math.floor(page) : 1;
+  const safePerPage = Number.isFinite(perPage) && perPage > 0 ? Math.min(Math.floor(perPage), 20) : 10;
+
   try {
     const params = new URLSearchParams({
       query,
       orientation,
-      per_page: perPage.toString(),
+      per_page: safePerPage.toString(),
+      page: safePage.toString(),
     });
 
     if (color) {
@@ -122,33 +160,28 @@ export async function searchUnsplashImages({
     }
 
     const data = await response.json();
-    return (data.photos || []).map((photo: any) => ({
-      id: photo.id,
-      urls: {
-        regular: photo.urls?.regular || '',
-        full: photo.urls?.full || '',
-        raw: photo.urls?.raw || '',
-        thumb: photo.urls?.thumb || '',
-        small: photo.urls?.small || '',
-      },
-      alt_description: photo.alt || photo.description || '',
-      description: photo.description || photo.alt || '',
-      photographer: photo.photographer || '',
-      photographerUsername: photo.photographerUsername || '',
-      profileUrl: photo.profileUrl || '',
-      unsplashPage: photo.unsplashPage || '',
-      downloadLocation: photo.downloadLocation || '',
-      user: {
-        name: photo.photographer || '',
-        links: {
-          html: photo.profileUrl || '',
-        },
-      },
-    }));
+    return {
+      images: (data.photos || []).map(mapUnsplashPhoto),
+      page: Number(data.page) || safePage,
+      perPage: Number(data.perPage) || safePerPage,
+      total: Number(data.total) || 0,
+      totalPages: Number(data.totalPages) || 0,
+    };
   } catch (error) {
     console.error('Error fetching from Unsplash:', error);
-    return [];
+    return {
+      images: [],
+      page: safePage,
+      perPage: safePerPage,
+      total: 0,
+      totalPages: 0,
+    };
   }
+}
+
+export async function searchUnsplashImages(params: SearchParams): Promise<UnsplashImage[]> {
+  const result = await searchUnsplashPage(params);
+  return result.images;
 }
 
 export async function getRandomImage(
