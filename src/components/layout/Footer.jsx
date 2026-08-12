@@ -233,6 +233,10 @@ const Footer = () => {
           >
             © {new Date().getFullYear()} Grupo WG Almeida. {t('footer.rights')}
           </p>
+          <div className="mt-4 flex justify-center gap-4 text-xs text-gray-400">
+            <Link to="/privacidade" className="hover:text-wg-orange transition-colors">Política de Privacidade</Link>
+            <Link to="/exclusao-de-dados" className="hover:text-wg-orange transition-colors">Exclusão de Dados</Link>
+          </div>
         </div>
       </div>
     </footer>

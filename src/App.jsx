@@ -59,6 +59,8 @@ const MoodboardShare = lazy(() => import('@/pages/MoodboardShare'))
 const RoomVisualizer = lazy(() => import('@/pages/RoomVisualizer'))
 const RevistaEstilos = lazy(() => import('@/pages/RevistaEstilos'))
 const EstiloDetail = lazy(() => import('@/pages/EstiloDetail'))
+const PrivacyPolicy = lazy(() => import('@/pages/PrivacyPolicy'))
+const DataDeletion = lazy(() => import('@/pages/DataDeletion'))
 
 // Empresas do Grupo WG Almeida
 const EasyLocker = lazy(() => import('@/pages/EasyLocker'))
@@ -366,6 +368,8 @@ function App() {
               <Route path="/conteudo" element={<ConteudoRedirect />} />
               <Route path="/conteudo/:slug" element={<ConteudoRedirect />} />
               <Route path="/faq" element={<FAQ />} />
+              <Route path="/privacidade" element={<PrivacyPolicy />} />
+              <Route path="/exclusao-de-dados" element={<DataDeletion />} />
               <Route path="/revista-estilos" element={<RevistaEstilos />} />
               <Route path="/estilos/:slug" element={<EstiloDetail />} />
 

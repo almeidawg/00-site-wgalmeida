@@ -124,6 +124,16 @@ export const SEO_CONFIG = {
     "FAQ | Grupo WG Almeida",
     "Perguntas frequentes sobre o processo e serviços."
   ),
+  "/privacidade": page(
+    "/privacidade",
+    "Política de Privacidade | Grupo WG Almeida",
+    "Como o Grupo WG Almeida trata dados pessoais em seus canais digitais, incluindo o atendimento assistido pela Liz."
+  ),
+  "/exclusao-de-dados": page(
+    "/exclusao-de-dados",
+    "Exclusão de Dados | Grupo WG Almeida",
+    "Instruções para solicitar a exclusão de dados pessoais tratados pelo Grupo WG Almeida."
+  ),
   "/solicite-proposta": page(
     "/solicite-proposta",
     "Solicite Proposta | Grupo WG Almeida",
