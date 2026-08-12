@@ -41,7 +41,7 @@ const MoodboardSocialPanel = ({ shareId, initialLikes = 0, shareUrl }) => {
 
     const channel = subscribeToComments(shareId, (newComment) => {
       setComments(prev => {
-        if (prev.find(c => c.id === newComment.id)) return prev;
+        if (prev.some(c => c.id === newComment.id)) return prev;
         return [...prev, newComment];
       });
     });

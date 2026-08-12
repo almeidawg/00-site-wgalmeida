@@ -472,27 +472,18 @@ const ElementColorSelector = ({ element, selectedColor, onColorSelect, available
             <p className="text-sm text-gray-400">Clique para escolher cor</p>
           )}
         </div>
-        {selectedColor && (
-          <span
-            role="button"
-            tabIndex={0}
-            aria-label={`Remover cor de ${element.name}`}
-            onClick={(e) => {
-              e.stopPropagation();
-              onColorSelect(element.id, null);
-            }}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.stopPropagation();
-                onColorSelect(element.id, null);
-              }
-            }}
-            className="p-1 hover:bg-gray-100 rounded-full cursor-pointer"
-          >
-            <X className="w-4 h-4 text-gray-400" />
-          </span>
-        )}
+
       </button>
+      {selectedColor && (
+        <button
+          type="button"
+          aria-label={`Remover cor de ${element.name}`}
+          onClick={() => onColorSelect(element.id, null)}
+          className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-gray-100 rounded-full"
+        >
+          <X className="w-4 h-4 text-gray-400" />
+        </button>
+      )}
 
       {/* Dropdown de cores */}
       <AnimatePresence>
@@ -618,7 +609,7 @@ const ColorTransformer = ({ externalColors = [] }) => {
         a.download = 'ambiente-transformado-wgalmeida.jpg';
         document.body.appendChild(a);
         a.click();
-        document.body.removeChild(a);
+        a.remove();
         URL.revokeObjectURL(url);
         setIsDownloading(false);
       }, 'image/jpeg', 0.95);
@@ -632,7 +623,7 @@ const ColorTransformer = ({ externalColors = [] }) => {
         a.target = '_blank';
         document.body.appendChild(a);
         a.click();
-        document.body.removeChild(a);
+        a.remove();
       } catch {
         setError('Erro ao baixar. Clique com botão direito na imagem e escolha "Salvar imagem".');
       }
@@ -824,8 +815,9 @@ const ColorTransformer = ({ externalColors = [] }) => {
   const handleElementColorSelect = (elementId, color) => {
     setElementColors(prev => {
       if (color === null) {
-        const { [elementId]: _, ...rest } = prev;
-        return rest;
+        const next = { ...prev };
+        delete next[elementId];
+        return next;
       }
       return { ...prev, [elementId]: color };
     });
@@ -1286,9 +1278,19 @@ const ColorTransformer = ({ externalColors = [] }) => {
             </button>
 
             <div
+              role="slider"
+              tabIndex={0}
+              aria-label="Comparar imagem original e transformada em tela cheia"
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-valuenow={Math.round(sliderPosition)}
               className="relative w-full max-w-6xl aspect-video cursor-ew-resize select-none overflow-hidden rounded-xl"
               onMouseDown={() => setIsDragging(true)}
               onTouchStart={() => setIsDragging(true)}
+              onKeyDown={(event) => {
+                if (event.key === 'ArrowLeft') setSliderPosition((value) => Math.max(0, value - 5));
+                if (event.key === 'ArrowRight') setSliderPosition((value) => Math.min(100, value + 5));
+              }}
             >
               <img
                 src={transformedUrl}

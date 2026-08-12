@@ -51,7 +51,7 @@ export default function AdminSidebar() {
         )}
         {isCollapsed && <BrandStar className="w-8 h-8 text-blue-500" />}
         
-        <button 
+        <button type="button"
           onClick={() => setIsCollapsed(!isCollapsed)}
           className="p-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:bg-slate-800 transition-colors"
         >
@@ -94,6 +94,7 @@ export default function AdminSidebar() {
           {!isCollapsed && <span className="text-sm font-medium">Ver Site</span>}
         </Link>
         <button
+          type="button"
           className={cn(
             "w-full flex items-center gap-3 p-3 rounded-xl text-red-400 hover:text-white hover:bg-red-950/30 transition-all",
             isCollapsed && "justify-center"

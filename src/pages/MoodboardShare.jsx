@@ -10,14 +10,24 @@ import useMoodboardExport from '@/hooks/useMoodboardExport';
 
 const MoodboardSocialPanel = lazy(() => import('@/components/moodboard/MoodboardSocialPanel'));
 
+const createValidationCode = () => {
+  const bytes = new Uint8Array(4);
+  globalThis.crypto.getRandomValues(bytes);
+  return Array.from(bytes, (value) => value.toString(36).padStart(2, '0'))
+    .join('')
+    .slice(0, 6)
+    .toUpperCase();
+};
+
 const MoodboardShare = () => {
   const [searchParams] = useSearchParams();
   const { shareId } = useParams();
-  const [showIntro, setShowSuggestions] = useState(true);
+  const [showIntro, setShowIntro] = useState(true);
   const [dbData, setDbData] = useState(null);
   const [dbLoading, setDbLoading] = useState(!!shareId);
   const [dbError, setDbError] = useState(false);
   const encodedData = searchParams.get('v');
+  const validationCode = useMemo(createValidationCode, []);
   const { exportAsPDF, isExporting, error: exportError } = useMoodboardExport();
 
   // Modo persistente: buscar do Supabase
@@ -98,7 +108,7 @@ const MoodboardShare = () => {
 
   // Efeito de entrada: esconde a intro após 3 segundos
   useEffect(() => {
-    const timer = setTimeout(() => setShowSuggestions(false), 3500);
+    const timer = setTimeout(() => setShowIntro(false), 3500);
     return () => clearTimeout(timer);
   }, []);
 
@@ -207,7 +217,7 @@ const MoodboardShare = () => {
                   <h2 className="text-4xl font-playfair italic text-white">A Alma do Projeto</h2>
                </div>
                <div className="flex items-center gap-4 text-slate-500 font-mono text-[10px] bg-white/5 px-4 py-2 rounded-full border border-white/5">
-                  <CheckCircle2 size={12} className="text-green-500" /> CÓDIGO DE VALIDAÇÃO: {Math.random().toString(36).slice(2, 8).toUpperCase()}
+                  <CheckCircle2 size={12} className="text-green-500" /> CÓDIGO DE VALIDAÇÃO: {validationCode}
                </div>
             </div>
             

@@ -55,7 +55,7 @@ export const getStyleCoverPath = (slug) => {
 
   let h = 0;
   const fallbackKey = String(slug || 'style');
-  for (let i = 0; i < fallbackKey.length; i++) h = (h * 31 + fallbackKey.charCodeAt(i)) >>> 0;
+  for (let i = 0; i < fallbackKey.length; i++) h = (h * 31 + fallbackKey.codePointAt(i)) >>> 0;
   return withBasePath(STYLE_BANNERS[h % STYLE_BANNERS.length]);
 };
 

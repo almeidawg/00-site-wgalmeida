@@ -6,10 +6,12 @@ const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
 const TURNSTILE_SECRET_KEY = process.env.TURNSTILE_SECRET_KEY
 const CONTACT_TURNSTILE_REQUIRED = process.env.CONTACT_TURNSTILE_REQUIRED === 'true'
 const CONTACT_AUTO_PROMOTE_WGEASY = process.env.CONTACT_AUTO_PROMOTE_WGEASY === 'true'
-const ALLOWED_EXTRA_ORIGINS = String(process.env.CONTACT_ALLOWED_ORIGINS || '')
-  .split(',')
-  .map((origin) => origin.trim())
-  .filter(Boolean)
+const ALLOWED_EXTRA_ORIGINS = new Set(
+  String(process.env.CONTACT_ALLOWED_ORIGINS || '')
+    .split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean)
+)
 const MAX_BODY_BYTES = 16 * 1024
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000
 const RATE_LIMIT_MAX = 8
@@ -86,7 +88,7 @@ const isAllowedOrigin = (req) => {
   const origin = req.headers.origin
   if (!origin) return true
   if (ALLOWED_ORIGINS.has(origin)) return true
-  if (ALLOWED_EXTRA_ORIGINS.includes(origin)) return true
+  if (ALLOWED_EXTRA_ORIGINS.has(origin)) return true
   return process.env.VERCEL_ENV !== 'production' && /^https:\/\/[a-z0-9-]+\.vercel\.app$/i.test(origin)
 }
 

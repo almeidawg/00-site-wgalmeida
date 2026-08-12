@@ -305,13 +305,13 @@ export default function MoodboardLeadModal({ isOpen, onClose }) {
                  </div>
                  
                  <div className="w-full space-y-4 pt-4">
-                    <button 
+                    <button type="button"
                       onClick={handleWhatsAppDelivery}
                       className="w-full h-16 bg-blue-600 hover:bg-blue-500 text-white rounded-[24px] font-bold text-base flex items-center justify-center gap-4 transition-all shadow-2xl shadow-blue-600/20 hover:scale-[1.02]"
                     >
                       <MessageSquare size={24} /> Receber no WhatsApp agora
                     </button>
-                    <button 
+                    <button type="button"
                       onClick={onClose}
                       className="w-full py-4 text-slate-500 hover:text-slate-300 text-xs font-bold uppercase tracking-widest transition-colors"
                     >

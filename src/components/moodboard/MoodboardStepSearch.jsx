@@ -153,7 +153,12 @@ const MoodboardStepSearch = ({ mode, style, onAssetAdd }) => {
         <AnimatePresence>
           {isFocused && suggestions.length > 0 && (
             <>
-              <div className="fixed inset-0 z-10" onClick={() => setIsFocused(false)} />
+              <button
+                type="button"
+                aria-label="Fechar sugestões de busca"
+                className="fixed inset-0 z-10 bg-transparent"
+                onClick={() => setIsFocused(false)}
+              />
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -164,7 +169,7 @@ const MoodboardStepSearch = ({ mode, style, onAssetAdd }) => {
                 <div className="flex flex-wrap gap-1.5">
                   {suggestions.map((term, i) => (
                     <button type="button"
-                      key={i}
+                      key={term}
                       onClick={() => handleSuggestionClick(term)}
                       className="px-2.5 py-1.5 bg-white/5 hover:bg-wg-orange hover:text-white rounded-lg text-[9px] text-slate-400 transition-all border border-white/5 font-medium"
                     >
