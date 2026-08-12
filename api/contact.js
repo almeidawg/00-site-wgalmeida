@@ -1,5 +1,6 @@
 import crypto from 'node:crypto'
 import { applyRateLimitHeaders, getClientIp } from './_requestGuard.js'
+import { emitConversionEvent, normalizeConversionContext } from './_conversionObservability.js'
 
 const SUPABASE_ORIGIN = 'https://ahlqzzkxuutwoepirpzr.supabase.co'
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
@@ -218,6 +219,21 @@ const verifyTurnstile = async (token, remoteip) => {
 
 export default async function handler(req, res) {
   const requestId = makeRequestId()
+  const startedAt = Date.now()
+  let conversionContext = 'other'
+  const respondWithConversion = (statusCode, payload, { outcome = 'rejected', reason = 'unexpected_error', promotion = 'promotion_skipped' } = {}) => {
+    res.setHeader('X-WG-Outcome', outcome)
+    emitConversionEvent({
+      requestId,
+      outcome,
+      reason,
+      promotion,
+      context: conversionContext,
+      statusCode,
+      durationMs: Date.now() - startedAt,
+    })
+    return json(res, statusCode, payload)
+  }
   res.setHeader('X-Request-ID', requestId)
   res.setHeader('Vary', 'Origin')
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
@@ -233,6 +249,9 @@ export default async function handler(req, res) {
   }
 
   if (!isAllowedOrigin(req)) {
+    if (req.method === 'POST') {
+      return respondWithConversion(403, { error: 'Origem nao autorizada.' }, { reason: 'origin_rejected' })
+    }
     return json(res, 403, { error: 'Origem nao autorizada.' })
   }
 
@@ -242,11 +261,12 @@ export default async function handler(req, res) {
   }
 
   if (!SUPABASE_SERVICE_KEY) {
-    return json(res, 500, { error: 'SUPABASE_SERVICE_ROLE_KEY not configured' })
+    return respondWithConversion(500, { error: 'SUPABASE_SERVICE_ROLE_KEY not configured' }, { reason: 'persistence_not_configured' })
   }
 
   try {
     const body = await parseBody(req)
+    conversionContext = normalizeConversionContext(body.context)
     const name = clean(body.name, 120)
     const email = clean(body.email, 180).toLowerCase()
     const phone = clean(body.phone, 40)
@@ -256,35 +276,35 @@ export default async function handler(req, res) {
     const rateKey = `${remoteip || 'unknown'}:${email || 'no-email'}`
 
     if (clean(body.website, 120)) {
-      return json(res, 200, { ok: true })
+      return respondWithConversion(200, { ok: true }, { outcome: 'ignored', reason: 'honeypot' })
     }
 
     if (!name || !isValidEmail(email) || !message) {
-      return json(res, 400, { error: 'Nome, e-mail valido e mensagem sao obrigatorios.' })
+      return respondWithConversion(400, { error: 'Nome, e-mail valido e mensagem sao obrigatorios.' }, { reason: 'invalid_payload' })
     }
 
     const rate = checkRateLimit(rateKey)
     applyRateLimitHeaders(res, rate)
     if (!rate.ok) {
-      return json(res, 429, { error: 'Muitas tentativas. Aguarde alguns minutos e tente novamente.' })
+      return respondWithConversion(429, { error: 'Muitas tentativas. Aguarde alguns minutos e tente novamente.' }, { reason: 'rate_limited' })
     }
 
     if (CONTACT_TURNSTILE_REQUIRED && !TURNSTILE_SECRET_KEY) {
-      return json(res, 500, { error: 'TURNSTILE_SECRET_KEY not configured' })
+      return respondWithConversion(500, { error: 'TURNSTILE_SECRET_KEY not configured' }, { reason: 'turnstile_not_configured' })
     }
 
     if (TURNSTILE_SECRET_KEY) {
       if (!body.turnstileToken) {
-        return json(res, 403, { error: 'Verificacao anti-spam obrigatoria.' })
+        return respondWithConversion(403, { error: 'Verificacao anti-spam obrigatoria.' }, { reason: 'turnstile_missing' })
       }
 
       if (tokenAlreadyUsed(body.turnstileToken)) {
-        return json(res, 403, { error: 'Verificacao anti-spam expirada. Atualize e tente novamente.' })
+        return respondWithConversion(403, { error: 'Verificacao anti-spam expirada. Atualize e tente novamente.' }, { reason: 'turnstile_replay' })
       }
 
       const turnstileOk = await verifyTurnstile(body.turnstileToken, remoteip)
       if (!turnstileOk) {
-        return json(res, 403, { error: 'Falha na verificacao anti-spam.' })
+        return respondWithConversion(403, { error: 'Falha na verificacao anti-spam.' }, { reason: 'turnstile_failed' })
       }
     }
 
@@ -306,18 +326,20 @@ export default async function handler(req, res) {
     const outcome = localDuplicate ? 'duplicate' : rpcResult.outcome
     const promotion = rpcResult.promotion_outcome || 'promotion_skipped'
 
-    res.setHeader('X-WG-Outcome', outcome)
-    return json(res, 200, { ok: true, outcome, promotion, requestId })
+    return respondWithConversion(200, { ok: true, outcome, promotion, requestId }, {
+      outcome,
+      reason: outcome === 'duplicate' ? 'duplicate' : 'accepted',
+      promotion,
+    })
   } catch (error) {
     console.error('contact api error:', error)
-    res.setHeader('X-WG-Outcome', 'rejected')
     if (error.statusCode === 413) {
-      return json(res, 413, { error: 'Mensagem muito grande.' })
+      return respondWithConversion(413, { error: 'Mensagem muito grande.' }, { reason: 'payload_too_large' })
     }
     if (error.statusCode === 502) {
       console.error('contact api upstream persist error:', error.upstreamStatus || 'unknown')
-      return json(res, 502, { error: 'Falha ao registrar contato.' })
+      return respondWithConversion(502, { error: 'Falha ao registrar contato.' }, { reason: 'persist_failed' })
     }
-    return json(res, 500, { error: 'Erro inesperado ao processar contato.' })
+    return respondWithConversion(500, { error: 'Erro inesperado ao processar contato.' }, { reason: 'unexpected_error' })
   }
 }

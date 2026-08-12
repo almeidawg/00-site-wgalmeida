@@ -50,6 +50,7 @@ const rpcRow = (overrides = {}) => ({
 describe('/api/contact Turnstile mode', () => {
   beforeEach(() => {
     vi.resetModules();
+    vi.spyOn(console, 'info').mockImplementation(() => {});
     globalThis.__wgContactRateLimit = new Map();
     globalThis.__wgTurnstileTokenStore = new Map();
     globalThis.__wgContactIdempotency = new Map();
@@ -80,6 +81,14 @@ describe('/api/contact Turnstile mode', () => {
     expect(res.headers['X-WG-Outcome']).toBe('saved');
     expect(global.fetch).toHaveBeenCalledTimes(1);
     expect(global.fetch.mock.calls[0][0]).toContain('/rest/v1/rpc/ingest_site_contact_idempotent');
+    const metricCall = console.info.mock.calls.find(([prefix]) => prefix === '[wg-conversion]');
+    expect(metricCall).toBeDefined();
+    const metric = JSON.parse(metricCall[1]);
+    expect(metric).toMatchObject({ outcome: 'saved', reason: 'accepted', promotion: 'promotion_skipped', context: 'buildtech', statusCode: 200 });
+    expect(metricCall[1]).not.toContain(validBody.name);
+    expect(metricCall[1]).not.toContain(validBody.email);
+    expect(metricCall[1]).not.toContain(validBody.phone);
+    expect(metricCall[1]).not.toContain(validBody.message);
   });
 
   it('falha explicitamente quando Turnstile e obrigatorio mas a secret esta ausente', async () => {
@@ -114,6 +123,8 @@ describe('/api/contact Turnstile mode', () => {
     await handler(makeReq({ ...validBody, email: 'email-invalido' }), res);
     expect(res.statusCode).toBe(400);
     expect(global.fetch).not.toHaveBeenCalled();
+    const metricCall = console.info.mock.calls.find(([prefix]) => prefix === '[wg-conversion]');
+    expect(JSON.parse(metricCall[1])).toMatchObject({ outcome: 'rejected', reason: 'invalid_payload', statusCode: 400 });
   });
 
   it('retorna 502 quando a persistencia falha', async () => {
