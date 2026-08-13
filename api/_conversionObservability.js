@@ -1,27 +1,17 @@
 const ALLOWED_OUTCOMES = new Set(['saved', 'duplicate', 'rejected', 'ignored'])
 const ALLOWED_PROMOTIONS = new Set([
-  'promotion_skipped',
-  'promotion_queued',
-  'promotion_completed',
-  'promotion_already_done',
-  'promotion_failed',
+  'promotion_skipped', 'promotion_queued', 'promotion_completed', 'promotion_already_done', 'promotion_failed',
 ])
 const ALLOWED_REASONS = new Set([
-  'accepted',
-  'duplicate',
-  'honeypot',
-  'invalid_payload',
-  'rate_limited',
-  'turnstile_not_configured',
-  'turnstile_missing',
-  'turnstile_replay',
-  'turnstile_failed',
-  'persist_failed',
-  'persistence_not_configured',
-  'payload_too_large',
-  'unexpected_error',
-  'origin_rejected',
+  'accepted', 'duplicate', 'honeypot', 'invalid_payload', 'rate_limited',
+  'turnstile_not_configured', 'turnstile_missing', 'turnstile_replay', 'turnstile_failed',
+  'persist_failed', 'persistence_not_configured', 'payload_too_large', 'unexpected_error', 'origin_rejected',
 ])
+
+const SUPABASE_URL = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || ''
+const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_KEY || ''
+const TELEMETRY_FLAG = process.env.CONVERSION_TELEMETRY_ENABLED
+const CONVERSION_TELEMETRY_ENABLED = TELEMETRY_FLAG === 'true' || (TELEMETRY_FLAG !== 'false' && process.env.VERCEL_ENV === 'production')
 
 export const normalizeConversionContext = (value) => {
   const context = String(value || '').trim().toLowerCase()
@@ -33,15 +23,7 @@ export const normalizeConversionContext = (value) => {
 
 const normalize = (value, allowed, fallback) => allowed.has(value) ? value : fallback
 
-export const buildConversionEvent = ({
-  requestId,
-  outcome,
-  reason,
-  promotion = 'promotion_skipped',
-  context = 'other',
-  statusCode,
-  durationMs,
-}) => ({
+export const buildConversionEvent = ({ requestId, outcome, reason, promotion = 'promotion_skipped', context = 'other', statusCode, durationMs }) => ({
   schema: 'wg.conversion.v1',
   event: 'contact_result',
   requestId: String(requestId || ''),
@@ -53,8 +35,38 @@ export const buildConversionEvent = ({
   durationMs: Math.max(0, Math.round(Number(durationMs) || 0)),
 })
 
-export const emitConversionEvent = (fields) => {
+const persistConversionEvent = async (event) => {
+  if (!CONVERSION_TELEMETRY_ENABLED || !SUPABASE_URL || !SUPABASE_SERVICE_KEY || !event.requestId) return false
+  const response = await fetch(`${SUPABASE_URL}/rest/v1/site_conversion_events?on_conflict=request_id`, {
+    method: 'POST',
+    headers: {
+      apikey: SUPABASE_SERVICE_KEY,
+      Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
+      'Content-Type': 'application/json',
+      Prefer: 'resolution=ignore-duplicates,return=minimal',
+    },
+    body: JSON.stringify({
+      request_id: event.requestId,
+      event: event.event,
+      outcome: event.outcome,
+      reason: event.reason,
+      promotion: event.promotion,
+      context: event.context,
+      status_code: event.statusCode,
+      duration_ms: event.durationMs,
+    }),
+  })
+  if (!response.ok) throw new Error(`conversion_telemetry_persist_${response.status}`)
+  return true
+}
+
+export const emitConversionEvent = async (fields) => {
   const event = buildConversionEvent(fields)
   console.info('[wg-conversion]', JSON.stringify(event))
+  try {
+    await persistConversionEvent(event)
+  } catch (error) {
+    console.warn('[wg-conversion-persist]', error.message)
+  }
   return event
 }
