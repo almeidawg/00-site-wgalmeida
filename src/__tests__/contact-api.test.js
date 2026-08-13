@@ -54,6 +54,8 @@ describe('/api/contact Turnstile mode', () => {
     globalThis.__wgContactRateLimit = new Map();
     globalThis.__wgTurnstileTokenStore = new Map();
     globalThis.__wgContactIdempotency = new Map();
+    vi.stubEnv('SUPABASE_URL', 'https://example.supabase.co');
+    vi.stubEnv('VITE_SUPABASE_URL', 'https://example.supabase.co');
     vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', 'service-role-test');
     vi.stubEnv('TURNSTILE_SECRET_KEY', '');
     vi.stubEnv('CONTACT_TURNSTILE_REQUIRED', 'false');
@@ -90,6 +92,22 @@ describe('/api/contact Turnstile mode', () => {
     expect(metricCall[1]).not.toContain(validBody.email);
     expect(metricCall[1]).not.toContain(validBody.phone);
     expect(metricCall[1]).not.toContain(validBody.message);
+  });
+
+  it('persiste telemetria no host canonico de producao e devolve status tecnico', async () => {
+    vi.stubEnv('CONVERSION_TELEMETRY_ENABLED', '');
+    global.fetch = vi.fn()
+      .mockResolvedValueOnce({ ok: true, status: 200, json: async () => ([rpcRow()]) })
+      .mockResolvedValueOnce({ ok: true, status: 201, json: async () => ({}) });
+    const handler = await loadHandler();
+    const res = makeRes();
+
+    await handler(makeReq(validBody, { host: 'wgalmeida.com.br' }), res);
+
+    expect(res.statusCode).toBe(200);
+    expect(res.headers['X-WG-Telemetry']).toBe('persisted');
+    expect(global.fetch).toHaveBeenCalledTimes(2);
+    expect(global.fetch.mock.calls[1][0]).toContain('/rest/v1/site_conversion_events?on_conflict=request_id');
   });
 
   it('falha explicitamente quando Turnstile e obrigatorio mas a secret esta ausente', async () => {
