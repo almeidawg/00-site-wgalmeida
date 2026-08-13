@@ -57,6 +57,7 @@ describe('/api/contact Turnstile mode', () => {
     vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', 'service-role-test');
     vi.stubEnv('TURNSTILE_SECRET_KEY', '');
     vi.stubEnv('CONTACT_TURNSTILE_REQUIRED', 'false');
+    vi.stubEnv('CONVERSION_TELEMETRY_ENABLED', 'false');
     global.fetch = vi.fn(async () => ({
       ok: true,
       status: 201,

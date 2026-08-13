@@ -41,9 +41,9 @@ describe('conversion observability', () => {
     expect(JSON.stringify(event)).not.toContain('Mensagem confidencial');
   });
 
-  it('emite uma linha JSON estruturada sem payload original', () => {
+  it('emite uma linha JSON estruturada sem payload original', async () => {
     const info = vi.spyOn(console, 'info').mockImplementation(() => {});
-    emitConversionEvent({
+    await emitConversionEvent({
       requestId: 'request-456',
       outcome: 'rejected',
       reason: 'rate_limited',

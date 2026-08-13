@@ -221,9 +221,9 @@ export default async function handler(req, res) {
   const requestId = makeRequestId()
   const startedAt = Date.now()
   let conversionContext = 'other'
-  const respondWithConversion = (statusCode, payload, { outcome = 'rejected', reason = 'unexpected_error', promotion = 'promotion_skipped' } = {}) => {
+  const respondWithConversion = async (statusCode, payload, { outcome = 'rejected', reason = 'unexpected_error', promotion = 'promotion_skipped' } = {}) => {
     res.setHeader('X-WG-Outcome', outcome)
-    emitConversionEvent({
+    await emitConversionEvent({
       requestId,
       outcome,
       reason,
