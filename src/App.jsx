@@ -30,6 +30,7 @@ const Account = lazy(() => import('@/pages/Account'))
 const Admin = lazy(() => import('@/pages/Admin'))
 const AdminBlogEditorial = lazy(() => import('@/pages/AdminBlogEditorial'))
 const AdminLeads = lazy(() => import('@/pages/AdminLeads'))
+const AdminConversionMetrics = lazy(() => import('@/pages/AdminConversionMetrics'))
 const AdminLayout = lazy(() => import('@/components/Admin/AdminLayout'))
 const MediaManager = lazy(() => import('@/pages/AdminMediaManager'))
 const PremiumCinematicIntro = lazy(() => import('@/components/PremiumCinematicIntro'))
@@ -458,6 +459,7 @@ function App() {
                         <Route index element={<Admin />} />
                         <Route path="blog-editorial" element={<AdminBlogEditorial />} />
                         <Route path="leads" element={<AdminLeads />} />
+                        <Route path="conversion-metrics" element={<AdminConversionMetrics />} />
                         <Route path="media" element={<MediaManager />} />
                         <Route path="seo" element={<div className="text-slate-500 py-20 text-center italic">SEO Manager em breve...</div>} />
                         <Route path="settings" element={<div className="text-slate-500 py-20 text-center italic">Configurações em breve...</div>} />
