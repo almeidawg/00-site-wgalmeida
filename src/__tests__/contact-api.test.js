@@ -54,6 +54,8 @@ describe('/api/contact Turnstile mode', () => {
     globalThis.__wgContactRateLimit = new Map();
     globalThis.__wgTurnstileTokenStore = new Map();
     globalThis.__wgContactIdempotency = new Map();
+    vi.stubEnv('SUPABASE_URL', 'https://example.supabase.co');
+    vi.stubEnv('VITE_SUPABASE_URL', 'https://example.supabase.co');
     vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', 'service-role-test');
     vi.stubEnv('TURNSTILE_SECRET_KEY', '');
     vi.stubEnv('CONTACT_TURNSTILE_REQUIRED', 'false');
