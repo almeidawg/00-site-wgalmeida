@@ -10,8 +10,6 @@ const ALLOWED_REASONS = new Set([
 
 const SUPABASE_URL = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || ''
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_KEY || ''
-const TELEMETRY_FLAG = process.env.CONVERSION_TELEMETRY_ENABLED
-const CONVERSION_TELEMETRY_ENABLED = TELEMETRY_FLAG === 'true' || (TELEMETRY_FLAG !== 'false' && process.env.VERCEL_ENV === 'production')
 
 export const normalizeConversionContext = (value) => {
   const context = String(value || '').trim().toLowerCase()
@@ -35,8 +33,10 @@ export const buildConversionEvent = ({ requestId, outcome, reason, promotion = '
   durationMs: Math.max(0, Math.round(Number(durationMs) || 0)),
 })
 
-const persistConversionEvent = async (event) => {
-  if (!CONVERSION_TELEMETRY_ENABLED || !SUPABASE_URL || !SUPABASE_SERVICE_KEY || !event.requestId) return false
+const persistConversionEvent = async (event, persistRequested) => {
+  if (!persistRequested) return { persisted: false, status: 'disabled' }
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY || !event.requestId) return { persisted: false, status: 'unconfigured' }
+
   const response = await fetch(`${SUPABASE_URL}/rest/v1/site_conversion_events?on_conflict=request_id`, {
     method: 'POST',
     headers: {
@@ -57,16 +57,17 @@ const persistConversionEvent = async (event) => {
     }),
   })
   if (!response.ok) throw new Error(`conversion_telemetry_persist_${response.status}`)
-  return true
+  return { persisted: true, status: 'persisted' }
 }
 
 export const emitConversionEvent = async (fields) => {
   const event = buildConversionEvent(fields)
   console.info('[wg-conversion]', JSON.stringify(event))
   try {
-    await persistConversionEvent(event)
+    const telemetry = await persistConversionEvent(event, fields.persist === true)
+    return { event, telemetry }
   } catch (error) {
     console.warn('[wg-conversion-persist]', error.message)
+    return { event, telemetry: { persisted: false, status: 'failed' } }
   }
-  return event
 }

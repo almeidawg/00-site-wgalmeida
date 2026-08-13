@@ -1,23 +1,26 @@
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest';
 
 describe('conversion telemetry persistence', () => {
+  beforeEach(() => {
+    vi.resetModules();
+    vi.stubEnv('SUPABASE_URL', 'https://example.supabase.co');
+    vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', 'service-test-key');
+  });
+
   afterEach(() => {
     vi.unstubAllEnvs();
     vi.restoreAllMocks();
     vi.resetModules();
   });
 
-  it('persists allowlisted telemetry in production without PII', async () => {
-    vi.stubEnv('VERCEL_ENV', 'production');
-    vi.stubEnv('SUPABASE_URL', 'https://example.supabase.co');
-    vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', 'service-test-key');
-    vi.stubEnv('CONVERSION_TELEMETRY_ENABLED', '');
+  it('persists allowlisted telemetry when persistence is explicitly requested', async () => {
     const fetchMock = vi.fn(async () => ({ ok: true, status: 201 }));
     global.fetch = fetchMock;
     vi.spyOn(console, 'info').mockImplementation(() => {});
 
     const { emitConversionEvent } = await import('../../api/_conversionObservability.js');
-    await emitConversionEvent({
+    const result = await emitConversionEvent({
+      persist: true,
       requestId: '123e4567-e89b-12d3-a456-426614174000',
       outcome: 'rejected',
       reason: 'rate_limited',
@@ -30,6 +33,7 @@ describe('conversion telemetry persistence', () => {
       message: 'PII Message',
     });
 
+    expect(result.telemetry).toEqual({ persisted: true, status: 'persisted' });
     expect(fetchMock).toHaveBeenCalledTimes(1);
     const [url, options] = fetchMock.mock.calls[0];
     expect(url).toContain('/rest/v1/site_conversion_events?on_conflict=request_id');
@@ -50,17 +54,21 @@ describe('conversion telemetry persistence', () => {
     expect(serialized).not.toContain('PII Message');
   });
 
-  it('respects the explicit production kill switch', async () => {
-    vi.stubEnv('VERCEL_ENV', 'production');
-    vi.stubEnv('SUPABASE_URL', 'https://example.supabase.co');
-    vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', 'service-test-key');
-    vi.stubEnv('CONVERSION_TELEMETRY_ENABLED', 'false');
+  it('does not persist when persistence is not requested', async () => {
     const fetchMock = vi.fn();
     global.fetch = fetchMock;
     vi.spyOn(console, 'info').mockImplementation(() => {});
 
     const { emitConversionEvent } = await import('../../api/_conversionObservability.js');
-    await emitConversionEvent({ requestId: '123e4567-e89b-12d3-a456-426614174001', outcome: 'saved', reason: 'accepted', statusCode: 200 });
+    const result = await emitConversionEvent({
+      persist: false,
+      requestId: '123e4567-e89b-12d3-a456-426614174001',
+      outcome: 'saved',
+      reason: 'accepted',
+      statusCode: 200,
+    });
+
+    expect(result.telemetry).toEqual({ persisted: false, status: 'disabled' });
     expect(fetchMock).not.toHaveBeenCalled();
   });
 });

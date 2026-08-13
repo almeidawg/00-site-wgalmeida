@@ -220,10 +220,13 @@ const verifyTurnstile = async (token, remoteip) => {
 export default async function handler(req, res) {
   const requestId = makeRequestId()
   const startedAt = Date.now()
+  const telemetryFlag = process.env.CONVERSION_TELEMETRY_ENABLED
+  const requestHost = String(req.headers.host || req.headers['x-forwarded-host'] || '').split(',')[0].trim().split(':')[0].toLowerCase()
+  const persistTelemetry = telemetryFlag === 'true' || (telemetryFlag !== 'false' && (requestHost === 'wgalmeida.com.br' || requestHost === 'www.wgalmeida.com.br'))
   let conversionContext = 'other'
   const respondWithConversion = async (statusCode, payload, { outcome = 'rejected', reason = 'unexpected_error', promotion = 'promotion_skipped' } = {}) => {
     res.setHeader('X-WG-Outcome', outcome)
-    await emitConversionEvent({
+    const { telemetry } = await emitConversionEvent({
       requestId,
       outcome,
       reason,
@@ -231,7 +234,9 @@ export default async function handler(req, res) {
       context: conversionContext,
       statusCode,
       durationMs: Date.now() - startedAt,
+      persist: persistTelemetry,
     })
+    res.setHeader('X-WG-Telemetry', telemetry.status)
     return json(res, statusCode, payload)
   }
   res.setHeader('X-Request-ID', requestId)
