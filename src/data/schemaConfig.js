@@ -364,45 +364,6 @@ export const SCHEMAS = {
     },
   },
 
-  aggregateRating: {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    name: "Grupo WG Almeida",
-    url: BASE_URL,
-    image: `${BASE_URL}/og-home-1200x630.jpg`,
-    telephone: COMPANY.phoneRaw,
-    priceRange: "$$$",
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "Rua Guararapes, 305",
-      addressLocality: "Brooklin, São Paulo",
-      addressRegion: "SP",
-      postalCode: "04561-000",
-      addressCountry: "BR",
-    },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "5.0",
-      bestRating: "5",
-      worstRating: "1",
-      ratingCount: "50",
-    },
-    review: [
-      {
-        "@type": "Review",
-        author: { "@type": "Person", name: "William Almeida" },
-        reviewRating: { "@type": "Rating", ratingValue: "5" },
-        reviewBody: "Excelente atendimento e rigor técnico em todas as etapas da obra.",
-      },
-      {
-        "@type": "Review",
-        author: { "@type": "Person", name: "K. S." },
-        reviewRating: { "@type": "Rating", ratingValue: "5" },
-        reviewBody: "Marcenaria de altíssima qualidade, integrada perfeitamente ao projeto.",
-      }
-    ]
-  },
-
   faq: (questions) => ({
     "@context": "https://schema.org",
     "@type": "FAQPage",
