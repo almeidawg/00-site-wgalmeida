@@ -31,6 +31,9 @@ export const PRODUCT_URLS = {
   buildtech: 'https://bt.wgalmeida.com.br',
   iccri: 'https://wgalmeida.com.br/iccri',
   easylocker: 'https://wgalmeida.com.br/easylocker',
+  easyfood: 'https://easyfood.wgalmeida.com.br',
+  acessoos: 'https://acessoos-app.vercel.app',
+  eventos: '/eventos',
 };
 
 export const OBRAEASY_PRECOS = {
