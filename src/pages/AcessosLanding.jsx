@@ -15,8 +15,7 @@ import { Link } from 'react-router-dom';
 import { COMPANY, PRODUCT_URLS } from '@/data/company';
 import { useTranslation } from 'react-i18next';
 
-// Placeholder image
-const ACESSOS_HERO_IMAGE = withBasePath('/images/banners/BUILDTECH.webp');
+const ACESSOS_HERO_IMAGE = withBasePath('/images/banners/PROCESSOS.webp');
 
 const AcessosLanding = () => {
   const { t } = useTranslation();

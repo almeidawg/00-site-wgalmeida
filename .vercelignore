@@ -4,6 +4,9 @@ node_modules
 .vscode
 .claude
 .claude-dev-helper
+.codex
+.venv
+dist-local
 coverage
 .vite
 dist
