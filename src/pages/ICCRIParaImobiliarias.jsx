@@ -134,7 +134,7 @@ export default function ICCRIParaImobiliarias() {
                 {WG_PRODUCT_MESSAGES.marketReferences}
               </p>
               <p className="mt-3 text-sm leading-relaxed text-wg-gray">
-                Quando conectado ao Easy Real State e ao ObraEasy, o ICCRI deixa de ser só referência
+                Quando conectado ao Easy Real Estate e ao ObraEasy, o ICCRI deixa de ser só referência
                 de custo e passa a apoiar a defesa da captura de valor com base em fechamento real,
                 custo executado e leitura operacional da obra.
               </p>

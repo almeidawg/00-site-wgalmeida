@@ -86,7 +86,7 @@ export const PUBLIC_PAGE_IMAGE_CATALOG = {
     searchTerms: ['smart locker interior design', 'cabinet organization premium', 'custom storage luxury'],
   },
   easyRealState: {
-    title: 'Easy Real State',
+    title: 'Easy Real Estate',
     category: 'produto',
     routePath: '/easy-real-state',
     image: '/images/banners/ARQ.webp',

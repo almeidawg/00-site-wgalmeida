@@ -97,7 +97,7 @@ const Header = () => {
         <div className={`container-custom pt-3 md:pt-4 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]`}>
           <div className={`flex items-center justify-between rounded-[28px] px-3 md:px-5 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${isScrolled ? 'border border-black/[0.06] bg-white/60 backdrop-blur-2xl shadow-[0_18px_45px_rgba(12,12,12,0.08)]' : 'border border-white/10 bg-transparent backdrop-blur-0 shadow-none'}`} style={{ height: isScrolled ? '3.25rem' : 'var(--header-height)' }}>
             <div className={`min-w-[4.5rem] xl:min-w-[5.5rem] flex-1 lg:flex-none transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] overflow-hidden ${isScrolled ? 'w-0 opacity-0 pointer-events-none flex-none' : 'w-auto opacity-100'}`}>
-              <Link to="/" className="flex items-center space-x-3">
+              <Link to="/" className="flex items-center space-x-3" aria-label="Grupo WG Almeida - página inicial">
                 <img className="h-12 w-12 object-contain" alt="Logo Grupo WG Almeida" src={HEADER_LOGO_SRC} width="96" height="96" decoding="async" />
               </Link>
             </div>
