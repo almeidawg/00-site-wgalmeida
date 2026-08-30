@@ -452,15 +452,17 @@ export async function getProducts({ids, offset, limit, order, sort_by, is_hidden
 				};
 			});
 
-			const comImagem = produtosFormatados.filter(
-				(p) => p.image && typeof p.image === 'string' && p.image.length > 0
-			);
-
+			// NOTA (20260830): achado real do code review (PR #114) - "imagem_url" nunca existe
+			// na tabela real (schema drift ja documentado acima), entao o filtro "so produtos
+			// com imagem" (usado no ramo Hostinger abaixo, onde faz sentido: catalogo com fotos
+			// reais) sempre zerava TODO produto do WG Easy, mesmo depois de corrigido o schema.
+			// A UI (ProductsList.jsx) ja tem fallback de placeholder ("Sem Imagem") para
+			// product.image ausente - produtos WG Easy sao retornados sem filtrar por imagem.
 			return {
-				count: comImagem.length,
+				count: produtosFormatados.length,
 				offset: 0,
-				limit: comImagem.length,
-				products: comImagem,
+				limit: produtosFormatados.length,
+				products: produtosFormatados,
 			};
 		} catch (err) {
 			console.error("Erro na busca Supabase, tentando Hostinger:", err);

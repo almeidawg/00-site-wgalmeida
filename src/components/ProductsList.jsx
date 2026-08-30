@@ -54,9 +54,6 @@ const unitColorStyles = {
   },
 };
 
-const hasProductImage = (product) =>
-  Boolean(product?.image && typeof product.image === 'string' && product.image.trim().length > 0);
-
 const getProductInventory = (product) => {
   const managedVariants = (product?.variants || []).filter((variant) => variant.manage_inventory);
   if (!managedVariants.length) return Number.POSITIVE_INFINITY;
@@ -277,13 +274,16 @@ const ProductsList = () => {
           variantQuantityMap.set(variant.id, variant.inventory_quantity);
         });
 
+        // NOTA (20260830): removido .filter(hasProductImage) - produtos sem imagem
+        // (ex: WG Easy, coluna imagem_url nao existe no schema real) usam o
+        // placeholderImage ja existente no card, nao devem ser escondidos.
         const productsWithQuantities = productsResponse.products.map(product => ({
           ...product,
           variants: product.variants.map(variant => ({
             ...variant,
             inventory_quantity: variantQuantityMap.get(variant.id) ?? variant.inventory_quantity
           }))
-        })).filter(hasProductImage);
+        }));
 
         setProducts(productsWithQuantities);
         setCategories(categoriesResponse.categories || []);
@@ -346,7 +346,6 @@ const ProductsList = () => {
     };
 
     const items = products
-      .filter(hasProductImage)
       .filter(categoryMatches)
       .filter(availabilityMatches)
       .filter(priceMatches);
