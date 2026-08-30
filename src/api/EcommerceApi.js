@@ -386,17 +386,19 @@ export async function getProducts({ids, offset, limit, order, sort_by, is_hidden
 	// ============================================================
 	if (USE_SUPABASE) {
 		try {
-			// Buscar produtos ativos do tipo "produto"
-			// Nota: Removido o "!" do relacionamento para usar LEFT JOIN em vez de INNER JOIN
-			// Isso garante que produtos sem categoria também sejam retornados
-			// NOTA (20260829, auditoria 360): removido o embed "categoria:pricelist_categorias(...)".
-			// Confirmado via erro real do PostgREST (PGRST200 "no relationship found between
-			// pricelist_itens and pricelist_categorias") que essa FK nao existe mais no schema
-			// (mesmo projeto ahlqzzkxuutwoepirpzr, mesma classe de schema drift ja documentada
-			// em useEstatisticasWG.js). "categoria" continua existindo como COLUNA ESCALAR de
-			// texto em pricelist_itens (confirmado em supabase/migrations/
-			// 20260617000000_wgeasy_core_base_new_supabase.sql) - selecionada como texto
-			// simples abaixo, nao mais via relacao/embed inexistente.
+			// Buscar produtos ativos do tipo "produto".
+			// NOTA (20260829/30, auditoria 360): esta query originalmente selecionava um embed
+			// de relacao ("categoria:pricelist_categorias(...)") e 6 colunas ("preco",
+			// "imagem_url", "fabricante", "modelo", "avaliacao", "link_produto") que nao existem
+			// mais no schema real de public.pricelist_itens (confirmado por probe read-only
+			// direta no PostgREST do projeto ahlqzzkxuutwoepirpzr - mesmo schema drift ja
+			// documentado em useEstatisticasWG.js). Colunas reais confirmadas na migration
+			// supabase/migrations/20260617000000_wgeasy_core_base_new_supabase.sql: id, codigo,
+			// nome, descricao, categoria (texto escalar), tipo, unidade, valor_unitario, nucleo,
+			// ativo. Selecionadas so as colunas reais abaixo; "preco" mantido como alias de
+			// "valor_unitario" para nao precisar renomear o formatador. A mesma probe confirmou
+			// que a tabela esta genuinamente VAZIA neste ambiente (content-range */0) - a Store
+			// nunca teve produto real cadastrado aqui, independente deste fix de schema.
 			const { data: produtos, error } = await supabase
 				.from("pricelist_itens")
 				.select(`
@@ -404,13 +406,8 @@ export async function getProducts({ids, offset, limit, order, sort_by, is_hidden
 					codigo,
 					nome,
 					descricao,
-					preco,
-					imagem_url,
-					fabricante,
-					modelo,
-					avaliacao,
+					preco:valor_unitario,
 					unidade,
-					link_produto,
 					categoria
 				`)
 				.eq("tipo", "produto")
@@ -455,15 +452,17 @@ export async function getProducts({ids, offset, limit, order, sort_by, is_hidden
 				};
 			});
 
-			const comImagem = produtosFormatados.filter(
-				(p) => p.image && typeof p.image === 'string' && p.image.length > 0
-			);
-
+			// NOTA (20260830): achado real do code review (PR #114) - "imagem_url" nunca existe
+			// na tabela real (schema drift ja documentado acima), entao o filtro "so produtos
+			// com imagem" (usado no ramo Hostinger abaixo, onde faz sentido: catalogo com fotos
+			// reais) sempre zerava TODO produto do WG Easy, mesmo depois de corrigido o schema.
+			// A UI (ProductsList.jsx) ja tem fallback de placeholder ("Sem Imagem") para
+			// product.image ausente - produtos WG Easy sao retornados sem filtrar por imagem.
 			return {
-				count: comImagem.length,
+				count: produtosFormatados.length,
 				offset: 0,
-				limit: comImagem.length,
-				products: comImagem,
+				limit: produtosFormatados.length,
+				products: produtosFormatados,
 			};
 		} catch (err) {
 			console.error("Erro na busca Supabase, tentando Hostinger:", err);
@@ -593,8 +592,8 @@ export async function getProduct(id, {field} = {}) {
 	// ============================================================
 	if (USE_SUPABASE) {
 		try {
-			// NOTA (20260829): mesmo fix de getProducts() acima - embed removido por FK ausente,
-			// "categoria" selecionada como coluna escalar de texto.
+			// NOTA (20260829/30): mesmo fix de getProducts() acima - selecionadas so as colunas
+			// reais confirmadas de public.pricelist_itens (ver comentario detalhado la).
 			const { data: p, error } = await supabase
 				.from("pricelist_itens")
 				.select(`
@@ -602,13 +601,8 @@ export async function getProduct(id, {field} = {}) {
 					codigo,
 					nome,
 					descricao,
-					preco,
-					imagem_url,
-					fabricante,
-					modelo,
-					avaliacao,
+					preco:valor_unitario,
 					unidade,
-					link_produto,
 					categoria,
 					created_at,
 					updated_at
