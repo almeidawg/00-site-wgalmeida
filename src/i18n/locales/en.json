@@ -114,6 +114,22 @@
       "title": "Blog & Style Magazine | Grupo WG Almeida",
       "description": "Inspiration, trends, and technical knowledge about architecture and interior design."
     },
+    "login": {
+      "title": "Sign In | Grupo WG Almeida",
+      "description": "Access your account to track proposals, projects, and the WG Easy system."
+    },
+    "register": {
+      "title": "Create Account | Grupo WG Almeida",
+      "description": "Create your account to track proposals, projects, and purchases at Grupo WG Almeida."
+    },
+    "account": {
+      "title": "My Account | Grupo WG Almeida",
+      "description": "Manage your data, orders, and project tracking at Grupo WG Almeida."
+    },
+    "success": {
+      "title": "Order Confirmed",
+      "description": "Your order has been confirmed successfully. We will contact you soon with next steps."
+    },
     "contact": {
       "title": "Contact | Grupo WG Almeida",
       "description": "Contact Grupo WG Almeida for high-end architecture, engineering, bespoke joinery, and turn key work in Sao Paulo.",
