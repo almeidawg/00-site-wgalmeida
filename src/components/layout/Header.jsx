@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useMemo, Suspense, lazy } from 'react';
+import React, { useState, useEffect, useMemo, useRef, Suspense, lazy } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown, ShoppingCart as ShoppingCartIcon, Ruler, Building2, Hammer, Globe, Cpu } from 'lucide-react';
 import { useCart } from '@/hooks/useCart';
@@ -23,6 +23,28 @@ const Header = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const { cartItems } = useCart();
   const { t } = useTranslation();
+  const saasMenuRef = useRef(null);
+  const saasTriggerRef = useRef(null);
+
+  const closeSaaSMenu = ({ restoreFocus = false } = {}) => {
+    setSaaSMenuOpen(false);
+    if (restoreFocus) saasTriggerRef.current?.focus();
+  };
+
+  useEffect(() => {
+    if (!isSaaSMenuOpen) return undefined;
+    const handleOutsideInteraction = (event) => {
+      if (saasMenuRef.current && !saasMenuRef.current.contains(event.target)) {
+        setSaaSMenuOpen(false);
+      }
+    };
+    document.addEventListener('click', handleOutsideInteraction);
+    document.addEventListener('touchstart', handleOutsideInteraction);
+    return () => {
+      document.removeEventListener('click', handleOutsideInteraction);
+      document.removeEventListener('touchstart', handleOutsideInteraction);
+    };
+  }, [isSaaSMenuOpen]);
 
   const MANAGEMENT_URL = '/admin';
   const location = useLocation();
@@ -153,12 +175,14 @@ const Header = () => {
               </button>
 
               <div
+                ref={saasMenuRef}
                 className="relative h-full flex items-center"
                 onMouseEnter={() => setSaaSMenuOpen(true)}
                 onMouseLeave={() => setSaaSMenuOpen(false)}
-                onKeyDown={(event) => { if (event.key === 'Escape') setSaaSMenuOpen(false); }}
+                onKeyDown={(event) => { if (event.key === 'Escape') closeSaaSMenu({ restoreFocus: true }); }}
               >
                   <button
+                    ref={saasTriggerRef}
                     type="button"
                     onClick={() => setSaaSMenuOpen(true)}
                     onFocus={() => setSaaSMenuOpen(true)}
