@@ -154,7 +154,7 @@ const ACTION_LIBRARY = {
       external: false,
       reason: 'Seu contexto indica prontidao para uma leitura assistida. O melhor proximo passo e atendimento com EVF, AVM e custo conectados.',
       secondary: {
-        label: 'Abrir Easy Real State',
+        label: 'Abrir Easy Real Estate',
         href: `${PRODUCT_URLS.easyrealstate}?source=site&intent=investimento&stage=acao`,
         external: true,
       },

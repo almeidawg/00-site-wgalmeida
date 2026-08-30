@@ -312,11 +312,6 @@ export const schemas = {
         '@type': 'City',
         name: 'São Paulo'
       }
-    },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '5.0',
-      reviewCount: '120'
     }
   });
   },

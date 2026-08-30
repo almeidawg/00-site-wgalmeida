@@ -167,7 +167,7 @@ export default function ICCRI() {
               </div>
               <p className="mt-4 text-sm leading-relaxed text-wg-gray">
                 Esta simulação é uma referência editorial guiada. A leitura mais forte acontece quando
-                ela se conecta ao Easy Real State, ao EVF e ao realizado do ObraEasy para indicar se a
+                ela se conecta ao Easy Real Estate, ao EVF e ao realizado do ObraEasy para indicar se a
                 tese ainda está experimental, se já pode ser conduzida de forma assistida ou se começa
                 a ficar mais defensável com base real.
               </p>

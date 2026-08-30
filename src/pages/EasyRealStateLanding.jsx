@@ -20,7 +20,7 @@ const EasyRealStateLanding = () => {
   return (
     <>
       <Seo
-        title="Easy Real State | Inteligência Imobiliária e Avaliação (AVM)"
+        title="Easy Real Estate | Inteligência Imobiliária e Avaliação (AVM)"
         description="Plataforma de inteligência para defesa de valor imobiliário e análise de potencial de mercado."
       />
 
@@ -29,7 +29,7 @@ const EasyRealStateLanding = () => {
         <div className="absolute inset-0 z-0">
           <ResponsiveWebpImage
             src={EASYREALSTATE_HERO_IMAGE}
-            alt="Easy Real State B2B"
+            alt="Easy Real Estate B2B"
             className="w-full h-full object-cover"
             loading="eager"
           />

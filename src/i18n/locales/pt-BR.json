@@ -53,7 +53,8 @@
     "openMenu": "Abrir menu",
     "closeMenu": "Fechar menu",
     "languageLabel": "Idioma",
-    "ctaSpecialist": "Falar com especialista"
+    "ctaSpecialist": "Falar com especialista",
+    "saasMenuLabel": "Abrir menu de produtos SaaS"
   },
   "footer": {
     "description": "Transformamos histórias em espaços que unem técnica, design e propósito.",
@@ -878,7 +879,7 @@
     "obraeasyBenchmarks": "SINAPI, CUB/SINDUSCON e FipeZap entram como referência. O diferencial WG está em transformar mercado, orçamento e obra real em leitura acionável para decisão.",
     "iccriPositioning": "O ICCRI (Índice de Custo de Construção e Reforma Inteligente da WG Almeida) conecta categorias, serviços, composições e leitura operacional da obra. Saiba mais em wgalmeida.com.br/iccri.",
     "marketReferences": "SINAPI, CUB/SINDUSCON, FipeZAP e outras bases entram como referência. A organização da experiência segue a metodologia operacional WG Almeida.",
-    "easyRealStateB2B": "O Easy Real State conecta valor atual, fechamento real e potencial pós-obra no mesmo fluxo para apoiar decisões imobiliárias de maior ticket.",
+    "easyRealStateB2B": "O Easy Real Estate conecta valor atual, fechamento real e potencial pós-obra no mesmo fluxo para apoiar decisões imobiliárias de maior ticket.",
     "easyRealStateConfidence": "A leitura do ativo não precisa parecer absoluta para gerar valor. Ela pode estar em fase experimental, assistida ou já defensável, conforme a força da base real daquele objetivo.",
     "easyRealStateBenchmarks": "A lapidação do motor considera referências nacionais e internacionais de AVM, fechamento real e valuation, mas a vantagem WG está na conexão entre mercado, obra e captura de valor.",
     "obraeasyCapture": "No ecossistema WG, a obra deixa de ser só custo. Ela passa a mostrar quanto da tese do ativo já está sendo protegida, validada ou destravada pela execução real.",

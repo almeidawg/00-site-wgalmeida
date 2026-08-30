@@ -74,6 +74,9 @@ const WGEasy = lazy(() => import('@/pages/WGEasy'))
 // Landing Pages SaaS · ObraEasy e EasyRealState
 const ObraEasyLanding      = lazy(() => import('@/pages/ObraEasyLanding'))
 const EasyRealStateLanding = lazy(() => import('@/pages/EasyRealStateLanding'))
+const EasyFoodLanding      = lazy(() => import('@/pages/EasyFoodLanding'))
+const AcessosLanding       = lazy(() => import('@/pages/AcessosLanding'))
+const EventosLanding       = lazy(() => import('@/pages/EventosLanding'))
 
 // Redirect component para ObraEasy parceiros (externo)
 function ObraEasyParceiroRedirect() {
@@ -351,6 +354,9 @@ function App() {
               <Route path="/parceiros" element={<ObraEasyParceiroRedirect />} />
               <Route path="/corretor" element={<ObraEasyParceiroRedirect />} />
               <Route path="/easy-real-state" element={<EasyRealStateLanding />} />
+              <Route path="/easyfood" element={<EasyFoodLanding />} />
+              <Route path="/acessos" element={<AcessosLanding />} />
+              <Route path="/eventos" element={<EventosLanding />} />
               <Route
                 path="/easyrealstate"
                 element={<Navigate to="/easy-real-state" replace />}
