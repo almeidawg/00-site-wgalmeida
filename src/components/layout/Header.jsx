@@ -156,10 +156,11 @@ const Header = () => {
                 className="relative h-full flex items-center"
                 onMouseEnter={() => setSaaSMenuOpen(true)}
                 onMouseLeave={() => setSaaSMenuOpen(false)}
+                onKeyDown={(event) => { if (event.key === 'Escape') setSaaSMenuOpen(false); }}
               >
                   <button
                     type="button"
-                    onClick={() => setSaaSMenuOpen((open) => !open)}
+                    onClick={() => setSaaSMenuOpen(true)}
                     onFocus={() => setSaaSMenuOpen(true)}
                     aria-label={t('header.saasMenuLabel', 'Abrir menu de produtos SaaS')}
                     aria-expanded={isSaaSMenuOpen}
