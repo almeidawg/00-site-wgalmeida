@@ -138,8 +138,34 @@ const Header = () => {
             <div className={`shrink-0 flex items-center justify-end gap-1.5 md:gap-2 xl:gap-3 transition-all duration-500 ${isScrolled ? 'flex-none' : 'flex-1 lg:flex-none'}`}>
               <div className="hidden 2xl:block"><LanguageSelector /></div>
 
-              <div className="relative h-full flex items-center" onMouseEnter={() => setSaaSMenuOpen(true)} onMouseLeave={() => setSaaSMenuOpen(false)}>
-                  <button type="button" className={`flex items-center justify-center rounded-full border transition-all backdrop-blur-xl hover:bg-white/10 hover:border-black/15 ${iconButtonClass}`}>
+              <button
+                type="button"
+                onClick={() => setIsCartOpen(true)}
+                aria-label={t('header.cartAria')}
+                className={`relative flex items-center justify-center rounded-full border transition-all backdrop-blur-xl hover:bg-white/10 hover:border-black/15 ${iconButtonClass}`}
+              >
+                <ShoppingCartIcon className={`${iconColorClass} transition-all ${isScrolled ? 'h-4 w-4' : 'h-5 w-5'}`} />
+                {totalItems > 0 && (
+                  <span className="absolute -top-1 -right-1 flex h-4 min-w-[1rem] items-center justify-center rounded-full bg-wg-orange px-1 text-[10px] font-bold leading-none text-white">
+                    {totalItems}
+                  </span>
+                )}
+              </button>
+
+              <div
+                className="relative h-full flex items-center"
+                onMouseEnter={() => setSaaSMenuOpen(true)}
+                onMouseLeave={() => setSaaSMenuOpen(false)}
+              >
+                  <button
+                    type="button"
+                    onClick={() => setSaaSMenuOpen((open) => !open)}
+                    onFocus={() => setSaaSMenuOpen(true)}
+                    aria-label={t('header.saasMenuLabel', 'Abrir menu de produtos SaaS')}
+                    aria-expanded={isSaaSMenuOpen}
+                    aria-haspopup="menu"
+                    className={`flex items-center justify-center rounded-full border transition-all backdrop-blur-xl hover:bg-white/10 hover:border-black/15 ${iconButtonClass}`}
+                  >
                       <Cpu className={`${iconColorClass} transition-all ${isScrolled ? 'h-4 w-4' : 'h-5 w-5'}`} />
                   </button>
                   <AnimatePresence>
@@ -177,7 +203,7 @@ const Header = () => {
         {isMobileMenuOpen && (
           <div className="relative z-[95] max-h-[calc(100dvh-var(--header-height)-1rem)] animate-slideDown overflow-y-auto overscroll-contain border-t border-white/[0.12] bg-[rgba(12,16,22,0.86)] backdrop-blur-2xl xl:hidden">
             <nav className="container-custom py-4 space-y-2">
-              {[...navItems, {label: t('header.unitsLabel'), dropdown: unitsItems}, {label: 'SaaS', dropdown: saasItems}].map((item) => (
+              {[...navItems, {label: t('header.unitsLabel'), dropdown: unitsItems}, {label: 'SaaS', dropdown: saasItems}, {label: t('nav.contact'), path: '/contato'}].map((item) => (
                 <div key={item.path || item.label}>
                    <Link to={item.path} className={`block px-4 py-3 transition-colors font-suisse font-light ${location.pathname === item.path ? 'text-white' : 'text-white/70 hover:text-white'}`}>
                       {item.label}
@@ -191,6 +217,9 @@ const Header = () => {
                   )}
                 </div>
               ))}
+              <div className="px-4 pt-2">
+                <LanguageSelector />
+              </div>
             </nav>
           </div>
         )}

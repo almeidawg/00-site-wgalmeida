@@ -53,7 +53,8 @@
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "languageLabel": "Language",
-    "ctaSpecialist": "Talk to a specialist"
+    "ctaSpecialist": "Talk to a specialist",
+    "saasMenuLabel": "Open SaaS products menu"
   },
   "footer": {
     "description": "We transform stories into spaces that unite technique, design, and purpose.",

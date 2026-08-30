@@ -53,7 +53,8 @@
     "openMenu": "Abrir menú",
     "closeMenu": "Cerrar menú",
     "languageLabel": "Idioma",
-    "ctaSpecialist": "Hablar con un especialista"
+    "ctaSpecialist": "Hablar con un especialista",
+    "saasMenuLabel": "Abrir menú de productos SaaS"
   },
   "footer": {
     "description": "Transformamos historias en espacios que unen tecnica, diseno y proposito.",

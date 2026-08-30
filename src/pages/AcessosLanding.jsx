@@ -22,7 +22,8 @@ const AcessosLanding = () => {
 
   return (
     <>
-      <SEO 
+      <SEO
+        pathname="/acessos"
         title="AcessooS | Sistema Operacional para Condomínios"
         description="Gestão de moradores, controle de acesso, ocorrências, reservas e comunicação em uma plataforma integrada para administradoras e síndicos."
       />

@@ -22,7 +22,8 @@ const EventosLanding = () => {
 
   return (
     <>
-      <SEO 
+      <SEO
+        pathname="/eventos"
         title="EventOS | Gestão Completa de Eventos SaaS"
         description="Simplifique a organização e gestão de todos os seus eventos, do credenciamento à análise pós-evento. Plataforma SaaS completa para organizadores e empresas."
       />

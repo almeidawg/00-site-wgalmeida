@@ -184,6 +184,21 @@ export const SEO_CONFIG = {
     "EasyRealState | Calculadora de Valor Imobiliário para Corretores",
     "Use o EasyRealState para ler valor de mercado com base real em São Paulo. AVM comercial, link compartilhável e trial assistido para corretores e imobiliárias."
   ),
+  "/easyfood": page(
+    "/easyfood",
+    "Easy Food | Gestão Inteligente para Food Service",
+    "Plataforma SaaS completa para restaurantes, bares, cafés e padarias. Cardápio digital, PDV, cozinha, estoque e mais."
+  ),
+  "/acessos": page(
+    "/acessos",
+    "AcessooS | Sistema Operacional para Condomínios",
+    "AcessooS conecta acesso, comunicação e gestão do condomínio em um único sistema operacional inteligente."
+  ),
+  "/eventos": page(
+    "/eventos",
+    "EventOS | Gestão Completa de Eventos SaaS",
+    "EventOS centraliza planejamento, fornecedores e execução de eventos em uma plataforma SaaS completa."
+  ),
   "/revista-estilos": page(
     "/revista-estilos",
     "Revista de Estilos 2026: Guia de Decoração e Design de Interiores | WG Almeida",

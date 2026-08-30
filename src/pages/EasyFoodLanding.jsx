@@ -21,7 +21,8 @@ const EasyFoodLanding = () => {
 
   return (
     <>
-      <SEO 
+      <SEO
+        pathname="/easyfood"
         title="Easy Food | Gestão Inteligente para Food Service"
         description="Plataforma SaaS completa para restaurantes, bares, cafés e padarias. Cardápio digital, PDV, cozinha, estoque e mais."
       />
