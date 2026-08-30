@@ -118,6 +118,32 @@ const extractRelatedProducts = (relatedProducts) => {
 	}));
 };
 
+// Compartilhado entre getProducts() e getProduct() - formato de variant unico
+// (produto pricelist_itens sem variacao real) usado pelos dois formatadores
+// de resposta do WG Easy.
+const buildWgEasyVariant = (p, precoEmCentavos) => ({
+	id: `variant-${p.id}`,
+	title: p.nome,
+	image_url: p.imagem_url,
+	sku: p.codigo,
+	price_in_cents: precoEmCentavos,
+	sale_price_in_cents: null,
+	currency: "BRL",
+	currency_info: { code: "BRL", symbol: "R$", template: "R$ $1" },
+	price_formatted: `R$ ${(p.preco || 0).toFixed(2).replace('.', ',')}`,
+	sale_price_formatted: null,
+	manage_inventory: false,
+	weight: null,
+	options: [],
+	inventory_quantity: 999,
+});
+
+// "categoria" e' texto escalar (ex: "Iluminacao"), nao um id formal de
+// collection - usado como collection_id diretamente para filtro/agrupamento
+// funcionar sem depender da tabela pricelist_categorias (inexistente).
+const buildWgEasyCollections = (p) =>
+	p.categoria ? [{ product_id: p.id, collection_id: p.categoria, order: 0 }] : [];
+
 const getLowestPriceVariant = (product) =>
 	product.variants.reduce((acc, curr) => {
 		const accPrice = acc.prices[0]?.sale_amount || acc.prices[0]?.amount || 0;
@@ -363,6 +389,14 @@ export async function getProducts({ids, offset, limit, order, sort_by, is_hidden
 			// Buscar produtos ativos do tipo "produto"
 			// Nota: Removido o "!" do relacionamento para usar LEFT JOIN em vez de INNER JOIN
 			// Isso garante que produtos sem categoria também sejam retornados
+			// NOTA (20260829, auditoria 360): removido o embed "categoria:pricelist_categorias(...)".
+			// Confirmado via erro real do PostgREST (PGRST200 "no relationship found between
+			// pricelist_itens and pricelist_categorias") que essa FK nao existe mais no schema
+			// (mesmo projeto ahlqzzkxuutwoepirpzr, mesma classe de schema drift ja documentada
+			// em useEstatisticasWG.js). "categoria" continua existindo como COLUNA ESCALAR de
+			// texto em pricelist_itens (confirmado em supabase/migrations/
+			// 20260617000000_wgeasy_core_base_new_supabase.sql) - selecionada como texto
+			// simples abaixo, nao mais via relacao/embed inexistente.
 			const { data: produtos, error } = await supabase
 				.from("pricelist_itens")
 				.select(`
@@ -377,10 +411,7 @@ export async function getProducts({ids, offset, limit, order, sort_by, is_hidden
 					avaliacao,
 					unidade,
 					link_produto,
-					categoria:pricelist_categorias(
-						id,
-						nome
-					)
+					categoria
 				`)
 				.eq("tipo", "produto")
 				.eq("ativo", true)
@@ -409,27 +440,8 @@ export async function getProducts({ids, offset, limit, order, sort_by, is_hidden
 					site_product_selection: null,
 					images: p.imagem_url ? [{ url: p.imagem_url, order: 0, type: 'main' }] : [],
 					options: [],
-					variants: [{
-						id: `variant-${p.id}`,
-						title: p.nome,
-						image_url: p.imagem_url,
-						sku: p.codigo,
-						price_in_cents: precoEmCentavos,
-						sale_price_in_cents: null,
-						currency: "BRL",
-						currency_info: { code: "BRL", symbol: "R$", template: "R$ $1" },
-						price_formatted: `R$ ${(p.preco || 0).toFixed(2).replace('.', ',')}`,
-						sale_price_formatted: null,
-						manage_inventory: false,
-						weight: null,
-						options: [],
-						inventory_quantity: 999,
-					}],
-					collections: p.categoria ? [{
-						product_id: p.id,
-						collection_id: p.categoria.id,
-						order: 0
-					}] : [],
+					variants: [buildWgEasyVariant(p, precoEmCentavos)],
+					collections: buildWgEasyCollections(p),
 					additional_info: [],
 					type: { value: "produto" },
 					custom_fields: [],
@@ -494,57 +506,65 @@ export async function getProducts({ids, offset, limit, order, sort_by, is_hidden
 		queryParams.append("to_date", String(to_date));
 	}
 
-	const queryString = queryParams.toString();
-	const url = `${ECOMMERCE_API_URL}/store/${ECOMMERCE_STORE_ID}/products${queryString ? `?${queryString}` : ""}`;
+	// NOTA (20260829): fallback so' e' acionado se a busca Supabase acima
+	// falhar; se o Hostinger tambem estiver fora do ar, degrada para lista
+	// vazia em vez de lancar e derrubar a pagina Store inteira.
+	try {
+		const queryString = queryParams.toString();
+		const url = `${ECOMMERCE_API_URL}/store/${ECOMMERCE_STORE_ID}/products${queryString ? `?${queryString}` : ""}`;
 
-	const response = await fetch(url, {
-		method: "GET",
-		headers: {
-			"Content-Type": "application/json",
-		},
-	});
+		const response = await fetch(url, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
 
-	if (!response.ok) {
-		throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-	}
+		if (!response.ok) {
+			throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+		}
 
-	const data = await response.json();
-	const allProducts = data.products.map((product) => {
-		const { price_in_cents, currency } = getProductPrice(product);
+		const data = await response.json();
+		const allProducts = data.products.map((product) => {
+			const { price_in_cents, currency } = getProductPrice(product);
+			return {
+				id: product.id,
+				title: product.title,
+				subtitle: product.subtitle,
+				ribbon_text: product.ribbon_text,
+				description: product.description,
+				image: product.thumbnail,
+				price_in_cents,
+				currency,
+				purchasable: product.purchasable,
+				order: product.order,
+				site_product_selection: product.site_product_selection,
+				images: extractImages(product.images),
+				options: extractProductOptions(product.options),
+				variants: extractVariants(product.variants),
+				collections: extractCollections(product.product_collections),
+				additional_info: extractAdditionalInfo(product.additional_info),
+				type: { value: product.type?.value || "" },
+				custom_fields: extractCustomFields(product.custom_fields),
+				related_products: extractRelatedProducts(product.related_products),
+				updated_at: product.updated_at,
+			};
+		});
+
+		const comImagem = allProducts.filter(
+			(p) => p.image && typeof p.image === 'string' && p.image.length > 0
+		);
+
 		return {
-			id: product.id,
-			title: product.title,
-			subtitle: product.subtitle,
-			ribbon_text: product.ribbon_text,
-			description: product.description,
-			image: product.thumbnail,
-			price_in_cents,
-			currency,
-			purchasable: product.purchasable,
-			order: product.order,
-			site_product_selection: product.site_product_selection,
-			images: extractImages(product.images),
-			options: extractProductOptions(product.options),
-			variants: extractVariants(product.variants),
-			collections: extractCollections(product.product_collections),
-			additional_info: extractAdditionalInfo(product.additional_info),
-			type: { value: product.type?.value || "" },
-			custom_fields: extractCustomFields(product.custom_fields),
-			related_products: extractRelatedProducts(product.related_products),
-			updated_at: product.updated_at,
+			count: comImagem.length,
+			offset: data.offset,
+			limit: data.limit,
+			products: comImagem,
 		};
-	});
-
-	const comImagem = allProducts.filter(
-		(p) => p.image && typeof p.image === 'string' && p.image.length > 0
-	);
-
-	return {
-		count: comImagem.length,
-		offset: data.offset,
-		limit: data.limit,
-		products: comImagem,
-	};
+	} catch (err) {
+		console.error("Erro nos produtos Hostinger:", err);
+		return { count: 0, offset: 0, limit: 0, products: [] };
+	}
 }
 
 /**
@@ -573,6 +593,8 @@ export async function getProduct(id, {field} = {}) {
 	// ============================================================
 	if (USE_SUPABASE) {
 		try {
+			// NOTA (20260829): mesmo fix de getProducts() acima - embed removido por FK ausente,
+			// "categoria" selecionada como coluna escalar de texto.
 			const { data: p, error } = await supabase
 				.from("pricelist_itens")
 				.select(`
@@ -587,12 +609,9 @@ export async function getProduct(id, {field} = {}) {
 					avaliacao,
 					unidade,
 					link_produto,
+					categoria,
 					created_at,
-					updated_at,
-					categoria:pricelist_categorias(
-						id,
-						nome
-					)
+					updated_at
 				`)
 				.eq("id", id)
 				.single();
@@ -623,27 +642,8 @@ export async function getProduct(id, {field} = {}) {
 				site_product_selection: null,
 				images: p.imagem_url ? [{ url: p.imagem_url, order: 0, type: 'main' }] : [],
 				options: [],
-				variants: [{
-					id: `variant-${p.id}`,
-					title: p.nome,
-					image_url: p.imagem_url,
-					sku: p.codigo,
-					price_in_cents: precoEmCentavos,
-					sale_price_in_cents: null,
-					currency: "BRL",
-					currency_info: { code: "BRL", symbol: "R$", template: "R$ $1" },
-					price_formatted: `R$ ${(p.preco || 0).toFixed(2).replace('.', ',')}`,
-					sale_price_formatted: null,
-					manage_inventory: false,
-					weight: null,
-					options: [],
-					inventory_quantity: 999,
-				}],
-				collections: p.categoria ? [{
-					product_id: p.id,
-					collection_id: p.categoria.id,
-					order: 0
-				}] : [],
+				variants: [buildWgEasyVariant(p, precoEmCentavos)],
+				collections: buildWgEasyCollections(p),
 				additional_info: [],
 				type: { value: "produto" },
 				custom_fields: [],
@@ -837,34 +837,43 @@ export async function getCategories() {
 		}
 	}
 
-	const url = `${ECOMMERCE_API_URL}/store/${ECOMMERCE_STORE_ID}/collections`;
+	// NOTA (20260829): fallback Hostinger tambem pode estar fora do ar - se
+	// as duas fontes falharem, degrada para categorias vazias em vez de
+	// lancar e derrubar o Promise.all de getProducts()+getCategories() na
+	// pagina Store inteira.
+	try {
+		const url = `${ECOMMERCE_API_URL}/store/${ECOMMERCE_STORE_ID}/collections`;
 
-	const response = await fetch(url, {
-		method: "GET",
-		headers: {
-			"Content-Type": "application/json",
-		},
-	});
+		const response = await fetch(url, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
 
-	if (!response.ok) {
-		throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+		if (!response.ok) {
+			throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+		}
+
+		const data = await response.json();
+
+		return {
+			categories: (data.collections || []).map((collection) => ({
+				id: collection.id,
+				title: collection.title,
+				image_url: collection.image_url,
+				store_id: collection.store_id,
+				created_at: collection.created_at,
+				updated_at: collection.updated_at,
+				deleted_at: collection.deleted_at,
+				metadata: collection.metadata,
+			})),
+			count: data.count,
+		};
+	} catch (err) {
+		console.error("Erro nas categorias Hostinger:", err);
+		return { categories: [], count: 0 };
 	}
-
-	const data = await response.json();
-
-	return {
-		categories: (data.collections || []).map((collection) => ({
-			id: collection.id,
-			title: collection.title,
-			image_url: collection.image_url,
-			store_id: collection.store_id,
-			created_at: collection.created_at,
-			updated_at: collection.updated_at,
-			deleted_at: collection.deleted_at,
-			metadata: collection.metadata,
-		})),
-		count: data.count,
-	};
 }
 
 async function getCheckoutLanguage() {
