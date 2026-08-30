@@ -367,8 +367,10 @@ export async function getProducts({ids, offset, limit, order, sort_by, is_hidden
 			// Confirmado via erro real do PostgREST (PGRST200 "no relationship found between
 			// pricelist_itens and pricelist_categorias") que essa FK nao existe mais no schema
 			// (mesmo projeto ahlqzzkxuutwoepirpzr, mesma classe de schema drift ja documentada
-			// em useEstatisticasWG.js). Sem o embed, os produtos reais voltam a carregar; sem
-			// ele, a pagina inteira falhava e caia no fallback Hostinger (tambem morto, 404).
+			// em useEstatisticasWG.js). "categoria" continua existindo como COLUNA ESCALAR de
+			// texto em pricelist_itens (confirmado em supabase/migrations/
+			// 20260617000000_wgeasy_core_base_new_supabase.sql) - selecionada como texto
+			// simples abaixo, nao mais via relacao/embed inexistente.
 			const { data: produtos, error } = await supabase
 				.from("pricelist_itens")
 				.select(`
@@ -382,7 +384,8 @@ export async function getProducts({ids, offset, limit, order, sort_by, is_hidden
 					modelo,
 					avaliacao,
 					unidade,
-					link_produto
+					link_produto,
+					categoria
 				`)
 				.eq("tipo", "produto")
 				.eq("ativo", true)
@@ -427,9 +430,12 @@ export async function getProducts({ids, offset, limit, order, sort_by, is_hidden
 						options: [],
 						inventory_quantity: 999,
 					}],
+					// "categoria" e' texto escalar (ex: "Iluminacao"), nao um id formal de
+					// collection - usado como collection_id diretamente para filtro/agrupamento
+					// funcionar sem depender da tabela pricelist_categorias (inexistente).
 					collections: p.categoria ? [{
 						product_id: p.id,
-						collection_id: p.categoria.id,
+						collection_id: p.categoria,
 						order: 0
 					}] : [],
 					additional_info: [],
@@ -583,7 +589,8 @@ export async function getProduct(id, {field} = {}) {
 	// ============================================================
 	if (USE_SUPABASE) {
 		try {
-			// NOTA (20260829): mesmo fix de getProducts() acima - embed removido por FK ausente.
+			// NOTA (20260829): mesmo fix de getProducts() acima - embed removido por FK ausente,
+			// "categoria" selecionada como coluna escalar de texto.
 			const { data: p, error } = await supabase
 				.from("pricelist_itens")
 				.select(`
@@ -598,6 +605,7 @@ export async function getProduct(id, {field} = {}) {
 					avaliacao,
 					unidade,
 					link_produto,
+					categoria,
 					created_at,
 					updated_at
 				`)
@@ -648,7 +656,7 @@ export async function getProduct(id, {field} = {}) {
 				}],
 				collections: p.categoria ? [{
 					product_id: p.id,
-					collection_id: p.categoria.id,
+					collection_id: p.categoria,
 					order: 0
 				}] : [],
 				additional_info: [],

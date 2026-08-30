@@ -84,6 +84,12 @@ const getCategoryLabel = (product, categoryMap) => {
     return categoryMap.get(primaryCollectionId);
   }
 
+  // NOTA (20260829): produtos WG Easy (pricelist_itens.categoria) chegam com
+  // texto legivel direto como collection_id (nao um id formal de uma tabela
+  // de categorias, que nao existe mais) - usar o proprio valor como label
+  // em vez de cair no rotulo generico quando nao ha match no categoryMap.
+  if (primaryCollectionId) return primaryCollectionId;
+
   return product?.type?.value || 'Coleção';
 };
 
