@@ -118,6 +118,32 @@ const extractRelatedProducts = (relatedProducts) => {
 	}));
 };
 
+// Compartilhado entre getProducts() e getProduct() - formato de variant unico
+// (produto pricelist_itens sem variacao real) usado pelos dois formatadores
+// de resposta do WG Easy.
+const buildWgEasyVariant = (p, precoEmCentavos) => ({
+	id: `variant-${p.id}`,
+	title: p.nome,
+	image_url: p.imagem_url,
+	sku: p.codigo,
+	price_in_cents: precoEmCentavos,
+	sale_price_in_cents: null,
+	currency: "BRL",
+	currency_info: { code: "BRL", symbol: "R$", template: "R$ $1" },
+	price_formatted: `R$ ${(p.preco || 0).toFixed(2).replace('.', ',')}`,
+	sale_price_formatted: null,
+	manage_inventory: false,
+	weight: null,
+	options: [],
+	inventory_quantity: 999,
+});
+
+// "categoria" e' texto escalar (ex: "Iluminacao"), nao um id formal de
+// collection - usado como collection_id diretamente para filtro/agrupamento
+// funcionar sem depender da tabela pricelist_categorias (inexistente).
+const buildWgEasyCollections = (p) =>
+	p.categoria ? [{ product_id: p.id, collection_id: p.categoria, order: 0 }] : [];
+
 const getLowestPriceVariant = (product) =>
 	product.variants.reduce((acc, curr) => {
 		const accPrice = acc.prices[0]?.sale_amount || acc.prices[0]?.amount || 0;
@@ -414,30 +440,8 @@ export async function getProducts({ids, offset, limit, order, sort_by, is_hidden
 					site_product_selection: null,
 					images: p.imagem_url ? [{ url: p.imagem_url, order: 0, type: 'main' }] : [],
 					options: [],
-					variants: [{
-						id: `variant-${p.id}`,
-						title: p.nome,
-						image_url: p.imagem_url,
-						sku: p.codigo,
-						price_in_cents: precoEmCentavos,
-						sale_price_in_cents: null,
-						currency: "BRL",
-						currency_info: { code: "BRL", symbol: "R$", template: "R$ $1" },
-						price_formatted: `R$ ${(p.preco || 0).toFixed(2).replace('.', ',')}`,
-						sale_price_formatted: null,
-						manage_inventory: false,
-						weight: null,
-						options: [],
-						inventory_quantity: 999,
-					}],
-					// "categoria" e' texto escalar (ex: "Iluminacao"), nao um id formal de
-					// collection - usado como collection_id diretamente para filtro/agrupamento
-					// funcionar sem depender da tabela pricelist_categorias (inexistente).
-					collections: p.categoria ? [{
-						product_id: p.id,
-						collection_id: p.categoria,
-						order: 0
-					}] : [],
+					variants: [buildWgEasyVariant(p, precoEmCentavos)],
+					collections: buildWgEasyCollections(p),
 					additional_info: [],
 					type: { value: "produto" },
 					custom_fields: [],
@@ -638,27 +642,8 @@ export async function getProduct(id, {field} = {}) {
 				site_product_selection: null,
 				images: p.imagem_url ? [{ url: p.imagem_url, order: 0, type: 'main' }] : [],
 				options: [],
-				variants: [{
-					id: `variant-${p.id}`,
-					title: p.nome,
-					image_url: p.imagem_url,
-					sku: p.codigo,
-					price_in_cents: precoEmCentavos,
-					sale_price_in_cents: null,
-					currency: "BRL",
-					currency_info: { code: "BRL", symbol: "R$", template: "R$ $1" },
-					price_formatted: `R$ ${(p.preco || 0).toFixed(2).replace('.', ',')}`,
-					sale_price_formatted: null,
-					manage_inventory: false,
-					weight: null,
-					options: [],
-					inventory_quantity: 999,
-				}],
-				collections: p.categoria ? [{
-					product_id: p.id,
-					collection_id: p.categoria,
-					order: 0
-				}] : [],
+				variants: [buildWgEasyVariant(p, precoEmCentavos)],
+				collections: buildWgEasyCollections(p),
 				additional_info: [],
 				type: { value: "produto" },
 				custom_fields: [],
