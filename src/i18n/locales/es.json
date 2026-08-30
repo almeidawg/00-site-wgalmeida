@@ -114,6 +114,22 @@
       "title": "Blog & Revista de Estilos | Grupo WG Almeida",
       "description": "Inspiracion, tendencias y conocimiento tecnico sobre arquitectura y diseno de interiores."
     },
+    "login": {
+      "title": "Iniciar sesion | Grupo WG Almeida",
+      "description": "Accede a tu cuenta para seguir propuestas, proyectos y el sistema WG Easy."
+    },
+    "register": {
+      "title": "Crear Cuenta | Grupo WG Almeida",
+      "description": "Crea tu cuenta para seguir propuestas, proyectos y compras en Grupo WG Almeida."
+    },
+    "account": {
+      "title": "Mi Cuenta | Grupo WG Almeida",
+      "description": "Gestiona tus datos, pedidos y seguimiento de proyectos en Grupo WG Almeida."
+    },
+    "success": {
+      "title": "Pedido Confirmado",
+      "description": "Tu pedido fue confirmado con exito. Pronto nos pondremos en contacto con los proximos pasos."
+    },
     "contact": {
       "title": "Contacto | Grupo WG Almeida",
       "description": "Hable con Grupo WG Almeida sobre arquitectura, ingenieria, carpintería a medida y obras llave en mano de alto nivel en Sao Paulo.",
