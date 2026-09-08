@@ -29,14 +29,20 @@ const literalRouteMatches = (appSource = '') =>
     .map((match) => match[1])
     .filter((route) => route && !route.includes(':') && !route.includes('*'))
 
+const redirectOnlyRouteMatches = (appSource = '') =>
+  [...String(appSource).matchAll(/<Route\b(?:(?!<Route\b)[\s\S])*?\bpath="([^"]+)"(?:(?!<Route\b)[\s\S])*?\belement=\{<Navigate\b(?:(?!<Route\b)[\s\S])*?\/>\s*\}\s*\/>/g)]
+    .map((match) => match[1])
+
 export const buildCanonicalRouteSet = ({
   appSource = '',
   blogSlugs = [],
   styleSlugs = [],
 } = {}) => {
   const routes = new Set(['/'])
+  const redirectOnlyRoutes = new Set(redirectOnlyRouteMatches(appSource))
 
   for (const route of literalRouteMatches(appSource)) {
+    if (redirectOnlyRoutes.has(route)) continue
     const normalized = route === '/' ? '/' : `/${String(route).replace(/^\/+|\/+$/g, '')}`
     routes.add(normalized)
   }
@@ -62,6 +68,11 @@ const routeFromLoc = (loc) => {
     return null
   }
 }
+
+const sitemapRoutes = (xml = '') =>
+  [...String(xml).matchAll(/<loc>(.*?)<\/loc>/gim)]
+    .map((match) => routeFromLoc(match[1]?.trim()))
+    .filter(Boolean)
 
 export const rewriteSitemapXml = (xml = '', canonicalRoutes = new Set(), lastmod = new Date().toISOString().slice(0, 10)) => {
   const blocks = [...String(xml).matchAll(/<url>\s*[\s\S]*?<\/url>/gim)]
@@ -98,6 +109,34 @@ const walkHtmlFiles = (dir, files = []) => {
   return files
 }
 
+export const removeRejectedRouteArtifacts = (outputRoot, rejectedRoutes = []) => {
+  let removed = 0
+
+  for (const route of rejectedRoutes) {
+    if (!route || route === '/') continue
+    const normalized = String(route).replace(/^\/+|\/+$/g, '')
+    if (!normalized) continue
+
+    const candidates = [
+      path.join(outputRoot, normalized, 'index.html'),
+      path.join(outputRoot, `${normalized}.html`),
+    ]
+
+    for (const candidate of candidates) {
+      if (!fs.existsSync(candidate)) continue
+      fs.unlinkSync(candidate)
+      removed += 1
+    }
+
+    const routeDir = path.join(outputRoot, normalized)
+    if (fs.existsSync(routeDir) && fs.statSync(routeDir).isDirectory() && fs.readdirSync(routeDir).length === 0) {
+      fs.rmdirSync(routeDir)
+    }
+  }
+
+  return removed
+}
+
 export const postprocessSeoBuild = ({ root = process.cwd(), outDir = 'dist' } = {}) => {
   const outputRoot = path.resolve(root, outDir)
   const appSource = fs.readFileSync(path.join(root, 'src', 'App.jsx'), 'utf8')
@@ -121,14 +160,21 @@ export const postprocessSeoBuild = ({ root = process.cwd(), outDir = 'dist' } = 
     path.join(root, 'public', 'sitemap.xml'),
   ]
 
-  let sitemapRoutes = 0
+  let retainedSitemapRoutes = 0
+  const rejectedRoutes = new Set()
+
   for (const sitemapPath of sitemapCandidates) {
     if (!fs.existsSync(sitemapPath)) continue
     const before = fs.readFileSync(sitemapPath, 'utf8')
+    for (const route of sitemapRoutes(before)) {
+      if (!canonicalRoutes.has(route)) rejectedRoutes.add(route)
+    }
     const after = rewriteSitemapXml(before, canonicalRoutes, today)
-    sitemapRoutes = [...after.matchAll(/<loc>/g)].length
+    retainedSitemapRoutes = [...after.matchAll(/<loc>/g)].length
     fs.writeFileSync(sitemapPath, after)
   }
+
+  const removedArtifacts = removeRejectedRouteArtifacts(outputRoot, rejectedRoutes)
 
   const unresolved = []
   for (const htmlPath of walkHtmlFiles(outputRoot)) {
@@ -140,8 +186,14 @@ export const postprocessSeoBuild = ({ root = process.cwd(), outDir = 'dist' } = 
     throw new Error(`Unresolved commercial tokens remain in generated HTML: ${unresolved.join(', ')}`)
   }
 
-  console.log(`SEO postprocess: ${htmlFilesChanged} HTML files normalized; ${sitemapRoutes} sitemap routes retained.`)
-  return { htmlFilesChanged, sitemapRoutes, canonicalRoutes, baseUrl: BASE_URL }
+  console.log(`SEO postprocess: ${htmlFilesChanged} HTML files normalized; ${retainedSitemapRoutes} sitemap routes retained; ${removedArtifacts} rejected HTML artifacts removed.`)
+  return {
+    htmlFilesChanged,
+    sitemapRoutes: retainedSitemapRoutes,
+    removedArtifacts,
+    canonicalRoutes,
+    baseUrl: BASE_URL,
+  }
 }
 
 const invokedDirectly = process.argv[1] && path.resolve(process.argv[1]) === path.resolve(new URL(import.meta.url).pathname)
