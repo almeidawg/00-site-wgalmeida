@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "vite --host :: --port 3000",
     "assets:prepare": "node ./tools/generate-style-webp-from-svg.mjs && node ./tools/generate-about-webp.mjs",
-    "build": "node ./tools/generate-style-webp-from-svg.mjs && node ./tools/generate-about-webp.mjs && node ./build-seo-og.mjs && vite build && node ./tools/prune-unused-style-svg.mjs dist && node ./tools/prune-unused-public-media.mjs dist && node ./build-seo-routes.mjs dist",
-    "build:local": "node ./tools/generate-style-webp-from-svg.mjs && node ./tools/generate-about-webp.mjs && node ./build-seo-og.mjs && vite build --outDir dist-local --emptyOutDir false --clearScreen false && node ./tools/prune-unused-style-svg.mjs dist-local && node ./tools/prune-unused-public-media.mjs dist-local && node ./build-seo-routes.mjs dist-local",
+    "build": "node ./tools/generate-style-webp-from-svg.mjs && node ./tools/generate-about-webp.mjs && node ./build-seo-og.mjs && vite build && node ./tools/prune-unused-style-svg.mjs dist && node ./tools/prune-unused-public-media.mjs dist && node ./build-seo-routes.mjs dist && node ./tools/seo-postprocess.mjs dist",
+    "build:local": "node ./tools/generate-style-webp-from-svg.mjs && node ./tools/generate-about-webp.mjs && node ./build-seo-og.mjs && vite build --outDir dist-local --emptyOutDir false --clearScreen false && node ./tools/prune-unused-style-svg.mjs dist-local && node ./tools/prune-unused-public-media.mjs dist-local && node ./build-seo-routes.mjs dist-local && node ./tools/seo-postprocess.mjs dist-local",
     "analyze": "ANALYZE=true vite build",
     "seo:og": "node ./build-seo-og.mjs",
     "seo:routes:local": "node ./build-seo-routes.mjs dist-local",
