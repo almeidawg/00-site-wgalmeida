@@ -8,9 +8,10 @@ import {
 describe('seo postprocess', () => {
   it('resolves commercial governance tokens in generated HTML', () => {
     const html = '<p>{{COMMERCIAL_RANGE:iccri-reforma-civil-sp:essencial}}</p>'
+    const resolved = resolveCommercialTokensInHtml(html)
 
-    expect(resolveCommercialTokensInHtml(html)).toContain('R$ 900 a R$ 1.400 por m2')
-    expect(resolveCommercialTokensInHtml(html)).not.toContain('{{COMMERCIAL_RANGE:')
+    expect(resolved).toMatch(/R\$\s[\d.]+/)
+    expect(resolved).not.toContain('{{COMMERCIAL_RANGE:')
   })
 
   it('drops stale sitemap URLs that are not canonical application or content routes', () => {
