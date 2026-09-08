@@ -1,6 +1,5 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { SEO_CONFIG } from '../src/data/seoConfig.js'
 import { resolveCommercialTokens } from '../src/data/commercialGovernance.js'
 
 const BASE_URL = 'https://wgalmeida.com.br'
@@ -26,7 +25,7 @@ export const resolveCommercialTokensInHtml = (html = '') =>
   resolveCommercialTokens(normalizeMangledCommercialTokens(html))
 
 const literalRouteMatches = (appSource = '') =>
-  [...String(appSource).matchAll(/<Route\s+path="([^"]+)"/g)]
+  [...String(appSource).matchAll(/<Route\b[^>]*\bpath="([^"]+)"/g)]
     .map((match) => match[1])
     .filter((route) => route && !route.includes(':') && !route.includes('*'))
 
@@ -34,12 +33,10 @@ export const buildCanonicalRouteSet = ({
   appSource = '',
   blogSlugs = [],
   styleSlugs = [],
-  seoRoutes = [],
 } = {}) => {
   const routes = new Set(['/'])
 
-  for (const route of [...literalRouteMatches(appSource), ...seoRoutes]) {
-    if (!route || route.includes(':') || route.includes('*')) continue
+  for (const route of literalRouteMatches(appSource)) {
     const normalized = route === '/' ? '/' : `/${String(route).replace(/^\/+|\/+$/g, '')}`
     routes.add(normalized)
   }
@@ -106,12 +103,7 @@ export const postprocessSeoBuild = ({ root = process.cwd(), outDir = 'dist' } = 
   const appSource = fs.readFileSync(path.join(root, 'src', 'App.jsx'), 'utf8')
   const blogSlugs = listSlugs(path.join(root, 'src', 'content', 'blog'))
   const styleSlugs = listSlugs(path.join(root, 'src', 'content', 'estilos'))
-  const canonicalRoutes = buildCanonicalRouteSet({
-    appSource,
-    blogSlugs,
-    styleSlugs,
-    seoRoutes: Object.keys(SEO_CONFIG),
-  })
+  const canonicalRoutes = buildCanonicalRouteSet({ appSource, blogSlugs, styleSlugs })
 
   let htmlFilesChanged = 0
   for (const htmlPath of walkHtmlFiles(outputRoot)) {
@@ -141,9 +133,7 @@ export const postprocessSeoBuild = ({ root = process.cwd(), outDir = 'dist' } = 
   const unresolved = []
   for (const htmlPath of walkHtmlFiles(outputRoot)) {
     const html = fs.readFileSync(htmlPath, 'utf8')
-    if (/\{\{COMMERCIAL[A-Z_]*:/.test(html)) {
-      unresolved.push(path.relative(root, htmlPath))
-    }
+    if (/\{\{COMMERCIAL[A-Z_]*:/.test(html)) unresolved.push(path.relative(root, htmlPath))
   }
 
   if (unresolved.length) {
