@@ -1,15 +1,28 @@
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
+import { pathToFileURL } from 'node:url'
 import { describe, expect, it } from 'vitest'
 import {
   buildCanonicalRouteSet,
+  isDirectExecution,
   removeRejectedRouteArtifacts,
   resolveCommercialTokensInHtml,
   rewriteSitemapXml,
 } from '../../tools/seo-postprocess.mjs'
 
 describe('seo postprocess', () => {
+  it('runs SEO postprocess as part of verify:full', () => {
+    const pkg = JSON.parse(fs.readFileSync(path.resolve('package.json'), 'utf8'))
+
+    expect(pkg.scripts['verify:full']).toContain('node ./tools/seo-postprocess.mjs dist')
+  })
+  it('detects direct CLI execution from a filesystem path and module URL', () => {
+    const argvPath = path.resolve('tools/seo-postprocess.mjs')
+    const moduleUrl = pathToFileURL(argvPath).href
+
+    expect(isDirectExecution(argvPath, moduleUrl)).toBe(true)
+  })
   it('resolves commercial governance tokens in generated HTML', () => {
     const html = '<p>{{COMMERCIAL_RANGE:iccri-reforma-civil-sp:essencial}}</p>'
     const resolved = resolveCommercialTokensInHtml(html)

@@ -1,5 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { resolveCommercialTokens } from '../src/data/commercialGovernance.js'
 
 const BASE_URL = 'https://wgalmeida.com.br'
@@ -196,7 +197,9 @@ export const postprocessSeoBuild = ({ root = process.cwd(), outDir = 'dist' } = 
   }
 }
 
-const invokedDirectly = process.argv[1] && path.resolve(process.argv[1]) === path.resolve(new URL(import.meta.url).pathname)
-if (invokedDirectly) {
+export const isDirectExecution = (argvPath = process.argv[1], moduleUrl = import.meta.url) =>
+  Boolean(argvPath) && path.resolve(argvPath) === path.resolve(fileURLToPath(moduleUrl))
+
+if (isDirectExecution()) {
   postprocessSeoBuild({ outDir: process.argv[2] || process.env.BUILD_OUT_DIR || 'dist' })
 }
