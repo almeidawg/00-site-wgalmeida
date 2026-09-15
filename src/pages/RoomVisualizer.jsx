@@ -196,7 +196,7 @@ const RoomVisualizerContent = () => {
                 to="/buildtech"
                 className="wg-overlay-button-dark rounded-full"
               >
-                Ver frente WG Build.tech
+                Ver frente WG/Build.tech
               </Link>
             </div>
           </motion.div>

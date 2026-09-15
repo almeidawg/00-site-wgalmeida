@@ -231,14 +231,14 @@ const BuildTech = () => {
   };
 
   const selectedLabel = selectedModules.map((module) => module.title).join(', ');
-  const whatsappMessage = `Quero montar um projeto WG Build.tech com estes módulos: ${selectedLabel}`;
+  const whatsappMessage = `Quero montar um projeto WG/Build.tech com estes módulos: ${selectedLabel}`;
 
   return (
     <>
       <SEO
         pathname="/buildtech"
-        title="WG Build.tech | Sistemas, IA e automação para operações reais"
-        description="Nascida da operação do Grupo WG Almeida, a WG Build.tech transforma conhecimento operacional em sistemas, automações, IA e produtos digitais."
+        title="WG/Build.tech | Sistemas, IA e automação para operações reais"
+        description="Nascida da operação do Grupo WG Almeida, a WG/Build.tech transforma conhecimento operacional em sistemas, automações, IA e produtos digitais."
         schema={[
           SCHEMAS.knowledgeGraph,
           SCHEMAS.softwareBuildTech,
@@ -248,7 +248,7 @@ const BuildTech = () => {
           {
             '@context': 'https://schema.org',
             '@type': 'ItemList',
-            name: 'Módulos WG Build.tech',
+            name: 'Módulos WG/Build.tech',
             itemListElement: modules.map((module, index) => ({
               '@type': 'ListItem',
               position: index + 1,
@@ -259,8 +259,8 @@ const BuildTech = () => {
           },
           SCHEMAS.faq([
             {
-              question: 'O que é a WG Build.tech?',
-              answer: 'A WG Build.tech é o núcleo tecnológico do Grupo WG Almeida. Criada em 2025 a partir de problemas vividos na operação, transforma conhecimento operacional em sistemas, automações, IA e produtos digitais.',
+              question: 'O que é a WG/Build.tech?',
+              answer: 'A WG/Build.tech é o núcleo tecnológico do Grupo WG Almeida. Criada em 2025 a partir de problemas vividos na operação, transforma conhecimento operacional em sistemas, automações, IA e produtos digitais.',
             },
             {
               question: 'Como funciona a metodologia S T A R?',
@@ -279,7 +279,7 @@ const BuildTech = () => {
         >
           <ResponsiveWebpImage
             className="h-full w-full object-cover"
-            alt="Painel tecnológico da WG Build.tech"
+            alt="Painel tecnológico da WG/Build.tech"
             src={BUILDTECH_HERO_IMAGE}
             srcSet={BUILDTECH_HERO_SRCSET}
             width="1920"
@@ -318,7 +318,7 @@ const BuildTech = () => {
               transition={{ duration: 0.72, delay: 0.28 }}
               className="wg-page-hero-subtitle max-w-3xl"
             >
-              Desde 2011, o Grupo WG Almeida vive problemas reais de projeto, execução e gestão. Em 2025, essa experiência deu origem à WG Build.tech: o núcleo que transforma conhecimento operacional em sistemas, automações, IA e produtos digitais.
+              Desde 2011, o Grupo WG Almeida vive problemas reais de projeto, execução e gestão. Em 2025, essa experiência deu origem à WG/Build.tech: o núcleo que transforma conhecimento operacional em sistemas, automações, IA e produtos digitais.
             </motion.p>
 
             <motion.div
@@ -354,7 +354,7 @@ const BuildTech = () => {
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <a
-                href={`https://wa.me/${COMPANY.phoneRaw.replace(/\D/g, '')}?text=${encodeURIComponent('Quero aprovar o site funcional da WG Build.tech')}`}
+                href={`https://wa.me/${COMPANY.phoneRaw.replace(/\D/g, '')}?text=${encodeURIComponent('Quero aprovar o site funcional da WG/Build.tech')}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackWhatsappClick({ context: 'buildtech_hero', target: COMPANY.phoneRaw })}
@@ -377,7 +377,7 @@ const BuildTech = () => {
             </div>
             <div className="space-y-4 text-sm md:text-base leading-relaxed text-wg-gray">
               <p>Desde 2011, o Grupo WG Almeida opera arquitetura, engenharia, marcenaria e entregas integradas. Essa rotina expôs, por anos, o custo de processos fragmentados, informação espalhada e ferramentas que não conversavam entre si.</p>
-              <p>Em 2025 nasceu a WG Build.tech para construir a tecnologia que o próprio Grupo precisava. O que começou resolvendo problemas internos evoluiu para um método: combinar profundidade operacional, produto, software, dados, IA e automação.</p>
+              <p>Em 2025 nasceu a WG/Build.tech para construir a tecnologia que o próprio Grupo precisava. O que começou resolvendo problemas internos evoluiu para um método: combinar profundidade operacional, produto, software, dados, IA e automação.</p>
               <p>Quando entramos em outra vertical, não presumimos conhecer aquele mercado. Trabalhamos com especialistas que vivem o problema e transformamos esse conhecimento em processo, protótipo, validação e produto escalável.</p>
             </div>
           </div>
@@ -667,7 +667,7 @@ const BuildTech = () => {
               <div className="rounded-lg border border-white/10 bg-wg-black/40 p-5">
                 {[
                   `Domínio oficial: ${PRODUCT_URLS.buildtech.replace(/^https?:\/\//, '')}`,
-                  'Nome oficial: WG Build.tech',
+                  'Nome oficial: WG/Build.tech',
                   'Apelidos operacionais: BuildTech e projeto BT',
                   'Validação final: desktop, mobile, console, links e formulário',
                 ].map((item) => (

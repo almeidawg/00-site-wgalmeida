@@ -104,7 +104,7 @@
   "seo": {
     "home": {
       "title": "Architecture, Engineering, Carpentry and Technology | Grupo WG Almeida",
-      "description": "Since 2011, Grupo WG Almeida has integrated architecture, engineering, carpentry, Turnkey delivery and technology through WG Build.tech."
+      "description": "Since 2011, Grupo WG Almeida has integrated architecture, engineering, carpentry, Turnkey delivery and technology through WG/Build.tech."
     },
     "proposal": {
       "title": "Request Your Proposal | Grupo WG Almeida",
@@ -146,7 +146,7 @@
       "eyebrow": "Grupo WG Almeida · Since 2011",
       "title": "Architecture · Engineering · Carpentry · Technology.",
       "subtitle": "An ecosystem connecting the physical world to technology.",
-      "support": "Since 2011, we have integrated design, execution and management. In 2025, that experience gained a technology arm: WG Build.tech, turning real operational problems into systems, automation and digital products.",
+      "support": "Since 2011, we have integrated design, execution and management. In 2025, that experience gained a technology arm: WG/Build.tech, turning real operational problems into systems, automation and digital products.",
       "subheadline": "Since 2011, connecting design, execution, management and technology under one operating logic.",
       "ctaPrimary": "Financial Feasibility Study",
       "ctaSecondary": "Explore Premium Turn Key Process"
@@ -161,15 +161,15 @@
       "kicker": "Since 2011, building and evolving",
       "title": "From design to execution. From operations to technology.",
       "paragraphs": [
-        "Grupo WG Almeida connects WG Architecture, WG Engineering, WG Carpentry and WG Build.tech under one vision: reduce fragmentation across people, processes, decisions and delivery.",
-        "Turnkey connects physical execution. WG Build.tech turns operational knowledge into systems, automation, AI and digital products."
+        "Grupo WG Almeida connects WG Architecture, WG Engineering, WG Carpentry and WG/Build.tech under one vision: reduce fragmentation across people, processes, decisions and delivery.",
+        "Turnkey connects physical execution. WG/Build.tech turns operational knowledge into systems, automation, AI and digital products."
       ]
     },
     "stats": {
       "since": "start of our journey",
       "nuclei": "active nuclei",
       "turnkey": "end-to-end integration",
-      "buildtech": "WG Build.tech founded"
+      "buildtech": "WG/Build.tech founded"
     },
     "units": {
       "kicker": "Our Units",
@@ -475,7 +475,7 @@
         { "name": "WG Architecture", "description": "Concept, briefing, layout, aesthetics, and spatial experience.", "color": "#5E9B94" },
         { "name": "WG Engineering", "description": "Planning, feasibility, execution, technical control, and construction.", "color": "#2B4580" },
         { "name": "WG Carpentry", "description": "Custom furniture, finishing, manufacturing, and installation.", "color": "#8B5E3C" },
-        { "name": "WG Build.tech", "description": "Technology core. Systems that think: digital products and automation applied to the construction journey.", "color": "#00AB26" }
+        { "name": "WG/Build.tech", "description": "Technology core. Systems that think: digital products and automation applied to the construction journey.", "color": "#00AB26" }
       ]
     },
     "turnKey": {
@@ -871,7 +871,7 @@
     "contexts": {
       "moodboard": "You arrived through the moodboard journey. Let's translate this aesthetic direction into a briefing, proposal, and real next step.",
       "room": "You arrived through the room visualizer. Now we can transform the visual reading into scope, proposal, or assisted service.",
-      "buildtech": "You arrived through the WG Build.tech front. Let's frame this experience as a solution applied to your commercial or operational context.",
+      "buildtech": "You arrived through the WG/Build.tech front. Let's frame this experience as a solution applied to your commercial or operational context.",
       "process": "You arrived through the process methodology. Now let's connect this reading to an assisted service and the most coherent proposal.",
       "architecture": "You arrived through the architecture front. We can use the visual experience layer to accelerate aesthetic alignment, briefing, and approval.",
       "engineering": "You arrived through the engineering front. Let's connect the visual decision to execution logic, critical purchases, and front releases.",
@@ -1020,14 +1020,14 @@
       "since": "since the beginning",
       "nuclei": "active nuclei",
       "turnkey": "design and execution integration",
-      "buildtech": "WG Build.tech founded"
+      "buildtech": "WG/Build.tech founded"
     },
     "story": {
       "title": "From physical operations to technology, without losing our origin.",
       "paragraphs": [
         "Since 2011, Grupo WG Almeida has built hands-on experience in architecture, engineering, carpentry, management and project execution.",
         "The integration of these capabilities evolved into the Turnkey logic: design, execution, materials, carpentry, management and delivery connected to reduce interfaces and rework.",
-        "In 2025, WG Build.tech was created to turn problems experienced inside operations into systems, automation, AI and digital products. Technology became an extension of the same integration thesis already applied in the physical world."
+        "In 2025, WG/Build.tech was created to turn problems experienced inside operations into systems, automation, AI and digital products. Technology became an extension of the same integration thesis already applied in the physical world."
       ]
     },
     "values": {
@@ -1056,7 +1056,7 @@
         "William Almeida built his career operating real businesses before turning that experience into technology.",
         "Over the years, he dealt directly with budgets, schedules, suppliers, clients, projects, construction, finishing, information and decision-making.",
         "Instead of treating software as a layer detached from operations, he began turning those problems into processes, data and functional systems.",
-        "In 2025, he created WG Build.tech as the Group technology arm. William materializes the initial logic of solutions and works with team members and specialists to refine, validate, automate and scale them.",
+        "In 2025, he created WG/Build.tech as the Group technology arm. William materializes the initial logic of solutions and works with team members and specialists to refine, validate, automate and scale them.",
         "Today he works at the intersection of founder, operator and builder, connecting business, product and technology to turn operational knowledge into tools that work in the real world."
       ],
       "signature": "William Almeida · Grupo WG Almeida"
