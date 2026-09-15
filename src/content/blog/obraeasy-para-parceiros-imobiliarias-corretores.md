@@ -79,7 +79,7 @@ Use a regua oficial acima como referencia inicial e valide o potencial real com 
 
 Acesse a ferramenta de avaliacao imobiliaria da WG Almeida com:
 
-- Dados de transacoes reais de 15 anos de mercado
+- Referencias de mercado e dados operacionais disponiveis no ecossistema, quando aplicaveis
 - Calculo de preco por m2 por bairro (Jardins, Cerqueira Cesar, Alto de Pinheiros, etc.)
 - Fatores de ajuste por padrao, conservacao e diferenciais
 - Relatorio PDF personalizavel com sua marca
@@ -149,7 +149,7 @@ Um corretor de alto padrao em Vila Nova Conceicao passou a usar a WG Almeida com
 
 | Diferencial | O que Significa na Pratica |
 |-------------|---------------------------|
-| 15 anos de mercado | Portfolio de mais de 280 obras entregues |
+| Experiencia operacional | Trajetoria do Grupo WG Almeida desde 2011 |
 | ObraEasy | Acompanhamento digital em tempo real, com etapas operacionais, alertas e menos surpresa |
 | Equipe propria | Nao depende de empreiteiros externos para o nucleo da obra |
 | Garantia de obra | 5 anos em estrutura, 2 anos em instalacoes |

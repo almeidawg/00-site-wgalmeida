@@ -12,7 +12,7 @@ tags: ["reforma", "custos", "precos", "orçamento", "2026", "apartamento", "sao 
 
 # Quanto Custa Reformar um Apartamento em 2026?
 
-Reformar um apartamento em Sao Paulo e um investimento significativo. Neste guia completo, voce encontrara **valores reais atualizados para 2026**, baseados em nossa experiencia de 15 anos em reformas Turn Key e na base comercial oficial do ecossistema WG Almeida.
+Reformar um apartamento em Sao Paulo e um investimento significativo. Neste guia completo, voce encontrara **valores reais atualizados para 2026**, apoiados na experiencia operacional acumulada pelo Grupo WG Almeida desde 2011 e na base comercial oficial do ecossistema.
 
 Use estes numeros como referencia de leitura, nao como orcamento cego. Custo de reforma fica muito mais confiavel quando o valor conversa com escopo, etapa, prazo e tipo de execucao.
 

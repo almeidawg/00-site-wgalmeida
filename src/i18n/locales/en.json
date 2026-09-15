@@ -103,8 +103,8 @@
   },
   "seo": {
     "home": {
-      "title": "High-End Architecture, Engineering, and Custom Furniture in Sao Paulo",
-      "description": "An integrated ecosystem of high-end architecture, engineering, and custom furniture. Premium turn key system in Sao Paulo: Brooklin, Itaim, Jardins, Vila Nova Conceicao. 15 years of excellence."
+      "title": "Architecture, Engineering, Carpentry and Technology | Grupo WG Almeida",
+      "description": "Since 2011, Grupo WG Almeida has integrated architecture, engineering, carpentry, Turnkey delivery and technology through WG Build.tech."
     },
     "proposal": {
       "title": "Request Your Proposal | Grupo WG Almeida",
@@ -143,11 +143,11 @@
   },
   "home": {
     "hero": {
-      "eyebrow": "WG Almeida Group · São Paulo",
-      "title": "Architecture · Engineering · Bespoke Joinery.",
-      "subtitle": "A complete ecosystem to build with excellence.",
-      "support": "We plan, execute, and deliver high-end spaces, from concept to the last detail, under a single management standard.",
-      "subheadline": "We plan, execute, and deliver high-end spaces · from concept to the last detail, under a single management standard.",
+      "eyebrow": "Grupo WG Almeida · Since 2011",
+      "title": "Architecture · Engineering · Carpentry · Technology.",
+      "subtitle": "An ecosystem connecting the physical world to technology.",
+      "support": "Since 2011, we have integrated design, execution and management. In 2025, that experience gained a technology arm: WG Build.tech, turning real operational problems into systems, automation and digital products.",
+      "subheadline": "Since 2011, connecting design, execution, management and technology under one operating logic.",
       "ctaPrimary": "Financial Feasibility Study",
       "ctaSecondary": "Explore Premium Turn Key Process"
     },
@@ -158,23 +158,23 @@
       "Where every detail has intention."
     ],
     "about": {
-      "kicker": "Building excellence for {{years}} years",
-      "title": "The WG Almeida Group is an integrated ecosystem of solutions in high-end architecture, engineering, and bespoke joinery.",
+      "kicker": "Since 2011, building and evolving",
+      "title": "From design to execution. From operations to technology.",
       "paragraphs": [
-        "We integrate architecture, engineering, and bespoke joinery into a single workflow, connecting concept, planning, and execution with more coherence, clarity, and control at each stage.",
-        "More than just designing and building, we deliver control, predictability, and peace of mind for those who value excellence."
+        "Grupo WG Almeida connects WG Architecture, WG Engineering, WG Carpentry and WG Build.tech under one vision: reduce fragmentation across people, processes, decisions and delivery.",
+        "Turnkey connects physical execution. WG Build.tech turns operational knowledge into systems, automation, AI and digital products."
       ]
     },
     "stats": {
-      "inProgress": "Projects in<br />progress",
-      "clients": "Clients<br />served",
-      "coverings": "Meters of floor coverings<br />laid",
-      "hours": "Hours designing<br />and building stories"
+      "since": "start of our journey",
+      "nuclei": "active nuclei",
+      "turnkey": "end-to-end integration",
+      "buildtech": "WG Build.tech founded"
     },
     "units": {
       "kicker": "Our Units",
       "title": "Specialization + Integration",
-      "subtitle": "Three disciplines under the same quality, management, and responsibility standard.",
+      "subtitle": "Four nuclei under one integration logic, each with its own specialization and clear responsibility.",
       "architecture": {
         "title": "Architecture",
         "description": "Complete architectural projects, original interiors, technical coordination, and management of all disciplines.",
@@ -360,8 +360,8 @@
       },
       "units": {
         "kicker": "Specialization",
-        "line1": "Three disciplines.",
-        "line2": "A single WG standard."
+        "line1": "Four nuclei.",
+        "line2": "One integration logic."
       },
       "architecture": {
         "title": "Architecture",
@@ -871,7 +871,7 @@
     "contexts": {
       "moodboard": "You arrived through the moodboard journey. Let's translate this aesthetic direction into a briefing, proposal, and real next step.",
       "room": "You arrived through the room visualizer. Now we can transform the visual reading into scope, proposal, or assisted service.",
-      "buildtech": "You arrived through the WG_Build.tech front. Let's frame this experience as a solution applied to your commercial or operational context.",
+      "buildtech": "You arrived through the WG Build.tech front. Let's frame this experience as a solution applied to your commercial or operational context.",
       "process": "You arrived through the process methodology. Now let's connect this reading to an assisted service and the most coherent proposal.",
       "architecture": "You arrived through the architecture front. We can use the visual experience layer to accelerate aesthetic alignment, briefing, and approval.",
       "engineering": "You arrived through the engineering front. Let's connect the visual decision to execution logic, critical purchases, and front releases.",
@@ -1012,22 +1012,22 @@
   "aboutPage": {
     "hero": {
       "kicker": "About Grupo WG Almeida",
-      "title": "15 years integrating architecture, engineering and millwork.",
-      "subtitle": "A high-end ecosystem connecting concept, planning, execution and delivery with method, control and sensitivity.",
+      "title": "Since 2011, operational experience evolving into an integrated ecosystem.",
+      "subtitle": "Architecture, Engineering, Carpentry and Technology connected by a story built inside real operations.",
       "imageAlt": "High-end environment by Grupo WG Almeida"
     },
     "stats": {
-      "years": "years of experience",
-      "projects": "projects and clients served",
-      "units": "integrated studios",
-      "method": "proprietary methodology"
+      "since": "since the beginning",
+      "nuclei": "active nuclei",
+      "turnkey": "design and execution integration",
+      "buildtech": "WG Build.tech founded"
     },
     "story": {
-      "title": "From concept to delivery, with one logic.",
+      "title": "From physical operations to technology, without losing our origin.",
       "paragraphs": [
-        "Grupo WG Almeida was created to reduce the distance between design, construction and final delivery.",
-        "Each project is guided by context, coordination, planning and real follow-up.",
-        "The result is a more predictable, organized and coherent experience from briefing to the last detail."
+        "Since 2011, Grupo WG Almeida has built hands-on experience in architecture, engineering, carpentry, management and project execution.",
+        "The integration of these capabilities evolved into the Turnkey logic: design, execution, materials, carpentry, management and delivery connected to reduce interfaces and rework.",
+        "In 2025, WG Build.tech was created to turn problems experienced inside operations into systems, automation, AI and digital products. Technology became an extension of the same integration thesis already applied in the physical world."
       ]
     },
     "values": {
@@ -1049,15 +1049,15 @@
       }
     },
     "ceo": {
-      "role": "Executive direction",
+      "role": "Founder · Operator · Builder",
       "name": "William Almeida",
       "imageAlt": "William Almeida, founder and director of Grupo WG Almeida",
       "paragraphs": [
-        "Before becoming a group or a structure, there was a shared challenge: important decisions without clear data.",
-        "The answer was not improvisation. It was structure.",
-        "The operation evolved to connect briefing, design, budget, execution and delivery.",
-        "WG Easy emerged as an operational intelligence layer for traceable information.",
-        "Grupo WG Almeida brings executive vision, design sensitivity and technical control together."
+        "William Almeida built his career operating real businesses before turning that experience into technology.",
+        "Over the years, he dealt directly with budgets, schedules, suppliers, clients, projects, construction, finishing, information and decision-making.",
+        "Instead of treating software as a layer detached from operations, he began turning those problems into processes, data and functional systems.",
+        "In 2025, he created WG Build.tech as the Group technology arm. William materializes the initial logic of solutions and works with team members and specialists to refine, validate, automate and scale them.",
+        "Today he works at the intersection of founder, operator and builder, connecting business, product and technology to turn operational knowledge into tools that work in the real world."
       ],
       "signature": "William Almeida · Grupo WG Almeida"
     },

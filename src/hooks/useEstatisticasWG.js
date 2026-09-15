@@ -12,7 +12,7 @@ const ANOS_MERCADO_BASE = 15;
 
 // Metros de revestimentos: base histórica validada para a vitrine (não é dado
 // ao vivo, ver nota abaixo em "contratos_itens").
-const METROS_REVESTIMENTOS_FALLBACK = 3898;
+const METROS_REVESTIMENTOS_FALLBACK = 0;
 
 // Detecta erro de "tabela/relação não existe" do PostgREST (schema drift),
 // para não tratar como falha genérica de rede/permissão nem logar como se
@@ -29,9 +29,9 @@ export function useEstatisticasWG(options = {}) {
   const { enabled = true } = options;
   // Valores fallback renderizam imediatamente (não bloqueia LCP)
   const [estatisticas, setEstatisticas] = useState(() => ({
-    clientesAtendidos: 400,
-    metrosRevestimentos: 3898,
-    projetosAndamento: 7,
+    clientesAtendidos: 0,
+    metrosRevestimentos: 0,
+    projetosAndamento: 0,
     horasProjetando: Math.floor((Date.now() - new Date("2011-10-28").getTime()) / 3600000),
     anosExperiencia: Math.max(Math.floor((Date.now() - new Date("2011-10-28").getTime()) / (365.25 * 86400000)), ANOS_MERCADO_BASE),
     loading: false,
@@ -104,8 +104,8 @@ export function useEstatisticasWG(options = {}) {
         const metrosRevestimentos = METROS_REVESTIMENTOS_FALLBACK;
 
         // Calcular métricas
-        const projetosAndamento = contratosAtivos?.length || 6;
-        const clientesAtendidos = todosContratos?.length || 400;
+        const projetosAndamento = contratosAtivos?.length ?? 0;
+        const clientesAtendidos = todosContratos?.length ?? 0;
 
         // Calcular horas e anos
         const horasProjetando = calcularHorasDesdeDataFundacao();
@@ -114,9 +114,9 @@ export function useEstatisticasWG(options = {}) {
         if (isCancelled) return;
 
         setEstatisticas({
-          clientesAtendidos: Math.max(clientesAtendidos, 400), // Mínimo vitrine homologado
-          metrosRevestimentos: Math.max(metrosRevestimentos, 3898), // Mínimo histórico validado
-          projetosAndamento: projetosAndamento + 1, // +1 conforme solicitado
+          clientesAtendidos,
+          metrosRevestimentos,
+          projetosAndamento,
           horasProjetando,
           anosExperiencia,
           loading: false,

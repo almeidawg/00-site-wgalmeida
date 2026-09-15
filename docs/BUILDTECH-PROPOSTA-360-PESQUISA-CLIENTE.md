@@ -1,4 +1,4 @@
-# WG_Build.tech — Proposta 360 com pesquisa de cliente
+# WG Build.tech — Proposta 360 com pesquisa de cliente
 
 ## Objetivo
 
