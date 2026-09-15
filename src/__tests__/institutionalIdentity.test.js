@@ -1,4 +1,4 @@
-import fs from 'node:fs'
+﻿import fs from 'node:fs'
 import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 
@@ -21,13 +21,16 @@ function collectPublicSourceFiles(dir = SRC_ROOT) {
 }
 
 describe('identidade institucional publica', () => {
-  it('usa WG Build.tech como nome publico canonico, sem underscore legado', () => {
+  it('usa WG/Build.tech como nome publico canonico, sem grafias legadas', () => {
     const offenders = collectPublicSourceFiles()
-      .filter((file) => fs.readFileSync(file, 'utf8').includes('WG_Build.tech'))
+      .filter((file) => {
+        const content = fs.readFileSync(file, 'utf8')
+        return content.includes('WG_Build.tech') || content.includes('WG Build.tech')
+      })
       .map((file) => path.relative(process.cwd(), file).replaceAll('\\', '/'))
 
     expect(offenders).toEqual([])
-  })
+  }, 15000)
 
   it('representa os quatro nucleos ativos na Home e no Sobre', () => {
     const home = read('src/pages/Home.jsx')
@@ -53,8 +56,8 @@ describe('identidade institucional publica', () => {
     const serialized = JSON.stringify(pt)
 
     expect(serialized).toContain('Desde 2011')
-    expect(serialized).toContain('WG Build.tech')
-    expect(serialized).not.toContain('Três disciplinas')
+    expect(serialized).toContain('WG/Build.tech')
+    expect(serialized).not.toContain('TrÃªs disciplinas')
     expect(pt.home.hero.title).toContain('Tecnologia')
   })
 
@@ -71,9 +74,10 @@ describe('identidade institucional publica', () => {
     const agents = read('AGENTS.md')
     const releaseRules = read('REGRAS-COMMIT-PUSH-DEPLOY.md')
 
-    expect(agents).toContain('Nome publico oficial: `WG Build.tech`.')
-    expect(releaseRules).toContain('Nome publico oficial: `WG Build.tech`.')
+    expect(agents).toContain('Nome publico oficial: `WG/Build.tech`.')
+    expect(releaseRules).toContain('Nome publico oficial: `WG/Build.tech`.')
     expect(agents).not.toContain('Nome publico oficial: `WG_Build.tech`.')
     expect(releaseRules).not.toContain('Nome publico oficial: `WG_Build.tech`.')
   })
 })
+

@@ -32,7 +32,7 @@ const patterns = [
     label: 'piso-artificial',
     regex: /clientesAtendidos\s*:\s*400|Math\.max\(\s*clientesAtendidos\s*,\s*400\s*\)|number\s*:\s*['"]400\+['"]/g,
   },
-  { label: 'identidade-legada', regex: /WG_Build\.tech/g },
+  { label: 'identidade-legada', regex: /WG(?:_| )Build\.tech/g },
   { label: 'precisao-rigida', regex: /±\s*\d+%|\bprecis[aã]o entre \d+% e \d+%/gi },
 ];
 

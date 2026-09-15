@@ -11,8 +11,8 @@ Este AGENTS deve ser usado em conjunto com:
 - Responsavel: Time Marketing + BuildTech
 - Status: CORE / ACTIVE
 
-## WG BUILD.TECH
-- Nome publico oficial: `WG Build.tech`.
+## WG/BUILD.TECH
+- Nome publico oficial: `WG/Build.tech`.
 - Nomes operacionais permitidos: `BuildTech` e `projeto BT`.
 - `WG_Build.tech` e nomenclatura legada e nao deve voltar a superficies publicas, SEO, schema, propostas ou mensagens ao cliente.
 - Dominio oficial: `https://buildtech.wgalmeida.com.br`.

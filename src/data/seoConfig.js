@@ -4,12 +4,12 @@ const DEFAULT_OG_IMAGE = `${BASE_URL}/og-home-1200x630.jpg`;
 const defaultConfig = {
   title: "Grupo WG Almeida | Arquitetura, Engenharia, Marcenaria e Tecnologia",
   description:
-    "Desde 2011, o Grupo WG Almeida integra arquitetura, engenharia, marcenaria, Turnkey e tecnologia por meio da WG Build.tech.",
+    "Desde 2011, o Grupo WG Almeida integra arquitetura, engenharia, marcenaria, Turnkey e tecnologia por meio da WG/Build.tech.",
   canonical: `${BASE_URL}/`,
   og: {
     title: "Grupo WG Almeida | Arquitetura, Engenharia, Marcenaria e Tecnologia",
     description:
-      "Desde 2011, o Grupo WG Almeida integra arquitetura, engenharia, marcenaria, Turnkey e tecnologia por meio da WG Build.tech.",
+      "Desde 2011, o Grupo WG Almeida integra arquitetura, engenharia, marcenaria, Turnkey e tecnologia por meio da WG/Build.tech.",
     image: DEFAULT_OG_IMAGE,
     url: `${BASE_URL}/`,
   },
@@ -17,7 +17,7 @@ const defaultConfig = {
     card: "summary_large_image",
     title: "Grupo WG Almeida | Arquitetura, Engenharia, Marcenaria e Tecnologia",
     description:
-      "Desde 2011, o Grupo WG Almeida integra arquitetura, engenharia, marcenaria, Turnkey e tecnologia por meio da WG Build.tech.",
+      "Desde 2011, o Grupo WG Almeida integra arquitetura, engenharia, marcenaria, Turnkey e tecnologia por meio da WG/Build.tech.",
     image: DEFAULT_OG_IMAGE,
   },
 };
@@ -166,8 +166,8 @@ export const SEO_CONFIG = {
   ),
   "/buildtech": page(
     "/buildtech",
-    "WG Build.tech | Sistemas, IA e automação para operações reais",
-    "Conheça a WG Build.tech, braço tecnológico do Grupo WG Almeida, criada para transformar conhecimento operacional em sistemas, IA, automação e produtos digitais."
+    "WG/Build.tech | Sistemas, IA e automação para operações reais",
+    "Conheça a WG/Build.tech, braço tecnológico do Grupo WG Almeida, criada para transformar conhecimento operacional em sistemas, IA, automação e produtos digitais."
   ),
   "/easylocker": page(
     "/easylocker",

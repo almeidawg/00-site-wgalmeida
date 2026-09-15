@@ -63,7 +63,7 @@ const logosNucleos = [
   { src: withBasePath('/Logos/logo-arquitetura-84.webp'), alt: 'Logo WG Arquitetura', href: '/arquitetura' },
   { src: withBasePath('/Logos/logo-engenharia-84.webp'), alt: 'Logo WG Engenharia', href: '/engenharia' },
   { src: withBasePath('/Logos/logo-marcenaria-84.webp'), alt: 'Logo WG Marcenaria', href: '/marcenaria' },
-  { src: withBasePath('/Logos/logo-wg-buildtech-nucleo.webp'), alt: 'Logo WG Build.tech', href: '/buildtech' },
+  { src: withBasePath('/Logos/logo-wg-buildtech-nucleo.webp'), alt: 'Logo WG/Build.tech', href: '/buildtech' },
 ];
 
 const logoStackAlignment = ['md:items-start', 'md:items-center', 'md:items-center', 'md:items-end'];

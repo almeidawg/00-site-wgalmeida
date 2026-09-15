@@ -165,7 +165,7 @@ O [ObraEasy](/obraeasy) entra para transformar essa leitura em fluxo real de dec
 ### Banco, construtora e parceiros B2B
 
 - [Cadastro de parceiro ObraEasy](https://obraeasy.wgalmeida.com.br/landing/parceiro)
-- [Ecossistema WG Build.tech](/buildtech)
+- [Ecossistema WG/Build.tech](/buildtech)
 - [Referencia ICCRI + custos tecnicos complementares](/blog/custo-construcao-reforma-2026-guia-tecnico-completo)
 
 ## Veja também

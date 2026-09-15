@@ -8,13 +8,13 @@ Worktree: `.worktrees/brand-canonical-20260914`
 
 ## Objetivo desta frente
 
-Uniformizar a comunicação institucional pública do Grupo WG Almeida e da WG Build.tech com a fonte canônica consolidada: Grupo desde 2011; quatro núcleos ativos (WG Arquitetura, WG Engenharia, WG Marcenaria e WG Build.tech); Turnkey como integração operacional; WG Build.tech criada em 2025 a partir de problemas reais vividos na operação; William Almeida posicionado como Founder + Operator + Builder.
+Uniformizar a comunicação institucional pública do Grupo WG Almeida e da WG/Build.tech com a fonte canônica consolidada: Grupo desde 2011; quatro núcleos ativos (WG Arquitetura, WG Engenharia, WG Marcenaria e WG/Build.tech); Turnkey como integração operacional; WG/Build.tech criada em 2025 a partir de problemas reais vividos na operação; William Almeida posicionado como Founder + Operator + Builder.
 
 ## Alterações principais
 
 - Home e Sobre passaram de três para quatro núcleos.
-- Nome público normalizado para `WG Build.tech`; `WG_Build.tech` fica apenas como nomenclatura legada/documentada, nunca como nome oficial público.
-- História pública alinhada em PT-BR, EN e ES: desde 2011 -> integração física/Turnkey -> WG Build.tech em 2025.
+- Nome público normalizado para `WG/Build.tech`; `WG_Build.tech` fica apenas como nomenclatura legada/documentada, nunca como nome oficial público.
+- História pública alinhada em PT-BR, EN e ES: desde 2011 -> integração física/Turnkey -> WG/Build.tech em 2025.
 - William Almeida descrito como Founder + Operator + Builder, conectando operação, produto e tecnologia.
 - Fallbacks artificiais de `400 clientes`, `+1 projeto` e pisos equivalentes removidos.
 - Claims não reconciliados (`480+ clientes`, `1.000+ propostas`, `284+/285+ clientes` etc.) bloqueados pelo auditor público.
