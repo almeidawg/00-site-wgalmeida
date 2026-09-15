@@ -7,7 +7,6 @@ import { Trans, useTranslation } from 'react-i18next';
 import { SCHEMAS } from '@/data/schemaConfig';
 import { withBasePath } from '@/utils/assetPaths';
 import { getPublicPageImageSrc } from '@/data/publicPageImageCatalog';
-import { useEstatisticasWG } from '@/hooks/useEstatisticasWG';
 
 const valueStyles = {
   'wg-orange': {
@@ -50,8 +49,6 @@ const ABOUT_WILLIAM_IMAGE_SRC = withBasePath('/images/about/william-almeida-1200
 
 const About = () => {
   const { t } = useTranslation();
-  const estatisticas = useEstatisticasWG();
-
   const values = [
     {
       icon: Target,
@@ -80,10 +77,10 @@ const About = () => {
   ];
 
   const stats = [
-    { number: estatisticas.anosExperiencia.toString(), label: t('aboutPage.stats.years'), icon: Clock },
-    { number: '400+', label: t('aboutPage.stats.projects'), icon: CheckCircle },
-    { number: '3', label: t('aboutPage.stats.units'), icon: Building },
-    { number: '✓', label: t('aboutPage.stats.method'), icon: Target },
+    { number: '2011', label: t('aboutPage.stats.since'), icon: Clock },
+    { number: '4', label: t('aboutPage.stats.nuclei'), icon: Building },
+    { number: 'Turnkey', label: t('aboutPage.stats.turnkey'), icon: CheckCircle },
+    { number: '2025', label: t('aboutPage.stats.buildtech'), icon: Target },
   ];
 
   return (

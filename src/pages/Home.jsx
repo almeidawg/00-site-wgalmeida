@@ -27,7 +27,6 @@ const InstagramGallery = lazy(() => import('@/components/InstagramGallery'));
 const ProjectGallery = lazy(() => import('@/components/ProjectGallery'));
 const HomeColorTransformer = lazy(() => import('@/components/home/HomeColorTransformer'));
 const GoogleReviewsBadge = lazy(() => import('@/components/GoogleReviewsBadge'));
-import { useEstatisticasWG } from '@/hooks/useEstatisticasWG';
 import { Trans, useTranslation } from 'react-i18next';
 import { SCHEMAS } from '@/data/schemaConfig';
 import { buildUnsplashSrcSet, normalizeUnsplashImageUrl } from '@/lib/unsplash';
@@ -61,9 +60,10 @@ const HOME_STYLE_CARD_IMAGES = {
 };
 
 const logosNucleos = [
-  { src: withBasePath('/Logos/logo-arquitetura-84.webp'), alt: 'Logo Arquitetura', href: '/arquitetura' },
-  { src: withBasePath('/Logos/logo-engenharia-84.webp'), alt: 'Logo Engenharia', href: '/engenharia' },
-  { src: withBasePath('/Logos/logo-marcenaria-84.webp'), alt: 'Logo Marcenaria', href: '/marcenaria' }
+  { src: withBasePath('/Logos/logo-arquitetura-84.webp'), alt: 'Logo WG Arquitetura', href: '/arquitetura' },
+  { src: withBasePath('/Logos/logo-engenharia-84.webp'), alt: 'Logo WG Engenharia', href: '/engenharia' },
+  { src: withBasePath('/Logos/logo-marcenaria-84.webp'), alt: 'Logo WG Marcenaria', href: '/marcenaria' },
+  { src: withBasePath('/Logos/logo-wg-buildtech-nucleo.webp'), alt: 'Logo WG Build.tech', href: '/buildtech' },
 ];
 
 const logoStackAlignment = ['md:items-start', 'md:items-center', 'md:items-center', 'md:items-end'];
@@ -111,15 +111,8 @@ const HERO_COPY_BY_INTEREST = {
   },
 };
 
-const STATS_VISIBILITY_OPTIONS = { threshold: 0.35 };
 const LAZY_SECTION_VISIBILITY_OPTIONS = { rootMargin: '320px 0px', threshold: 0.01 };
 
-const createEmptyStats = () => ({
-  projetosAndamento: 0,
-  clientesAtendidos: 0,
-  metrosRevestimentos: 0,
-  horasProjetando: 0,
-});
 
 const useVisibilityFlag = (options) => {
   const sectionRef = useRef(null);
@@ -145,79 +138,20 @@ const useVisibilityFlag = (options) => {
   return [sectionRef, visible];
 };
 
-const useAnimatedStats = (statsVisible, estatisticas) => {
-  const [statsAnimated, setStatsAnimated] = useState(false);
-  const [displayStats, setDisplayStats] = useState(createEmptyStats);
-
-  useEffect(() => {
-    if (!statsVisible || estatisticas.loading) return;
-
-    const targetStats = {
-      projetosAndamento: estatisticas.projetosAndamento,
-      clientesAtendidos: estatisticas.clientesAtendidos,
-      metrosRevestimentos: estatisticas.metrosRevestimentos,
-      horasProjetando: estatisticas.horasProjetando >= 1000
-        ? Math.floor(estatisticas.horasProjetando / 1000)
-        : estatisticas.horasProjetando
-    };
-
-    if (statsAnimated) {
-      setDisplayStats(targetStats);
-      return;
-    }
-
-    let animationFrame;
-    let startTime;
-    const duration = 1400;
-
-    const animate = (currentTime) => {
-      if (!startTime) startTime = currentTime;
-
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const easeOut = 1 - Math.pow(1 - progress, 3);
-
-      setDisplayStats({
-        projetosAndamento: Math.round(targetStats.projetosAndamento * easeOut),
-        clientesAtendidos: Math.round(targetStats.clientesAtendidos * easeOut),
-        metrosRevestimentos: Math.round(targetStats.metrosRevestimentos * easeOut),
-        horasProjetando: Math.round(targetStats.horasProjetando * easeOut)
-      });
-
-      if (progress < 1) {
-        animationFrame = globalThis.requestAnimationFrame(animate);
-      } else {
-        setStatsAnimated(true);
-      }
-    };
-
-    animationFrame = globalThis.requestAnimationFrame(animate);
-    return () => globalThis.cancelAnimationFrame(animationFrame);
-  }, [
-    statsVisible,
-    statsAnimated,
-    estatisticas.loading,
-    estatisticas.projetosAndamento,
-    estatisticas.clientesAtendidos,
-    estatisticas.metrosRevestimentos,
-    estatisticas.horasProjetando
-  ]);
-
-  return displayStats;
-};
-
 const getLocalizedHeroTitle = (language = '', interest = null) => {
   if (interest === 'marcenaria') return 'Marcenaria de Luxo e Projetos sob Medida.';
   if (interest === 'obra') return 'Execução de Obras e Reformas de Alto Padrão.';
-  if (interest === 'design') return 'Arquitetura · Engenharia · Marcenaria.';
+  if (interest === 'design') return 'Arquitetura · Engenharia · Marcenaria · Tecnologia.';
   if (interest === 'investimento') return 'Viabilidade Técnica e Valorização Imobiliária.';
 
   if (language.startsWith('es')) {
-    return 'Arquitectura, Ingeniería y Carpintería Premium.';
+    return 'Arquitectura · Ingeniería · Carpintería · Tecnología.';
   }
-  
-  // Default para Português (ou qualquer outro que não seja Espanhol)
-  return 'Arquitetura · Engenharia · Marcenaria.';
+  if (language.startsWith('en')) {
+    return 'Architecture · Engineering · Carpentry · Technology.';
+  }
+
+  return 'Arquitetura · Engenharia · Marcenaria · Tecnologia.';
 };
 
 const Home = () => {
@@ -230,14 +164,16 @@ const Home = () => {
   const heroEyebrow = personalized?.eyebrow || t('home.hero.eyebrow');
   const heroSupport = personalized?.support || t('home.hero.support');
 
-  const [statsSectionRef, statsVisible] = useVisibilityFlag(STATS_VISIBILITY_OPTIONS);
   const [projectGalleryRef, projectGalleryVisible] = useVisibilityFlag(LAZY_SECTION_VISIBILITY_OPTIONS);
   const [reviewsRef, reviewsVisible] = useVisibilityFlag(LAZY_SECTION_VISIBILITY_OPTIONS);
   const [instagramRef, instagramVisible] = useVisibilityFlag(LAZY_SECTION_VISIBILITY_OPTIONS);
 
-  // Hook para estatísticas dinâmicas do sistema
-  const estatisticas = useEstatisticasWG({ enabled: statsVisible });
-  const displayStats = useAnimatedStats(statsVisible, estatisticas);
+  const institutionalFacts = [
+    { value: '2011', label: t('home.stats.since') },
+    { value: '4', label: t('home.stats.nuclei') },
+    { value: 'Turnkey', label: t('home.stats.turnkey') },
+    { value: '2025', label: t('home.stats.buildtech') },
+  ];
   const localizedHeroTitle = getLocalizedHeroTitle(i18n.language, userInteresse);
 
   // Etapas do processo / Metodologia
@@ -381,82 +317,25 @@ const Home = () => {
         </div>
       )}
 
-      {/* ========== BLOCO DE NÚMEROS / RESULTADOS - DINÂMICO ========== */}
-      <section ref={statsSectionRef} className="py-6 bg-wg-gray-light">
+      {/* ========== MARCOS INSTITUCIONAIS VERIFICADOS ========== */}
+      <section className="py-6 bg-wg-gray-light">
         <div className="container-custom">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-            {/* Projetos em Andamento - Contratos Ativos +1 */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0 }}
-              className="text-center"
-            >
-              <div className="text-3xl md:text-4xl lg:text-5xl font-inter font-light text-wg-orange mb-1">
-                {displayStats.projetosAndamento}<span className="text-xl md:text-2xl">+</span>
-              </div>
-              <p className="text-sm md:text-base text-wg-gray font-light">
-                <Trans i18nKey="home.stats.inProgress">
-                  Projetos em<br />andamento
-                </Trans>
-              </p>
-            </motion.div>
-
-            {/* Clientes Atendidos - Soma quando contrato ativa */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-center"
-            >
-              <div className="text-3xl md:text-4xl lg:text-5xl font-inter font-light text-wg-orange mb-1">
-                +{displayStats.clientesAtendidos}
-              </div>
-              <p className="text-sm md:text-base text-wg-gray font-light">
-                <Trans i18nKey="home.stats.clients">
-                  Clientes<br />atendidos
-                </Trans>
-              </p>
-            </motion.div>
-
-            {/* Metros de Revestimentos - Soma de contratos ativos */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-center"
-            >
-              <div className="text-3xl md:text-4xl lg:text-5xl font-inter font-light text-wg-orange mb-1">
-                +{displayStats.metrosRevestimentos}
-              </div>
-              <p className="text-sm md:text-base text-wg-gray font-light">
-                <Trans i18nKey="home.stats.coverings">
-                  Metros de revestimentos<br />assentados
-                </Trans>
-              </p>
-            </motion.div>
-
-            {/* Horas Projetando - Automático desde o primeiro CNPJ */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="text-center"
-            >
-              <div className="text-3xl md:text-4xl lg:text-5xl font-inter font-light text-wg-orange mb-1">
-                {displayStats.horasProjetando}
-                <span className="text-xl md:text-2xl">{estatisticas.horasProjetando >= 1000 ? 'mil' : ''}</span>
-              </div>
-              <p className="text-sm md:text-base text-wg-gray font-light">
-                <Trans i18nKey="home.stats.hours">
-                  Horas projetando<br />e construindo histórias
-                </Trans>
-              </p>
-            </motion.div>
+            {institutionalFacts.map((fact, index) => (
+              <motion.div
+                key={fact.value}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.08 }}
+                className="text-center"
+              >
+                <div className="text-3xl md:text-4xl lg:text-5xl font-inter font-light text-wg-orange mb-1">
+                  {fact.value}
+                </div>
+                <p className="text-sm md:text-base text-wg-gray font-light">{fact.label}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -871,7 +750,7 @@ const Home = () => {
                   </div>
                   <div className="md:grid md:grid-rows-[auto_auto_auto] md:gap-4">
                     <div>
-                      <p className={`mb-2 text-wg-gray ${editorialScale.kicker}`}>{t('home.about.kicker', { years: estatisticas.anosExperiencia })}</p>
+                      <p className={`mb-2 text-wg-gray ${editorialScale.kicker}`}>{t('home.about.kicker')}</p>
                       <h2 className={`mb-4 normal-case tracking-tight font-light ${editorialScale.title}`}>{t('home.about.title')}</h2>
                     </div>
                     <p className={editorialScale.body}>

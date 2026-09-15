@@ -26,7 +26,7 @@ Mas existe um ponto que o mercado costuma esconder: projeto premium de verdade n
 
 > *"A excelencia nao e um diferencial. E o ponto de partida."*
 
-Com 15 anos de experiencia em Sao Paulo, o Grupo WG Almeida atua nos bairros mais exigentes da cidade, criando projetos residenciais e comerciais com identidade, desempenho e assinatura.
+Desde 2011, o Grupo WG Almeida acumula experiencia em Sao Paulo, atuando em projetos residenciais e comerciais com identidade, desempenho e assinatura.
 
 ---
 
@@ -126,7 +126,7 @@ Por isso, projeto premium nao deve ser vendido apenas como estilo ou metragem. E
 
 ## Por que escolher a WG Almeida
 
-- 15 anos de experiencia em projetos premium
+- Experiencia acumulada desde 2011 em projetos premium
 - Integracao total: arquitetura + engenharia + marcenaria
 - Cronogramas realistas e orcamentos transparentes
 - Curadoria de materiais e detalhamento autoral

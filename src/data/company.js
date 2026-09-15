@@ -16,7 +16,7 @@ export { COMPANY, PRODUCT_URLS, OBRAEASY_PRECOS, EASYREALSTATE_PRECOS } from './
  */
 
 /**
- * Mensagens de Posicionamento WG_Build.tech
+ * Mensagens de Posicionamento WG Build.tech
  * Dinâmicas para suportar i18n sem quebrar sites de chamada
  */
 export const WG_PRODUCT_MESSAGES = {

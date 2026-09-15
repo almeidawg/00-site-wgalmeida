@@ -6,6 +6,9 @@ const strict = process.argv.includes('--strict');
 
 const targets = [
   path.join(root, 'src', 'pages'),
+  path.join(root, 'src', 'components'),
+  path.join(root, 'src', 'data'),
+  path.join(root, 'src', 'hooks'),
   path.join(root, 'src', 'i18n', 'locales'),
   path.join(root, 'public'),
 ];
@@ -13,6 +16,7 @@ const targets = [
 const extensions = new Set(['.js', '.jsx', '.ts', '.tsx', '.json', '.xml', '.svg']);
 const ignoreFragments = [
   `${path.sep}src${path.sep}content${path.sep}`,
+  `${path.sep}src${path.sep}__tests__${path.sep}`,
   `${path.sep}src${path.sep}pages${path.sep}Admin.jsx`,
   `${path.sep}node_modules${path.sep}`,
   `${path.sep}dist${path.sep}`,
@@ -20,7 +24,15 @@ const ignoreFragments = [
 
 const patterns = [
   { label: 'tempo-rigido', regex: /\b48 horas\b|\bem menos de 2 minutos\b|\bem menos de 3 minutos\b/gi },
-  { label: 'prova-numerica', regex: /\b15 anos\b|\+400 clientes|\+1\.000 or[cç]amentos|\b200\+\b|\b53\+\s*transa[cç][õo]es/gi },
+  {
+    label: 'prova-numerica',
+    regex: /\b15 anos\b|\+400 clientes|\+1\.000 or[cç]amentos|\b200\+\b|\b53\+\s*transa[cç][õo]es|\b480\+\s*clientes|\b(?:1\.000|1000)\+\s*propostas|\b284\+\s*clientes|\b285\+\s*clientes/gi,
+  },
+  {
+    label: 'piso-artificial',
+    regex: /clientesAtendidos\s*:\s*400|Math\.max\(\s*clientesAtendidos\s*,\s*400\s*\)|number\s*:\s*['"]400\+['"]/g,
+  },
+  { label: 'identidade-legada', regex: /WG_Build\.tech/g },
   { label: 'precisao-rigida', regex: /±\s*\d+%|\bprecis[aã]o entre \d+% e \d+%/gi },
 ];
 

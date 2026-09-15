@@ -38,7 +38,7 @@ Na prática, isso envolve revestimentos, metais, iluminação, marcenaria, tecid
 
 ## Como a Liz Estrutura Decisões Sem Improviso
 
-Com 15 anos de atuação no ecossistema turn key, a Liz conduz a curadoria em etapas objetivas, evitando decisões apressadas e incompatibilidades entre fornecedores.
+Apoiada na experiencia operacional acumulada pelo Grupo WG Almeida desde 2011, a Liz conduz a curadoria em etapas objetivas, evitando decisoes apressadas e incompatibilidades entre fornecedores.
 
 ### 1. Leitura profunda do briefing
 

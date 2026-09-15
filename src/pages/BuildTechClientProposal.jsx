@@ -45,7 +45,7 @@ const clientProfiles = {
     currentSignals: [
       'Levantamento inicial pendente de nome oficial, domínio, cidade, redes e canais comerciais.',
       'Proposta preparada para receber evidências reais de web, social, busca, anúncios e plataformas.',
-      'O cliente recebe clareza do que existe, do que falta e do que a WG_Build.tech assume ponta a ponta.',
+      'O cliente recebe clareza do que existe, do que falta e do que a WG Build.tech assume ponta a ponta.',
     ],
     modules: ['Pesquisa completa', 'Mapa de canais', 'Plano de aquisição', 'Site funcional', 'Automação'],
   },
@@ -170,7 +170,7 @@ export default function BuildTechClientProposal() {
     [activeArea]
   );
   const whatsappText = encodeURIComponent(
-    `Quero revisar a proposta 360 da WG_Build.tech para ${profile.name}: ${publicUrl}`
+    `Quero revisar a proposta 360 da WG Build.tech para ${profile.name}: ${publicUrl}`
   );
   const whatsappPhone = COMPANY.phoneRaw.replace(/\D/g, '');
 
@@ -178,8 +178,8 @@ export default function BuildTechClientProposal() {
     <>
       <SEO
         pathname={`/clientes/${slug}`}
-        title={`${profile.name} | Proposta 360 WG_Build.tech`}
-        description={`Proposta pública WG_Build.tech para ${profile.name}, com pesquisa digital, presença, canais, automação, site e plano de implantação.`}
+        title={`${profile.name} | Proposta 360 WG Build.tech`}
+        description={`Proposta pública WG Build.tech para ${profile.name}, com pesquisa digital, presença, canais, automação, site e plano de implantação.`}
         canonical={publicUrl}
         noindex
       />
@@ -190,7 +190,7 @@ export default function BuildTechClientProposal() {
             <div className="flex flex-col justify-between gap-12">
               <nav className="flex flex-wrap items-center justify-between gap-4 text-sm">
                 <a href={PRODUCT_URLS.buildtech} className="font-semibold">
-                  WG_Build.tech
+                  WG Build.tech
                 </a>
                 <div className="flex flex-wrap items-center gap-3 text-white/70">
                   <span>Proposta viva</span>
@@ -281,7 +281,7 @@ export default function BuildTechClientProposal() {
               <p className="text-sm font-semibold uppercase text-black/50">Pesquisa 360</p>
               <h2 className="mt-3 text-4xl font-semibold md:text-6xl">Nada de proposta no escuro.</h2>
               <p className="mt-5 text-lg leading-8 text-black/65">
-                Antes de vender site, sistema ou tráfego, a WG_Build.tech mostra o cenário real:
+                Antes de vender site, sistema ou tráfego, a WG Build.tech mostra o cenário real:
                 o que existe, o que falta, quais acessos precisamos e onde a primeira vitória aparece.
               </p>
             </div>
@@ -409,7 +409,7 @@ export default function BuildTechClientProposal() {
         <footer className="bg-[#f7f4ec] px-5 py-10 md:px-8 lg:px-10">
           <div className="mx-auto flex max-w-7xl flex-col gap-5 md:flex-row md:items-center md:justify-between">
             <div>
-              <p className="font-semibold">WG_Build.tech · Proposta 360</p>
+              <p className="font-semibold">WG Build.tech · Proposta 360</p>
               <p className="mt-1 text-sm text-black/55">
                 Link público, pesquisa, plano e implantação para clientes BuildTech.
               </p>
