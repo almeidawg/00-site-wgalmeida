@@ -59,6 +59,8 @@ Auditoria editorial complementar:
 - Checkout `main` original não foi alterado; continua preservando WIP concorrente.
 - Worktree isolada criada diretamente de `origin/main`.
 - `git fetch --all --prune` executado e `origin/main` confirmado em `1938ce7` antes da criação da branch.
+- Commit principal desta frente: `0d3498e2dbf1876f980104efa070342834a6010e` (`chore(brand): canonicalize WG story and public claims`).
+- Após o commit, o gate equivalente a `verify:deploy` foi reexecutado: 31 arquivos / 128 testes / 0 falhas, build Vite OK e `dist validation: ok` com 175 rotas.
 - Arquivos gerados apenas por build/auditoria foram retirados do delta do commit; backups e scripts transitórios foram preservados em `tools/tmp/`, que é ignorado pelo Git.
 
 ## Próximo gate
