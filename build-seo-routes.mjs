@@ -234,12 +234,72 @@ const CRITICAL_ROUTE_PRELOADS = {
   ],
 };
 
+const ROUTE_STRUCTURED_DATA = {
+  "/william-almeida": [
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfilePage",
+      "@id": `${BASE_URL}/william-almeida#profile`,
+      url: `${BASE_URL}/william-almeida`,
+      name: "William Almeida | Founder, Operator & Builder | Advisor Estratégico",
+      description: "Perfil oficial de William Almeida, fundador do Grupo WG Almeida e da WG/Build.tech e Advisor Estratégico para fundadores e empresários.",
+      mainEntity: { "@id": `${BASE_URL}/william-almeida#person` },
+      about: { "@id": `${BASE_URL}/william-almeida#person` },
+      isPartOf: { "@id": `${BASE_URL}/#website` },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "@id": `${BASE_URL}/william-almeida#person`,
+      name: "William Almeida",
+      jobTitle: "Founder, Operator & Builder | Advisor Estratégico",
+      description: "Fundador do Grupo WG Almeida e da WG/Build.tech. Advisor Estratégico para fundadores e empresários em estratégia, operações, produto, tecnologia, automação e IA.",
+      url: `${BASE_URL}/william-almeida`,
+      image: `${BASE_URL}/images/about/william-almeida-1200.webp`,
+      worksFor: { "@id": `${BASE_URL}/#organization` },
+      affiliation: [
+        { "@id": `${BASE_URL}/#organization` },
+        { "@id": `${BASE_URL}/buildtech#softwareapplication` },
+      ],
+      sameAs: ["https://www.linkedin.com/in/wgalmeida/"],
+      knowsAbout: [
+        "Estratégia empresarial",
+        "Operações empresariais",
+        "Produto digital",
+        "Transformação digital",
+        "Software B2B",
+        "Automação de processos",
+        "Inteligência artificial aplicada a negócios",
+        "Agentes de IA e governança",
+        "Vertical SaaS",
+      ],
+    },
+  ],
+};
+
 function applyRoutePreloads(html, route) {
   const preloads = CRITICAL_ROUTE_PRELOADS[route];
   if (!preloads?.length) return html;
   const preloadHtml = preloads.join("\n");
   if (html.includes(preloadHtml)) return html;
   return html.replace("</head>", `${preloadHtml}\n</head>`);
+}
+
+function applyRouteStructuredData(html, route) {
+  const schemas = ROUTE_STRUCTURED_DATA[route];
+  const withoutExistingRouteSchemas = html.replace(
+    /\s*<script type="application\/ld\+json" data-wg-route-schema="[^"]+">[\s\S]*?<\/script>/gi,
+    ""
+  );
+  if (!schemas?.length) return withoutExistingRouteSchemas;
+
+  const schemaHtml = schemas
+    .map((schema, index) => (
+      `<script type="application/ld+json" data-wg-route-schema="${route}:${index + 1}">${JSON.stringify(schema)}</script>`
+    ))
+    .join("\n");
+
+  return withoutExistingRouteSchemas.replace("</head>", `${schemaHtml}\n</head>`);
 }
 
 const routeLabel = (route) => {
@@ -361,6 +421,7 @@ function applySeo(template, route, config) {
   html = replaceOne(html, /<meta name="twitter:description" content="[^"]*"\s*\/?>/i, `<meta name="twitter:description" content="${twDesc}" />`);
   html = replaceOne(html, /<meta name="twitter:image" content="[^"]*"\s*\/?>/i, `<meta name="twitter:image" content="${twImage}" />`);
   html = applyRoutePreloads(html, route);
+  html = applyRouteStructuredData(html, route);
   html = replaceOne(
     html,
     /<script>\s*\(function\(\)\s*\{[\s\S]*?dynamic-canonical[\s\S]*?<\/script>/i,

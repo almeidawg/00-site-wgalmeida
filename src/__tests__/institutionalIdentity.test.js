@@ -1,4 +1,4 @@
-﻿import fs from 'node:fs'
+import fs from 'node:fs'
 import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 
@@ -79,5 +79,64 @@ describe('identidade institucional publica', () => {
     expect(agents).not.toContain('Nome publico oficial: `WG_Build.tech`.')
     expect(releaseRules).not.toContain('Nome publico oficial: `WG_Build.tech`.')
   })
-})
 
+  it('publica William Almeida em rota propria com posicionamento aprovado e sem claims bloqueados', () => {
+    const app = read('src/App.jsx')
+    const william = read('src/pages/WilliamAlmeida.jsx')
+
+    expect(app).toContain('path="/william-almeida"')
+    expect(william).toContain('Founder, Operator & Builder')
+    expect(william).toContain('Advisor Estratégico')
+    expect(william).toContain('Desde 2011')
+    expect(william).toContain('WG/Build.tech')
+    expect(william).toContain('2025')
+    expect(william).not.toContain('480+')
+    expect(william).not.toContain('1.000+')
+    expect(william).not.toContain('R$10M')
+  })
+
+  it('define William como Person/ProfilePage canonico e conecta autoria ao mesmo id', () => {
+    const schema = read('src/data/schemaConfig.js')
+    const seo = read('src/data/seoConfig.js')
+    const seoComponent = read('src/components/SEO.jsx')
+
+    expect(schema).toContain('/william-almeida#person')
+    expect(schema).toContain('ProfilePage')
+    expect(schema).toContain('Advisor Estratégico')
+    expect(schema).toContain('https://www.linkedin.com/in/wgalmeida/')
+    expect(schema).not.toContain('CEO e Diretor de Arquitetura')
+    expect(schema).not.toContain('WG_Build.tech')
+    expect(seo).toContain('"/william-almeida"')
+    expect(seoComponent).toContain("url: 'https://wgalmeida.com.br/william-almeida'")
+    expect(seoComponent).toContain("jobTitle: 'Founder, Operator & Builder | Advisor Estratégico'")
+  })
+
+  it('liga a pagina Sobre a fonte canonica de William Almeida', () => {
+    const about = read('src/pages/About.jsx')
+
+    expect(about).toContain('to="/william-almeida"')
+    expect(about).toContain('Conheça a trajetória de William')
+  })
+
+  it('elimina o schema institucional legado de 2010 e idade dinamica do HTML base', () => {
+    const indexHtml = read('index.html')
+
+    expect(indexHtml).not.toContain('"foundingDate": "2010"')
+    expect(indexHtml).not.toContain('há 15 anos')
+    expect(indexHtml).toContain('"foundingDate": "2011"')
+    expect(indexHtml).toContain('WG/Build.tech')
+  })
+
+  it('injeta Person e ProfilePage de William no HTML estatico da rota', () => {
+    const seoBuilder = read('build-seo-routes.mjs')
+    const validator = read('tools/seo-validate-dist.mjs')
+
+    expect(seoBuilder).toContain('ROUTE_STRUCTURED_DATA')
+    expect(seoBuilder).toContain('/william-almeida#person')
+    expect(seoBuilder).toContain('ProfilePage')
+    expect(seoBuilder).toContain('data-wg-route-schema')
+    expect(validator).toContain('william-almeida/index.html')
+    expect(validator).toContain('ProfilePage')
+    expect(validator).toContain('/william-almeida#person')
+  })
+})

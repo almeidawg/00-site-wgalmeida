@@ -41,6 +41,12 @@ export const SEO_CONFIG = {
     "Conheça a metodologia Turn Key do Grupo WG Almeida — projeto, obra e marcenaria integrados, sem ruído operacional. Atendemos residências e corporativos de alto padrão em São Paulo.",
     `${BASE_URL}/og-sobre-1200x630.jpg`
   ),
+  "/william-almeida": page(
+    "/william-almeida",
+    "William Almeida | Advisor Estratégico, Founder & Operator | Grupo WG Almeida",
+    "Conheça William Almeida, fundador do Grupo WG Almeida e da WG/Build.tech. Founder, Operator & Builder e Advisor Estratégico para empresários em estratégia, operações, produto, tecnologia, automação e IA.",
+    `${BASE_URL}/og-sobre-1200x630.jpg`
+  ),
   "/a-marca": page(
     "/a-marca",
     "A Marca | Grupo WG Almeida",
