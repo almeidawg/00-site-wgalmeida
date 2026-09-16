@@ -2,7 +2,8 @@ import { COMPANY } from './company';
 
 const BASE_URL = "https://wgalmeida.com.br";
 const ORG_ID = `${BASE_URL}/#organization`;
-const PERSON_WILLIAM_ID = `${BASE_URL}/sobre#william-almeida`;
+const PERSON_WILLIAM_ID = `${BASE_URL}/william-almeida#person`;
+const PROFILE_WILLIAM_ID = `${BASE_URL}/william-almeida#profile`;
 const WEBSITE_ID = `${BASE_URL}/#website`;
 const PROJECTS_SERIES_ID = `${BASE_URL}/projetos#creativework-series`;
 const SERVICE_ARCH_ID = `${BASE_URL}/servicos/arquitetura#service`;
@@ -66,17 +67,39 @@ export const SCHEMAS = {
     "@type": "Person",
     "@id": PERSON_WILLIAM_ID,
     name: "William Almeida",
-    jobTitle: "CEO e Diretor de Arquitetura",
-    url: `${BASE_URL}/sobre`,
+    jobTitle: "Founder, Operator & Builder | Advisor Estratégico",
+    description: "Fundador do Grupo WG Almeida e da WG/Build.tech. Advisor Estratégico para fundadores e empresários em estratégia, operações, produto, tecnologia, automação e IA.",
+    url: `${BASE_URL}/william-almeida`,
+    image: `${BASE_URL}/images/about/william-almeida-1200.webp`,
     worksFor: { "@id": ORG_ID },
+    affiliation: [{ "@id": ORG_ID }, { "@id": APP_BUILDTECH_ID }],
+    sameAs: ["https://www.linkedin.com/in/wgalmeida/"],
     knowsAbout: [
-      "Arquitetura de alto padrao",
-      "Arquitetura de alto padrão",
-      "Engenharia de obras",
-      "Marcenaria sob medida",
-      "Gestão de obras turn key",
-      "Tecnologia aplicada à construção",
+      "Estratégia empresarial",
+      "Operações empresariais",
+      "Produto digital",
+      "Transformação digital",
+      "Software B2B",
+      "Automação de processos",
+      "Inteligência artificial aplicada a negócios",
+      "Agentes de IA e governança",
+      "Vertical SaaS",
+      "Arquitetura",
+      "Engenharia",
+      "Marcenaria",
     ],
+  },
+
+  profileWilliam: {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "@id": PROFILE_WILLIAM_ID,
+    url: `${BASE_URL}/william-almeida`,
+    name: "William Almeida | Founder, Operator & Builder | Advisor Estratégico",
+    description: "Perfil oficial de William Almeida, fundador do Grupo WG Almeida e da WG/Build.tech e Advisor Estratégico para fundadores e empresários.",
+    mainEntity: { "@id": PERSON_WILLIAM_ID },
+    about: { "@id": PERSON_WILLIAM_ID },
+    isPartOf: { "@id": WEBSITE_ID },
   },
 
   website: {
@@ -174,9 +197,11 @@ export const SCHEMAS = {
         "@type": "Person",
         "@id": PERSON_WILLIAM_ID,
         name: "William Almeida",
-        jobTitle: "CEO e Diretor de Arquitetura",
-        url: `${BASE_URL}/sobre`,
+        jobTitle: "Founder, Operator & Builder | Advisor Estratégico",
+        url: `${BASE_URL}/william-almeida`,
+        image: `${BASE_URL}/images/about/william-almeida-1200.webp`,
         worksFor: { "@id": ORG_ID },
+        sameAs: ["https://www.linkedin.com/in/wgalmeida/"],
       },
       {
         "@type": "Service",
@@ -307,6 +332,10 @@ export const SCHEMAS = {
   breadcrumbAbout: breadcrumb([
     { name: "Home", url: `${BASE_URL}/` },
     { name: "Sobre", url: `${BASE_URL}/sobre` },
+  ]),
+  breadcrumbWilliam: breadcrumb([
+    { name: "Home", url: `${BASE_URL}/` },
+    { name: "William Almeida", url: `${BASE_URL}/william-almeida` },
   ]),
   breadcrumbProjects: breadcrumb([
     { name: "Home", url: `${BASE_URL}/` },

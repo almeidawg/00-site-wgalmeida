@@ -13,6 +13,7 @@ const Footer = lazy(() => import('@/components/layout/Footer'))
 const ContextTracker = lazy(() => import('@/components/ContextTracker'))
 const Home = lazy(() => import('@/pages/Home'))
 const About = lazy(() => import('@/pages/About'))
+const WilliamAlmeida = lazy(() => import('@/pages/WilliamAlmeida'))
 const AMarca = lazy(() => import('@/pages/AMarca'))
 const Architecture = lazy(() => import('@/pages/Architecture'))
 const Engineering = lazy(() => import('@/pages/Engineering'))
@@ -330,6 +331,7 @@ function App() {
             <Routes>
               <Route path="/" element={isBuildTechHost ? <BuildTech /> : <HomeWithIntro />} />
               <Route path="/sobre" element={<About />} />
+              <Route path="/william-almeida" element={<WilliamAlmeida />} />
               <Route path="/a-marca" element={<AMarca />} />
               <Route path="/arquitetura" element={<Architecture />} />
               <Route path="/engenharia" element={<Engineering />} />
