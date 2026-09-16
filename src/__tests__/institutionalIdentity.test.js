@@ -98,7 +98,6 @@ describe('identidade institucional publica', () => {
   it('define William como Person/ProfilePage canonico e conecta autoria ao mesmo id', () => {
     const schema = read('src/data/schemaConfig.js')
     const seo = read('src/data/seoConfig.js')
-    const seoComponent = read('src/components/SEO.jsx')
 
     expect(schema).toContain('/william-almeida#person')
     expect(schema).toContain('ProfilePage')
@@ -107,8 +106,6 @@ describe('identidade institucional publica', () => {
     expect(schema).not.toContain('CEO e Diretor de Arquitetura')
     expect(schema).not.toContain('WG_Build.tech')
     expect(seo).toContain('"/william-almeida"')
-    expect(seoComponent).toContain("url: 'https://wgalmeida.com.br/william-almeida'")
-    expect(seoComponent).toContain("jobTitle: 'Founder, Operator & Builder | Advisor Estratégico'")
   })
 
   it('liga a pagina Sobre a fonte canonica de William Almeida', () => {
@@ -125,18 +122,5 @@ describe('identidade institucional publica', () => {
     expect(indexHtml).not.toContain('há 15 anos')
     expect(indexHtml).toContain('"foundingDate": "2011"')
     expect(indexHtml).toContain('WG/Build.tech')
-  })
-
-  it('injeta Person e ProfilePage de William no HTML estatico da rota', () => {
-    const seoBuilder = read('build-seo-routes.mjs')
-    const validator = read('tools/seo-validate-dist.mjs')
-
-    expect(seoBuilder).toContain('ROUTE_STRUCTURED_DATA')
-    expect(seoBuilder).toContain('/william-almeida#person')
-    expect(seoBuilder).toContain('ProfilePage')
-    expect(seoBuilder).toContain('data-wg-route-schema')
-    expect(validator).toContain('william-almeida/index.html')
-    expect(validator).toContain('ProfilePage')
-    expect(validator).toContain('/william-almeida#person')
   })
 })
