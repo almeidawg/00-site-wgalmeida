@@ -110,7 +110,7 @@ const Header = () => {
     : 'whitespace-nowrap px-2 xl:px-2.5 py-2 rounded-full text-[12px] xl:text-[13px] text-white/80 hover:text-white hover:bg-white/[0.08] backdrop-blur-sm';
 
   const activeNavLinkClass = effectivelyScrolled ? 'bg-black/[0.05] text-wg-black' : 'bg-white/[0.12] text-white';
-  const iconButtonClass = effectivelyScrolled ? 'w-8.5 h-8.5 xl:w-9 xl:h-9 border-black/[0.08] bg-white/70' : 'w-9 h-9 xl:w-10 xl:h-10 border-white/20 bg-white/[0.08]';
+  const iconButtonClass = effectivelyScrolled ? 'min-w-11 min-h-11 w-11 h-11 xl:w-11 xl:h-11 border-black/[0.08] bg-white/70' : 'min-w-11 min-h-11 w-11 h-11 xl:w-11 xl:h-11 border-white/20 bg-white/[0.08]';
   const iconColorClass = effectivelyScrolled ? 'text-wg-black' : 'text-white';
 
   return (
@@ -218,7 +218,7 @@ const Header = () => {
                 <Globe className={`${iconColorClass} transition-all ${isScrolled ? 'h-3.5 w-3.5' : 'h-4 w-4'}`} />
               </Link>
               
-              <button type="button" className={`xl:hidden transition-colors ${isScrolled ? 'text-wg-black' : 'text-white'}`} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} aria-label={isMobileMenuOpen ? t('header.closeMenu') : t('header.openMenu')} aria-expanded={isMobileMenuOpen}>
+              <button type="button" className={`xl:hidden inline-flex min-h-11 min-w-11 items-center justify-center rounded-full transition-colors ${isScrolled ? 'text-wg-black' : 'text-white'}`} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} aria-label={isMobileMenuOpen ? t('header.closeMenu') : t('header.openMenu')} aria-expanded={isMobileMenuOpen}>
                 {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
             </div>

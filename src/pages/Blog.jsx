@@ -492,7 +492,7 @@ const Blog = () => {
 
           <Link
             to={`/blog/${article.slug}`}
-            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-wg-black group-hover:text-wg-orange transition-colors"
+            className="inline-flex min-h-11 items-center gap-2 text-xs font-bold uppercase tracking-widest text-wg-black group-hover:text-wg-orange transition-colors"
           >
             {t('blog.readMore')} <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
           </Link>
@@ -543,7 +543,7 @@ const Blog = () => {
             <p className="mb-6 line-clamp-4 text-sm font-light leading-relaxed text-wg-gray">
               {article.excerpt}
             </p>
-            <span className="mt-auto inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-wg-black transition-colors group-hover:text-wg-orange">
+            <span className="mt-auto inline-flex min-h-11 items-center gap-2 text-xs font-bold uppercase tracking-widest text-wg-black transition-colors group-hover:text-wg-orange">
               {t('blog.readMore')} <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
             </span>
             <span className={`mt-4 block h-px w-0 ${articleLineClass} transition-all duration-500 group-hover:w-24`} />
@@ -592,7 +592,7 @@ const Blog = () => {
             <p className="mb-5 line-clamp-3 text-sm font-light leading-relaxed text-wg-gray">
               {article.excerpt}
             </p>
-            <span className="mt-auto inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-wg-black transition-colors group-hover:text-wg-orange">
+            <span className="mt-auto inline-flex min-h-11 items-center gap-2 text-xs font-bold uppercase tracking-widest text-wg-black transition-colors group-hover:text-wg-orange">
               {t('blog.readMore')} <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
             </span>
             <span className={`mt-4 block h-px w-0 ${articleLineClass} transition-all duration-500 group-hover:w-20`} />
@@ -760,7 +760,7 @@ const Blog = () => {
 
             <div className="container-custom relative z-10 flex h-full w-full items-end pb-20 pt-28 md:pb-24 md:pt-32 lg:pb-28 lg:pt-36">
               <div className="max-w-4xl">
-                <Link to="/blog" className="mb-8 inline-flex items-center gap-2 text-sm font-light text-white/75 transition-colors hover:text-white">
+                <Link to="/blog" className="mb-8 inline-flex min-h-11 items-center gap-2 text-sm font-light text-white/75 transition-colors hover:text-white">
                   <ArrowLeft size={16} />
                   Blog & Artigos
                 </Link>
@@ -830,7 +830,7 @@ const Blog = () => {
                         <a
                           key={item.id}
                           href={`#${item.id}`}
-                          className={`wg-cta-subtle inline-flex items-center rounded-full border border-black/12 bg-white px-2.5 py-0.5 text-[9px] font-light uppercase tracking-[0.08em] text-wg-gray transition-colors focus:outline-none ${articlePillHoverClass}`}
+                          className={`wg-cta-subtle inline-flex min-h-11 items-center rounded-full border border-black/12 bg-white px-2.5 py-0.5 text-[9px] font-light uppercase tracking-[0.08em] text-wg-gray transition-colors focus:outline-none ${articlePillHoverClass}`}
                           style={articleCtaBorderVars}
                         >
                           {item.text.split('(')[0].trim()}
@@ -845,7 +845,7 @@ const Blog = () => {
                     <button
                       type="button"
                       onClick={handleShare}
-                      className={`wg-cta-subtle cta-quick inline-flex items-center justify-center gap-2 rounded-full border border-black/12 bg-white px-3 py-1.5 text-[9px] font-light uppercase tracking-[0.1em] text-wg-black transition-colors hover:text-wg-black focus:outline-none focus-visible:outline-none focus-visible:ring-0 ${articleCtaHoverClass}`}
+                      className={`wg-cta-subtle cta-quick inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-black/12 bg-white px-3 py-1.5 text-[9px] font-light uppercase tracking-[0.1em] text-wg-black transition-colors hover:text-wg-black focus:outline-none focus-visible:outline-none focus-visible:ring-0 ${articleCtaHoverClass}`}
                       style={articleCtaBorderVars}
                     >
                       <Share2 size={11} className={articleIconClass} />
@@ -855,7 +855,7 @@ const Blog = () => {
                       href={`https://wa.me/5511984650002?text=${encodeURIComponent(`Vi esta materia no site da WG Almeida e quero continuar por aqui: ${currentPageUrl}`)}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`wg-cta-subtle cta-quick inline-flex items-center justify-center gap-2 rounded-full border border-black/12 bg-white px-3 py-1.5 text-[9px] font-light uppercase tracking-[0.1em] text-wg-black transition-colors hover:text-wg-black focus:outline-none focus-visible:outline-none focus-visible:ring-0 ${articleCtaHoverClass}`}
+                      className={`wg-cta-subtle cta-quick inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-black/12 bg-white px-3 py-1.5 text-[9px] font-light uppercase tracking-[0.1em] text-wg-black transition-colors hover:text-wg-black focus:outline-none focus-visible:outline-none focus-visible:ring-0 ${articleCtaHoverClass}`}
                       style={articleCtaBorderVars}
                     >
                       <MessageCircle size={11} className={articleIconClass} />
@@ -863,7 +863,7 @@ const Blog = () => {
                     </a>
                     <Link
                       to={selectedArticle.moodboardShareUrl || '/moodboard'}
-                      className={`cta-quick inline-flex items-center justify-center gap-2 rounded-full border border-transparent bg-wg-black px-3 py-1.5 text-[9px] font-light uppercase tracking-[0.1em] text-white transition-colors hover:bg-black/90 focus:outline-none focus-visible:outline-none focus-visible:ring-0 ${articleCtaHoverClass}`}
+                      className={`cta-quick inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-transparent bg-wg-black px-3 py-1.5 text-[9px] font-light uppercase tracking-[0.1em] text-white transition-colors hover:bg-black/90 focus:outline-none focus-visible:outline-none focus-visible:ring-0 ${articleCtaHoverClass}`}
                       style={articleCtaBorderVars}
                     >
                       <LayoutGrid size={11} />
@@ -885,7 +885,7 @@ const Blog = () => {
                       <a
                         key={item.id}
                         href={`#${item.id}`}
-                        className={`group inline-flex items-center justify-between gap-4 rounded-xl border border-transparent bg-white px-4 py-2 text-sm font-light text-wg-gray shadow-[0_1px_0_rgba(0,0,0,0.03)] transition-all hover:-translate-y-[1px] hover:shadow-sm hover:text-wg-black ${articleTocHoverClass}`}
+                        className={`group inline-flex min-h-11 items-center justify-between gap-4 rounded-xl border border-transparent bg-white px-4 py-2 text-sm font-light text-wg-gray shadow-[0_1px_0_rgba(0,0,0,0.03)] transition-all hover:-translate-y-[1px] hover:shadow-sm hover:text-wg-black ${articleTocHoverClass}`}
                       >
                         <span>{item.text}</span>
                         <span className={`text-[11px] uppercase tracking-[0.12em] ${item.id === activeReadingId ? articleTocReadingClass : 'text-wg-gray/55'}`}>
@@ -1132,7 +1132,7 @@ const Blog = () => {
               >
                 <Link
                   to={`/blog/${featuredArticle.slug}`}
-                  className="inline-flex items-center gap-2 rounded-lg bg-wg-orange px-6 py-3 font-light text-white transition-all hover:brightness-110"
+                  className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-wg-orange px-6 py-3 font-light text-white transition-all hover:brightness-110"
                 >
                   {t('blogPage.hero.cta')}
                   <ArrowRight size={18} />
@@ -1156,7 +1156,7 @@ const Blog = () => {
                 <button
                   key={cat.id}
                   onClick={() => setActiveCategory(cat.id)}
-                  className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm transition-all ${
+                  className={`flex min-h-11 items-center gap-2 px-5 py-2.5 rounded-full text-sm transition-all ${
                     activeCategory === cat.id
                       ? `${cat.bgColor} ${cat.id === 'all' ? 'text-wg-black' : 'text-white'} shadow-lg shadow-black/5`
                       : 'bg-gray-50 text-wg-gray hover:bg-gray-100'
@@ -1173,10 +1173,11 @@ const Blog = () => {
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
               <input
                 type="text"
+                aria-label={t('common.search')}
                 placeholder={t('common.search')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-transparent focus:border-wg-orange/30 focus:bg-white rounded-2xl outline-none transition-all font-light text-sm"
+                className="min-h-11 w-full pl-12 pr-4 py-3 bg-gray-50 border border-transparent focus:border-wg-orange/30 focus:bg-white rounded-2xl outline-none transition-all font-light text-sm"
               />
             </div>
           </div>
@@ -1236,7 +1237,7 @@ const Blog = () => {
                           <p className="mb-6 line-clamp-4 text-sm font-light leading-relaxed text-wg-gray">
                             {article.excerpt}
                           </p>
-                          <span className="mt-auto inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-wg-black transition-colors group-hover:text-wg-orange">
+                          <span className="mt-auto inline-flex min-h-11 items-center gap-2 text-xs font-bold uppercase tracking-widest text-wg-black transition-colors group-hover:text-wg-orange">
                             {t('blog.readMore')} <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
                           </span>
                           <span className={`mt-4 block h-px w-0 ${articleLineClass} transition-all duration-500 group-hover:w-24`} />
@@ -1335,10 +1336,11 @@ const Blog = () => {
             <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" onSubmit={(e) => e.preventDefault()}>
               <input 
                 type="email" 
+                aria-label={t('blogPage.newsletter.placeholder')}
                 placeholder={t('blogPage.newsletter.placeholder')}
-                className="flex-1 px-6 py-4 bg-white/5 border border-white/10 rounded-xl outline-none focus:border-wg-orange/50 transition-all font-light"
+                className="min-h-11 flex-1 px-6 py-4 bg-white/5 border border-white/10 rounded-xl outline-none focus:border-wg-orange/50 transition-all font-light"
               />
-              <button className="wg-btn-pill-primary px-8 whitespace-nowrap">
+              <button className="wg-btn-pill-primary min-h-11 px-8 whitespace-nowrap">
                 {t('blogPage.newsletter.button')}
               </button>
             </form>

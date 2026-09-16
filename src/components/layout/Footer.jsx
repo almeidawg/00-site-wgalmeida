@@ -16,25 +16,25 @@ const Footer = () => {
           <div>
             <span className="font-suisse font-light text-lg mb-3 block text-gray-200" style={{ fontWeight: 300 }}>{t('footer.navigation')}</span>
             <nav className="space-y-2">
-              <Link to="/" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
+              <Link to="/" className="flex min-h-11 items-center text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
                 {t('nav.home')}
               </Link>
-              <Link to="/sobre" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
+              <Link to="/sobre" className="flex min-h-11 items-center text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
                 {t('nav.about')}
               </Link>
-              <Link to="/projetos" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
+              <Link to="/projetos" className="flex min-h-11 items-center text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
                 {t('nav.projects')}
               </Link>
-              <Link to="/store" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
+              <Link to="/store" className="flex min-h-11 items-center text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
                 {t('nav.store')}
               </Link>
-              <Link to="/solicite-proposta" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
+              <Link to="/solicite-proposta" className="flex min-h-11 items-center text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
                 {t('nav.requestProposal')}
               </Link>
-              <Link to="/faq" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
+              <Link to="/faq" className="flex min-h-11 items-center text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
                 {t('footer.faq')}
               </Link>
-              <Link to="/contato" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
+              <Link to="/contato" className="flex min-h-11 items-center text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
                 {t('nav.contact')}
               </Link>
             </nav>
@@ -43,25 +43,25 @@ const Footer = () => {
           <div className="lg:mr-2">
             <span className="font-suisse font-light text-lg mb-3 block text-gray-200" style={{ fontWeight: 300 }}>{t('footer.units')}</span>
             <nav className="space-y-2">
-              <Link to="/arquitetura" className="block text-gray-400 hover:text-wg-green transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
+              <Link to="/arquitetura" className="flex min-h-11 items-center text-gray-400 hover:text-wg-green transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
                 {t('nav.architecture')}
               </Link>
-              <Link to="/engenharia" className="block text-gray-400 hover:text-wg-blue transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
+              <Link to="/engenharia" className="flex min-h-11 items-center text-gray-400 hover:text-wg-blue transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
                 {t('nav.engineering')}
               </Link>
-              <Link to="/marcenaria" className="block text-gray-400 hover:text-wg-black transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
+              <Link to="/marcenaria" className="flex min-h-11 items-center text-gray-400 hover:text-wg-black transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
                 {t('nav.carpentry')}
               </Link>
-              <Link to="/obra-turn-key" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
+              <Link to="/obra-turn-key" className="flex min-h-11 items-center text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
                 {t('nav.turnKeyWork')}
               </Link>
-              <Link to="/arquitetura-corporativa" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
+              <Link to="/arquitetura-corporativa" className="flex min-h-11 items-center text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
                 {t('nav.architectureCorporate')}
               </Link>
-              <Link to="/construtora-alto-padrao-sp" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
+              <Link to="/construtora-alto-padrao-sp" className="flex min-h-11 items-center text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
                 {t('nav.builderHighEnd')}
               </Link>
-              <Link to="/reforma-apartamento-itaim" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
+              <Link to="/reforma-apartamento-itaim" className="flex min-h-11 items-center text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
                 {t('nav.renovationItaim')}
               </Link>
             </nav>
@@ -71,19 +71,19 @@ const Footer = () => {
           <div>
             <span className="font-suisse font-light text-lg mb-3 block text-gray-200" style={{ fontWeight: 300 }}>{t('footer.resources')}</span>
             <nav className="space-y-2">
-              <Link to="/blog" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
+              <Link to="/blog" className="flex min-h-11 items-center text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
                 {t('nav.blog')}
               </Link>
-              <Link to="/revista-estilos" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
+              <Link to="/revista-estilos" className="flex min-h-11 items-center text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
                 {t('nav.styleMagazine')}
               </Link>
-              <Link to="/moodboard-generator" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
+              <Link to="/moodboard-generator" className="flex min-h-11 items-center text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
                 {t('nav.moodboardGenerator')}
               </Link>
-              <Link to="/room-visualizer" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
+              <Link to="/room-visualizer" className="flex min-h-11 items-center text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
                 {t('nav.roomVisualizer')}
               </Link>
-              <Link to="/revista-estilos" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
+              <Link to="/revista-estilos" className="flex min-h-11 items-center text-gray-400 hover:text-wg-orange transition-colors text-sm font-light" style={{ fontWeight: 300 }}>
                 {t('nav.styleGuide')}
               </Link>
             </nav>
@@ -92,52 +92,52 @@ const Footer = () => {
           <div>
             <span className="font-suisse font-light text-lg mb-3 block text-gray-200" style={{ fontWeight: 300 }}>{t('footer.regions')}</span>
             <nav className="grid max-w-[29rem] grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-3">
-              <Link to="/jardins" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm leading-snug whitespace-normal font-light" style={{ fontWeight: 300 }}>
+              <Link to="/jardins" className="flex min-h-11 items-center text-gray-400 hover:text-wg-orange transition-colors text-sm leading-snug whitespace-normal font-light" style={{ fontWeight: 300 }}>
                 Jardins
               </Link>
-              <Link to="/vila-nova-conceicao" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm leading-snug whitespace-normal font-light" style={{ fontWeight: 300 }}>
+              <Link to="/vila-nova-conceicao" className="flex min-h-11 items-center text-gray-400 hover:text-wg-orange transition-colors text-sm leading-snug whitespace-normal font-light" style={{ fontWeight: 300 }}>
                 Vila Nova Conceição
               </Link>
-              <Link to="/itaim" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm leading-snug whitespace-normal font-light" style={{ fontWeight: 300 }}>
+              <Link to="/itaim" className="flex min-h-11 items-center text-gray-400 hover:text-wg-orange transition-colors text-sm leading-snug whitespace-normal font-light" style={{ fontWeight: 300 }}>
                 Itaim Bibi
               </Link>
-              <Link to="/brooklin" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm leading-snug whitespace-normal font-light" style={{ fontWeight: 300 }}>
+              <Link to="/brooklin" className="flex min-h-11 items-center text-gray-400 hover:text-wg-orange transition-colors text-sm leading-snug whitespace-normal font-light" style={{ fontWeight: 300 }}>
                 Brooklin
               </Link>
-              <Link to="/morumbi" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm leading-snug whitespace-normal font-light" style={{ fontWeight: 300 }}>
+              <Link to="/morumbi" className="flex min-h-11 items-center text-gray-400 hover:text-wg-orange transition-colors text-sm leading-snug whitespace-normal font-light" style={{ fontWeight: 300 }}>
                 Morumbi
               </Link>
-              <Link to="/cidade-jardim" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm leading-snug whitespace-normal font-light" style={{ fontWeight: 300 }}>
+              <Link to="/cidade-jardim" className="flex min-h-11 items-center text-gray-400 hover:text-wg-orange transition-colors text-sm leading-snug whitespace-normal font-light" style={{ fontWeight: 300 }}>
                 Cidade Jardim
               </Link>
-              <Link to="/alto-de-pinheiros" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm leading-snug whitespace-normal font-light" style={{ fontWeight: 300 }}>
+              <Link to="/alto-de-pinheiros" className="flex min-h-11 items-center text-gray-400 hover:text-wg-orange transition-colors text-sm leading-snug whitespace-normal font-light" style={{ fontWeight: 300 }}>
                 Alto de Pinheiros
               </Link>
-              <Link to="/moema" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm leading-snug whitespace-normal font-light" style={{ fontWeight: 300 }}>
+              <Link to="/moema" className="flex min-h-11 items-center text-gray-400 hover:text-wg-orange transition-colors text-sm leading-snug whitespace-normal font-light" style={{ fontWeight: 300 }}>
                 Moema
               </Link>
-              <Link to="/campo-belo" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm leading-snug whitespace-normal font-light" style={{ fontWeight: 300 }}>
+              <Link to="/campo-belo" className="flex min-h-11 items-center text-gray-400 hover:text-wg-orange transition-colors text-sm leading-snug whitespace-normal font-light" style={{ fontWeight: 300 }}>
                 Campo Belo
               </Link>
-              <Link to="/higienopolis" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm leading-snug whitespace-normal font-light" style={{ fontWeight: 300 }}>
+              <Link to="/higienopolis" className="flex min-h-11 items-center text-gray-400 hover:text-wg-orange transition-colors text-sm leading-snug whitespace-normal font-light" style={{ fontWeight: 300 }}>
                 Higienópolis
               </Link>
-              <Link to="/pinheiros" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm leading-snug whitespace-normal font-light" style={{ fontWeight: 300 }}>
+              <Link to="/pinheiros" className="flex min-h-11 items-center text-gray-400 hover:text-wg-orange transition-colors text-sm leading-snug whitespace-normal font-light" style={{ fontWeight: 300 }}>
                 Pinheiros
               </Link>
-              <Link to="/perdizes" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm leading-snug whitespace-normal font-light" style={{ fontWeight: 300 }}>
+              <Link to="/perdizes" className="flex min-h-11 items-center text-gray-400 hover:text-wg-orange transition-colors text-sm leading-snug whitespace-normal font-light" style={{ fontWeight: 300 }}>
                 Perdizes
               </Link>
-              <Link to="/paraiso" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm leading-snug whitespace-normal font-light" style={{ fontWeight: 300 }}>
+              <Link to="/paraiso" className="flex min-h-11 items-center text-gray-400 hover:text-wg-orange transition-colors text-sm leading-snug whitespace-normal font-light" style={{ fontWeight: 300 }}>
                 Paraíso
               </Link>
-              <Link to="/aclimacao" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm leading-snug whitespace-normal font-light" style={{ fontWeight: 300 }}>
+              <Link to="/aclimacao" className="flex min-h-11 items-center text-gray-400 hover:text-wg-orange transition-colors text-sm leading-snug whitespace-normal font-light" style={{ fontWeight: 300 }}>
                 Aclimação
               </Link>
-              <Link to="/vila-mariana" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm leading-snug whitespace-normal font-light" style={{ fontWeight: 300 }}>
+              <Link to="/vila-mariana" className="flex min-h-11 items-center text-gray-400 hover:text-wg-orange transition-colors text-sm leading-snug whitespace-normal font-light" style={{ fontWeight: 300 }}>
                 Vila Mariana
               </Link>
-              <Link to="/mooca" className="block text-gray-400 hover:text-wg-orange transition-colors text-sm leading-snug whitespace-normal font-light" style={{ fontWeight: 300 }}>
+              <Link to="/mooca" className="flex min-h-11 items-center text-gray-400 hover:text-wg-orange transition-colors text-sm leading-snug whitespace-normal font-light" style={{ fontWeight: 300 }}>
                 Mooca
               </Link>
             </nav>
@@ -146,17 +146,17 @@ const Footer = () => {
           <div>
             <span className="font-suisse font-light text-lg mb-3 block text-gray-200" style={{ fontWeight: 300 }}>{t('footer.contact')}</span>
             <div className="space-y-3">
-              <a href={`tel:${COMPANY.phoneRaw}`} className="flex items-start space-x-3 hover:text-wg-orange transition-colors group">
+              <a href={`tel:${COMPANY.phoneRaw}`} className="flex min-h-11 items-center space-x-3 hover:text-wg-orange transition-colors group">
                 <Phone className="w-5 h-5 text-wg-orange mt-0.5 flex-shrink-0" />
                 <span className="text-gray-400 text-sm font-light group-hover:text-wg-orange" style={{ fontWeight: 300 }}>{COMPANY.phone}</span>
               </a>
-              <a href={COMPANY.whatsapp} target="_blank" rel="noopener noreferrer" className="flex items-start space-x-3 hover:text-wg-orange transition-colors group">
+              <a href={COMPANY.whatsapp} target="_blank" rel="noopener noreferrer" className="flex min-h-11 items-center space-x-3 hover:text-wg-orange transition-colors group">
                 <svg viewBox="0 0 24 24" className="w-5 h-5 text-wg-orange mt-0.5 flex-shrink-0 fill-current">
                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                 </svg>
                 <span className="text-gray-400 text-sm font-light group-hover:text-wg-orange" style={{ fontWeight: 300 }}>{t('footer.whatsapp')}</span>
               </a>
-              <a href={`mailto:${COMPANY.email}`} className="flex items-start space-x-3 hover:text-wg-orange transition-colors group">
+              <a href={`mailto:${COMPANY.email}`} className="flex min-h-11 items-center space-x-3 hover:text-wg-orange transition-colors group">
                 <Mail className="w-5 h-5 text-wg-orange mt-0.5 flex-shrink-0" />
                 <span className="text-gray-400 text-sm font-light group-hover:text-wg-orange" style={{ fontWeight: 300 }}>{COMPANY.email}</span>
               </a>
@@ -166,22 +166,22 @@ const Footer = () => {
               </div>
               {/* Redes Sociais */}
               <div className="flex space-x-4 mt-4 pt-4 border-t border-gray-800">
-                <a href={COMPANY.instagram} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-wg-orange transition-colors" aria-label={t('footer.followInstagram')}>
+                <a href={COMPANY.instagram} target="_blank" rel="noopener noreferrer" className="inline-flex h-11 w-11 items-center justify-center rounded-full text-gray-400 hover:text-wg-orange transition-colors" aria-label={t('footer.followInstagram')}>
                   <Instagram className="w-5 h-5" />
                 </a>
-                <a href={COMPANY.facebook} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-wg-orange transition-colors" aria-label={t('footer.followFacebook')}>
+                <a href={COMPANY.facebook} target="_blank" rel="noopener noreferrer" className="inline-flex h-11 w-11 items-center justify-center rounded-full text-gray-400 hover:text-wg-orange transition-colors" aria-label={t('footer.followFacebook')}>
                   <Facebook className="w-5 h-5" />
                 </a>
-                <a href={COMPANY.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-wg-orange transition-colors" aria-label={t('footer.followLinkedin')}>
+                <a href={COMPANY.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex h-11 w-11 items-center justify-center rounded-full text-gray-400 hover:text-wg-orange transition-colors" aria-label={t('footer.followLinkedin')}>
                   <Linkedin className="w-5 h-5" />
                 </a>
-                <a href={COMPANY.pinterest} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-wg-orange transition-colors" aria-label="Seguir no Pinterest">
+                <a href={COMPANY.pinterest} target="_blank" rel="noopener noreferrer" className="inline-flex h-11 w-11 items-center justify-center rounded-full text-gray-400 hover:text-wg-orange transition-colors" aria-label="Seguir no Pinterest">
                   <Pin className="w-5 h-5" />
                 </a>
-                <a href={COMPANY.homify} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-wg-orange transition-colors" aria-label="Ver perfil no Homify">
+                <a href={COMPANY.homify} target="_blank" rel="noopener noreferrer" className="inline-flex h-11 w-11 items-center justify-center rounded-full text-gray-400 hover:text-wg-orange transition-colors" aria-label="Ver perfil no Homify">
                   <Home className="w-5 h-5" />
                 </a>
-                <a href={COMPANY.houzz} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-wg-orange transition-colors" aria-label="Ver perfil no Houzz">
+                <a href={COMPANY.houzz} target="_blank" rel="noopener noreferrer" className="inline-flex h-11 w-11 items-center justify-center rounded-full text-gray-400 hover:text-wg-orange transition-colors" aria-label="Ver perfil no Houzz">
                   <Building2 className="w-5 h-5" />
                 </a>
               </div>
@@ -197,7 +197,7 @@ const Footer = () => {
               href={PRODUCT_URLS.wgeasy}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-gray-400 hover:text-wg-orange transition-colors text-sm font-light group"
+              className="flex min-h-11 items-center gap-2 text-gray-400 hover:text-wg-orange transition-colors text-sm font-light group"
               style={{ fontWeight: 300 }}
             >
               <Cpu size={14} className="group-hover:text-wg-orange" />
@@ -215,7 +215,7 @@ const Footer = () => {
                 href={PRODUCT_URLS.wgeasy}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-gray-300 hover:text-gray-300 transition-colors text-xs font-suisse font-light tracking-[0.01em]"
+                className="inline-flex min-h-11 items-center gap-2 text-gray-300 hover:text-gray-300 transition-colors text-xs font-suisse font-light tracking-[0.01em]"
                 style={{ fontFamily: "'Suisse Intl', 'Inter', sans-serif", fontWeight: 300 }}
               >
                   <KeyRound size={14} />
@@ -234,8 +234,8 @@ const Footer = () => {
             © {new Date().getFullYear()} Grupo WG Almeida. {t('footer.rights')}
           </p>
           <div className="mt-4 flex justify-center gap-4 text-xs text-gray-400">
-            <Link to="/privacidade" className="hover:text-wg-orange transition-colors">Política de Privacidade</Link>
-            <Link to="/exclusao-de-dados" className="hover:text-wg-orange transition-colors">Exclusão de Dados</Link>
+            <Link to="/privacidade" className="inline-flex min-h-11 items-center hover:text-wg-orange transition-colors">Política de Privacidade</Link>
+            <Link to="/exclusao-de-dados" className="inline-flex min-h-11 items-center hover:text-wg-orange transition-colors">Exclusão de Dados</Link>
           </div>
         </div>
       </div>
