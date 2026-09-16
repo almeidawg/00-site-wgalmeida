@@ -77,3 +77,50 @@ Auditoria editorial complementar:
 Não publicar como fato verificado até reconciliação de fonte operacional: `480+ clientes`, `1.000+ propostas`, `284+/285+ clientes`, `R$10M+`, `mais de 280 obras` ou equivalentes.
 
 A formulação pública preferencial para tempo de mercado é `Desde 2011`. A data exata `28/10/2011` permanece documentada internamente e deve ser tratada como marco histórico até confirmação final no ato societário primário.
+
+---
+
+## Histórico de Auditorias SEO Recorrentes
+
+### Auditoria 2026-09-16 (atual)
+
+| Métrica | Valor | Status |
+|---|---|---|
+| AI Readiness Score | 0/100¹ | ⚠️ PROXY BLOCK |
+| Rotas no sitemap | N/A¹ | ⚠️ PROXY BLOCK |
+| PageSpeed LCP mobile | N/A | 429 sem API key |
+| PageSpeed CLS mobile | N/A | 429 sem API key |
+| PageSpeed LCP desktop | N/A | 429 sem API key |
+
+**¹ Nota importante:** O score 0/100 e a falha no sitemap NÃO são problemas reais do site. O ambiente de execução remota (cloud sandbox) bloqueia conexões HTTPS de saída para `wgalmeida.com.br` via proxy com HTTP 403. O site está operacional — a auditoria de 2026-06-23 (executada sem restrição de proxy) registrou score 100/100 e 161 rotas. Esta limitação é do ambiente de execução, não do site.
+
+**Alertas registrados pelo script (ambiente):**
+- `[ALTA]` Sitemap XML: Erro HTTP 403 — bloqueio de proxy do sandbox (não é falha do site)
+- `[MEDIA]` robots.txt: Erro HTTP 403 — mesma causa acima
+- `[INFO]` PageSpeed: Rate limit 429 — sem `PAGESPEED_API_KEY` configurada
+
+**Plano de ação (próximos 5 dias):**
+1. Configurar `PAGESPEED_API_KEY` no ambiente de agendamento para habilitar métricas Core Web Vitals reais
+2. Verificar se o ambiente de execução pode ser configurado com acesso externo sem proxy restritivo para `wgalmeida.com.br`
+3. Monitorar deploy após merge da branch `chore/brand-canonical-20260915` (sitemap esperado: ~175 rotas após merge)
+4. Executar smoke test público em `/`, `/sobre` e `/buildtech` após merge
+5. Próxima auditoria: **2026-09-21**
+
+---
+
+### Auditoria 2026-06-23 (referência anterior)
+
+| Métrica | Valor | Status |
+|---|---|---|
+| AI Readiness Score | 100/100 | ✅ OK |
+| Rotas no sitemap | 161 | ✅ OK (≥145) |
+| Sitemap XML | OK | ✅ |
+| robots.txt | OK (Googlebot permitido, sitemap declarado) | ✅ |
+| Schemas JSON-LD | 5/5 (Organization, Person, FAQPage, ProfessionalService, BreadcrumbList) | ✅ |
+| E-E-A-T | OK (trustSignals ausentes, mas não bloqueante) | ✅ |
+| Meta Tags SEO/OG | OK | ✅ |
+| Estrutura Escaneável (LLM) | OK | ✅ |
+
+**Alertas:** Nenhum.
+
+**Próxima auditoria agendada era:** 2026-09-16 ✅ (executada acima)
