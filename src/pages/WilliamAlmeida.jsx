@@ -1,17 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {
-  ArrowRight,
-  BrainCircuit,
-  Building2,
-  CheckCircle2,
-  Compass,
-  Lightbulb,
-  Network,
-  Quote,
-  Rocket,
-  Workflow,
-} from 'lucide-react';
+import { ArrowRight, Building2, CheckCircle2, Quote } from 'lucide-react';
 import SEO from '@/components/SEO';
 import { SCHEMAS } from '@/data/schemaConfig';
 import ResponsiveWebpImage from '@/components/ResponsiveWebpImage';
@@ -50,15 +39,6 @@ const timeline = [
     title: 'Founder, Operator & Builder + Advisory',
     text: 'William aplica a experiência acumulada como uma segunda visão de operador para founders e empresários que precisam conectar estratégia, operação, produto, tecnologia, automação e IA.',
   },
-];
-
-const principles = [
-  ['Estratégia sem operação não executa.', Compass],
-  ['Automação sem processo acelera o caos.', Workflow],
-  ['Produto começa no problema, não na feature.', Lightbulb],
-  ['IA precisa de contexto, processo e governança.', BrainCircuit],
-  ['Integração reduz perda de contexto e decisão fraca.', Network],
-  ['A primeira versão é uma forma de pensar e validar.', Rocket],
 ];
 
 const projects = [
@@ -218,26 +198,6 @@ export default function WilliamAlmeida() {
                 <p className="mt-4 leading-relaxed text-wg-gray">{item.text}</p>
               </article>
             ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-white py-20 md:py-28">
-        <div className="container-custom">
-          <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
-            <div>
-              <p className="text-sm uppercase tracking-[0.22em] text-wg-orange">Como penso</p>
-              <h2 className="mt-4 text-3xl font-light text-wg-black md:text-5xl">Negócios são sistemas.</h2>
-              <p className="mt-6 text-lg leading-relaxed text-wg-gray">Antes de recomendar tecnologia, é preciso entender estratégia, oferta, comercial, operação, pessoas, processos, dados, dependências, gargalos e decisões.</p>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {principles.map(([text, Icon]) => (
-                <div key={text} className="rounded-2xl border border-black/5 bg-wg-gray-light p-6">
-                  <Icon className="h-6 w-6 text-wg-orange" />
-                  <p className="mt-5 text-lg font-medium leading-snug text-wg-black">{text}</p>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
