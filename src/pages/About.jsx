@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
 import SEO from '@/components/SEO';
 import { motion } from '@/lib/motion-lite';
 import { Target, Eye, Award, Users, Clock, CheckCircle, Building, Play, Pause, Quote } from 'lucide-react';
@@ -369,13 +368,6 @@ const About = () => {
                   <div className="w-12 h-0.5 bg-wg-orange" />
                   <span className="text-wg-orange tracking-wide">{t('aboutPage.ceo.signature')}</span>
                 </motion.div>
-
-                <Link
-                  to="/william-almeida"
-                  className="inline-flex items-center rounded-full border border-wg-orange/50 px-5 py-3 text-sm font-medium text-wg-orange transition hover:border-wg-orange hover:bg-wg-orange hover:text-white"
-                >
-                  Conheça a trajetória de William
-                </Link>
               </div>
             </motion.div>
           </div>

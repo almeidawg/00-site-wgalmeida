@@ -108,13 +108,6 @@ describe('identidade institucional publica', () => {
     expect(seo).toContain('"/william-almeida"')
   })
 
-  it('liga a pagina Sobre a fonte canonica de William Almeida', () => {
-    const about = read('src/pages/About.jsx')
-
-    expect(about).toContain('to="/william-almeida"')
-    expect(about).toContain('Conheça a trajetória de William')
-  })
-
   it('elimina o schema institucional legado de 2010 e idade dinamica do HTML base', () => {
     const indexHtml = read('index.html')
 
