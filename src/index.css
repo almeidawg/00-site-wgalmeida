@@ -631,6 +631,22 @@
     border-bottom: 0;
   }
 
+  @media (max-width: 639px) {
+    .wg-prose table {
+      display: table;
+      width: 100%;
+      min-width: 0;
+      table-layout: fixed;
+    }
+
+    .wg-prose th,
+    .wg-prose td {
+      min-width: 0;
+      overflow-wrap: anywhere;
+      padding-inline: 0.65rem;
+    }
+  }
+
   strong,
   b {
     font-weight: 500 !important;
