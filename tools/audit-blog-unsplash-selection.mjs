@@ -63,12 +63,6 @@ const sameHeroCard = Object.entries(payload.slugs || {})
   .filter(([, entry]) => entry?.hero?.id && entry?.card?.id && entry.hero.id === entry.card.id)
   .map(([slug, entry]) => ({ slug, id: entry.hero.id }));
 
-const legacySameHeroCardSlugs = new Set([
-  'arquitetura-barcelona-espanha',
-  'obraeasy-para-parceiros-imobiliarias-corretores',
-]);
-const unexpectedSameHeroCard = sameHeroCard.filter(({ slug }) => !legacySameHeroCardSlugs.has(slug));
-
 const templatedAltRows = rows.filter(({ alt }) => /^(Imagem editorial para|Recorte visual para)/i.test(alt.trim()));
 
 const keywordIssues = [];
@@ -103,9 +97,9 @@ if (sameHeroCard.length > 0 || templatedAltRows.length > 0) {
   console.warn('');
 }
 
-if (unexpectedSameHeroCard.length > 0) {
-  console.error('Unsplash selection audit failed: new hero/card duplicate visual assets detected.');
-  unexpectedSameHeroCard.forEach(({ slug, id }) => console.error(`  ${slug} :: ${id}`));
+if (sameHeroCard.length > 0) {
+  console.error('Unsplash selection audit failed: hero and card must use distinct visual assets.');
+  sameHeroCard.forEach(({ slug, id }) => console.error(`  ${slug} :: ${id}`));
   process.exit(1);
 }
 

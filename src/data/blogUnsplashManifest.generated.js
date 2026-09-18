@@ -192,30 +192,30 @@ export const BLOG_UNSPLASH_MANIFEST = {
       },
       "card": {
         "source": "unsplash",
-        "src": "https://images.unsplash.com/photo-1543783207-ec64e4d95325?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NjM1OTV8MHwxfGNvbGxlY3Rpb258NXx5VS1paTRoRmpsZ3x8fHx8Mnx8MTc3NTc3NDI0Nnw&ixlib=rb-4.1.0&q=80&w=1080",
-        "alt": "Vista urbana de Barcelona com linguagem monumental e identidade catala",
-        "photographer": "Jorge Fernández Salas",
-        "profile": "https://unsplash.com/@jorgefdezsalas",
-        "page": "https://unsplash.com/photos/city-scale-under-blue-sky-ChSZETOal-I",
-        "downloadLocation": "https://api.unsplash.com/photos/ChSZETOal-I/download?ixid=M3w4NjM1OTV8MHwxfGNvbGxlY3Rpb258NXx5VS1paTRoRmpsZ3x8fHx8Mnx8MTc3NTc3NDI0Nnw"
+        "src": "https://images.unsplash.com/photo-1578095172812-dcc191c5aed8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NjM1OTV8MHwxfHNlYXJjaHwzfHxzYWdyYWRhJTIwZmFtaWxpYSUyMGJhcmNlbG9uYSUyMGFyY2hpdGVjdHVyZXxlbnwxfDB8fHwxNzg5NzU3MTcxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "alt": "Sagrada Família em Barcelona durante a hora dourada",
+        "photographer": "Siyuan",
+        "profile": "https://unsplash.com/@jsycra",
+        "page": "https://unsplash.com/photos/sagrada-familia-during-golden-hour-j4eJ3gXlVQ0",
+        "downloadLocation": "https://api.unsplash.com/photos/j4eJ3gXlVQ0/download?ixid=M3w4NjM1OTV8MHwxfHNlYXJjaHwzfHxzYWdyYWRhJTIwZmFtaWxpYSUyMGJhcmNlbG9uYSUyMGFyY2hpdGVjdHVyZXxlbnwxfDB8fHwxNzg5NzU3MTcxfDA"
       },
       "thumb": {
         "source": "unsplash",
-        "src": "https://images.unsplash.com/photo-1543783207-ec64e4d95325?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NjM1OTV8MHwxfGNvbGxlY3Rpb258NXx5VS1paTRoRmpsZ3x8fHx8Mnx8MTc3NTc3NDI0Nnw&ixlib=rb-4.1.0&q=80&w=1080",
-        "alt": "Vista urbana de Barcelona com linguagem monumental e identidade catala",
-        "photographer": "Jorge Fernández Salas",
-        "profile": "https://unsplash.com/@jorgefdezsalas",
-        "page": "https://unsplash.com/photos/city-scale-under-blue-sky-ChSZETOal-I",
-        "downloadLocation": "https://api.unsplash.com/photos/ChSZETOal-I/download?ixid=M3w4NjM1OTV8MHwxfGNvbGxlY3Rpb258NXx5VS1paTRoRmpsZ3x8fHx8Mnx8MTc3NTc3NDI0Nnw"
+        "src": "https://images.unsplash.com/photo-1578095172812-dcc191c5aed8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NjM1OTV8MHwxfHNlYXJjaHwzfHxzYWdyYWRhJTIwZmFtaWxpYSUyMGJhcmNlbG9uYSUyMGFyY2hpdGVjdHVyZXxlbnwxfDB8fHwxNzg5NzU3MTcxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "alt": "Sagrada Família em Barcelona durante a hora dourada",
+        "photographer": "Siyuan",
+        "profile": "https://unsplash.com/@jsycra",
+        "page": "https://unsplash.com/photos/sagrada-familia-during-golden-hour-j4eJ3gXlVQ0",
+        "downloadLocation": "https://api.unsplash.com/photos/j4eJ3gXlVQ0/download?ixid=M3w4NjM1OTV8MHwxfHNlYXJjaHwzfHxzYWdyYWRhJTIwZmFtaWxpYSUyMGJhcmNlbG9uYSUyMGFyY2hpdGVjdHVyZXxlbnwxfDB8fHwxNzg5NzU3MTcxfDA"
       },
       "square": {
         "source": "unsplash",
-        "src": "https://images.unsplash.com/photo-1543783207-ec64e4d95325?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NjM1OTV8MHwxfGNvbGxlY3Rpb258NXx5VS1paTRoRmpsZ3x8fHx8Mnx8MTc3NTc3NDI0Nnw&ixlib=rb-4.1.0&q=80&w=1080",
-        "alt": "Vista urbana de Barcelona com linguagem monumental e identidade catala",
-        "photographer": "Jorge Fernández Salas",
-        "profile": "https://unsplash.com/@jorgefdezsalas",
-        "page": "https://unsplash.com/photos/city-scale-under-blue-sky-ChSZETOal-I",
-        "downloadLocation": "https://api.unsplash.com/photos/ChSZETOal-I/download?ixid=M3w4NjM1OTV8MHwxfGNvbGxlY3Rpb258NXx5VS1paTRoRmpsZ3x8fHx8Mnx8MTc3NTc3NDI0Nnw"
+        "src": "https://images.unsplash.com/photo-1578095172812-dcc191c5aed8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NjM1OTV8MHwxfHNlYXJjaHwzfHxzYWdyYWRhJTIwZmFtaWxpYSUyMGJhcmNlbG9uYSUyMGFyY2hpdGVjdHVyZXxlbnwxfDB8fHwxNzg5NzU3MTcxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "alt": "Sagrada Família em Barcelona durante a hora dourada",
+        "photographer": "Siyuan",
+        "profile": "https://unsplash.com/@jsycra",
+        "page": "https://unsplash.com/photos/sagrada-familia-during-golden-hour-j4eJ3gXlVQ0",
+        "downloadLocation": "https://api.unsplash.com/photos/j4eJ3gXlVQ0/download?ixid=M3w4NjM1OTV8MHwxfHNlYXJjaHwzfHxzYWdyYWRhJTIwZmFtaWxpYSUyMGJhcmNlbG9uYSUyMGFyY2hpdGVjdHVyZXxlbnwxfDB8fHwxNzg5NzU3MTcxfDA"
       },
       "default": {
         "source": "unsplash",
@@ -1910,57 +1910,57 @@ export const BLOG_UNSPLASH_MANIFEST = {
     "obraeasy-para-parceiros-imobiliarias-corretores": {
       "hero": {
         "source": "unsplash",
-        "src": "https://images.unsplash.com/photo-1775156293060-41c944fadc47?auto=format&fit=crop&q=80&w=1600",
-        "alt": "Imagem editorial para ObraEasy para Parceiros: Como Imobiliarias e Corretores Geram Receita com Gestão de Obras, com leitura contemporanea e composicao premium",
-        "photographer": "",
-        "profile": "",
-        "page": "https://images.unsplash.com/photo-1775156293060-41c944fadc47",
-        "downloadLocation": ""
+        "src": "https://images.unsplash.com/photo-1781229771042-2a859f8f8022?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NjM1OTV8MHwxfHNlYXJjaHwzfHxyZWFsdG9yJTIwYXJjaGl0ZWN0JTIwcmVub3ZhdGlvbiUyMG1lZXRpbmd8ZW58MXwwfHx8MTc4OTc1NzE4N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+        "alt": "Dois profissionais apertando as mãos sobre um modelo de casa e chaves",
+        "photographer": "Tuấn 123",
+        "profile": "https://unsplash.com/@bdstuan123",
+        "page": "https://unsplash.com/photos/two-men-shaking-hands-over-a-house-model-and-keys-69K2AGQc_Yw",
+        "downloadLocation": "https://api.unsplash.com/photos/69K2AGQc_Yw/download?ixid=M3w4NjM1OTV8MHwxfHNlYXJjaHwzfHxyZWFsdG9yJTIwYXJjaGl0ZWN0JTIwcmVub3ZhdGlvbiUyMG1lZXRpbmd8ZW58MXwwfHx8MTc4OTc1NzE4N3ww"
       },
       "seo": {
         "source": "unsplash",
-        "src": "https://images.unsplash.com/photo-1775156293060-41c944fadc47?auto=format&fit=crop&q=80&w=1600",
-        "alt": "Imagem editorial para ObraEasy para Parceiros: Como Imobiliarias e Corretores Geram Receita com Gestão de Obras, com leitura contemporanea e composicao premium",
-        "photographer": "",
-        "profile": "",
-        "page": "https://images.unsplash.com/photo-1775156293060-41c944fadc47",
-        "downloadLocation": ""
+        "src": "https://images.unsplash.com/photo-1781229771042-2a859f8f8022?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NjM1OTV8MHwxfHNlYXJjaHwzfHxyZWFsdG9yJTIwYXJjaGl0ZWN0JTIwcmVub3ZhdGlvbiUyMG1lZXRpbmd8ZW58MXwwfHx8MTc4OTc1NzE4N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+        "alt": "Dois profissionais apertando as mãos sobre um modelo de casa e chaves",
+        "photographer": "Tuấn 123",
+        "profile": "https://unsplash.com/@bdstuan123",
+        "page": "https://unsplash.com/photos/two-men-shaking-hands-over-a-house-model-and-keys-69K2AGQc_Yw",
+        "downloadLocation": "https://api.unsplash.com/photos/69K2AGQc_Yw/download?ixid=M3w4NjM1OTV8MHwxfHNlYXJjaHwzfHxyZWFsdG9yJTIwYXJjaGl0ZWN0JTIwcmVub3ZhdGlvbiUyMG1lZXRpbmd8ZW58MXwwfHx8MTc4OTc1NzE4N3ww"
       },
       "card": {
         "source": "unsplash",
-        "src": "https://images.unsplash.com/photo-1775156293060-41c944fadc47?auto=format&fit=crop&q=80&w=1600",
-        "alt": "Recorte visual para ObraEasy para Parceiros: Como Imobiliarias e Corretores Geram Receita com Gestão de Obras, reforcando detalhe material e atmosfera do tema",
-        "photographer": "",
-        "profile": "",
-        "page": "https://images.unsplash.com/photo-1775156293060-41c944fadc47",
-        "downloadLocation": ""
+        "src": "https://images.unsplash.com/photo-1774600166834-175d06febcd4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NjM1OTV8MHwxfHNlYXJjaHw0fHxhcmNoaXRlY3QlMjByZWFsJTIwZXN0YXRlJTIwcGFydG5lcnNoaXAlMjBtZWV0aW5nJTIwYmx1ZXByaW50fGVufDF8MHx8fDE3ODk3NTcxODN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "alt": "Duas profissionais com capacetes analisando plantas técnicas de obra",
+        "photographer": "Fiqih Alfarish",
+        "profile": "https://unsplash.com/@fiqihalfarish",
+        "page": "https://unsplash.com/photos/two-women-in-hard-hats-discussing-blueprints-lPUalY6OKDU",
+        "downloadLocation": "https://api.unsplash.com/photos/lPUalY6OKDU/download?ixid=M3w4NjM1OTV8MHwxfHNlYXJjaHw0fHxhcmNoaXRlY3QlMjByZWFsJTIwZXN0YXRlJTIwcGFydG5lcnNoaXAlMjBtZWV0aW5nJTIwYmx1ZXByaW50fGVufDF8MHx8fDE3ODk3NTcxODN8MA"
       },
       "thumb": {
         "source": "unsplash",
-        "src": "https://images.unsplash.com/photo-1775156293060-41c944fadc47?auto=format&fit=crop&q=80&w=1600",
-        "alt": "Recorte visual para ObraEasy para Parceiros: Como Imobiliarias e Corretores Geram Receita com Gestão de Obras, reforcando detalhe material e atmosfera do tema",
-        "photographer": "",
-        "profile": "",
-        "page": "https://images.unsplash.com/photo-1775156293060-41c944fadc47",
-        "downloadLocation": ""
+        "src": "https://images.unsplash.com/photo-1774600166834-175d06febcd4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NjM1OTV8MHwxfHNlYXJjaHw0fHxhcmNoaXRlY3QlMjByZWFsJTIwZXN0YXRlJTIwcGFydG5lcnNoaXAlMjBtZWV0aW5nJTIwYmx1ZXByaW50fGVufDF8MHx8fDE3ODk3NTcxODN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "alt": "Duas profissionais com capacetes analisando plantas técnicas de obra",
+        "photographer": "Fiqih Alfarish",
+        "profile": "https://unsplash.com/@fiqihalfarish",
+        "page": "https://unsplash.com/photos/two-women-in-hard-hats-discussing-blueprints-lPUalY6OKDU",
+        "downloadLocation": "https://api.unsplash.com/photos/lPUalY6OKDU/download?ixid=M3w4NjM1OTV8MHwxfHNlYXJjaHw0fHxhcmNoaXRlY3QlMjByZWFsJTIwZXN0YXRlJTIwcGFydG5lcnNoaXAlMjBtZWV0aW5nJTIwYmx1ZXByaW50fGVufDF8MHx8fDE3ODk3NTcxODN8MA"
       },
       "square": {
         "source": "unsplash",
-        "src": "https://images.unsplash.com/photo-1775156293060-41c944fadc47?auto=format&fit=crop&q=80&w=1600",
-        "alt": "Recorte visual para ObraEasy para Parceiros: Como Imobiliarias e Corretores Geram Receita com Gestão de Obras, reforcando detalhe material e atmosfera do tema",
-        "photographer": "",
-        "profile": "",
-        "page": "https://images.unsplash.com/photo-1775156293060-41c944fadc47",
-        "downloadLocation": ""
+        "src": "https://images.unsplash.com/photo-1774600166834-175d06febcd4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NjM1OTV8MHwxfHNlYXJjaHw0fHxhcmNoaXRlY3QlMjByZWFsJTIwZXN0YXRlJTIwcGFydG5lcnNoaXAlMjBtZWV0aW5nJTIwYmx1ZXByaW50fGVufDF8MHx8fDE3ODk3NTcxODN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "alt": "Duas profissionais com capacetes analisando plantas técnicas de obra",
+        "photographer": "Fiqih Alfarish",
+        "profile": "https://unsplash.com/@fiqihalfarish",
+        "page": "https://unsplash.com/photos/two-women-in-hard-hats-discussing-blueprints-lPUalY6OKDU",
+        "downloadLocation": "https://api.unsplash.com/photos/lPUalY6OKDU/download?ixid=M3w4NjM1OTV8MHwxfHNlYXJjaHw0fHxhcmNoaXRlY3QlMjByZWFsJTIwZXN0YXRlJTIwcGFydG5lcnNoaXAlMjBtZWV0aW5nJTIwYmx1ZXByaW50fGVufDF8MHx8fDE3ODk3NTcxODN8MA"
       },
       "default": {
         "source": "unsplash",
-        "src": "https://images.unsplash.com/photo-1775156293060-41c944fadc47?auto=format&fit=crop&q=80&w=1600",
-        "alt": "Imagem editorial para ObraEasy para Parceiros: Como Imobiliarias e Corretores Geram Receita com Gestão de Obras, com leitura contemporanea e composicao premium",
-        "photographer": "",
-        "profile": "",
-        "page": "https://images.unsplash.com/photo-1775156293060-41c944fadc47",
-        "downloadLocation": ""
+        "src": "https://images.unsplash.com/photo-1781229771042-2a859f8f8022?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NjM1OTV8MHwxfHNlYXJjaHwzfHxyZWFsdG9yJTIwYXJjaGl0ZWN0JTIwcmVub3ZhdGlvbiUyMG1lZXRpbmd8ZW58MXwwfHx8MTc4OTc1NzE4N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+        "alt": "Dois profissionais apertando as mãos sobre um modelo de casa e chaves",
+        "photographer": "Tuấn 123",
+        "profile": "https://unsplash.com/@bdstuan123",
+        "page": "https://unsplash.com/photos/two-men-shaking-hands-over-a-house-model-and-keys-69K2AGQc_Yw",
+        "downloadLocation": "https://api.unsplash.com/photos/69K2AGQc_Yw/download?ixid=M3w4NjM1OTV8MHwxfHNlYXJjaHwzfHxyZWFsdG9yJTIwYXJjaGl0ZWN0JTIwcmVub3ZhdGlvbiUyMG1lZXRpbmd8ZW58MXwwfHx8MTc4OTc1NzE4N3ww"
       }
     },
     "onboarding-processo-wg-almeida": {
