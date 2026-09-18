@@ -1,37 +1,13 @@
 import { motion, AnimatePresence } from '@/lib/motion-lite';
 import { X, Send, CheckCircle2, MessageSquare, Loader2, FileText, Database, ShieldCheck, Palette } from 'lucide-react';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { useMoodboard } from '@/contexts/MoodboardContext';
 import BrandStar from '@/components/BrandStar';
+import TurnstileWidget, { TURNSTILE_SITE_KEY } from '@/components/TurnstileWidget';
 
-const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY;
-let turnstileScriptPromise = null;
 
-const loadTurnstileScript = () => {
-  if (!TURNSTILE_SITE_KEY || typeof window === 'undefined') return Promise.resolve();
-  if (window.turnstile) return Promise.resolve();
-  if (turnstileScriptPromise) return turnstileScriptPromise;
 
-  turnstileScriptPromise = new Promise((resolve, reject) => {
-    const existing = document.getElementById('wg-turnstile-script');
-    if (existing) {
-      existing.addEventListener('load', resolve, { once: true });
-      existing.addEventListener('error', reject, { once: true });
-      return;
-    }
-    const script = document.createElement('script');
-    script.id = 'wg-turnstile-script';
-    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
-    script.async = true;
-    script.defer = true;
-    script.onload = resolve;
-    script.onerror = reject;
-    document.head.appendChild(script);
-  });
-
-  return turnstileScriptPromise;
-};
 
 export default function MoodboardLeadModal({ isOpen, onClose }) {
   const [step, setStep] = useState('form'); // form | generating | success
@@ -40,8 +16,7 @@ export default function MoodboardLeadModal({ isOpen, onClose }) {
   const [formData, setFormData] = useState({ name: '', email: '', whatsapp: '' });
   const [processIndex, setProcessIndex] = useState(0);
   const [turnstileToken, setTurnstileToken] = useState('');
-  const turnstileContainerRef = useRef(null);
-  const turnstileWidgetIdRef = useRef(null);
+  const expireTurnstile = useCallback(() => setTurnstileToken(''), []);
   
   const { projectName, getMoodboardData, buildShareUrl } = useMoodboard();
 
@@ -52,38 +27,6 @@ export default function MoodboardLeadModal({ isOpen, onClose }) {
     { text: "Validando especificações técnicas...", icon: ShieldCheck },
     { text: "Gerando Link Único do Dossiê...", icon: FileText }
   ];
-
-  useEffect(() => {
-    if (!isOpen || step !== 'form' || !TURNSTILE_SITE_KEY || !turnstileContainerRef.current) return undefined;
-    let cancelled = false;
-
-    const renderTurnstile = async () => {
-      try {
-        await loadTurnstileScript();
-        if (cancelled || !window.turnstile || !turnstileContainerRef.current || turnstileWidgetIdRef.current !== null) return;
-        turnstileWidgetIdRef.current = window.turnstile.render(turnstileContainerRef.current, {
-          sitekey: TURNSTILE_SITE_KEY,
-          action: 'contact_form',
-          theme: 'dark',
-          callback: (token) => setTurnstileToken(token || ''),
-          'expired-callback': () => setTurnstileToken(''),
-          'error-callback': () => setTurnstileToken(''),
-        });
-      } catch {
-        if (!cancelled) setSubmitError('Não foi possível carregar a verificação anti-spam. Tente novamente.');
-      }
-    };
-
-    renderTurnstile();
-    return () => {
-      cancelled = true;
-      if (window.turnstile && turnstileWidgetIdRef.current !== null) {
-        try { window.turnstile.remove(turnstileWidgetIdRef.current); } catch { /* noop */ }
-      }
-      turnstileWidgetIdRef.current = null;
-      setTurnstileToken('');
-    };
-  }, [isOpen, step]);
 
   useEffect(() => {
     if (isOpen && step === 'generating') {
@@ -230,11 +173,14 @@ export default function MoodboardLeadModal({ isOpen, onClose }) {
                       </div>
                    </div>
 
-                   {TURNSTILE_SITE_KEY && (
-                     <div className="flex justify-center py-1">
-                       <div ref={turnstileContainerRef} aria-label="Verificação anti-spam" />
-                     </div>
-                   )}
+                   <div className="flex justify-center py-1">
+                     <TurnstileWidget
+                       onVerify={setTurnstileToken}
+                       onExpire={expireTurnstile}
+                       disabled={loading}
+                       label="Verificação anti-spam"
+                     />
+                   </div>
 
                    {submitError && (
                      <p role="alert" className="text-sm text-red-300 bg-red-500/10 border border-red-500/20 rounded-2xl px-4 py-3">

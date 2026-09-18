@@ -8,6 +8,9 @@ export default defineConfig({
     globals: true,
     environment: "jsdom",
     setupFiles: ["./vitest.setup.js"],
+    // JSDOM-heavy suites contend heavily on this repository with unrestricted parallelism.
+    // Keep a small worker pool so release checks remain stable without relaxing assertions/timeouts.
+    maxWorkers: 2,
     coverage: {
       provider: "v8",
       reporter: ["text", "json", "html"],

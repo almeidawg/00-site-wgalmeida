@@ -395,6 +395,10 @@ const tokenizeTheme = (theme) =>
     .filter((token) => token && !STOPWORDS.has(token));
 
 const detectIntent = (tokens, category) => {
+  const normalizedCategory = normalizeText(category);
+  if (['engenharia', 'construcao civil', 'construcao'].includes(normalizedCategory)) return 'construction';
+  if (normalizedCategory === 'sustentabilidade') return 'sustainability';
+  if (['decoracao', 'design', 'tendencias'].includes(normalizedCategory)) return 'decor';
   const hint = CATEGORY_HINTS[category] || '';
   const categoryTokens = tokenizeTheme(hint);
   const allTokens = unique([...tokens, ...categoryTokens]);
@@ -406,8 +410,11 @@ const detectIntent = (tokens, category) => {
   return match?.intent || (category === 'engenharia' ? 'construction' : 'decor');
 };
 
-const inferEditorialEntityType = (tokens, category = '') => {
-  if (tokens.some((token) => PEOPLE_REFERENCE_TOKENS.has(token))) {
+const inferEditorialEntityType = (tokens, category = '', theme = '') => {
+  const normalizedTheme = normalizeText(theme);
+  const isArchitectEditorial = tokens.includes('architect') && /(famos|famous|nomes|names|legado|legacy|arquitetos brasileiros|arquitetos internacionais)/.test(normalizedTheme);
+
+  if (tokens.some((token) => PEOPLE_REFERENCE_TOKENS.has(token) && token !== 'architect') || isArchitectEditorial) {
     return 'person';
   }
 
@@ -528,7 +535,7 @@ export const buildWgImageSearchPayload = (theme, options = {}) => {
   const { category = '', slot = 'hero' } = options;
   const tokens = tokenizeTheme(theme);
   const intent = detectIntent(tokens, category);
-  const entityType = inferEditorialEntityType(tokens, category);
+  const entityType = inferEditorialEntityType(tokens, category, theme);
   const location = detectLocation(tokens);
   const year = detectYear(tokens);
   const themePhrase = buildThemePhrase(tokens, category, intent);

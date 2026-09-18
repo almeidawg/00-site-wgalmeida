@@ -50,6 +50,53 @@ describe('editorial image intelligence', () => {
     expect(scored.canPublish).toBe(true);
     expect(scored.licenseStatus).toBe('publishable');
     expect(scored.scores.final).toBeGreaterThan(40);
+    expect(scored.selectionStatus).toBe('sugerida');
     expect(scored.downloadLocation).toContain('/download');
+  });
+
+  it('does not auto-suggest a publishable but semantically unrelated image', () => {
+    const scored = scoreEditorialCandidate(
+      {
+        source: 'unsplash',
+        title: 'Tropical beach sunset with palm trees',
+        author: 'Jane Doe',
+        pageUrl: 'https://unsplash.com/photos/unrelated',
+      },
+      {
+        slot: 'hero',
+        intent: 'carpentry',
+        mainQuery: 'custom carpentry interior',
+      },
+      {
+        title: 'Como escolher marcenaria sob medida',
+        category: 'marcenaria',
+      },
+    );
+
+    expect(scored.canPublish).toBe(true);
+    expect(scored.scores.final).toBeLessThan(45);
+    expect(scored.selectionStatus).toBe('revisao');
+  });
+
+  it('keeps candidates without descriptive metadata in editorial review', () => {
+    const scored = scoreEditorialCandidate(
+      {
+        source: 'unsplash',
+        author: 'Jane Doe',
+        pageUrl: 'https://unsplash.com/photos/no-description',
+      },
+      {
+        slot: 'hero',
+        intent: 'architecture',
+        mainQuery: 'modern residential architecture',
+      },
+      {
+        title: 'Arquitetura residencial contemporânea',
+        category: 'arquitetura',
+      },
+    );
+
+    expect(scored.alt).toBe('');
+    expect(scored.selectionStatus).toBe('revisao');
   });
 });

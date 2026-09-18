@@ -105,7 +105,7 @@ export const normalizeEditorialCandidate = (candidate = {}, slotPlan = {}, post 
     title,
     author,
     pageUrl,
-    alt: compact(candidate.alt || candidate.alt_description || title || `Imagem editorial para ${post.title || post.slug || 'post WG Almeida'}`),
+    alt: compact(candidate.alt || candidate.alt_description || title),
     downloadLocation: compact(candidate.downloadLocation),
     semanticSlot: slotPlan.slot || 'hero',
     semanticIntent: slotPlan.intent || '',
@@ -124,7 +124,6 @@ export const scoreEditorialCandidate = (candidate = {}, slotPlan = {}, post = {}
     normalized.title,
     normalized.alt,
     normalized.author,
-    normalized.semanticQuery,
     normalized.sourceLabel,
   ].filter(Boolean).join(' ');
   const titleTokens = compact(post.title).toLowerCase().split(/\s+/).filter((token) => token.length > 4).slice(0, 8);
@@ -136,7 +135,10 @@ export const scoreEditorialCandidate = (candidate = {}, slotPlan = {}, post = {}
   const categoryScore = Math.min(scoreByTokens(candidateText, categoryTokens), 15);
   const styleScore = Math.min(scoreByTokens(candidateText, styleTokens), 15);
   const creditScore = normalized.author || normalized.pageUrl ? 10 : 0;
-  const finalScore = Math.max(0, Math.min(100, sourceScore + titleScore + categoryScore + styleScore + creditScore + 15));
+  const finalScore = Math.max(0, Math.min(100, sourceScore + titleScore + categoryScore + styleScore + creditScore));
+  const semanticThreshold = 45;
+  const hasDescriptiveMetadata = Boolean(normalized.title || normalized.alt);
+  const isSemanticallySuggested = normalized.canPublish && hasDescriptiveMetadata && finalScore >= semanticThreshold;
 
   return {
     ...normalized,
@@ -148,10 +150,12 @@ export const scoreEditorialCandidate = (candidate = {}, slotPlan = {}, post = {}
       credit: creditScore,
       final: finalScore,
     },
-    selectionStatus: normalized.canPublish ? 'sugerida' : 'referencia',
-    aiRationale: normalized.canPublish
-      ? `Imagem sugerida para ${slotPlan.slot || 'slot'} por aderencia ao tema "${post.title || post.slug}" e a consulta "${slotPlan.mainQuery || ''}".`
-      : `${normalized.sourceLabel} fica apenas como referencia visual; use Unsplash API, acervo WG ou fonte aprovada para publicar.`,
+    selectionStatus: isSemanticallySuggested ? 'sugerida' : normalized.canPublish ? 'revisao' : 'referencia',
+    aiRationale: isSemanticallySuggested
+      ? `Imagem sugerida para ${slotPlan.slot || 'slot'} por aderencia semantica ao tema "${post.title || post.slug}".`
+      : normalized.canPublish
+        ? `Fonte publicavel, mas relevancia semantica insuficiente (${finalScore}/${semanticThreshold}); exige revisao editorial antes de selecionar.`
+        : `${normalized.sourceLabel} fica apenas como referencia visual; use Unsplash API, acervo WG ou fonte aprovada para publicar.`,
   };
 };
 

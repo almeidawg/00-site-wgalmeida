@@ -59,6 +59,12 @@ const duplicateAcrossSlugs = duplicates.filter(({ uses }) => {
   return slugSet.size > 1;
 });
 
+const sameHeroCard = Object.entries(payload.slugs || {})
+  .filter(([, entry]) => entry?.hero?.id && entry?.card?.id && entry.hero.id === entry.card.id)
+  .map(([slug, entry]) => ({ slug, id: entry.hero.id }));
+
+const templatedAltRows = rows.filter(({ alt }) => /^(Imagem editorial para|Recorte visual para)/i.test(alt.trim()));
+
 const keywordIssues = [];
 
 for (const [slug, keywords] of Object.entries(cityKeywordRules)) {
@@ -80,6 +86,15 @@ for (const [slug, keywords] of Object.entries(cityKeywordRules)) {
       });
     }
   }
+}
+
+if (sameHeroCard.length > 0 || templatedAltRows.length > 0) {
+  console.warn('Editorial quality warnings:');
+  console.warn(`- hero/card using the same photo: ${sameHeroCard.length}`);
+  sameHeroCard.forEach(({ slug, id }) => console.warn(`  ${slug} :: ${id}`));
+  console.warn(`- templated/non-descriptive alt slots: ${templatedAltRows.length}`);
+  console.warn('  These items stay publishable for now, but must remain in the editorial review queue.');
+  console.warn('');
 }
 
 if (duplicateAcrossSlugs.length === 0 && keywordIssues.length === 0) {

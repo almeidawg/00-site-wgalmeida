@@ -1,32 +1,44 @@
 import { describe, expect, it } from 'vitest';
+import { buildWgImageSearchPayload } from '@/lib/wgVisualSearchProfile';
 
-import { buildWgEditorialSearchPlan } from '@/lib/wgVisualSearchProfile';
+describe('WG editorial visual search routing', () => {
+  it('keeps construction articles in construction even when trend/technology terms are present', () => {
+    const result = buildWgImageSearchPayload(
+      'Construção Civil 2026: 12 Tendências automação tecnologia para reduzir prazo e custo',
+      { category: 'construção civil', slot: 'hero' }
+    );
 
-describe('buildWgEditorialSearchPlan', () => {
-  it('classifies architect roundups as person-led editorial instead of construction', () => {
-    const plan = buildWgEditorialSearchPlan({
-      title: 'Arquitetos Brasileiros Famosos: 7 Nomes, Obras e Lições para Projetos Atuais',
-      slug: 'arquitetos-brasileiros-famosos-legado',
-      category: 'arquitetura',
-      tags: ['arquitetos brasileiros', 'Oscar Niemeyer', 'Paulo Mendes da Rocha', 'história da arquitetura'],
-    });
-
-    expect(plan.hero.intent).toBe('person');
-    expect(plan.hero.entityType).toBe('person');
-    expect(plan.hero.mainQuery).toContain('architect portrait');
-    expect(plan.card.mainQuery).toContain('iconic architecture');
+    expect(result.intent).toBe('construction');
+    expect(result.entityType).toBe('');
   });
 
-  it('keeps international city editorials tied to skyline/landmark architecture', () => {
-    const plan = buildWgEditorialSearchPlan({
-      title: 'Arquitetura de Barcelona: Gaudí, Eixample e Lições para Projetos Contemporâneos',
-      slug: 'arquitetura-barcelona-espanha',
-      category: 'arquitetura internacional',
-      tags: ['barcelona', 'gaudi', 'arquitetura espanhola'],
-    });
+  it('does not treat a generic article about hiring an architect as a person profile', () => {
+    const result = buildWgImageSearchPayload(
+      'Vale a pena contratar arquiteto no modelo turn key?',
+      { category: 'arquitetura', slot: 'hero' }
+    );
 
-    expect(plan.hero.entityType).toBe('city');
-    expect(plan.hero.mainQuery).toBe('barcelona skyline architecture');
-    expect(plan.card.mainQuery).toBe('barcelona landmark architecture detail');
+    expect(result.entityType).toBe('');
+    expect(result.intent).toBe('architecture');
+    expect(result.mainQuery).not.toContain('portrait');
+  });
+
+  it('still recognizes named architect references as person/editorial-reference content', () => {
+    const result = buildWgImageSearchPayload(
+      'Oscar Niemeyer: obras e legado da arquitetura brasileira',
+      { category: 'arquitetura', slot: 'hero' }
+    );
+
+    expect(result.entityType).toBe('person');
+    expect(result.mainQuery).toContain('architect portrait');
+  });
+
+  it('keeps broad decor trend articles broad instead of collapsing to one room mentioned in the title', () => {
+    const result = buildWgImageSearchPayload(
+      'Tendências de Decoração 2026: ideias para sala, quarto e cozinha',
+      { category: 'decoração', slot: 'hero' }
+    );
+
+    expect(result.intent).toBe('decor');
   });
 });

@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from '@/lib/motion-lite';
 import { ArrowRight, ArrowLeft, CheckCircle2, Building2, Ruler, Loader2, ClipboardCheck, Calculator, PenTool, TrendingUp, Home } from 'lucide-react';
 import { useWGContext } from '@/providers/ContextProvider';
 import { useTranslation } from 'react-i18next';
+import TurnstileWidget, { TURNSTILE_SITE_KEY } from '@/components/TurnstileWidget';
 
 const SERVICE_OPTIONS = [
   'Obra Turn Key (Completa)',
@@ -63,6 +64,8 @@ const OrcadorInteligente = ({
   const [success, setSuccess] = useState(false);
   const [estimate, setEstimate] = useState(null);
   const [submitError, setSubmitError] = useState('');
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const expireTurnstile = useCallback(() => setTurnstileToken(''), []);
   const [formData, setFormData] = useState({
     nome: '',
     telefone: '',
@@ -88,6 +91,11 @@ const OrcadorInteligente = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (loading) return;
+    if (TURNSTILE_SITE_KEY && !turnstileToken) {
+      setSubmitError('Conclua a verificação anti-spam antes de enviar.');
+      return;
+    }
     setLoading(true);
     setSubmitError('');
 
@@ -104,7 +112,8 @@ const OrcadorInteligente = ({
           phone: formData.telefone,
           subject: `Solicitação técnica: ${formData.servico}`,
           message: message,
-          context: sourceContext || 'orcamento'
+          context: sourceContext || 'orcamento',
+          turnstileToken: turnstileToken || null,
         })
       });
 
@@ -115,6 +124,7 @@ const OrcadorInteligente = ({
       console.error('Erro ao enviar orçamento:', err);
       setSubmitError('Nao foi possivel enviar agora. Tente novamente ou chame a equipe pelo WhatsApp.');
     } finally {
+      setTurnstileToken('');
       setLoading(false);
     }
   };
@@ -388,6 +398,12 @@ const OrcadorInteligente = ({
                           inputMode="tel"
                         />
                       </div>
+                      <TurnstileWidget
+                        onVerify={setTurnstileToken}
+                        onExpire={expireTurnstile}
+                        disabled={loading}
+                        label="Verificação anti-spam"
+                      />
                       {submitError && (
                         <p className="rounded-2xl border border-wg-orange/20 bg-wg-orange/5 px-4 py-3 text-center text-sm text-slate-700">
                           {submitError}
