@@ -704,6 +704,11 @@ const Blog = () => {
     const articleMarkdownComponents = {
       hr: () => <hr className="my-10 border-0 border-t border-gray-200" />,
       a: ({ node: _node, ...props }) => <a {...props} className="py-3 font-light underline decoration-black/20 underline-offset-4 hover:decoration-black/40" />,
+      table: ({ node: _node, ...props }) => (
+        <div className="my-6 w-full max-w-full overflow-x-auto">
+          <table {...props} className="min-w-[480px] w-full" />
+        </div>
+      ),
       img: ({ node: _node, ...props }) => (
         <span className="not-prose my-12 block overflow-hidden rounded-2xl bg-gray-100">
           <img
