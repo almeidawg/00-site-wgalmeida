@@ -63,6 +63,12 @@ const sameHeroCard = Object.entries(payload.slugs || {})
   .filter(([, entry]) => entry?.hero?.id && entry?.card?.id && entry.hero.id === entry.card.id)
   .map(([slug, entry]) => ({ slug, id: entry.hero.id }));
 
+const legacySameHeroCardSlugs = new Set([
+  'arquitetura-barcelona-espanha',
+  'obraeasy-para-parceiros-imobiliarias-corretores',
+]);
+const unexpectedSameHeroCard = sameHeroCard.filter(({ slug }) => !legacySameHeroCardSlugs.has(slug));
+
 const templatedAltRows = rows.filter(({ alt }) => /^(Imagem editorial para|Recorte visual para)/i.test(alt.trim()));
 
 const keywordIssues = [];
@@ -95,6 +101,12 @@ if (sameHeroCard.length > 0 || templatedAltRows.length > 0) {
   console.warn(`- templated/non-descriptive alt slots: ${templatedAltRows.length}`);
   console.warn('  These items stay publishable for now, but must remain in the editorial review queue.');
   console.warn('');
+}
+
+if (unexpectedSameHeroCard.length > 0) {
+  console.error('Unsplash selection audit failed: new hero/card duplicate visual assets detected.');
+  unexpectedSameHeroCard.forEach(({ slug, id }) => console.error(`  ${slug} :: ${id}`));
+  process.exit(1);
 }
 
 if (duplicateAcrossSlugs.length === 0 && keywordIssues.length === 0) {

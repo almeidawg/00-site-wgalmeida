@@ -260,7 +260,7 @@ const Contact = () => {
                       href={COMPANY.whatsapp}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[15px] leading-relaxed text-wg-gray transition-colors hover:text-wg-orange"
+                      className="inline-flex min-h-11 items-center text-[15px] leading-relaxed text-wg-gray transition-colors hover:text-wg-orange"
                     >
                       {COMPANY.phone}
                     </a>
@@ -286,7 +286,7 @@ const Contact = () => {
                     </p>
                     <a
                       href={`mailto:${COMPANY.email}`}
-                      className="text-[15px] leading-relaxed text-wg-gray transition-colors hover:text-wg-blue"
+                      className="inline-flex min-h-11 items-center text-[15px] leading-relaxed text-wg-gray transition-colors hover:text-wg-blue"
                     >
                       {COMPANY.email}
                     </a>
@@ -339,7 +339,7 @@ const Contact = () => {
                 </motion.div>
               </div>
 
-              <Button type="button" onClick={handleWhatsApp} className="wg-btn-pill-primary w-full group sm:w-auto">
+              <Button type="button" onClick={handleWhatsApp} className="wg-btn-pill-primary min-h-11 w-full group sm:w-auto">
                 <MessageCircle className="mr-2 w-5 h-5 transition-transform group-hover:scale-110" />
                 {t('contactPage.info.whatsappCta')}
               </Button>
@@ -473,7 +473,7 @@ const Contact = () => {
                   <div className="pt-1 sm:flex sm:justify-end">
                     <Button
                       type="submit"
-                      className="wg-btn-pill-primary w-full sm:w-auto sm:min-w-[13rem]"
+                      className="wg-btn-pill-primary min-h-11 w-full sm:w-auto sm:min-w-[13rem]"
                       disabled={loading}
                     >
                       {loading ? (
