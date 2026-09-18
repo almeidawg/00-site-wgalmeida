@@ -165,23 +165,23 @@ const Footer = () => {
                 <span className="text-gray-400 text-sm font-light" style={{ fontWeight: 300 }}>{t('footer.address')}</span>
               </div>
               {/* Redes Sociais */}
-              <div className="flex space-x-4 mt-4 pt-4 border-t border-gray-800">
-                <a href={COMPANY.instagram} target="_blank" rel="noopener noreferrer" className="inline-flex h-11 w-11 items-center justify-center rounded-full text-gray-400 hover:text-wg-orange transition-colors" aria-label={t('footer.followInstagram')}>
+              <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-gray-800">
+                <a href={COMPANY.instagram} target="_blank" rel="noopener noreferrer" className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-gray-400 hover:text-wg-orange transition-colors" aria-label={t('footer.followInstagram')}>
                   <Instagram className="w-5 h-5" />
                 </a>
-                <a href={COMPANY.facebook} target="_blank" rel="noopener noreferrer" className="inline-flex h-11 w-11 items-center justify-center rounded-full text-gray-400 hover:text-wg-orange transition-colors" aria-label={t('footer.followFacebook')}>
+                <a href={COMPANY.facebook} target="_blank" rel="noopener noreferrer" className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-gray-400 hover:text-wg-orange transition-colors" aria-label={t('footer.followFacebook')}>
                   <Facebook className="w-5 h-5" />
                 </a>
-                <a href={COMPANY.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex h-11 w-11 items-center justify-center rounded-full text-gray-400 hover:text-wg-orange transition-colors" aria-label={t('footer.followLinkedin')}>
+                <a href={COMPANY.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-gray-400 hover:text-wg-orange transition-colors" aria-label={t('footer.followLinkedin')}>
                   <Linkedin className="w-5 h-5" />
                 </a>
-                <a href={COMPANY.pinterest} target="_blank" rel="noopener noreferrer" className="inline-flex h-11 w-11 items-center justify-center rounded-full text-gray-400 hover:text-wg-orange transition-colors" aria-label="Seguir no Pinterest">
+                <a href={COMPANY.pinterest} target="_blank" rel="noopener noreferrer" className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-gray-400 hover:text-wg-orange transition-colors" aria-label="Seguir no Pinterest">
                   <Pin className="w-5 h-5" />
                 </a>
-                <a href={COMPANY.homify} target="_blank" rel="noopener noreferrer" className="inline-flex h-11 w-11 items-center justify-center rounded-full text-gray-400 hover:text-wg-orange transition-colors" aria-label="Ver perfil no Homify">
+                <a href={COMPANY.homify} target="_blank" rel="noopener noreferrer" className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-gray-400 hover:text-wg-orange transition-colors" aria-label="Ver perfil no Homify">
                   <Home className="w-5 h-5" />
                 </a>
-                <a href={COMPANY.houzz} target="_blank" rel="noopener noreferrer" className="inline-flex h-11 w-11 items-center justify-center rounded-full text-gray-400 hover:text-wg-orange transition-colors" aria-label="Ver perfil no Houzz">
+                <a href={COMPANY.houzz} target="_blank" rel="noopener noreferrer" className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-gray-400 hover:text-wg-orange transition-colors" aria-label="Ver perfil no Houzz">
                   <Building2 className="w-5 h-5" />
                 </a>
               </div>
