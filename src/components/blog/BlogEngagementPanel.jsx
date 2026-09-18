@@ -91,7 +91,7 @@ export default function BlogEngagementPanel({
             <button
               type="button"
               onClick={handleLike}
-              className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[11px] font-light uppercase tracking-[0.14em] transition-colors ${
+              className={`inline-flex min-h-11 items-center gap-2 rounded-full border px-4 py-2 text-[11px] font-light uppercase tracking-[0.14em] transition-colors ${
                 metrics.liked
                   ? 'border-wg-black bg-wg-black text-white'
                   : 'border-[#E5E5E5] bg-white text-wg-black hover:border-[#CFCFC8] hover:text-wg-black'
@@ -126,14 +126,20 @@ export default function BlogEngagementPanel({
 
           <form onSubmit={handleCommentSubmit} className="rounded-[24px] border border-[#E5E5E5] bg-white p-4 md:p-5">
             <div className="grid gap-3 lg:grid-cols-[13rem_minmax(0,1fr)_auto] lg:items-end">
+              <label htmlFor="blog-comment-name" className="sr-only">Seu nome</label>
               <input
+                id="blog-comment-name"
+                name="commentName"
                 type="text"
                 value={form.name}
                 onChange={(event) => setForm((current) => ({ ...current, name: event.target.value }))}
                 className="h-12 rounded-2xl border border-[#E5E5E5] px-4 text-sm font-light text-wg-black outline-none transition-colors focus:border-[#CFCFC8]"
                 placeholder="Seu nome"
               />
+              <label htmlFor="blog-comment-body" className="sr-only">Comentário</label>
               <textarea
+                id="blog-comment-body"
+                name="commentBody"
                 value={form.body}
                 onChange={(event) => setForm((current) => ({ ...current, body: event.target.value }))}
                 className="h-12 min-h-12 resize-none rounded-2xl border border-[#E5E5E5] px-4 py-3 text-sm font-light leading-[1.45] text-wg-black outline-none transition-colors focus:border-[#CFCFC8] md:h-[58px] md:min-h-[58px]"

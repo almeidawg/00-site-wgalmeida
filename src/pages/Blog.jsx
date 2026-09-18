@@ -703,7 +703,7 @@ const Blog = () => {
     const proseClassName = "wg-prose prose prose-lg max-w-none prose-headings:font-playfair prose-headings:font-light prose-headings:leading-tight prose-headings:text-wg-black prose-h2:mb-6 prose-h2:mt-1 prose-h3:mb-3 prose-h3:mt-8 prose-h4:mb-2 prose-h4:mt-5 prose-h4:font-light prose-h4:text-wg-black prose-p:my-5 prose-p:text-[1.06rem] prose-p:leading-[1.78] prose-p:text-wg-gray prose-a:font-light prose-a:text-wg-gray prose-a:underline prose-a:decoration-black/20 prose-a:underline-offset-4 hover:prose-a:text-wg-black prose-ul:my-3 prose-ul:pl-5 prose-li:my-1 prose-li:text-wg-gray prose-blockquote:my-8 prose-blockquote:rounded-r-[20px] prose-blockquote:border-l-4 prose-blockquote:border-gray-200 prose-blockquote:bg-[#F7F7F5] prose-blockquote:px-5 prose-blockquote:py-4 prose-blockquote:text-wg-gray [&_code]:rounded [&_code]:bg-gray-100 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:!text-wg-black [&_h2]:!font-light [&_h2]:!text-wg-black [&_h3]:!font-light [&_h3]:!text-wg-black [&_h4]:!font-light [&_h4]:!text-wg-black [&_li]:!font-light [&_li]:!text-wg-gray [&_p]:!font-light [&_p]:!text-wg-gray [&_strong]:!font-light [&_strong]:!text-inherit";
     const articleMarkdownComponents = {
       hr: () => <hr className="my-10 border-0 border-t border-gray-200" />,
-      a: ({ node: _node, ...props }) => <a {...props} className="font-light underline decoration-black/20 underline-offset-4 hover:decoration-black/40" />,
+      a: ({ node: _node, ...props }) => <a {...props} className="py-3 font-light underline decoration-black/20 underline-offset-4 hover:decoration-black/40" />,
       img: ({ node: _node, ...props }) => (
         <span className="not-prose my-12 block overflow-hidden rounded-2xl bg-gray-100">
           <img
@@ -760,7 +760,7 @@ const Blog = () => {
 
             <div className="container-custom relative z-10 flex h-full w-full items-end pb-20 pt-28 md:pb-24 md:pt-32 lg:pb-28 lg:pt-36">
               <div className="max-w-4xl">
-                <Link to="/blog" className="mb-8 inline-flex items-center gap-2 text-sm font-light text-white/75 transition-colors hover:text-white">
+                <Link to="/blog" className="mb-8 inline-flex min-h-11 items-center gap-2 text-sm font-light text-white/75 transition-colors hover:text-white">
                   <ArrowLeft size={16} />
                   Blog & Artigos
                 </Link>
@@ -885,7 +885,7 @@ const Blog = () => {
                       <a
                         key={item.id}
                         href={`#${item.id}`}
-                        className={`group inline-flex items-center justify-between gap-4 rounded-xl border border-transparent bg-white px-4 py-2 text-sm font-light text-wg-gray shadow-[0_1px_0_rgba(0,0,0,0.03)] transition-all hover:-translate-y-[1px] hover:shadow-sm hover:text-wg-black ${articleTocHoverClass}`}
+                        className={`group inline-flex min-h-11 items-center justify-between gap-4 rounded-xl border border-transparent bg-white px-4 py-2 text-sm font-light text-wg-gray shadow-[0_1px_0_rgba(0,0,0,0.03)] transition-all hover:-translate-y-[1px] hover:shadow-sm hover:text-wg-black ${articleTocHoverClass}`}
                       >
                         <span>{item.text}</span>
                         <span className={`text-[11px] uppercase tracking-[0.12em] ${item.id === activeReadingId ? articleTocReadingClass : 'text-wg-gray/55'}`}>

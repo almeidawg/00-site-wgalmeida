@@ -33,7 +33,7 @@ const renderNavLink = (item) => {
         href={item.href}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-[#334155] font-light transition-colors hover:text-wg-blue"
+        className="inline-flex min-h-11 items-center text-[#334155] font-light transition-colors hover:text-wg-blue"
       >
         {item.label}
       </a>
@@ -41,7 +41,7 @@ const renderNavLink = (item) => {
   }
 
   return (
-    <Link to={item.to} className="text-[#334155] font-light transition-colors hover:text-wg-blue">
+    <Link to={item.to} className="inline-flex min-h-11 items-center text-[#334155] font-light transition-colors hover:text-wg-blue">
       {item.label}
     </Link>
   )

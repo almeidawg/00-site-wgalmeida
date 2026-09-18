@@ -1080,6 +1080,7 @@
 
   .wg-cta-subtle,
   .cta-quick {
+    min-height: 44px;
     --wg-cta-border-hover: rgba(0, 0, 0, 0.3);
     --wg-cta-border-focus: rgba(0, 0, 0, 0.28);
     outline: none !important;
@@ -1109,7 +1110,7 @@
     --wg-cta-border-hover: rgba(0, 0, 0, 0.28);
     --wg-cta-border-focus: rgba(0, 0, 0, 0.22);
     display: inline-flex;
-    min-height: 30px;
+    min-height: 44px;
     align-items: center;
     justify-content: center;
     gap: 8px;
