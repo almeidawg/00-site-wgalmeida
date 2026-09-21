@@ -1,6 +1,6 @@
 # RETURN POINT — Brand Canonical WG Almeida
 
-Atualizado em: 2026-09-15
+Atualizado em: 2026-09-21
 Owner: William Almeida
 Branch: `chore/brand-canonical-20260915`
 Base remota validada: `origin/main` em `1938ce7e2229554785179584ebe16a4666fa8fec`
@@ -82,7 +82,33 @@ A formulação pública preferencial para tempo de mercado é `Desde 2011`. A da
 
 ## Histórico de Auditorias SEO Recorrentes
 
-### Auditoria 2026-09-16 (atual)
+### Auditoria 2026-09-21 (atual)
+
+| Métrica | Valor | Status |
+|---|---|---|
+| AI Readiness Score | 0/100¹ | ⚠️ PROXY BLOCK |
+| Rotas no sitemap | N/A¹ | ⚠️ PROXY BLOCK |
+| PageSpeed LCP mobile | N/A | 429 sem API key |
+| PageSpeed CLS mobile | N/A | 429 sem API key |
+| PageSpeed LCP desktop | N/A | 429 sem API key |
+
+**¹ Nota importante:** O score 0/100 e a falha no sitemap NÃO são problemas reais do site. O ambiente de execução remota (cloud sandbox) continua bloqueando conexões HTTPS de saída para `wgalmeida.com.br` via proxy com HTTP 403. Condição idêntica à auditoria anterior (2026-09-16). A auditoria de referência (2026-06-23, sem restrição de proxy) registrou score 100/100 e 161 rotas.
+
+**Alertas registrados pelo script (ambiente):**
+- `[ALTA]` Sitemap XML: Erro HTTP 403 — bloqueio de proxy do sandbox (não é falha do site)
+- `[MEDIA]` robots.txt: Erro HTTP 403 — mesma causa acima
+- `[INFO]` PageSpeed: Rate limit 429 — sem `PAGESPEED_API_KEY` configurada
+
+**Plano de ação (próximos 5 dias):**
+1. Configurar `PAGESPEED_API_KEY` no ambiente de agendamento para habilitar métricas Core Web Vitals reais
+2. Verificar se o proxy do sandbox pode ser configurado com acesso externo a `wgalmeida.com.br` (ou configurar exceção de domínio)
+3. Após merge da branch `chore/brand-canonical-20260915`, confirmar sitemap com ~175 rotas em ambiente sem proxy restritivo
+4. Executar smoke test público em `/`, `/sobre` e `/buildtech` após merge
+5. Próxima auditoria: **2026-09-26**
+
+---
+
+### Auditoria 2026-09-16 (anterior)
 
 | Métrica | Valor | Status |
 |---|---|---|
@@ -123,4 +149,4 @@ A formulação pública preferencial para tempo de mercado é `Desde 2011`. A da
 
 **Alertas:** Nenhum.
 
-**Próxima auditoria agendada era:** 2026-09-16 ✅ (executada acima)
+**Próxima auditoria agendada era:** 2026-09-16 ✅ (executada) → 2026-09-21 ✅ (executada acima)
