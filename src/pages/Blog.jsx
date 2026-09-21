@@ -35,12 +35,14 @@ import { parseFrontmatter } from '@/utils/frontmatter';
 import ICCRILinksBlock from '@/components/ICCRILinksBlock';
 import SmartCTA from '@/components/SmartCTA';
 import BlogEngagementPanel from '@/components/blog/BlogEngagementPanel';
+import BlogLeadCapture from '@/components/blog/BlogLeadCapture';
 import BlogMoodboardPanel from '@/components/blog/BlogMoodboardPanel';
 import CommercialGovernancePanel from '@/components/blog/CommercialGovernancePanel';
 import EditorialThemeBadge from '@/components/blog/EditorialThemeBadge';
 import { getArticleMetrics, mergeArticlesWithCms, registerArticleShare } from '@/data/blogCms';
 import { getEditorialTheme, resolveEditorialThemeId } from '@/data/editorialThemes';
 import { getCommercialPublicationValidation, resolveCommercialTokens } from '@/data/commercialGovernance';
+import { trackEvent } from '@/lib/analytics';
 
 const BLOG_HERO_IMAGE = getPublicPageImageSrc('blog', '/images/banners/PROCESSOS.webp');
 
@@ -385,6 +387,16 @@ const Blog = () => {
   useEffect(() => {
     if (!slug) return;
     setArticleMetrics(getArticleMetrics(slug));
+  }, [slug]);
+
+  useEffect(() => {
+    if (!slug) return;
+    trackEvent('conversion_funnel', {
+      action: 'article_view',
+      source: 'blog',
+      context: `blog:${slug}`,
+      page_path: typeof window !== 'undefined' ? window.location.pathname : '',
+    });
   }, [slug]);
 
   const filteredArticles = articles.filter(article => {
@@ -1000,6 +1012,8 @@ const Blog = () => {
                 <SmartCTA className="mt-6" showSecondary />
               </section>
 
+              <BlogLeadCapture article={selectedArticle} placement="post_content" />
+
               <ICCRILinksBlock context={articleTopic === 'arquitetura' ? 'investimento' : 'custo'} className="mt-8" />
 
               {displayArticleTags.length > 0 && (
@@ -1019,6 +1033,8 @@ const Blog = () => {
               )}
 
               <BlogMoodboardPanel article={selectedArticle} />
+
+              <BlogLeadCapture article={selectedArticle} placement="pre_engagement" />
 
               <BlogEngagementPanel
                 article={selectedArticle}
