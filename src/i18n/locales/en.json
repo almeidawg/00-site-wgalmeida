@@ -1131,6 +1131,49 @@
       "subtitle": "Trends, technical guides and references to decide better before designing, renovating or building.",
       "placeholder": "Your best email",
       "button": "Subscribe"
+    },
+    "leadCapture": {
+      "offers": {
+        "architecture": {
+          "eyebrow": "Next project step",
+          "title": "Want to turn this reference into a focused briefing?",
+          "description": "Leave your contact details and the context of this article will go with your request.",
+          "cta": "I want to move my project forward"
+        },
+        "engineering": {
+          "eyebrow": "Initial assessment",
+          "title": "Want to assess feasibility, cost or execution?",
+          "description": "Send your contact details without repeating everything you just researched.",
+          "cta": "I want an initial assessment"
+        },
+        "carpentry": {
+          "eyebrow": "Room assessment",
+          "title": "Want to bring this reference into your space?",
+          "description": "Leave your contact details and use this article as the starting point.",
+          "cta": "I want to assess my space"
+        },
+        "default": {
+          "eyebrow": "Continue the conversation",
+          "title": "Want to apply this insight to your project or operation?",
+          "description": "Leave your contact details. The article and visit source will be attached to the lead.",
+          "cta": "I want to talk to WG"
+        }
+      },
+      "privacy": "Your data will be used to respond to this request and measure the commercial source of the contact.",
+      "successTitle": "Contact received.",
+      "successDescription": "The source article was recorded with your request.",
+      "fields": {
+        "name": "Name",
+        "email": "Email",
+        "whatsapp": "WhatsApp",
+        "optional": "optional",
+        "optionalPlaceholder": "Optional"
+      },
+      "antiSpamLabel": "Anti-spam verification",
+      "antiSpamRequired": "Complete the anti-spam verification before submitting.",
+      "submitError": "We could not register your contact.",
+      "subject": "Blog lead: {{title}}",
+      "message": "I would like to talk to WG about the article \"{{title}}\". Capture position: {{placement}}."
     }
   }
 }

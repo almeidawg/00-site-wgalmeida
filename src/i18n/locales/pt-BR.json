@@ -1153,6 +1153,49 @@
       "subtitle": "Tendências, guias técnicos e referências para decidir melhor antes de projetar, reformar ou construir.",
       "placeholder": "Seu melhor e-mail",
       "button": "Assinar"
+    },
+    "leadCapture": {
+      "offers": {
+        "architecture": {
+          "eyebrow": "Próximo passo do projeto",
+          "title": "Quer transformar esta referência em um briefing objetivo?",
+          "description": "Deixe seu contato e o contexto desta leitura segue junto para a equipe.",
+          "cta": "Quero avançar meu projeto"
+        },
+        "engineering": {
+          "eyebrow": "Diagnóstico inicial",
+          "title": "Quer avaliar viabilidade, custo ou execução?",
+          "description": "Envie seu contato sem repetir tudo o que você acabou de pesquisar.",
+          "cta": "Quero uma avaliação inicial"
+        },
+        "carpentry": {
+          "eyebrow": "Avaliação do ambiente",
+          "title": "Quer levar esta referência para o seu espaço?",
+          "description": "Deixe seu contato e use este artigo como ponto de partida.",
+          "cta": "Quero avaliar meu ambiente"
+        },
+        "default": {
+          "eyebrow": "Continue a conversa",
+          "title": "Quer aplicar esta leitura ao seu projeto ou operação?",
+          "description": "Deixe seu contato. O artigo e a origem da visita seguem junto com o lead.",
+          "cta": "Quero conversar com a WG"
+        }
+      },
+      "privacy": "Seus dados serão usados para responder a esta solicitação e medir a origem comercial do contato.",
+      "successTitle": "Contato recebido.",
+      "successDescription": "A origem deste artigo foi registrada junto com a solicitação.",
+      "fields": {
+        "name": "Nome",
+        "email": "E-mail",
+        "whatsapp": "WhatsApp",
+        "optional": "opcional",
+        "optionalPlaceholder": "Opcional"
+      },
+      "antiSpamLabel": "Verificação anti-spam",
+      "antiSpamRequired": "Confirme a verificação anti-spam antes de enviar.",
+      "submitError": "Não foi possível registrar seu contato.",
+      "subject": "Lead do blog: {{title}}",
+      "message": "Quero conversar com a WG a partir do artigo \"{{title}}\". Posição de captação: {{placement}}."
     }
   },
   "regions": {

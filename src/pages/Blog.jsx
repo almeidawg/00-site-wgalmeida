@@ -35,12 +35,14 @@ import { parseFrontmatter } from '@/utils/frontmatter';
 import ICCRILinksBlock from '@/components/ICCRILinksBlock';
 import SmartCTA from '@/components/SmartCTA';
 import BlogEngagementPanel from '@/components/blog/BlogEngagementPanel';
+import BlogLeadCapture from '@/components/blog/BlogLeadCapture';
 import BlogMoodboardPanel from '@/components/blog/BlogMoodboardPanel';
 import CommercialGovernancePanel from '@/components/blog/CommercialGovernancePanel';
 import EditorialThemeBadge from '@/components/blog/EditorialThemeBadge';
 import { getArticleMetrics, mergeArticlesWithCms, registerArticleShare } from '@/data/blogCms';
 import { getEditorialTheme, resolveEditorialThemeId } from '@/data/editorialThemes';
 import { getCommercialPublicationValidation, resolveCommercialTokens } from '@/data/commercialGovernance';
+import { trackEvent } from '@/lib/analytics';
 
 const BLOG_HERO_IMAGE = getPublicPageImageSrc('blog', '/images/banners/PROCESSOS.webp');
 
@@ -49,6 +51,27 @@ const handleArticleImageError = (event) => {
   event.currentTarget.dataset.fallbackApplied = 'true';
   event.currentTarget.src = BLOG_HERO_IMAGE;
 };
+
+const ARTICLE_MARKDOWN_COMPONENTS = {
+  hr: () => <hr className="my-10 border-0 border-t border-gray-200" />,
+  a: ({ node: _node, ...props }) => <a {...props} className="py-3 font-light [overflow-wrap:anywhere] underline decoration-black/20 underline-offset-4 hover:decoration-black/40 sm:[overflow-wrap:normal]" />,
+  table: ({ node: _node, ...props }) => (
+    <div className="my-6 w-full max-w-full overflow-x-auto">
+      <table {...props} className="w-full min-w-0 table-fixed sm:min-w-[480px] sm:table-auto" />
+    </div>
+  ),
+  img: ({ node: _node, alt = '', ...props }) => (
+    <span className="not-prose my-12 block overflow-hidden rounded-2xl bg-gray-100">
+      <img {...props} alt={alt} className="h-auto w-full scale-[1.03] object-cover transition-transform duration-[1400ms] ease-out hover:scale-100" loading="lazy" onError={handleArticleImageError} />
+    </span>
+  ),
+};
+
+const renderArticleMarkdown = (content, className) => (
+  <div className={className}>
+    <ReactMarkdown remarkPlugins={[remarkGfm]} components={ARTICLE_MARKDOWN_COMPONENTS}>{content}</ReactMarkdown>
+  </div>
+);
 
 const categories = [
   { id: 'all', label: 'all', icon: Globe, color: 'text-wg-gray', bgColor: 'bg-gray-100' },
@@ -125,33 +148,62 @@ const uniqueLabels = (labels = []) => {
   });
 };
 
-const stripMarkdownTitle = (content = '') => content.replace(/^#\s+.*(?:\r?\n)+/, '');
+const stripMarkdownTitle = (content = '') => {
+  const lines = String(content).split(/\r?\n/);
+  if (!lines[0]?.startsWith('# ')) return content;
+  let firstContentLine = 1;
+  while (firstContentLine < lines.length && !lines[firstContentLine].trim()) firstContentLine += 1;
+  return lines.slice(firstContentLine).join('\n');
+};
 
-const stripDuplicateTocSection = (markdown = '') =>
-  markdown
-    .replace(
-      /(^|\n)##\s*(?:Neste artigo|In this article|En este articulo|En este artículo)\s*\n+(?:(?:[-*+]\s+.+|[0-9]+\.\s+.+)\n)+/i,
-      '$1'
-    )
-    .trim();
+const TOC_HEADINGS = new Set(['neste artigo', 'in this article', 'en este articulo', 'en este artículo']);
+
+const isMarkdownListLine = (line = '') => {
+  const trimmed = line.trimStart();
+  if (/^[-*+]\s/.test(trimmed)) return true;
+  const dotIndex = trimmed.indexOf('.');
+  return dotIndex > 0 && /^\d+$/.test(trimmed.slice(0, dotIndex)) && /^\s/.test(trimmed.slice(dotIndex + 1));
+};
+
+const stripDuplicateTocSection = (markdown = '') => {
+  const lines = String(markdown).split(/\r?\n/);
+  const output = [];
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index];
+    if (!line.startsWith('## ')) {
+      output.push(line);
+      continue;
+    }
+    const heading = normalizeComparableLabel(line.slice(3));
+    if (!TOC_HEADINGS.has(heading)) {
+      output.push(line);
+      continue;
+    }
+    let cursor = index + 1;
+    while (cursor < lines.length && !lines[cursor].trim()) cursor += 1;
+    const listStart = cursor;
+    while (cursor < lines.length && isMarkdownListLine(lines[cursor])) cursor += 1;
+    if (cursor === listStart) {
+      output.push(line);
+      continue;
+    }
+    index = cursor - 1;
+  }
+  return output.join('\n').trim();
+};
 
 const splitMarkdownByH2 = (content = '') => {
   const blocks = content.split(/(?=^##\s(?!#))/m).filter(Boolean);
   const intro = blocks[0]?.startsWith('## ') ? '' : blocks.shift() || '';
-
   return {
     intro,
     sections: blocks.map((block, index) => {
-      const heading = block.match(/^##\s+(.+)$/m)?.[1]?.trim() || `secao-${index + 1}`;
-      return {
-        id: normalizeHeadingId(heading),
-        heading,
-        content: block,
-      };
+      const firstLine = block.split(/\r?\n/, 1)[0] || '';
+      const heading = firstLine.startsWith('## ') ? firstLine.slice(3).trim() : `secao-${index + 1}`;
+      return { id: normalizeHeadingId(heading), heading, content: block };
     }),
   };
 };
-
 const buildContextImageInsertions = (sections = [], assets = []) => {
   const insertions = new Map();
   if (!sections.length || !assets.length) return insertions;
@@ -385,6 +437,16 @@ const Blog = () => {
   useEffect(() => {
     if (!slug) return;
     setArticleMetrics(getArticleMetrics(slug));
+  }, [slug]);
+
+  useEffect(() => {
+    if (!slug) return;
+    trackEvent('conversion_funnel', {
+      action: 'article_view',
+      source: 'blog',
+      context: `blog:${slug}`,
+      page_path: typeof window !== 'undefined' ? window.location.pathname : '',
+    });
   }, [slug]);
 
   const filteredArticles = articles.filter(article => {
@@ -701,32 +763,6 @@ const Blog = () => {
           .slice(0, 7)
       : [];
     const proseClassName = "wg-prose prose prose-lg max-w-none prose-headings:font-playfair prose-headings:font-light prose-headings:leading-tight prose-headings:text-wg-black prose-h2:mb-6 prose-h2:mt-1 prose-h3:mb-3 prose-h3:mt-8 prose-h4:mb-2 prose-h4:mt-5 prose-h4:font-light prose-h4:text-wg-black prose-p:my-5 prose-p:text-[1.06rem] prose-p:leading-[1.78] prose-p:text-wg-gray prose-a:font-light prose-a:text-wg-gray prose-a:underline prose-a:decoration-black/20 prose-a:underline-offset-4 hover:prose-a:text-wg-black prose-ul:my-3 prose-ul:pl-5 prose-li:my-1 prose-li:text-wg-gray prose-blockquote:my-8 prose-blockquote:rounded-r-[20px] prose-blockquote:border-l-4 prose-blockquote:border-gray-200 prose-blockquote:bg-[#F7F7F5] prose-blockquote:px-5 prose-blockquote:py-4 prose-blockquote:text-wg-gray [&_code]:rounded [&_code]:bg-gray-100 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:!text-wg-black [&_h2]:!font-light [&_h2]:!text-wg-black [&_h3]:!font-light [&_h3]:!text-wg-black [&_h4]:!font-light [&_h4]:!text-wg-black [&_li]:!font-light [&_li]:!text-wg-gray [&_p]:!font-light [&_p]:!text-wg-gray [&_strong]:!font-light [&_strong]:!text-inherit";
-    const articleMarkdownComponents = {
-      hr: () => <hr className="my-10 border-0 border-t border-gray-200" />,
-      a: ({ node: _node, ...props }) => <a {...props} className="py-3 font-light [overflow-wrap:anywhere] underline decoration-black/20 underline-offset-4 hover:decoration-black/40 sm:[overflow-wrap:normal]" />,
-      table: ({ node: _node, ...props }) => (
-        <div className="my-6 w-full max-w-full overflow-x-auto">
-          <table {...props} className="w-full min-w-0 table-fixed sm:min-w-[480px] sm:table-auto" />
-        </div>
-      ),
-      img: ({ node: _node, ...props }) => (
-        <span className="not-prose my-12 block overflow-hidden rounded-2xl bg-gray-100">
-          <img
-            {...props}
-            className="h-auto w-full scale-[1.03] object-cover transition-transform duration-[1400ms] ease-out hover:scale-100"
-            loading="lazy"
-            onError={handleArticleImageError}
-          />
-        </span>
-      ),
-    };
-    const renderMarkdown = (content, className = proseClassName) => (
-      <div className={className}>
-        <ReactMarkdown remarkPlugins={[remarkGfm]} components={articleMarkdownComponents}>
-          {content}
-        </ReactMarkdown>
-      </div>
-    );
     const architectsSectionClass = `${proseClassName} ${articleMarkerClass} [&_h2]:!mb-3 [&_h2]:!font-playfair [&_h2]:!leading-tight [&_h2]:!font-light [&_h2]:!text-wg-black [&_h3]:!mt-5 [&_h3]:!mb-2.5 [&_h3]:!font-light [&_h3]:!tracking-[0.02em] [&_h3]:!text-wg-black [&_h4]:!mt-4 [&_h4]:!mb-2 [&_h4]:!font-light [&_h4]:!text-wg-black [&_blockquote]:!my-5 [&_blockquote]:!border-l-2 [&_blockquote]:!border-wg-orange/50 [&_blockquote]:!pl-5 [&_blockquote]:!italic [&_blockquote]:!text-wg-gray [&_ul]:!my-3 [&_ul]:!list-disc [&_ul]:!pl-5 [&_li]:!my-1 [&_li]:!font-light [&_li]:!text-wg-gray [&_p]:!my-3.5 [&_p]:!font-light [&_p]:!leading-[1.72] [&_p]:!text-wg-gray [&_strong]:!font-light`;
 
     return (
@@ -904,7 +940,7 @@ const Blog = () => {
 
               {articleSections.intro && (
                 <div className="mb-8 max-w-none rounded-[20px] border border-[#EAEAEA] bg-[#FCFCFC] px-5 py-5 shadow-sm md:px-6 [&_p]:!font-light [&_p]:!text-wg-gray [&_strong]:!font-light">
-                  {renderMarkdown(articleSections.intro)}
+                  {renderArticleMarkdown(articleSections.intro, proseClassName)}
                 </div>
               )}
 
@@ -925,7 +961,7 @@ const Blog = () => {
                       />
                     </div>
                     <div className="bg-[#FAFAFA] p-6 md:p-8">
-                      {renderMarkdown(
+                      {renderArticleMarkdown(
                         leadSection.content,
                         isArchitectsLegacyArticle
                           ? architectsSectionClass
@@ -954,7 +990,7 @@ const Blog = () => {
                   if (!featuredAsset) {
                     return (
                       <article key={section.id} id={section.id} className={`rounded-[24px] border border-[#E5E5E5] bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-[1px] hover:shadow-md md:p-8 ${articleCardHoverClass}`}>
-                        {renderMarkdown(
+                        {renderArticleMarkdown(
                           section.content,
                           sectionClass
                         )}
@@ -969,7 +1005,7 @@ const Blog = () => {
                           <ContextImagePanel asset={featuredAsset} />
                         )}
                         <div className="p-6 md:p-8">
-                          {renderMarkdown(
+                          {renderArticleMarkdown(
                             section.content,
                             sectionClass
                           )}
@@ -1000,6 +1036,8 @@ const Blog = () => {
                 <SmartCTA className="mt-6" showSecondary />
               </section>
 
+              <BlogLeadCapture article={selectedArticle} placement="post_content" />
+
               <ICCRILinksBlock context={articleTopic === 'arquitetura' ? 'investimento' : 'custo'} className="mt-8" />
 
               {displayArticleTags.length > 0 && (
@@ -1019,6 +1057,8 @@ const Blog = () => {
               )}
 
               <BlogMoodboardPanel article={selectedArticle} />
+
+              <BlogLeadCapture article={selectedArticle} placement="pre_engagement" />
 
               <BlogEngagementPanel
                 article={selectedArticle}
@@ -1343,7 +1383,7 @@ const Blog = () => {
                 placeholder={t('blogPage.newsletter.placeholder')}
                 className="flex-1 px-6 py-4 bg-white/5 border border-white/10 rounded-xl outline-none focus:border-wg-orange/50 transition-all font-light"
               />
-              <button className="wg-btn-pill-primary px-8 whitespace-nowrap">
+              <button type="submit" className="wg-btn-pill-primary px-8 whitespace-nowrap">
                 {t('blogPage.newsletter.button')}
               </button>
             </form>

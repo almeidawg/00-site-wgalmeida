@@ -16,6 +16,7 @@ export const normalizeConversionContext = (value) => {
   if (context === 'moodboard-studio-v2' || context === 'moodboard') return 'moodboard'
   if (context === 'buildtech') return 'buildtech'
   if (context === 'contact' || context === 'site-contact') return 'contact'
+  if (context === 'blog' || context.startsWith('blog:')) return 'blog'
   return 'other'
 }
 
