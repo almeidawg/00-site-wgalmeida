@@ -156,11 +156,11 @@ export default function BlogLeadCapture({ article, placement = 'article_end' }) 
         </div>
 
         {success ? (
-          <div className="rounded-2xl border border-[#DDE8DF] bg-white p-5" role="status">
+          <output className="block rounded-2xl border border-[#DDE8DF] bg-white p-5">
             <CheckCircle2 className="mb-3 h-6 w-6 text-wg-green" />
             <p className="font-medium text-wg-black">Contato recebido.</p>
             <p className="mt-1 text-sm font-light text-wg-gray">A origem deste artigo foi registrada junto com a solicitação.</p>
-          </div>
+          </output>
         ) : (
           <form onSubmit={handleSubmit} onFocus={markStarted} className="grid gap-3 rounded-2xl border border-[#E5E5E5] bg-white p-4 md:p-5">
             <input
@@ -176,13 +176,13 @@ export default function BlogLeadCapture({ article, placement = 'article_end' }) 
 
             <div className="grid gap-3 sm:grid-cols-2">
               <label className="grid gap-1 text-xs font-light text-wg-gray">
-                Nome
+                <span>Nome</span>
                 <input required name="name" autoComplete="name" value={form.name}
                   onChange={(event) => setForm((current) => ({ ...current, name: event.target.value }))}
                   className="h-11 rounded-xl border border-[#DDD8CF] px-3 text-sm text-wg-black outline-none focus:border-wg-orange" />
               </label>
               <label className="grid gap-1 text-xs font-light text-wg-gray">
-                E-mail
+                <span>E-mail</span>
                 <input required type="email" name="email" autoComplete="email" value={form.email}
                   onChange={(event) => setForm((current) => ({ ...current, email: event.target.value }))}
                   className="h-11 rounded-xl border border-[#DDD8CF] px-3 text-sm text-wg-black outline-none focus:border-wg-orange" />
@@ -190,7 +190,7 @@ export default function BlogLeadCapture({ article, placement = 'article_end' }) 
             </div>
 
             <label className="grid gap-1 text-xs font-light text-wg-gray">
-              WhatsApp <span className="sr-only">(opcional)</span>
+              <span>WhatsApp <span className="sr-only">(opcional)</span></span>
               <input type="tel" name="phone" autoComplete="tel" placeholder="Opcional" value={form.phone}
                 onChange={(event) => setForm((current) => ({ ...current, phone: event.target.value.slice(0, 24) }))}
                 className="h-11 rounded-xl border border-[#DDD8CF] px-3 text-sm text-wg-black outline-none focus:border-wg-orange" />
