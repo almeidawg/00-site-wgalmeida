@@ -1131,6 +1131,49 @@
       "subtitle": "Tendencias, guías técnicas y referencias para decidir mejor antes de proyectar, reformar o construir.",
       "placeholder": "Tu mejor correo",
       "button": "Suscribirse"
+    },
+    "leadCapture": {
+      "offers": {
+        "architecture": {
+          "eyebrow": "Siguiente paso del proyecto",
+          "title": "¿Quieres convertir esta referencia en un briefing claro?",
+          "description": "Deja tus datos y el contexto de esta lectura acompañará tu solicitud.",
+          "cta": "Quiero avanzar con mi proyecto"
+        },
+        "engineering": {
+          "eyebrow": "Evaluación inicial",
+          "title": "¿Quieres evaluar viabilidad, costo o ejecución?",
+          "description": "Envía tus datos sin repetir todo lo que acabas de investigar.",
+          "cta": "Quiero una evaluación inicial"
+        },
+        "carpentry": {
+          "eyebrow": "Evaluación del ambiente",
+          "title": "¿Quieres llevar esta referencia a tu espacio?",
+          "description": "Deja tus datos y usa este artículo como punto de partida.",
+          "cta": "Quiero evaluar mi ambiente"
+        },
+        "default": {
+          "eyebrow": "Continúa la conversación",
+          "title": "¿Quieres aplicar esta lectura a tu proyecto u operación?",
+          "description": "Deja tus datos. El artículo y el origen de la visita quedarán asociados al lead.",
+          "cta": "Quiero hablar con WG"
+        }
+      },
+      "privacy": "Tus datos se usarán para responder a esta solicitud y medir el origen comercial del contacto.",
+      "successTitle": "Contacto recibido.",
+      "successDescription": "El artículo de origen quedó registrado junto con tu solicitud.",
+      "fields": {
+        "name": "Nombre",
+        "email": "Correo electrónico",
+        "whatsapp": "WhatsApp",
+        "optional": "opcional",
+        "optionalPlaceholder": "Opcional"
+      },
+      "antiSpamLabel": "Verificación anti-spam",
+      "antiSpamRequired": "Completa la verificación anti-spam antes de enviar.",
+      "submitError": "No pudimos registrar tu contacto.",
+      "subject": "Lead del blog: {{title}}",
+      "message": "Quiero hablar con WG a partir del artículo \"{{title}}\". Posición de captación: {{placement}}."
     }
   }
 }

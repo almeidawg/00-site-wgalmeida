@@ -6,6 +6,7 @@ describe('conversion observability', () => {
     expect(normalizeConversionContext('moodboard-studio-v2')).toBe('moodboard');
     expect(normalizeConversionContext('buildtech')).toBe('buildtech');
     expect(normalizeConversionContext('site-contact')).toBe('contact');
+    expect(normalizeConversionContext('blog:como-calcular-custo-de-obra:lead_capture:post_content:A')).toBe('blog');
     expect(normalizeConversionContext('cliente@example.com')).toBe('other');
   });
 

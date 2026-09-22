@@ -1,41 +1,21 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { ArrowRight, CheckCircle2, Loader2 } from 'lucide-react'
 import TurnstileWidget, { TURNSTILE_SITE_KEY } from '@/components/TurnstileWidget'
 import { trackEvent } from '@/lib/analytics'
+import { useTranslation } from 'react-i18next'
 
-const getOffer = (article = {}) => {
+const getOfferKey = (article = {}) => {
   const topic = String(article.category || article.editorialThemeId || '').toLowerCase()
+  const includesAny = (terms) => terms.some((term) => topic.includes(term))
 
-  if (topic.includes('arquitet')) return {
-    eyebrow: 'Próximo passo do projeto',
-    title: 'Quer transformar esta referência em um briefing objetivo?',
-    description: 'Deixe seu contato e o contexto desta leitura segue junto para a equipe.',
-    cta: 'Quero avançar meu projeto',
-  }
-
-  if (topic.includes('engenhar')) return {
-    eyebrow: 'Diagnóstico inicial',
-    title: 'Quer avaliar viabilidade, custo ou execução?',
-    description: 'Envie seu contato sem repetir tudo o que você acabou de pesquisar.',
-    cta: 'Quero uma avaliação inicial',
-  }
-
-  if (topic.includes('marcen')) return {
-    eyebrow: 'Avaliação do ambiente',
-    title: 'Quer levar esta referência para o seu espaço?',
-    description: 'Deixe seu contato e use este artigo como ponto de partida.',
-    cta: 'Quero avaliar meu ambiente',
-  }
-
-  return {
-    eyebrow: 'Continue a conversa',
-    title: 'Quer aplicar esta leitura ao seu projeto ou operação?',
-    description: 'Deixe seu contato. O artigo e a origem da visita seguem junto com o lead.',
-    cta: 'Quero conversar com a WG',
-  }
+  if (includesAny(['arquitet', 'architect', 'arquitect'])) return 'architecture'
+  if (includesAny(['engenhar', 'engineer', 'ingenier'])) return 'engineering'
+  if (includesAny(['marcen', 'carpent', 'carpinter'])) return 'carpentry'
+  return 'default'
 }
 
 export default function BlogLeadCapture({ article, placement = 'article_end' }) {
+  const { t } = useTranslation()
   const sectionRef = useRef(null)
   const startedRef = useRef(false)
   const viewedRef = useRef(false)
@@ -45,9 +25,27 @@ export default function BlogLeadCapture({ article, placement = 'article_end' }) 
   const [turnstileToken, setTurnstileToken] = useState('')
   const [form, setForm] = useState({ name: '', email: '', phone: '', website: '' })
 
-  const offer = getOffer(article)
+  const offerKey = getOfferKey(article)
+  const offerBase = `blogPage.leadCapture.offers.${offerKey}`
+  const offer = {
+    eyebrow: t(`${offerBase}.eyebrow`),
+    title: t(`${offerBase}.title`),
+    description: t(`${offerBase}.description`),
+    cta: t(`${offerBase}.cta`),
+  }
   const slug = article?.slug || 'unknown'
   const context = `blog:${slug}:lead_capture:${placement}:A`
+
+  const handleTurnstileVerify = useCallback((token) => setTurnstileToken(token), [])
+  const handleTurnstileExpire = useCallback(() => setTurnstileToken(''), [])
+
+  useEffect(() => {
+    startedRef.current = false
+    viewedRef.current = false
+    setSuccess(false)
+    setError('')
+    setTurnstileToken('')
+  }, [context])
 
   useEffect(() => {
     const target = sectionRef.current
@@ -87,7 +85,7 @@ export default function BlogLeadCapture({ article, placement = 'article_end' }) 
 
     try {
       if (TURNSTILE_SITE_KEY && !turnstileToken) {
-        throw new Error('Confirme a verificação anti-spam antes de enviar.')
+        throw new Error(t('blogPage.leadCapture.antiSpamRequired'))
       }
 
       const params = new URLSearchParams(window.location.search)
@@ -98,8 +96,8 @@ export default function BlogLeadCapture({ article, placement = 'article_end' }) 
           name: form.name,
           email: form.email,
           phone: form.phone,
-          subject: `Lead do blog: ${article?.title || slug}`,
-          message: `Quero conversar com a WG a partir do artigo "${article?.title || slug}". Posição de captação: ${placement}.`,
+          subject: t('blogPage.leadCapture.subject', { title: article?.title || slug }),
+          message: t('blogPage.leadCapture.message', { title: article?.title || slug, placement }),
           website: form.website,
           turnstileToken,
           utm_source: params.get('utm_source') || 'blog',
@@ -110,7 +108,12 @@ export default function BlogLeadCapture({ article, placement = 'article_end' }) 
       })
 
       const payload = await response.json().catch(() => ({}))
-      if (!response.ok) throw new Error(payload.error || 'Não foi possível registrar seu contato.')
+      if (!response.ok) {
+        const localizedError = response.status === 403
+          ? t('blogPage.leadCapture.antiSpamRequired')
+          : t('blogPage.leadCapture.submitError')
+        throw new Error(localizedError)
+      }
 
       trackEvent('conversion_funnel', {
         action: 'lead_accepted',
@@ -132,7 +135,7 @@ export default function BlogLeadCapture({ article, placement = 'article_end' }) 
         target: 'contact_api',
         page_path: window.location.pathname,
       })
-      setError(submitError.message || 'Não foi possível registrar seu contato.')
+      setError(submitError.message || t('blogPage.leadCapture.submitError'))
     } finally {
       setLoading(false)
     }
@@ -151,15 +154,15 @@ export default function BlogLeadCapture({ article, placement = 'article_end' }) 
           <h2 className="font-playfair text-2xl font-light leading-tight text-wg-black md:text-3xl">{offer.title}</h2>
           <p className="mt-3 max-w-xl text-sm font-light leading-relaxed text-wg-gray">{offer.description}</p>
           <p className="mt-3 text-xs font-light leading-relaxed text-wg-gray/80">
-            Seus dados serão usados para responder a esta solicitação e medir a origem comercial do contato.
+            {t('blogPage.leadCapture.privacy')}
           </p>
         </div>
 
         {success ? (
           <output className="block rounded-2xl border border-[#DDE8DF] bg-white p-5">
             <CheckCircle2 className="mb-3 h-6 w-6 text-wg-green" />
-            <p className="font-medium text-wg-black">Contato recebido.</p>
-            <p className="mt-1 text-sm font-light text-wg-gray">A origem deste artigo foi registrada junto com a solicitação.</p>
+            <p className="font-medium text-wg-black">{t('blogPage.leadCapture.successTitle')}</p>
+            <p className="mt-1 text-sm font-light text-wg-gray">{t('blogPage.leadCapture.successDescription')}</p>
           </output>
         ) : (
           <form onSubmit={handleSubmit} onFocus={markStarted} className="grid gap-3 rounded-2xl border border-[#E5E5E5] bg-white p-4 md:p-5">
@@ -176,13 +179,13 @@ export default function BlogLeadCapture({ article, placement = 'article_end' }) 
 
             <div className="grid gap-3 sm:grid-cols-2">
               <label className="grid gap-1 text-xs font-light text-wg-gray">
-                <span>Nome</span>
+                <span>{t('blogPage.leadCapture.fields.name')}</span>
                 <input required name="name" autoComplete="name" value={form.name}
                   onChange={(event) => setForm((current) => ({ ...current, name: event.target.value }))}
                   className="h-11 rounded-xl border border-[#DDD8CF] px-3 text-sm text-wg-black outline-none focus:border-wg-orange" />
               </label>
               <label className="grid gap-1 text-xs font-light text-wg-gray">
-                <span>E-mail</span>
+                <span>{t('blogPage.leadCapture.fields.email')}</span>
                 <input required type="email" name="email" autoComplete="email" value={form.email}
                   onChange={(event) => setForm((current) => ({ ...current, email: event.target.value }))}
                   className="h-11 rounded-xl border border-[#DDD8CF] px-3 text-sm text-wg-black outline-none focus:border-wg-orange" />
@@ -190,17 +193,17 @@ export default function BlogLeadCapture({ article, placement = 'article_end' }) 
             </div>
 
             <label className="grid gap-1 text-xs font-light text-wg-gray">
-              <span>WhatsApp <span className="sr-only">(opcional)</span></span>
-              <input type="tel" name="phone" autoComplete="tel" placeholder="Opcional" value={form.phone}
+              <span>{t('blogPage.leadCapture.fields.whatsapp')} <span className="sr-only">({t('blogPage.leadCapture.fields.optional')})</span></span>
+              <input type="tel" name="phone" autoComplete="tel" placeholder={t('blogPage.leadCapture.fields.optionalPlaceholder')} value={form.phone}
                 onChange={(event) => setForm((current) => ({ ...current, phone: event.target.value.slice(0, 24) }))}
                 className="h-11 rounded-xl border border-[#DDD8CF] px-3 text-sm text-wg-black outline-none focus:border-wg-orange" />
             </label>
 
             <TurnstileWidget
-              onVerify={setTurnstileToken}
-              onExpire={() => setTurnstileToken('')}
+              onVerify={handleTurnstileVerify}
+              onExpire={handleTurnstileExpire}
               disabled={loading}
-              label="Verificação anti-spam"
+              label={t('blogPage.leadCapture.antiSpamLabel')}
             />
 
             {error && <p className="text-sm text-red-700" role="alert">{error}</p>}
