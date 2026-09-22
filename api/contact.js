@@ -4,7 +4,8 @@ import { emitConversionEvent, normalizeConversionContext } from './_conversionOb
 
 const SUPABASE_ORIGIN = 'https://ahlqzzkxuutwoepirpzr.supabase.co'
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
-const TURNSTILE_SECRET_KEY = process.env.TURNSTILE_SECRET_KEY
+const sanitizeEnvValue = (value) => String(value || '').replace(/^\uFEFF+/, '').trim()
+const TURNSTILE_SECRET_KEY = sanitizeEnvValue(process.env.TURNSTILE_SECRET_KEY)
 const CONTACT_TURNSTILE_REQUIRED = process.env.CONTACT_TURNSTILE_REQUIRED === 'true'
 const CONTACT_AUTO_PROMOTE_WGEASY = process.env.CONTACT_AUTO_PROMOTE_WGEASY === 'true'
 const ALLOWED_EXTRA_ORIGINS = new Set(
