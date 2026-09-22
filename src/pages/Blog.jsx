@@ -1383,7 +1383,7 @@ const Blog = () => {
                 placeholder={t('blogPage.newsletter.placeholder')}
                 className="flex-1 px-6 py-4 bg-white/5 border border-white/10 rounded-xl outline-none focus:border-wg-orange/50 transition-all font-light"
               />
-              <button className="wg-btn-pill-primary px-8 whitespace-nowrap">
+              <button type="submit" className="wg-btn-pill-primary px-8 whitespace-nowrap">
                 {t('blogPage.newsletter.button')}
               </button>
             </form>
