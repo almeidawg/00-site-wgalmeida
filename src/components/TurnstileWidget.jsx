@@ -1,6 +1,9 @@
 import { useEffect, useRef } from 'react'
 
-export const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY
+export const sanitizeTurnstileConfigValue = (value) =>
+  String(value || '').replace(/^\uFEFF+/, '').trim()
+
+export const TURNSTILE_SITE_KEY = sanitizeTurnstileConfigValue(import.meta.env.VITE_TURNSTILE_SITE_KEY)
 let turnstileScriptPromise = null
 
 const loadTurnstileScript = () => {
