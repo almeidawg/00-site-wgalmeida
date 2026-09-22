@@ -29,6 +29,18 @@ class IntersectionObserverMock {
   disconnect() {}
 }
 
+class HiddenIntersectionObserverMock {
+  constructor(callback) {
+    this.callback = callback
+  }
+
+  observe() {
+    this.callback([{ isIntersecting: false }])
+  }
+
+  disconnect() {}
+}
+
 const article = {
   slug: 'como-calcular-custo-de-obra',
   title: 'Como calcular custo de obra',
@@ -46,6 +58,18 @@ describe('BlogLeadCapture', () => {
   afterEach(() => {
     vi.unstubAllGlobals()
     delete globalThis.__blogLeadTurnstileProps
+  })
+
+  it('adia Turnstile ate a captura entrar em viewport ou receber foco', () => {
+    vi.stubGlobal('IntersectionObserver', HiddenIntersectionObserverMock)
+
+    render(<BlogLeadCapture article={article} placement="post_content" />)
+
+    expect(screen.queryByTestId('turnstile-widget')).not.toBeInTheDocument()
+
+    fireEvent.focus(screen.getByLabelText('Nome'))
+
+    expect(screen.getByTestId('turnstile-widget')).toBeInTheDocument()
   })
 
   it('mantem callbacks do Turnstile estaveis durante atualizacoes do formulario', () => {

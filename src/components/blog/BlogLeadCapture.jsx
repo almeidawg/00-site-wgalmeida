@@ -23,6 +23,7 @@ export default function BlogLeadCapture({ article, placement = 'article_end' }) 
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
   const [turnstileToken, setTurnstileToken] = useState('')
+  const [turnstileActive, setTurnstileActive] = useState(false)
   const [form, setForm] = useState({ name: '', email: '', phone: '', website: '' })
 
   const offerKey = getOfferKey(article)
@@ -45,6 +46,7 @@ export default function BlogLeadCapture({ article, placement = 'article_end' }) 
     setSuccess(false)
     setError('')
     setTurnstileToken('')
+    setTurnstileActive(false)
   }, [context])
 
   useEffect(() => {
@@ -52,7 +54,10 @@ export default function BlogLeadCapture({ article, placement = 'article_end' }) 
     if (!target || typeof IntersectionObserver === 'undefined') return undefined
 
     const observer = new IntersectionObserver((entries) => {
-      if (!viewedRef.current && entries.some((entry) => entry.isIntersecting)) {
+      const isVisible = entries.some((entry) => entry.isIntersecting)
+      if (TURNSTILE_SITE_KEY && isVisible) setTurnstileActive(true)
+
+      if (!viewedRef.current && isVisible) {
         viewedRef.current = true
         trackEvent('conversion_funnel', {
           action: 'cta_view',
@@ -61,13 +66,14 @@ export default function BlogLeadCapture({ article, placement = 'article_end' }) 
           page_path: window.location.pathname,
         })
       }
-    }, { threshold: 0.35 })
+    }, { threshold: 0.15 })
 
     observer.observe(target)
     return () => observer.disconnect()
   }, [context])
 
   const markStarted = () => {
+    if (TURNSTILE_SITE_KEY) setTurnstileActive(true)
     if (startedRef.current) return
     startedRef.current = true
     trackEvent('conversion_funnel', {
@@ -199,12 +205,14 @@ export default function BlogLeadCapture({ article, placement = 'article_end' }) 
                 className="h-11 rounded-xl border border-[#DDD8CF] px-3 text-sm text-wg-black outline-none focus:border-wg-orange" />
             </label>
 
-            <TurnstileWidget
-              onVerify={handleTurnstileVerify}
-              onExpire={handleTurnstileExpire}
-              disabled={loading}
-              label={t('blogPage.leadCapture.antiSpamLabel')}
-            />
+            {turnstileActive && (
+              <TurnstileWidget
+                onVerify={handleTurnstileVerify}
+                onExpire={handleTurnstileExpire}
+                disabled={loading}
+                label={t('blogPage.leadCapture.antiSpamLabel')}
+              />
+            )}
 
             {error && <p className="text-sm text-red-700" role="alert">{error}</p>}
 
