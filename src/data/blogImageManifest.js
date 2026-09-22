@@ -18,6 +18,17 @@ const buildSharedBlogVariantSlots = (asset) => ({
 
 const buildUnsplashBlogAsset = (src, page, alt) => ({ source: 'unsplash', src, page, alt });
 
+const COST_ARTICLE_HERO = buildUnsplashBlogAsset(
+  'https://images.unsplash.com/photo-1648937743864-5156661870f9',
+  'https://images.unsplash.com/photo-1648937743864-5156661870f9',
+  'Projeto arquitetonico com planilhas, calculadora e leitura tecnica para estimar custo de obra com mais criterio',
+);
+const COST_ARTICLE_CARD = buildUnsplashBlogAsset(
+  'https://images.unsplash.com/photo-1751309245229-0c0f4f24f7b6',
+  'https://images.unsplash.com/photo-1751309245229-0c0f4f24f7b6',
+  'Mesa de trabalho com amostras, caderno e calculadora reforcando planejamento, composicao de custo e tomada de decisao',
+);
+
 export const BLOG_IMAGE_MANIFEST = {
   slugs: {
     'arquitetura-amsterdam-holanda': {
@@ -345,6 +356,10 @@ export const BLOG_IMAGE_MANIFEST = {
       ],
     },
     'como-calcular-custo-de-obra': {
+      hero: COST_ARTICLE_HERO,
+      seo: COST_ARTICLE_HERO,
+      ...buildSharedBlogVariantSlots(COST_ARTICLE_CARD),
+      default: COST_ARTICLE_HERO,
       context: [
         {
           source: 'unsplash',

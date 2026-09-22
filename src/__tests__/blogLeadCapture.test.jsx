@@ -17,18 +17,19 @@ vi.mock('@/components/TurnstileWidget', () => ({
   },
 }))
 
+let observerIsIntersecting = true
+
 class IntersectionObserverMock {
   constructor(callback) {
     this.callback = callback
   }
 
   observe() {
-    this.callback([{ isIntersecting: true }])
+    this.callback([{ isIntersecting: observerIsIntersecting }])
   }
 
   disconnect() {}
 }
-
 const article = {
   slug: 'como-calcular-custo-de-obra',
   title: 'Como calcular custo de obra',
@@ -39,6 +40,7 @@ describe('BlogLeadCapture', () => {
   beforeEach(async () => {
     vi.clearAllMocks()
     globalThis.__blogLeadTurnstileProps = null
+    observerIsIntersecting = true
     vi.stubGlobal('IntersectionObserver', IntersectionObserverMock)
     await i18n.changeLanguage('pt-BR')
   })
@@ -46,6 +48,18 @@ describe('BlogLeadCapture', () => {
   afterEach(() => {
     vi.unstubAllGlobals()
     delete globalThis.__blogLeadTurnstileProps
+  })
+
+  it('adia Turnstile ate a captura entrar em viewport ou receber foco', () => {
+    observerIsIntersecting = false
+
+    render(<BlogLeadCapture article={article} placement="post_content" />)
+
+    expect(screen.queryByTestId('turnstile-widget')).not.toBeInTheDocument()
+
+    fireEvent.focus(screen.getByLabelText('Nome'))
+
+    expect(screen.getByTestId('turnstile-widget')).toBeInTheDocument()
   })
 
   it('mantem callbacks do Turnstile estaveis durante atualizacoes do formulario', () => {
