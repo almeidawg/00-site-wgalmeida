@@ -304,10 +304,6 @@
       "destination": "/easy-real-state/index.html"
     },
     {
-      "source": "/propostas/:slug",
-      "destination": "/propostas/:slug/index.html"
-    },
-    {
       "source": "/blog/:slug",
       "destination": "/blog/:slug/index.html"
     },
@@ -379,19 +375,6 @@
         {
           "key": "Cache-Control",
           "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    },
-    {
-      "source": "/propostas/:slug",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "text/html; charset=utf-8"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "no-store"
         }
       ]
     },
