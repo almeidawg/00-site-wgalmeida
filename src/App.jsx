@@ -351,6 +351,7 @@ function App() {
               <Route path="/clientes/:slug" element={<BuildTechClientProposal />} />
               <Route path="/buildtech/clientes/:slug" element={<BuildTechClientProposal />} />
               <Route path="/propostas/deezer-2026" element={<DeezerProposal />} />
+              <Route path="/propostas/deezer-2026-live" element={<DeezerProposal />} />
               <Route path="/iccri" element={<Iccri />} />
               <Route path="/iccri-para-imobiliarias" element={<IccriParaImobiliarias />} />
               <Route path="/wgeasy" element={<WGEasy />} />
