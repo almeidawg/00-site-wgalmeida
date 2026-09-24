@@ -304,6 +304,10 @@
       "destination": "/easy-real-state/index.html"
     },
     {
+      "source": "/propostas/:slug",
+      "destination": "/propostas/:slug/index.html"
+    },
+    {
       "source": "/blog/:slug",
       "destination": "/blog/:slug/index.html"
     },
