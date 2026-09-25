@@ -19,6 +19,16 @@
       "permanent": true
     },
     {
+      "source": "/propostas/deezer-2026",
+      "destination": "https://easy.wgalmeida.com.br/proposta/p/afd16a8f-0e60-406f-a07c-c7c03e3aa146",
+      "permanent": false
+    },
+    {
+      "source": "/propostas/deezer-2026-live",
+      "destination": "https://easy.wgalmeida.com.br/proposta/p/afd16a8f-0e60-406f-a07c-c7c03e3aa146",
+      "permanent": false
+    },
+    {
       "source": "/solicite-sua-proposta",
       "destination": "/solicite-proposta",
       "permanent": true

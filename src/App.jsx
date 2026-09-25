@@ -68,7 +68,6 @@ const DataDeletion = lazy(() => import('@/pages/DataDeletion'))
 const EasyLocker = lazy(() => import('@/pages/EasyLocker'))
 const BuildTech = lazy(() => import('@/pages/BuildTech'))
 const BuildTechClientProposal = lazy(() => import('@/pages/BuildTechClientProposal'))
-const DeezerProposal = lazy(() => import('@/pages/DeezerProposal'))
 const Iccri = lazy(() => import('@/pages/ICCRI'))
 const IccriParaImobiliarias = lazy(() => import('@/pages/ICCRIParaImobiliarias'))
 const WGEasy = lazy(() => import('@/pages/WGEasy'))
@@ -350,8 +349,6 @@ function App() {
               />
               <Route path="/clientes/:slug" element={<BuildTechClientProposal />} />
               <Route path="/buildtech/clientes/:slug" element={<BuildTechClientProposal />} />
-              <Route path="/propostas/deezer-2026" element={<DeezerProposal />} />
-              <Route path="/propostas/deezer-2026-live" element={<DeezerProposal />} />
               <Route path="/iccri" element={<Iccri />} />
               <Route path="/iccri-para-imobiliarias" element={<IccriParaImobiliarias />} />
               <Route path="/wgeasy" element={<WGEasy />} />
