@@ -108,6 +108,19 @@ describe('identidade institucional publica', () => {
     expect(seo).toContain('"/william-almeida"')
   })
 
+  it('mantem o helper legado de autoria alinhado ao Person canonico de William', () => {
+    const seoComponent = read('src/components/SEO.jsx')
+
+    expect(seoComponent).toContain('/william-almeida#person')
+    expect(seoComponent).toContain("jobTitle: 'Founder, Operator & Builder | Advisor Estratégico'")
+    expect(seoComponent).toContain("url: 'https://wgalmeida.com.br/william-almeida'")
+    expect(seoComponent).toContain("'https://www.linkedin.com/in/wgalmeida/'")
+    expect(seoComponent).not.toContain("'https://www.behance.net/wgalmeida'")
+    expect(seoComponent).not.toContain("jobTitle: 'Arquiteto e Fundador'")
+    expect(seoComponent).not.toContain("url: 'https://wgalmeida.com.br/sobre'")
+    expect(seoComponent).not.toContain("'https://www.linkedin.com/in/william-almeida-wg'")
+  })
+
   it('elimina o schema institucional legado de 2010 e idade dinamica do HTML base', () => {
     const indexHtml = read('index.html')
 
