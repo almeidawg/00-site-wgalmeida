@@ -11,6 +11,7 @@ import { decorateProductUrl, ensureEcosystemContext } from '@/lib/ecosystemConte
 // Lazy load pages
 const Footer = lazy(() => import('@/components/layout/Footer'))
 const ContextTracker = lazy(() => import('@/components/ContextTracker'))
+const LizAssistant = lazy(() => import('@/components/LizAssistant'))
 const Home = lazy(() => import('@/pages/Home'))
 const About = lazy(() => import('@/pages/About'))
 const WilliamAlmeida = lazy(() => import('@/pages/WilliamAlmeida'))
@@ -484,6 +485,11 @@ function App() {
             </Routes>
           </Suspense>
         </main>
+        {!isStandaloneRoute && (
+          <Suspense fallback={null}>
+            <LizAssistant />
+          </Suspense>
+        )}
         {!isStandaloneRoute && <DeferredFooter />}
       </div>
     </AuthProvider>

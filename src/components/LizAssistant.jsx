@@ -21,7 +21,7 @@ export default function LizAssistant() {
     const msg = customMessage || defaultMsg;
     
     trackWhatsappClick({ context: 'liz_copilot', target: COMPANY.phoneRaw });
-    window.open(`https://wa.me/5511984650002?text=${encodeURIComponent(msg)}`, '_blank');
+    window.open(`${COMPANY.whatsapp}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer');
     setIsOpen(false);
   };
 

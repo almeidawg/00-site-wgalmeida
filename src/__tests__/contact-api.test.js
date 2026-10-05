@@ -122,6 +122,19 @@ describe('/api/contact Turnstile mode', () => {
     expect(global.fetch).not.toHaveBeenCalled();
   });
 
+  it('mantem fallback quando a secret existe mas Turnstile nao e obrigatorio e o token nao foi enviado', async () => {
+    vi.stubEnv('TURNSTILE_SECRET_KEY', 'turnstile-secret-test');
+    const handler = await loadHandler();
+    const res = makeRes();
+
+    await handler(makeReq({ ...validBody, email: 'optional-turnstile@example.com' }), res);
+
+    expect(res.statusCode).toBe(200);
+    expect(JSON.parse(res.body)).toMatchObject({ ok: true, outcome: 'saved' });
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+    expect(global.fetch.mock.calls[0][0]).toContain('/rest/v1/rpc/ingest_site_contact_idempotent');
+  });
+
   it('mantem promocao WGEasy desligada por padrao mesmo quando o contato salvo tem id', async () => {
     global.fetch = vi.fn(async () => ({ ok: true, status: 200, json: async () => ([rpcRow()]) }));
     const handler = await loadHandler();

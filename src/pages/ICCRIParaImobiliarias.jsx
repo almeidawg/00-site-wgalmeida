@@ -1,5 +1,4 @@
 import ICCRILinksBlock from '@/components/ICCRILinksBlock'
-import LizAssistant from '@/components/LizAssistant'
 import SEO from '@/components/SEO'
 import { trackCtaClick } from '@/lib/analytics'
 import { motion } from '@/lib/motion-lite'
@@ -177,7 +176,6 @@ export default function ICCRIParaImobiliarias() {
               </div>
             </div>
 
-            <LizAssistant context="investimento" />
             <ICCRILinksBlock context="investimento" />
           </article>
 

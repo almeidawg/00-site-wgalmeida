@@ -12,7 +12,7 @@ export const COMPANY = {
   ceoPhoneRaw: '+5511991792291',
   ceoWhatsapp: 'https://wa.me/5511991792291',
   email: 'contato@wgalmeida.com.br',
-  address: 'São Paulo, SP — Brasil',
+  address: 'Rua Guararapes, 305, Brooklin, São Paulo, SP — Brasil',
   instagram: 'https://www.instagram.com/wgalmeida.arq',
   linkedin: 'https://www.linkedin.com/company/wgalmeida',
   facebook: 'https://www.facebook.com/wgalmeidaarquitetura',
