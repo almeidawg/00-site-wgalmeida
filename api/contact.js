@@ -299,11 +299,11 @@ export default async function handler(req, res) {
       return respondWithConversion(500, { error: 'TURNSTILE_SECRET_KEY not configured' }, { reason: 'turnstile_not_configured' })
     }
 
-    if (TURNSTILE_SECRET_KEY) {
-      if (!body.turnstileToken) {
-        return respondWithConversion(403, { error: 'Verificacao anti-spam obrigatoria.' }, { reason: 'turnstile_missing' })
-      }
+    if (CONTACT_TURNSTILE_REQUIRED && !body.turnstileToken) {
+      return respondWithConversion(403, { error: 'Verificacao anti-spam obrigatoria.' }, { reason: 'turnstile_missing' })
+    }
 
+    if (body.turnstileToken && TURNSTILE_SECRET_KEY) {
       if (tokenAlreadyUsed(body.turnstileToken)) {
         return respondWithConversion(403, { error: 'Verificacao anti-spam expirada. Atualize e tente novamente.' }, { reason: 'turnstile_replay' })
       }

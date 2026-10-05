@@ -1,6 +1,5 @@
 import SEO from '@/components/SEO'
 import ICCRILinksBlock from '@/components/ICCRILinksBlock'
-import LizAssistant from '@/components/LizAssistant'
 import WGEasyEstimateCalculator from '@/components/WGEasyEstimateCalculator'
 import { motion } from '@/lib/motion-lite'
 import { ArrowRight, BarChart3, Building2, Landmark, Users } from 'lucide-react'
@@ -189,7 +188,6 @@ export default function ICCRI() {
               </p>
             </div>
 
-            <LizAssistant context="custo" />
             <ICCRILinksBlock context="custo" />
           </article>
 
