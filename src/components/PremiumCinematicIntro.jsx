@@ -266,7 +266,7 @@ const PremiumCinematicIntro = ({ onComplete }) => {
         <motion.div className="h-full bg-wg-orange" animate={{ width: `${(elapsed / TOTAL_DURATION) * 100}%` }} />
       </div>
 
-      <button onClick={handleComplete} className="pointer-events-auto absolute right-8 top-8 text-white/30 hover:text-white/70 text-xs tracking-widest uppercase">{t('premiumIntro.skip')}</button>
+      <button onClick={handleComplete} className="pointer-events-auto absolute right-8 top-8 inline-flex min-h-11 min-w-11 items-center justify-center px-2 text-white/30 hover:text-white/70 text-xs tracking-widest uppercase">{t('premiumIntro.skip')}</button>
     </div>
   );
 };
