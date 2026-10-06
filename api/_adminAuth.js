@@ -29,9 +29,10 @@ const fetchProfile = async (userId) => {
     },
   });
 
-  if (!resp.ok) return null;
+  if (!resp.ok) throw new Error('Admin profile lookup failed');
   const rows = await resp.json();
-  return Array.isArray(rows) ? rows[0] || null : null;
+  if (!Array.isArray(rows)) throw new Error('Admin profile response invalid');
+  return rows[0] || null;
 };
 
 export async function requireAdmin(req, res) {
@@ -78,7 +79,16 @@ export async function requireAdmin(req, res) {
   }
 
   const user = await authResp.json();
-  const profile = await fetchProfile(user?.id);
+  let profile;
+  try {
+    profile = await fetchProfile(user?.id);
+  } catch {
+    console.error('Admin profile verification unavailable');
+    return {
+      ok: false,
+      response: jsonError(res, 503, 'Auth service unavailable'),
+    };
+  }
   const email = String(user?.email || profile?.email || '').toLowerCase();
   const isDomainAdmin = email.endsWith(ADMIN_EMAIL_DOMAIN.toLowerCase());
   const isProfileAdmin = profile?.role === 'admin';
