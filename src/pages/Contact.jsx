@@ -57,6 +57,8 @@ const Contact = () => {
     e.preventDefault()
     setLoading(true)
 
+    const contactContext = searchParams.get('context') || 'contact'
+
     try {
       if (!isValidEmail(formData.email)) {
         throw new Error(t('contactPage.form.validation.invalidEmail'))
@@ -75,7 +77,7 @@ const Contact = () => {
           utm_source: searchParams.get('utm_source') || null,
           utm_medium: searchParams.get('utm_medium') || null,
           utm_campaign: searchParams.get('utm_campaign') || null,
-          context: searchParams.get('context') || null,
+          context: contactContext,
         }),
       })
 
@@ -83,34 +85,41 @@ const Contact = () => {
         const data = await response.json().catch(() => ({}))
         throw new Error(data.error || t('contactPage.form.validation.generalError'))
       }
-
-      toast({
-        title: t('contactPage.toast.successTitle'),
-        description: t('contactPage.toast.successDescription'),
-      })
-      trackFormSubmit({
-        formId: 'contact',
-        status: 'success',
-        context: searchParams.get('context') || 'site',
-      })
-      setFormData({ name: '', email: '', phone: '', subject: '', message: '', website: '' })
-      setTurnstileToken('')
-      if (window.turnstile) window.turnstile.reset()
     } catch (error) {
       if (import.meta.env.DEV) console.error(error)
       trackFormSubmit({
         formId: 'contact',
         status: 'error',
-        context: searchParams.get('context') || 'site',
+        context: contactContext,
       })
       toast({
         variant: 'destructive',
         title: t('contactPage.toast.errorTitle'),
         description: error.message || t('contactPage.toast.errorDescription'),
       })
-    } finally {
       setLoading(false)
+      return
     }
+
+    toast({
+      title: t('contactPage.toast.successTitle'),
+      description: t('contactPage.toast.successDescription'),
+    })
+    trackFormSubmit({
+      formId: 'contact',
+      status: 'success',
+      context: contactContext,
+    })
+    setFormData({ name: '', email: '', phone: '', subject: '', message: '', website: '' })
+    setTurnstileToken('')
+
+    try {
+      window.turnstile?.reset?.()
+    } catch (error) {
+      if (import.meta.env.DEV) console.warn('turnstile reset after contact submit failed', error)
+    }
+
+    setLoading(false)
   }
 
   const handleWhatsApp = () => {
@@ -495,4 +504,3 @@ const Contact = () => {
 }
 
 export default Contact
-
