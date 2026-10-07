@@ -61,9 +61,19 @@ const isValidEmail = (email) => {
   return atIndex > 0 && dotIndex > atIndex + 1 && dotIndex < value.length - 2
 }
 
+const parseJsonBody = (value) => {
+  try {
+    return JSON.parse(value || '{}')
+  } catch {
+    const error = new Error('invalid_json')
+    error.statusCode = 400
+    throw error
+  }
+}
+
 const parseBody = async (req) => {
   if (req.body && typeof req.body === 'object') return req.body
-  if (typeof req.body === 'string') return JSON.parse(req.body || '{}')
+  if (typeof req.body === 'string') return parseJsonBody(req.body)
 
   const declaredLength = Number(req.headers['content-length'] || 0)
   if (declaredLength > MAX_BODY_BYTES) {
@@ -83,7 +93,7 @@ const parseBody = async (req) => {
     }
     chunks.push(chunk)
   }
-  return JSON.parse(Buffer.concat(chunks).toString('utf8') || '{}')
+  return parseJsonBody(Buffer.concat(chunks).toString('utf8'))
 }
 
 const isAllowedOrigin = (req) => {
@@ -339,6 +349,9 @@ export default async function handler(req, res) {
     })
   } catch (error) {
     console.error('contact api error:', error)
+    if (error.statusCode === 400) {
+      return respondWithConversion(400, { error: 'Payload JSON invalido.' }, { reason: 'invalid_json' })
+    }
     if (error.statusCode === 413) {
       return respondWithConversion(413, { error: 'Mensagem muito grande.' }, { reason: 'payload_too_large' })
     }

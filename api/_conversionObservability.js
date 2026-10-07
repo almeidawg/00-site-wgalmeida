@@ -3,7 +3,7 @@ const ALLOWED_PROMOTIONS = new Set([
   'promotion_skipped', 'promotion_queued', 'promotion_completed', 'promotion_already_done', 'promotion_failed',
 ])
 const ALLOWED_REASONS = new Set([
-  'accepted', 'duplicate', 'honeypot', 'invalid_payload', 'rate_limited',
+  'accepted', 'duplicate', 'honeypot', 'invalid_payload', 'invalid_json', 'rate_limited',
   'turnstile_not_configured', 'turnstile_missing', 'turnstile_replay', 'turnstile_failed',
   'persist_failed', 'persistence_not_configured', 'payload_too_large', 'unexpected_error', 'origin_rejected',
 ])
