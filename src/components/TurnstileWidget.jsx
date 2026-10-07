@@ -41,38 +41,69 @@ const loadTurnstileScript = () => {
 const TurnstileWidget = ({ onVerify, onExpire, disabled, label }) => {
   const containerRef = useRef(null)
   const widgetIdRef = useRef(null)
+  const onVerifyRef = useRef(onVerify)
+  const onExpireRef = useRef(onExpire)
+
+  useEffect(() => {
+    onVerifyRef.current = onVerify
+  }, [onVerify])
+
+  useEffect(() => {
+    onExpireRef.current = onExpire
+  }, [onExpire])
 
   useEffect(() => {
     if (!TURNSTILE_SITE_KEY || !containerRef.current || disabled) return undefined
 
     let cancelled = false
 
+    const clearToken = (reason) => {
+      onExpireRef.current?.(reason)
+    }
+
     const render = () => {
-      if (cancelled || !window.turnstile || !containerRef.current || widgetIdRef.current) return
+      if (cancelled || !window.turnstile || !containerRef.current || widgetIdRef.current !== null) return
 
       widgetIdRef.current = window.turnstile.render(containerRef.current, {
         sitekey: TURNSTILE_SITE_KEY,
         theme: 'light',
         action: 'contact_form',
         cData: 'wg_contact',
-        callback: onVerify,
-        'expired-callback': onExpire,
-        'error-callback': onExpire,
+        retry: 'auto',
+        'refresh-expired': 'auto',
+        'refresh-timeout': 'auto',
+        callback: (token) => onVerifyRef.current?.(token),
+        'expired-callback': () => clearToken({ type: 'expired' }),
+        'timeout-callback': () => {
+          console.warn('[WG Turnstile] challenge timed out')
+          clearToken({ type: 'timeout' })
+        },
+        'error-callback': (errorCode) => {
+          console.warn('[WG Turnstile] challenge error', errorCode)
+          clearToken({ type: 'error', code: errorCode })
+          return true
+        },
       })
     }
 
-    loadTurnstileScript().then(render).catch(onExpire)
+    loadTurnstileScript()
+      .then(render)
+      .catch((error) => {
+        console.warn('[WG Turnstile] script load error', error)
+        clearToken({ type: 'script_error' })
+      })
+
     window.addEventListener('wg:turnstile-ready', render, { once: true })
 
     return () => {
       cancelled = true
       window.removeEventListener('wg:turnstile-ready', render)
-      if (window.turnstile && widgetIdRef.current) {
+      if (window.turnstile && widgetIdRef.current !== null) {
         window.turnstile.remove(widgetIdRef.current)
         widgetIdRef.current = null
       }
     }
-  }, [disabled, onExpire, onVerify])
+  }, [disabled])
 
   if (!TURNSTILE_SITE_KEY) return null
 
