@@ -348,7 +348,6 @@ export default async function handler(req, res) {
       promotion,
     })
   } catch (error) {
-    console.error('contact api error:', error)
     if (error.statusCode === 400) {
       return respondWithConversion(400, { error: 'Payload JSON invalido.' }, { reason: 'invalid_json' })
     }
@@ -359,6 +358,7 @@ export default async function handler(req, res) {
       console.error('contact api upstream persist error:', error.upstreamStatus || 'unknown')
       return respondWithConversion(502, { error: 'Falha ao registrar contato.' }, { reason: 'persist_failed' })
     }
+    console.error('contact api error:', error)
     return respondWithConversion(500, { error: 'Erro inesperado ao processar contato.' }, { reason: 'unexpected_error' })
   }
 }

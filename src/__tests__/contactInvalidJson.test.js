@@ -60,6 +60,7 @@ describe('/api/contact malformed JSON', () => {
     expect(JSON.parse(res.body)).toEqual({ error: 'Payload JSON invalido.' })
     expect(res.headers['X-WG-Outcome']).toBe('rejected')
     expect(global.fetch).not.toHaveBeenCalled()
+    expect(console.error).not.toHaveBeenCalled()
 
     const metricCall = console.info.mock.calls.find(([prefix]) => prefix === '[wg-conversion]')
     expect(metricCall).toBeDefined()
