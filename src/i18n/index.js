@@ -112,6 +112,7 @@ i18n
     load: 'currentOnly',
     fallbackLng: 'pt-BR',
     debug: false,
+    showSupportNotice: false,
     saveMissing: import.meta.env.DEV,
     missingKeyHandler: (lngs, ns, key) => {
       if (import.meta.env.DEV) {
