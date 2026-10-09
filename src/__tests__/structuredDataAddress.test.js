@@ -34,6 +34,11 @@ describe('public structured-data address', () => {
     expect(organization?.address?.postalCode).toBe('04561-000')
     expect(professionalService?.address?.postalCode).toBe('04561-000')
     expect(professionalService?.geo).toBeUndefined()
+    expect(professionalService?.name).toBe('Grupo WG Almeida')
+    expect(professionalService?.alternateName).toBe('WG Almeida Arquitetura')
+
+    expect(html).not.toContain('Arquitetura Premium SP')
+    expect(html).not.toContain('Escritório Arquitetura Jardins')
 
     expect(html).not.toContain('Brooklin Novo')
     expect(html).not.toContain('04571-000')
