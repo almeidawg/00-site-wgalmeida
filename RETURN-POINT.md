@@ -82,7 +82,33 @@ A formulação pública preferencial para tempo de mercado é `Desde 2011`. A da
 
 ## Histórico de Auditorias SEO Recorrentes
 
-### Auditoria 2026-09-21 (atual)
+### Auditoria 2026-10-11 (atual)
+
+| Métrica | Valor | Status |
+|---|---|---|
+| AI Readiness Score | 0/100¹ | ⚠️ PROXY BLOCK |
+| Rotas no sitemap | N/A¹ | ⚠️ PROXY BLOCK |
+| PageSpeed LCP mobile | N/A | 429 sem API key |
+| PageSpeed CLS mobile | N/A | 429 sem API key |
+| PageSpeed LCP desktop | N/A | 429 sem API key |
+
+**¹ Nota importante:** O score 0/100 e a falha no sitemap NÃO são problemas reais do site. O ambiente de execução remota (cloud sandbox) continua bloqueando conexões HTTPS de saída para `wgalmeida.com.br` via proxy com HTTP 403. Condição idêntica às auditorias anteriores (2026-09-21, 2026-09-16). A auditoria de referência (2026-06-23, sem restrição de proxy) registrou score 100/100 e 161 rotas. Branch `chore/brand-canonical-20260915` em aberto, sitemap esperado ~175 rotas após merge.
+
+**Alertas registrados pelo script (ambiente):**
+- `[ALTA]` Sitemap XML: Erro HTTP 403 — bloqueio de proxy do sandbox (não é falha do site)
+- `[MEDIA]` robots.txt: Erro HTTP 403 — mesma causa acima
+- `[INFO]` PageSpeed: Rate limit 429 — sem `PAGESPEED_API_KEY` configurada
+
+**Plano de ação (próximos 5 dias):**
+1. Configurar `PAGESPEED_API_KEY` no ambiente de agendamento para habilitar métricas Core Web Vitals reais
+2. Verificar se o proxy do sandbox pode ser configurado com acesso externo a `wgalmeida.com.br` (bloqueador recorrente há 4 auditorias)
+3. Fazer merge ou fechar a branch `chore/brand-canonical-20260915` — verificar estado do PR no GitHub
+4. Após merge, confirmar sitemap ~175 rotas e smoke test em `/`, `/sobre` e `/buildtech`
+5. Próxima auditoria: **2026-10-16**
+
+---
+
+### Auditoria 2026-09-21 (anterior)
 
 | Métrica | Valor | Status |
 |---|---|---|
@@ -131,22 +157,3 @@ A formulação pública preferencial para tempo de mercado é `Desde 2011`. A da
 3. Monitorar deploy após merge da branch `chore/brand-canonical-20260915` (sitemap esperado: ~175 rotas após merge)
 4. Executar smoke test público em `/`, `/sobre` e `/buildtech` após merge
 5. Próxima auditoria: **2026-09-21**
-
----
-
-### Auditoria 2026-06-23 (referência anterior)
-
-| Métrica | Valor | Status |
-|---|---|---|
-| AI Readiness Score | 100/100 | ✅ OK |
-| Rotas no sitemap | 161 | ✅ OK (≥145) |
-| Sitemap XML | OK | ✅ |
-| robots.txt | OK (Googlebot permitido, sitemap declarado) | ✅ |
-| Schemas JSON-LD | 5/5 (Organization, Person, FAQPage, ProfessionalService, BreadcrumbList) | ✅ |
-| E-E-A-T | OK (trustSignals ausentes, mas não bloqueante) | ✅ |
-| Meta Tags SEO/OG | OK | ✅ |
-| Estrutura Escaneável (LLM) | OK | ✅ |
-
-**Alertas:** Nenhum.
-
-**Próxima auditoria agendada era:** 2026-09-16 ✅ (executada) → 2026-09-21 ✅ (executada acima)
