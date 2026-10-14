@@ -1,0 +1,53 @@
+name: Required CI gates
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: required-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    name: build-and-test
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install dependencies from lockfile
+        run: npm ci --no-audit --no-fund
+      - name: Verify lint, imports, consistency and unit tests
+        run: npm run verify:fast
+      - name: Build production artifacts
+        run: npm run build
+      - name: Validate generated SEO artifacts
+        run: npm run seo:validate:dist
+
+  deploy-gate-final:
+    name: deploy-gate-final
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Reproduce clean install
+        run: npm ci --no-audit --no-fund
+      - name: Run full production release verification
+        run: npm run verify:deploy
+      - name: Confirm SEO output
+        run: npm run seo:validate:dist
