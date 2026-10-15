@@ -28,7 +28,7 @@ jobs:
           node-version: '22'
           cache: npm
       - name: Install dependencies from lockfile
-        run: npm ci --no-fund
+        run: npm ci --ignore-scripts --no-fund
       - name: Verify lint, imports, consistency and unit tests
         run: npm run verify:fast
       - name: Build production artifacts
@@ -50,7 +50,7 @@ jobs:
           node-version: '22'
           cache: npm
       - name: Reproduce clean install
-        run: npm ci --no-fund
+        run: npm ci --ignore-scripts --no-fund
       - name: Run full production release verification
         run: npm run verify:deploy
       - name: Confirm SEO output
