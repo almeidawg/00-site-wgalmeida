@@ -1,0 +1,169 @@
+/* WG360 | Refinamento editorial compartilhado. A landing de mentoria define a identidade. */
+/* A mesma largura real é aplicada à marca, ao conteúdo e ao rodapé. */
+.wg360,.wgp{
+  --wg360-ink:#202C3C;--wg360-orange:#F25C26;--wg360-deep:#182030;
+  --wg360-cream:#F5F2ED;--wg360-muted:#657381;
+  --wgp-ink:#202C3C;--wgp-orange:#F25C26;
+  font-family:Roboto,Inter,Arial,sans-serif;font-weight:400;
+}
+.wg360 .wg360-wrap,.wgp .wgp-wrap,
+.wg360 .wg-campaign-header__inner,.wgp .wg-campaign-header__inner{
+  width:min(1200px,calc(100% - 80px));
+  margin-inline:auto;
+}
+.wg360 .wg-campaign-nav,.wgp .wg-campaign-nav{gap:32px}
+.wg360 .wg-campaign-nav a,.wgp .wg-campaign-nav a{font-weight:400}
+.wg360 .wg-campaign-brand strong,.wgp .wg-campaign-brand strong{font-weight:500}
+.wg360 .wg-campaign-brand small,.wgp .wg-campaign-brand small{font-weight:400}
+.wg360 .wg-campaign-cta,.wgp .wg-campaign-cta{font-weight:500}
+.wg360 :is(h1,h2,h3),.wgp :is(h1,h2,h3){font-weight:400;letter-spacing:-.035em}
+.wg360 :is(p,small),.wgp :is(p,small){font-weight:400}
+/* Um único tom de marca e sua variante acessível para texto sobre fundos claros. */
+.wg360 .wg360-hero h1 em{color:#F25C26}
+.wg360 .wg360-method h2 em,.wg360 .wg360-catalog h2 em,
+.wg360 .wg360-expand h2 em,.wg360 .wg360-traffic h2 em{color:#C94A19}
+.wg360 :is(.wg360-section-eyebrow,.wg360-category__num,.wg360-item__meta b,.wg360-suggestions article>span),
+.wgp :is(.wgp-eyebrow,.wgp-code,.wgp-terms span){color:#C94A19;font-weight:500}
+.wg360 .wg360-kicker{color:#f1a17b;font-weight:500}
+.wg360 :is(.wg360-steps article>span,.wg360-category__num,.wg360-catalog__heading span),
+.wgp :is(.wgp-cover__facts span,.wgp-cover__stamp span,.wgp-sidebar__top span){font-weight:500}
+.wg360 .wg360-hero__line{display:block}
+.wg360 .wg360-hero h1{
+  font-size:clamp(41px,4.55vw,63px);font-weight:400;line-height:1.12;
+  letter-spacing:-.045em;max-width:690px;
+}
+.wg360 .wg360-hero h1 em{font-size:.97em;font-weight:400}
+.wg360 .wg360-hero__grid{
+  grid-template-columns:minmax(0,1.13fr) minmax(290px,.87fr);
+  gap:clamp(32px,4.6vw,68px);
+  padding-block:92px 94px;
+}
+.wg360 .wg360-hero__visual{box-shadow:20px 20px 0 #101b281f}
+.wg360 .wg360-method__title{align-items:center;gap:clamp(24px,4vw,58px)}
+.wg360 .wg360-method__title>h2{flex:1 1 auto;max-width:710px}
+.wg360 .wg360-method__title>p{flex:0 1 335px;line-height:1.8}
+.wg360 .wg360-method__line{display:block}
+.wg360 .wg360-method h2{font-size:clamp(35px,3.65vw,50px);line-height:1.16}
+.wg360 .wg360-method h2 em{font-size:1em}
+.wg360 .wg360-steps h3{font-size:23px;font-weight:400}
+.wg360 .wg360-steps article{min-height:310px}
+.wg360 .wg360-category h3{font-size:24px;font-weight:400}
+.wg360 .wg360-summary__top{background:#202C3C}
+.wg360 .wg360-summary__top strong{font-size:23px;font-weight:400}
+.wg360 .wg360-item__body>strong{font-size:15px;font-weight:500}
+.wg360 .wg360-item__meta{font-size:10px;font-weight:400;letter-spacing:.02em}
+.wg360 .wg360-item__body>small b{font-weight:500}
+.wg360 .wg360-categories button{font-weight:400}
+.wg360 .wg360-categories button.active{font-weight:500}
+.wg360 .wg360-primary{font-weight:500}
+.wg360 .wg360-suggestions h3,.wg360 .wg360-operations__weeks h3{font-weight:400}
+.wg360 .wg360-category__title{background:#F5F2ED}
+/* Proposta HTML: labels discretos, leitura leve e ações claras. */
+.wgp .wgp-topline{background:#202C3C;letter-spacing:.095em;font-weight:500}
+.wgp .wgp-cover{margin-top:34px}
+.wgp .wgp-cover__heading{padding:40px 42px;gap:34px}
+.wgp .wgp-cover h1{font-size:clamp(34px,3.65vw,48px);line-height:1.13;font-weight:400}
+.wgp .wgp-cover__stamp b{font-weight:500}
+.wgp .wgp-cover__stamp strong{font-weight:500}
+.wgp .wgp-cover__facts strong{font-weight:400}
+.wgp .wgp-cover__total{background:#182030}
+.wgp .wgp-cover__total strong{font-weight:400}
+.wgp .wgp-cover__total span{font-weight:500;color:#ffb08b}
+.wgp .wgp-banner{background:#fbf8f1}
+.wgp .wgp-tabs{gap:8px;margin:27px 0 19px}
+.wgp .wgp-tabs button{font-weight:400;font-size:12px;padding:13px 17px;letter-spacing:0}
+.wgp .wgp-tabs button.active{font-weight:500}
+.wgp .wgp-panel h2{font-weight:400}
+.wgp .wgp-panel__intro{padding-bottom:25px}
+.wgp .wgp-group__toggle strong{font-weight:400}
+.wgp .wgp-service h3{font-weight:500}
+.wgp .wgp-service__price strong{font-weight:500}
+.wgp .wgp-sidebar__top{background:#202C3C}
+.wgp .wgp-sidebar h3{font-size:23px;font-weight:400}
+.wgp .wgp-sidebar__sum strong{font-weight:400}
+.wgp .wgp-action,.wgp .wgp-print{font-weight:500}
+.wgp .wgp-terms h3,.wgp .wgp-timeline h3{font-weight:400}
+.wgp .wgp-last h2{font-weight:400}
+
+/* O bloco de seleção abre a segunda coluna.
+   Categoria 02 fica abaixo dele, enquanto 01 continua na coluna esquerda.
+   As demais categorias seguem numeradas e são distribuídas sem duplicar DOM. */
+@media screen and (min-width:901px){
+  .wg360 .wg360-main-grid{
+    display:grid;
+    grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);
+    grid-auto-rows:min-content;
+    gap:20px 22px;
+    align-items:start;
+  }
+  .wg360 .wg360-catalog__groups{display:contents}
+  .wg360 .wg360-category{margin-bottom:0;min-width:0;align-self:start}
+  .wg360 .wg360-category:first-child{grid-column:1;grid-row:1 / span 2}
+  .wg360 .wg360-category:nth-child(2){grid-column:2;grid-row:2}
+  .wg360 .wg360-summary{grid-column:2;grid-row:1;position:relative;top:0;min-width:0;width:100%}
+  .wg360 .wg360-empty{grid-column:1;grid-row:1}
+}
+@media(max-width:1150px){
+  .wg360 .wg360-wrap,.wgp .wgp-wrap,
+  .wg360 .wg-campaign-header__inner,.wgp .wg-campaign-header__inner{width:min(1200px,calc(100% - 64px))}
+}
+@media(max-width:900px){
+  .wg360 .wg360-wrap,.wgp .wgp-wrap,
+  .wg360 .wg-campaign-header__inner,.wgp .wg-campaign-header__inner{width:min(1200px,calc(100% - 44px))}
+  .wg360 .wg-campaign-nav,.wgp .wg-campaign-nav{display:none}
+  .wg360 .wg360-main-grid{display:flex;flex-direction:column;gap:0}
+  .wg360 .wg360-catalog__groups{display:block;width:100%;order:2}
+  .wg360 .wg360-summary{order:1;position:static;top:auto;width:100%;margin-bottom:22px}
+  .wg360 .wg360-category{margin-bottom:19px}
+  .wg360 .wg360-method__title{display:block}
+  .wg360 .wg360-method__title>p{max-width:670px;margin-top:18px}
+  .wg360 .wg360-hero__grid{grid-template-columns:1fr;gap:32px;padding-block:68px}
+  .wg360 .wg360-hero__visual{max-width:620px}
+}
+@media(max-width:680px){
+  .wg360 .wg360-wrap,.wgp .wgp-wrap,
+  .wg360 .wg-campaign-header__inner,.wgp .wg-campaign-header__inner{width:calc(100% - 38px)}
+  .wg360 .wg360-hero h1{font-size:clamp(38px,9.4vw,51px);line-height:1.13}
+  .wg360 .wg360-method h2{font-size:clamp(33px,8.7vw,45px)}
+  .wg360 .wg360-hero__grid{padding-block:59px}
+  .wg360 .wg360-steps article{min-height:0}
+  .wgp .wgp-cover__heading{padding:27px 22px}
+  .wgp .wgp-cover h1{font-size:clamp(32px,8vw,39px)}
+  .wgp .wgp-tabs button{padding:12px 14px}
+}
+/* No celular, a simulação de pagamento da barra lateral vem antes do valor.
+   No desktop, preservar a ordem e a apresentação originais. */
+@media screen and (max-width:680px){
+  .wgp .wgp-sidebar__body{display:flex;flex-direction:column}
+  .wgp .wgp-sidebar__payment{order:1;min-width:0}
+  .wgp .wgp-sidebar__sum{order:2;border-bottom:0;border-top:1px solid #e9e4de;margin:20px 0 0;padding:20px 0 0}
+  .wgp .wgp-sidebar__body>.wgp-simstatus{order:3}
+  .wgp .wgp-sidebar__body>.wgp-nextpayment{order:4}
+  .wgp .wgp-sidebar__body>.wgp-action{order:5}
+  .wgp .wgp-sidebar__body>.wgp-print{order:6}
+  .wgp .wgp-sidebar__body>p{order:7}
+}
+/* No celular, apresentar primeiro a condição e depois o investimento,
+   mantendo a disposição original em duas colunas no desktop. */
+@media screen and (max-width:680px){
+  .wgp .wgp-cover__total{
+    grid-template-columns:minmax(0,1fr);
+    gap:0;
+    padding:22px 20px;
+  }
+  .wgp .wgp-cover__total>div:last-child{
+    order:1;
+    min-width:0;
+    padding-bottom:18px;
+    border-bottom:1px solid rgba(255,255,255,.2);
+  }
+  .wgp .wgp-cover__total>div:first-child{
+    order:2;
+    min-width:0;
+    padding-top:18px;
+  }
+}
+@media(max-width:390px){
+  .wg360 .wg-campaign-header__inner,.wgp .wg-campaign-header__inner{gap:8px}
+  .wg360 .wg360-hero h1{font-size:clamp(36px,9.3vw,40px)}
+}

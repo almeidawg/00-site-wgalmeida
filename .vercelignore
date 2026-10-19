@@ -44,3 +44,11 @@ dist/videos/videosobrenos.mp4
 dist/videos/hero/*.mp4
 dist/images/projects/**/*.mp4
 **/*.mp4
+
+# Preview mentoria: arquivos internos nao enviar ao runtime
+_backups/
+*.bak-*
+.env
+.env.*
+docs/mentoria-construcao/
+INTEGRATION_SCOPE.txt
