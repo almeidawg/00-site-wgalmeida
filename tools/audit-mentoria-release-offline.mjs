@@ -54,7 +54,7 @@ all.push(ok(app.includes("location.pathname === '/mentoria-construcao/contato'")
   contact.includes('privacyConsent: true') &&
   contact.includes('window.__MENTORIA_LAB__ === true') &&
   !contact.includes('localStorage.setItem'), 'formulario_dedicado_isolado_da_institucional'))
-const intake=src('api/mentoria-interest.js')
+const intake=src('api/_mentoriaInterestFailClosed.js')
 const interestContract=src('src/lib/mentoriaInterestContract.js')
 const localLab=src('tools/mentoria-local-server.mjs')
 all.push(ok(intake.includes("code:'MENTORIA_INTAKE_NOT_APPROVED'") &&

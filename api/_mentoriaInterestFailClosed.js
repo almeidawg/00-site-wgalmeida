@@ -1,5 +1,7 @@
 /**
- * Endpoint reservado para Mentoria Construção, deliberadamente FAIL-CLOSED.
+ * Referência de handler interno para Mentoria Construção, deliberadamente FAIL-CLOSED.
+ * O prefixo _ evita criar a 13ª função publicável no plano Vercel Hobby.
+ * Não existe rota real /api/mentoria-interest no Vercel até autorização de release.
  *
  * A presença deste arquivo NÃO ativa recebimento, e-mail, CRM nem persistência.
  * Será substituído somente por implementação governada após segurança, LGPD,

@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
+import { readdirSync } from 'node:fs'
 import { validateMentoriaInterest } from '@/lib/mentoriaInterestContract'
-import handler from '../../api/mentoria-interest.js'
+import handler from '../../api/_mentoriaInterestFailClosed.js'
 
 const valid = {
   context:'mentoria_construcao',program:'individual_8_weeks_8x90_minutes',
@@ -51,7 +52,7 @@ describe('Mentoria interesse: contrato próprio e API pública fail-closed',()=>
   it('nega objetos nulos, arrays e atributos inválidos',()=>{
     for(const input of [undefined,null,[],42,'test'])expect(validateMentoriaInterest(input).ok).toBe(false)
   })
-  it('POST na API pública retorna 503, sem ler corpo nem gravar CRM',()=>{
+  it('Handler de referência fail-closed retorna 503, sem ler corpo nem gravar CRM',()=>{
     const {res,output}=makeResponse()
     const req={method:'POST',get body(){throw Error('DO_NOT_READ_PERSONAL_DATA')}}
     handler(req,res)
@@ -60,6 +61,17 @@ describe('Mentoria interesse: contrato próprio e API pública fail-closed',()=>
     expect(JSON.stringify(output)).not.toContain(valid.email)
     expect(output.headers['Cache-Control']).toContain('no-store')
     expect(output.headers['X-Robots-Tag']).toContain('noindex')
+  })
+  it('Vercel Hobby: mantém no máximo 12 funções públicas e não expõe a captação ainda não aprovada',()=>{
+    const endpoints = readdirSync('api', { withFileTypes:true })
+      .filter(entry => entry.isFile() && entry.name.endsWith('.js') && !entry.name.startsWith('_'))
+      .map(entry => entry.name).sort()
+    expect(endpoints).toHaveLength(12)
+    expect(endpoints).not.toContain('mentoria-interest.js')
+    expect(endpoints).toContain('contact.js')
+    expect(endpoints).toContain('leads.js')
+    expect(endpoints).toContain('health.js')
+    expect(readdirSync('api')).toContain('_mentoriaInterestFailClosed.js')
   })
   it('API nega GET e preflight, não habilita CORS permissivo',()=>{
     for(const method of ['GET','OPTIONS','PUT','DELETE']){
