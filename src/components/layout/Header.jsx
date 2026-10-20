@@ -152,9 +152,13 @@ const Header = () => {
             <nav className="container-custom py-4 space-y-2">
               {[...navItems, {label: t('header.unitsLabel'), dropdown: unitsItems}, {label: t('nav.contact'), path: '/contato'}].map((item) => (
                 <div key={item.path || item.label}>
-                   <Link to={item.path} className={`block px-4 py-3 transition-colors font-suisse font-light ${location.pathname === item.path ? 'text-white' : 'text-white/70 hover:text-white'}`}>
-                      {item.label}
-                    </Link>
+                   {item.dropdown ? (
+                     <span className="block px-4 py-3 font-suisse font-medium text-white" role="heading" aria-level="2">{item.label}</span>
+                   ) : (
+                     <Link to={item.path} className={`block px-4 py-3 transition-colors font-suisse font-light ${location.pathname === item.path ? 'text-white' : 'text-white/70 hover:text-white'}`}>
+                       {item.label}
+                     </Link>
+                   )}
                   {item.dropdown && (
                     <div className="pl-4 space-y-1 border-l border-white/10 ml-4">
                       {item.dropdown.map((subItem) => (

@@ -25,4 +25,11 @@ describe('Site WG Almeida - public navigation governance', () => {
     expect(appSource).toContain('path="/admin/*"')
     expect(appSource).toContain('path="/wgeasy"')
   })
+
+  it('keeps cinematic intro opt-in on mobile and groups navigation without ghost links', () => {
+    expect(appSource).toContain('isMobileViewport = window.innerWidth < 768')
+    expect(appSource).toContain('forceIntro || (!isMobileViewport')
+    expect(headerSource).toContain('item.dropdown ? (')
+    expect(headerSource).toContain('role="heading" aria-level="2"')
+  })
 })

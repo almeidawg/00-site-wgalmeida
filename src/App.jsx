@@ -224,7 +224,9 @@ function HomeWithIntro() {
   const [showIntro, setShowIntro] = useState(() => {
     if (typeof window === 'undefined') return false
     const forceIntro = new URLSearchParams(window.location.search).get('intro') === '1'
-    return forceIntro || !sessionStorage.getItem('wg-intro-completed')
+    const isMobileViewport = window.innerWidth < 768
+    // Mobile visitors must navigate immediately; the cinematic intro remains opt-in.
+    return forceIntro || (!isMobileViewport && !sessionStorage.getItem('wg-intro-completed'))
   })
 
   if (showIntro) {
