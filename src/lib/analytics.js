@@ -2,6 +2,20 @@ import { track } from '@vercel/analytics'
 
 const canUseWindow = () => typeof window !== 'undefined'
 
+// Sem consentimento/atribuição homologados, nenhum evento de medição sai
+// do subdomínio da mentoria. Isso não modifica o site institucional.
+export const isMentoriaPrelaunchTrackingBlocked = (hostname) =>
+  typeof hostname === 'string' && hostname.toLowerCase().replace(/\.$/, '') === 'mentoria.wgalmeida.com.br'
+
+export const isMentoriaPrelaunchRoute = (pathname) =>
+  typeof pathname === 'string' && /^\/mentoria-construcao(?:\/|$)/.test(pathname)
+
+const shouldBlockMentoriaTracking = () =>
+  canUseWindow() && (
+    isMentoriaPrelaunchTrackingBlocked(window.location.hostname) ||
+    isMentoriaPrelaunchRoute(window.location.pathname)
+  )
+
 const limitValue = (value) => String(value ?? '').slice(0, 255)
 
 const vercelPayload = (payload = {}) => ({
@@ -12,7 +26,7 @@ const vercelPayload = (payload = {}) => ({
 })
 
 export function pushDataLayerEvent(eventName, payload = {}) {
-  if (!canUseWindow()) return
+  if (!canUseWindow() || shouldBlockMentoriaTracking()) return
   window.dataLayer = window.dataLayer || []
   window.dataLayer.push({
     event: eventName,
@@ -21,6 +35,7 @@ export function pushDataLayerEvent(eventName, payload = {}) {
 }
 
 export function trackEvent(eventName, payload = {}) {
+  if (shouldBlockMentoriaTracking()) return
   pushDataLayerEvent(eventName, payload)
 
   try {

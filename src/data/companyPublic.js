@@ -24,6 +24,8 @@ export const COMPANY = {
 
 export const PRODUCT_URLS = {
   site: 'https://wgalmeida.com.br',
+  // Dominio reservado. Ativacao condicionada a GO comercial e tecnico.
+  mentoria: 'https://mentoria.wgalmeida.com.br',
   wgeasy: 'https://easy.wgalmeida.com.br',
   obraeasy: 'https://obraeasy.wgalmeida.com.br',
   easyrealstate: 'https://easyrealstate.wgalmeida.com.br',

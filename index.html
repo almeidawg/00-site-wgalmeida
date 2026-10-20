@@ -7,8 +7,8 @@
 		// Reduz TBT (Total Blocking Time) significativamente
 		(function() {
 			var host = globalThis.location.hostname || '';
-			var isLocalRuntime = host === 'localhost' || host === '127.0.0.1' || host === '::1' || globalThis.location.protocol === 'file:';
-			if (isLocalRuntime) return;
+			var isLocalRuntime = host === 'localhost' || host === '127.0.0.1' || host === '::1' || /^\d{1,3}(?:\.\d{1,3}){3}$/.test(host) || globalThis.location.protocol === 'file:';
+			if (isLocalRuntime || host.toLowerCase().replace(/\.$/, '') === 'mentoria.wgalmeida.com.br' || /^\/mentoria-construcao(?:\/|$)/.test(globalThis.location.pathname || '/')) return;
 
 			var gtmLoaded = false;
 			var pinterestLoaded = false;
@@ -91,6 +91,37 @@
 						normalizedPath = normalizedPath.slice(0, -1);
 					}
 					canonical.href = 'https://wgalmeida.com.br' + normalizedPath;
+					// Subdominio dedicado ainda em pre-lancamento: nao indexar o
+					// HTML inicial antes de o React montar os metadados da landing.
+					var onMentoriaHost = globalThis.location.hostname.toLowerCase() === 'mentoria.wgalmeida.com.br';
+					if (onMentoriaHost && (normalizedPath === '/' || normalizedPath === '/mentoria-construcao' || normalizedPath === '/abordagens' || normalizedPath === '/mentoria-construcao/abordagens' || normalizedPath === '/mentoria-construcao/proposta-360' || normalizedPath === '/contato' || normalizedPath === '/mentoria-construcao/contato')) {
+						var isApproaches = normalizedPath === '/abordagens' || normalizedPath === '/mentoria-construcao/abordagens' || normalizedPath === '/mentoria-construcao/proposta-360';
+						var isContact = normalizedPath === '/contato' || normalizedPath === '/mentoria-construcao/contato';
+						canonical.href = 'https://mentoria.wgalmeida.com.br/' + (isApproaches ? 'abordagens' : isContact ? 'contato' : '');
+						document.title = isContact ? 'Converse sobre a Mentoria Construção | Grupo WG Almeida' : isApproaches ? 'Temas para aprofundar na mentoria | Grupo WG Almeida' : 'Mentoria Estratégica Individual | Grupo WG Almeida';
+						var robots = document.querySelector('meta[name="robots"]');
+						var googlebot = document.querySelector('meta[name="googlebot"]');
+						if (robots) robots.content = 'noindex, nofollow';
+						if (googlebot) googlebot.content = 'noindex, nofollow';
+					}
+					// Compatibilidade no domínio institucional: manter páginas
+					// da mentoria fora do índice também antes da hidratação React.
+					var mentoriaLegacyPaths = [
+						'/mentoria-construcao',
+						'/mentoria-construcao/abordagens',
+						'/mentoria-construcao/contato',
+						'/mentoria-construcao/proposta-360',
+						'/mentoria-construcao/proposta-modelo'
+					];
+					if (!onMentoriaHost && mentoriaLegacyPaths.includes(normalizedPath)) {
+						var legacyRobots = document.querySelector('meta[name="robots"]');
+						var legacyGooglebot = document.querySelector('meta[name="googlebot"]');
+						if (legacyRobots) legacyRobots.content = 'noindex, nofollow';
+						if (legacyGooglebot) legacyGooglebot.content = 'noindex, nofollow';
+						if (normalizedPath === '/mentoria-construcao/proposta-360') {
+							canonical.href = 'https://wgalmeida.com.br/mentoria-construcao/abordagens';
+						}
+					}
 				}
 			})();
 		</script>

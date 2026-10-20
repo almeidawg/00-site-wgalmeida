@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "project": "site-wgalmeida",
+  "route": "/mentoria-construcao",
+  "recordDate": "2026-10-13",
+  "purpose": "Gate de lançamento para campanha paga; dados administrativos não devem conter credenciais ou dados pessoais",
+  "checks": [
+    {
+      "id": "pilot_individual_format",
+      "title": "Mentoria piloto 1:1, oito encontros semanais de 90 minutos (12h ao vivo)",
+      "category": "commercial",
+      "status": "approved",
+      "approvedBy": "Fundador (aprovação pelo chat)",
+      "approvedAt": "2026-10-13",
+      "evidence": ["O fundador aprovou iniciar individual 1:1 com oito encontros de 90 minutos ao longo de oito semanas (12 horas ao vivo), antes da evolução para o híbrido. Aprovação explícita da duração no chat em 13/10/2026. Não aprovou preço, contrato, agenda nem campanha."]
+    },
+    {
+      "id": "security_dependencies",
+      "title": "Dependências de produção sem bloqueadores altos ou risco formalmente aceito",
+      "category": "security",
+      "status": "pending",
+      "approvedBy": null,
+      "approvedAt": null,
+      "evidence": []
+    },
+    {
+      "id": "release_code",
+      "title": "Escopo Git, testes e staging HTTPS revisados",
+      "category": "technical",
+      "status": "pending",
+      "approvedBy": null,
+      "approvedAt": null,
+      "evidence": []
+    },
+    {
+      "id": "offer_approved",
+      "title": "Formato, preço, contrato, agenda e capacidade aprovados",
+      "category": "commercial",
+      "status": "pending",
+      "approvedBy": null,
+      "approvedAt": null,
+      "evidence": []
+    },
+    {
+      "id": "rights_media",
+      "title": "Vídeos, fotografias e imagens sintéticas com uso e origem aprovados",
+      "category": "creative",
+      "status": "pending",
+      "approvedBy": null,
+      "approvedAt": null,
+      "evidence": []
+    },
+    {
+      "id": "creative_pilot",
+      "title": "2 vídeos e 1 estático entregues, revisados e aprovados",
+      "category": "creative",
+      "status": "pending",
+      "approvedBy": null,
+      "approvedAt": null,
+      "evidence": []
+    },
+    {
+      "id": "ai_demo",
+      "title": "Demonstração e limites de IA validados sem dados reais",
+      "category": "commercial",
+      "status": "pending",
+      "approvedBy": null,
+      "approvedAt": null,
+      "evidence": []
+    },
+    {
+      "id": "whatsapp_e2e",
+      "title": "Mensagem de teste recebida, atendida e agendada com registro no CRM",
+      "category": "funnel",
+      "status": "pending",
+      "approvedBy": null,
+      "approvedAt": null,
+      "evidence": []
+    },
+    {
+      "id": "tracking_verified",
+      "title": "Eventos e atribuição confirmados nas contas reais",
+      "category": "funnel",
+      "status": "pending",
+      "approvedBy": null,
+      "approvedAt": null,
+      "evidence": []
+    },
+    {
+      "id": "privacy_legal",
+      "title": "Revisão LGPD, rastreadores, política e consentimento",
+      "category": "legal",
+      "status": "pending",
+      "approvedBy": null,
+      "approvedAt": null,
+      "evidence": []
+    },
+    {
+      "id": "media_plan",
+      "title": "Canal, orçamento, segmentação e regra de pausa aprovados",
+      "category": "commercial",
+      "status": "pending",
+      "approvedBy": null,
+      "approvedAt": null,
+      "evidence": []
+    },
+    {
+      "id": "owner_go",
+      "title": "Aprovação final do responsável para campanha e publicação",
+      "category": "approval",
+      "status": "pending",
+      "approvedBy": null,
+      "approvedAt": null,
+      "evidence": []
+    }
+  ]
+}

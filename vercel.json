@@ -225,6 +225,9 @@
     }
   ],
   "rewrites": [
+    { "source": "/mentoria-construcao", "destination": "/mentoria-construcao/index.html" },
+    { "source": "/mentoria-construcao/abordagens", "destination": "/mentoria-construcao/abordagens/index.html" },
+    { "source": "/mentoria-construcao/contato", "destination": "/mentoria-construcao/contato/index.html" },
     {
       "source": "/buildtech/projetos/easyfood",
       "destination": "https://restaurante-lyart.vercel.app/entrada.html"
@@ -379,6 +382,8 @@
     }
   ],
   "headers": [
+    { "source": "/mentoria-construcao", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }] },
+    { "source": "/mentoria-construcao/:path*", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }] },
     {
       "source": "/assets/(.*)",
       "headers": [
