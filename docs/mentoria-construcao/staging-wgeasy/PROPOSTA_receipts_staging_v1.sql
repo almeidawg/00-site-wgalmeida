@@ -72,6 +72,50 @@ create trigger trg_mentoria_receipt_scope
   on wg_mentoria_private.inbound_receipts
   for each row execute function wg_mentoria_private.verify_tenant_org_scope();
 
+-- Enforce immutable receipt identity and irreversible terminal states at DB
+-- level. RLS and application-only checks are NOT enough when a service role
+-- has broader DML permission. A privileged retention job may DELETE rows
+-- under an independently approved policy; this trigger governs UPDATE only.
+create or replace function wg_mentoria_private.guard_receipt_transition()
+returns trigger
+language plpgsql
+security invoker
+set search_path = pg_catalog, public, wg_mentoria_private
+as $$
+begin
+  if row(
+    new.id, new.tenant_id, new.org_id, new.channel_id, new.provider,
+    new.source_event_digest, new.received_at
+  ) is distinct from row(
+    old.id, old.tenant_id, old.org_id, old.channel_id, old.provider,
+    old.source_event_digest, old.received_at
+  ) then
+    raise exception 'MENTORIA_RECEIPT_IDENTITY_IMMUTABLE'
+      using errcode = '23514';
+  end if;
+
+  if old.state in ('completed', 'needs_review') and new is distinct from old then
+    raise exception 'MENTORIA_RECEIPT_TERMINAL_IMMUTABLE'
+      using errcode = '23514';
+  end if;
+
+  -- Only reserved receipts can become terminal; constraints independently
+  -- require consistent completed_at/review_code values.
+  if old.state = 'reserved' and new.state not in ('reserved', 'completed', 'needs_review') then
+    raise exception 'MENTORIA_RECEIPT_INVALID_TRANSITION'
+      using errcode = '23514';
+  end if;
+  return new;
+end;
+$$;
+revoke all on function wg_mentoria_private.guard_receipt_transition() from public;
+revoke all on function wg_mentoria_private.guard_receipt_transition() from anon;
+revoke all on function wg_mentoria_private.guard_receipt_transition() from authenticated;
+
+create trigger trg_mentoria_receipt_transition
+  before update on wg_mentoria_private.inbound_receipts
+  for each row execute function wg_mentoria_private.guard_receipt_transition();
+
 alter table wg_mentoria_private.inbound_receipts enable row level security;
 alter table wg_mentoria_private.inbound_receipts force row level security;
 revoke all on wg_mentoria_private.inbound_receipts from public;
