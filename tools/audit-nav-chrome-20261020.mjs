@@ -41,7 +41,7 @@ try {
           return {
             x, y, box: { x: box.x, y: box.y, width: box.width, height: box.height },
             hitTag: hit?.tagName || null, hitClass: String(hit?.getAttribute('class') || '').slice(0, 220),
-            descendant: hit === el || el.contains(hit), 
+            descendant: hit === el || el.contains(hit),
             position: getComputedStyle(el).position,
           };
         });
