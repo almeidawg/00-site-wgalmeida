@@ -17,6 +17,7 @@ const COLOR_PALETTES = [
     colors: ['#8B4513', '#D2691E', '#DEB887', '#F5DEB3', '#CD853F'],
     element: 'walls',
     mainColor: '#D2691E',
+    previewFilter: 'sepia(0.65) saturate(1.25) hue-rotate(-12deg)',
   },
   {
     id: 'azuis',
@@ -24,6 +25,7 @@ const COLOR_PALETTES = [
     colors: ['#1E3A5F', '#3498DB', '#5DADE2', '#85C1E9', '#AED6F1'],
     element: 'walls',
     mainColor: '#3498DB',
+    previewFilter: 'sepia(0.3) saturate(1.4) hue-rotate(155deg)',
   },
   {
     id: 'verdes',
@@ -31,6 +33,7 @@ const COLOR_PALETTES = [
     colors: ['#1D4E3C', '#27AE60', '#58D68D', '#82E0AA', '#ABEBC6'],
     element: 'walls',
     mainColor: '#27AE60',
+    previewFilter: 'sepia(0.25) saturate(1.45) hue-rotate(55deg)',
   },
 ];
 
@@ -78,7 +81,6 @@ const HomeColorTransformer = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [sliderPosition, setSliderPosition] = useState(50);
-  const [isDragging, setIsDragging] = useState(false);
   const [transformedUrl, setTransformedUrl] = useState(DEMO_IMAGES[0].externalUrl);
   const [isActivated, setIsActivated] = useState(false);
 
@@ -89,6 +91,7 @@ const HomeColorTransformer = () => {
 
   // Upload da imagem para o Cloudinary quando selecionada
   const uploadImage = async (image) => {
+    if (CLOUDINARY_CLOUD_NAME === 'demo') return;
     setIsLoading(true);
     try {
       const formData = new FormData();
@@ -151,7 +154,7 @@ const HomeColorTransformer = () => {
         isDemo: true,
       });
       setTransformedUrl(image.externalUrl);
-      if (isActivated) {
+      if (isActivated && CLOUDINARY_CLOUD_NAME !== 'demo') {
         uploadImage(image);
       }
     }
@@ -160,7 +163,7 @@ const HomeColorTransformer = () => {
   const handleActivate = () => {
     if (!isActivated) {
       setIsActivated(true);
-      if (!imageData?.publicId) {
+      if (!imageData?.publicId && CLOUDINARY_CLOUD_NAME !== 'demo') {
         uploadImage(selectedImage);
       }
     }
@@ -175,30 +178,7 @@ const HomeColorTransformer = () => {
     setSliderPosition(Math.min(100, Math.max(0, percentage)));
   }, []);
 
-  // Event listeners para arrastar
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      if (isDragging) handleSliderMove(e.clientX);
-    };
-    const handleTouchMove = (e) => {
-      if (isDragging && e.touches[0]) handleSliderMove(e.touches[0].clientX);
-    };
-    const handleEnd = () => setIsDragging(false);
 
-    if (isDragging) {
-      window.addEventListener('mousemove', handleMouseMove);
-      window.addEventListener('mouseup', handleEnd);
-      window.addEventListener('touchmove', handleTouchMove);
-      window.addEventListener('touchend', handleEnd);
-    }
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleEnd);
-      window.removeEventListener('touchmove', handleTouchMove);
-      window.removeEventListener('touchend', handleEnd);
-    };
-  }, [isDragging, handleSliderMove]);
 
   return (
     <div className="relative">
@@ -206,13 +186,35 @@ const HomeColorTransformer = () => {
       <div
         ref={containerRef}
         className="relative rounded-2xl overflow-hidden shadow-2xl cursor-ew-resize select-none aspect-video bg-gray-800"
-        onMouseDown={() => {
-          handleActivate();
-          setIsDragging(true);
+        data-testid="home-color-comparison"
+        role="slider"
+        tabIndex={0}
+        aria-label="Comparar imagem original e prévia de cor"
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={Math.round(sliderPosition)}
+        style={{ touchAction: 'none' }}
+        onPointerDown={(event) => {
+          if (event.button !== 0) return;
+          event.currentTarget.setPointerCapture(event.pointerId);
+          handleSliderMove(event.clientX);
         }}
-        onTouchStart={() => {
-          handleActivate();
-          setIsDragging(true);
+        onPointerMove={(event) => {
+          if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+            handleSliderMove(event.clientX);
+          }
+        }}
+        onPointerUp={(event) => {
+          if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+        }}
+        onPointerCancel={(event) => {
+          if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+        }}
+        onKeyDown={(event) => {
+          if (event.key === 'ArrowRight') { event.preventDefault(); setSliderPosition((value) => Math.min(100, value + 5)); }
+          if (event.key === 'ArrowLeft') { event.preventDefault(); setSliderPosition((value) => Math.max(0, value - 5)); }
+          if (event.key === 'Home') { event.preventDefault(); setSliderPosition(0); }
+          if (event.key === 'End') { event.preventDefault(); setSliderPosition(100); }
         }}
       >
         {isLoading ? (
@@ -226,6 +228,13 @@ const HomeColorTransformer = () => {
               src={transformedUrl || selectedImage.externalUrl}
               alt={t('home.colorTransformer.labels.transformedAlt')}
               className="absolute inset-0 w-full h-full object-cover"
+              style={!imageData?.publicId ? { filter: selectedPalette.previewFilter } : undefined}
+              onError={() => {
+                if (imageData?.publicId) {
+                  setImageData((previous) => ({ ...previous, publicId: null, isDemo: true }));
+                  setTransformedUrl(imageData.url || selectedImage.externalUrl);
+                }
+              }}
             />
 
             {/* Imagem Original (esquerda, cortada) */}
@@ -256,13 +265,15 @@ const HomeColorTransformer = () => {
             </div>
             <div className="absolute top-3 right-3 px-3 py-1 bg-wg-orange text-white text-xs rounded-lg flex items-center gap-1.5">
               <Check className="w-3 h-3" />
-              {t('home.colorTransformer.labels.transformed')}
+              {imageData?.publicId ? t('home.colorTransformer.labels.transformed') : t('home.colorTransformer.labels.preview', { defaultValue: 'Prévia ilustrativa' })}
             </div>
           </>
         )}
 
-        {/* Paleta de cores flutuante */}
-        <div className="absolute bottom-3 left-3 right-3 bg-white/10 backdrop-blur-md rounded-xl p-3 border border-white/20">
+      </div>
+
+      {/* Legenda de paleta abaixo do comparador para não cobrir a imagem */}
+      <div className="mt-3 bg-slate-900/90 backdrop-blur-md rounded-xl p-3 border border-white/20">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-xs text-white/70 mb-1">{t('home.colorTransformer.labels.palette')}: {t(selectedPalette.nameKey)}</p>
@@ -279,7 +290,6 @@ const HomeColorTransformer = () => {
             <p className="text-[10px] text-white/50">{t('home.colorTransformer.labels.dragToCompare')}</p>
           </div>
         </div>
-      </div>
 
       {/* Seleção de Paletas */}
       <div className="flex gap-2 mt-4 justify-center">
@@ -291,6 +301,7 @@ const HomeColorTransformer = () => {
               handleActivate();
               setSelectedPalette(palette);
             }}
+            aria-pressed={selectedPalette.id === palette.id}
             className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-all ${
               selectedPalette.id === palette.id
                 ? 'bg-white/20 ring-2 ring-wg-orange'
@@ -323,6 +334,7 @@ const HomeColorTransformer = () => {
             type="button"
             key={img.id}
             onClick={() => handleSelectImage(img)}
+            aria-pressed={selectedImage.id === img.id}
             className={`relative w-16 h-12 rounded-lg overflow-hidden transition-all ${
               selectedImage.id === img.id
                 ? 'ring-2 ring-wg-orange opacity-100'

@@ -23,7 +23,6 @@ import { Button } from '@/components/ui/button';
 import AnimatedStrokes from '@/components/AnimatedStrokes';
 
 import HeroVideo from '@/components/HeroVideo';
-const InstagramGallery = lazy(() => import('@/components/InstagramGallery'));
 const ProjectGallery = lazy(() => import('@/components/ProjectGallery'));
 const HomeColorTransformer = lazy(() => import('@/components/home/HomeColorTransformer'));
 const GoogleReviewsBadge = lazy(() => import('@/components/GoogleReviewsBadge'));
@@ -166,7 +165,6 @@ const Home = () => {
 
   const [projectGalleryRef, projectGalleryVisible] = useVisibilityFlag(LAZY_SECTION_VISIBILITY_OPTIONS);
   const [reviewsRef, reviewsVisible] = useVisibilityFlag(LAZY_SECTION_VISIBILITY_OPTIONS);
-  const [instagramRef, instagramVisible] = useVisibilityFlag(LAZY_SECTION_VISIBILITY_OPTIONS);
 
   const institutionalFacts = [
     { value: '2011', label: t('home.stats.since') },
@@ -799,7 +797,7 @@ const Home = () => {
                   <CheckCircle2 className="w-5 h-5 text-wg-orange" />
                   <span className="text-sm">Descoberta guiada de estilo</span>
                 </div>
-                <div className="flex items-center gap-2 text-white/80">
+                <div className="flex items-center gap-2 text-white/95">
                   <CheckCircle2 className="w-5 h-5 text-wg-orange" />
                   <span className="text-sm">Base para visualização e briefing</span>
                 </div>
@@ -1168,16 +1166,6 @@ const Home = () => {
         )}
       </section>
 
-      {/* ========== SEÇÃO INSTAGRAM - GALERIA CUSTOM ========== */}
-      <section ref={instagramRef} aria-label="Galeria Instagram">
-        {instagramVisible ? (
-          <Suspense fallback={<div className="h-[400px] bg-white" aria-hidden="true" />}>
-            <InstagramGallery />
-          </Suspense>
-        ) : (
-          <div className="h-[400px] bg-white" aria-hidden="true" />
-        )}
-      </section>
 
       {/* ========== ENCERRAMENTO INSTITUCIONAL ========== */}
       <section className="relative overflow-hidden py-14 md:py-20 bg-wg-black text-white">
