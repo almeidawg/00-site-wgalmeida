@@ -219,7 +219,12 @@ const verifyTurnstile = async (token, remoteip) => {
 
   const result = await response.json().catch(() => ({}))
   if (!response.ok || result.success !== true) return false
-  if (result.action && result.action !== 'contact_form') return false
+  // Dummy Siteverify uses hostname "example.com"; production never accepts it.
+  const previewDummyVerification = process.env.VERCEL_ENV === 'preview'
+    && process.env.TURNSTILE_TEST_MODE === 'true'
+    && TURNSTILE_SECRET_KEY === '1x0000000000000000000000000000000AA'
+  if (result.action && result.action !== 'contact_form' && !(previewDummyVerification && result.action === 'test')) return false
+  if (result.hostname === 'example.com') return previewDummyVerification
 
   const expectedHostnames = new Set(['wgalmeida.com.br', 'www.wgalmeida.com.br'])
   if (process.env.VERCEL_ENV !== 'production' && typeof result.hostname === 'string') {
