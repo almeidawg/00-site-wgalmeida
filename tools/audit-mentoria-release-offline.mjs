@@ -14,7 +14,10 @@ import {
 const root = resolve(fileURLToPath(new URL('..', import.meta.url)))
 const src = (p) => readFileSync(resolve(root, p), 'utf8')
 const present = (p) => existsSync(resolve(root, p))
-const dist = resolve(root, process.argv[2] || 'dist-mentoria-qa-20261018')
+const distName = process.argv[2] || 'dist-mentoria-qa-20261018'
+// Apenas nome simples de pasta de build dentro da raiz (sem separador nem ..).
+if (!/^dist[A-Za-z0-9._-]*$/.test(distName) || distName.includes('..')) throw new Error('INVALID_DIST_NAME')
+const dist = resolve(root, distName)
 const assets = existsSync(resolve(dist, 'assets')) ? readdirSync(resolve(dist, 'assets')) : []
 const ok = (condition, description) => ({ id: description, status: condition ? 'PASS' : 'FAIL' })
 const all = []

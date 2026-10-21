@@ -8,12 +8,12 @@ const json=process.argv.includes('--json')
 const minimum=['security_dependencies','release_code','offer_approved','rights_media','creative_pilot','ai_demo','whatsapp_e2e','tracking_verified','privacy_legal','media_plan','owner_go']
 let report
 try {
- if(!existsSync(file)) throw Error('Registro de aprovações ausente')
+ if(!existsSync(file)) throw new Error('Registro de aprovações ausente')
  const data=JSON.parse(readFileSync(file,'utf8'))
- if(data.schemaVersion!==1 || data.project!=='site-wgalmeida' || data.route!=='/mentoria-construcao' || !Array.isArray(data.checks)) throw Error('Identidade/estrutura do registro inválida')
+ if(data.schemaVersion!==1 || data.project!=='site-wgalmeida' || data.route!=='/mentoria-construcao' || !Array.isArray(data.checks)) throw new Error('Identidade/estrutura do registro inválida')
  const seen=new Set()
  const checks=data.checks.map(item=>{
-   if(!item || typeof item.id!=='string' || seen.has(item.id)) throw Error('IDs inválidos/duplicados')
+   if(!item || typeof item.id!=='string' || seen.has(item.id)) throw new Error('IDs inválidos/duplicados')
    seen.add(item.id)
    const valid=item.status==='approved' && typeof item.approvedBy==='string' && item.approvedBy.trim().length>1 && typeof item.approvedAt==='string' && /^\d{4}-\d{2}-\d{2}/.test(item.approvedAt) && Array.isArray(item.evidence) && item.evidence.length>0 && item.evidence.every(v=>typeof v==='string'&&v.trim().length>4)
    return {id:item.id,title:item.title||item.id,status:valid?'OK':'BLOQUEADO'}
