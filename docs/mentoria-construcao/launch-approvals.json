@@ -55,7 +55,8 @@
       "approvedAt": "2026-10-21",
       "evidence": [
         "O fundador declarou no chat em 21/10/2026: \"item 3 já tínhamos valores aprovados, forma de pagamento, condições e descontos\". Base documentada: ESTUDO_PRECIFICACAO_20261013.md, OFERTA_RASCUNHO_E_DECISOES.md e KIT_WHATSAPP_AGENDAMENTO_E_FICHA_CAMPANHA_META_20261020.md (programa 1:1 de oito encontros de 90 min; valor de lançamento R$ 6.997 em 12x de R$ 583 informado só na reunião e na proposta; conversa inicial de 30 min sem custo; sem limite de vagas; agenda Google criada).",
-        "Preço não é exibido em anúncio nem na landing. Residual a cargo do fundador: contrato final (minuta CONTRATO_WG360_MINUTA_JURIDICA_V01) e teto operacional interno de mentorandos simultâneos, ainda não registrados em documento."
+        "Preço não é exibido em anúncio nem na landing. Residual a cargo do fundador: contrato final (minuta CONTRATO_WG360_MINUTA_JURIDICA_V01) e teto operacional interno de mentorandos simultâneos, ainda não registrados em documento.",
+        "Condições comerciais decididas pelo fundador em 21/10/2026: preço R$ 6.997,00; cartão de crédito em até 10 parcelas sem juros; pagamento à vista com 10% de desconto (R$ 6.297,30). Validação em PLANO_PRECO_E_PAGAMENTO_MENTORIA_V2_20261021.md (tarifas Asaas conferidas na página pública em 21/10/2026). CNPJ da contratada informado: 45.150.970/0001-01. Termo de adesão em TERMO_DE_ADESAO_MENTORIA_INDIVIDUAL_V02.md, sujeito a revisão jurídica."
       ]
     },
     {
@@ -81,17 +82,22 @@
       "evidence": [
         "O fundador aprovou no chat em 21/10/2026 as 2 artes estáticas (Feed 4x5 e Stories 9x16, versões sem aviso de prévia, hashes e99f15af... e 5dfc0dd3...) e o vídeo longo da landing; aprovou em 20/10/2026 os 2 vídeos legendados (hashes e41c8f38... e 067471c6...). Aprovação de 21/10: \"item 2 ok aprovado\".",
         "8 anúncios montados em rascunho na conta Meta 2199279960862970 (SP e Curitiba x Feed, Stories, vídeo 01 e vídeo 02), todos VALIDADOS pela API, com aprimoramentos de IA da Meta desligados; nada publicado.",
-        "Residual aberto: safe zones da legenda queimada em Reels/Stories (aviso da Meta) a conferir na prévia antes do owner_go; rótulo de IA não preenchido por decisão do fundador."
+        "Safe zones validadas em 21/10/2026 por quadros reais com zonas de interface (topo 14%, base 35%, limite Stories 340 px): nos vídeos v3 aprovados a legenda queimada (MarginV 305, aprox. y 1470 a 1615 de 1920) fica na zona de interface de Reels e Stories = REPROVADO para esses posicionamentos; aceitável no Feed. Proposta v3b com legenda elevada (MarginV 700) renderizada em safezone-v3b-20261021/ com hashes e1e939ab... e 2047ef49..., áudio copiado sem recodificar, pendente de aprovação do fundador (hash novo exige novo aceite). Rótulo de IA não preenchido por decisão do fundador.",
+        "Aprovação do fundador em 21/10/2026 (\"legendas aprovadas\"): vídeos v3b com legenda elevada (MarginV 700) substituem os v3 nos anúncios de vídeo. Hashes aprovados: criativo_01_v3b_SAFEZONE_PROPOSTA.mp4 e1e939abacc3bab64ef8cd4de0bbde8034dac8488da14fc4f227c4963d9739be; criativo_02_v3b_SAFEZONE_PROPOSTA.mp4 2047ef498a321e9b8ce344ba8754dffec7324eef63421809b85decadf2caaa07. Áudio copiado sem recodificar dos originais HeyGen."
       ]
     },
     {
       "id": "ai_demo",
       "title": "Demonstração e limites de IA validados sem dados reais",
       "category": "commercial",
-      "status": "pending",
-      "approvedBy": null,
-      "approvedAt": null,
-      "evidence": []
+      "status": "approved",
+      "approvedBy": "Fundador (decisão pelo chat); evidência verificada por IA",
+      "approvedAt": "2026-10-21",
+      "evidence": [
+        "Decisão do fundador em 21/10/2026: \"não gostaria de demonstrar nada vinculado a IA por enquanto como material criado\". O gate \"Demonstração e limites de IA validados sem dados reais\" é atendido por não haver demonstração de IA nos materiais.",
+        "Auditoria em 21/10/2026: landing, FAQ, cópias A e B dos anúncios e falas dos vídeos 01 e 02 não exibem tela, caso, resultado ou integração de IA; a IA aparece só como tema educacional. Limites ditos: vídeo 02 \"isso não significa que WhatsApp e sistema de gestão estejam integrados\" e \"a equipe continua responsável pela revisão e pelas decisões\"; FAQ e oferta afirmam que agentes, integrações e desenvolvimento dependem de proposta específica.",
+        "Regra de guarda: criar e publicar demonstração de IA (tela, vídeo de ferramenta, caso) exige reabrir este gate com nova aprovação do fundador."
+      ]
     },
     {
       "id": "whatsapp_e2e",
