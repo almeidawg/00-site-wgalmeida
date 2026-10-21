@@ -5,7 +5,6 @@
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { MENTORIA_ABORDAGENS, MENTORIA_ABORDAGENS_TOTAL } from '../src/data/mentoriaAbordagens.js'
 import {
   MENTORIA_HOST, MENTORIA_ORIGIN,
   mentoriaApproachesCanonical, mentoriaApproachesPath, mentoriaLandingPath,
@@ -14,6 +13,9 @@ import {
 const root = resolve(fileURLToPath(new URL('..', import.meta.url)))
 const src = (p) => readFileSync(resolve(root, p), 'utf8')
 const present = (p) => existsSync(resolve(root, p))
+// O conteúdo editorial é JSON puro; o módulo da página importa o mesmo arquivo.
+const MENTORIA_ABORDAGENS = JSON.parse(src('src/data/mentoriaAbordagens.json')).areas
+const MENTORIA_ABORDAGENS_TOTAL = MENTORIA_ABORDAGENS.reduce((count, area) => count + area.possibilidades.length, 0)
 // Sem argumento de CLI: a pasta de build vem de uma lista fixa de nomes conhecidos.
 const DIST_CANDIDATES = ['dist-mentoria-qa-20261018', 'dist-qa-release', 'dist']
 const distName = DIST_CANDIDATES.find((name) => existsSync(resolve(root, name))) || 'dist'

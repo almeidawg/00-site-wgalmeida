@@ -47,7 +47,7 @@ describe('Abordagens da mentoria: editorial, sem orçamento, sem alterar oito se
   })
   it('não reutiliza o simulador de preços nem a proposta comercial no conteúdo público', () => {
     const page = readFileSync('src/pages/MentoriaAbordagens.jsx', 'utf8')
-    const model = readFileSync('src/data/mentoriaAbordagens.js', 'utf8')
+    const model = readFileSync('src/data/mentoriaAbordagens.js', 'utf8') + readFileSync('src/data/mentoriaAbordagens.json', 'utf8')
     for (const forbidden of ['WG360_TRAFFIC_POLICY', 'estimateTrafficFee', 'EXAMPLE_PRICES',
       'WG360PaymentChoice', 'buildExampleProposal', 'onClick={copy}', 'type="checkbox"', 'type="number"',
       'unitPrice', 'subtotal', 'R$ 1.500', 'R$ 6.000']) {
