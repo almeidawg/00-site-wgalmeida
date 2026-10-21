@@ -380,6 +380,27 @@
   ],
   "headers": [
     {
+      "source": "/(.*)",
+      "has": [
+        { "type": "host", "value": "mentoria.wgalmeida.com.br" }
+      ],
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+      ]
+    },
+    {
+      "source": "/mentoria-construcao",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+      ]
+    },
+    {
+      "source": "/mentoria-construcao/:path*",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+      ]
+    },
+    {
       "source": "/assets/(.*)",
       "headers": [
         {

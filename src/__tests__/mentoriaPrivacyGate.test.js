@@ -48,6 +48,20 @@ describe('mentoria analytics: trava LGPD antes da aprovação', () => {
     expect(executeInitialTrackerScript('www.wgalmeida.com.br')).toContain('scroll')
     expect(executeInitialTrackerScript('localhost')).toEqual([])
   })
+  it('nao inclui pixels de terceiros no HTML noscript quando JavaScript esta desativado', () => {
+    const html = readFileSync('index.html', 'utf8')
+    expect(html).not.toMatch(/<noscript>.*(?:googletagmanager[.]com|ct[.]pinterest[.]com)/is)
+  })
+  it('protege a indexacao via header HTTP, sem depender do React ou JavaScript', () => {
+    const rules = JSON.parse(readFileSync('vercel.json', 'utf8')).headers
+    const noindexRules = rules.filter((rule) => rule.headers.some((header) =>
+      header.key === 'X-Robots-Tag' && header.value === 'noindex, nofollow'))
+    expect(noindexRules.find((rule) => rule.source === '/(.*)' &&
+      rule.has?.some((item) => item.type === 'host' && item.value === 'mentoria.wgalmeida.com.br'))).toBeDefined()
+    expect(noindexRules.some((rule) => rule.source === '/mentoria-construcao')).toBe(true)
+    expect(noindexRules.some((rule) => rule.source === '/mentoria-construcao/:path*')).toBe(true)
+    expect(noindexRules.every((rule) => rule.source !== '/(.*)' || rule.has?.length)).toBe(true)
+  })
   it('identifica somente host exato e rejeita domínios com sufixo malicioso', () => {
     expect(isMentoriaPrelaunchTrackingBlocked('MENTORIA.WGALMEIDA.COM.BR')).toBe(true)
     expect(isMentoriaPrelaunchTrackingBlocked('mentoria.wgalmeida.com.br.evil.example')).toBe(false)
