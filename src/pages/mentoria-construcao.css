@@ -223,6 +223,9 @@
 .mcl-convert__radio {width:20px;height:20px;display:grid;place-items:center;border-radius:50%;border:1px solid #979492;flex:none;}
 .mcl-convert__choice--active .mcl-convert__radio {background:var(--mcl-orange);border-color:var(--mcl-orange);color:white;}
 .mcl-convert__submit {display:flex;width:100%;justify-content:space-between;gap:12px;}
+.mcl-convert__direct {margin-top:14px !important;font-size:13px !important;color:#3f3f3f !important;}
+.mcl-convert__direct a {display:inline-flex;align-items:center;gap:5px;min-height:44px;padding:0 2px;color:var(--mcl-orange);font-weight:800;text-decoration:underline;text-underline-offset:3px;}
+.mcl-convert__direct a:hover {text-decoration-thickness:2px;}
 .mcl-convert__hint {color:#797979;font-size:11px;line-height:1.65;margin-top:16px !important;}
 
 .mcl-faq {padding:100px 0;background:var(--mcl-offwhite);}

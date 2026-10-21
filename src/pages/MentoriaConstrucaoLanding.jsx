@@ -51,7 +51,7 @@ const faqs = [
   { question: 'O que acontece na conversa inicial?', answer: 'Conhecemos seu tipo de operação, seus objetivos e os problemas prioritários. A conversa orienta os próximos passos; não equivale a uma auditoria técnica completa gratuita.' },
   { question: 'É possível trabalhar com um sistema sob medida?', answer: 'Sim. Por meio da WG/Build.tech, avaliamos integrações, configurações e desenvolvimento conforme os processos, a viabilidade, o cronograma e o orçamento necessários.' },
   { question: 'Como a inteligência artificial entra na mentoria?', answer: 'Ensinamos aplicações práticas de IA para atendimento, documentos, organização e gestão, com orientação sobre configuração e uso responsável. A implementação de agentes, integrações com CRM ou sistemas e desenvolvimento depende dos acessos, segurança, viabilidade e escopo contratados.' },
-  { question: 'Como funciona o programa individual de oito semanas?', answer: 'O programa piloto prevê oito encontros individuais de 90 minutos, um por semana, durante oito semanas: 12 horas de acompanhamento ao vivo. Passamos por diagnóstico, processos, gestão comercial, IA aplicada, configuração de assistentes, avaliação de integrações, piloto supervisionado e plano de evolução. Agenda, suporte e condições comerciais são confirmados na proposta antes da contratação.' },
+  { question: 'Como funciona o programa individual de oito semanas?', answer: 'O programa prevê oito encontros individuais de 90 minutos, um por semana, durante oito semanas: 12 horas de acompanhamento ao vivo. Passamos por diagnóstico, processos, gestão comercial, IA aplicada, configuração de assistentes, avaliação de integrações, piloto supervisionado e plano de evolução. Agenda, suporte e condições comerciais são confirmados na proposta antes da contratação.' },
   { question: 'Como funciona o investimento?', answer: 'Depois de entender o contexto, apresentamos o escopo aplicável com etapas, responsabilidades, prazos e valores. A empresa decide o que contratar antes de qualquer execução.' },
 ]
 
@@ -60,7 +60,9 @@ function resolveCampaign() {
   const url = new URLSearchParams(window.location.search)
   const value = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'].map((name) => {
     const raw = url.get(name) || ''
-    return /^[a-z0-9_.-]{1,80}$/i.test(raw) ? name.slice(4) + '=' + raw : ''
+    // O termo interno "piloto" nao aparece na mensagem ao lead; o UTM original segue intacto no analytics.
+    const shown = raw.replace(/[_-]?piloto/gi, '')
+    return /^[a-z0-9_.-]{1,80}$/i.test(raw) ? name.slice(4) + '=' + shown : ''
   }).filter(Boolean)
   return value.length ? value.join(' | ') : ''
 }
@@ -70,13 +72,19 @@ function useWhatsapp() {
   const chosen = priorities.find((p) => p.id === priority) || priorities[3]
   const campaign = resolveCampaign()
   const message = [
-    'Olá, William! Vim pela apresentação da Mentoria Estratégica Individual do Grupo WG Almeida (programa piloto de 8 semanas).',
+    'Olá, William! Vim pela apresentação da Mentoria Estratégica Individual do Grupo WG Almeida.',
     'Minha prioridade é ' + chosen.message + '.',
     'Gostaria de conversar para entender os próximos passos.',
     campaign ? 'Origem da apresentação: ' + campaign + '.' : '',
   ].filter(Boolean).join(' ')
   const destination = COMPANY.ceoWhatsapp || COMPANY.whatsapp
   const href = destination + '?text=' + encodeURIComponent(message)
+  const directMessage = [
+    'Olá, William! Vim pela apresentação da Mentoria Estratégica Individual do Grupo WG Almeida.',
+    'Gostaria de conversar para entender os próximos passos.',
+    campaign ? 'Origem da apresentação: ' + campaign + '.' : '',
+  ].filter(Boolean).join(' ')
+  const directHref = destination + '?text=' + encodeURIComponent(directMessage)
 
   const onContact = (position) => {
     trackWhatsappClick({ context: 'mentoria_construcao_' + position, target: 'fundador' })
@@ -87,7 +95,7 @@ function useWhatsapp() {
     setPriority(id)
     trackEvent('mentoria_prioridade', { context: 'mentoria_construcao', action: id })
   }
-  return { href, priority, onPriority, onContact }
+  return { href, directHref, priority, onPriority, onContact }
 }
 
 function ContactLink({ children, href, onContact, position, className = '' }) {
@@ -133,7 +141,7 @@ function SectionLabel({ children, inverse = false }) {
 }
 
 export default function MentoriaConstrucaoLanding() {
-  const { href, priority, onPriority, onContact } = useWhatsapp()
+  const { href, directHref, priority, onPriority, onContact } = useWhatsapp()
   const [mobileCtaVisible, setMobileCtaVisible] = useState(false)
   useNoindexBaseMeta()
   useEffect(() => {
@@ -175,7 +183,7 @@ export default function MentoriaConstrucaoLanding() {
           <section className="mcl-hero" aria-labelledby="mcl-hero-title">
             <div className="mcl-container mcl-hero__grid">
               <div className="mcl-hero__copy">
-                <SectionLabel>MENTORIA ESTRATÉGICA INDIVIDUAL · PROGRAMA PILOTO DE 8 SEMANAS</SectionLabel>
+                <SectionLabel>MENTORIA ESTRATÉGICA INDIVIDUAL · PROGRAMA DE 8 SEMANAS</SectionLabel>
                 <h1 id="mcl-hero-title">Sua empresa não pode depender de você <em>para tudo.</em></h1>
                 <p className="mcl-hero__lead">Oito encontros individuais para olhar a realidade da sua empresa, organizar prioridades e aprender a aplicar IA com método. Com a experiência operacional do Grupo WG Almeida desde 2011, trabalhamos estratégia, gestão e tecnologia sem prometer soluções prontas.</p>
                 <div className="mcl-hero__actions">
@@ -274,7 +282,7 @@ export default function MentoriaConstrucaoLanding() {
             <div className="mcl-container">
               <div className="mcl-pilot__intro">
                 <div>
-                  <SectionLabel>PROGRAMA PILOTO · MENTORIA INDIVIDUAL</SectionLabel>
+                  <SectionLabel>PROGRAMA DE 8 SEMANAS · MENTORIA INDIVIDUAL</SectionLabel>
                   <h2 id="mcl-pilot-heading">Oito semanas para colocar <em>o negócio no centro das decisões.</em></h2>
                 </div>
                 <div className="mcl-pilot__summary">
@@ -310,7 +318,7 @@ export default function MentoriaConstrucaoLanding() {
                   <ul>{item.details.map((d) => <li key={d}><Check size={16} strokeWidth={2} aria-hidden="true"/>{d}</li>)}</ul>
                 </article>)}
               </div>
-              <p className="mcl-offer__disclosure">O programa piloto individual prevê oito encontros de 90 minutos, um por semana, totalizando 12 horas ao vivo. Suporte, agenda e investimento serão confirmados antes da contratação. Desenvolvimento, implantação e integrações são orçados separadamente.</p>
+              <p className="mcl-offer__disclosure">O programa individual prevê oito encontros de 90 minutos, um por semana, totalizando 12 horas ao vivo. Suporte, agenda e investimento serão confirmados antes da contratação. Desenvolvimento, implantação e integrações são orçados separadamente.</p>
               <a className="mcl-offer__preview-link" href={mentoriaApproachesPath(typeof window === 'undefined' ? '' : window.location.hostname)}>Explore os temas que podemos aprofundar na mentoria <ArrowUpRight size={17} aria-hidden="true"/></a>
             </div>
           </section>
@@ -414,7 +422,7 @@ export default function MentoriaConstrucaoLanding() {
               <div className="mcl-convert__heading">
                 <SectionLabel inverse>SEU PRÓXIMO PASSO</SectionLabel>
                 <h2 id="mcl-convert-heading">Vamos conversar sobre a mentoria individual.</h2>
-                <p>Conte seu principal desafio e entenda se o programa piloto de oito semanas faz sentido para sua operação. Agenda, condições e disponibilidade são confirmadas antes de qualquer contratação.</p>
+                <p>Conte seu principal desafio e entenda se o programa de oito semanas faz sentido para sua operação. Agenda, condições e disponibilidade são confirmadas antes de qualquer contratação.</p>
                 <div className="mcl-convert__note"><MessageCircle size={19} aria-hidden="true"/> Conversa inicial via WhatsApp. Sem compromisso de contratação.</div>
               </div>
               <div className="mcl-convert__panel">
@@ -426,6 +434,7 @@ export default function MentoriaConstrucaoLanding() {
                   </button>)}
                 </div>
                 <ContactLink href={href} onContact={onContact} position="qualificacao" className="mcl-convert__submit">Iniciar conversa no WhatsApp</ContactLink>
+                <p className="mcl-convert__direct">Prefere não escolher uma opção? <a href={directHref} target="_blank" rel="noopener noreferrer" onClick={() => onContact('qualificacao_direto')}>Chamar direto no WhatsApp <ArrowUpRight size={14} aria-hidden="true"/></a></p>
                 <p className="mcl-convert__hint">Você será direcionado ao WhatsApp com uma mensagem pronta. Nenhum dado é enviado por este formulário.</p>
               </div>
             </div>
