@@ -137,11 +137,13 @@ export default function MentoriaConstrucaoLanding() {
   // A entrada HTML institucional define index; esta campanha em pré-lançamento
   // deve sobrescrever a tag base sem alterar o SEO das demais rotas.
   useEffect(() => {
-    const baseRobots = document.querySelector('meta[name="robots"]:not([data-rh])')
-    if (!baseRobots) return undefined
-    const previous = baseRobots.getAttribute('content')
-    baseRobots.setAttribute('content', 'noindex, nofollow')
-    return () => baseRobots.setAttribute('content', previous || 'index, follow')
+    const bases = ['robots', 'googlebot']
+      .map((name) => document.querySelector('meta[name="' + name + '"]:not([data-rh])'))
+      .filter(Boolean)
+    if (!bases.length) return undefined
+    const previous = bases.map((meta) => meta.getAttribute('content'))
+    bases.forEach((meta) => meta.setAttribute('content', 'noindex, nofollow'))
+    return () => bases.forEach((meta, i) => meta.setAttribute('content', previous[i] || 'index, follow'))
   }, [])
   useEffect(() => {
     const observer = () => setMobileCtaVisible(window.scrollY > 350)
