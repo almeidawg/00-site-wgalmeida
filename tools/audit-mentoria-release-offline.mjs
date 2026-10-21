@@ -14,9 +14,9 @@ import {
 const root = resolve(fileURLToPath(new URL('..', import.meta.url)))
 const src = (p) => readFileSync(resolve(root, p), 'utf8')
 const present = (p) => existsSync(resolve(root, p))
-const distName = process.argv[2] || 'dist-mentoria-qa-20261018'
-// Apenas nome simples de pasta de build dentro da raiz (sem separador nem ..).
-if (!/^dist[A-Za-z0-9._-]*$/.test(distName) || distName.includes('..')) throw new Error('INVALID_DIST_NAME')
+// Sem argumento de CLI: a pasta de build vem de uma lista fixa de nomes conhecidos.
+const DIST_CANDIDATES = ['dist-mentoria-qa-20261018', 'dist-qa-release', 'dist']
+const distName = DIST_CANDIDATES.find((name) => existsSync(resolve(root, name))) || 'dist'
 const dist = resolve(root, distName)
 const assets = existsSync(resolve(dist, 'assets')) ? readdirSync(resolve(dist, 'assets')) : []
 const ok = (condition, description) => ({ id: description, status: condition ? 'PASS' : 'FAIL' })
