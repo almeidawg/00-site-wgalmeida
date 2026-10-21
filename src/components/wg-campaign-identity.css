@@ -1,0 +1,36 @@
+/* Identidade canônica replicada do cabeçalho da landing da mentoria. */
+.wg-campaign-header{background:#FAF9F6;color:#202C3C;border-bottom:1px solid #e6e1db;position:relative;z-index:30;height:84px;box-sizing:border-box}
+.wg-campaign-header__inner{width:min(1200px,calc(100% - 80px));margin-inline:auto;height:100%;min-height:0;display:flex;align-items:center;justify-content:space-between;gap:34px}
+.wg-campaign-header :where(a,button){font-family:Roboto,Inter,Arial,sans-serif;color:inherit;text-decoration:none;min-height:44px}
+.wg-campaign-header :where(a,button):focus-visible{outline:3px solid #F25C26;outline-offset:4px}
+.wg-campaign-brand{display:inline-flex;align-items:center;gap:11px;flex:none}
+.wg-campaign-brand img{width:47px;height:47px;object-fit:contain;display:block}
+.wg-campaign-brand strong{display:block;font-size:13px;line-height:1.22;letter-spacing:.06em;font-weight:700}
+.wg-campaign-brand small{display:block;font-size:9px;letter-spacing:.12em;margin-top:5px;color:#73716f;font-weight:600}
+.wg-campaign-nav{margin-left:auto;display:flex;align-items:center;gap:32px}
+.wg-campaign-nav a{display:inline-flex;align-items:center;font-size:13px;font-weight:500}
+.wg-campaign-nav a:hover{color:#C94A19}
+.wg-campaign-cta{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:13px 19px;border:1px solid #202C3C;background:transparent;color:#202C3C;white-space:nowrap;text-transform:uppercase;font-size:10px;font-weight:700;letter-spacing:.09em;cursor:pointer;transition:background .2s,color .2s}
+.wg-campaign-cta:hover{background:#202C3C;color:#fff}
+.wg-campaign-count{background:#C94A19;color:#fff;border-radius:20px;padding:1px 7px;font-size:11px}
+@media(max-width:900px){.wg-campaign-header__inner{width:calc(100% - 44px);gap:15px}.wg-campaign-nav{gap:16px}.wg-campaign-nav a{font-size:12px}}
+@media(max-width:740px){.wg-campaign-header{height:65px}.wg-campaign-header__inner{height:100%;min-height:0;width:calc(100% - 32px)}.wg-campaign-nav{display:none}.wg-campaign-brand img{width:43px;height:43px}.wg-campaign-brand strong{font-size:11px}.wg-campaign-brand small{font-size:8px}.wg-campaign-cta{font-size:10px;padding:10px 11px;min-width:90px}}
+@media(max-width:740px){.wg-campaign-brand{flex:1;min-width:0}.wg-campaign-brand span{min-width:0}.wg-campaign-cta{flex:none}}
+@media(max-width:390px){.wg-campaign-header__inner{width:calc(100% - 24px);gap:5px}.wg-campaign-brand{gap:6px}.wg-campaign-brand img{width:36px;height:36px;flex:none}.wg-campaign-brand strong{font-size:9px;letter-spacing:.02em;white-space:nowrap}.wg-campaign-brand small{font-size:7px;letter-spacing:.06em;white-space:nowrap}.wg-campaign-cta{font-size:9px;letter-spacing:0;padding:9px 7px;min-width:0}.wg-campaign-count{padding:1px 5px;font-size:10px}}
+/* Tokens e tipografia coerentes com a apresentação da mentoria. */
+.wg360,.wgp{--wg-orange:#F25C26;--wg-orange-aa:#C94A19;--wg-ink:#202C3C;--wg-deep:#182030;--wg-cream:#F5F2ED;--wg-offwhite:#FAF9F6;font-family:Roboto,Inter,Arial,sans-serif;font-weight:400;color:#202C3C}
+.wg360 :where(h1,h2,h3),.wgp :where(h1,h2,h3){font-family:Arial,'Helvetica Neue',sans-serif;letter-spacing:-.04em;font-weight:500}
+.wg360 :where(h1,h2) em,.wgp :where(h1,h2) em{font-family:Georgia,'Times New Roman',serif;font-style:normal;font-weight:400;letter-spacing:-.055em}
+.wg360 :where(button,a,strong,b),.wgp :where(button,a,strong,b){font-weight:600}
+.wg360 :where(.wg360-kicker,.wg360-section-eyebrow,.wg360-category__num,.wg360-item__meta),.wgp :where(.wgp-eyebrow,.wgp-code){font-weight:650}
+.wg360 .wg360-hero,.wgp .wgp-cover__total,.wgp .wgp-sidebar__top{background:#182030}
+.wg360 .wg360-method,.wgp{background:#F5F2ED}
+.wg360 .wg360-hero h1 em,.wg360 .wg360-method h2 em,.wg360 .wg360-catalog h2 em,.wg360 .wg360-expand h2 em,.wg360 .wg360-operations h2 em,.wg360 .wg360-traffic h2 em{color:#F25C26}
+.wg360 .wg360-primary{background:#C94A19;border-color:#C94A19;color:#fff}
+.wg360 .wg360-primary:hover{background:#a53d16}
+.wg360 .wg360-operations,.wg360 .wg360-footer,.wgp .wgp-footer{background:#182030}
+.wg360 .wg360-categories button.active,.wgp .wgp-tabs button.active{background:#202C3C;border-color:#202C3C}
+.wg360 .wg360-category h3,.wgp .wgp-panel h2{font-weight:500}
+.wg360 .wg360-item__body>strong,.wgp .wgp-service h3{font-weight:550}
+.wgp .wgp-action--approve{background:#C94A19;border-color:#C94A19;color:#fff}
+.wgp .wgp-action--approve:hover{background:#a53d16}

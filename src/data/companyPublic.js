@@ -24,6 +24,8 @@ export const COMPANY = {
 
 export const PRODUCT_URLS = {
   site: 'https://wgalmeida.com.br',
+  // Destino da campanha, reservado para habilitacao apenas no release aprovado.
+  mentoria: 'https://mentoria.wgalmeida.com.br',
   wgeasy: 'https://easy.wgalmeida.com.br',
   obraeasy: 'https://obraeasy.wgalmeida.com.br',
   easyrealstate: 'https://easyrealstate.wgalmeida.com.br',
