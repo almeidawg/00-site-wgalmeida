@@ -1,1 +1,4 @@
 *.mp4 filter=lfs diff=lfs merge=lfs -text
+
+# Mentoria: video da landing fica no Git comum (12,9 MB), nao em LFS, para o build do Vercel servir o arquivo real
+public/media/mentoria-construcao/*.mp4 -filter -diff -merge binary

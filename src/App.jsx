@@ -5,6 +5,7 @@ import ProtectedRoute from '@/components/auth/ProtectedRoute'
 import { AuthProvider } from '@/contexts/SupabaseAuthContext'
 import { Loader2 } from 'lucide-react'
 import { PRODUCT_URLS } from '@/data/company'
+import { canonicalForSiteHost, isMentoriaHost, isMentoriaLandingPath } from '@/lib/mentoriaDomain'
 import { ContextProvider } from '@/providers/ContextProvider'
 import { decorateProductUrl, ensureEcosystemContext } from '@/lib/ecosystemContext'
 
@@ -79,6 +80,8 @@ const EasyRealStateLanding = lazy(() => import('@/pages/EasyRealStateLanding'))
 const EasyFoodLanding      = lazy(() => import('@/pages/EasyFoodLanding'))
 const AcessosLanding       = lazy(() => import('@/pages/AcessosLanding'))
 const EventosLanding       = lazy(() => import('@/pages/EventosLanding'))
+const MentoriaConstrucaoLanding = lazy(() => import('@/pages/MentoriaConstrucaoLanding'))
+const MentoriaAbordagens = lazy(() => import('@/pages/MentoriaAbordagens'))
 
 // Redirect component para ObraEasy parceiros (externo)
 function ObraEasyParceiroRedirect() {
@@ -246,6 +249,7 @@ function HomeWithIntro() {
 function App() {
   const location = useLocation()
   const buildTechHostname = new URL(PRODUCT_URLS.buildtech).hostname
+  const isMentoriaDomain = typeof window !== 'undefined' && isMentoriaHost(window.location.hostname)
   const isBuildTechHost = typeof window !== 'undefined'
     && window.location.hostname === buildTechHostname
   const shouldInitAuth = [
@@ -267,7 +271,7 @@ function App() {
       if (normalizedPath.length > 1 && normalizedPath.endsWith('/')) {
         normalizedPath = normalizedPath.slice(0, -1)
       }
-      link.setAttribute('href', `https://wgalmeida.com.br${normalizedPath}`)
+      link.setAttribute('href', canonicalForSiteHost(window.location.hostname, normalizedPath))
     }
   }, [location])
 
@@ -312,7 +316,26 @@ function App() {
   const isStandaloneRoute =
     ['/login', '/admin', '/clientes', '/buildtech/clientes', '/moodboard', '/moodboard/studio'].some((path) =>
       location.pathname.startsWith(path)
-    );
+    ) || location.pathname.startsWith('/mentoria-construcao');
+
+  // Catalogo editorial da mentoria: antigos links de simulacao abrem a nova pauta.
+  if (location.pathname === '/mentoria-construcao/proposta-360' || location.pathname === '/mentoria-construcao/abordagens' || (isMentoriaDomain && location.pathname === '/abordagens')) {
+    return (
+      <Suspense fallback={<LoadingFallback />}>
+        <MentoriaAbordagens />
+      </Suspense>
+    )
+  }
+
+  // Landing de captacao independente: evita Auth/Context e a camada pesada do site.
+  // Isso melhora a experiencia em aparelhos e conexoes nao seguras de preview local.
+  if (location.pathname === '/mentoria-construcao' || (isMentoriaDomain && isMentoriaLandingPath(location.pathname))) {
+    return (
+      <Suspense fallback={<LoadingFallback />}>
+        <MentoriaConstrucaoLanding />
+      </Suspense>
+    )
+  }
 
   return (
     <ContextProvider>
@@ -360,6 +383,7 @@ function App() {
               <Route path="/easyfood" element={<EasyFoodLanding />} />
               <Route path="/acessos" element={<AcessosLanding />} />
               <Route path="/eventos" element={<EventosLanding />} />
+              <Route path="/mentoria-construcao" element={<MentoriaConstrucaoLanding />} />
               <Route
                 path="/easyrealstate"
                 element={<Navigate to="/easy-real-state" replace />}

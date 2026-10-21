@@ -44,3 +44,6 @@ dist/videos/videosobrenos.mp4
 dist/videos/hero/*.mp4
 dist/images/projects/**/*.mp4
 **/*.mp4
+
+# Excecao: video da landing da mentoria precisa ir ao deploy
+!public/media/mentoria-construcao/*.mp4

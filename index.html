@@ -7,8 +7,8 @@
 		// Reduz TBT (Total Blocking Time) significativamente
 		(function() {
 			var host = globalThis.location.hostname || '';
-			var isLocalRuntime = host === 'localhost' || host === '127.0.0.1' || host === '::1' || globalThis.location.protocol === 'file:';
-			if (isLocalRuntime) return;
+			var isLocalRuntime = host === 'localhost' || host === '127.0.0.1' || host === '::1' || /^\d{1,3}(?:\.\d{1,3}){3}$/.test(host) || globalThis.location.protocol === 'file:';
+			if (isLocalRuntime || host.toLowerCase().replace(/\.$/, '') === 'mentoria.wgalmeida.com.br' || /^\/mentoria-construcao(?:\/|$)/.test(globalThis.location.pathname || '/')) return;
 
 			var gtmLoaded = false;
 			var pinterestLoaded = false;
@@ -91,6 +91,35 @@
 						normalizedPath = normalizedPath.slice(0, -1);
 					}
 					canonical.href = 'https://wgalmeida.com.br' + normalizedPath;
+					// Subdominio dedicado ainda em pre-lancamento: nao indexar o
+					// HTML inicial antes de o React montar os metadados da landing.
+					var onMentoriaHost = globalThis.location.hostname.toLowerCase() === 'mentoria.wgalmeida.com.br';
+					if (onMentoriaHost && (normalizedPath === '/' || normalizedPath === '/mentoria-construcao' || normalizedPath === '/abordagens' || normalizedPath === '/mentoria-construcao/abordagens' || normalizedPath === '/mentoria-construcao/proposta-360')) {
+						var isApproaches = normalizedPath === '/abordagens' || normalizedPath === '/mentoria-construcao/abordagens' || normalizedPath === '/mentoria-construcao/proposta-360';
+						canonical.href = 'https://mentoria.wgalmeida.com.br/' + (isApproaches ? 'abordagens' : '');
+						document.title = isApproaches ? 'Temas para aprofundar na mentoria | Grupo WG Almeida' : 'Mentoria Estratégica Individual | Grupo WG Almeida';
+						var robots = document.querySelector('meta[name="robots"]');
+						var googlebot = document.querySelector('meta[name="googlebot"]');
+						if (robots) robots.content = 'noindex, nofollow';
+						if (googlebot) googlebot.content = 'noindex, nofollow';
+					}
+					// Compatibilidade no domínio institucional: manter páginas
+					// da mentoria fora do índice também antes da hidratação React.
+					var mentoriaLegacyPaths = [
+						'/mentoria-construcao',
+						'/mentoria-construcao/abordagens',
+						'/mentoria-construcao/proposta-360',
+						'/mentoria-construcao/proposta-modelo'
+					];
+					if (!onMentoriaHost && mentoriaLegacyPaths.includes(normalizedPath)) {
+						var legacyRobots = document.querySelector('meta[name="robots"]');
+						var legacyGooglebot = document.querySelector('meta[name="googlebot"]');
+						if (legacyRobots) legacyRobots.content = 'noindex, nofollow';
+						if (legacyGooglebot) legacyGooglebot.content = 'noindex, nofollow';
+						if (normalizedPath === '/mentoria-construcao/proposta-360') {
+							canonical.href = 'https://wgalmeida.com.br/mentoria-construcao/abordagens';
+						}
+					}
 				}
 			})();
 		</script>
@@ -140,11 +169,37 @@
 		<!-- Poster hero: o preload foi removido para evitar warning em rotas que nao usam o hero -->
 		<!-- Hero video e servido por Cloudinary/CDN; nao reintroduzir MP4 local em public/videos/hero. -->
 
-		<!-- Fontes -->
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Oswald:wght@300;400;500&family=Poppins:wght@300;400;500&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-		<!-- Fontes self-hosted via @font-face em index.css (Suisse Intl) -->
+		<!-- Fontes: institucional preservado; Mentoria usa Roboto local para evitar contato com terceiros antes do consentimento. -->
+		<script>
+			(function () {
+				var host = (globalThis.location.hostname || '').toLowerCase();
+				var pathname = globalThis.location.pathname || '/';
+				var isMentoria = host === 'mentoria.wgalmeida.com.br' ||
+					pathname === '/mentoria-construcao' ||
+					pathname.indexOf('/mentoria-construcao/') === 0;
+				if (isMentoria) {
+					var localRoboto = document.createElement('style');
+					localRoboto.textContent = "@font-face{font-family:'Roboto';font-style:normal;font-weight:100 900;font-display:swap;src:url('/fonts/roboto-latin-variable.woff2') format('woff2')}";
+					document.head.appendChild(localRoboto);
+					return;
+				}
+				var fontGoogle = document.createElement('link');
+				fontGoogle.rel = 'preconnect';
+				fontGoogle.href = 'https://fonts.googleapis.com';
+				document.head.appendChild(fontGoogle);
+				var fontStatic = document.createElement('link');
+				fontStatic.rel = 'preconnect';
+				fontStatic.href = 'https://fonts.gstatic.com';
+				fontStatic.crossOrigin = 'anonymous';
+				document.head.appendChild(fontStatic);
+				var fontStylesheet = document.createElement('link');
+				fontStylesheet.rel = 'stylesheet';
+				fontStylesheet.href = "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Oswald:wght@300;400;500&family=Poppins:wght@300;400;500&family=Roboto:wght@300;400;500&display=swap";
+				document.head.appendChild(fontStylesheet);
+			})();
+		</script>
+		<!-- Fontes Suisse Intl seguem auto-hospedadas em index.css. -->
+
 
 		<!-- Schema.org JSON-LD -->
 		<script type="application/ld+json">
@@ -273,14 +328,7 @@
 		<!-- FAQPage Schema movido para FAQ.jsx (carrega apenas na rota /faq) -->
 	</head>
 	<body>
-		<!-- Google Tag Manager (noscript) -->
-		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PT885HFQ" title="Google Tag Manager"
-		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-		<!-- End Google Tag Manager (noscript) -->
-
-		<!-- Pinterest Tag (noscript) -->
-		<noscript><img height="1" width="1" style="display:none;" alt="" src="https://ct.pinterest.com/v3/?event=init&tid=2612738255823&noscript=1" /></noscript>
-		<!-- End Pinterest Tag (noscript) -->
+		<!-- Rastreadores noscript removidos: sem JavaScript nao ha verificacao de consentimento. -->
 
 		<div id="root"></div>
 		<script type="module" src="/src/main.jsx"></script>
