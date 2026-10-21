@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { ArrowLeft, ArrowRight, ArrowUpRight, BookOpen, CheckCircle2, Compass, Lightbulb, MessageCircle, MoveUpRight, ShieldCheck } from 'lucide-react'
 import Seo from '@/components/SEO'
 import WGCampaignHeader from '@/components/WGCampaignHeader'
 import { MENTORIA_ABORDAGENS, MENTORIA_ABORDAGENS_TOTAL, MENTORIA_ABORDAGENS_JORNADAS } from '@/data/mentoriaAbordagens'
 import { mentoriaApproachesCanonical, mentoriaLandingPath } from '@/lib/mentoriaDomain'
+import useNoindexBaseMeta from '@/hooks/useNoindexBaseMeta'
 import './mentoria-abordagens.css'
 
 /**
@@ -16,16 +17,7 @@ export default function MentoriaAbordagens() {
   const landingPath = mentoriaLandingPath(host)
   const expanded = new Set(opened)
   const toggle = (id) => setOpened((ids) => ids.includes(id) ? ids.filter((value) => value !== id) : [...ids, id])
-  // Em pré-lançamento as tags base (robots e googlebot) do HTML institucional não podem
-  // ficar em index enquanto o Helmet declara noindex: neutraliza as duas só nesta rota.
-  useEffect(() => {
-    const bases = ['robots', 'googlebot']
-      .map((name) => document.querySelector('meta[name="' + name + '"]:not([data-rh])'))
-      .filter(Boolean)
-    const previous = bases.map((meta) => meta.getAttribute('content'))
-    bases.forEach((meta) => meta.setAttribute('content', 'noindex, nofollow'))
-    return () => bases.forEach((meta, i) => meta.setAttribute('content', previous[i] || 'index, follow'))
-  }, [])
+  useNoindexBaseMeta()
 
   return (
     <>

@@ -3,6 +3,7 @@ import { ArrowDown, ArrowRight, ArrowUpRight, Check, ChevronDown, PlayCircle, Me
 import Seo from '@/components/SEO'
 import { mentoriaLandingCanonical, mentoriaApproachesPath } from '@/lib/mentoriaDomain'
 import { COMPANY } from '@/data/company'
+import useNoindexBaseMeta from '@/hooks/useNoindexBaseMeta'
 import { trackCtaClick, trackEvent, trackWhatsappClick } from '@/lib/analytics'
 import './mentoria-construcao.css'
 
@@ -134,17 +135,7 @@ function SectionLabel({ children, inverse = false }) {
 export default function MentoriaConstrucaoLanding() {
   const { href, priority, onPriority, onContact } = useWhatsapp()
   const [mobileCtaVisible, setMobileCtaVisible] = useState(false)
-  // A entrada HTML institucional define index; esta campanha em pré-lançamento
-  // deve sobrescrever a tag base sem alterar o SEO das demais rotas.
-  useEffect(() => {
-    const bases = ['robots', 'googlebot']
-      .map((name) => document.querySelector('meta[name="' + name + '"]:not([data-rh])'))
-      .filter(Boolean)
-    if (!bases.length) return undefined
-    const previous = bases.map((meta) => meta.getAttribute('content'))
-    bases.forEach((meta) => meta.setAttribute('content', 'noindex, nofollow'))
-    return () => bases.forEach((meta, i) => meta.setAttribute('content', previous[i] || 'index, follow'))
-  }, [])
+  useNoindexBaseMeta()
   useEffect(() => {
     const observer = () => setMobileCtaVisible(window.scrollY > 350)
     window.addEventListener('scroll', observer, { passive: true })
