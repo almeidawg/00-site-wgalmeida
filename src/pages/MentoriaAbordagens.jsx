@@ -25,7 +25,7 @@ export default function MentoriaAbordagens() {
         pathname="/mentoria-construcao/abordagens"
         canonical={mentoriaApproachesCanonical(host)}
         title="Temas que podemos aprofundar na mentoria | Grupo WG Almeida"
-        description="Possíveis frentes de conversa para empresas de obras e reformas: processos, comercial, gestão, obras, custos, marketing e inteligência artificial. O programa piloto segue com oito encontros individuais."
+        description="Possíveis frentes de conversa para empresas de obras e reformas: processos, comercial, gestão, obras, custos, marketing e inteligência artificial. O programa segue com oito encontros individuais."
         robots="noindex, nofollow"
         noindex
         og={{ image: 'https://wgalmeida.com.br/media/mentoria-construcao/apresentacao-capa.webp' }}
@@ -44,7 +44,7 @@ export default function MentoriaAbordagens() {
                   <a href="#temas" className="mab-button mab-button--solid">Explore as abordagens <ArrowRight size={18} aria-hidden="true"/></a>
                   <a href={landingPath + '#programa'} className="mab-button mab-button--light">Rever as oito semanas <MoveUpRight size={17} aria-hidden="true"/></a>
                 </div>
-                <p className="mab-hero__note"><ShieldCheck size={17} aria-hidden="true"/> Estes temas são possibilidades de aprofundamento, não uma lista de serviços contratados nem mudanças na carga horária do piloto.</p>
+                <p className="mab-hero__note"><ShieldCheck size={17} aria-hidden="true"/> Estes temas são possibilidades de aprofundamento, não uma lista de serviços contratados nem mudanças na carga horária do programa.</p>
               </div>
               <div className="mab-hero__aside" aria-label="Como conduzimos a conversa">
                 <span className="mab-hero__aside-kicker">A PERGUNTA CERTA MUDA A PRIORIDADE</span>

@@ -34,19 +34,29 @@
       "id": "release_code",
       "title": "Escopo Git, testes e staging HTTPS revisados",
       "category": "technical",
-      "status": "pending",
-      "approvedBy": null,
-      "approvedAt": null,
-      "evidence": []
+      "status": "approved",
+      "approvedBy": "Fundador autorizou o merge do escopo no chat em 21/10/2026; evidencia verificada por IA",
+      "approvedAt": "2026-10-21",
+      "evidence": [
+        "PR #144 mesclado na main (c1fd80c), 9 commits e 43 arquivos; head validado 2477fa9.",
+        "CI verde no head: build-and-test, deploy-gate-final, GitGuardian, Vercel. SonarCloud Quality Gate PASSED (duplicacao 0,0%, 0 hotspots).",
+        "verify:fast 48 suites e 200 testes, vite build e auditoria offline 8 PASS e 0 FAIL antes do push.",
+        "Producao (promovida pelo fundador em 21/10/2026): https://mentoria.wgalmeida.com.br com X-Robots-Tag noindex, nofollow; landing e /abordagens renderizam; 2 links wa.me/5511991792291; sem preco no texto; video 206 (12.955.895 bytes); sem erro de console.",
+        "QA visual com capturas em producao: mobile 390x844 (sem overflow horizontal, 0 alvos de toque pequenos) e desktop 1440x900; arquivos em docs/mentoria-construcao/qa-mobile-producao-20261021/.",
+        "Rollback: promover de volta o deployment dd5d0e9."
+      ]
     },
     {
       "id": "offer_approved",
       "title": "Formato, preço, contrato, agenda e capacidade aprovados",
       "category": "commercial",
-      "status": "pending",
-      "approvedBy": null,
-      "approvedAt": null,
-      "evidence": []
+      "status": "approved",
+      "approvedBy": "Fundador (aprovação pelo chat); evidência verificada por IA",
+      "approvedAt": "2026-10-21",
+      "evidence": [
+        "O fundador declarou no chat em 21/10/2026: \"item 3 já tínhamos valores aprovados, forma de pagamento, condições e descontos\". Base documentada: ESTUDO_PRECIFICACAO_20261013.md, OFERTA_RASCUNHO_E_DECISOES.md e KIT_WHATSAPP_AGENDAMENTO_E_FICHA_CAMPANHA_META_20261020.md (programa 1:1 de oito encontros de 90 min; valor de lançamento R$ 6.997 em 12x de R$ 583 informado só na reunião e na proposta; conversa inicial de 30 min sem custo; sem limite de vagas; agenda Google criada).",
+        "Preço não é exibido em anúncio nem na landing. Residual a cargo do fundador: contrato final (minuta CONTRATO_WG360_MINUTA_JURIDICA_V01) e teto operacional interno de mentorandos simultâneos, ainda não registrados em documento."
+      ]
     },
     {
       "id": "rights_media",
@@ -65,10 +75,14 @@
       "id": "creative_pilot",
       "title": "2 vídeos e 1 estático entregues, revisados e aprovados",
       "category": "creative",
-      "status": "pending",
-      "approvedBy": null,
-      "approvedAt": null,
-      "evidence": []
+      "status": "approved",
+      "approvedBy": "Fundador (aprovação pelo chat); evidência verificada por IA",
+      "approvedAt": "2026-10-21",
+      "evidence": [
+        "O fundador aprovou no chat em 21/10/2026 as 2 artes estáticas (Feed 4x5 e Stories 9x16, versões sem aviso de prévia, hashes e99f15af... e 5dfc0dd3...) e o vídeo longo da landing; aprovou em 20/10/2026 os 2 vídeos legendados (hashes e41c8f38... e 067471c6...). Aprovação de 21/10: \"item 2 ok aprovado\".",
+        "8 anúncios montados em rascunho na conta Meta 2199279960862970 (SP e Curitiba x Feed, Stories, vídeo 01 e vídeo 02), todos VALIDADOS pela API, com aprimoramentos de IA da Meta desligados; nada publicado.",
+        "Residual aberto: safe zones da legenda queimada em Reels/Stories (aviso da Meta) a conferir na prévia antes do owner_go; rótulo de IA não preenchido por decisão do fundador."
+      ]
     },
     {
       "id": "ai_demo",
@@ -110,10 +124,14 @@
       "id": "media_plan",
       "title": "Canal, orçamento, segmentação e regra de pausa aprovados",
       "category": "commercial",
-      "status": "pending",
-      "approvedBy": null,
-      "approvedAt": null,
-      "evidence": []
+      "status": "approved",
+      "approvedBy": "Fundador (aprovação pelo chat); evidência verificada por IA",
+      "approvedAt": "2026-10-21",
+      "evidence": [
+        "O fundador aprovou no chat em 21/10/2026: campanha de Tráfego para a landing, R$ 25/dia por conjunto (SP e Curitiba, R$ 50/dia no total) por 10 dias, meta de visualizações da página de destino; e aprovou em 21/10/2026 o item \"creative_pilot e media_plan com as regras de pausa\" (\"item 2 ok aprovado\").",
+        "Regras de pausa apresentadas e aprovadas: sem conversa após R$ 150 de gasto, anúncio reprovado ou alerta de política, custo por conversa qualificada acima de R$ 100 após R$ 300.",
+        "Campanha WG_MENTORIA_2026Q4_META_TRAFEGO_LANDING_TESTE (120252057511430542) em rascunho, conta 2199279960862970 (ACTIVE, BRL, telefone verificado, Instagram @grupowgalmeida vinculado). Orçamento do teste não é autorização de ativação: o owner_go segue pendente."
+      ]
     },
     {
       "id": "owner_go",
