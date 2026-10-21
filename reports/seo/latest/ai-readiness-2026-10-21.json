@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-21",
+  "url": "https://wgalmeida.com.br",
+  "score": 0,
+  "checks": [
+    {
+      "name": "Sitemap XML",
+      "pass": false,
+      "detail": "Erro: fetch failed",
+      "weight": 15
+    },
+    {
+      "name": "robots.txt",
+      "pass": false,
+      "detail": "Erro: fetch failed",
+      "weight": 10
+    }
+  ],
+  "alerts": [
+    {
+      "level": "ALTA",
+      "check": "Sitemap XML",
+      "detail": "Erro: fetch failed"
+    },
+    {
+      "level": "MEDIA",
+      "check": "robots.txt",
+      "detail": "Erro: fetch failed"
+    }
+  ],
+  "fetchError": "fetch failed"
+}
