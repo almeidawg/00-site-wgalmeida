@@ -1,4 +1,5 @@
 import { applyRateLimitHeaders, checkRateLimit, getClientIp, isOriginAllowed } from './_requestGuard.js'
+import handleSiteEvent, { ehEventoDeSite } from './_siteEvent.js'
 
 const MAX_BODY_BYTES = 8 * 1024
 const RATE_LIMIT = {
@@ -48,6 +49,8 @@ const parseBody = async (req) => {
 }
 
 export default async function handler(req, res) {
+  if (ehEventoDeSite(req)) return handleSiteEvent(req, res)
+
   res.setHeader('Vary', 'Origin')
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
