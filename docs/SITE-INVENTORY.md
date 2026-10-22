@@ -291,7 +291,7 @@ Dominio principal:
 
 Links institucionais e sociais localizados:
 
-- Instagram: `https://www.instagram.com/wgalmeida.arq`
+- Instagram: `https://www.instagram.com/grupowgalmeida`
 - Facebook: `https://www.facebook.com/wgalmeidaarquitetura`
 - LinkedIn: `https://www.linkedin.com/company/wgalmeida`
 - WhatsApp institucional usado em paginas: `https://wa.me/5511984650002`

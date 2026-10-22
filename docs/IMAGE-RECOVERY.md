@@ -232,7 +232,7 @@ Leitura pratica:
 
 Perfis encontrados no codigo:
 
-- `https://www.instagram.com/wgalmeida.arq`
+- `https://www.instagram.com/grupowgalmeida`
 - `https://www.instagram.com/grupowgalmeida`
 - placeholder antigo `https://www.instagram.com/wgalmeida`
 
