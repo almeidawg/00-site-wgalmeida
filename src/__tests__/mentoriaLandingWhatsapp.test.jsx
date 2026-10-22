@@ -23,7 +23,7 @@ describe('Landing da mentoria: apresentação sem "piloto" e WhatsApp direto', (
     expect(visible).not.toMatch(/piloto/i)
   })
 
-  it('oferece um CTA direto de WhatsApp no painel, sem exigir prioridade, preservando a origem (UTM)', () => {
+  it('oferece um CTA direto de WhatsApp no painel, sem exigir prioridade, com a origem em linguagem natural, sem códigos', () => {
     window.history.replaceState({}, '', '/?utm_source=meta&utm_medium=paid_social&utm_campaign=mentoria_individual_piloto_2026_10&utm_content=criativo01_operacao_v3')
     const { container } = render(<MentoriaConstrucaoLanding />)
     const direct = container.querySelector('.mcl-convert__direct a')
@@ -34,9 +34,8 @@ describe('Landing da mentoria: apresentação sem "piloto" e WhatsApp direto', (
     expect(direct.getAttribute('href')).toContain('wa.me/')
     expect(text).toContain('Mentoria Estratégica Individual do Grupo WG Almeida')
     expect(text).not.toContain('Minha prioridade')
-    expect(text).toContain('content=criativo01_operacao_v3')
-    expect(text).toContain('campaign=mentoria_individual_2026_10')
-    expect(text).not.toMatch(/piloto/i)
+    expect(text).toContain('Cheguei por um anúncio no Facebook ou Instagram (vídeo sobre organizar a operação).')
+    expect(text).not.toMatch(/piloto|utm|source=|medium=|campaign=|content=|criativo01|_v3/i)
     fireEvent.click(direct)
     expect(trackEvent).toHaveBeenCalledWith('mentoria_lead_intent', expect.objectContaining({ source: 'qualificacao_direto' }))
   })

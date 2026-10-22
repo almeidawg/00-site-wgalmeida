@@ -6,6 +6,7 @@ import { COMPANY } from '@/data/company'
 import useNoindexBaseMeta from '@/hooks/useNoindexBaseMeta'
 import { trackCtaClick, trackEvent, trackWhatsappClick } from '@/lib/analytics'
 import { trackMetaEvent } from '@/lib/metaPixel'
+import { describeMentoriaOrigem } from '@/lib/mentoriaOrigem'
 import MentoriaConsentBanner from '@/components/MentoriaConsentBanner'
 import './mentoria-construcao.css'
 
@@ -57,34 +58,22 @@ const faqs = [
   { question: 'Como funciona o investimento?', answer: 'Depois de entender o contexto, apresentamos o escopo aplicável com etapas, responsabilidades, prazos e valores. A empresa decide o que contratar antes de qualquer execução.' },
 ]
 
-function resolveCampaign() {
-  if (typeof window === 'undefined') return ''
-  const url = new URLSearchParams(window.location.search)
-  const value = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'].map((name) => {
-    const raw = url.get(name) || ''
-    // O termo interno "piloto" nao aparece na mensagem ao lead; o UTM original segue intacto no analytics.
-    const shown = raw.replace(/[_-]?piloto/gi, '')
-    return /^[a-z0-9_.-]{1,80}$/i.test(raw) ? name.slice(4) + '=' + shown : ''
-  }).filter(Boolean)
-  return value.length ? value.join(' | ') : ''
-}
-
 function useWhatsapp() {
   const [priority, setPriority] = useState('entender')
   const chosen = priorities.find((p) => p.id === priority) || priorities[3]
-  const campaign = resolveCampaign()
+  const origin = typeof window === 'undefined' ? '' : describeMentoriaOrigem(window.location.search)
   const message = [
     'Olá, William! Vim pela apresentação da Mentoria Estratégica Individual do Grupo WG Almeida.',
     'Minha prioridade é ' + chosen.message + '.',
     'Gostaria de conversar para entender os próximos passos.',
-    campaign ? 'Origem da apresentação: ' + campaign + '.' : '',
+    origin,
   ].filter(Boolean).join(' ')
   const destination = COMPANY.ceoWhatsapp || COMPANY.whatsapp
   const href = destination + '?text=' + encodeURIComponent(message)
   const directMessage = [
     'Olá, William! Vim pela apresentação da Mentoria Estratégica Individual do Grupo WG Almeida.',
     'Gostaria de conversar para entender os próximos passos.',
-    campaign ? 'Origem da apresentação: ' + campaign + '.' : '',
+    origin,
   ].filter(Boolean).join(' ')
   const directHref = destination + '?text=' + encodeURIComponent(directMessage)
 
