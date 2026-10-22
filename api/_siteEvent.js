@@ -55,10 +55,7 @@ export function ehEventoDeSite(req) {
 }
 
 export default async function handleSiteEvent(req, res) {
-  res.setHeader('Vary', 'Origin')
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
-  if (req.headers?.origin && isOriginAllowed(req)) res.setHeader('Access-Control-Allow-Origin', req.headers.origin)
+  // Chamado da mesma origem da pagina: sem cabecalhos CORS. Origem de outro site e ignorada abaixo.
   if (req.method === 'OPTIONS') return fim(res)
   if (req.method !== 'POST') return fim(res, 405)
   if (req.headers?.origin && !isOriginAllowed(req)) return fim(res)

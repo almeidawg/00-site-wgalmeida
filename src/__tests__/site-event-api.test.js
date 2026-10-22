@@ -79,7 +79,7 @@ describe('api/site-event: handler', () => {
     expect(a.statusCode).toBe(204)
     expect(b.statusCode).toBe(405)
     expect(c.statusCode).toBe(204)
-    expect(c.headers['Access-Control-Allow-Origin']).toBeUndefined()
+    expect(Object.keys(c.headers).some((h) => h.startsWith('Access-Control'))).toBe(false)
     expect(fetch).not.toHaveBeenCalled()
   })
 
