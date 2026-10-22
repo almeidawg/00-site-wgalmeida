@@ -7,6 +7,7 @@ import useNoindexBaseMeta from '@/hooks/useNoindexBaseMeta'
 import { trackCtaClick, trackEvent, trackWhatsappClick } from '@/lib/analytics'
 import { trackMetaEvent } from '@/lib/metaPixel'
 import { describeMentoriaOrigem } from '@/lib/mentoriaOrigem'
+import { marcosAtingidos, registrarMetricaSite } from '@/lib/siteMetrics'
 import MentoriaConsentBanner from '@/components/MentoriaConsentBanner'
 import './mentoria-construcao.css'
 
@@ -78,6 +79,7 @@ function useWhatsapp() {
   const directHref = destination + '?text=' + encodeURIComponent(directMessage)
 
   const onContact = (position) => {
+    registrarMetricaSite('whatsapp_click')
     trackWhatsappClick({ context: 'mentoria_construcao_' + position, target: 'fundador' })
     trackCtaClick({ ctaId: 'mentoria_whatsapp_' + position, ctaLabel: 'Conversar sobre minha empresa', ctaContext: 'mentoria_construcao', ctaDestination: 'whatsapp' })
     trackEvent('mentoria_lead_intent', { context: 'mentoria_construcao', action: chosen.id, source: position })
@@ -100,9 +102,18 @@ function FilmPlayer() {
   const [activated, setActivated] = useState(false)
   const [playing, setPlaying] = useState(false)
   const videoRef = useRef(null)
+  const marcos = useRef([])
+  const onTimeUpdate = (event) => {
+    const video = event.currentTarget
+    for (const marco of marcosAtingidos(video.currentTime, video.duration, marcos.current)) {
+      marcos.current.push(marco)
+      registrarMetricaSite('video_' + marco)
+    }
+  }
   const start = () => {
     setActivated(true)
     setPlaying(true)
+    registrarMetricaSite('video_play')
     trackEvent('mentoria_video_start', { context: 'mentoria_construcao', action: 'play', source: 'apresentacao' })
     trackMetaEvent('ViewContent', { content_name: 'mentoria_apresentacao', content_category: 'video' })
   }
@@ -120,7 +131,7 @@ function FilmPlayer() {
           <span className="mcl-film__time">APRESENTAÇÃO COMPLETA · 2 MIN 26 S</span>
         </button>
       ) : (
-        <video ref={videoRef} src={FILM} controls playsInline preload="metadata" poster={POSTER} aria-label="Vídeo de apresentação da mentoria do Grupo WG Almeida" onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => {setPlaying(false); trackEvent('mentoria_video_complete', { context: 'mentoria_construcao', action: 'finished' })}}>
+        <video ref={videoRef} src={FILM} controls playsInline preload="metadata" poster={POSTER} aria-label="Vídeo de apresentação da mentoria do Grupo WG Almeida" onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onTimeUpdate={onTimeUpdate} onEnded={() => {setPlaying(false); registrarMetricaSite('video_complete'); trackEvent('mentoria_video_complete', { context: 'mentoria_construcao', action: 'finished' })}}>
           <track kind="captions" src={ROOT + '/apresentacao-pt-BR.vtt'} srcLang="pt-BR" label="Português (Brasil)" default />
         </video>
       )}
@@ -137,6 +148,7 @@ export default function MentoriaConstrucaoLanding() {
   const { href, directHref, priority, onPriority, onContact } = useWhatsapp()
   const [mobileCtaVisible, setMobileCtaVisible] = useState(false)
   useNoindexBaseMeta()
+  useEffect(() => { registrarMetricaSite('page_view') }, [])
   useEffect(() => {
     const observer = () => setMobileCtaVisible(window.scrollY > 350)
     window.addEventListener('scroll', observer, { passive: true })

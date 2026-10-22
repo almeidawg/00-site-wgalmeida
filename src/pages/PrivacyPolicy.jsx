@@ -60,7 +60,12 @@ export default function PrivacyPolicy() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold text-slate-950">8. Contato</h2>
+            <h2 className="text-2xl font-semibold text-slate-950">8. Medição anônima de desempenho</h2>
+            <p className="mt-3">Na página da Mentoria Estratégica Individual também contamos, de forma anônima e agregada, quantas visitas a página recebe, quantas pessoas iniciam o vídeo, até que ponto o vídeo é assistido (25%, 50%, 75% e 100%) e quantas clicam no botão de WhatsApp, por dia, por canal de origem (por exemplo, anúncio, Instagram ou acesso direto) e por tipo de aparelho. Essa contagem não usa cookies, não guarda seu endereço IP nem dados do seu navegador, não cria identificador de pessoa e só soma números por dia, de modo que não é possível saber quem foi o visitante. Usamos esses números para entender se a apresentação funciona e melhorá-la.</p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold text-slate-950">9. Contato</h2>
             <p className="mt-3">Envie sua solicitação para <ContactLink /> com o assunto “Privacidade”. Podemos pedir informações adicionais apenas para confirmar sua identidade e proteger seus dados.</p>
           </section>
         </div>
