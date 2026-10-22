@@ -60,6 +60,12 @@ describe('/api/contact Supabase admin API key headers', () => {
     const headers = await runContact('', { previewKey: 'sb_secret_preview_alias_synthetic' })
     expect(headers.apikey).toBe('sb_secret_preview_alias_synthetic')
     expect(headers.Authorization).toBeUndefined()
+    expect(headers['User-Agent']).toBe('wg-almeida-preview-backend/1.0')
+  })
+
+  it('does not alter outgoing User-Agent in Production', async () => {
+    const headers = await runContact('sb_secret_synthetic_test_only', { vercelEnv: 'production' })
+    expect(headers['User-Agent']).toBeUndefined()
   })
 
   it('never uses the preview alias in Production', async () => {

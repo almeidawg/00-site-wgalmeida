@@ -162,6 +162,9 @@ const persistContactOnce = async (fingerprint, payload, requestId) => {
           ? {}
           : { Authorization: `Bearer ${SUPABASE_SERVICE_KEY}` }),
         'Content-Type': 'application/json',
+        ...(process.env.VERCEL_ENV === 'preview'
+          ? { 'User-Agent': 'wg-almeida-preview-backend/1.0' }
+          : {}),
       },
       body: JSON.stringify({
         p_fingerprint: fingerprint,
