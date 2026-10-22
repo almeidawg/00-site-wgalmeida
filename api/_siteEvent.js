@@ -50,11 +50,8 @@ export function normalizarEvento(corpo) {
 export function ehEventoDeSite(req) {
   const direto = req.query?.kind
   if (direto) return direto === 'site-event'
-  try {
-    return new URL(req.url || '', 'http://local').searchParams.get('kind') === 'site-event'
-  } catch {
-    return false
-  }
+  const consulta = String(req.url || '').split('?')[1] || ''
+  return new URLSearchParams(consulta).get('kind') === 'site-event'
 }
 
 export default async function handleSiteEvent(req, res) {
