@@ -187,6 +187,28 @@ const persistContactOnce = async (fingerprint, payload, requestId) => {
       const error = new Error('contact_persist_failed')
       error.statusCode = 502
       error.upstreamStatus = response.status
+      if (process.env.VERCEL_ENV === 'preview') {
+        // Classify only; never log upstream text because it may contain credentials.
+        let upstreamText = ''
+        try {
+          if (typeof response.text === 'function') {
+            upstreamText = String(await response.text()).slice(0, 1024).toLowerCase()
+          } else if (typeof response.json === 'function') {
+            upstreamText = JSON.stringify(await response.json()).slice(0, 1024).toLowerCase()
+          }
+        } catch { /* a missing or malformed body must not affect the API response */ }
+        error.upstreamCategory = /invalid[ _-]?api[ _-]?key|api[ _-]?key[ _-]?invalid|invalid[ _-]?apikey/.test(upstreamText)
+          ? 'invalid_api_key'
+          : /missing[ _-]?(api[ _-]?key|authorization)|no[ _-]?api[ _-]?key/.test(upstreamText)
+            ? 'missing_api_key'
+            : /browser|user[ _-]?agent/.test(upstreamText)
+              ? 'browser_rejected'
+              : /invalid[ _-]?jwt|jwt[ _-]?expired|invalid[ _-]?token/.test(upstreamText)
+                ? 'invalid_jwt'
+                : /permission denied|insufficient privilege/.test(upstreamText)
+                  ? 'permission_denied'
+                  : 'unclassified'
+      }
       throw error
     }
     const savedPayload = await response.json()
@@ -366,7 +388,8 @@ export default async function handler(req, res) {
       return respondWithConversion(413, { error: 'Mensagem muito grande.' }, { reason: 'payload_too_large' })
     }
     if (error.statusCode === 502) {
-      console.error('contact api upstream persist error:', error.upstreamStatus || 'unknown')
+      console.error('contact api upstream persist error:', error.upstreamStatus || 'unknown',
+        ...(process.env.VERCEL_ENV === 'preview' ? [error.upstreamCategory || 'unclassified'] : []))
       return respondWithConversion(502, { error: 'Falha ao registrar contato.' }, { reason: 'persist_failed' })
     }
     console.error('contact api error:', error)

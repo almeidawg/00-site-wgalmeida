@@ -168,6 +168,42 @@ describe('/api/contact Turnstile mode', () => {
     expect(global.fetch).toHaveBeenCalledTimes(1);
   });
 
+  it('classifica 401 em Preview sem registrar o corpo ou qualquer segredo', async () => {
+    vi.stubEnv('VERCEL_ENV', 'preview');
+    const log = vi.spyOn(console, 'error').mockImplementation(() => {});
+    global.fetch = vi.fn(async () => ({
+      ok: false,
+      status: 401,
+      text: async () => 'Invalid API key: SENSITIVE_SYNTHETIC_MARKER',
+    }));
+    const handler = await loadHandler();
+    const res = makeRes();
+
+    await handler(makeReq({ ...validBody, email: 'preview-auth-fail@example.com' }), res);
+
+    expect(res.statusCode).toBe(502);
+    expect(log).toHaveBeenCalledWith('contact api upstream persist error:', 401, 'invalid_api_key');
+    expect(JSON.stringify(log.mock.calls)).not.toContain('SENSITIVE_SYNTHETIC_MARKER');
+  });
+
+  it('mantem Production sem detalhes de resposta upstream nos logs', async () => {
+    vi.stubEnv('VERCEL_ENV', 'production');
+    const log = vi.spyOn(console, 'error').mockImplementation(() => {});
+    global.fetch = vi.fn(async () => ({
+      ok: false,
+      status: 401,
+      text: async () => 'Invalid API key: SENSITIVE_SYNTHETIC_MARKER',
+    }));
+    const handler = await loadHandler();
+    const res = makeRes();
+
+    await handler(makeReq({ ...validBody, email: 'prod-auth-fail@example.com' }), res);
+
+    expect(res.statusCode).toBe(502);
+    expect(log).toHaveBeenCalledWith('contact api upstream persist error:', 401);
+    expect(JSON.stringify(log.mock.calls)).not.toContain('SENSITIVE_SYNTHETIC_MARKER');
+  });
+
   it('rejeita Turnstile invalido com 403 antes de persistir contato', async () => {
     vi.stubEnv('TURNSTILE_SECRET_KEY', 'turnstile-secret-test');
     global.fetch = vi.fn(async (url) => {
