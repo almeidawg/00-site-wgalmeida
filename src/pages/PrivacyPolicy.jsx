@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import SEO from '@/components/SEO'
 import { COMPANY } from '@/data/company'
 
-const UPDATED_AT = '10 de agosto de 2026'
+const UPDATED_AT = '22 de outubro de 2026'
 
 function ContactLink() {
   return <a className="text-wg-orange underline underline-offset-4" href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>
@@ -55,7 +55,12 @@ export default function PrivacyPolicy() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold text-slate-950">7. Contato</h2>
+            <h2 className="text-2xl font-semibold text-slate-950">7. Medição de anúncios (Pixel da Meta)</h2>
+            <p className="mt-3">Na página da Mentoria Estratégica Individual usamos o Pixel da Meta para medir se os anúncios dessa apresentação geram interesse, registrando visualização da página, início do vídeo e clique no botão de WhatsApp. O pixel só é carregado depois que você aceita no aviso exibido na página; se recusar, nada é enviado. Não enviamos ao pixel nome, telefone, e-mail nem o conteúdo de mensagens. Você pode mudar de ideia limpando os dados do site no seu navegador, o que faz o aviso aparecer novamente.</p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold text-slate-950">8. Contato</h2>
             <p className="mt-3">Envie sua solicitação para <ContactLink /> com o assunto “Privacidade”. Podemos pedir informações adicionais apenas para confirmar sua identidade e proteger seus dados.</p>
           </section>
         </div>

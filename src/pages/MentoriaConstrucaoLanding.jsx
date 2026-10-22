@@ -5,6 +5,8 @@ import { mentoriaLandingCanonical, mentoriaApproachesPath } from '@/lib/mentoria
 import { COMPANY } from '@/data/company'
 import useNoindexBaseMeta from '@/hooks/useNoindexBaseMeta'
 import { trackCtaClick, trackEvent, trackWhatsappClick } from '@/lib/analytics'
+import { trackMetaEvent } from '@/lib/metaPixel'
+import MentoriaConsentBanner from '@/components/MentoriaConsentBanner'
 import './mentoria-construcao.css'
 
 const ROOT = '/media/mentoria-construcao'
@@ -90,6 +92,7 @@ function useWhatsapp() {
     trackWhatsappClick({ context: 'mentoria_construcao_' + position, target: 'fundador' })
     trackCtaClick({ ctaId: 'mentoria_whatsapp_' + position, ctaLabel: 'Conversar sobre minha empresa', ctaContext: 'mentoria_construcao', ctaDestination: 'whatsapp' })
     trackEvent('mentoria_lead_intent', { context: 'mentoria_construcao', action: chosen.id, source: position })
+    trackMetaEvent('Contact', { content_name: 'mentoria_whatsapp', content_category: position })
   }
   const onPriority = (id) => {
     setPriority(id)
@@ -112,6 +115,7 @@ function FilmPlayer() {
     setActivated(true)
     setPlaying(true)
     trackEvent('mentoria_video_start', { context: 'mentoria_construcao', action: 'play', source: 'apresentacao' })
+    trackMetaEvent('ViewContent', { content_name: 'mentoria_apresentacao', content_category: 'video' })
   }
   useEffect(() => {
     if (!activated || !videoRef.current) return
@@ -152,6 +156,7 @@ export default function MentoriaConstrucaoLanding() {
   }, [])
   return (
     <>
+      <MentoriaConsentBanner />
       <Seo
         pathname="/mentoria-construcao"
         canonical={mentoriaLandingCanonical(typeof window === 'undefined' ? '' : window.location.hostname)}
