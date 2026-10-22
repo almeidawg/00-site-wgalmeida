@@ -20,8 +20,14 @@ export function isMentoriaSurface(win = window) {
     || pathname.startsWith(MENTORIA_LEGACY_PATH + '/')
 }
 
-const newEventId = (win) =>
-  win.crypto?.randomUUID?.() || 'ev_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 10)
+// eventID so serve para deduplicar com o CAPI: basta ser unico, nao imprevisivel.
+let eventCounter = 0
+function newEventId(win) {
+  const cryptoApi = win.crypto
+  if (cryptoApi?.randomUUID) return cryptoApi.randomUUID()
+  eventCounter += 1
+  return 'ev_' + Date.now().toString(36) + '_' + eventCounter
+}
 
 function installFbq(win, doc) {
   if (win.fbq) return

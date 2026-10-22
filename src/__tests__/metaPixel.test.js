@@ -74,6 +74,17 @@ describe('pixel da Meta da mentoria: com ID e consentimento', () => {
     expect(queued(win).filter((c) => c[1] === 'Contact').pop()[2]).toEqual({})
   })
 
+  it('gera eventID unico para cada evento, com ou sem crypto.randomUUID', () => {
+    for (const withCrypto of [false, true]) {
+      const { win, doc } = fakeEnv({ consent: 'granted' })
+      if (withCrypto) { let n = 0; win.crypto = { randomUUID: () => 'uuid-' + (n += 1) } }
+      loadMetaPixel({ pixelId: PIXEL, win, doc })
+      const ids = [trackMetaEvent('Contact', {}, { win }), trackMetaEvent('Contact', {}, { win }), trackMetaEvent('ViewContent', {}, { win })]
+      expect(new Set(ids).size).toBe(3)
+      ids.forEach((id) => expect(id).toMatch(/^(ev_|uuid-)/))
+    }
+  })
+
   it('nao envia evento antes de carregar nem depois de o consentimento ser revogado', () => {
     const env = fakeEnv({ consent: 'granted' })
     expect(trackMetaEvent('Contact', {}, { win: env.win })).toBeNull()
