@@ -3,7 +3,7 @@ import { applyRateLimitHeaders, getClientIp } from './_requestGuard.js'
 import { emitConversionEvent, normalizeConversionContext } from './_conversionObservability.js'
 
 const SUPABASE_ORIGIN = 'https://ahlqzzkxuutwoepirpzr.supabase.co'
-const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
+const SUPABASE_SERVICE_KEY = (process.env.SUPABASE_SERVICE_ROLE_KEY || (process.env.VERCEL_ENV === 'preview' ? process.env.SUPABASE_SERVICE_ROLE_KEY_2 : ''))
 const sanitizeEnvValue = (value) => String(value || '').replace(/^\uFEFF+/, '').trim()
 const TURNSTILE_SECRET_KEY = sanitizeEnvValue(process.env.TURNSTILE_SECRET_KEY)
 const CONTACT_TURNSTILE_REQUIRED = process.env.CONTACT_TURNSTILE_REQUIRED === 'true'
@@ -157,7 +157,10 @@ const persistContactOnce = async (fingerprint, payload, requestId) => {
       method: 'POST',
       headers: {
         apikey: SUPABASE_SERVICE_KEY,
-        Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
+        // Modern sb_secret_ keys are not JWTs; sending them as Bearer causes Invalid JWT.
+        ...(SUPABASE_SERVICE_KEY.startsWith('sb_secret_')
+          ? {}
+          : { Authorization: `Bearer ${SUPABASE_SERVICE_KEY}` }),
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
