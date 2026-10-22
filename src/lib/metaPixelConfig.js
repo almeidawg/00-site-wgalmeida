@@ -3,4 +3,4 @@
  * O ID de pixel e publico (aparece no codigo da pagina). Vazio = pixel desligado:
  * nenhum script de terceiro e carregado e o banner de consentimento nao aparece.
  */
-export const META_PIXEL_ID = ''
+export const META_PIXEL_ID = '1586364602737058'
