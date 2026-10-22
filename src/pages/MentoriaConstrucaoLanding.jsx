@@ -113,7 +113,6 @@ function FilmPlayer() {
   const start = () => {
     setActivated(true)
     setPlaying(true)
-    registrarMetricaSite('video_play')
     trackEvent('mentoria_video_start', { context: 'mentoria_construcao', action: 'play', source: 'apresentacao' })
     trackMetaEvent('ViewContent', { content_name: 'mentoria_apresentacao', content_category: 'video' })
   }
@@ -131,7 +130,7 @@ function FilmPlayer() {
           <span className="mcl-film__time">APRESENTAÇÃO COMPLETA · 2 MIN 26 S</span>
         </button>
       ) : (
-        <video ref={videoRef} src={FILM} controls playsInline preload="metadata" poster={POSTER} aria-label="Vídeo de apresentação da mentoria do Grupo WG Almeida" onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onTimeUpdate={onTimeUpdate} onEnded={() => {setPlaying(false); registrarMetricaSite('video_complete'); trackEvent('mentoria_video_complete', { context: 'mentoria_construcao', action: 'finished' })}}>
+        <video ref={videoRef} src={FILM} controls playsInline preload="metadata" poster={POSTER} aria-label="Vídeo de apresentação da mentoria do Grupo WG Almeida" onPlay={() => setPlaying(true)} onPlaying={() => registrarMetricaSite('video_play')} onPause={() => setPlaying(false)} onTimeUpdate={onTimeUpdate} onEnded={() => {setPlaying(false); registrarMetricaSite('video_complete'); trackEvent('mentoria_video_complete', { context: 'mentoria_construcao', action: 'finished' })}}>
           <track kind="captions" src={ROOT + '/apresentacao-pt-BR.vtt'} srcLang="pt-BR" label="Português (Brasil)" default />
         </video>
       )}

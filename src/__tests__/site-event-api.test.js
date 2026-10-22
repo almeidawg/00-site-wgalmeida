@@ -1,5 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import handler, { normalizarEvento } from '../../api/site-event.js'
+import handler, { ehEventoDeSite, normalizarEvento } from '../../api/_siteEvent.js'
+import clientError from '../../api/client-error.js'
+import { readFileSync, readdirSync } from 'node:fs'
+import { join } from 'node:path'
 
 const corpoValido = { pagina: 'landing', evento: 'video_play', canal: 'meta_ads', dispositivo: 'mobile', utm_campaign: 'wg_mentoria_2026q4', utm_content: 'criativo01_operacao_v1' }
 
@@ -115,5 +118,37 @@ describe('api/site-event: handler', () => {
     await handler(req(undefined, { method: 'OPTIONS' }), r)
     expect(r.statusCode).toBe(204)
     expect(fetch).not.toHaveBeenCalled()
+  })
+})
+
+describe('api/site-event: roteamento sem criar funcao nova (limite Hobby de 12 funcoes)', () => {
+  it('reconhece a chamada do coletor pela query do rewrite', () => {
+    expect(ehEventoDeSite({ query: { kind: 'site-event' } })).toBe(true)
+    expect(ehEventoDeSite({ url: '/api/client-error?kind=site-event' })).toBe(true)
+    expect(ehEventoDeSite({ url: '/api/client-error' })).toBe(false)
+    expect(ehEventoDeSite({ query: { kind: 'outro' } })).toBe(false)
+    expect(ehEventoDeSite({})).toBe(false)
+  })
+
+  it('client-error despacha o coletor quando kind=site-event e continua igual nos demais casos', async () => {
+    process.env.WGEASY_METRICS_URL = 'https://exemplo.supabase.co'
+    process.env.WGEASY_METRICS_ANON_KEY = 'chave-publica-de-teste'
+    process.env.WGEASY_METRICS_PRODUTO_ID = '11111111-2222-4333-8444-555555555555'
+    vi.stubGlobal('fetch', vi.fn(() => Promise.resolve({ ok: true })))
+    const r = res()
+    await clientError(req(corpoValido, { url: '/api/client-error?kind=site-event' }), r)
+    expect(r.statusCode).toBe(204)
+    expect(fetch).toHaveBeenCalledTimes(1)
+    const comum = res()
+    await clientError(req(undefined, { method: 'GET', url: '/api/client-error' }), comum)
+    expect(comum.statusCode).toBe(405)
+    vi.unstubAllGlobals()
+  })
+
+  it('vercel.json tem o rewrite e o numero de funcoes nao passa de 12', () => {
+    const vercel = JSON.parse(readFileSync(join(process.cwd(), 'vercel.json'), 'utf8'))
+    expect(vercel.rewrites[0]).toEqual({ source: '/api/site-event', destination: '/api/client-error?kind=site-event' })
+    const funcoes = readdirSync(join(process.cwd(), 'api')).filter((n) => /.js$/.test(n) && !n.startsWith('_') && !n.includes('.bak'))
+    expect(funcoes.length).toBeLessThanOrEqual(12)
   })
 })

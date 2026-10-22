@@ -226,6 +226,10 @@
   ],
   "rewrites": [
     {
+      "source": "/api/site-event",
+      "destination": "/api/client-error?kind=site-event"
+    },
+    {
       "source": "/buildtech/projetos/easyfood",
       "destination": "https://restaurante-lyart.vercel.app/entrada.html"
     },

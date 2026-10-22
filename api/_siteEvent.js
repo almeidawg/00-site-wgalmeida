@@ -1,4 +1,6 @@
 // Coletor anonimo de metricas da pagina e do video da Mentoria.
+// NAO e uma funcao propria: a Vercel Hobby aceita 12 funcoes e o site ja usa as 12. Este modulo (prefixo _) e despachado por api/client-error.js
+// quando a chamada chega em /api/site-event (rewrite em vercel.json para /api/client-error?kind=site-event).
 // Recebe um evento de lista fechada, valida de novo no servidor e repassa para a funcao publica do banco (mkt_site_evento), que so soma
 // contadores por dia. O IP existe apenas na memoria para o limite por minuto; nada de IP, user agent ou corpo e guardado ou registrado em log.
 // Resposta sempre 204: quem mede nunca fica sabendo se o evento contou (nao ha o que explorar) e a pagina nunca falha por causa da medicao.
@@ -44,7 +46,18 @@ export function normalizarEvento(corpo) {
   return { pagina, evento, canal, dispositivo, utm_campaign: utm(corpo.utm_campaign), utm_content: utm(corpo.utm_content) }
 }
 
-export default async function handler(req, res) {
+/** True quando a chamada e do coletor de metricas (rewrite /api/site-event). */
+export function ehEventoDeSite(req) {
+  const direto = req.query?.kind
+  if (direto) return direto === 'site-event'
+  try {
+    return new URL(req.url || '', 'http://local').searchParams.get('kind') === 'site-event'
+  } catch {
+    return false
+  }
+}
+
+export default async function handleSiteEvent(req, res) {
   res.setHeader('Vary', 'Origin')
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
