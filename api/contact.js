@@ -1,8 +1,9 @@
 import crypto from 'node:crypto'
 import { applyRateLimitHeaders, getClientIp } from './_requestGuard.js'
 import { emitConversionEvent, normalizeConversionContext } from './_conversionObservability.js'
+import { CANONICAL_SUPABASE_ORIGIN } from './_supabaseCanonical.js'
 
-const SUPABASE_ORIGIN = 'https://ahlqzzkxuutwoepirpzr.supabase.co'
+const SUPABASE_ORIGIN = CANONICAL_SUPABASE_ORIGIN
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
 const sanitizeEnvValue = (value) => String(value || '').replace(/^\uFEFF+/, '').trim()
 const TURNSTILE_SECRET_KEY = sanitizeEnvValue(process.env.TURNSTILE_SECRET_KEY)
