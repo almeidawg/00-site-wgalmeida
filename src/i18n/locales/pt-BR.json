@@ -1152,7 +1152,12 @@
       "title": "Receba inspiração no seu e-mail",
       "subtitle": "Tendências, guias técnicos e referências para decidir melhor antes de projetar, reformar ou construir.",
       "placeholder": "Seu melhor e-mail",
-      "button": "Assinar"
+      "button": "Assinar",
+      "leadName": "Assinante da newsletter do blog",
+      "leadSubject": "Cadastro na newsletter do blog",
+      "leadMessage": "Cadastro na newsletter do blog WG Almeida.",
+      "successMessage": "Cadastro confirmado. Você vai receber nossos conteúdos neste e-mail.",
+      "submitError": "Não foi possível concluir o cadastro agora. Tente novamente em instantes."
     },
     "leadCapture": {
       "offers": {

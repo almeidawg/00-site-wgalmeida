@@ -1130,7 +1130,12 @@
       "title": "Recibe inspiración en tu correo",
       "subtitle": "Tendencias, guías técnicas y referencias para decidir mejor antes de proyectar, reformar o construir.",
       "placeholder": "Tu mejor correo",
-      "button": "Suscribirse"
+      "button": "Suscribirse",
+      "leadName": "Suscriptor de la newsletter del blog",
+      "leadSubject": "Suscripción a la newsletter del blog",
+      "leadMessage": "Suscripción a la newsletter del blog WG Almeida.",
+      "successMessage": "Suscripción confirmada. Recibirás nuestros contenidos en este correo.",
+      "submitError": "No fue posible completar la suscripción ahora. Inténtalo de nuevo en unos instantes."
     },
     "leadCapture": {
       "offers": {

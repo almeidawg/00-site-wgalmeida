@@ -43,6 +43,7 @@ import { getArticleMetrics, mergeArticlesWithCms, registerArticleShare } from '@
 import { getEditorialTheme, resolveEditorialThemeId } from '@/data/editorialThemes';
 import { getCommercialPublicationValidation, resolveCommercialTokens } from '@/data/commercialGovernance';
 import { trackEvent } from '@/lib/analytics';
+import NewsletterSignup from '@/components/blog/NewsletterSignup';
 
 const BLOG_HERO_IMAGE = getPublicPageImageSrc('blog', '/images/banners/PROCESSOS.webp');
 
@@ -424,7 +425,7 @@ const Blog = () => {
       }
     };
 
-    loadArticles();
+    void loadArticles();
   }, [currentLang]);
 
   useEffect(() => {
@@ -500,10 +501,14 @@ const Blog = () => {
     return () => observer.disconnect();
   }, [slug, liveTocHeadings]);
 
-  const handleShare = () => {
-    navigator.clipboard.writeText(window.location.href);
-    setShowShareTooltip(true);
-    setTimeout(() => setShowShareTooltip(false), 2000);
+  const handleShare = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setShowShareTooltip(true);
+      setTimeout(() => setShowShareTooltip(false), 2000);
+    } catch {
+      // sem permissao de area de transferencia: nao mostrar "copiado"
+    }
     if (slug) {
       setArticleMetrics(registerArticleShare(slug, 'link'));
     }
@@ -1378,17 +1383,7 @@ const Blog = () => {
               <p className="text-white/60 font-light text-lg">{t('blogPage.newsletter.subtitle')}</p>
             </motion.div>
 
-            <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" onSubmit={(e) => e.preventDefault()}>
-              <input 
-                type="email" 
-                aria-label={t('blogPage.newsletter.placeholder')}
-                placeholder={t('blogPage.newsletter.placeholder')}
-                className="min-h-11 flex-1 px-6 py-4 bg-white/5 border border-white/10 rounded-xl outline-none focus:border-wg-orange/50 transition-all font-light"
-              />
-              <button type="submit" className="wg-btn-pill-primary min-h-11 px-8 whitespace-nowrap">
-                {t('blogPage.newsletter.button')}
-              </button>
-            </form>
+            <NewsletterSignup />
           </div>
         </div>
       </section>
