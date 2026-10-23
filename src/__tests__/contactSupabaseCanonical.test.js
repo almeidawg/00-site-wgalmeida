@@ -58,8 +58,32 @@ describe('/api/contact usa o Supabase canonico do WGEasy', () => {
   })
 
   it('o ref antigo nao esta fixo nos arquivos de captura de contato', () => {
-    for (const file of ['api/contact.js', 'api/_conversionObservability.js']) {
+    for (const file of ['api/contact.js', 'api/_conversionObservability.js', 'api/conversion-metrics.js']) {
       expect(readFileSync(file, 'utf8')).not.toContain(LEGACY_REF)
     }
+  })
+
+  it('o painel de metricas le eventos e promocoes do mesmo banco onde a telemetria grava', async () => {
+    const jsonResponse = (body) => ({ ok: true, status: 200, json: async () => body })
+    const calls = []
+    global.fetch = vi.fn(async (url) => {
+      calls.push(String(url))
+      return jsonResponse(calls.length === 1 ? { id: 'admin-1', email: 'admin@wgalmeida.com.br' } : [])
+    })
+    vi.stubEnv('SUPABASE_URL', `https://${LEGACY_REF}.supabase.co`)
+    const { default: handler } = await import('../../api/conversion-metrics.js')
+    const res = {
+      statusCode: 200,
+      body: null,
+      headers: {},
+      setHeader: vi.fn(),
+      status(c) { this.statusCode = c; return this },
+      json(b) { this.body = b; return this },
+    }
+    await handler({ method: 'GET', headers: { authorization: 'Bearer admin-token' }, query: { days: '30' } }, res)
+
+    const dataCalls = calls.filter((url) => url.includes('/rest/v1/site_conversion_events') || url.includes('/rest/v1/lead_promotions'))
+    expect(dataCalls.length).toBe(2)
+    for (const url of dataCalls) expect(url.startsWith(CANONICAL)).toBe(true)
   })
 })

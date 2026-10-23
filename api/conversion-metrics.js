@@ -1,6 +1,7 @@
 import { requireAdmin } from './_adminAuth.js';
+import { CANONICAL_SUPABASE_ORIGIN } from './_supabaseCanonical.js';
 
-const SUPABASE_URL = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || '';
+const SUPABASE_URL = CANONICAL_SUPABASE_ORIGIN;
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_KEY || '';
 const headers = () => ({ apikey: SUPABASE_SERVICE_KEY, Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`, 'Content-Type': 'application/json' });
 const safeRows = async (response) => {
