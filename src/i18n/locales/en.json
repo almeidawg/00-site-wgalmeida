@@ -1130,7 +1130,12 @@
       "title": "Receive inspiration by email",
       "subtitle": "Trends, technical guides and references to decide better before designing, renovating or building.",
       "placeholder": "Your best email",
-      "button": "Subscribe"
+      "button": "Subscribe",
+      "leadName": "Blog newsletter subscriber",
+      "leadSubject": "Blog newsletter signup",
+      "leadMessage": "Signup to the WG Almeida blog newsletter.",
+      "successMessage": "Signup confirmed. You will receive our content at this email.",
+      "submitError": "We could not complete your signup right now. Please try again shortly."
     },
     "leadCapture": {
       "offers": {
