@@ -13,7 +13,7 @@ export const COMPANY = {
   ceoWhatsapp: 'https://wa.me/5511991792291',
   email: 'contato@wgalmeida.com.br',
   address: 'Rua Guararapes, 305, Brooklin, São Paulo, SP — Brasil',
-  instagram: 'https://www.instagram.com/wgalmeida.arq',
+  instagram: 'https://www.instagram.com/grupowgalmeida',
   linkedin: 'https://www.linkedin.com/company/wgalmeida',
   facebook: 'https://www.facebook.com/wgalmeidaarquitetura',
   houzz: 'https://www.houzz.com/user/wgalmeida',
