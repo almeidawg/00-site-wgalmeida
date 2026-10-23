@@ -425,7 +425,7 @@ const Blog = () => {
       }
     };
 
-    loadArticles();
+    void loadArticles();
   }, [currentLang]);
 
   useEffect(() => {
