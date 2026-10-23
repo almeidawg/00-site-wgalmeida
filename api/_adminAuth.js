@@ -39,6 +39,15 @@ export async function requireAdmin(req, res) {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('Cache-Control', 'no-store');
 
+  // Admin do site inativo em producao ate a migracao para o WGEasy (decisao do owner, 2026-10-22).
+  // Reativar sem mexer em codigo: SITE_ADMIN_ENABLED=true na Vercel.
+  if (process.env.VERCEL_ENV === 'production' && process.env.SITE_ADMIN_ENABLED !== 'true') {
+    return {
+      ok: false,
+      response: res.status(503).json({ error: 'Admin do site desativado. Use o WGEasy.', code: 'site_admin_disabled' }),
+    };
+  }
+
   const token = getBearerToken(req);
   if (!token) {
     return {
