@@ -501,10 +501,14 @@ const Blog = () => {
     return () => observer.disconnect();
   }, [slug, liveTocHeadings]);
 
-  const handleShare = () => {
-    navigator.clipboard.writeText(window.location.href);
-    setShowShareTooltip(true);
-    setTimeout(() => setShowShareTooltip(false), 2000);
+  const handleShare = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setShowShareTooltip(true);
+      setTimeout(() => setShowShareTooltip(false), 2000);
+    } catch {
+      // sem permissao de area de transferencia: nao mostrar "copiado"
+    }
     if (slug) {
       setArticleMetrics(registerArticleShare(slug, 'link'));
     }

@@ -87,10 +87,10 @@ export default function NewsletterSignup() {
 
   if (success) {
     return (
-      <div role="status" className="mx-auto flex max-w-md items-center justify-center gap-3 text-left text-white">
+      <output className="mx-auto flex max-w-md items-center justify-center gap-3 text-left text-white">
         <CheckCircle2 className="h-6 w-6 shrink-0 text-wg-orange" />
-        <p className="font-light">{t('blogPage.newsletter.successMessage')}</p>
-      </div>
+        <span className="font-light">{t('blogPage.newsletter.successMessage')}</span>
+      </output>
     )
   }
 
