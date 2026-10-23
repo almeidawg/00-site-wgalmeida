@@ -1,3 +1,5 @@
+import { CANONICAL_SUPABASE_ORIGIN } from './_supabaseCanonical.js'
+
 const ALLOWED_OUTCOMES = new Set(['saved', 'duplicate', 'rejected', 'ignored'])
 const ALLOWED_PROMOTIONS = new Set([
   'promotion_skipped', 'promotion_queued', 'promotion_completed', 'promotion_already_done', 'promotion_failed',
@@ -8,7 +10,7 @@ const ALLOWED_REASONS = new Set([
   'persist_failed', 'persistence_not_configured', 'payload_too_large', 'unexpected_error', 'origin_rejected',
 ])
 
-const SUPABASE_URL = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || ''
+const SUPABASE_URL = CANONICAL_SUPABASE_ORIGIN
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_KEY || ''
 
 export const normalizeConversionContext = (value) => {
