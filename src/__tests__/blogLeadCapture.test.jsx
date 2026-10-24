@@ -48,6 +48,7 @@ describe('BlogLeadCapture', () => {
   afterEach(() => {
     vi.unstubAllGlobals()
     delete globalThis.__blogLeadTurnstileProps
+    delete window.turnstile
   })
 
   it('adia Turnstile ate a captura entrar em viewport ou receber foco', () => {
@@ -136,6 +137,26 @@ describe('BlogLeadCapture', () => {
     expect(await screen.findByRole('alert')).toBeInTheDocument()
     expect(document.querySelector('[data-conversion-lab="blog-lead-capture"] form')).toBeInTheDocument()
     expect(trackEvent).toHaveBeenCalledWith('conversion_funnel', expect.objectContaining({ action: 'submit_error' }))
+  })
+
+  it('does not misclassify accepted lead when Turnstile reset throws', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true, status: 200, json: async () => ({ ok: true, outcome: 'saved' }) })
+    vi.stubGlobal('fetch', fetchMock)
+    window.turnstile = { reset: vi.fn(() => { throw new Error('synthetic reset failure') }) }
+
+    render(<BlogLeadCapture article={article} placement="post_content" />)
+    fireEvent.change(screen.getByLabelText('Nome'), { target: { value: 'QA Blog' } })
+    fireEvent.change(screen.getByLabelText('E-mail'), { target: { value: 'qa-blog@example.invalid' } })
+    act(() => { globalThis.__blogLeadTurnstileProps.onVerify('synthetic-token') })
+    fireEvent.submit(document.querySelector('[data-conversion-lab="blog-lead-capture"] form'))
+
+    await waitFor(() => expect(screen.getByText(i18n.t('blogPage.leadCapture.successTitle'))).toBeInTheDocument())
+    expect(window.turnstile.reset).toHaveBeenCalledTimes(1)
+    expect(trackEvent).toHaveBeenCalledWith('conversion_funnel',
+      expect.objectContaining({ action: 'lead_accepted', target: 'saved' }))
+    expect(trackEvent).not.toHaveBeenCalledWith('conversion_funnel',
+      expect.objectContaining({ action: 'submit_error' }))
+    expect(fetchMock).toHaveBeenCalledTimes(1)
   })
 
   it('usa o idioma ativo do blog no fluxo de captacao', async () => {
