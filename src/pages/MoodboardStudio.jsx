@@ -253,7 +253,7 @@ const StudioContent = () => {
               <button
                 type="button"
                 onClick={handleClear}
-                className="w-full py-3 text-slate-600 hover:text-red-400 text-[8px] font-bold uppercase tracking-[0.2em] transition-all"
+                className="w-full min-h-11 py-3 text-slate-600 hover:text-red-400 text-[8px] font-bold uppercase tracking-[0.2em] transition-all"
               >
                 Limpar Workspace
               </button>

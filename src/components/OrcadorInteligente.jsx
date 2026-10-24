@@ -210,7 +210,7 @@ const OrcadorInteligente = ({
           {step === 1 && (
             <motion.div key="step1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-8">
               <div className="text-center">
-                <h3 className="text-3xl font-light text-slate-900 tracking-tight mb-2">Qual o perfil do ativo?</h3>
+                <h2 className="text-3xl font-light text-slate-900 tracking-tight mb-2">Qual o perfil do ativo?</h2>
                 <p className="text-slate-500 font-light">Selecione a categoria para adequarmos as normativas técnicas.</p>
               </div>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -251,7 +251,7 @@ const OrcadorInteligente = ({
           {step === 2 && (
             <motion.div key="step2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-8">
               <div className="text-center">
-                <h3 className="text-3xl font-light text-slate-900 tracking-tight mb-2">Qual escopo técnico?</h3>
+                <h2 className="text-3xl font-light text-slate-900 tracking-tight mb-2">Qual escopo técnico?</h2>
                 <p className="text-slate-500 font-light">Defina o nível de integração que você precisa da WG Almeida.</p>
               </div>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -284,7 +284,7 @@ const OrcadorInteligente = ({
           {step === 3 && (
             <motion.div key="step3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-8">
                <div className="text-center">
-                <h3 className="text-3xl font-light text-slate-900 tracking-tight mb-2">Dimensões e Cronograma</h3>
+                <h2 className="text-3xl font-light text-slate-900 tracking-tight mb-2">Dimensões e Cronograma</h2>
                 <p className="text-slate-500 font-light">Estes dados calibram nosso motor de precificação preditiva.</p>
               </div>
               <div className="space-y-6 max-w-xl mx-auto">
@@ -336,7 +336,7 @@ const OrcadorInteligente = ({
                      <div className="absolute inset-2 rounded-full border-l-2 border-slate-800 animate-spin-reverse"></div>
                      <Calculator className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 text-slate-400" />
                   </div>
-                  <h3 className="mt-8 text-xl font-light text-slate-900">Processando parâmetros...</h3>
+                  <h2 className="mt-8 text-xl font-light text-slate-900">Processando parâmetros...</h2>
                   <p className="text-slate-500 text-sm mt-2">Buscando referências na base ICCRI 2026</p>
                 </div>
               ) : (
@@ -345,9 +345,9 @@ const OrcadorInteligente = ({
                     <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-600 text-xs font-bold uppercase tracking-wider mb-4">
                       <CheckCircle2 size={14} /> Análise Preliminar Concluída
                     </span>
-                    <h3 className="text-3xl font-light text-slate-900 tracking-tight mb-4">
+                    <h2 className="text-3xl font-light text-slate-900 tracking-tight mb-4">
                       Seu projeto requer atenção especial.
-                    </h3>
+                    </h2>
                     
                     {estimate ? (
                       <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-[2rem] p-8 max-w-xl mx-auto text-white shadow-2xl relative overflow-hidden">

@@ -67,7 +67,7 @@ const StyleCard = ({
           e.stopPropagation();
           onFavorite?.(style);
         }}
-        className={`absolute top-2 right-2 w-7 h-7 rounded-full flex items-center justify-center transition-all ${
+        className={`absolute top-2 right-2 w-11 h-11 rounded-full flex items-center justify-center transition-all ${
           isFavorite
             ? 'bg-red-500 text-white'
             : 'bg-black/40 text-white/70 hover:bg-black/60 hover:text-white backdrop-blur-sm'

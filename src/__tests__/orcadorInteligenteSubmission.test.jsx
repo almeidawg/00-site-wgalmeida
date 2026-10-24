@@ -65,6 +65,19 @@ describe('OrcadorInteligente canonical contact submission', () => {
     vi.restoreAllMocks()
   })
 
+  it('uses sequential level-two headings throughout the estimate wizard', () => {
+    render(
+      <MemoryRouter>
+        <OrcadorInteligente sourceContext="orcamento-site-qa" />
+      </MemoryRouter>,
+    )
+    expect(screen.getByRole('heading', { level: 2, name: 'Qual o perfil do ativo?' })).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: /Apartamento de Alto Padrão/i }))
+    expect(screen.getByRole('heading', { level: 2, name: 'Qual escopo técnico?' })).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: /Apenas Projeto de Interiores/i }))
+    expect(screen.getByRole('heading', { level: 2, name: 'Dimensões e Cronograma' })).toBeInTheDocument()
+  })
+
   it('requires Turnstile verification before calling /api/contact', () => {
     renderContactStep()
     fireEvent.click(screen.getByRole('button', { name: /Receber Proposta Técnica/i }))
