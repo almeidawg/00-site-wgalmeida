@@ -8,7 +8,10 @@ const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 const supabaseHeaders = () => ({
   apikey: SUPABASE_SERVICE_KEY,
-  Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
+  // Modern sb_secret_ keys are opaque API keys, not JWT Bearer tokens.
+  ...(SUPABASE_SERVICE_KEY.startsWith('sb_secret_')
+    ? {}
+    : { Authorization: `Bearer ${SUPABASE_SERVICE_KEY}` }),
   'Content-Type': 'application/json',
 });
 

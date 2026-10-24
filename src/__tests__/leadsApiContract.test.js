@@ -26,10 +26,10 @@ const makeRes = () => {
   return res;
 };
 
-const loadHandler = async () => {
+const loadHandler = async ({ serviceKey = 'qa-service-role' } = {}) => {
   vi.resetModules();
   vi.stubEnv('VITE_SUPABASE_URL', 'https://qa.invalid');
-  vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', 'qa-service-role');
+  vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', serviceKey);
   vi.stubEnv('VITE_SUPABASE_ANON_KEY', 'qa-anon');
   const mod = await import('../../api/leads.js');
   return mod.default;
@@ -83,7 +83,22 @@ describe('/api/leads method and auth contract', () => {
     expect(global.fetch).toHaveBeenCalledTimes(1);
     expect(String(global.fetch.mock.calls[0][0])).toContain('/rest/v1/pessoas?');
     expect(String(global.fetch.mock.calls[0][0])).not.toContain('contacts');
+    expect(global.fetch.mock.calls[0][1].headers.Authorization).toBe('Bearer qa-service-role');
     expect(res.payload.leads[0]).toMatchObject({ id: 'person-1', status: 'atendido', tipo: 'contato' });
+  });
+
+  it('uses modern sb_secret_ only as an apikey in the canonical leads API', async () => {
+    const key = 'sb_secret_synthetic_for_header_contract';
+    global.fetch = vi.fn(async () => ({ ok: true, status: 200, json: async () => [] }));
+    const handler = await loadHandler({ serviceKey: key });
+    const res = makeRes();
+
+    await handler(makeReq('GET', undefined, { authorization: `Bearer ${key}` }), res);
+
+    expect(res.statusCode).toBe(200);
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+    expect(global.fetch.mock.calls[0][1].headers.apikey).toBe(key);
+    expect(global.fetch.mock.calls[0][1].headers.Authorization).toBeUndefined();
   });
 
   it('maps PATCH status to contact_stage without allowing conversion by status alone', async () => {
