@@ -263,6 +263,34 @@ describe('/api/contact Turnstile mode', () => {
     expect(global.fetch).toHaveBeenCalledTimes(2);
   });
 
+  it('deduplica retry com token Turnstile novo sem segunda persistencia', async () => {
+    vi.stubEnv('TURNSTILE_SECRET_KEY', 'turnstile-secret-test');
+    vi.stubEnv('CONTACT_TURNSTILE_REQUIRED', 'true');
+    global.fetch = vi.fn(async (url) => {
+      if (String(url).includes('challenges.cloudflare.com')) {
+        return { ok: true, status: 200, json: async () => ({ success: true, action: 'contact_form', hostname: 'wgalmeida.com.br' }) };
+      }
+      return { ok: true, status: 200, json: async () => ([rpcRow()]) };
+    });
+    const handler = await loadHandler();
+    const contact = { ...validBody, email: 'fresh-turnstile-qa@example.invalid' };
+    const headers = { 'x-forwarded-for': '198.51.100.226' };
+    const first = makeRes();
+    const second = makeRes();
+
+    await handler(makeReq({ ...contact, turnstileToken: 'synthetic-token-first' }, headers), first);
+    await handler(makeReq({ ...contact, turnstileToken: 'synthetic-token-second' }, headers), second);
+
+    expect(first.statusCode).toBe(200);
+    expect(second.statusCode).toBe(200);
+    expect(JSON.parse(first.body).outcome).toBe('saved');
+    expect(JSON.parse(second.body).outcome).toBe('duplicate');
+    expect(first.headers['X-WG-Outcome']).toBe('saved');
+    expect(second.headers['X-WG-Outcome']).toBe('duplicate');
+    expect(global.fetch).toHaveBeenCalledTimes(3);
+    expect(global.fetch.mock.calls.filter(([url]) => String(url).includes('/rest/v1/rpc/'))).toHaveLength(1);
+  });
+
   it('retorna 429 na nona tentativa equivalente dentro da janela', async () => {
     const handler = await loadHandler();
     const headers = { 'x-forwarded-for': '198.51.100.211' };
