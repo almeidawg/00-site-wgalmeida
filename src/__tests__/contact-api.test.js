@@ -182,8 +182,32 @@ describe('/api/contact Turnstile mode', () => {
     await handler(makeReq({ ...validBody, email: 'preview-auth-fail@example.com' }), res);
 
     expect(res.statusCode).toBe(502);
-    expect(log).toHaveBeenCalledWith('contact api upstream persist error:', 401, 'invalid_api_key');
+    expect(log).toHaveBeenCalledWith('contact api upstream persist error:', 401, 'invalid_api_key',
+      expect.objectContaining({ keyType: 'unrecognized', stagingHostMatches: false }));
     expect(JSON.stringify(log.mock.calls)).not.toContain('SENSITIVE_SYNTHETIC_MARKER');
+  });
+
+  it('reports the Preview key shape and canonical staging hostname without any key bytes', async () => {
+    vi.stubEnv('VERCEL_ENV', 'preview');
+    vi.stubEnv('SUPABASE_URL', 'https://ayhcldffqadlbfjhkrmg.supabase.co');
+    const syntheticSecret = ['sb', 'secret', 'SYNTHETIC_PRIVATE_MATERIAL_TEST'].join('_');
+    vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', syntheticSecret);
+    const log = vi.spyOn(console, 'error').mockImplementation(() => {});
+    global.fetch = vi.fn(async () => ({
+      ok: false,
+      status: 401,
+      text: async () => 'Invalid API key',
+    }));
+    const handler = await loadHandler();
+    const res = makeRes();
+    await handler(makeReq({ ...validBody, email: 'preview-shape-qa@example.invalid' }), res);
+
+    expect(res.statusCode).toBe(502);
+    // Both URL variables are set in this fixture. The private staging URL must win in Preview.
+    expect(global.fetch.mock.calls[0][0]).toBe('https://ayhcldffqadlbfjhkrmg.supabase.co/rest/v1/rpc/ingest_site_contact_idempotent');
+    expect(log).toHaveBeenCalledWith('contact api upstream persist error:', 401, 'invalid_api_key',
+      { keyType: 'modern_secret', keyLength: syntheticSecret.length, stagingHostMatches: true });
+    expect(JSON.stringify(log.mock.calls)).not.toContain('SYNTHETIC_PRIVATE_MATERIAL_TEST');
   });
 
   it('mantem Production sem detalhes de resposta upstream nos logs', async () => {

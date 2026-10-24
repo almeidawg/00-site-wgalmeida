@@ -5,9 +5,29 @@ import { emitConversionEvent, normalizeConversionContext } from './_conversionOb
 const SUPABASE_ORIGIN = 'https://ahlqzzkxuutwoepirpzr.supabase.co'
 const SUPABASE_SERVICE_KEY = (process.env.SUPABASE_SERVICE_ROLE_KEY || (process.env.VERCEL_ENV === 'preview' ? process.env.SUPABASE_SERVICE_ROLE_KEY_2 : ''))
 const sanitizeEnvValue = (value) => String(value || '').replace(/^\uFEFF+/, '').trim()
+// Preview must use its private, branch-scoped URL instead of a VITE_ public fallback.
+const CONTACT_SUPABASE_ORIGIN = process.env.VERCEL_ENV === 'preview'
+  ? sanitizeEnvValue(process.env.SUPABASE_URL).replace(/\/+$/, '')
+  : SUPABASE_ORIGIN
 const TURNSTILE_SECRET_KEY = sanitizeEnvValue(process.env.TURNSTILE_SECRET_KEY)
 const CONTACT_TURNSTILE_REQUIRED = process.env.CONTACT_TURNSTILE_REQUIRED === 'true'
 const CONTACT_AUTO_PROMOTE_WGEASY = process.env.CONTACT_AUTO_PROMOTE_WGEASY === 'true'
+
+// Preview-only diagnostic metadata; never return or log API key material.
+const previewSupabaseAuthShape = () => {
+  const key = SUPABASE_SERVICE_KEY
+  const keyType = /^sb_secret_[A-Za-z0-9_-]+$/.test(key)
+    ? 'modern_secret'
+    : /^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/.test(key)
+      ? 'legacy_jwt'
+      : 'unrecognized'
+  let stagingHostMatches = false
+  try {
+    const origin = new URL(CONTACT_SUPABASE_ORIGIN)
+    stagingHostMatches = origin.protocol === 'https:' && origin.hostname === 'ayhcldffqadlbfjhkrmg.supabase.co'
+  } catch { /* report a mismatch without exposing the configured URL */ }
+  return { keyType, keyLength: key.length, stagingHostMatches }
+}
 const ALLOWED_EXTRA_ORIGINS = new Set(
   String(process.env.CONTACT_ALLOWED_ORIGINS || '')
     .split(',')
@@ -153,7 +173,7 @@ const persistContactOnce = async (fingerprint, payload, requestId) => {
   }
 
   const promise = (async () => {
-    const response = await fetch(`${SUPABASE_ORIGIN}/rest/v1/rpc/ingest_site_contact_idempotent`, {
+    const response = await fetch(`${CONTACT_SUPABASE_ORIGIN}/rest/v1/rpc/ingest_site_contact_idempotent`, {
       method: 'POST',
       headers: {
         apikey: SUPABASE_SERVICE_KEY,
@@ -389,7 +409,9 @@ export default async function handler(req, res) {
     }
     if (error.statusCode === 502) {
       console.error('contact api upstream persist error:', error.upstreamStatus || 'unknown',
-        ...(process.env.VERCEL_ENV === 'preview' ? [error.upstreamCategory || 'unclassified'] : []))
+        ...(process.env.VERCEL_ENV === 'preview'
+          ? [error.upstreamCategory || 'unclassified', previewSupabaseAuthShape()]
+          : []))
       return respondWithConversion(502, { error: 'Falha ao registrar contato.' }, { reason: 'persist_failed' })
     }
     console.error('contact api error:', error)
