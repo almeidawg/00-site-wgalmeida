@@ -63,7 +63,7 @@ const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, 
                 <span className="text-[7px] text-slate-500 font-bold uppercase tracking-tighter mt-1">{t('moodboardPage.studio.subtitle')}</span>
               </div>
             </div>
-            <button type="button" aria-label="Recolher painel de ferramentas" title="Recolher painel" onClick={() => setSidebarOpen(false)} className="text-slate-600 hover:text-white transition-colors p-1.5 -mt-1">
+            <button type="button" aria-label="Recolher painel de ferramentas" title="Recolher painel" onClick={() => setSidebarOpen(false)} className="min-h-11 min-w-11 inline-flex items-center justify-center text-slate-600 hover:text-white transition-colors rounded-lg">
               <ChevronLeft size={18} />
             </button>
           </div>
@@ -126,7 +126,7 @@ const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, 
         <header className="h-20 px-3 sm:px-5 lg:px-10 flex items-center justify-between gap-2 bg-black/40 backdrop-blur-xl border-b border-white/5 z-30 shrink-0">
           <div className="flex min-w-0 items-center gap-2 lg:gap-8">
             {!sidebarOpen && (
-              <button type="button" aria-label="Abrir painel de ferramentas" title="Abrir painel" onClick={() => setSidebarOpen(true)} className="w-10 h-10 flex items-center justify-center bg-slate-900 border border-white/5 rounded-2xl text-wg-orange hover:text-white shadow-2xl transition-all">
+              <button type="button" aria-label="Abrir painel de ferramentas" title="Abrir painel" onClick={() => setSidebarOpen(true)} className="w-11 h-11 flex items-center justify-center bg-slate-900 border border-white/5 rounded-2xl text-wg-orange hover:text-white shadow-2xl transition-all">
                 <ChevronRight size={20} />
               </button>
             )}
@@ -155,7 +155,7 @@ const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, 
               type="button"
               onClick={onSave}
               disabled={isSaving}
-              className="flex items-center gap-2 px-3 py-3 bg-wg-orange hover:bg-[#de5423] text-white rounded-full text-xs font-light transition-all shadow-[0_16px_34px_rgba(242,92,38,0.18)] hover:shadow-[0_20px_40px_rgba(242,92,38,0.24)] hover:-translate-y-0.5 uppercase tracking-widest disabled:opacity-50 disabled:pointer-events-none sm:px-4 lg:gap-3 lg:px-8"
+              className="min-h-11 min-w-11 flex items-center justify-center gap-2 px-3 py-3 bg-wg-orange hover:bg-[#de5423] text-white rounded-full text-xs font-light transition-all shadow-[0_16px_34px_rgba(242,92,38,0.18)] hover:shadow-[0_20px_40px_rgba(242,92,38,0.24)] hover:-translate-y-0.5 uppercase tracking-widest disabled:opacity-50 disabled:pointer-events-none sm:px-4 lg:gap-3 lg:px-8"
             >
               {isSaving ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
               <span className="hidden sm:inline">
@@ -166,7 +166,7 @@ const MoodboardStudioLayout = ({ children, activeTab, onTabChange, projectName, 
             
             <div className="mx-1 hidden h-8 w-[1px] bg-white/10 sm:block lg:mx-2" />
             
-            <Link to="/" aria-label="Sair do Moodboard Studio" title="Sair do Studio" className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/5 bg-white/5 text-slate-400 transition-all hover:bg-white/10 hover:text-white lg:h-12 lg:w-12 lg:rounded-2xl">
+            <Link to="/" aria-label="Sair do Moodboard Studio" title="Sair do Studio" className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/5 bg-white/5 text-slate-400 transition-all hover:bg-white/10 hover:text-white lg:h-12 lg:w-12 lg:rounded-2xl">
               <X size={20} />
             </Link>
           </div>

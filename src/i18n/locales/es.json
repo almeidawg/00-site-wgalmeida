@@ -506,6 +506,7 @@
       "imageAlt": "Contacto Grupo WG Almeida"
     },
     "info": {
+      "kicker": "Información de contacto",
       "title": "Canales directos",
       "subtitle": "Elija el mejor canal para iniciar su atención. Nuestro equipo organiza la primera lectura del proyecto y orienta el próximo paso con claridad.",
       "phoneLabel": "Telefono",

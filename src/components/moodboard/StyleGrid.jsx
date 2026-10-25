@@ -73,7 +73,7 @@ const StyleGrid = ({ selectedStyles, onStylesChange, maxStyles = 3 }) => {
             aria-label="Visualizar estilos em grade"
             aria-pressed={viewMode === 'grid'}
             onClick={() => setViewMode('grid')}
-            className={`p-1.5 rounded ${
+            className={`min-h-11 min-w-11 inline-flex items-center justify-center rounded ${
               viewMode === 'grid' ? 'bg-wg-orange text-white' : 'text-slate-500 hover:text-slate-300'
             }`}
           >
@@ -84,7 +84,7 @@ const StyleGrid = ({ selectedStyles, onStylesChange, maxStyles = 3 }) => {
             aria-label="Visualizar estilos em lista"
             aria-pressed={viewMode === 'list'}
             onClick={() => setViewMode('list')}
-            className={`p-1.5 rounded ${
+            className={`min-h-11 min-w-11 inline-flex items-center justify-center rounded ${
               viewMode === 'list' ? 'bg-wg-orange text-white' : 'text-slate-500 hover:text-slate-300'
             }`}
           >
@@ -113,7 +113,7 @@ const StyleGrid = ({ selectedStyles, onStylesChange, maxStyles = 3 }) => {
               type="button"
               key={category.id}
               onClick={() => setActiveCategory(category.id)}
-              className={`px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-tighter transition-all ${
+              className={`min-h-11 px-3 py-2 rounded-lg text-[10px] font-bold uppercase tracking-tighter transition-all ${
                 activeCategory === category.id
                   ? 'bg-slate-200 text-slate-900'
                   : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
