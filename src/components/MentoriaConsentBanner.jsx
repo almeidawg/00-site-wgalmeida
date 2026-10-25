@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import './MentoriaConsentBanner.css'
 import { META_PIXEL_ID } from '@/lib/metaPixelConfig'
 import { MENTORIA_CONSENT_EVENT, readMentoriaConsent, writeMentoriaConsent } from '@/lib/mentoriaConsent'
 import { isMentoriaSurface, loadMetaPixel } from '@/lib/metaPixel'
