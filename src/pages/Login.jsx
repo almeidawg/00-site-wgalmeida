@@ -126,6 +126,7 @@ const Login = () => {
                 {/* E-mail */}
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  <label htmlFor="wg-email-field" className="sr-only">E-mail</label>
                   <input
                     id="wg-email-field"
                     name="wg-email"
@@ -142,6 +143,7 @@ const Login = () => {
                 {/* Senha */}
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  <label htmlFor="wg-password-field" className="sr-only">Senha</label>
                   <input
                     id="wg-password-field"
                     name="wg-password"
