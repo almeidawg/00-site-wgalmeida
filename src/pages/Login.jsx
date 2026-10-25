@@ -6,6 +6,7 @@ import { Loader2, Lock, Mail, ShieldCheck } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { safeInternalPath } from '@/lib/safeInternalPath'
 
 const Login = () => {
   const { t } = useTranslation()
@@ -17,7 +18,7 @@ const Login = () => {
   const location = useLocation()
   const { toast } = useToast()
 
-  const from = location.state?.from?.pathname || '/'
+  const from = safeInternalPath(location.state?.from?.pathname)
 
   useEffect(() => {
     if (user) {
