@@ -72,6 +72,35 @@ describe('/api/contact Turnstile mode', () => {
     vi.restoreAllMocks();
   });
 
+  it('devolve 400 para formulario invalido mesmo sem chave de staging', async () => {
+    vi.stubEnv('VERCEL_ENV', 'preview')
+    vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', '')
+    vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY_2', '')
+    const handler = await loadHandler()
+    const res = makeRes()
+
+    await handler(makeReq({}), res)
+
+    expect(res.statusCode).toBe(400)
+    expect(JSON.parse(res.body).error).toContain('Nome, e-mail valido')
+    expect(res.headers['X-WG-Outcome']).toBe('rejected')
+    expect(global.fetch).not.toHaveBeenCalled()
+  })
+
+  it('continua falhando fechado para formulario valido sem chave de staging', async () => {
+    vi.stubEnv('VERCEL_ENV', 'preview')
+    vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', '')
+    vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY_2', '')
+    const handler = await loadHandler()
+    const res = makeRes()
+
+    await handler(makeReq(validBody), res)
+
+    expect(res.statusCode).toBe(500)
+    expect(JSON.parse(res.body).error).toBe('SUPABASE_SERVICE_ROLE_KEY not configured')
+    expect(global.fetch).not.toHaveBeenCalled()
+  })
+
   it('permite fallback com rate limit e honeypot quando Turnstile ainda nao esta configurado', async () => {
     const handler = await loadHandler();
     const res = makeRes();

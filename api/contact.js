@@ -327,10 +327,6 @@ export default async function handler(req, res) {
     return json(res, 405, { error: 'Method not allowed' })
   }
 
-  if (!CONTACT_SUPABASE_SERVICE_KEY) {
-    return respondWithConversion(500, { error: 'SUPABASE_SERVICE_ROLE_KEY not configured' }, { reason: 'persistence_not_configured' })
-  }
-
   try {
     const body = await parseBody(req)
     conversionContext = normalizeConversionContext(body.context)
@@ -348,6 +344,10 @@ export default async function handler(req, res) {
 
     if (!name || !isValidEmail(email) || !message) {
       return respondWithConversion(400, { error: 'Nome, e-mail valido e mensagem sao obrigatorios.' }, { reason: 'invalid_payload' })
+    }
+
+    if (!CONTACT_SUPABASE_SERVICE_KEY) {
+      return respondWithConversion(500, { error: 'SUPABASE_SERVICE_ROLE_KEY not configured' }, { reason: 'persistence_not_configured' })
     }
 
     const rate = checkRateLimit(rateKey)
