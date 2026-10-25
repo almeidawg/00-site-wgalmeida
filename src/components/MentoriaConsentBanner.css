@@ -2,7 +2,7 @@
    Nunca interceptar o CTA fixo do WhatsApp. Pixel permanece opt-in. */
 @media (max-width: 680px) {
   body .mcl-consent {
-    position: relative;
+    position: static;
     left: auto;
     right: auto;
     bottom: auto;
