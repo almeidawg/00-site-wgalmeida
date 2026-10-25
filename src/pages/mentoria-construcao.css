@@ -441,33 +441,3 @@
 .mcl-consent a { color: var(--mcl-ink); text-decoration: underline; }
 .mcl-consent__actions { display: flex; gap: 10px; }
 .mcl-consent__actions .mcl-button { min-height: 44px; padding: 0 18px; }
-
-/* Hotfix Mentoria 2026-10-25: consentimento nao pode encobrir CTAs no celular.
-   Aviso permanece visivel e Meta Pixel continua opt-in. */
-@media (max-width: 680px) {
-  .mcl-consent {
-    position: relative;
-    left: auto;
-    right: auto;
-    bottom: auto;
-    max-width: none;
-    margin: 0;
-    padding: 10px 16px;
-    border-radius: 0;
-    box-shadow: none;
-    gap: 8px;
-  }
-  .mcl-consent p {
-    flex: 1 1 100%;
-    font-size: 12px;
-    line-height: 1.35;
-  }
-  .mcl-consent__actions {
-    width: 100%;
-    justify-content: flex-end;
-  }
-  .mcl-consent__actions .mcl-button {
-    min-height: 44px;
-    padding: 0 14px;
-  }
-}
