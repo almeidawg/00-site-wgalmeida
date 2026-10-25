@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 
@@ -24,6 +25,11 @@ afterEach(() => {
 })
 
 describe('banner de consentimento da mentoria', () => {
+  it('mantem o link de privacidade com area de toque minima', () => {
+    const css = readFileSync('src/pages/mentoria-construcao.css', 'utf8')
+    expect(css).toMatch(/\.mcl-consent a\s*\{[^}]*min-height:\s*44px/)
+  })
+
   it('sem pixel configurado nao aparece e nada carrega', () => {
     config.id = ''
     const { container } = render(<MentoriaConsentBanner />)

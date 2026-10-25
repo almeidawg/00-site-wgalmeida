@@ -438,6 +438,6 @@
 
 .mcl-consent { position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 60; max-width: 720px; margin: 0 auto; padding: 16px 18px; background: var(--mcl-offwhite); color: var(--mcl-ink); border: 1px solid var(--mcl-line); border-radius: 12px; box-shadow: 0 8px 30px rgba(24,32,48,.18); display: flex; flex-wrap: wrap; gap: 12px 18px; align-items: center; justify-content: space-between; }
 .mcl-consent p { margin: 0; flex: 1 1 320px; font-size: .9rem; line-height: 1.45; }
-.mcl-consent a { color: var(--mcl-ink); text-decoration: underline; }
+.mcl-consent a { display: inline-flex; align-items: center; min-height: 44px; color: var(--mcl-ink); text-decoration: underline; }
 .mcl-consent__actions { display: flex; gap: 10px; }
 .mcl-consent__actions .mcl-button { min-height: 44px; padding: 0 18px; }

@@ -86,6 +86,7 @@ describe('TurnstileWidget lifecycle', () => {
     act(() => widgetOptions['error-callback']('110200'))
     expect(screen.getByRole('alert').textContent).toContain('Este endereço ainda não está autorizado')
     expect(screen.getByRole('link', { name: 'Falar pelo WhatsApp' }).getAttribute('href')).toMatch(/^https:\/\//)
+    expect(screen.getByRole('link', { name: 'Falar pelo WhatsApp' })).toHaveClass('min-h-11')
     expect(onExpire).toHaveBeenCalledWith({ type: 'error', code: '110200' })
     expect(onVerify).not.toHaveBeenCalled()
     act(() => widgetOptions.callback('valid-token-for-test'))

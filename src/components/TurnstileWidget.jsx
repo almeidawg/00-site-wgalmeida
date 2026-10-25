@@ -134,11 +134,11 @@ const TurnstileWidget = ({ onVerify, onExpire, disabled, label }) => {
           </p>
           <div className="mt-3 flex flex-wrap gap-3">
             {previewHost && domainNotAuthorized && (
-              <a href="https://wgalmeida.com.br/contato" className="font-semibold text-blue-700 underline">
+              <a href="https://wgalmeida.com.br/contato" className="inline-flex min-h-11 items-center font-semibold text-blue-700 underline">
                 Abrir o site oficial
               </a>
             )}
-            <a href={COMPANY.whatsapp} target="_blank" rel="noopener noreferrer" className="font-semibold text-blue-700 underline">
+            <a href={COMPANY.whatsapp} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center font-semibold text-blue-700 underline">
               Falar pelo WhatsApp
             </a>
           </div>
