@@ -1,10 +1,9 @@
 # RETURN POINT — Brand Canonical WG Almeida
 
-Atualizado em: 2026-10-21
+Atualizado em: 2026-10-26
 Owner: William Almeida
-Branch: `chore/brand-canonical-20260915`
-Base remota validada: `origin/main` em `1938ce7e2229554785179584ebe16a4666fa8fec`
-Worktree: `.worktrees/brand-canonical-20260914`
+Branch: `main` (merged — branch canonical concluída)
+Base remota validada: `origin/main` em `533432f` (fix(mentoria) #157)
 
 ## Objetivo desta frente
 
@@ -82,7 +81,38 @@ A formulação pública preferencial para tempo de mercado é `Desde 2011`. A da
 
 ## Histórico de Auditorias SEO Recorrentes
 
-### Auditoria 2026-10-21 (atual)
+### Auditoria 2026-10-26 (atual)
+
+| Métrica | Valor | Status |
+|---|---|---|
+| AI Readiness Score | 0/100¹ | ⚠️ PROXY BLOCK |
+| Rotas no sitemap | N/A¹ | ⚠️ PROXY BLOCK |
+| PageSpeed LCP mobile | N/A | 429 sem API key |
+| PageSpeed CLS mobile | N/A | 429 sem API key |
+| PageSpeed LCP desktop | N/A | 429 sem API key |
+
+**¹ Nota importante:** O score 0/100 e a falha no sitemap NÃO são problemas reais do site. O ambiente de execução remota (cloud sandbox) continua bloqueando conexões HTTPS de saída para `wgalmeida.com.br` via proxy (código HTTP 000 — timeout/sem rota). Condição idêntica às auditorias anteriores (2026-10-21, 2026-09-21 e 2026-09-16). A auditoria de referência (2026-06-23, sem restrição de proxy) registrou score 100/100 e 161 rotas.
+
+**Estado do repositório em 2026-10-26:**
+- Branch `chore/brand-canonical-20260915` foi mergeada — `main` está atualizada
+- Commits recentes: fix(mentoria) #157, fix(admin) #154, fix(contato) #153, fix(blog) #152, fix(site) #151
+- Head em `533432f`
+
+**Alertas registrados pelo script (ambiente):**
+- `[ALTA]` Sitemap XML: fetch failed — bloqueio de proxy do sandbox (não é falha do site)
+- `[MEDIA]` robots.txt: fetch failed — mesma causa acima
+- `[INFO]` PageSpeed: Rate limit 429 — sem `PAGESPEED_API_KEY` configurada
+
+**Plano de ação (próximos 5 dias):**
+1. Configurar `PAGESPEED_API_KEY` no ambiente de agendamento para habilitar métricas Core Web Vitals reais
+2. Verificar/solicitar exceção de proxy no sandbox para `wgalmeida.com.br` — ação recorrente pendente desde 2026-09-16 (contato com suporte do sandbox necessário)
+3. Verificar que as rotas novas (fix #151-#157) aparecem corretamente no sitemap em produção
+4. Executar smoke test público em `/`, `/sobre`, `/buildtech` e `/mentoria` após próximo deploy
+5. Próxima auditoria: **2026-10-31**
+
+---
+
+### Auditoria 2026-10-21 (anterior)
 
 | Métrica | Valor | Status |
 |---|---|---|
@@ -108,7 +138,7 @@ A formulação pública preferencial para tempo de mercado é `Desde 2011`. A da
 
 ---
 
-### Auditoria 2026-09-21 (anterior)
+### Auditoria 2026-09-21 (histórico)
 
 | Métrica | Valor | Status |
 |---|---|---|
@@ -125,21 +155,3 @@ A formulação pública preferencial para tempo de mercado é `Desde 2011`. A da
 - `[MEDIA]` robots.txt: Erro HTTP 403 — mesma causa acima
 - `[INFO]` PageSpeed: Rate limit 429 — sem `PAGESPEED_API_KEY` configurada
 
----
-
-### Auditoria 2026-09-16 (histórico)
-
-| Métrica | Valor | Status |
-|---|---|---|
-| AI Readiness Score | 0/100¹ | ⚠️ PROXY BLOCK |
-| Rotas no sitemap | N/A¹ | ⚠️ PROXY BLOCK |
-| PageSpeed LCP mobile | N/A | 429 sem API key |
-| PageSpeed CLS mobile | N/A | 429 sem API key |
-| PageSpeed LCP desktop | N/A | 429 sem API key |
-
-**¹ Nota importante:** O score 0/100 e a falha no sitemap NÃO são problemas reais do site. O ambiente de execução remota (cloud sandbox) bloqueia conexões HTTPS de saída para `wgalmeida.com.br` via proxy com HTTP 403. O site está operacional — a auditoria de 2026-06-23 (executada sem restrição de proxy) registrou score 100/100 e 161 rotas.
-
-**Alertas registrados pelo script (ambiente):**
-- `[ALTA]` Sitemap XML: Erro HTTP 403 — bloqueio de proxy do sandbox (não é falha do site)
-- `[MEDIA]` robots.txt: Erro HTTP 403 — mesma causa acima
-- `[INFO]` PageSpeed: Rate limit 429 — sem `PAGESPEED_API_KEY` configurada
