@@ -132,7 +132,12 @@ export default function BlogLeadCapture({ article, placement = 'article_end' }) 
       setSuccess(true)
       setForm({ name: '', email: '', phone: '', website: '' })
       setTurnstileToken('')
-      if (window.turnstile) window.turnstile.reset()
+      // Widget cleanup must never reclassify an already persisted contact as failed.
+      try {
+        window.turnstile?.reset?.()
+      } catch (error) {
+        if (import.meta.env.DEV) console.warn('blog Turnstile reset after accepted lead failed', error)
+      }
     } catch (submitError) {
       trackEvent('conversion_funnel', {
         action: 'submit_error',

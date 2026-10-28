@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useSearchParams, Link, useParams } from 'react-router-dom';
+import { safeInternalPath } from '@/lib/safeInternalPath';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { motion, AnimatePresence } from '@/lib/motion-lite';
@@ -908,7 +909,7 @@ const Blog = () => {
                       WhatsApp
                     </a>
                     <Link
-                      to={selectedArticle.moodboardShareUrl || '/moodboard'}
+                      to={safeInternalPath(selectedArticle.moodboardShareUrl, '/moodboard')}
                       className={`cta-quick inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-transparent bg-wg-black px-3 py-1.5 text-[9px] font-light uppercase tracking-[0.1em] text-white transition-colors hover:bg-black/90 focus:outline-none focus-visible:outline-none focus-visible:ring-0 ${articleCtaHoverClass}`}
                       style={articleCtaBorderVars}
                     >

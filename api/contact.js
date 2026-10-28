@@ -6,9 +6,31 @@ import { CANONICAL_SUPABASE_ORIGIN } from './_supabaseCanonical.js'
 const SUPABASE_ORIGIN = CANONICAL_SUPABASE_ORIGIN
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
 const sanitizeEnvValue = (value) => String(value || '').replace(/^\uFEFF+/, '').trim()
+const CONTACT_SUPABASE_SERVICE_KEY = process.env.VERCEL_ENV === 'preview'
+  ? sanitizeEnvValue(process.env.SUPABASE_SERVICE_ROLE_KEY_2 || process.env.SUPABASE_SERVICE_ROLE_KEY)
+  : SUPABASE_SERVICE_KEY
+const CONTACT_SUPABASE_ORIGIN = process.env.VERCEL_ENV === 'preview'
+  ? sanitizeEnvValue(process.env.SUPABASE_URL).replace(/\/+$/, '')
+  : SUPABASE_ORIGIN
 const TURNSTILE_SECRET_KEY = sanitizeEnvValue(process.env.TURNSTILE_SECRET_KEY)
 const CONTACT_TURNSTILE_REQUIRED = process.env.CONTACT_TURNSTILE_REQUIRED === 'true'
 const CONTACT_AUTO_PROMOTE_WGEASY = process.env.CONTACT_AUTO_PROMOTE_WGEASY === 'true'
+
+// Non-secret preview diagnostic; Production never logs auth key characteristics.
+const previewSupabaseAuthShape = () => {
+  const key = CONTACT_SUPABASE_SERVICE_KEY
+  const keyType = /^sb_secret_[A-Za-z0-9_-]+$/.test(key)
+    ? 'modern_secret'
+    : /^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/.test(key)
+      ? 'legacy_jwt'
+      : 'unrecognized'
+  let stagingHostMatches = false
+  try {
+    const origin = new URL(CONTACT_SUPABASE_ORIGIN)
+    stagingHostMatches = origin.protocol === 'https:' && origin.hostname === 'ayhcldffqadlbfjhkrmg.supabase.co'
+  } catch { /* report a mismatch without the configured URL */ }
+  return { keyType, keyLength: key.length, stagingHostMatches }
+}
 const ALLOWED_EXTRA_ORIGINS = new Set(
   String(process.env.CONTACT_ALLOWED_ORIGINS || '')
     .split(',')
@@ -154,12 +176,17 @@ const persistContactOnce = async (fingerprint, payload, requestId) => {
   }
 
   const promise = (async () => {
-    const response = await fetch(`${SUPABASE_ORIGIN}/rest/v1/rpc/ingest_site_contact_idempotent`, {
+    const response = await fetch(`${CONTACT_SUPABASE_ORIGIN}/rest/v1/rpc/ingest_site_contact_idempotent`, {
       method: 'POST',
       headers: {
-        apikey: SUPABASE_SERVICE_KEY,
-        Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
+        apikey: CONTACT_SUPABASE_SERVICE_KEY,
+        ...(CONTACT_SUPABASE_SERVICE_KEY.startsWith('sb_secret_')
+          ? {}
+          : { Authorization: `Bearer ${CONTACT_SUPABASE_SERVICE_KEY}` }),
         'Content-Type': 'application/json',
+        ...(process.env.VERCEL_ENV === 'preview'
+          ? { 'User-Agent': 'wg-almeida-preview-backend/1.0' }
+          : {}),
       },
       body: JSON.stringify({
         p_fingerprint: fingerprint,
@@ -182,6 +209,24 @@ const persistContactOnce = async (fingerprint, payload, requestId) => {
       const error = new Error('contact_persist_failed')
       error.statusCode = 502
       error.upstreamStatus = response.status
+      if (process.env.VERCEL_ENV === 'preview') {
+        let upstreamText = ''
+        try {
+          if (typeof response.text === 'function') upstreamText = String(await response.text()).slice(0, 1024).toLowerCase()
+          else if (typeof response.json === 'function') upstreamText = JSON.stringify(await response.json()).slice(0, 1024).toLowerCase()
+        } catch { /* classification must not change the outcome */ }
+        error.upstreamCategory = /invalid[ _-]?api[ _-]?key|api[ _-]?key[ _-]?invalid|invalid[ _-]?apikey/.test(upstreamText)
+          ? 'invalid_api_key'
+          : /missing[ _-]?(api[ _-]?key|authorization)|no[ _-]?api[ _-]?key/.test(upstreamText)
+            ? 'missing_api_key'
+            : /browser|user[ _-]?agent/.test(upstreamText)
+              ? 'browser_rejected'
+              : /invalid[ _-]?jwt|jwt[ _-]?expired|invalid[ _-]?token/.test(upstreamText)
+                ? 'invalid_jwt'
+                : /permission denied|insufficient privilege/.test(upstreamText)
+                  ? 'permission_denied'
+                  : 'unclassified'
+      }
       throw error
     }
     const savedPayload = await response.json()
@@ -220,7 +265,12 @@ const verifyTurnstile = async (token, remoteip) => {
 
   const result = await response.json().catch(() => ({}))
   if (!response.ok || result.success !== true) return false
-  if (result.action && result.action !== 'contact_form') return false
+  // Dummy Siteverify is exclusively for isolated Preview, never Production.
+  const previewDummyVerification = process.env.VERCEL_ENV === 'preview'
+    && process.env.TURNSTILE_TEST_MODE === 'true'
+    && TURNSTILE_SECRET_KEY === '1x0000000000000000000000000000000AA'
+  if (result.action && result.action !== 'contact_form' && !(previewDummyVerification && result.action === 'test')) return false
+  if (result.hostname === 'example.com') return previewDummyVerification
 
   const expectedHostnames = new Set(['wgalmeida.com.br', 'www.wgalmeida.com.br'])
   if (process.env.VERCEL_ENV !== 'production' && typeof result.hostname === 'string') {
@@ -277,10 +327,6 @@ export default async function handler(req, res) {
     return json(res, 405, { error: 'Method not allowed' })
   }
 
-  if (!SUPABASE_SERVICE_KEY) {
-    return respondWithConversion(500, { error: 'SUPABASE_SERVICE_ROLE_KEY not configured' }, { reason: 'persistence_not_configured' })
-  }
-
   try {
     const body = await parseBody(req)
     conversionContext = normalizeConversionContext(body.context)
@@ -298,6 +344,10 @@ export default async function handler(req, res) {
 
     if (!name || !isValidEmail(email) || !message) {
       return respondWithConversion(400, { error: 'Nome, e-mail valido e mensagem sao obrigatorios.' }, { reason: 'invalid_payload' })
+    }
+
+    if (!CONTACT_SUPABASE_SERVICE_KEY) {
+      return respondWithConversion(500, { error: 'SUPABASE_SERVICE_ROLE_KEY not configured' }, { reason: 'persistence_not_configured' })
     }
 
     const rate = checkRateLimit(rateKey)
@@ -356,7 +406,10 @@ export default async function handler(req, res) {
       return respondWithConversion(413, { error: 'Mensagem muito grande.' }, { reason: 'payload_too_large' })
     }
     if (error.statusCode === 502) {
-      console.error('contact api upstream persist error:', error.upstreamStatus || 'unknown')
+      console.error('contact api upstream persist error:', error.upstreamStatus || 'unknown',
+        ...(process.env.VERCEL_ENV === 'preview'
+          ? [error.upstreamCategory || 'unclassified', previewSupabaseAuthShape()]
+          : []))
       return respondWithConversion(502, { error: 'Falha ao registrar contato.' }, { reason: 'persist_failed' })
     }
     console.error('contact api error:', error)

@@ -1,5 +1,5 @@
 import React from 'react'
-import { act, cleanup, render, waitFor } from '@testing-library/react'
+import { act, cleanup, render, screen, waitFor } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 describe('TurnstileWidget lifecycle', () => {
@@ -74,6 +74,24 @@ describe('TurnstileWidget lifecycle', () => {
     view.unmount()
     expect(window.turnstile.remove).toHaveBeenCalledTimes(1)
     expect(window.turnstile.remove).toHaveBeenCalledWith('fixture-widget')
+  })
+
+  it('explains permanent Cloudflare domain errors without bypassing verification', async () => {
+    const onVerify = vi.fn()
+    const onExpire = vi.fn()
+    vi.spyOn(console, 'warn').mockImplementation(() => {})
+    const { default: TurnstileWidget } = await import('@/components/TurnstileWidget')
+    render(<TurnstileWidget label="anti-spam" onVerify={onVerify} onExpire={onExpire} />)
+    await waitFor(() => expect(window.turnstile.render).toHaveBeenCalledTimes(1))
+    act(() => widgetOptions['error-callback']('110200'))
+    expect(screen.getByRole('alert').textContent).toContain('Este endereço ainda não está autorizado')
+    expect(screen.getByRole('link', { name: 'Falar pelo WhatsApp' }).getAttribute('href')).toMatch(/^https:\/\//)
+    expect(screen.getByRole('link', { name: 'Falar pelo WhatsApp' })).toHaveClass('min-h-11')
+    expect(onExpire).toHaveBeenCalledWith({ type: 'error', code: '110200' })
+    expect(onVerify).not.toHaveBeenCalled()
+    act(() => widgetOptions.callback('valid-token-for-test'))
+    expect(screen.queryByRole('alert')).toBeNull()
+    expect(onVerify).toHaveBeenCalledWith('valid-token-for-test')
   })
 
   it('reports timeout without remounting the widget', async () => {

@@ -135,7 +135,7 @@ const MoodboardCanvas = ({
       {!hasContent ? (
         <div className="flex-1 flex flex-col items-center justify-center text-slate-700">
           <Layout className="w-16 h-16 mb-4 opacity-20" />
-          <h3 className="text-xl font-light mb-2 tracking-tight text-slate-500">Workspace de Curadoria</h3>
+          <h2 className="text-xl font-light mb-2 tracking-tight text-slate-500">Workspace de Curadoria</h2>
           <p className="text-[10px] text-center max-w-[200px] uppercase font-bold tracking-widest opacity-40 leading-relaxed">
             Selecione estilos e ativos na barra lateral para iniciar a composição financeira e visual.
           </p>
@@ -258,7 +258,7 @@ const MoodboardCanvas = ({
                       aria-label={`Remover ${img.name || img.title || 'referência'}`}
                       title="Remover referência"
                       onClick={() => onRemoveImage?.(img)}
-                      className="absolute top-1.5 right-1.5 w-6 h-6 bg-red-500/80 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all z-20"
+                      className="absolute top-1.5 right-1.5 w-11 h-11 bg-red-500/80 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all z-20"
                     >
                       <Trash2 className="w-3 h-3" />
                     </button>

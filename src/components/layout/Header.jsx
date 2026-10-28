@@ -1,12 +1,11 @@
 
-import React, { useState, useEffect, useMemo, useRef, Suspense, lazy } from 'react';
+import React, { useState, useEffect, useMemo, Suspense, lazy } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, ShoppingCart as ShoppingCartIcon, Ruler, Building2, Hammer, Globe, Cpu } from 'lucide-react';
+import { Menu, X, ChevronDown, ShoppingCart as ShoppingCartIcon, Ruler, Building2, Hammer } from 'lucide-react';
 import { useCart } from '@/hooks/useCart';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from '@/components/LanguageSelector';
 import { withBasePath } from '@/utils/assetPaths';
-import { PRODUCT_URLS } from '@/data/company';
 import { motion, AnimatePresence } from '@/lib/motion-lite';
 import { cn } from '@/lib/utils';
 
@@ -19,34 +18,9 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUnitsMenuOpen, setUnitsMenuOpen] = useState(false);
-  const [isSaaSMenuOpen, setSaaSMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const { cartItems } = useCart();
   const { t } = useTranslation();
-  const saasMenuRef = useRef(null);
-  const saasTriggerRef = useRef(null);
-
-  const closeSaaSMenu = ({ restoreFocus = false } = {}) => {
-    setSaaSMenuOpen(false);
-    if (restoreFocus) saasTriggerRef.current?.focus();
-  };
-
-  useEffect(() => {
-    if (!isSaaSMenuOpen) return undefined;
-    const handleOutsideInteraction = (event) => {
-      if (saasMenuRef.current && !saasMenuRef.current.contains(event.target)) {
-        setSaaSMenuOpen(false);
-      }
-    };
-    document.addEventListener('click', handleOutsideInteraction);
-    document.addEventListener('touchstart', handleOutsideInteraction);
-    return () => {
-      document.removeEventListener('click', handleOutsideInteraction);
-      document.removeEventListener('touchstart', handleOutsideInteraction);
-    };
-  }, [isSaaSMenuOpen]);
-
-  const MANAGEMENT_URL = '/admin';
   const location = useLocation();
 
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
@@ -79,7 +53,6 @@ const Header = () => {
   useEffect(() => {
     setIsMobileMenuOpen(false);
     setUnitsMenuOpen(false);
-    setSaaSMenuOpen(false);
   }, [location]);
 
   const navItems = useMemo(() => [
@@ -97,14 +70,6 @@ const Header = () => {
     { label: t('nav.carpentry'), path: '/marcenaria', icon: Hammer },
   ], [t]);
   
-  const saasItems = useMemo(() => [
-      { label: 'WGEasy', path: '/wgeasy', description: 'ERP Inteligente para Obras' },
-      { label: 'Easy Food', path: '/easyfood', description: 'SaaS para Food Service' },
-      { label: 'AcessooS', path: '/acessos', description: 'Gestão de Condomínios' },
-      { label: 'EventOS', path: PRODUCT_URLS.eventos, description: 'Gestão Completa de Eventos' }, // Added EventOS here
-      { label: 'Easy Real Estate', path: '/easy-real-state', description: 'Plataforma para Imobiliárias' },
-  ], []);
-
   const navLinkClass = effectivelyScrolled
     ? 'whitespace-nowrap px-2 xl:px-2.5 py-1.5 rounded-full text-[12px] xl:text-[13px] text-wg-gray hover:text-wg-black hover:bg-black/[0.05]'
     : 'whitespace-nowrap px-2 xl:px-2.5 py-2 rounded-full text-[12px] xl:text-[13px] text-white/80 hover:text-white hover:bg-white/[0.08] backdrop-blur-sm';
@@ -174,49 +139,6 @@ const Header = () => {
                 )}
               </button>
 
-              <div
-                ref={saasMenuRef}
-                className="relative h-full flex items-center"
-                onMouseEnter={() => setSaaSMenuOpen(true)}
-                onMouseLeave={() => setSaaSMenuOpen(false)}
-                onKeyDown={(event) => { if (event.key === 'Escape') closeSaaSMenu({ restoreFocus: true }); }}
-              >
-                  <button
-                    ref={saasTriggerRef}
-                    type="button"
-                    onClick={() => setSaaSMenuOpen(true)}
-                    onFocus={() => setSaaSMenuOpen(true)}
-                    aria-label={t('header.saasMenuLabel', 'Abrir menu de produtos SaaS')}
-                    aria-expanded={isSaaSMenuOpen}
-                    aria-haspopup="menu"
-                    className={`flex items-center justify-center rounded-full border transition-all backdrop-blur-xl hover:bg-white/10 hover:border-black/15 ${iconButtonClass}`}
-                  >
-                      <Cpu className={`${iconColorClass} transition-all ${isScrolled ? 'h-4 w-4' : 'h-5 w-5'}`} />
-                  </button>
-                  <AnimatePresence>
-                  {isSaaSMenuOpen && (
-                    <>
-                      <div className="absolute top-full left-0 w-full h-8 bg-transparent" />
-                      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 5 }} transition={{ duration: 0.3 }} className="absolute top-[calc(100%+8px)] right-0 z-[90] w-80">
-                        <div className="overflow-hidden rounded-3xl border border-white/10 bg-slate-950/90 p-2 shadow-2xl backdrop-blur-2xl">
-                          <div className="flex flex-col gap-1">
-                            {saasItems.map((item) => (
-                              <Link key={item.label} to={item.path} className="group flex flex-col px-4 py-3 rounded-[20px] transition-all duration-300 hover:bg-white/5">
-                                <span className="text-[13px] font-bold text-white">{item.label}</span>
-                                <span className="text-xs text-white/60">{item.description}</span>
-                              </Link>
-                            ))}
-                          </div>
-                        </div>
-                      </motion.div>
-                    </>
-                  )}
-                </AnimatePresence>
-              </div>
-
-              <Link to={MANAGEMENT_URL} aria-label="Acessar área de gestão" title="Acessar área de gestão" className={`hidden md:flex items-center justify-center rounded-full border transition-all backdrop-blur-xl hover:bg-white/10 hover:border-black/15 ${iconButtonClass}`}>
-                <Globe className={`${iconColorClass} transition-all ${isScrolled ? 'h-3.5 w-3.5' : 'h-4 w-4'}`} />
-              </Link>
               
               <button type="button" className={`xl:hidden inline-flex h-11 w-11 items-center justify-center rounded-full transition-colors ${isScrolled ? 'text-wg-black' : 'text-white'}`} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} aria-label={isMobileMenuOpen ? t('header.closeMenu') : t('header.openMenu')} aria-expanded={isMobileMenuOpen}>
                 {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -228,11 +150,15 @@ const Header = () => {
         {isMobileMenuOpen && (
           <div className="relative z-[95] max-h-[calc(100dvh-var(--header-height)-1rem)] animate-slideDown overflow-y-auto overscroll-contain border-t border-white/[0.12] bg-[rgba(12,16,22,0.86)] backdrop-blur-2xl xl:hidden">
             <nav className="container-custom py-4 space-y-2">
-              {[...navItems, {label: t('header.unitsLabel'), dropdown: unitsItems}, {label: 'SaaS', dropdown: saasItems}, {label: t('nav.contact'), path: '/contato'}].map((item) => (
+              {[...navItems, {label: t('header.unitsLabel'), dropdown: unitsItems}, {label: t('nav.contact'), path: '/contato'}].map((item) => (
                 <div key={item.path || item.label}>
-                   <Link to={item.path} className={`block px-4 py-3 transition-colors font-suisse font-light ${location.pathname === item.path ? 'text-white' : 'text-white/70 hover:text-white'}`}>
-                      {item.label}
-                    </Link>
+                   {item.dropdown ? (
+                     <span className="block px-4 py-3 font-suisse font-medium text-white" role="heading" aria-level="2">{item.label}</span>
+                   ) : (
+                     <Link to={item.path} className={`block px-4 py-3 transition-colors font-suisse font-light ${location.pathname === item.path ? 'text-white' : 'text-white/70 hover:text-white'}`}>
+                       {item.label}
+                     </Link>
+                   )}
                   {item.dropdown && (
                     <div className="pl-4 space-y-1 border-l border-white/10 ml-4">
                       {item.dropdown.map((subItem) => (

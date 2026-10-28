@@ -1,12 +1,14 @@
 import { ArrowUpRight, Palette, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { safeInternalPath } from '@/lib/safeInternalPath';
 
 export default function BlogMoodboardPanel({ article }) {
   const moodboard = article?.moodboard || {};
   const palette = Array.isArray(moodboard.palette) ? moodboard.palette.filter(Boolean) : [];
   const styleSlugs = Array.isArray(moodboard.styleSlugs) ? moodboard.styleSlugs.filter(Boolean) : [];
+  const shareUrl = safeInternalPath(article?.moodboardShareUrl, '');
 
-  if (!palette.length && !styleSlugs.length && !article?.moodboardShareUrl) {
+  if (!palette.length && !styleSlugs.length && !shareUrl) {
     return null;
   }
 
@@ -35,9 +37,9 @@ export default function BlogMoodboardPanel({ article }) {
           </div>
 
           <div className="mt-6 flex flex-wrap items-center gap-3">
-            {article.moodboardShareUrl && (
+            {shareUrl && (
               <Link
-                to={article.moodboardShareUrl}
+                to={shareUrl}
                 className="inline-flex items-center gap-2 rounded-full bg-wg-black px-5 py-3 text-[11px] font-light uppercase tracking-[0.16em] text-white transition-colors hover:bg-wg-orange"
               >
                 Abrir mood board público

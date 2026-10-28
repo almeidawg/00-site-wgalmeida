@@ -190,3 +190,4 @@ audit_visual/
 validados_*/
 tmp_screenshots/
 tmp-visual*.png
+.env*

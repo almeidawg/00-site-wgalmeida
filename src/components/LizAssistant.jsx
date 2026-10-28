@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from '@/lib/motion-lite';
 import { MessageSquare, X, Send, ArrowRight } from 'lucide-react';
 import { trackWhatsappClick } from '@/lib/analytics';
@@ -6,16 +6,6 @@ import { COMPANY } from '@/data/company';
 
 export default function LizAssistant() {
   const [isOpen, setIsOpen] = useState(false);
-  const [hasPrompted, setHasPrompted] = useState(false);
-
-  // Auto-prompt after 10 seconds if not opened
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (!isOpen && !hasPrompted) setHasPrompted(true);
-    }, 10000);
-    return () => clearTimeout(timer);
-  }, [isOpen, hasPrompted]);
-
   const handleOpenWhatsApp = (customMessage) => {
     const defaultMsg = 'Olá! Gostaria de falar com a Liz sobre um projeto na WG Almeida.';
     const msg = customMessage || defaultMsg;
@@ -27,29 +17,7 @@ export default function LizAssistant() {
 
   return (
     <>
-      <div className="fixed bottom-6 right-6 z-[100] flex flex-col items-end">
-        <AnimatePresence>
-          {/* Prompt Bubble */}
-          {!isOpen && hasPrompted && (
-            <motion.div
-              initial={{ opacity: 0, y: 10, scale: 0.9 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
-              className="mb-4 mr-2 bg-white text-slate-800 p-4 rounded-2xl rounded-br-sm shadow-[0_10px_40px_rgba(0,0,0,0.12)] border border-slate-100 max-w-[240px] cursor-pointer hover:shadow-[0_15px_50px_rgba(0,0,0,0.15)] transition-shadow"
-              onClick={() => setIsOpen(true)}
-            >
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-full bg-slate-900 flex items-center justify-center shrink-0 overflow-hidden">
-                  <img src="/images/icone.webp" alt="Liz" className="w-full h-full object-cover" />
-                </div>
-                <div>
-                  <p className="text-[10px] uppercase tracking-widest font-bold text-slate-400 mb-1">Liz · Concierge Digital</p>
-                  <p className="text-sm leading-snug font-light">Posso te ajudar a estimar o custo do seu projeto ou encontrar o estilo ideal?</p>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+      <div className="fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] right-4 sm:bottom-6 sm:right-6 z-[100] flex flex-col items-end">
 
         {/* Main Floating Button */}
         <motion.button
@@ -57,14 +25,15 @@ export default function LizAssistant() {
           whileTap={{ scale: 0.95 }}
           onClick={() => {
             setIsOpen(!isOpen);
-            setHasPrompted(false);
           }}
           className={`w-14 h-14 rounded-full shadow-[0_10px_40px_rgba(0,0,0,0.2)] flex items-center justify-center transition-colors border ${
             isOpen 
               ? 'bg-slate-900 border-slate-700 text-white' 
               : 'bg-gradient-to-tr from-slate-900 to-slate-800 border-slate-700 text-white'
           }`}
-          aria-label="Falar com a Liz"
+          aria-label={isOpen ? 'Fechar atendimento da Liz' : 'Conversar com a Liz'}
+          aria-expanded={isOpen}
+          aria-controls="liz-assistant-panel"
         >
           {isOpen ? <X size={24} /> : <MessageSquare size={24} />}
         </motion.button>
@@ -77,7 +46,10 @@ export default function LizAssistant() {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-24 right-6 z-[100] w-[calc(100vw-3rem)] sm:w-[360px] bg-white rounded-[2rem] shadow-[0_30px_100px_rgba(0,0,0,0.2)] border border-slate-100 overflow-hidden flex flex-col"
+            id="liz-assistant-panel"
+            role="dialog"
+            aria-label="Atendimento da Liz"
+            className="fixed bottom-[calc(5.5rem+env(safe-area-inset-bottom))] right-4 sm:bottom-24 sm:right-6 z-[100] w-[calc(100vw-2rem)] sm:w-[360px] max-h-[min(72dvh,32rem)] bg-white rounded-[2rem] shadow-[0_30px_100px_rgba(0,0,0,0.2)] border border-slate-100 overflow-y-auto flex flex-col"
           >
             <div className="bg-gradient-to-br from-slate-900 to-slate-800 p-6 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-48 h-48 bg-blue-500/20 rounded-full blur-[50px]" />

@@ -154,4 +154,3 @@ A formulação pública preferencial para tempo de mercado é `Desde 2011`. A da
 - `[ALTA]` Sitemap XML: Erro HTTP 403 — bloqueio de proxy do sandbox (não é falha do site)
 - `[MEDIA]` robots.txt: Erro HTTP 403 — mesma causa acima
 - `[INFO]` PageSpeed: Rate limit 429 — sem `PAGESPEED_API_KEY` configurada
-

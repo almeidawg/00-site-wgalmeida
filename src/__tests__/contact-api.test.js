@@ -72,6 +72,35 @@ describe('/api/contact Turnstile mode', () => {
     vi.restoreAllMocks();
   });
 
+  it('devolve 400 para formulario invalido mesmo sem chave de staging', async () => {
+    vi.stubEnv('VERCEL_ENV', 'preview')
+    vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', '')
+    vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY_2', '')
+    const handler = await loadHandler()
+    const res = makeRes()
+
+    await handler(makeReq({}), res)
+
+    expect(res.statusCode).toBe(400)
+    expect(JSON.parse(res.body).error).toContain('Nome, e-mail valido')
+    expect(res.headers['X-WG-Outcome']).toBe('rejected')
+    expect(global.fetch).not.toHaveBeenCalled()
+  })
+
+  it('continua falhando fechado para formulario valido sem chave de staging', async () => {
+    vi.stubEnv('VERCEL_ENV', 'preview')
+    vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', '')
+    vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY_2', '')
+    const handler = await loadHandler()
+    const res = makeRes()
+
+    await handler(makeReq(validBody), res)
+
+    expect(res.statusCode).toBe(500)
+    expect(JSON.parse(res.body).error).toBe('SUPABASE_SERVICE_ROLE_KEY not configured')
+    expect(global.fetch).not.toHaveBeenCalled()
+  })
+
   it('permite fallback com rate limit e honeypot quando Turnstile ainda nao esta configurado', async () => {
     const handler = await loadHandler();
     const res = makeRes();
@@ -168,6 +197,66 @@ describe('/api/contact Turnstile mode', () => {
     expect(global.fetch).toHaveBeenCalledTimes(1);
   });
 
+  it('classifica 401 em Preview sem registrar o corpo ou qualquer segredo', async () => {
+    vi.stubEnv('VERCEL_ENV', 'preview');
+    const log = vi.spyOn(console, 'error').mockImplementation(() => {});
+    global.fetch = vi.fn(async () => ({
+      ok: false,
+      status: 401,
+      text: async () => 'Invalid API key: SENSITIVE_SYNTHETIC_MARKER',
+    }));
+    const handler = await loadHandler();
+    const res = makeRes();
+
+    await handler(makeReq({ ...validBody, email: 'preview-auth-fail@example.com' }), res);
+
+    expect(res.statusCode).toBe(502);
+    expect(log).toHaveBeenCalledWith('contact api upstream persist error:', 401, 'invalid_api_key',
+      expect.objectContaining({ keyType: 'unrecognized', stagingHostMatches: false }));
+    expect(JSON.stringify(log.mock.calls)).not.toContain('SENSITIVE_SYNTHETIC_MARKER');
+  });
+
+  it('reports the Preview key shape and canonical staging hostname without any key bytes', async () => {
+    vi.stubEnv('VERCEL_ENV', 'preview');
+    vi.stubEnv('SUPABASE_URL', 'https://ayhcldffqadlbfjhkrmg.supabase.co');
+    const syntheticSecret = ['sb', 'secret', 'SYNTHETIC_PRIVATE_MATERIAL_TEST'].join('_');
+    vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', syntheticSecret);
+    const log = vi.spyOn(console, 'error').mockImplementation(() => {});
+    global.fetch = vi.fn(async () => ({
+      ok: false,
+      status: 401,
+      text: async () => 'Invalid API key',
+    }));
+    const handler = await loadHandler();
+    const res = makeRes();
+    await handler(makeReq({ ...validBody, email: 'preview-shape-qa@example.invalid' }), res);
+
+    expect(res.statusCode).toBe(502);
+    // Both URL variables are set in this fixture. The private staging URL must win in Preview.
+    expect(global.fetch.mock.calls[0][0]).toBe('https://ayhcldffqadlbfjhkrmg.supabase.co/rest/v1/rpc/ingest_site_contact_idempotent');
+    expect(log).toHaveBeenCalledWith('contact api upstream persist error:', 401, 'invalid_api_key',
+      { keyType: 'modern_secret', keyLength: syntheticSecret.length, stagingHostMatches: true });
+    expect(JSON.stringify(log.mock.calls)).not.toContain('SYNTHETIC_PRIVATE_MATERIAL_TEST');
+  });
+
+  it('mantem Production sem detalhes de resposta upstream nos logs', async () => {
+    vi.stubEnv('VERCEL_ENV', 'production');
+    const log = vi.spyOn(console, 'error').mockImplementation(() => {});
+    global.fetch = vi.fn(async () => ({
+      ok: false,
+      status: 401,
+      text: async () => 'Invalid API key: SENSITIVE_SYNTHETIC_MARKER',
+    }));
+    const handler = await loadHandler();
+    const res = makeRes();
+
+    await handler(makeReq({ ...validBody, email: 'prod-auth-fail@example.com' }), res);
+
+    expect(res.statusCode).toBe(502);
+    expect(log).toHaveBeenCalledWith('contact api upstream persist error:', 401);
+    expect(JSON.stringify(log.mock.calls)).not.toContain('SENSITIVE_SYNTHETIC_MARKER');
+  });
+
   it('rejeita Turnstile invalido com 403 antes de persistir contato', async () => {
     vi.stubEnv('TURNSTILE_SECRET_KEY', 'turnstile-secret-test');
     global.fetch = vi.fn(async (url) => {
@@ -201,6 +290,34 @@ describe('/api/contact Turnstile mode', () => {
     expect(first.statusCode).toBe(200);
     expect(second.statusCode).toBe(403);
     expect(global.fetch).toHaveBeenCalledTimes(2);
+  });
+
+  it('deduplica retry com token Turnstile novo sem segunda persistencia', async () => {
+    vi.stubEnv('TURNSTILE_SECRET_KEY', 'turnstile-secret-test');
+    vi.stubEnv('CONTACT_TURNSTILE_REQUIRED', 'true');
+    global.fetch = vi.fn(async (url) => {
+      if (String(url).includes('challenges.cloudflare.com')) {
+        return { ok: true, status: 200, json: async () => ({ success: true, action: 'contact_form', hostname: 'wgalmeida.com.br' }) };
+      }
+      return { ok: true, status: 200, json: async () => ([rpcRow()]) };
+    });
+    const handler = await loadHandler();
+    const contact = { ...validBody, email: 'fresh-turnstile-qa@example.invalid' };
+    const headers = { 'x-forwarded-for': '198.51.100.226' };
+    const first = makeRes();
+    const second = makeRes();
+
+    await handler(makeReq({ ...contact, turnstileToken: 'synthetic-token-first' }, headers), first);
+    await handler(makeReq({ ...contact, turnstileToken: 'synthetic-token-second' }, headers), second);
+
+    expect(first.statusCode).toBe(200);
+    expect(second.statusCode).toBe(200);
+    expect(JSON.parse(first.body).outcome).toBe('saved');
+    expect(JSON.parse(second.body).outcome).toBe('duplicate');
+    expect(first.headers['X-WG-Outcome']).toBe('saved');
+    expect(second.headers['X-WG-Outcome']).toBe('duplicate');
+    expect(global.fetch).toHaveBeenCalledTimes(3);
+    expect(global.fetch.mock.calls.filter(([url]) => String(url).includes('/rest/v1/rpc/'))).toHaveLength(1);
   });
 
   it('retorna 429 na nona tentativa equivalente dentro da janela', async () => {
