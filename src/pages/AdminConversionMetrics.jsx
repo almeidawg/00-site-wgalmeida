@@ -31,7 +31,7 @@ export default function AdminConversionMetrics() {
       <MetricCard label="Salvas" value={loading ? '—' : totals.saved ?? 0} helper={`${Math.round((totals.saveRate || 0) * 100)}% dos eventos`} icon={CheckCircle2} />
       <MetricCard label="Duplicatas" value={loading ? '—' : totals.duplicate ?? 0} helper="Detectadas pelo intake" icon={Copy} />
       <MetricCard label="Rejeitadas" value={loading ? '—' : totals.rejected ?? 0} helper="Anti-spam, validação ou upstream" icon={XCircle} />
-      <MetricCard label="Promoções" value={loading ? '—' : totals.promotionCompleted ?? 0} helper={`${totals.leadPromotions ?? 0} no lifecycle`} icon={TrendingUp} />
+      <MetricCard label="Promoções" value={loading ? '—' : totals.promotionCompleted ?? 0} helper={`${totals.leadPromotions ?? 0} no CRM em todas as origens; não atribuídas ao site`} icon={TrendingUp} />
       <MetricCard label="Privacidade" value="PII 0" helper="Retenção operacional: 90 dias" icon={ShieldCheck} />
     </div>
     <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">

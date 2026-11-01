@@ -531,6 +531,8 @@ const Blog = () => {
         <Link to={`/blog/${article.slug}`} className="block aspect-[4/3] overflow-hidden relative">
           <img
             src={article.image || '/images/blog/placeholder.webp'}
+              loading="lazy"
+              decoding="async"
             alt={article.title}
             className="w-full h-full scale-105 object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-100"
             onError={handleArticleImageError}
@@ -586,6 +588,8 @@ const Blog = () => {
           <div className="relative min-h-[15rem] overflow-hidden">
             <img
               src={article.image || '/images/blog/placeholder.webp'}
+              loading="lazy"
+              decoding="async"
               alt={article.title}
               className="h-full w-full scale-105 object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-100"
               onError={handleArticleImageError}
@@ -604,9 +608,9 @@ const Blog = () => {
               <span className="h-1 w-1 rounded-full bg-gray-300" />
               <span className="flex items-center gap-1"><Clock size={12} /> {article.readTime || '5 min'}</span>
             </div>
-            <h3 className="mb-4 text-2xl font-light leading-tight text-wg-black transition-colors group-hover:text-wg-orange">
+            <h2 className="mb-4 text-2xl font-light leading-tight text-wg-black transition-colors group-hover:text-wg-orange">
               {article.title}
-            </h3>
+            </h2>
             <p className="mb-6 line-clamp-4 text-sm font-light leading-relaxed text-wg-gray">
               {article.excerpt}
             </p>
@@ -638,6 +642,8 @@ const Blog = () => {
           <div className="relative aspect-[4/3] overflow-hidden">
             <img
               src={article.image || '/images/blog/placeholder.webp'}
+              loading="lazy"
+              decoding="async"
               alt={article.title}
               className="h-full w-full scale-105 object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-100"
               onError={handleArticleImageError}
@@ -1262,6 +1268,8 @@ const Blog = () => {
                         <div className="relative min-h-[15rem] overflow-hidden">
                           <img
                             src={article.image || '/images/blog/placeholder.webp'}
+              loading="lazy"
+              decoding="async"
                             alt={article.title}
                             className="h-full w-full scale-105 object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-100"
                             onError={handleArticleImageError}
@@ -1316,6 +1324,8 @@ const Blog = () => {
                             <div className="relative aspect-[4/3] overflow-hidden">
                               <img
                                 src={article.image || '/images/blog/placeholder.webp'}
+              loading="lazy"
+              decoding="async"
                                 alt={article.title}
                                 className="h-full w-full scale-105 object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-100"
                                 onError={handleArticleImageError}

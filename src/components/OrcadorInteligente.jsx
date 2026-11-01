@@ -100,6 +100,7 @@ const OrcadorInteligente = ({
     setSubmitError('');
 
     const finalSource = sourceContext || wgContext?.origem || 'site-wgalmeida';
+    const attribution = new URLSearchParams(window.location.search);
     const message = `Serviço: ${formData.servico} | Imóvel: ${formData.tipoImovel} | Metragem: ${formData.metragem}m² | Prazo: ${formData.prazo} | Origem: ${finalSource} | Faixa Visualizada: ${estimate || 'N/A'}`;
 
     try {
@@ -112,6 +113,9 @@ const OrcadorInteligente = ({
           phone: formData.telefone,
           subject: `Solicitação técnica: ${formData.servico}`,
           message: message,
+          utm_source: attribution.get('utm_source') || null,
+          utm_medium: attribution.get('utm_medium') || null,
+          utm_campaign: attribution.get('utm_campaign') || null,
           context: sourceContext || 'orcamento',
           turnstileToken: turnstileToken || null,
         })
