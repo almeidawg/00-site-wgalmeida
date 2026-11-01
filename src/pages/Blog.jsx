@@ -1,24 +1,19 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { useSearchParams, Link, useParams } from 'react-router-dom';
+import { useState, useEffect, useMemo } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { motion, AnimatePresence } from '@/lib/motion-lite';
+import { motion } from '@/lib/motion-lite';
 import SEO, { schemas } from '@/components/SEO';
 import { 
   Search, 
   Calendar, 
   Clock, 
   User, 
-  ChevronRight, 
   ArrowRight,
   Filter,
   ArrowLeft,
   Share2,
   CheckCircle2,
-  Copy,
-  Twitter,
-  Linkedin,
-  Facebook,
   Hammer,
   Building2,
   Ruler,
@@ -52,6 +47,25 @@ const handleArticleImageError = (event) => {
   event.currentTarget.dataset.fallbackApplied = 'true';
   event.currentTarget.src = BLOG_HERO_IMAGE;
 };
+
+const ArticleCardCover = ({ article, imageClassName, gradient = false }) => (
+  <>
+    <img
+      src={article.image || '/images/blog/placeholder.webp'}
+      loading="lazy"
+      decoding="async"
+      alt={article.title}
+      className={imageClassName}
+      onError={handleArticleImageError}
+    />
+    {gradient && <div className="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent md:bg-gradient-to-r" />}
+    <div className="absolute left-4 top-4">
+      <span className={`rounded-full border px-2.5 py-1 text-[9px] font-light uppercase tracking-[0.12em] backdrop-blur-md ${getArticleTagClass(article)}`}>
+        {article.category}
+      </span>
+    </div>
+  </>
+);
 
 const ARTICLE_MARKDOWN_COMPONENTS = {
   hr: () => <hr className="my-10 border-0 border-t border-gray-200" />,
@@ -353,10 +367,15 @@ const buildEditorialRows = (articles = []) => {
   return rows;
 };
 
+const getBlogLanguageContext = (language) => {
+  if (language.startsWith('en')) return { currentLang: 'en', dateLocale: 'en-US' };
+  if (language.startsWith('es')) return { currentLang: 'es', dateLocale: 'es-ES' };
+  return { currentLang: 'pt-BR', dateLocale: 'pt-BR' };
+};
+
 const Blog = () => {
   const { t, i18n } = useTranslation();
   const { slug } = useParams();
-  const [searchParams, setSearchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState('');
   const [activeCategory, setActiveCategory] = useState('all');
   const [articles, setArticles] = useState([]);
@@ -371,8 +390,7 @@ const Blog = () => {
     shareBreakdown: {},
   });
 
-  const currentLang = i18n.language.startsWith('en') ? 'en' : i18n.language.startsWith('es') ? 'es' : 'pt-BR';
-  const dateLocale = currentLang === 'en' ? 'en-US' : currentLang === 'es' ? 'es-ES' : 'pt-BR';
+  const { currentLang, dateLocale } = getBlogLanguageContext(i18n.language);
 
   // Carregamento dinâmico de artigos baseado no idioma
   useEffect(() => {
@@ -515,7 +533,7 @@ const Blog = () => {
   };
 
   const renderStandardCard = (article, index, keyPrefix = 'standard') => {
-    const articleTagClass = getArticleTagClass(article);
+
     const articleLineClass = getArticleLineClass(article);
     const articleCardHoverClass = getArticleCardHoverClass(article);
 
@@ -529,17 +547,7 @@ const Blog = () => {
         className={`group bg-white rounded-3xl overflow-hidden border border-black/5 hover:shadow-2xl transition-all duration-500 flex flex-col h-full ${articleCardHoverClass}`}
       >
         <Link to={`/blog/${article.slug}`} className="block aspect-[4/3] overflow-hidden relative">
-          <img
-            src={article.image || '/images/blog/placeholder.webp'}
-            alt={article.title}
-            className="w-full h-full scale-105 object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-100"
-            onError={handleArticleImageError}
-          />
-          <div className="absolute top-4 left-4">
-            <span className={`rounded-full border px-2.5 py-1 text-[9px] font-light uppercase tracking-[0.12em] backdrop-blur-md ${articleTagClass}`}>
-              {article.category}
-            </span>
-          </div>
+          <ArticleCardCover article={article} imageClassName="w-full h-full scale-105 object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-100" />
         </Link>
 
         <div className="p-6 flex flex-col flex-1">
@@ -569,10 +577,11 @@ const Blog = () => {
     );
   };
 
-  const renderFeatureCard = (article, keyPrefix = 'feature') => {
-    const articleTagClass = getArticleTagClass(article);
+  const renderFeatureCard = (article, keyPrefix = 'feature', isLead = false) => {
+
     const articleLineClass = getArticleLineClass(article);
     const articleCardHoverClass = getArticleCardHoverClass(article);
+    const Heading = isLead ? 'h3' : 'h2';
 
     return (
       <motion.article
@@ -584,18 +593,7 @@ const Blog = () => {
       >
         <Link to={`/blog/${article.slug}`} className="grid min-h-[24rem] grid-cols-1 md:grid-cols-[42%_1fr]">
           <div className="relative min-h-[15rem] overflow-hidden">
-            <img
-              src={article.image || '/images/blog/placeholder.webp'}
-              alt={article.title}
-              className="h-full w-full scale-105 object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-100"
-              onError={handleArticleImageError}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent md:bg-gradient-to-r" />
-            <div className="absolute left-4 top-4">
-              <span className={`rounded-full border px-2.5 py-1 text-[9px] font-light uppercase tracking-[0.12em] backdrop-blur-md ${articleTagClass}`}>
-                {article.category}
-              </span>
-            </div>
+            <ArticleCardCover article={article} imageClassName="h-full w-full scale-105 object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-100" gradient />
           </div>
 
           <div className="flex flex-col p-6 md:p-7">
@@ -604,9 +602,9 @@ const Blog = () => {
               <span className="h-1 w-1 rounded-full bg-gray-300" />
               <span className="flex items-center gap-1"><Clock size={12} /> {article.readTime || '5 min'}</span>
             </div>
-            <h3 className="mb-4 text-2xl font-light leading-tight text-wg-black transition-colors group-hover:text-wg-orange">
+            <Heading className="mb-4 text-2xl font-light leading-tight text-wg-black transition-colors group-hover:text-wg-orange">
               {article.title}
-            </h3>
+            </Heading>
             <p className="mb-6 line-clamp-4 text-sm font-light leading-relaxed text-wg-gray">
               {article.excerpt}
             </p>
@@ -621,7 +619,7 @@ const Blog = () => {
   };
 
   const renderSupportCard = (article, index, keyPrefix = 'support') => {
-    const articleTagClass = getArticleTagClass(article);
+
     const articleLineClass = getArticleLineClass(article);
     const articleCardHoverClass = getArticleCardHoverClass(article);
 
@@ -636,17 +634,7 @@ const Blog = () => {
       >
         <Link to={`/blog/${article.slug}`} className="flex w-full flex-col">
           <div className="relative aspect-[4/3] overflow-hidden">
-            <img
-              src={article.image || '/images/blog/placeholder.webp'}
-              alt={article.title}
-              className="h-full w-full scale-105 object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-100"
-              onError={handleArticleImageError}
-            />
-            <div className="absolute left-4 top-4">
-              <span className={`rounded-full border px-2.5 py-1 text-[9px] font-light uppercase tracking-[0.12em] backdrop-blur-md ${articleTagClass}`}>
-                {article.category}
-              </span>
-            </div>
+            <ArticleCardCover article={article} imageClassName="h-full w-full scale-105 object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-100" />
           </div>
           <div className="flex flex-1 flex-col p-5">
             <div className="mb-3 flex flex-wrap items-center gap-3 text-[10px] uppercase tracking-widest text-gray-400">
@@ -744,6 +732,7 @@ const Blog = () => {
     const currentPageUrl = typeof window !== 'undefined'
       ? window.location.href
       : `https://wgalmeida.com.br/blog/${selectedArticle.slug}`;
+    const whatsappShareText = `Vi esta materia no site da WG Almeida e quero continuar por aqui: ${currentPageUrl}`;
     const articleHeroSrc = articleHeroAsset?.src || selectedArticle.imageHero || selectedArticle.image || BLOG_HERO_IMAGE;
     const articleHeroAlt = articleHeroAsset?.alt || selectedArticle.title;
     const articleHeroObjectPosition = getHeroObjectPosition(articleHeroAsset);
@@ -898,7 +887,7 @@ const Blog = () => {
                       {showShareTooltip ? t('common.copied') : t('common.share')}
                     </button>
                     <a
-                      href={`https://wa.me/5511984650002?text=${encodeURIComponent(`Vi esta materia no site da WG Almeida e quero continuar por aqui: ${currentPageUrl}`)}`}
+                      href={`https://wa.me/5511984650002?text=${encodeURIComponent(whatsappShareText)}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className={`wg-cta-subtle cta-quick inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-black/12 bg-white px-3 py-1.5 text-[9px] font-light uppercase tracking-[0.1em] text-wg-black transition-colors hover:text-wg-black focus:outline-none focus-visible:outline-none focus-visible:ring-0 ${articleCtaHoverClass}`}
@@ -1245,62 +1234,11 @@ const Blog = () => {
             <>
             {leadArticle && (
               <div className="mb-10 grid grid-cols-1 gap-6 lg:grid-cols-2">
-                {(() => {
-                  const article = leadArticle;
-                  const articleTagClass = getArticleTagClass(article);
-                  const articleLineClass = getArticleLineClass(article);
-                  const articleCardHoverClass = getArticleCardHoverClass(article);
-                  return (
-                    <motion.article
-                      key={`lead-${article.slug}`}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      className={`group overflow-hidden rounded-2xl border border-black/5 bg-white shadow-sm transition-all duration-500 hover:shadow-2xl ${articleCardHoverClass}`}
-                    >
-                      <Link to={`/blog/${article.slug}`} className="grid min-h-[24rem] grid-cols-1 md:grid-cols-[42%_1fr]">
-                        <div className="relative min-h-[15rem] overflow-hidden">
-                          <img
-                            src={article.image || '/images/blog/placeholder.webp'}
-                            alt={article.title}
-                            className="h-full w-full scale-105 object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-100"
-                            onError={handleArticleImageError}
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent md:bg-gradient-to-r" />
-                          <div className="absolute left-4 top-4">
-                            <span className={`rounded-full border px-2.5 py-1 text-[9px] font-light uppercase tracking-[0.12em] backdrop-blur-md ${articleTagClass}`}>
-                              {article.category}
-                            </span>
-                          </div>
-                        </div>
-
-                        <div className="flex flex-col p-6 md:p-7">
-                          <div className="mb-4 flex flex-wrap items-center gap-3 text-[10px] uppercase tracking-widest text-gray-400">
-                            <span className="flex items-center gap-1"><Calendar size={12} /> {new Date(article.date).toLocaleDateString(dateLocale)}</span>
-                            <span className="h-1 w-1 rounded-full bg-gray-300" />
-                            <span className="flex items-center gap-1"><Clock size={12} /> {article.readTime || '5 min'}</span>
-                          </div>
-
-                          <h3 className="mb-4 text-2xl font-light leading-tight text-wg-black transition-colors group-hover:text-wg-orange">
-                            {article.title}
-                          </h3>
-                          <p className="mb-6 line-clamp-4 text-sm font-light leading-relaxed text-wg-gray">
-                            {article.excerpt}
-                          </p>
-                          <span className="mt-auto inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-wg-black transition-colors group-hover:text-wg-orange">
-                            {t('blog.readMore')} <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
-                          </span>
-                          <span className={`mt-4 block h-px w-0 ${articleLineClass} transition-all duration-500 group-hover:w-24`} />
-                        </div>
-                      </Link>
-                    </motion.article>
-                  );
-                })()}
+                {renderFeatureCard(leadArticle, 'lead', true)}
 
                 {sideHighlightArticles.length > 0 && (
                   <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                     {sideHighlightArticles.map((article, index) => {
-                      const articleTagClass = getArticleTagClass(article);
                       const articleLineClass = getArticleLineClass(article);
                       const articleCardHoverClass = getArticleCardHoverClass(article);
                       return (
@@ -1314,17 +1252,7 @@ const Blog = () => {
                         >
                           <Link to={`/blog/${article.slug}`} className="flex w-full flex-col">
                             <div className="relative aspect-[4/3] overflow-hidden">
-                              <img
-                                src={article.image || '/images/blog/placeholder.webp'}
-                                alt={article.title}
-                                className="h-full w-full scale-105 object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-100"
-                                onError={handleArticleImageError}
-                              />
-                              <div className="absolute left-4 top-4">
-                                <span className={`rounded-full border px-2.5 py-1 text-[9px] font-light uppercase tracking-[0.12em] backdrop-blur-md ${articleTagClass}`}>
-                                  {article.category}
-                                </span>
-                              </div>
+                              <ArticleCardCover article={article} imageClassName="h-full w-full scale-105 object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-100" />
                             </div>
                             <div className="flex flex-1 flex-col p-5">
                               <h3 className="mb-3 line-clamp-3 text-base font-light leading-tight text-wg-black transition-colors group-hover:text-wg-orange">

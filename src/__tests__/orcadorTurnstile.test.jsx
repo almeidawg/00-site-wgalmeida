@@ -15,8 +15,8 @@ const openFinalStep = async () => {
   const view = render(<Orcador />);
   fireEvent.click(screen.getByRole('button', { name: 'Apartamento de Alto Padrão' }));
   fireEvent.click(screen.getByRole('button', { name: 'Apenas Projeto de Interiores' }));
-  fireEvent.change(screen.getByPlaceholderText('Ex: 120'), { target: { value: '120' } });
-  fireEvent.change(screen.getByRole('combobox'), { target: { value: 'Normal (3 a 6 meses)' } });
+  fireEvent.change(screen.getByRole('spinbutton', { name: 'Área de intervenção (m²)' }), { target: { value: '120' } });
+  fireEvent.change(screen.getByRole('combobox', { name: 'Expectativa de entrega' }), { target: { value: 'Normal (3 a 6 meses)' } });
   fireEvent.click(screen.getByRole('button', { name: /Gerar Estimativa/ }));
   const name = await screen.findByPlaceholderText('Nome Completo', {}, { timeout: 3000 });
   fireEvent.change(name, { target: { value: 'Fixture WG' } });
@@ -43,9 +43,11 @@ describe('Orcador contact anti-spam contract', () => {
     vi.unstubAllGlobals();
     vi.restoreAllMocks();
     delete window.turnstile;
+    window.history.replaceState(null, '', '/');
   });
 
   it('blocks submission until verification and sends the token with contact_form action', async () => {
+    window.history.replaceState(null, '', '/?utm_source=google&utm_medium=cpc&utm_campaign=orcamento-qa');
     const view = await openFinalStep();
     fireEvent.submit(view.container.querySelector('form'));
     expect(fetch).not.toHaveBeenCalled();
@@ -55,7 +57,7 @@ describe('Orcador contact anti-spam contract', () => {
     act(() => widgetOptions.callback('fixture-token'));
     fireEvent.submit(view.container.querySelector('form'));
     await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
-    expect(JSON.parse(fetch.mock.calls[0][1].body)).toMatchObject({ context: 'orcamento', turnstileToken: 'fixture-token' });
+    expect(JSON.parse(fetch.mock.calls[0][1].body)).toMatchObject({ context: 'orcamento', turnstileToken: 'fixture-token', utm_source: 'google', utm_medium: 'cpc', utm_campaign: 'orcamento-qa' });
   });
 
   it('clears expired tokens and renews verification after a failed request', async () => {
@@ -69,7 +71,7 @@ describe('Orcador contact anti-spam contract', () => {
     expect(fetch).not.toHaveBeenCalled();
     act(() => widgetOptions.callback('first-token'));
     fireEvent.submit(view.container.querySelector('form'));
-    await waitFor(() => expect(screen.getByText(/Nao foi possivel enviar agora/)).toBeInTheDocument());
+    expect(await screen.findByText(/Nao foi possivel enviar agora/)).toBeInTheDocument();
     fireEvent.submit(view.container.querySelector('form'));
     expect(fetch).toHaveBeenCalledTimes(1);
     act(() => widgetOptions.callback('fresh-token'));

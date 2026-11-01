@@ -1,9 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from '@/lib/motion-lite';
-import { ArrowRight, ArrowLeft, CheckCircle2, Building2, Ruler, Loader2, ClipboardCheck, Calculator, PenTool, TrendingUp, Home } from 'lucide-react';
+import { ArrowRight, ArrowLeft, CheckCircle2, Building2, Ruler, Loader2, ClipboardCheck, Calculator } from 'lucide-react';
 import { useWGContext } from '@/providers/ContextProvider';
-import { useTranslation } from 'react-i18next';
 import TurnstileWidget, { TURNSTILE_SITE_KEY } from '@/components/TurnstileWidget';
 
 const SERVICE_OPTIONS = [
@@ -15,7 +14,7 @@ const SERVICE_OPTIONS = [
 ];
 
 const calculateEstimate = (metragem, servico) => {
-  const m2 = parseInt(metragem) || 0;
+  const m2 = Number.parseInt(metragem, 10) || 0;
   if (m2 < 10) return null;
 
   let min = 0;
@@ -56,7 +55,6 @@ const OrcadorInteligente = ({
   sourceContext = '',
   introLabel = '',
 }) => {
-  const { t } = useTranslation();
   const { context: wgContext } = useWGContext() || { context: {} };
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -100,6 +98,7 @@ const OrcadorInteligente = ({
     setSubmitError('');
 
     const finalSource = sourceContext || wgContext?.origem || 'site-wgalmeida';
+    const attribution = new URLSearchParams(window.location.search);
     const message = `Serviço: ${formData.servico} | Imóvel: ${formData.tipoImovel} | Metragem: ${formData.metragem}m² | Prazo: ${formData.prazo} | Origem: ${finalSource} | Faixa Visualizada: ${estimate || 'N/A'}`;
 
     try {
@@ -112,6 +111,9 @@ const OrcadorInteligente = ({
           phone: formData.telefone,
           subject: `Solicitação técnica: ${formData.servico}`,
           message: message,
+          utm_source: attribution.get('utm_source') || null,
+          utm_medium: attribution.get('utm_medium') || null,
+          utm_campaign: attribution.get('utm_campaign') || null,
           context: sourceContext || 'orcamento',
           turnstileToken: turnstileToken || null,
         })
@@ -289,10 +291,11 @@ const OrcadorInteligente = ({
               </div>
               <div className="space-y-6 max-w-xl mx-auto">
                 <div>
-                  <label className="mb-2 block text-sm font-medium text-slate-700">Área de intervenção (m²)</label>
+                  <label htmlFor="orcador-metragem" className="mb-2 block text-sm font-medium text-slate-700">Área de intervenção (m²)</label>
                   <div className="relative group">
                     <Ruler className="absolute left-5 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400 group-focus-within:text-wg-orange transition-colors" />
                     <input
+                      id="orcador-metragem"
                       type="number"
                       required
                       value={formData.metragem}
@@ -303,9 +306,10 @@ const OrcadorInteligente = ({
                   </div>
                 </div>
                 <div>
-                  <label className="mb-2 block text-sm font-medium text-slate-700">Expectativa de entrega</label>
+                  <label htmlFor="orcador-prazo" className="mb-2 block text-sm font-medium text-slate-700">Expectativa de entrega</label>
                   <select
                     required
+                    id="orcador-prazo"
                     value={formData.prazo}
                     onChange={(e) => setFormData({ ...formData, prazo: e.target.value })}
                     className="w-full appearance-none rounded-[1.5rem] border border-slate-200 bg-slate-50/50 px-5 py-4 text-slate-900 focus:bg-white focus:border-wg-orange focus:outline-none focus:ring-4 focus:ring-wg-orange/10 transition-all cursor-pointer"
