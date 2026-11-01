@@ -13,9 +13,10 @@ import {
  * intercept the founder's public WhatsApp CTA. Disabled/invisible until
  * a legally approved notice and a vetted server integration are supplied.
  *
- * requestChallenge({ leadPhone, purpose, noticeVersion, noticeDigest })
+ * requestChallenge({ action:'begin', leadPhone, consentDecision:'agree',
+ *                   purpose, noticeVersion, noticeDigest })
  *   => {status:'pending',challengeId:'...'}
- * confirmConsent({ challengeId, code, consentDecision, purpose, noticeVersion,
+ * confirmConsent({ action:'confirm', challengeId, code, consentDecision, purpose, noticeVersion,
  *                  noticeDigest }) => {status:'accepted'}
  *
  * These callbacks must use an audited backend. It must derive session and
@@ -57,7 +58,9 @@ export default function MentoriaCommercialLeadOptInForm({
     setFeedback('')
     try {
       const response = await requestChallenge({
+        action: 'begin',
         leadPhone: normalized,
+        consentDecision: 'agree',
         purpose: MENTORIA_LEAD_PURPOSE,
         noticeVersion: notice.version,
         noticeDigest: notice.sha256,
@@ -84,6 +87,7 @@ export default function MentoriaCommercialLeadOptInForm({
     setFeedback('')
     try {
       const response = await confirmConsent({
+        action: 'confirm',
         challengeId,
         code,
         consentDecision: 'agree',

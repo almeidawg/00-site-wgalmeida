@@ -1,4 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
+import { createHash } from 'node:crypto'
+import { createMentoriaCommercialConsentBoundary } from '../../api/_mentoriaCommercialConsentBoundary.js'
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import MentoriaCommercialLeadOptInForm from '@/components/MentoriaCommercialLeadOptInForm'
 import {
@@ -9,12 +11,13 @@ import {
 } from '@/lib/mentoriaCommercialLeadConsent'
 import { MENTORIA_CONSENT_KEY } from '@/lib/mentoriaConsent'
 
+const sampleNoticeText = 'Texto fictício para testes automatizados: informação sobre contato comercial e privacidade. Não é um aviso jurídico aprovado nem deve ser publicado.'
 const validNotice = {
   purpose: MENTORIA_LEAD_PURPOSE,
   version: 'synthetic-v1',
-  sha256: 'a'.repeat(64),
+  sha256: createHash('sha256').update(sampleNoticeText, 'utf8').digest('hex'),
   privacyPath: '/privacidade',
-  text: 'Texto fictício para testes automatizados: informação sobre contato comercial e privacidade. Não é um aviso jurídico aprovado nem deve ser publicado.',
+  text: sampleNoticeText,
 }
 const challenge = 'Challenge_Synthetic_1234567890'
 const ready = (changes = {}) => ({
@@ -93,7 +96,9 @@ describe('contrato de consentimento comercial — distinto do Pixel', () => {
     fireEvent.click(screen.getByRole('button', { name: /solicitar código/i }))
     await waitFor(() => expect(props.requestChallenge).toHaveBeenCalledTimes(1))
     expect(props.requestChallenge).toHaveBeenCalledWith({
+      action: 'begin',
       leadPhone: '5511987654321',
+      consentDecision: 'agree',
       purpose: MENTORIA_LEAD_PURPOSE,
       noticeVersion: validNotice.version,
       noticeDigest: validNotice.sha256,
@@ -135,6 +140,7 @@ describe('contrato de consentimento comercial — distinto do Pixel', () => {
     fireEvent.click(screen.getByRole('button', { name: /confirmar solicitação/i }))
     await waitFor(() => expect(props.confirmConsent).toHaveBeenCalledTimes(1))
     expect(props.confirmConsent).toHaveBeenCalledWith({
+      action: 'confirm',
       challengeId: challenge,
       code: '123456',
       consentDecision: 'agree',
@@ -165,6 +171,112 @@ describe('contrato de consentimento comercial — distinto do Pixel', () => {
     expect(message).not.toContain('5511987654321')
     expect(message).not.toContain('123456')
     expect(message).toMatch(/não foi possível confirmar/i)
+  })
+
+  it('integra o payload exato do formulário com o backend de laboratório, sem rede', async () => {
+    const sessionToken = 'synthetic_CSRF_TOKEN_abcdefghijklmnopqrstuvwxyz12345'
+    const request = {
+      method: 'POST',
+      headers: {
+        origin: 'https://mentoria.wgalmeida.com.br',
+        host: 'mentoria.wgalmeida.com.br',
+        'x-forwarded-proto': 'https',
+        'sec-fetch-site': 'same-origin',
+        'content-type': 'application/json',
+        'x-mentoria-csrf': sessionToken,
+      },
+    }
+    const serverBegin = vi.fn(async () => ({ status: 'pending', challengeId: challenge }))
+    const serverConfirm = vi.fn(async () => ({ status: 'accepted' }))
+    const gate = createMentoriaCommercialConsentBoundary({
+      enabled: true,
+      expectedOrigin: 'https://mentoria.wgalmeida.com.br',
+      approvedNoticeText: sampleNoticeText,
+      approvedNoticeVersion: validNotice.version,
+      now: () => 1_800_000_000_000,
+      authenticateLeadSession: async () => ({
+        principalId: 'lead_session_abcdefgh1234567890',
+        expiresAtMs: 1_800_000_060_000,
+        csrfToken: sessionToken,
+      }),
+      beginChallenge: serverBegin,
+      confirmChallenge: serverConfirm,
+    })
+    const submitLocally = async (payload) => {
+      const response = await gate({
+        request,
+        rawBody: Buffer.from(JSON.stringify(payload), 'utf8'),
+      })
+      return response.payload
+    }
+    const props = ready({
+      requestChallenge: vi.fn(submitLocally),
+      confirmConsent: vi.fn(submitLocally),
+    })
+    render(<MentoriaCommercialLeadOptInForm {...props} />)
+    fireEvent.change(getPhone(), { target: { value: '5511987654321' } })
+    fireEvent.click(getAgree())
+    fireEvent.click(screen.getByRole('button', { name: /solicitar código/i }))
+    await waitFor(() => expect(screen.getByLabelText(/código enviado/i)).toBeTruthy())
+    expect(props.requestChallenge).toHaveBeenCalledOnce()
+    expect(props.requestChallenge.mock.calls[0][0].action).toBe('begin')
+    expect(serverBegin).toHaveBeenCalledWith(expect.objectContaining({
+      leadPhone: '5511987654321',
+      noticeDigest: validNotice.sha256,
+      purpose: MENTORIA_LEAD_PURPOSE,
+    }))
+    fireEvent.change(screen.getByLabelText(/código enviado/i), { target: { value: '123456' } })
+    fireEvent.click(screen.getByRole('button', { name: /confirmar solicitação/i }))
+    await waitFor(() => expect(screen.getByRole('status').textContent).toMatch(/solicitação recebida/i))
+    expect(props.confirmConsent).toHaveBeenCalledOnce()
+    expect(props.confirmConsent.mock.calls[0][0].action).toBe('confirm')
+    expect(serverConfirm).toHaveBeenCalledWith(expect.objectContaining({
+      challengeId: challenge, code: '123456', noticeDigest: validNotice.sha256,
+    }))
+    expect(screen.getByRole('status').textContent).not.toContain('5511987654321')
+    expect(window.localStorage.getItem(MENTORIA_CONSENT_KEY)).toBeNull()
+  })
+
+  it('aviso comercial com hash não aprovado pelo backend falha fechado antes de emitir desafio', async () => {
+    const begin = vi.fn(async () => ({ status: 'pending', challengeId: challenge }))
+    const gate = createMentoriaCommercialConsentBoundary({
+      enabled: true,
+      expectedOrigin: 'https://mentoria.wgalmeida.com.br',
+      approvedNoticeText: sampleNoticeText,
+      approvedNoticeVersion: validNotice.version,
+      now: () => 1_800_000_000_000,
+      authenticateLeadSession: vi.fn(),
+      beginChallenge: begin,
+      confirmChallenge: vi.fn(),
+    })
+    const requestChallenge = vi.fn(async (payload) => {
+      const response = await gate({
+        request: {
+          method: 'POST',
+          headers: {
+            origin: 'https://mentoria.wgalmeida.com.br',
+            host: 'mentoria.wgalmeida.com.br',
+            'x-forwarded-proto': 'https',
+            'sec-fetch-site': 'same-origin',
+            'content-type': 'application/json',
+            'x-mentoria-csrf': 'synthetic_CSRF_TOKEN_abcdefghijklmnopqrstuvwxyz12345',
+          },
+        },
+        rawBody: Buffer.from(JSON.stringify(payload)),
+      })
+      return response.payload
+    })
+    const props = ready({
+      notice: { ...validNotice, sha256: 'a'.repeat(64) },
+      requestChallenge,
+    })
+    render(<MentoriaCommercialLeadOptInForm {...props} />)
+    fireEvent.change(getPhone(), { target: { value: '5511987654321' } })
+    fireEvent.click(getAgree())
+    fireEvent.click(screen.getByRole('button', { name: /solicitar código/i }))
+    await waitFor(() => expect(screen.getByRole('status')).toBeTruthy())
+    expect(begin).not.toHaveBeenCalled()
+    expect(screen.queryByLabelText(/código enviado/i)).toBeNull()
   })
 
   it('cancelamento limpa dados locais, não mexe no consentimento do Pixel e não confirma', async () => {
