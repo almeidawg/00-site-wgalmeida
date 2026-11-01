@@ -88,6 +88,14 @@ export function inspectMentoriaCommercialBuildGate(root) {
       fail('commercial_boundary_trusted_ports_changed')
     }
 
+    // Scripts alone do not protect an operator invoking Vite directly.
+    // Keep a second guard installed in this project's Vite configuration.
+    const viteConfig = read('vite.config.js')
+    if (!viteConfig.includes('import { createMentoriaCommercialViteGatePlugin }') ||
+        !/createMentoriaCommercialViteGatePlugin\(\s*__dirname\s*\)/.test(viteConfig)) {
+      fail('direct_vite_build_gate_missing')
+    }
+
     const scripts = JSON.parse(read('package.json')).scripts
     for (const name of PROTECTED_SCRIPTS) {
       const body = scripts?.[name]

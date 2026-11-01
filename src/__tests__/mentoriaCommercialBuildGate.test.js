@@ -3,6 +3,7 @@ import { copyFileSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSy
 import { tmpdir } from 'node:os'
 import { dirname, join, resolve } from 'node:path'
 import { inspectMentoriaCommercialBuildGate } from '../../tools/mentoria-commercial-build-gate-core.mjs'
+import { createMentoriaCommercialViteGatePlugin } from '../../tools/mentoria-commercial-vite-plugin.mjs'
 
 const repoRoot = resolve(process.cwd())
 const tempDirs = []
@@ -14,7 +15,7 @@ function fixture() {
     'src/components/MentoriaCommercialLeadOptInForm.jsx',
     'src/lib/mentoriaCommercialLeadConsent.js',
     'api/_mentoriaCommercialConsentBoundary.js',
-    'package.json', 'vercel.json',
+    'package.json', 'vercel.json', 'vite.config.js',
   ]
   for (const path of sourceFiles) {
     const target = join(root, path)
@@ -108,6 +109,27 @@ describe('Mentoria commercial consent build gate — runs without Vitest/deploy 
     expect(result.problems).toEqual(expect.arrayContaining([
       'build_script_gate_missing_build', 'build_script_gate_missing_verify_deploy',
     ]))
+  })
+
+  it('protects the direct Vite build through a Vite build plugin', () => {
+    const f = fixture()
+    const plugin = createMentoriaCommercialViteGatePlugin(f.root)
+    expect(plugin.name).toBe('wg-mentoria-commercial-consent-build-gate')
+    expect(plugin.apply).toBe('build')
+    expect(() => plugin.configResolved({ command: 'serve' })).not.toThrow()
+    expect(() => plugin.configResolved({ command: 'build' })).not.toThrow()
+
+    f.write('src/App.jsx', "import MentoriaCommercialLeadOptInForm from './components/MentoriaCommercialLeadOptInForm.jsx'")
+    expect(() => plugin.configResolved({ command: 'build' }))
+      .toThrow(/BLOCKED: commercial_optin_mounted_in_src/)
+  })
+
+  it('blocks accidental removal of the direct-Vite plugin from vite.config.js', () => {
+    const f = fixture()
+    const config = f.read('vite.config.js')
+    f.write('vite.config.js', config.replace(
+      'createMentoriaCommercialViteGatePlugin(__dirname)', 'undefined'))
+    expect(f.run().problems).toContain('direct_vite_build_gate_missing')
   })
 
   it('fails closed when a required source file disappears', () => {
