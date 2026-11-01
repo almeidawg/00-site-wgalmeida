@@ -19,7 +19,7 @@ export default function AdminConversionMetrics() {
       setMetrics(data);
     } catch (err) { setError(err.message || 'Não foi possível carregar as métricas.'); } finally { setLoading(false); }
   };
-  useEffect(() => { loadMetrics(); }, [days]);
+  useEffect(() => { void loadMetrics(); }, [days]);
   const totals = metrics?.totals || {}, contexts = metrics?.byContext || {}, reasons = metrics?.byReason || {}, daily = metrics?.daily || [];
   const maxDaily = Math.max(1, ...daily.map((item) => item.total || 0));
 

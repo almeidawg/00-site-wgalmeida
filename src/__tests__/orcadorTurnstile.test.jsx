@@ -15,8 +15,8 @@ const openFinalStep = async () => {
   const view = render(<Orcador />);
   fireEvent.click(screen.getByRole('button', { name: 'Apartamento de Alto Padrão' }));
   fireEvent.click(screen.getByRole('button', { name: 'Apenas Projeto de Interiores' }));
-  fireEvent.change(screen.getByPlaceholderText('Ex: 120'), { target: { value: '120' } });
-  fireEvent.change(screen.getByRole('combobox'), { target: { value: 'Normal (3 a 6 meses)' } });
+  fireEvent.change(screen.getByRole('spinbutton', { name: 'Área de intervenção (m²)' }), { target: { value: '120' } });
+  fireEvent.change(screen.getByRole('combobox', { name: 'Expectativa de entrega' }), { target: { value: 'Normal (3 a 6 meses)' } });
   fireEvent.click(screen.getByRole('button', { name: /Gerar Estimativa/ }));
   const name = await screen.findByPlaceholderText('Nome Completo', {}, { timeout: 3000 });
   fireEvent.change(name, { target: { value: 'Fixture WG' } });
@@ -71,7 +71,7 @@ describe('Orcador contact anti-spam contract', () => {
     expect(fetch).not.toHaveBeenCalled();
     act(() => widgetOptions.callback('first-token'));
     fireEvent.submit(view.container.querySelector('form'));
-    await waitFor(() => expect(screen.getByText(/Nao foi possivel enviar agora/)).toBeInTheDocument());
+    expect(await screen.findByText(/Nao foi possivel enviar agora/)).toBeInTheDocument();
     fireEvent.submit(view.container.querySelector('form'));
     expect(fetch).toHaveBeenCalledTimes(1);
     act(() => widgetOptions.callback('fresh-token'));

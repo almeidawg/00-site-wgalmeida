@@ -1,24 +1,19 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { useSearchParams, Link, useParams } from 'react-router-dom';
+import { useState, useEffect, useMemo } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { motion, AnimatePresence } from '@/lib/motion-lite';
+import { motion } from '@/lib/motion-lite';
 import SEO, { schemas } from '@/components/SEO';
 import { 
   Search, 
   Calendar, 
   Clock, 
   User, 
-  ChevronRight, 
   ArrowRight,
   Filter,
   ArrowLeft,
   Share2,
   CheckCircle2,
-  Copy,
-  Twitter,
-  Linkedin,
-  Facebook,
   Hammer,
   Building2,
   Ruler,
@@ -353,10 +348,15 @@ const buildEditorialRows = (articles = []) => {
   return rows;
 };
 
+const getBlogLanguageContext = (language) => {
+  if (language.startsWith('en')) return { currentLang: 'en', dateLocale: 'en-US' };
+  if (language.startsWith('es')) return { currentLang: 'es', dateLocale: 'es-ES' };
+  return { currentLang: 'pt-BR', dateLocale: 'pt-BR' };
+};
+
 const Blog = () => {
   const { t, i18n } = useTranslation();
   const { slug } = useParams();
-  const [searchParams, setSearchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState('');
   const [activeCategory, setActiveCategory] = useState('all');
   const [articles, setArticles] = useState([]);
@@ -371,8 +371,7 @@ const Blog = () => {
     shareBreakdown: {},
   });
 
-  const currentLang = i18n.language.startsWith('en') ? 'en' : i18n.language.startsWith('es') ? 'es' : 'pt-BR';
-  const dateLocale = currentLang === 'en' ? 'en-US' : currentLang === 'es' ? 'es-ES' : 'pt-BR';
+  const { currentLang, dateLocale } = getBlogLanguageContext(i18n.language);
 
   // Carregamento dinâmico de artigos baseado no idioma
   useEffect(() => {
@@ -750,6 +749,7 @@ const Blog = () => {
     const currentPageUrl = typeof window !== 'undefined'
       ? window.location.href
       : `https://wgalmeida.com.br/blog/${selectedArticle.slug}`;
+    const whatsappShareText = `Vi esta materia no site da WG Almeida e quero continuar por aqui: ${currentPageUrl}`;
     const articleHeroSrc = articleHeroAsset?.src || selectedArticle.imageHero || selectedArticle.image || BLOG_HERO_IMAGE;
     const articleHeroAlt = articleHeroAsset?.alt || selectedArticle.title;
     const articleHeroObjectPosition = getHeroObjectPosition(articleHeroAsset);
@@ -904,7 +904,7 @@ const Blog = () => {
                       {showShareTooltip ? t('common.copied') : t('common.share')}
                     </button>
                     <a
-                      href={`https://wa.me/5511984650002?text=${encodeURIComponent(`Vi esta materia no site da WG Almeida e quero continuar por aqui: ${currentPageUrl}`)}`}
+                      href={`https://wa.me/5511984650002?text=${encodeURIComponent(whatsappShareText)}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className={`wg-cta-subtle cta-quick inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-black/12 bg-white px-3 py-1.5 text-[9px] font-light uppercase tracking-[0.1em] text-wg-black transition-colors hover:text-wg-black focus:outline-none focus-visible:outline-none focus-visible:ring-0 ${articleCtaHoverClass}`}
