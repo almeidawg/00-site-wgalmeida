@@ -1,0 +1,120 @@
+import { afterEach, describe, expect, it } from 'vitest'
+import { copyFileSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import { tmpdir } from 'node:os'
+import { dirname, join, resolve } from 'node:path'
+import { inspectMentoriaCommercialBuildGate } from '../../tools/mentoria-commercial-build-gate-core.mjs'
+
+const repoRoot = resolve(process.cwd())
+const tempDirs = []
+
+function fixture() {
+  const root = mkdtempSync(join(tmpdir(), 'wg-mentoria-build-gate-'))
+  tempDirs.push(root)
+  const sourceFiles = [
+    'src/components/MentoriaCommercialLeadOptInForm.jsx',
+    'src/lib/mentoriaCommercialLeadConsent.js',
+    'api/_mentoriaCommercialConsentBoundary.js',
+    'package.json', 'vercel.json',
+  ]
+  for (const path of sourceFiles) {
+    const target = join(root, path)
+    mkdirSync(dirname(target), { recursive: true })
+    copyFileSync(join(repoRoot, path), target)
+  }
+  mkdirSync(join(root, 'src/pages'), { recursive: true })
+  writeFileSync(join(root, 'src/App.jsx'), 'export default function App() { return null }\n')
+  writeFileSync(join(root, 'src/main.jsx'), 'import App from "./App.jsx"\n')
+  writeFileSync(join(root, 'src/pages/MentoriaConstrucaoLanding.jsx'),
+    'export default function Landing() { return null }\n')
+  writeFileSync(join(root, 'index.html'), '<!doctype html><title>synthetic</title>\n')
+  return {
+    root,
+    write(path, content) {
+      const target = join(root, path)
+      mkdirSync(dirname(target), { recursive: true })
+      writeFileSync(target, content)
+    },
+    read(path) { return readFileSync(join(root, path), 'utf8') },
+    run() { return inspectMentoriaCommercialBuildGate(root) },
+  }
+}
+
+afterEach(() => {
+  for (const dir of tempDirs.splice(0)) rmSync(dir, { recursive: true, force: true })
+})
+
+describe('Mentoria commercial consent build gate — runs without Vitest/deploy dependencies', () => {
+  it('accepts only the current unmounted isolated contracts and validates real repo too', () => {
+    expect(fixture().run()).toEqual({ ok: true, problems: [] })
+    expect(inspectMentoriaCommercialBuildGate(repoRoot)).toEqual({ ok: true, problems: [] })
+  })
+
+  it('blocks mounting the UI in the entrypoint and in an indirect imported component', () => {
+    const f = fixture()
+    f.write('src/App.jsx', "import MentoriaCommercialLeadOptInForm from './components/MentoriaCommercialLeadOptInForm.jsx'")
+    expect(f.run().problems).toContain('commercial_optin_mounted_in_src')
+    const g = fixture()
+    g.write('src/components/SomeWrapper.jsx',
+      "export { default as Preview } from './MentoriaCommercialLeadOptInForm.jsx'")
+    expect(g.run().problems).toContain('commercial_optin_mounted_in_src')
+  })
+
+  it('blocks a new public consent endpoint even if it does not import the boundary', () => {
+    const f = fixture()
+    f.write('api/mentoria-consent.js', 'export default function handler() { return null }')
+    expect(f.run().problems).toContain('public_commercial_consent_api')
+  })
+
+  it('blocks an innocuously named public api route that imports the private boundary', () => {
+    const f = fixture()
+    f.write('api/route.js',
+      "import { createMentoriaCommercialConsentBoundary } from './_mentoriaCommercialConsentBoundary.js'")
+    expect(f.run().problems).toContain('public_commercial_consent_api')
+  })
+
+  it('blocks Vercel rewrites pointing to any consent endpoint', () => {
+    const f = fixture()
+    const config = JSON.parse(f.read('vercel.json'))
+    config.rewrites = [{ source: '/mentoria-consent', destination: '/api/consent' }]
+    f.write('vercel.json', JSON.stringify(config))
+    expect(f.run().problems).toContain('public_commercial_consent_rewrite')
+  })
+
+  it('blocks accidental default enablement and browser-originated network calls', () => {
+    const f = fixture()
+    const path = 'src/components/MentoriaCommercialLeadOptInForm.jsx'
+    f.write(path, f.read(path).replace('enabled = false', 'enabled = true'))
+    expect(f.run().problems).toContain('commercial_form_default_enabled')
+    f.write(path, f.read(path) + "\nfetch('/api/consent')\n")
+    expect(f.run().problems).toContain('commercial_form_network_or_local_state')
+  })
+
+  it('blocks the generic permissive request guard or site-admin authentication', () => {
+    const f = fixture()
+    const path = 'api/_mentoriaCommercialConsentBoundary.js'
+    f.write(path, f.read(path) + "\nimport { isOriginAllowed } from './_requestGuard.js'\n")
+    expect(f.run().problems).toContain('commercial_boundary_trusted_ports_changed')
+  })
+
+  it('blocks a build script that omits the guard, including the deploy verification script', () => {
+    const f = fixture()
+    const data = JSON.parse(f.read('package.json'))
+    data.scripts.build = data.scripts.build.replace(
+      'node ./tools/check-mentoria-commercial-build-gate.mjs && ', '')
+    data.scripts['verify:deploy'] = data.scripts['verify:deploy'].replace(
+      'node ./tools/check-mentoria-commercial-build-gate.mjs && ', '')
+    f.write('package.json', JSON.stringify(data))
+    const result = f.run()
+    expect(result.problems).toEqual(expect.arrayContaining([
+      'build_script_gate_missing_build', 'build_script_gate_missing_verify_deploy',
+    ]))
+  })
+
+  it('fails closed when a required source file disappears', () => {
+    const f = fixture()
+    const result = f.run()
+    expect(result.ok).toBe(true)
+    f.write('vercel.json', '{not valid json')
+    expect(f.run()).toEqual({ ok: false, problems: ['unable_to_inspect_source'] })
+  })
+})
