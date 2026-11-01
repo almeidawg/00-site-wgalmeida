@@ -94,8 +94,8 @@ A formulação pública preferencial para tempo de mercado é `Desde 2011`. A da
 **¹ Nota importante:** O score 0/100 e a falha no sitemap NÃO são problemas reais do site. O ambiente de execução remota (cloud sandbox) continua bloqueando conexões HTTPS de saída para `wgalmeida.com.br` via proxy (fetch failed). Condição idêntica a todas as auditorias anteriores desde 2026-09-16. A auditoria de referência (2026-06-23, sem restrição de proxy) registrou score 100/100 e 161 rotas. Após a frente brand-canonical (2026-10), o build local aponta 175 rotas no dist.
 
 **Estado do repositório em 2026-11-01:**
-- Branch `main` está atualizada — HEAD em `45b3942` (chore(seo): relatórios JSON da auditoria 2026-10-26)
-- Commits recentes: fix(mentoria) #157, chore(seo) relatórios JSON 2026-10-26, chore(seo) auditoria 2026-10-26
+- Branch `main` está atualizada — HEAD em `b68cb89` (chore(seo): auditoria recorrente 2026-10-31)
+- Commits recentes: fix(mentoria) #157, chore(seo) 2026-10-31, chore(seo) relatórios JSON 2026-10-26
 - Sem alterações estruturais pendentes
 
 **Alertas registrados pelo script (ambiente):**
