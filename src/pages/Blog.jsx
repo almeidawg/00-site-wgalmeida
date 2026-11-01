@@ -48,6 +48,25 @@ const handleArticleImageError = (event) => {
   event.currentTarget.src = BLOG_HERO_IMAGE;
 };
 
+const ArticleCardCover = ({ article, imageClassName, gradient = false }) => (
+  <>
+    <img
+      src={article.image || '/images/blog/placeholder.webp'}
+      loading="lazy"
+      decoding="async"
+      alt={article.title}
+      className={imageClassName}
+      onError={handleArticleImageError}
+    />
+    {gradient && <div className="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent md:bg-gradient-to-r" />}
+    <div className="absolute left-4 top-4">
+      <span className={`rounded-full border px-2.5 py-1 text-[9px] font-light uppercase tracking-[0.12em] backdrop-blur-md ${getArticleTagClass(article)}`}>
+        {article.category}
+      </span>
+    </div>
+  </>
+);
+
 const ARTICLE_MARKDOWN_COMPONENTS = {
   hr: () => <hr className="my-10 border-0 border-t border-gray-200" />,
   a: ({ node: _node, ...props }) => <a {...props} className="py-3 font-light [overflow-wrap:anywhere] underline decoration-black/20 underline-offset-4 hover:decoration-black/40 sm:[overflow-wrap:normal]" />,
@@ -514,7 +533,7 @@ const Blog = () => {
   };
 
   const renderStandardCard = (article, index, keyPrefix = 'standard') => {
-    const articleTagClass = getArticleTagClass(article);
+
     const articleLineClass = getArticleLineClass(article);
     const articleCardHoverClass = getArticleCardHoverClass(article);
 
@@ -528,19 +547,7 @@ const Blog = () => {
         className={`group bg-white rounded-3xl overflow-hidden border border-black/5 hover:shadow-2xl transition-all duration-500 flex flex-col h-full ${articleCardHoverClass}`}
       >
         <Link to={`/blog/${article.slug}`} className="block aspect-[4/3] overflow-hidden relative">
-          <img
-            src={article.image || '/images/blog/placeholder.webp'}
-              loading="lazy"
-              decoding="async"
-            alt={article.title}
-            className="w-full h-full scale-105 object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-100"
-            onError={handleArticleImageError}
-          />
-          <div className="absolute top-4 left-4">
-            <span className={`rounded-full border px-2.5 py-1 text-[9px] font-light uppercase tracking-[0.12em] backdrop-blur-md ${articleTagClass}`}>
-              {article.category}
-            </span>
-          </div>
+          <ArticleCardCover article={article} imageClassName="w-full h-full scale-105 object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-100" />
         </Link>
 
         <div className="p-6 flex flex-col flex-1">
@@ -570,10 +577,11 @@ const Blog = () => {
     );
   };
 
-  const renderFeatureCard = (article, keyPrefix = 'feature') => {
-    const articleTagClass = getArticleTagClass(article);
+  const renderFeatureCard = (article, keyPrefix = 'feature', isLead = false) => {
+
     const articleLineClass = getArticleLineClass(article);
     const articleCardHoverClass = getArticleCardHoverClass(article);
+    const Heading = isLead ? 'h3' : 'h2';
 
     return (
       <motion.article
@@ -585,20 +593,7 @@ const Blog = () => {
       >
         <Link to={`/blog/${article.slug}`} className="grid min-h-[24rem] grid-cols-1 md:grid-cols-[42%_1fr]">
           <div className="relative min-h-[15rem] overflow-hidden">
-            <img
-              src={article.image || '/images/blog/placeholder.webp'}
-              loading="lazy"
-              decoding="async"
-              alt={article.title}
-              className="h-full w-full scale-105 object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-100"
-              onError={handleArticleImageError}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent md:bg-gradient-to-r" />
-            <div className="absolute left-4 top-4">
-              <span className={`rounded-full border px-2.5 py-1 text-[9px] font-light uppercase tracking-[0.12em] backdrop-blur-md ${articleTagClass}`}>
-                {article.category}
-              </span>
-            </div>
+            <ArticleCardCover article={article} imageClassName="h-full w-full scale-105 object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-100" gradient />
           </div>
 
           <div className="flex flex-col p-6 md:p-7">
@@ -607,9 +602,9 @@ const Blog = () => {
               <span className="h-1 w-1 rounded-full bg-gray-300" />
               <span className="flex items-center gap-1"><Clock size={12} /> {article.readTime || '5 min'}</span>
             </div>
-            <h2 className="mb-4 text-2xl font-light leading-tight text-wg-black transition-colors group-hover:text-wg-orange">
+            <Heading className="mb-4 text-2xl font-light leading-tight text-wg-black transition-colors group-hover:text-wg-orange">
               {article.title}
-            </h2>
+            </Heading>
             <p className="mb-6 line-clamp-4 text-sm font-light leading-relaxed text-wg-gray">
               {article.excerpt}
             </p>
@@ -624,7 +619,7 @@ const Blog = () => {
   };
 
   const renderSupportCard = (article, index, keyPrefix = 'support') => {
-    const articleTagClass = getArticleTagClass(article);
+
     const articleLineClass = getArticleLineClass(article);
     const articleCardHoverClass = getArticleCardHoverClass(article);
 
@@ -639,19 +634,7 @@ const Blog = () => {
       >
         <Link to={`/blog/${article.slug}`} className="flex w-full flex-col">
           <div className="relative aspect-[4/3] overflow-hidden">
-            <img
-              src={article.image || '/images/blog/placeholder.webp'}
-              loading="lazy"
-              decoding="async"
-              alt={article.title}
-              className="h-full w-full scale-105 object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-100"
-              onError={handleArticleImageError}
-            />
-            <div className="absolute left-4 top-4">
-              <span className={`rounded-full border px-2.5 py-1 text-[9px] font-light uppercase tracking-[0.12em] backdrop-blur-md ${articleTagClass}`}>
-                {article.category}
-              </span>
-            </div>
+            <ArticleCardCover article={article} imageClassName="h-full w-full scale-105 object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-100" />
           </div>
           <div className="flex flex-1 flex-col p-5">
             <div className="mb-3 flex flex-wrap items-center gap-3 text-[10px] uppercase tracking-widest text-gray-400">
@@ -1251,64 +1234,11 @@ const Blog = () => {
             <>
             {leadArticle && (
               <div className="mb-10 grid grid-cols-1 gap-6 lg:grid-cols-2">
-                {(() => {
-                  const article = leadArticle;
-                  const articleTagClass = getArticleTagClass(article);
-                  const articleLineClass = getArticleLineClass(article);
-                  const articleCardHoverClass = getArticleCardHoverClass(article);
-                  return (
-                    <motion.article
-                      key={`lead-${article.slug}`}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      className={`group overflow-hidden rounded-2xl border border-black/5 bg-white shadow-sm transition-all duration-500 hover:shadow-2xl ${articleCardHoverClass}`}
-                    >
-                      <Link to={`/blog/${article.slug}`} className="grid min-h-[24rem] grid-cols-1 md:grid-cols-[42%_1fr]">
-                        <div className="relative min-h-[15rem] overflow-hidden">
-                          <img
-                            src={article.image || '/images/blog/placeholder.webp'}
-              loading="lazy"
-              decoding="async"
-                            alt={article.title}
-                            className="h-full w-full scale-105 object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-100"
-                            onError={handleArticleImageError}
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent md:bg-gradient-to-r" />
-                          <div className="absolute left-4 top-4">
-                            <span className={`rounded-full border px-2.5 py-1 text-[9px] font-light uppercase tracking-[0.12em] backdrop-blur-md ${articleTagClass}`}>
-                              {article.category}
-                            </span>
-                          </div>
-                        </div>
-
-                        <div className="flex flex-col p-6 md:p-7">
-                          <div className="mb-4 flex flex-wrap items-center gap-3 text-[10px] uppercase tracking-widest text-gray-400">
-                            <span className="flex items-center gap-1"><Calendar size={12} /> {new Date(article.date).toLocaleDateString(dateLocale)}</span>
-                            <span className="h-1 w-1 rounded-full bg-gray-300" />
-                            <span className="flex items-center gap-1"><Clock size={12} /> {article.readTime || '5 min'}</span>
-                          </div>
-
-                          <h3 className="mb-4 text-2xl font-light leading-tight text-wg-black transition-colors group-hover:text-wg-orange">
-                            {article.title}
-                          </h3>
-                          <p className="mb-6 line-clamp-4 text-sm font-light leading-relaxed text-wg-gray">
-                            {article.excerpt}
-                          </p>
-                          <span className="mt-auto inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-wg-black transition-colors group-hover:text-wg-orange">
-                            {t('blog.readMore')} <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
-                          </span>
-                          <span className={`mt-4 block h-px w-0 ${articleLineClass} transition-all duration-500 group-hover:w-24`} />
-                        </div>
-                      </Link>
-                    </motion.article>
-                  );
-                })()}
+                {renderFeatureCard(leadArticle, 'lead', true)}
 
                 {sideHighlightArticles.length > 0 && (
                   <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                     {sideHighlightArticles.map((article, index) => {
-                      const articleTagClass = getArticleTagClass(article);
                       const articleLineClass = getArticleLineClass(article);
                       const articleCardHoverClass = getArticleCardHoverClass(article);
                       return (
@@ -1322,19 +1252,7 @@ const Blog = () => {
                         >
                           <Link to={`/blog/${article.slug}`} className="flex w-full flex-col">
                             <div className="relative aspect-[4/3] overflow-hidden">
-                              <img
-                                src={article.image || '/images/blog/placeholder.webp'}
-              loading="lazy"
-              decoding="async"
-                                alt={article.title}
-                                className="h-full w-full scale-105 object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-100"
-                                onError={handleArticleImageError}
-                              />
-                              <div className="absolute left-4 top-4">
-                                <span className={`rounded-full border px-2.5 py-1 text-[9px] font-light uppercase tracking-[0.12em] backdrop-blur-md ${articleTagClass}`}>
-                                  {article.category}
-                                </span>
-                              </div>
+                              <ArticleCardCover article={article} imageClassName="h-full w-full scale-105 object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-100" />
                             </div>
                             <div className="flex flex-1 flex-col p-5">
                               <h3 className="mb-3 line-clamp-3 text-base font-light leading-tight text-wg-black transition-colors group-hover:text-wg-orange">
