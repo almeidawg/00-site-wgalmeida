@@ -17,7 +17,8 @@ const defaultRoutes = [
   '/arquitetura',
   '/engenharia',
   '/processo',
-  // Store smoke requires configured public Supabase endpoints; validate separately on authenticated preview.
+  // A rota Store deve degradar sem consultas quando o catálogo público não está configurado.
+  '/store',
   '/solicite-proposta',
 ];
 
