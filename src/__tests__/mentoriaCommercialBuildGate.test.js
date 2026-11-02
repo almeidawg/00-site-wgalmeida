@@ -132,6 +132,27 @@ describe('Mentoria commercial consent build gate — runs without Vitest/deploy 
     expect(f.run().problems).toContain('direct_vite_build_gate_missing')
   })
 
+  it('pins the Vercel Build Command to the guarded npm script, including when dashboard settings drift', () => {
+    const f = fixture()
+    const config = JSON.parse(f.read('vercel.json'))
+    expect(config.buildCommand).toBe('npm run build')
+    for (const alternate of [undefined, 'vite build', 'npx vite build', 'npm run build:local']) {
+      const altered = { ...config }
+      if (alternate === undefined) delete altered.buildCommand
+      else altered.buildCommand = alternate
+      f.write('vercel.json', JSON.stringify(altered))
+      expect(f.run().problems).toContain('vercel_build_command_not_guarded')
+    }
+  })
+
+  it('rejects legacy Vercel custom builders that could skip the guarded build command', () => {
+    const f = fixture()
+    const config = JSON.parse(f.read('vercel.json'))
+    config.builds = [{ src: 'index.html', use: '@vercel/static' }]
+    f.write('vercel.json', JSON.stringify(config))
+    expect(f.run().problems).toContain('vercel_custom_builds_bypass_guard')
+  })
+
   it('fails closed when a required source file disappears', () => {
     const f = fixture()
     const result = f.run()

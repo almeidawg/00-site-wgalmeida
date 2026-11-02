@@ -65,6 +65,11 @@ export function inspectMentoriaCommercialBuildGate(root) {
     })
 
     const config = JSON.parse(read('vercel.json'))
+    // Pin the deployment build to the guarded npm entrypoint even if the
+    // Vercel dashboard override drifts. vercel.json takes precedence.
+    if (config.buildCommand !== 'npm run build') fail('vercel_build_command_not_guarded')
+    // Legacy custom builders can replace the normal framework build process.
+    if (Object.hasOwn(config, 'builds')) fail('vercel_custom_builds_bypass_guard')
     const routes = [
       ...(config.rewrites || []),
       ...(config.redirects || []),
