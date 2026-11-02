@@ -15,6 +15,7 @@ function fixture() {
     'src/components/MentoriaCommercialLeadOptInForm.jsx',
     'src/lib/mentoriaCommercialLeadConsent.js',
     'api/_mentoriaCommercialConsentBoundary.js',
+    'api/_mentoriaCommercialReceiptVerifier.js',
     'package.json', 'vercel.json', 'vite.config.js',
   ]
   for (const path of sourceFiles) {
@@ -71,6 +72,18 @@ describe('Mentoria commercial consent build gate — runs without Vitest/deploy 
     f.write('api/route.js',
       "import { createMentoriaCommercialConsentBoundary } from './_mentoriaCommercialConsentBoundary.js'")
     expect(f.run().problems).toContain('public_commercial_consent_api')
+  })
+
+  it('blocks accidental public exposure of the signed receipt verifier', () => {
+    const f = fixture()
+    f.write('api/receipts.js',
+      "export { createMentoriaCommercialReceiptVerifier } from './_mentoriaCommercialReceiptVerifier.js'")
+    expect(f.run().problems).toContain('public_commercial_consent_api')
+
+    const g = fixture()
+    g.write('src/lib/releaseReceipt.js',
+      "export { createMentoriaCommercialReceiptVerifier } from '../../api/_mentoriaCommercialReceiptVerifier.js'")
+    expect(g.run().problems).toContain('commercial_optin_mounted_in_src')
   })
 
   it('blocks Vercel rewrites pointing to any consent endpoint', () => {

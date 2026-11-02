@@ -9,7 +9,7 @@ import { resolve, join } from 'node:path'
  * The check is intentionally conservative. A future opt-in launch must
  * explicitly update this gate with real evidence and full regression tests.
  */
-const FORBIDDEN_IMPORT = /MentoriaCommercialLeadOptInForm|mentoriaCommercialLeadConsent|_mentoriaCommercialConsentBoundary/
+const FORBIDDEN_IMPORT = /MentoriaCommercialLeadOptInForm|mentoriaCommercialLeadConsent|_mentoriaCommercialConsentBoundary|_mentoriaCommercialReceiptVerifier/
 const FORBIDDEN_PUBLIC_ROUTE = /mentoria[^"'\s]*(?:consent|opt.?in|otp|verify|verifica)|(?:consent|opt.?in|otp|verifica)[^"'\s]*mentoria|commercialconsentboundary/i
 const BUILD_GATE_COMMAND = 'node ./tools/check-mentoria-commercial-build-gate.mjs'
 const FILE_EXT = /\.(?:js|jsx|mjs|cjs|ts|tsx)$/
@@ -43,6 +43,7 @@ export function inspectMentoriaCommercialBuildGate(root) {
       'src/components/MentoriaCommercialLeadOptInForm.jsx',
       'src/lib/mentoriaCommercialLeadConsent.js',
       'api/_mentoriaCommercialConsentBoundary.js',
+      'api/_mentoriaCommercialReceiptVerifier.js',
     ]) {
       if (!read(required)) fail('missing_required_contract')
     }
