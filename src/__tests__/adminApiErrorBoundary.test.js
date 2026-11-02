@@ -48,6 +48,8 @@ describe('Admin API public error boundary', () => {
     vi.resetModules();
     vi.stubEnv('VITE_SUPABASE_URL', 'https://mock.invalid');
     vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', 'synthetic-admin-api-test');
+    vi.stubEnv('WG_LEADS_MACHINE_ENABLED', 'true');
+    vi.stubEnv('WG_LEADS_MACHINE_TOKEN', 'qa-machine-token-012345678901234567890');
     vi.stubEnv('VITE_SUPABASE_ANON_KEY', 'synthetic-anon');
     vi.stubGlobal('fetch', vi.fn());
   });
@@ -85,7 +87,7 @@ describe('Admin API public error boundary', () => {
 
     await handler({
       method,
-      headers: { authorization: 'Bearer synthetic-admin-api-test' },
+      headers: { authorization: 'Bearer qa-machine-token-012345678901234567890' },
       body,
     }, res);
 

@@ -1,6 +1,7 @@
 // Leads API — lifecycle canônico de contatos do WG-Easy.
 // Fonte: pessoas + fn_promover_contato_para_lead. Não usa tabelas legadas contacts/propostas_solicitadas.
 
+import { timingSafeEqual } from 'node:crypto';
 import { requireAdmin } from './_adminAuth.js';
 
 const SUPABASE_URL = process.env.VITE_SUPABASE_URL;
@@ -35,9 +36,24 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const authHeader = req.headers.authorization || '';
-  const isServiceKey = Boolean(SUPABASE_SERVICE_KEY) && authHeader === `Bearer ${SUPABASE_SERVICE_KEY}`;
-  if (!isServiceKey) {
+  const authHeader = req.headers?.authorization || req.headers?.Authorization || '';
+  // The Supabase service-role secret authenticates the database, never callers of this API.
+  if (SUPABASE_SERVICE_KEY && authHeader === `Bearer ${SUPABASE_SERVICE_KEY}`) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+
+  // Machine access is opt-in and must not reuse a Supabase credential.
+  const machineToken = process.env.WG_LEADS_MACHINE_TOKEN || '';
+  const machineEnabled = process.env.WG_LEADS_MACHINE_ENABLED === 'true' &&
+    machineToken.length >= 32 && machineToken.trim() === machineToken &&
+    machineToken !== SUPABASE_SERVICE_KEY;
+  let isMachine = false;
+  if (machineEnabled && typeof authHeader === 'string' && authHeader.length <= 1024) {
+    const actual = Buffer.from(authHeader, 'utf8');
+    const expected = Buffer.from(`Bearer ${machineToken}`, 'utf8');
+    isMachine = actual.length === expected.length && timingSafeEqual(actual, expected);
+  }
+  if (!isMachine) {
     const adminAuth = await requireAdmin(req, res);
     if (!adminAuth.ok) return adminAuth.response;
   }
