@@ -1,4 +1,5 @@
 import { createHash, timingSafeEqual } from 'node:crypto'
+import { isIP } from 'node:net'
 
 /**
  * PRIVATE, UNMOUNTED backend boundary for a future independent commercial
@@ -45,9 +46,18 @@ function isValidOrigin(origin) {
   if (typeof origin !== 'string') return false
   try {
     const url = new URL(origin)
+    const hostname = url.hostname.toLowerCase()
+    const ipHost = hostname.startsWith('[') && hostname.endsWith(']')
+      ? hostname.slice(1, -1) : hostname
+    // A future consent endpoint must be a public, default-port HTTPS origin.
+    // Loopback/private IP literals and local-only DNS aliases are not
+    // acceptable even when the caller can supply matching Host headers.
     return url.protocol === 'https:' && url.origin === origin &&
-      !url.username && !url.password && url.hostname !== 'localhost' &&
-      !url.hostname.endsWith('.vercel.app')
+      !url.username && !url.password && url.port === '' &&
+      hostname.includes('.') && !hostname.startsWith('.') && !hostname.endsWith('.') &&
+      isIP(ipHost) === 0 && hostname !== 'localhost' &&
+      !hostname.endsWith('.localhost') && !hostname.endsWith('.local') &&
+      hostname !== 'vercel.app' && !hostname.endsWith('.vercel.app')
   } catch { return false }
 }
 

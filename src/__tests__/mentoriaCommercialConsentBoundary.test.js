@@ -67,6 +67,27 @@ describe('Mentoria server-side consent boundary (NOT MOUNTED)', () => {
     }
   })
 
+  it('rejects IP literals, local host aliases and non-standard HTTPS origins at configuration time', async () => {
+    for (const expectedOrigin of [
+      'https://127.0.0.1',
+      'https://10.0.0.8',
+      'https://192.168.10.20',
+      'https://[::1]',
+      'https://[fe80::1]',
+      'https://localhost.',
+      'https://sub.localhost',
+      'https://host.local',
+      'https://mentoria.wgalmeida.com.br.',
+      'https://mentoria.wgalmeida.com.br:8443',
+    ]) {
+      const { gate, ports } = fixture({ expectedOrigin })
+      expect(await gate({ request: req(), rawBody: body(start) }), expectedOrigin)
+        .toEqual({ httpStatus: 503, payload: { status: 'unavailable' } })
+      expect(ports.authenticateLeadSession).not.toHaveBeenCalled()
+      expect(ports.beginChallenge).not.toHaveBeenCalled()
+    }
+  })
+
   it('permits pending challenge only with verified session, CSRF and exact approved notice', async () => {
     const { gate, ports } = fixture()
     const result = await gate({ request: req(), rawBody: body(start) })
