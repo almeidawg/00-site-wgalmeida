@@ -30,6 +30,8 @@ const loadHandler = async () => {
   vi.resetModules();
   vi.stubEnv('VITE_SUPABASE_URL', 'https://qa.invalid');
   vi.stubEnv('SUPABASE_SERVICE_ROLE_KEY', 'qa-service-role');
+  vi.stubEnv('WG_LEADS_MACHINE_ENABLED', 'true');
+  vi.stubEnv('WG_LEADS_MACHINE_TOKEN', 'qa-machine-token-012345678901234567890');
   vi.stubEnv('VITE_SUPABASE_ANON_KEY', 'qa-anon');
   const mod = await import('../../api/leads.js');
   return mod.default;
@@ -43,6 +45,56 @@ describe('/api/leads method and auth contract', () => {
   afterEach(() => {
     vi.unstubAllEnvs();
     vi.restoreAllMocks();
+  });
+
+  it('rejects the database service-role key as an inbound bearer before any Supabase request', async () => {
+    const handler = await loadHandler();
+    global.fetch = vi.fn();
+    const res = makeRes();
+    await handler(makeReq('GET', undefined, { authorization: 'Bearer qa-service-role' }), res);
+    expect(res.statusCode).toBe(401);
+    expect(res.payload).toEqual({ error: 'Unauthorized' });
+    expect(global.fetch).not.toHaveBeenCalled();
+  });
+
+  it('rejects a machine token when the machine path is not explicitly enabled', async () => {
+    const handler = await loadHandler();
+    vi.stubEnv('WG_LEADS_MACHINE_ENABLED', 'false');
+    global.fetch = vi.fn(async () => ({ ok: false, status: 401 }));
+    const res = makeRes();
+    await handler(makeReq('GET', undefined, { authorization: 'Bearer qa-machine-token-012345678901234567890' }), res);
+    expect(res.statusCode).toBe(401);
+    expect(res.payload).toEqual({ error: 'Unauthorized' });
+  });
+
+  it('rejects short machine tokens even with the machine path enabled', async () => {
+    const handler = await loadHandler();
+    vi.stubEnv('WG_LEADS_MACHINE_TOKEN', 'short');
+    global.fetch = vi.fn(async () => ({ ok: false, status: 401 }));
+    const res = makeRes();
+    await handler(makeReq('GET', undefined, { authorization: 'Bearer short' }), res);
+    expect(res.statusCode).toBe(401);
+    expect(res.payload).toEqual({ error: 'Unauthorized' });
+  });
+
+  it('rejects a configured machine token that reuses the database service role', async () => {
+    const handler = await loadHandler();
+    vi.stubEnv('WG_LEADS_MACHINE_TOKEN', 'qa-service-role');
+    global.fetch = vi.fn();
+    const res = makeRes();
+    await handler(makeReq('GET', undefined, { authorization: 'Bearer qa-service-role' }), res);
+    expect(res.statusCode).toBe(401);
+    expect(global.fetch).not.toHaveBeenCalled();
+  });
+
+  it('rejects an incorrect machine token without exposing configuration details', async () => {
+    const handler = await loadHandler();
+    global.fetch = vi.fn(async () => ({ ok: false, status: 401 }));
+    const res = makeRes();
+    await handler(makeReq('GET', undefined, { authorization: 'Bearer qa-machine-token-not-the-correct-value' }), res);
+    expect(res.statusCode).toBe(401);
+    expect(JSON.stringify(res.payload)).not.toContain('WG_LEADS_MACHINE_TOKEN');
+    expect(res.payload).toEqual({ error: 'Unauthorized' });
   });
 
   it('recognizes POST promotion but still requires admin authentication', async () => {
@@ -77,7 +129,7 @@ describe('/api/leads method and auth contract', () => {
     const handler = await loadHandler();
     const res = makeRes();
 
-    await handler(makeReq('GET', undefined, { authorization: 'Bearer qa-service-role' }), res);
+    await handler(makeReq('GET', undefined, { authorization: 'Bearer qa-machine-token-012345678901234567890' }), res);
 
     expect(res.statusCode).toBe(200);
     expect(global.fetch).toHaveBeenCalledTimes(1);
@@ -91,14 +143,14 @@ describe('/api/leads method and auth contract', () => {
     const handler = await loadHandler();
     const res = makeRes();
 
-    await handler(makeReq('PATCH', { id: 'person-2', tipo: 'contato', status: 'atendido' }, { authorization: 'Bearer qa-service-role' }), res);
+    await handler(makeReq('PATCH', { id: 'person-2', tipo: 'contato', status: 'atendido' }, { authorization: 'Bearer qa-machine-token-012345678901234567890' }), res);
 
     expect(res.statusCode).toBe(200);
     expect(String(global.fetch.mock.calls[0][0])).toContain('/rest/v1/pessoas?id=eq.person-2');
     expect(JSON.parse(global.fetch.mock.calls[0][1].body)).toEqual({ contact_stage: 'lead_potencial' });
 
     const rejected = makeRes();
-    await handler(makeReq('PATCH', { id: 'person-2', tipo: 'contato', status: 'convertido' }, { authorization: 'Bearer qa-service-role' }), rejected);
+    await handler(makeReq('PATCH', { id: 'person-2', tipo: 'contato', status: 'convertido' }, { authorization: 'Bearer qa-machine-token-012345678901234567890' }), rejected);
     expect(rejected.statusCode).toBe(409);
     expect(global.fetch).toHaveBeenCalledTimes(1);
   });
@@ -112,7 +164,7 @@ describe('/api/leads method and auth contract', () => {
     const handler = await loadHandler();
     const res = makeRes();
 
-    await handler(makeReq('POST', { id: 'person-3', tipo: 'contato' }, { authorization: 'Bearer qa-service-role' }), res);
+    await handler(makeReq('POST', { id: 'person-3', tipo: 'contato' }, { authorization: 'Bearer qa-machine-token-012345678901234567890' }), res);
 
     expect(res.statusCode).toBe(200);
     expect(String(global.fetch.mock.calls[0][0])).toContain('/rest/v1/rpc/fn_promover_contato_para_lead');

@@ -4,7 +4,6 @@ const SUPABASE_AUTH_API_KEY =
   process.env.SUPABASE_ANON_KEY ||
   process.env.VITE_SUPABASE_ANON_KEY ||
   SUPABASE_SERVICE_KEY;
-const ADMIN_EMAIL_DOMAIN = process.env.ADMIN_EMAIL_DOMAIN || '@wgalmeida.com.br';
 
 const jsonError = (res, status, error) => res.status(status).json({ error });
 
@@ -87,7 +86,16 @@ export async function requireAdmin(req, res) {
     };
   }
 
-  const user = await authResp.json();
+  let user;
+  try {
+    user = await authResp.json();
+  } catch {
+    console.error('Admin auth user response invalid');
+    return {
+      ok: false,
+      response: jsonError(res, 503, 'Auth service unavailable'),
+    };
+  }
   let profile;
   try {
     profile = await fetchProfile(user?.id);
@@ -98,12 +106,14 @@ export async function requireAdmin(req, res) {
       response: jsonError(res, 503, 'Auth service unavailable'),
     };
   }
-  const email = String(user?.email || profile?.email || '').toLowerCase();
-  const isDomainAdmin = email.endsWith(ADMIN_EMAIL_DOMAIN.toLowerCase());
-  const isProfileAdmin = profile?.role === 'admin';
-  const isInactive = profile?.ativo === false;
+  // A corporate email is an identity attribute, never an authorization grant.
+  // Require a matching, explicitly active admin profile in the canonical auth provider.
+  const isVerifiedAdmin = Boolean(user?.id) &&
+    profile?.id === user.id &&
+    profile?.role === 'admin' &&
+    profile?.ativo === true;
 
-  if (isInactive || (!isDomainAdmin && !isProfileAdmin)) {
+  if (!isVerifiedAdmin) {
     return {
       ok: false,
       response: jsonError(res, 403, 'Forbidden'),
