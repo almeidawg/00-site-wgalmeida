@@ -86,6 +86,9 @@ const Store = () => {
       {/* Seção de produtos */}
       <section className="relative overflow-hidden bg-[#F6F4EF] pb-16 pt-8 md:pb-20">
         <div className="container-custom relative z-10">
+          {import.meta.env.VITE_WG_STORE_OFFERS_ENABLED === 'true' && (
+            <p className="mb-5 text-sm text-gray-600">A WG Store pode utilizar links de afiliados. As condições de compra, entrega e devolução são definidas pelo fornecedor indicado.</p>
+          )}
           <Suspense fallback={null}>
             <ProductsList />
           </Suspense>
