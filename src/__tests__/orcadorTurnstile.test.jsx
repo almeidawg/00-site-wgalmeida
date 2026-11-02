@@ -46,6 +46,17 @@ describe('Orcador contact anti-spam contract', () => {
     window.history.replaceState(null, '', '/');
   });
 
+  it('keeps proposal wizard headings at level 2 throughout its initial steps', async () => {
+    const { default: Orcador } = await import('@/components/OrcadorInteligente');
+    const view = render(<Orcador />);
+    expect(screen.getByRole('heading', { level: 2, name: 'Qual o perfil do ativo?' })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Apartamento de Alto Padrão' }));
+    expect(screen.getByRole('heading', { level: 2, name: 'Qual escopo técnico?' })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Apenas Projeto de Interiores' }));
+    expect(screen.getByRole('heading', { level: 2, name: 'Dimensões e Cronograma' })).toBeInTheDocument();
+    expect(view.container.querySelector('h3')).toBeNull();
+  });
+
   it('blocks submission until verification and sends the token with contact_form action', async () => {
     window.history.replaceState(null, '', '/?utm_source=google&utm_medium=cpc&utm_campaign=orcamento-qa');
     const view = await openFinalStep();
