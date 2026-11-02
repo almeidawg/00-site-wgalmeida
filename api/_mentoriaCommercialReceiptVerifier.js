@@ -21,6 +21,14 @@ const RECEIPT_CLAIMS = [
   'issuer', 'keyId', 'purpose', 'noticeVersion', 'noticeDigest',
   'otpVerifiedAtMs', 'consentRecordedAtMs',
 ]
+// The durable ledger must independently attest EVERY OTP/policy claim that
+// authorizes contact. A signature with an active receipt ID is insufficient.
+const LEDGER_CLAIM_FIELDS = [
+  'receiptId', 'principalId', 'challengeId', 'phoneFingerprint',
+  'purpose', 'noticeVersion', 'noticeDigest',
+  'otpVerifiedAtMs', 'consentRecordedAtMs',
+]
+const LEDGER_KEYS = ['state', ...LEDGER_CLAIM_FIELDS]
 const MAX_VERIFY_TO_CONSENT_MS = 5 * 60 * 1000
 const unavailable = () => ({ status: 'unavailable' })
 const denied = () => ({ status: 'denied' })
@@ -104,11 +112,13 @@ export function createMentoriaCommercialReceiptVerifier(deps = {}) {
       const record = await deps.readConsentStatus({
         receiptId: claims.receiptId,
         principalId: claims.principalId,
+        challengeId: claims.challengeId,
         noticeDigest,
       })
-      if (!exactKeys(record, ['state', 'receiptId', 'principalId', 'noticeDigest']) ||
-          record.state !== 'active' || record.receiptId !== claims.receiptId ||
-          record.principalId !== claims.principalId || record.noticeDigest !== noticeDigest) return denied()
+      // Status alone cannot establish that this OTP challenge or phone was
+      // verified. Require independent, exact matching of the durable ledger.
+      if (!exactKeys(record, LEDGER_KEYS) || record.state !== 'active' ||
+          LEDGER_CLAIM_FIELDS.some((field) => record[field] !== claims[field])) return denied()
       return { status: 'verified' }
     } catch {
       // Fail-closed on invalid keys, stale stores, or provider errors.
