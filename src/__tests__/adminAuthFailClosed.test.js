@@ -46,6 +46,38 @@ describe('requireAdmin — authentication provider failures are fail-closed', ()
     vi.restoreAllMocks();
   });
 
+  it.each([
+    ['corporate staff without admin role', 'staff@wgalmeida.com.br', { id: 'user-qa', role: 'viewer', ativo: true }, false],
+    ['inactive corporate admin', 'staff@wgalmeida.com.br', { id: 'user-qa', role: 'admin', ativo: false }, false],
+    ['non-matching admin profile', 'staff@wgalmeida.com.br', { id: 'other-user', role: 'admin', ativo: true }, false],
+    ['missing profile', 'staff@wgalmeida.com.br', null, false],
+    ['corporate active admin', 'staff@wgalmeida.com.br', { id: 'user-qa', role: 'admin', ativo: true }, true],
+    ['delegated external active admin', 'consultant@example.test', { id: 'user-qa', role: 'admin', ativo: true }, true],
+  ])('requires an explicitly active matching role for %s', async (_description, email, profile, allowed) => {
+    globalThis.fetch
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ id: 'user-qa', email }),
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => profile ? [profile] : [],
+      });
+    const requireAdmin = await requireAdminForTest();
+    const res = makeResponse();
+    const result = await requireAdmin(request(), res);
+
+    expect(globalThis.fetch).toHaveBeenCalledTimes(2);
+    expect(result.ok).toBe(allowed);
+    if (!allowed) {
+      expect(res.statusCode).toBe(403);
+      expect(res.body).toEqual({ error: 'Forbidden' });
+    } else {
+      expect(result.user.id).toBe('user-qa');
+      expect(result.profile.role).toBe('admin');
+    }
+  });
+
   it('returns a controlled 503 if the auth provider sends invalid JSON', async () => {
     globalThis.fetch.mockResolvedValue({
       ok: true,
