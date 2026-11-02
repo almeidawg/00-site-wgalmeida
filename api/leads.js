@@ -1,6 +1,7 @@
 // Leads API — lifecycle canônico de contatos do WG-Easy.
 // Fonte: pessoas + fn_promover_contato_para_lead. Não usa tabelas legadas contacts/propostas_solicitadas.
 
+import { timingSafeEqual } from 'node:crypto';
 import { requireAdmin } from './_adminAuth.js';
 
 const SUPABASE_URL = process.env.VITE_SUPABASE_URL;
@@ -35,9 +36,24 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const authHeader = req.headers.authorization || '';
-  const isServiceKey = Boolean(SUPABASE_SERVICE_KEY) && authHeader === `Bearer ${SUPABASE_SERVICE_KEY}`;
-  if (!isServiceKey) {
+  const authHeader = req.headers?.authorization || req.headers?.Authorization || '';
+  // The Supabase service-role secret authenticates the database, never callers of this API.
+  if (SUPABASE_SERVICE_KEY && authHeader === `Bearer ${SUPABASE_SERVICE_KEY}`) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+
+  // Machine access is opt-in and must not reuse a Supabase credential.
+  const machineToken = process.env.WG_LEADS_MACHINE_TOKEN || '';
+  const machineEnabled = process.env.WG_LEADS_MACHINE_ENABLED === 'true' &&
+    machineToken.length >= 32 && machineToken.trim() === machineToken &&
+    machineToken !== SUPABASE_SERVICE_KEY;
+  let isMachine = false;
+  if (machineEnabled && typeof authHeader === 'string' && authHeader.length <= 1024) {
+    const actual = Buffer.from(authHeader, 'utf8');
+    const expected = Buffer.from(`Bearer ${machineToken}`, 'utf8');
+    isMachine = actual.length === expected.length && timingSafeEqual(actual, expected);
+  }
+  if (!isMachine) {
     const adminAuth = await requireAdmin(req, res);
     if (!adminAuth.ok) return adminAuth.response;
   }
@@ -73,10 +89,9 @@ export default async function handler(req, res) {
         }),
       });
 
-      const payload = await parseJson(rpcResp);
       if (!rpcResp.ok) {
         return res.status(rpcResp.status >= 500 ? 502 : 400).json({
-          error: payload?.message || payload?.error || 'Falha ao promover contato.',
+          error: 'Falha ao promover contato.',
         });
       }
 
@@ -111,9 +126,8 @@ export default async function handler(req, res) {
       });
 
       if (!resp.ok) {
-        const payload = await parseJson(resp);
         return res.status(resp.status >= 500 ? 502 : 400).json({
-          error: payload?.message || payload?.error || 'Falha ao atualizar lifecycle.',
+          error: 'Falha ao atualizar lifecycle.',
         });
       }
 
@@ -130,14 +144,13 @@ export default async function handler(req, res) {
     const select = 'id,nome,email,telefone,contact_stage,origem_cadastro,lead_source,lead_source_ref,created_at,updated_at';
     const url = `${SUPABASE_URL}/rest/v1/pessoas?select=${select}&ativo=eq.true&created_at=gte.${encodeURIComponent(ninetyDaysAgo)}&order=created_at.desc`;
     const peopleResp = await fetch(url, { headers });
-    const people = await parseJson(peopleResp);
-
     if (!peopleResp.ok) {
       return res.status(peopleResp.status >= 500 ? 502 : 400).json({
-        error: people?.message || people?.error || 'Falha ao carregar contatos.',
+        error: 'Falha ao carregar contatos.',
       });
     }
 
+    const people = await parseJson(peopleResp);
     const leads = (Array.isArray(people) ? people : []).map((person) => ({
       id: person.id,
       nome: person.nome || person.email || '—',

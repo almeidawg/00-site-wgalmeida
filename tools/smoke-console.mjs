@@ -17,6 +17,9 @@ const defaultRoutes = [
   '/arquitetura',
   '/engenharia',
   '/processo',
+  // A rota Store deve degradar sem consultas quando o catálogo público não está configurado.
+  '/store',
+  '/solicite-proposta',
 ];
 
 const mimeTypes = {
