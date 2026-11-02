@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import { createMentoriaCommercialViteGatePlugin } from "./tools/mentoria-commercial-vite-plugin.mjs";
 import path from "node:path";
 import react from "@vitejs/plugin-react";
 import { createLogger, defineConfig } from "vite";
@@ -297,6 +298,7 @@ const createViteConfig = (isDev) => ({
   base: appBasePath,
   customLogger: logger,
   plugins: [
+    ...(!isDev ? [createMentoriaCommercialViteGatePlugin(__dirname)] : []),
     ...(isDev ? [apiDevPlugin()] : []),
     ...(isDev && enableEditorDevPlugins
       ? [
