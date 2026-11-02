@@ -17,6 +17,22 @@ const mockPhoneFingerprint = createHmac('sha256', randomBytes(32))
   .update('synthetic-phone-not-real')
   .digest('hex')
 
+function ledgerRecord(patch = {}) {
+  return {
+    state: 'active',
+    receiptId: RECEIPT,
+    principalId: PRINCIPAL,
+    challengeId: CHALLENGE,
+    phoneFingerprint: mockPhoneFingerprint,
+    purpose: 'mentoria_commercial_contact',
+    noticeVersion: 'synthetic-v1',
+    noticeDigest: DIGEST,
+    otpVerifiedAtMs: NOW - 120_000,
+    consentRecordedAtMs: NOW - 30_000,
+    ...patch,
+  }
+}
+
 function fixture(overrides = {}) {
   const { publicKey, privateKey } = generateKeyPairSync('ed25519')
   const claims = {
@@ -32,9 +48,7 @@ function fixture(overrides = {}) {
     otpVerifiedAtMs: NOW - 120_000,
     consentRecordedAtMs: NOW - 30_000,
   }
-  const readConsentStatus = vi.fn(async () => ({
-    state: 'active', receiptId: RECEIPT, principalId: PRINCIPAL, noticeDigest: DIGEST,
-  }))
+  const readConsentStatus = vi.fn(async () => ledgerRecord())
   const deps = {
     enabled: true,
     approvedNoticeText: NOTICE,
@@ -81,7 +95,7 @@ describe('Mentoria commercial receipt verifier (private, NOT MOUNTED)', () => {
     expect(await gate({ receipt, authenticatedPrincipalId: PRINCIPAL }))
       .toEqual({ status: 'verified' })
     expect(readConsentStatus).toHaveBeenCalledWith({
-      receiptId: RECEIPT, principalId: PRINCIPAL, noticeDigest: DIGEST,
+      receiptId: RECEIPT, principalId: PRINCIPAL, challengeId: CHALLENGE, noticeDigest: DIGEST,
     })
     expect(JSON.stringify(receipt)).not.toContain('synthetic-phone-not-real')
   })
@@ -89,7 +103,7 @@ describe('Mentoria commercial receipt verifier (private, NOT MOUNTED)', () => {
   it('rejects already revoked, missing and pending receipts, even with a valid signature', async () => {
     for (const state of ['revoked', 'pending', 'consumed', 'expired', null]) {
       const readConsentStatus = vi.fn(async () =>
-        state === null ? null : { state, receiptId: RECEIPT, principalId: PRINCIPAL, noticeDigest: DIGEST })
+        state === null ? null : ledgerRecord({ state }))
       const f = fixture({ readConsentStatus })
       expect(await f.gate({ receipt: f.receipt, authenticatedPrincipalId: PRINCIPAL }))
         .toEqual({ status: 'denied' })
@@ -157,14 +171,43 @@ describe('Mentoria commercial receipt verifier (private, NOT MOUNTED)', () => {
       { receiptId: 'OtherReceipt_abcdefghijklmnop' },
       { principalId: 'OtherPrincipal_abcdefghijklmnop' },
       { noticeDigest: '0'.repeat(64) },
+      { challengeId: 'DifferentChallenge_abcdefghijklmnop' },
+      { phoneFingerprint: '0'.repeat(64) },
+      { otpVerifiedAtMs: NOW - 100_000 },
+      { consentRecordedAtMs: NOW - 35_000 },
+      { noticeVersion: 'different-v1' },
+      { purpose: 'meta_pixel' },
       { extraField: 'untrusted' },
     ]) {
-      const f = fixture({ readConsentStatus: vi.fn(async () => ({
-        state: 'active', receiptId: RECEIPT, principalId: PRINCIPAL, noticeDigest: DIGEST, ...patch,
-      })) })
+      const f = fixture({ readConsentStatus: vi.fn(async () => ledgerRecord(patch)) })
       expect(await f.gate({ receipt: f.receipt, authenticatedPrincipalId: PRINCIPAL }))
         .toEqual({ status: 'denied' })
     }
+  })
+
+  it('denies even correctly signed OTP claims that diverge from the authoritative ledger', async () => {
+    for (const patch of [
+      { challengeId: 'DifferentChallenge_abcdefghijklmnop' },
+      { phoneFingerprint: '0'.repeat(64) },
+      { otpVerifiedAtMs: NOW - 90_000 },
+      { consentRecordedAtMs: NOW - 60_000 },
+    ]) {
+      const f = fixture()
+      const claims = { ...f.claims, ...patch }
+      expect(await f.gate({
+        receipt: { claims, signature: f.signatureOf(claims) },
+        authenticatedPrincipalId: PRINCIPAL,
+      })).toEqual({ status: 'denied' })
+      expect(f.readConsentStatus).toHaveBeenCalledOnce()
+    }
+  })
+
+  it('rejects incomplete ledger rows that only claim an active consent status', async () => {
+    const f = fixture({ readConsentStatus: vi.fn(async () => ({
+      state: 'active', receiptId: RECEIPT, principalId: PRINCIPAL, noticeDigest: DIGEST,
+    })) })
+    expect(await f.gate({ receipt: f.receipt, authenticatedPrincipalId: PRINCIPAL }))
+      .toEqual({ status: 'denied' })
   })
 
   it('fails closed on stale status stores, invalid verification keys and provider exceptions', async () => {
