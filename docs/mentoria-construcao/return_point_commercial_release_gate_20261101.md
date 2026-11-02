@@ -42,4 +42,4 @@ Essas provas são regressões de segurança em arquivos-fonte. Não substituem a
 
 **Status:** PARCIAL / FAIL-CLOSED. No push, merge, deploy, restart, DNS, mudança env, envio externo, leitura de WhatsApp pessoal, QR, ou escrita em WGEasy.
 
-Regra WG aplicável: revalidar domínio + ID do projeto + origem Git/branch, identificar credenciais por metadados sem ler/mostrar segredos, e bloquear publicação se a identidade real do consentimento ou do emissor não puder ser comprovada. 
+Regra WG aplicável: revalidar domínio + ID do projeto + origem Git/branch, identificar credenciais por metadados sem ler/mostrar segredos, e bloquear publicação se a identidade real do consentimento ou do emissor não puder ser comprovada.

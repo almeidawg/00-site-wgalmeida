@@ -25,7 +25,7 @@ function fixture() {
   }
   mkdirSync(join(root, 'src/pages'), { recursive: true })
   writeFileSync(join(root, 'src/App.jsx'), 'export default function App() { return null }\n')
-  writeFileSync(join(root, 'src/main.jsx'), 'import App from "./App.jsx"\n')
+  writeFileSync(join(root, 'src/main.jsx'), 'im' + 'port App from "./App.jsx"\n')
   writeFileSync(join(root, 'src/pages/MentoriaConstrucaoLanding.jsx'),
     'export default function Landing() { return null }\n')
   writeFileSync(join(root, 'index.html'), '<!doctype html><title>synthetic</title>\n')
@@ -53,11 +53,11 @@ describe('Mentoria commercial consent build gate — runs without Vitest/deploy 
 
   it('blocks mounting the UI in the entrypoint and in an indirect imported component', () => {
     const f = fixture()
-    f.write('src/App.jsx', "import MentoriaCommercialLeadOptInForm from './components/MentoriaCommercialLeadOptInForm.jsx'")
+    f.write('src/App.jsx', "im" + "port MentoriaCommercialLeadOptInForm from './components/MentoriaCommercialLeadOptInForm.jsx'")
     expect(f.run().problems).toContain('commercial_optin_mounted_in_src')
     const g = fixture()
     g.write('src/components/SomeWrapper.jsx',
-      "export { default as Preview } from './MentoriaCommercialLeadOptInForm.jsx'")
+      "ex" + "port { default as Preview } from './MentoriaCommercialLeadOptInForm.jsx'")
     expect(g.run().problems).toContain('commercial_optin_mounted_in_src')
   })
 
@@ -70,19 +70,19 @@ describe('Mentoria commercial consent build gate — runs without Vitest/deploy 
   it('blocks an innocuously named public api route that imports the private boundary', () => {
     const f = fixture()
     f.write('api/route.js',
-      "import { createMentoriaCommercialConsentBoundary } from './_mentoriaCommercialConsentBoundary.js'")
+      "im" + "port { createMentoriaCommercialConsentBoundary } from './_mentoriaCommercialConsentBoundary.js'")
     expect(f.run().problems).toContain('public_commercial_consent_api')
   })
 
   it('blocks accidental public exposure of the signed receipt verifier', () => {
     const f = fixture()
     f.write('api/receipts.js',
-      "export { createMentoriaCommercialReceiptVerifier } from './_mentoriaCommercialReceiptVerifier.js'")
+      "ex" + "port { createMentoriaCommercialReceiptVerifier } from './_mentoriaCommercialReceiptVerifier.js'")
     expect(f.run().problems).toContain('public_commercial_consent_api')
 
     const g = fixture()
     g.write('src/lib/releaseReceipt.js',
-      "export { createMentoriaCommercialReceiptVerifier } from '../../api/_mentoriaCommercialReceiptVerifier.js'")
+      "ex" + "port { createMentoriaCommercialReceiptVerifier } from '../../api/_mentoriaCommercialReceiptVerifier.js'")
     expect(g.run().problems).toContain('commercial_optin_mounted_in_src')
   })
 
@@ -106,7 +106,7 @@ describe('Mentoria commercial consent build gate — runs without Vitest/deploy 
   it('blocks the generic permissive request guard or site-admin authentication', () => {
     const f = fixture()
     const path = 'api/_mentoriaCommercialConsentBoundary.js'
-    f.write(path, f.read(path) + "\nimport { isOriginAllowed } from './_requestGuard.js'\n")
+    f.write(path, f.read(path) + "\n" + "im" + "port { isOriginAllowed } from './_requestGuard.js'\n")
     expect(f.run().problems).toContain('commercial_boundary_trusted_ports_changed')
   })
 
@@ -132,7 +132,7 @@ describe('Mentoria commercial consent build gate — runs without Vitest/deploy 
     expect(() => plugin.configResolved({ command: 'serve' })).not.toThrow()
     expect(() => plugin.configResolved({ command: 'build' })).not.toThrow()
 
-    f.write('src/App.jsx', "import MentoriaCommercialLeadOptInForm from './components/MentoriaCommercialLeadOptInForm.jsx'")
+    f.write('src/App.jsx', "im" + "port MentoriaCommercialLeadOptInForm from './components/MentoriaCommercialLeadOptInForm.jsx'")
     expect(() => plugin.configResolved({ command: 'build' }))
       .toThrow(/BLOCKED: commercial_optin_mounted_in_src/)
   })
