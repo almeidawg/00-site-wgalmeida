@@ -124,6 +124,17 @@ describe('Mentoria commercial consent build gate — runs without Vitest/deploy 
     ]))
   })
 
+  it('keeps ANALYZE=true on the actual Vite process, not just the preceding gate', () => {
+    const f = fixture()
+    const data = JSON.parse(f.read('package.json'))
+    expect(data.scripts.analyze).toContain(
+      'ANALYZE=true node ./tools/check-mentoria-commercial-build-gate.mjs && ANALYZE=true vite build')
+    data.scripts.analyze = data.scripts.analyze.replace(
+      ' && ANALYZE=true vite build', ' && vite build')
+    f.write('package.json', JSON.stringify(data))
+    expect(f.run().problems).toContain('build_script_gate_missing_analyze')
+  })
+
   it('protects the direct Vite build through a Vite build plugin', () => {
     const f = fixture()
     const plugin = createMentoriaCommercialViteGatePlugin(f.root)

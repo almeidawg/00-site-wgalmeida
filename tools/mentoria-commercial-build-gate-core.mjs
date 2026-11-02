@@ -105,8 +105,13 @@ export function inspectMentoriaCommercialBuildGate(root) {
     const scripts = JSON.parse(read('package.json')).scripts
     for (const name of PROTECTED_SCRIPTS) {
       const body = scripts?.[name]
-      if (typeof body !== 'string' || !body.includes('vite build') ||
-          !body.includes(BUILD_GATE_COMMAND + ' && vite build')) {
+      // The visualizer needs ANALYZE=true on the Vite process itself.
+      // An inline env assignment on the preceding Node gate never propagates
+      // across && to the next process.
+      const guardedBuild = name === 'analyze'
+        ? 'ANALYZE=true ' + BUILD_GATE_COMMAND + ' && ANALYZE=true vite build'
+        : BUILD_GATE_COMMAND + ' && vite build'
+      if (typeof body !== 'string' || !body.includes(guardedBuild)) {
         fail('build_script_gate_missing_' + name.replaceAll(':', '_'))
       }
     }

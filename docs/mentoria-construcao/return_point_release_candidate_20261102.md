@@ -22,6 +22,14 @@
 6. Três artefatos transitórios gerados por build/testes (`public/sitemap.xml`, `public/sitemap-index.xml`, `src/__tests__/__snapshots__/example.test.jsx.snap`) tiveram backups e foram restaurados seletivamente; backups de correções foram movidos para `dist-mentoria-release-evidence-20261102/` (ignorado por Git).
 7. O histórico de aviso de vulnerabilidades npm permanece pendente de triagem; o comando `npm audit` foi bloqueado pela allowlist em execução anterior.
 
+## Correção da revisão automática PR #161
+- A branch candidata foi publicada no commit `1cb8e2f`; PR #161 em `https://github.com/almeidawg/00-site-wgalmeida/pull/161`.
+- O CI GitHub `Required CI gates` execução 73 aprovou `build-and-test` e `deploy-gate-final`, e a Vercel Preview `dpl_Ari6Um3eXHSr22enMepjo55QSgEF` chegou a `READY`.
+- O merge não foi permitido pela política GitHub `All comments must be resolved`. Thread `PRRT_kwDOQ5MDZc6ygFtT`, comentário P2 do Codex em `package.json:11`: em `npm run analyze`, `ANALYZE=true` estava ligado ao gate Node e NÃO ao Vite, impedindo `stats.html`.
+- Correção: `ANALYZE=true node ./tools/check-mentoria-commercial-build-gate.mjs && ANALYZE=true vite build`, mantendo o guard; o inspector agora exige a env também no comando Vite e há teste negativo que falha se ela for retirada.
+- Validação pós-correção: teste direcionado `15/15 PASS`; `npm run verify:fast` **63 arquivos / 312 testes PASS**; `npm run build` PASS com ambos os gates; ESLint PASS. Backups preservados e artefatos rastreados gerados restaurados seletivamente.
+- Necessário commitar/push da correção, responder e resolver somente o thread após revisão, aguardar novamente CI/Vercel e revalidar o SHA antes do merge. Não ignorar gate da `main`.
+
 ## Release e gates
 - Autorização geral do owner nesta conversa: preparar commit, push, PR/merge e deixar o site em produção. Essa autorização NÃO substitui as condições técnicas abaixo.
 - Publicação aprovada **somente para código inativo/proteções do site**, nunca para ativação do atendimento comercial sensível.
