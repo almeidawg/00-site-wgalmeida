@@ -75,7 +75,7 @@ for (const [key, files] of [...usedKeys.entries()].sort(([a], [b]) => a.localeCo
       missing.push({
         key,
         locale,
-        files: [...files].sort(),
+        files: [...files].sort((a, b) => a.localeCompare(b)),
       });
     }
   }
