@@ -12,6 +12,7 @@ const publicAuditFiles = new Set([
   'src/pages/Home.jsx',
   'src/pages/Blog.jsx',
   'src/pages/About.jsx',
+  'src/pages/Contact.jsx',
   'src/pages/AMarca.jsx',
   'src/pages/ObraEasyLanding.jsx',
   'src/pages/RoomVisualizer.jsx',
