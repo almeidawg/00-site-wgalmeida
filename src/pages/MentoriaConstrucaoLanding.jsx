@@ -123,7 +123,7 @@ function FilmPlayer() {
   return (
     <div className="mcl-film" id="apresentacao">
       {!activated ? (
-        <button type="button" onClick={start} aria-label="Reproduzir apresentação de William Almeida" className="mcl-film__cover">
+        <button type="button" onClick={start} aria-label="Apresentação completa · 2 min 26 s. Reproduzir apresentação de William Almeida" className="mcl-film__cover">
           <img src={POSTER} alt="William Almeida apresenta a abordagem do Grupo WG Almeida" width="1280" height="720" loading="lazy" />
           <span className="mcl-film__veil" aria-hidden="true" />
           <span className="mcl-film__play"><Play size={28} fill="currentColor" aria-hidden="true" /></span>
@@ -170,9 +170,9 @@ export default function MentoriaConstrucaoLanding() {
         <a href="#conteudo" className="mcl-skip">Pular para o conteúdo</a>
         <header className="mcl-header">
           <div className="mcl-container mcl-header__inner">
-            <a href="#inicio" className="mcl-brand" aria-label="Grupo WG Almeida: início da apresentação">
+            <a href="#inicio" className="mcl-brand" aria-label="Grupo WG Almeida Consultoria & Transformação: início da apresentação">
               <img src={LOGO} alt="" width="48" height="48" decoding="async" />
-              <span><strong>GRUPO WG ALMEIDA</strong><small>CONSULTORIA & TRANSFORMAÇÃO</small></span>
+              <span><strong>GRUPO WG ALMEIDA</strong>{' '}<small>CONSULTORIA & TRANSFORMAÇÃO</small></span>
             </a>
             <nav className="mcl-header__nav" aria-label="Navegação da página">
               <a href="#programa">Programa 8 semanas</a>
