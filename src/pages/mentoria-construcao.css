@@ -1,8 +1,10 @@
 /* Grupo WG Almeida | Campanha de consultoria - estilos isolados.
    Laranja institucional: #F25C26; cinzas/brancos = neutros auxiliares. */
-.mcl {
+/* O aviso de medicao e irmao do wrapper .mcl (renderizado antes dele): sem compartilhar as variaveis ele perdia fundo e cor da marca. */
+.mcl, .mcl-consent {
   --mcl-orange: #F25C26;
   --mcl-orange-text-bg: #C94A19; /* variante com contraste AA para texto branco */
+  --mcl-orange-text: #B8420F; /* laranja para TEXTO sobre fundo claro: 4,9:1 no creme e 5,5:1 no branco (o #F25C26 fica so em fundos e detalhes) */
   --mcl-ink: #202C3C;
   --mcl-deep: #182030;
   --mcl-cream: #F5F2ED;
@@ -66,7 +68,7 @@
 .mcl-hero__cred > div:first-child { padding-left:0; }
 .mcl-hero__cred > div:last-child { padding-right:0; border:0; }
 .mcl-hero__cred strong { display:block; font-size:10px; line-height:1.45; letter-spacing:.045em; font-weight:900; }
-.mcl-hero__cred span { display:block; margin-top:5px; color:#7b7771; font-size:11px; line-height:1.4; }
+.mcl-hero__cred span { display:block; margin-top:5px; color:#6b675f; font-size:11px; line-height:1.4; }
 .mcl-hero__visual { position:relative; min-width:0; padding: 42px 0 42px 30px; display:flex; align-items:stretch; }
 .mcl-hero__photo-frame { position:relative; flex:1; min-height: 520px; background:#ccc9c3; overflow:hidden; }
 .mcl-hero__photo-frame::before { content:''; z-index:1; position:absolute; left:-1px; top:-1px; width:65px; height:6px; background:var(--mcl-orange); }
@@ -106,7 +108,7 @@
 .mcl-pain__list {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:34px; margin-top:65px;border-top:1px solid var(--mcl-line);}
 .mcl-pain__list article {padding-top:25px;border-top:3px solid transparent;}
 .mcl-pain__list article:first-child {border-color:var(--mcl-orange);}
-.mcl-pain__list span {font-size:10px;letter-spacing:.15em;color:#bc704e;font-weight:850;}
+.mcl-pain__list span {font-size:10px;letter-spacing:.15em;color:#a4502f;font-weight:850;}
 .mcl-pain__list h3 {font-size:24px;line-height:1.15;margin-top:22px;font-weight:800;}
 .mcl-pain__list p {font-size:14px;line-height:1.8;color:#696b6e;margin-top:13px;max-width:350px;}
 
@@ -124,12 +126,12 @@
 .mcl-method__grid {display:grid;grid-template-columns:.93fr 1.07fr;gap:clamp(40px,8vw,125px);align-items:start;}
 .mcl-method__sticky {position:sticky;top:50px;}
 .mcl-method h2 {font-size:clamp(40px,4.3vw,59px);line-height:1.08;margin-top:20px;}
-.mcl-method h2 em {color:var(--mcl-orange);}
+.mcl-method h2 em {color:var(--mcl-orange-text);}
 .mcl-method__sticky > p {font-size:15px;line-height:1.8;color:#606164;margin:22px 0 24px;}
 .mcl-method__steps {border-top:1px solid var(--mcl-line);}
 .mcl-method__step {display:grid;grid-template-columns:54px 1fr 22px;gap:20px;border-bottom:1px solid var(--mcl-line);padding:29px 0;}
-.mcl-method__step-number {font-size:20px;color:var(--mcl-orange);font-weight:800;}
-.mcl-method__step > div:nth-child(2) span {text-transform:uppercase;font-size:10px;letter-spacing:.12em;font-weight:900;color:#867166;}
+.mcl-method__step-number {font-size:20px;color:var(--mcl-orange-text);font-weight:800;}
+.mcl-method__step > div:nth-child(2) span {text-transform:uppercase;font-size:10px;letter-spacing:.12em;font-weight:900;color:#6f5d53;}
 .mcl-method__step h3 {font-size:24px;font-weight:750;margin-top:8px;}
 .mcl-method__step p {font-size:14px;color:#636466;line-height:1.76; margin-top:11px;}
 .mcl-method__step > svg {color:#8f8b86;}
@@ -224,9 +226,9 @@
 .mcl-convert__choice--active .mcl-convert__radio {background:var(--mcl-orange);border-color:var(--mcl-orange);color:white;}
 .mcl-convert__submit {display:flex;width:100%;justify-content:space-between;gap:12px;}
 .mcl-convert__direct {margin-top:14px !important;font-size:13px !important;color:#3f3f3f !important;}
-.mcl-convert__direct a {display:inline-flex;align-items:center;gap:5px;min-height:44px;padding:0 2px;color:var(--mcl-orange);font-weight:800;text-decoration:underline;text-underline-offset:3px;}
+.mcl-convert__direct a {display:inline-flex;align-items:center;gap:5px;min-height:44px;padding:0 2px;color:var(--mcl-orange-text);font-weight:800;text-decoration:underline;text-underline-offset:3px;}
 .mcl-convert__direct a:hover {text-decoration-thickness:2px;}
-.mcl-convert__hint {color:#797979;font-size:11px;line-height:1.65;margin-top:16px !important;}
+.mcl-convert__hint {color:#6b6b6b;font-size:11px;line-height:1.65;margin-top:16px !important;}
 
 .mcl-faq {padding:100px 0;background:var(--mcl-offwhite);}
 .mcl-faq__grid {display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(40px,7vw,95px);}
@@ -439,5 +441,6 @@
 .mcl-consent { position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 60; max-width: 720px; margin: 0 auto; padding: 16px 18px; background: var(--mcl-offwhite); color: var(--mcl-ink); border: 1px solid var(--mcl-line); border-radius: 12px; box-shadow: 0 8px 30px rgba(24,32,48,.18); display: flex; flex-wrap: wrap; gap: 12px 18px; align-items: center; justify-content: space-between; }
 .mcl-consent p { margin: 0; flex: 1 1 320px; font-size: .9rem; line-height: 1.45; }
 .mcl-consent a { color: var(--mcl-ink); text-decoration: underline; }
+.mcl-consent button { font: inherit; }
 .mcl-consent__actions { display: flex; gap: 10px; }
 .mcl-consent__actions .mcl-button { min-height: 44px; padding: 0 18px; }
