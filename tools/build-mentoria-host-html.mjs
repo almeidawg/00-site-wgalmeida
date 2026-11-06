@@ -17,7 +17,23 @@ const replaceTag = (html, pattern, replacement) => {
   return html.replace(pattern, replacement)
 }
 
-export function buildMentoriaHostHtml(indexHtml) {
+// Chunks que a landing pede em uma segunda onda (depois do bundle de entrada executar).
+// Pre-carregar no HTML tira essa cascata do caminho do LCP.
+const LANDING_CHUNKS = [
+  { re: /^MentoriaConstrucaoLanding-[\w-]+\.js$/, tag: (f) => `<link rel="modulepreload" crossorigin href="/assets/${f}" />` },
+  { re: /^SEO-[\w-]+\.js$/, tag: (f) => `<link rel="modulepreload" crossorigin href="/assets/${f}" />` },
+  { re: /^useNoindexBaseMeta-[\w-]+\.js$/, tag: (f) => `<link rel="modulepreload" crossorigin href="/assets/${f}" />` },
+]
+
+export function landingPreloadTags(assetFiles) {
+  return LANDING_CHUNKS.map(({ re, tag }) => {
+    const found = assetFiles.filter((f) => re.test(f))
+    if (found.length !== 1) throw new Error(`mentoria-host-html: esperado 1 arquivo para ${re}, achei ${found.length}`)
+    return tag(found[0])
+  })
+}
+
+export function buildMentoriaHostHtml(indexHtml, preloadTags = []) {
   let html = String(indexHtml)
   html = replaceTag(html, /<title>[^<]*<\/title>/, `<title>${TITLE}</title>`)
   html = replaceTag(html, /<meta name="description" content="[^"]*"\s*\/?>/, `<meta name="description" content="${DESCRIPTION}" />`)
@@ -34,7 +50,7 @@ export function buildMentoriaHostHtml(indexHtml) {
   // twitter:image pode nao existir no modelo; so troca quando existe.
   html = html.replace(/<meta name="twitter:image" content="[^"]*"\s*\/?>/, `<meta name="twitter:image" content="${MENTORIA_OG_IMAGE}" />`)
   const preload = `<link rel="preload" as="image" href="${MENTORIA_HERO}" fetchpriority="high" type="image/webp" />`
-  return replaceTag(html, /<meta charset="UTF-8"\s*\/?>/, (m) => `${m}\n\t\t${preload}`)
+  return replaceTag(html, /<meta charset="UTF-8"\s*\/?>/, (m) => `${m}\n\t\t${[preload, ...preloadTags].join('\n\t\t')}`)
 }
 
 export async function buildMentoriaOgJpg(rootDir, distDir) {
@@ -53,7 +69,7 @@ if (isMain) {
   if (!distName) throw new Error('mentoria-host-html: pasta de saida deve ser dist ou dist-local')
   const distDir = path.join(rootDir, distName)
   const indexPath = path.join(distDir, 'index.html')
-  fs.writeFileSync(path.join(distDir, 'mentoria.html'), buildMentoriaHostHtml(fs.readFileSync(indexPath, 'utf8')))
+  fs.writeFileSync(path.join(distDir, 'mentoria.html'), buildMentoriaHostHtml(fs.readFileSync(indexPath, 'utf8'), landingPreloadTags(fs.readdirSync(path.join(distDir, 'assets')))))
   await buildMentoriaOgJpg(rootDir, distDir)
   console.log('[mentoria-host-html] dist/mentoria.html e og-mentoria-1200x630.jpg gerados')
 }
