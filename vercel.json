@@ -231,6 +231,11 @@
       "destination": "/api/client-error?kind=site-event"
     },
     {
+      "source": "/",
+      "has": [{ "type": "host", "value": "mentoria.wgalmeida.com.br" }],
+      "destination": "/mentoria.html"
+    },
+    {
       "source": "/buildtech/projetos/easyfood",
       "destination": "https://restaurante-lyart.vercel.app/entrada.html"
     },
@@ -403,6 +408,18 @@
       "source": "/mentoria-construcao/:path*",
       "headers": [
         { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+      ]
+    },
+    {
+      "source": "/images/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
+      ]
+    },
+    {
+      "source": "/media/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
       ]
     },
     {
