@@ -23,7 +23,7 @@ export function buildMentoriaHostHtml(indexHtml) {
   html = replaceTag(html, /<meta name="description" content="[^"]*"\s*\/?>/, `<meta name="description" content="${DESCRIPTION}" />`)
   html = replaceTag(html, /<meta name="robots" content="[^"]*"\s*\/?>/, '<meta name="robots" content="noindex, nofollow" />')
   html = replaceTag(html, /<meta name="googlebot" content="[^"]*"\s*\/?>/, '<meta name="googlebot" content="noindex, nofollow" />')
-  html = replaceTag(html, /<link rel="canonical" id="dynamic-canonical" href="[^"]*"\s*\/?>/, `<link rel="canonical" id="dynamic-canonical" href="${MENTORIA_ORIGIN}/" />`)
+  html = replaceTag(html, /<link rel="canonical"[^>]*>/, `<link rel="canonical" id="dynamic-canonical" href="${MENTORIA_ORIGIN}/" />`)
   html = replaceTag(html, /<meta property="og:url" content="[^"]*"\s*\/?>/, `<meta property="og:url" content="${MENTORIA_ORIGIN}/" />`)
   html = replaceTag(html, /<meta property="og:title" content="[^"]*"\s*\/?>/, `<meta property="og:title" content="${TITLE}" />`)
   html = replaceTag(html, /<meta property="og:description" content="[^"]*"\s*\/?>/, `<meta property="og:description" content="${DESCRIPTION}" />`)

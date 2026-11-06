@@ -22,6 +22,12 @@ describe('HTML estatico do host da mentoria', () => {
     expect(html).toContain(`<link rel="preload" as="image" href="${MENTORIA_HERO}" fetchpriority="high" type="image/webp" />`)
   })
 
+  it('aceita o canonical sem id que o build-seo-routes deixa no dist', () => {
+    const dist = indexHtml.replace(' id="dynamic-canonical"', '')
+    expect(dist).not.toContain('dynamic-canonical" href')
+    expect(buildMentoriaHostHtml(dist)).toContain('href="https://mentoria.wgalmeida.com.br/"')
+  })
+
   it('falha alto se o modelo perder uma tag esperada', () => {
     expect(() => buildMentoriaHostHtml('<html><head></head></html>')).toThrow(/tag nao encontrada/)
   })
