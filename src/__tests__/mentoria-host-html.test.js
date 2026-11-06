@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import fs from 'node:fs'
 import path from 'node:path'
-import { buildMentoriaHostHtml, MENTORIA_OG_IMAGE, MENTORIA_HERO } from '../../tools/build-mentoria-host-html.mjs'
+import { buildMentoriaHostHtml, landingPreloadTags, MENTORIA_OG_IMAGE, MENTORIA_HERO } from '../../tools/build-mentoria-host-html.mjs'
 
 const root = process.cwd()
 const indexHtml = fs.readFileSync(path.join(root, 'index.html'), 'utf8')
@@ -30,6 +30,24 @@ describe('HTML estatico do host da mentoria', () => {
 
   it('falha alto se o modelo perder uma tag esperada', () => {
     expect(() => buildMentoriaHostHtml('<html><head></head></html>')).toThrow(/tag nao encontrada/)
+  })
+})
+
+describe('pre-carga dos chunks da landing', () => {
+  const files = ['index-a.js', 'MentoriaConstrucaoLanding-AbC123.js', 'MentoriaConstrucaoLanding-AbC123.css', 'MentoriaConstrucaoLanding-AbC123.js.br', 'SEO-Xy9.js', 'useNoindexBaseMeta-Q1.js']
+  it('gera modulepreload so para os 3 chunks JS, ignorando css e compactados', () => {
+    const tags = landingPreloadTags(files)
+    expect(tags).toHaveLength(3)
+    expect(tags.every((t) => t.startsWith('<link rel="modulepreload" crossorigin href="/assets/'))).toBe(true)
+    expect(tags.join('')).not.toMatch(/\.css|\.br/)
+  })
+  it('entra no head logo apos a foto', () => {
+    const html = buildMentoriaHostHtml(indexHtml, landingPreloadTags(files))
+    expect(html.indexOf('rel="preload" as="image"')).toBeLessThan(html.indexOf('MentoriaConstrucaoLanding-AbC123.js'))
+  })
+  it('falha alto se um chunk sumir ou duplicar', () => {
+    expect(() => landingPreloadTags(['index-a.js'])).toThrow(/esperado 1 arquivo/)
+    expect(() => landingPreloadTags([...files, 'SEO-Outro.js'])).toThrow(/esperado 1 arquivo/)
   })
 })
 
