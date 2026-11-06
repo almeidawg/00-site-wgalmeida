@@ -47,7 +47,11 @@ export async function buildMentoriaOgJpg(rootDir, distDir) {
 const isMain = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href
 if (isMain) {
   const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
-  const distDir = path.resolve(rootDir, process.argv[2] || 'dist')
+  // Lista fechada: o destino nunca vem livre da linha de comando (path traversal).
+  const ALLOWED_DIST = { dist: 'dist', 'dist-local': 'dist-local' }
+  const distName = ALLOWED_DIST[process.argv[2] || 'dist']
+  if (!distName) throw new Error('mentoria-host-html: pasta de saida deve ser dist ou dist-local')
+  const distDir = path.join(rootDir, distName)
   const indexPath = path.join(distDir, 'index.html')
   fs.writeFileSync(path.join(distDir, 'mentoria.html'), buildMentoriaHostHtml(fs.readFileSync(indexPath, 'utf8')))
   await buildMentoriaOgJpg(rootDir, distDir)
