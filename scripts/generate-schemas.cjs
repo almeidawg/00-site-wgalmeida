@@ -21,7 +21,7 @@ const organizationSchema = {
     "availableLanguage": "Portuguese"
   },
   "sameAs": [
-    "https://www.instagram.com/wgalmeida",
+    "https://www.instagram.com/grupowgalmeida",
     "https://www.linkedin.com/company/grupo-wg-almeida"
   ]
 };
