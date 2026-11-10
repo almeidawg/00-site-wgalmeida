@@ -12,7 +12,7 @@ const ShoppingCart = ({ isCartOpen, setIsCartOpen }) => {
   const { toast } = useToast();
   const { t } = useTranslation();
   const location = useLocation();
-  const { cartItems, removeFromCart, updateQuantity, getCartTotal, clearCart } = useCart();
+  const { cartItems, removeFromCart, updateQuantity, getCartTotal } = useCart();
 
   const totalItems = useMemo(() => cartItems.reduce((sum, item) => sum + item.quantity, 0), [cartItems]);
 
@@ -38,7 +38,7 @@ const ShoppingCart = ({ isCartOpen, setIsCartOpen }) => {
       const { initializeCheckout } = await import('@/api/EcommerceApi');
       const { url } = await initializeCheckout({ items, successUrl, cancelUrl });
 
-      clearCart();
+      // Carrinho preservado ate confirmacao de pagamento; nao apagar ao redirecionar.
       window.location.href = url;
     } catch (error) {
       toast({
@@ -47,7 +47,7 @@ const ShoppingCart = ({ isCartOpen, setIsCartOpen }) => {
         variant: 'destructive',
       });
     }
-  }, [cartItems, clearCart, toast]);
+  }, [cartItems, toast]);
 
   return (
     <AnimatePresence>

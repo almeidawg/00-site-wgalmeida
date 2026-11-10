@@ -73,10 +73,9 @@ export default async function handler(req, res) {
         }),
       });
 
-      const payload = await parseJson(rpcResp);
       if (!rpcResp.ok) {
         return res.status(rpcResp.status >= 500 ? 502 : 400).json({
-          error: payload?.message || payload?.error || 'Falha ao promover contato.',
+          error: 'Falha ao promover contato.',
         });
       }
 
@@ -111,9 +110,8 @@ export default async function handler(req, res) {
       });
 
       if (!resp.ok) {
-        const payload = await parseJson(resp);
         return res.status(resp.status >= 500 ? 502 : 400).json({
-          error: payload?.message || payload?.error || 'Falha ao atualizar lifecycle.',
+          error: 'Falha ao atualizar lifecycle.',
         });
       }
 
@@ -130,14 +128,13 @@ export default async function handler(req, res) {
     const select = 'id,nome,email,telefone,contact_stage,origem_cadastro,lead_source,lead_source_ref,created_at,updated_at';
     const url = `${SUPABASE_URL}/rest/v1/pessoas?select=${select}&ativo=eq.true&created_at=gte.${encodeURIComponent(ninetyDaysAgo)}&order=created_at.desc`;
     const peopleResp = await fetch(url, { headers });
-    const people = await parseJson(peopleResp);
-
     if (!peopleResp.ok) {
       return res.status(peopleResp.status >= 500 ? 502 : 400).json({
-        error: people?.message || people?.error || 'Falha ao carregar contatos.',
+        error: 'Falha ao carregar contatos.',
       });
     }
 
+    const people = await parseJson(peopleResp);
     const leads = (Array.isArray(people) ? people : []).map((person) => ({
       id: person.id,
       nome: person.nome || person.email || '—',
