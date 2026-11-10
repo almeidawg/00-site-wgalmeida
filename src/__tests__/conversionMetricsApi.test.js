@@ -10,9 +10,9 @@ describe('conversion metrics API',()=>{
       {outcome:'saved',reason:'accepted',promotion:'promotion_skipped',context:'moodboard',status_code:200,created_at:'2026-08-12T10:00:00Z'},
       {outcome:'duplicate',reason:'duplicate',promotion:'promotion_skipped',context:'contact',status_code:200,created_at:'2026-08-12T11:00:00Z'},
       {outcome:'rejected',reason:'rate_limited',promotion:'promotion_skipped',context:'contact',status_code:429,created_at:'2026-08-12T12:00:00Z'},
-    ])).mockResolvedValueOnce(jsonResponse([{promotion_mode:'formulario',promoted_at:'2026-08-12T11:00:01Z'}]));
+    ])).mockResolvedValueOnce(jsonResponse([{source:'formulario',created_at:'2026-08-12T11:00:01Z'}]));
     const{default:handler}=await import('../../api/conversion-metrics.js');const res=makeRes();await handler({method:'GET',headers:{authorization:'Bearer admin-token'},query:{days:'30'}},res);
-    expect(res.statusCode).toBe(200);expect(res.body.totals).toMatchObject({events:3,saved:1,duplicate:1,rejected:1,leadPromotions:1});expect(res.body.byReason).toEqual({accepted:1,duplicate:1,rate_limited:1});expect(res.body.byContext).toEqual({moodboard:1,contact:2});expect(res.body.privacy).toMatchObject({piiIncluded:false,retentionDays:90});
+    expect(res.statusCode).toBe(200);expect(global.fetch.mock.calls[3][0]).toContain('lead_promotions?select=source,created_at&created_at=gte.');expect(global.fetch.mock.calls[3][0]).toContain('&order=created_at.asc');expect(res.body.totals).toMatchObject({events:3,saved:1,duplicate:1,rejected:1,leadPromotions:1});expect(res.body.byReason).toEqual({accepted:1,duplicate:1,rate_limited:1});expect(res.body.byContext).toEqual({moodboard:1,contact:2});expect(res.body.privacy).toMatchObject({piiIncluded:false,retentionDays:90});
     const serialized=JSON.stringify(res.body).toLowerCase();for(const forbidden of ['email','telefone','phone','nome','message','payload','fingerprint','request_id'])expect(serialized).not.toContain(forbidden);
   });
 });
