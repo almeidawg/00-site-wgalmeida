@@ -14,29 +14,8 @@ const SERVICE_OPTIONS = [
   'Sistema de Experiência Visual',
 ];
 
-const calculateEstimate = (metragem, servico) => {
-  const m2 = parseInt(metragem) || 0;
-  if (m2 < 10) return null;
-
-  let min = 0;
-  let max = 0;
-
-  if (servico.includes('Turn Key')) {
-    min = m2 * 3500;
-    max = m2 * 6500;
-  } else if (servico.includes('Projeto')) {
-    min = m2 * 150;
-    max = m2 * 350;
-  } else if (servico.includes('Marcenaria')) {
-    min = m2 * 1200;
-    max = m2 * 2800;
-  } else {
-    return null; // Não precifica consultoria/sistema genericamente
-  }
-
-  const format = (val) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }).format(val);
-  return `${format(min)} a ${format(max)}`;
-};
+// Bloqueio preventivo: faixas só serão exibidas com escopo e referência homologados.
+const calculateEstimate = () => null;
 
 const formatBrazilianPhone = (value = '') => {
   const digits = value.replace(/\D/g, '').slice(0, 11);
@@ -65,7 +44,16 @@ const OrcadorInteligente = ({
   const [estimate, setEstimate] = useState(null);
   const [submitError, setSubmitError] = useState('');
   const [turnstileToken, setTurnstileToken] = useState('');
-  const expireTurnstile = useCallback(() => setTurnstileToken(''), []);
+  const expireTurnstile = useCallback((reason) => {
+    setTurnstileToken('');
+    if (['error', 'script_error', 'timeout'].includes(reason?.type)) {
+      setSubmitError('Não foi possível concluir a verificação anti-spam. Tente novamente ou atualize a página.');
+    }
+  }, []);
+  const handleTurnstileVerified = useCallback((token) => {
+    setTurnstileToken(token);
+    setSubmitError('');
+  }, []);
   const [formData, setFormData] = useState({
     nome: '',
     telefone: '',
@@ -78,11 +66,10 @@ const OrcadorInteligente = ({
 
   const handleNext = () => {
     if (step === 3) {
-      // Step 3 -> 4: breve pausa para apresentar a leitura tecnica.
-      setIsCalculating(true);
+      // Step 3 -> 4: briefing sem simulação de consulta a base ou espera artificial.
+      setIsCalculating(false);
       setEstimate(calculateEstimate(formData.metragem, formData.servico));
       setStep(4);
-      setTimeout(() => setIsCalculating(false), 1800);
     } else {
       setStep((s) => Math.min(s + 1, 4));
     }
@@ -100,7 +87,7 @@ const OrcadorInteligente = ({
     setSubmitError('');
 
     const finalSource = sourceContext || wgContext?.origem || 'site-wgalmeida';
-    const message = `Serviço: ${formData.servico} | Imóvel: ${formData.tipoImovel} | Metragem: ${formData.metragem}m² | Prazo: ${formData.prazo} | Origem: ${finalSource} | Faixa Visualizada: ${estimate || 'N/A'}`;
+    const message = `Serviço: ${formData.servico} | Imóvel: ${formData.tipoImovel} | Metragem: ${formData.metragem}m² | Prazo: ${formData.prazo} | Origem: ${finalSource} | Estimativa comercial: pendente de análise técnica`;
 
     try {
       const response = await fetch('/api/contact', {
@@ -171,9 +158,9 @@ const OrcadorInteligente = ({
           >
             <CheckCircle2 className="h-12 w-12 text-emerald-600" />
           </motion.div>
-          <h3 className="mb-4 text-3xl md:text-4xl font-light text-slate-900 tracking-tight">Oportunidade Destravada!</h3>
+          <h2 className="mb-4 text-3xl md:text-4xl font-light text-slate-900 tracking-tight">Solicitação recebida</h2>
           <p className="mb-10 text-lg text-slate-500 max-w-lg mx-auto leading-relaxed font-light">
-            Sua solicitação foi processada pelo nosso sistema. O seu diretor de projeto entrará em contato em breve para apresentar o planejamento técnico exato.
+            Recebemos as informações do seu projeto. A equipe poderá entrar em contato para aprofundar o escopo e avaliar custo e prazo.
           </p>
           <Link
             to="/"
@@ -210,7 +197,7 @@ const OrcadorInteligente = ({
           {step === 1 && (
             <motion.div key="step1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-8">
               <div className="text-center">
-                <h3 className="text-3xl font-light text-slate-900 tracking-tight mb-2">Qual o perfil do ativo?</h3>
+                <h2 className="text-3xl font-light text-slate-900 tracking-tight mb-2">Qual o perfil do ativo?</h2>
                 <p className="text-slate-500 font-light">Selecione a categoria para adequarmos as normativas técnicas.</p>
               </div>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -251,7 +238,7 @@ const OrcadorInteligente = ({
           {step === 2 && (
             <motion.div key="step2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-8">
               <div className="text-center">
-                <h3 className="text-3xl font-light text-slate-900 tracking-tight mb-2">Qual escopo técnico?</h3>
+                <h2 className="text-3xl font-light text-slate-900 tracking-tight mb-2">Qual escopo técnico?</h2>
                 <p className="text-slate-500 font-light">Defina o nível de integração que você precisa da WG Almeida.</p>
               </div>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -284,16 +271,20 @@ const OrcadorInteligente = ({
           {step === 3 && (
             <motion.div key="step3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-8">
                <div className="text-center">
-                <h3 className="text-3xl font-light text-slate-900 tracking-tight mb-2">Dimensões e Cronograma</h3>
-                <p className="text-slate-500 font-light">Estes dados calibram nosso motor de precificação preditiva.</p>
+                <h2 className="text-3xl font-light text-slate-900 tracking-tight mb-2">Dimensões e Cronograma</h2>
+                <p className="text-slate-500 font-light">Estes dados orientam a análise técnica e não constituem uma cotação automática.</p>
               </div>
               <div className="space-y-6 max-w-xl mx-auto">
                 <div>
-                  <label className="mb-2 block text-sm font-medium text-slate-700">Área de intervenção (m²)</label>
+                  <label htmlFor="wg-budget-area" className="mb-2 block text-sm font-medium text-slate-700">Área de intervenção (m²)</label>
                   <div className="relative group">
                     <Ruler className="absolute left-5 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400 group-focus-within:text-wg-orange transition-colors" />
                     <input
                       type="number"
+                      id="wg-budget-area"
+                      min="1"
+                      max="100000"
+                      step="1"
                       required
                       value={formData.metragem}
                       onChange={(e) => setFormData({ ...formData, metragem: e.target.value })}
@@ -303,9 +294,10 @@ const OrcadorInteligente = ({
                   </div>
                 </div>
                 <div>
-                  <label className="mb-2 block text-sm font-medium text-slate-700">Expectativa de entrega</label>
+                  <label htmlFor="wg-budget-deadline" className="mb-2 block text-sm font-medium text-slate-700">Expectativa de entrega</label>
                   <select
                     required
+                    id="wg-budget-deadline"
                     value={formData.prazo}
                     onChange={(e) => setFormData({ ...formData, prazo: e.target.value })}
                     className="w-full appearance-none rounded-[1.5rem] border border-slate-200 bg-slate-50/50 px-5 py-4 text-slate-900 focus:bg-white focus:border-wg-orange focus:outline-none focus:ring-4 focus:ring-wg-orange/10 transition-all cursor-pointer"
@@ -320,7 +312,7 @@ const OrcadorInteligente = ({
               <div className="flex justify-between pt-8 max-w-xl mx-auto">
                 <button type="button" onClick={handlePrev} className="flex items-center gap-2 px-4 py-2 font-light text-slate-400 hover:text-slate-900 transition-colors"><ArrowLeft className="h-4 w-4" /> Voltar</button>
                 <button type="button" onClick={handleNext} disabled={!formData.metragem || !formData.prazo} className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-slate-900 to-slate-800 px-8 py-3.5 text-sm font-medium text-white transition-all hover:shadow-xl hover:shadow-slate-900/20 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50">
-                  Gerar Estimativa <Calculator className="h-4 w-4 ml-1" />
+                  Continuar para o contato <Calculator className="h-4 w-4 ml-1" />
                 </button>
               </div>
             </motion.div>
@@ -336,18 +328,18 @@ const OrcadorInteligente = ({
                      <div className="absolute inset-2 rounded-full border-l-2 border-slate-800 animate-spin-reverse"></div>
                      <Calculator className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 text-slate-400" />
                   </div>
-                  <h3 className="mt-8 text-xl font-light text-slate-900">Processando parâmetros...</h3>
-                  <p className="text-slate-500 text-sm mt-2">Buscando referências na base ICCRI 2026</p>
+                  <h2 className="mt-8 text-xl font-light text-slate-900">Processando parâmetros...</h2>
+                  <p className="text-slate-500 text-sm mt-2">Organizando informações do projeto</p>
                 </div>
               ) : (
                 <>
                   <div className="text-center mb-10">
                     <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-600 text-xs font-bold uppercase tracking-wider mb-4">
-                      <CheckCircle2 size={14} /> Análise Preliminar Concluída
+                      <CheckCircle2 size={14} /> Pré-briefing organizado
                     </span>
-                    <h3 className="text-3xl font-light text-slate-900 tracking-tight mb-4">
-                      Seu projeto requer atenção especial.
-                    </h3>
+                    <h2 className="text-3xl font-light text-slate-900 tracking-tight mb-4">
+                      Seu projeto precisa de uma avaliação de escopo.
+                    </h2>
                     
                     {estimate ? (
                       <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-[2rem] p-8 max-w-xl mx-auto text-white shadow-2xl relative overflow-hidden">
@@ -360,13 +352,13 @@ const OrcadorInteligente = ({
                       </div>
                     ) : (
                        <p className="text-slate-500 font-light max-w-lg mx-auto">
-                        Para o serviço selecionado e dimensões, precisamos de uma análise humana criteriosa para evitar desvios no seu budget.
+                        A faixa de investimento será definida pela equipe técnica após validar escopo, padrão, condições do imóvel e referências de custos vigentes.
                       </p>
                     )}
                   </div>
 
                   <div className="max-w-xl mx-auto bg-slate-50 border border-slate-100 rounded-[2rem] p-6 md:p-8">
-                     <p className="text-center font-medium text-slate-900 mb-6">Para onde devemos enviar a Proposta Técnica Exata e o Book de Apresentação?</p>
+                     <p className="text-center font-medium text-slate-900 mb-6">Como podemos entrar em contato para preparar uma proposta técnica após a análise do projeto?</p>
                      
                     <div className="space-y-5">
                       <div>
@@ -376,6 +368,7 @@ const OrcadorInteligente = ({
                           value={formData.nome}
                           onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
                           className="w-full rounded-[1.2rem] border border-slate-200 bg-white px-5 py-4 text-slate-900 caret-wg-orange placeholder:text-slate-400 focus:border-wg-orange focus:outline-none focus:ring-4 focus:ring-wg-orange/10 transition-all shadow-sm"
+                          aria-label="Nome completo"
                           placeholder="Nome Completo"
                         />
                       </div>
@@ -386,6 +379,7 @@ const OrcadorInteligente = ({
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                           className="w-full rounded-[1.2rem] border border-slate-200 bg-white px-5 py-4 text-slate-900 caret-wg-orange placeholder:text-slate-400 focus:border-wg-orange focus:outline-none focus:ring-4 focus:ring-wg-orange/10 transition-all shadow-sm"
+                          aria-label="Melhor e-mail"
                           placeholder="Melhor E-mail"
                         />
                         <input
@@ -394,12 +388,14 @@ const OrcadorInteligente = ({
                           value={formData.telefone}
                           onChange={(e) => setFormData({ ...formData, telefone: formatBrazilianPhone(e.target.value) })}
                           className="w-full rounded-[1.2rem] border border-slate-200 bg-white px-5 py-4 text-slate-900 caret-wg-orange placeholder:text-slate-400 focus:border-wg-orange focus:outline-none focus:ring-4 focus:ring-wg-orange/10 transition-all shadow-sm"
+                          aria-label="Telefone com DDD"
+                          minLength={14}
                           placeholder="(11) 99999-9999"
                           inputMode="tel"
                         />
                       </div>
                       <TurnstileWidget
-                        onVerify={setTurnstileToken}
+                        onVerify={handleTurnstileVerified}
                         onExpire={expireTurnstile}
                         disabled={loading}
                         label="Verificação anti-spam"

@@ -26,4 +26,15 @@ describe('aviso de medicao da Mentoria: escopo das variaveis de marca', () => {
     expect(bloco('.mcl-convert__direct a')).toContain('var(--mcl-orange-text)')
     expect(bloco('.mcl-method__step-number')).toContain('var(--mcl-orange-text)')
   })
+
+  it('oferece alvo de toque com pelo menos 44px no link de privacidade do banner mobile', () => {
+    const mobileCss = fs.readFileSync(path.join(process.cwd(), 'src/components/MentoriaConsentBanner.css'), 'utf8')
+    expect(mobileCss).toMatch(/body \.mcl-consent p a\s*\{[^}]*min-height:\s*44px/s)
+    expect(mobileCss).toMatch(/body \.mcl-consent p a\s*\{[^}]*display:\s*inline-flex/s)
+  })
+
+  it('preserva alvo de 44px também no tablet entre 681 e 900px', () => {
+    const cssFile = fs.readFileSync(path.join(process.cwd(), 'src/components/MentoriaConsentBanner.css'), 'utf8')
+    expect(cssFile).toMatch(/@media \(min-width: 681px\) and \(max-width: 900px\)\s*\{[^}]*body \.mcl-consent p a\s*\{[^}]*min-height:\s*44px/s)
+  })
 })

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { canPublishWGEasyEstimate } from '@/lib/estimatePublicationGate'
 
 const money = (value) =>
   Number(value).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 })
@@ -18,7 +19,7 @@ export default function WGEasyEstimateCalculator() {
       const params = new URLSearchParams({ area, standard, uf })
       const response = await fetch(`/api/wgeasy-public-estimate?${params}`)
       const payload = await response.json()
-      if (!response.ok || !payload.ok) throw new Error(payload.error)
+      if (!response.ok || !canPublishWGEasyEstimate(payload)) throw new Error('ESTIMATIVA_NAO_HOMOLOGADA')
       setResult(payload)
       setStatus('success')
     } catch {
@@ -30,7 +31,7 @@ export default function WGEasyEstimateCalculator() {
     <form onSubmit={calculate} className="rounded-2xl border border-wg-orange/30 bg-white p-6 shadow-sm">
       <h2 className="text-2xl font-inter font-light text-wg-black">Calculadora pública de referência</h2>
       <p className="mt-2 text-wg-gray">
-        A estimativa consulta a base pública versionada do ICCRI e do WG Easy. Ela não substitui orçamento técnico.
+        Esta consulta só exibirá números quando a base, o escopo e a calibração tiverem homologação válida. Sem evidência verificável, a estimativa permanecerá indisponível.
       </p>
       <div className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-3">
         <label className="flex flex-col gap-2 text-sm text-wg-gray">
@@ -62,7 +63,7 @@ export default function WGEasyEstimateCalculator() {
       </button>
       <div aria-live="polite" className="mt-5 rounded-xl bg-wg-black p-5 text-white">
         {status === 'idle' && <p className="text-white/75">Preencha os dados e consulte a faixa.</p>}
-        {status === 'error' && <p>Base pública indisponível. Nenhum preço antigo foi usado como substituto.</p>}
+        {status === 'error' && <p>Estimativa automática indisponível ou sem homologação vigente. A equipe WG poderá preparar uma avaliação técnica individual; nenhum preço antigo é usado como substituto.</p>}
         {result && (
           <>
             <p className="text-sm text-white/70">{result.area} m², {result.standard.label}, {result.region.label}</p>
