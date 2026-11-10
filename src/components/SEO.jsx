@@ -247,13 +247,13 @@ export function SEO({
 export default SEO;
 
 const WILLIAM_ALMEIDA = {
+  '@id': `${BASE_URL}/william-almeida#person`,
   '@type': 'Person',
   name: 'William Almeida',
-  jobTitle: 'Arquiteto e Fundador',
-  url: 'https://wgalmeida.com.br/sobre',
+  jobTitle: 'Founder, Operator & Builder | Advisor Estratégico',
+  url: 'https://wgalmeida.com.br/william-almeida',
   sameAs: [
-    'https://www.linkedin.com/in/william-almeida-wg',
-    'https://www.behance.net/wgalmeida'
+    'https://www.linkedin.com/in/wgalmeida/'
   ],
   image: 'https://wgalmeida.com.br/images/about/william-almeida-1200.webp'
 };
