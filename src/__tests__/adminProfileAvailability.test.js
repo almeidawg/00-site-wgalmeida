@@ -37,9 +37,12 @@ describe('Admin profile lookup availability', () => {
     expect(result.ok).toBe(false);
     expect(res.statusCode).toBe(503);
   });
-  it('preserves corporate email policy for a successful empty profile lookup', async () => {
+  it('denies corporate email without an explicit active admin profile', async () => {
     fetch.mockResolvedValueOnce({ ok: true, json: async () => [] });
-    expect((await check()).result.ok).toBe(true);
+    const { result, res } = await check();
+    expect(result.ok).toBe(false);
+    expect(res.statusCode).toBe(403);
+    expect(res.body).toEqual({ error: 'Forbidden' });
   });
   it('rejects a profile explicitly marked inactive', async () => {
     fetch.mockResolvedValueOnce({ ok: true, json: async () => [{ id: 'fixture-user', ativo: false }] });
