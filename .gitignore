@@ -38,6 +38,8 @@ pnpm-debug.log*
 # Backup files
 *.backup
 *.bak
+*.bak-*
+_AUDIT_BACKUPS_*/
 *.tmp
 *.temp
 
