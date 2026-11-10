@@ -1,0 +1,72 @@
+name: Read-only npm security inventory
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/npm-security-audit.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  audit-locked-dependencies:
+    name: audit-lockfile-readonly
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install locked dependencies without lifecycle scripts
+        run: npm ci --ignore-scripts --no-fund --audit=false
+      - name: Collect full and production-only npm audit JSON
+        shell: bash
+        run: |
+          set +e
+          npm audit --json > "$RUNNER_TEMP/npm-audit-all.json"
+          all_rc=$?
+          npm audit --omit=dev --json > "$RUNNER_TEMP/npm-audit-production.json"
+          production_rc=$?
+          set -e
+          echo "Audit CLI exit codes (0=no findings, 1=findings): full=$all_rc production=$production_rc"
+          if [ "$all_rc" -gt 1 ] || [ "$production_rc" -gt 1 ]; then
+            echo "::error::npm audit failed independently of advisory severity"
+            exit 2
+          fi
+      - name: Emit sanitized advisory inventory
+        env:
+          AUDIT_DIR: ${{ runner.temp }}
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs = require('node:fs')
+          const path = require('node:path')
+          for (const [scope, filename] of [
+            ['ALL', 'npm-audit-all.json'],
+            ['PRODUCTION', 'npm-audit-production.json'],
+          ]) {
+            const report = JSON.parse(fs.readFileSync(path.join(process.env.AUDIT_DIR, filename), 'utf8'))
+            if (!report.metadata?.vulnerabilities || !report.vulnerabilities || report.error) {
+              throw new Error('npm audit returned an invalid or incomplete vulnerability inventory for ' + scope)
+            }
+            console.log('AUDIT_TOTAL_' + scope + ' ' + JSON.stringify(report.metadata.vulnerabilities))
+            for (const [name, value] of Object.entries(report.vulnerabilities).sort(([a], [b]) => a.localeCompare(b))) {
+              const via = (value.via || []).map((item) => typeof item === 'string'
+                ? { through: item }
+                : {
+                    id: item.source, title: item.title, url: item.url,
+                    severity: item.severity, range: item.range,
+                  })
+              console.log('AUDIT_PACKAGE_' + scope + ' ' + JSON.stringify({
+                package: name, severity: value.severity,
+                isDirect: value.isDirect, range: value.range,
+                via, fixAvailable: value.fixAvailable,
+              }))
+            }
+          }
+          NODE
