@@ -68,7 +68,7 @@ describe('/api/contact usa o Supabase canonico do WGEasy', () => {
     const calls = []
     global.fetch = vi.fn(async (url) => {
       calls.push(String(url))
-      return jsonResponse(calls.length === 1 ? { id: 'admin-1', email: 'admin@wgalmeida.com.br' } : [])
+      return jsonResponse(calls.length === 1 ? { id: 'admin-1', email: 'admin@wgalmeida.com.br' } : calls.length === 2 ? [{ id: 'admin-1', role: 'admin', ativo: true }] : [])
     })
     vi.stubEnv('SUPABASE_URL', `https://${LEGACY_REF}.supabase.co`)
     const { default: handler } = await import('../../api/conversion-metrics.js')
