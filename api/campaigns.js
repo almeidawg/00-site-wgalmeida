@@ -24,8 +24,11 @@ export default async function handler(req, res) {
   if (!adminAuth.ok) return adminAuth.response;
 
   if (!SUPABASE_SERVICE_KEY) {
-    return res.status(500).json({ error: 'SUPABASE_SERVICE_ROLE_KEY not configured' });
+    return res.status(500).json({ error: 'Serviço de campanhas indisponível.' });
   }
+
+  const respondUpstreamFailure = (response, message) =>
+    res.status(response.status >= 500 ? 502 : 400).json({ error: message });
 
   // GET — listar campanhas
   if (req.method === 'GET') {
@@ -34,14 +37,20 @@ export default async function handler(req, res) {
         `${SUPABASE_URL}/rest/v1/campaigns?select=*&order=created_at.desc&limit=100`,
         { headers: sbHeaders() }
       );
-      const data = r.ok ? await r.json() : [];
+      if (!r.ok) return respondUpstreamFailure(r, 'Falha ao carregar campanhas.');
+      const data = await r.json();
       return res.status(200).json({ campaigns: data });
-    } catch (err) {
-      return res.status(500).json({ error: err.message });
+    } catch {
+      return res.status(502).json({ error: 'Falha ao carregar campanhas.' });
     }
   }
 
-  const body = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
+  let body;
+  try {
+    body = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
+  } catch {
+    return res.status(400).json({ error: 'Payload JSON inválido.' });
+  }
 
   // POST — criar campanha
   if (req.method === 'POST') {
@@ -65,11 +74,11 @@ export default async function handler(req, res) {
         headers: sbHeaders(),
         body: JSON.stringify(payload),
       });
-      if (!r.ok) return res.status(400).json({ error: await r.text() });
+      if (!r.ok) return respondUpstreamFailure(r, 'Falha ao criar campanha.');
       const rows = await r.json();
       return res.status(201).json({ campaign: Array.isArray(rows) ? rows[0] : rows });
-    } catch (err) {
-      return res.status(500).json({ error: err.message });
+    } catch {
+      return res.status(502).json({ error: 'Falha ao criar campanha.' });
     }
   }
 
@@ -83,11 +92,11 @@ export default async function handler(req, res) {
         `${SUPABASE_URL}/rest/v1/campaigns?id=eq.${encodeURIComponent(id)}`,
         { method: 'PATCH', headers: sbHeaders(), body: JSON.stringify(payload) }
       );
-      if (!r.ok) return res.status(400).json({ error: await r.text() });
+      if (!r.ok) return respondUpstreamFailure(r, 'Falha ao atualizar campanha.');
       const rows = await r.json();
       return res.status(200).json({ campaign: Array.isArray(rows) ? rows[0] : rows });
-    } catch (err) {
-      return res.status(500).json({ error: err.message });
+    } catch {
+      return res.status(502).json({ error: 'Falha ao atualizar campanha.' });
     }
   }
 
@@ -100,10 +109,10 @@ export default async function handler(req, res) {
         `${SUPABASE_URL}/rest/v1/campaigns?id=eq.${encodeURIComponent(id)}`,
         { method: 'DELETE', headers: { ...sbHeaders(), Prefer: 'return=minimal' } }
       );
-      if (!r.ok) return res.status(400).json({ error: await r.text() });
+      if (!r.ok) return respondUpstreamFailure(r, 'Falha ao excluir campanha.');
       return res.status(200).json({ ok: true });
-    } catch (err) {
-      return res.status(500).json({ error: err.message });
+    } catch {
+      return res.status(502).json({ error: 'Falha ao excluir campanha.' });
     }
   }
 
