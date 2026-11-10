@@ -30,18 +30,18 @@ const TIMELINE_CONTENT = {
     heroSubtitle: 'Escolha o tipo de projeto, ajuste a metragem e visualize uma linha do tempo clara, elegante e orientada por método.',
     selectorKicker: 'Planejamento inteligente',
     selectorTitle: 'Veja a obra ganhar ritmo antes mesmo do primeiro passo.',
-    selectorSubtitle: 'A experiência abaixo traduz a metodologia WG em leitura guiada: tipo de projeto, faixa de metragem, estimativas locais, ICCRI e Etapas WG organizadas para facilitar decisão e execução.',
+    selectorSubtitle: 'Esta jornada apresenta as macroetapas do método WG. A duração depende do escopo, das equipes e das frentes simultâneas, e será definida no cronograma técnico.',
     reform: 'Reforma',
     build: 'Construção',
     areaLabel: 'Metragem estimada',
-    summaryDuration: 'Estimativa total',
+    summaryDuration: 'Prazo do projeto',
     summaryStages: 'Macroetapas',
     summaryFocus: 'Foco da jornada',
     summaryRange: 'Faixa analisada',
     stageListLabel: 'Etapas principais',
     stagePanelLabel: 'Detalhamento da etapa',
     estimatedDataLabel: 'Leitura estimativa',
-    estimatedDataText: 'Os tempos desta tela são estimativas orientativas, calculadas localmente a partir da metodologia WG Almeida. Os tempos variam conforme metragem, escopo e dinâmica da obra.',
+    estimatedDataText: 'As etapas exibidas são ilustrativas. Não há duração certificada sem escopo, recursos, produtividade e dependências validados.',
     durationUnit: 'semanas',
     areaUnit: 'm²',
     ctaTitle: 'Quer transformar essa estimativa em um cronograma real?',
@@ -64,18 +64,18 @@ const TIMELINE_CONTENT = {
     heroSubtitle: 'Choose the project type, adjust the area and visualize a clear, elegant, and method-oriented timeline.',
     selectorKicker: 'Smart planning',
     selectorTitle: 'See the work gain rhythm even before the first step.',
-    selectorSubtitle: 'The experience below translates the WG methodology into a guided reading: project type, area range, local estimates, ICCRI and WG Stages organized to facilitate decision and execution.',
+    selectorSubtitle: 'This journey presents the WG methodology main phases. Timing depends on scope, teams and concurrent workstreams and must be defined in a technical schedule.',
     reform: 'Renovation',
     build: 'Construction',
     areaLabel: 'Estimated area',
-    summaryDuration: 'Total estimate',
+    summaryDuration: 'Project schedule',
     summaryStages: 'Macro-stages',
     summaryFocus: 'Journey focus',
     summaryRange: 'Analyzed range',
     stageListLabel: 'Main stages',
     stagePanelLabel: 'Stage details',
     estimatedDataLabel: 'Estimated reading',
-    estimatedDataText: 'The times on this screen are guideline estimates, calculated locally from the WG Almeida methodology. Times vary according to area, scope and work dynamics.',
+    estimatedDataText: 'These phases are illustrative. No duration can be certified without validated scope, resources, productivity and dependencies.',
     durationUnit: 'weeks',
     areaUnit: 'sqm',
     ctaTitle: 'Want to transform this estimate into a real schedule?',
@@ -145,7 +145,6 @@ const getStages = (type, t) => {
         title: stageText(t, 'processPage.steps.0', 'title'),
         summary: stageText(t, 'processPage.steps.0', 'description'),
         detail: stageText(t, 'processPage.steps.0', 'description'),
-        baseWeeks: 1.2,
         accent: {
           card: 'bg-[#f3f8f7] shadow-[inset_0_0_0_1px_rgba(94,155,148,0.14)]',
           icon: 'bg-[#e1f0ed] text-wg-green',
@@ -157,7 +156,6 @@ const getStages = (type, t) => {
         title: stageText(t, 'processPage.steps.1', 'title'),
         summary: stageText(t, 'processPage.steps.1', 'description'),
         detail: stageText(t, 'processPage.steps.1', 'description'),
-        baseWeeks: 3.1,
         accent: {
           card: 'bg-[#f3f8f7] shadow-[inset_0_0_0_1px_rgba(94,155,148,0.14)]',
           icon: 'bg-[#e1f0ed] text-wg-green',
@@ -169,7 +167,6 @@ const getStages = (type, t) => {
         title: stageText(t, 'processPage.steps.3', 'title'),
         summary: stageText(t, 'processPage.steps.3', 'description'),
         detail: stageText(t, 'processPage.steps.3', 'description'),
-        baseWeeks: 7.4,
         accent: {
           card: 'bg-[#f4f7fb] shadow-[inset_0_0_0_1px_rgba(123,151,187,0.16)]',
           icon: 'bg-[#e7edf6] text-wg-blue',
@@ -181,7 +178,6 @@ const getStages = (type, t) => {
         title: stageText(t, 'processPage.steps.4', 'title'),
         summary: stageText(t, 'processPage.steps.4', 'description'),
         detail: stageText(t, 'processPage.steps.4', 'description'),
-        baseWeeks: 9.6,
         accent: {
           card: 'bg-[#f3f6fb] shadow-[inset_0_0_0_1px_rgba(123,151,187,0.16)]',
           icon: 'bg-[#e2eaf5] text-wg-blue',
@@ -193,7 +189,6 @@ const getStages = (type, t) => {
         title: stageText(t, 'home.methodology.steps.4', 'title'),
         summary: stageText(t, 'home.methodology.steps.4', 'desc'),
         detail: stageText(t, 'home.methodology.steps.4', 'desc'),
-        baseWeeks: 4.2,
         accent: {
           card: 'bg-[#fbf6f2] shadow-[inset_0_0_0_1px_rgba(208,171,142,0.16)]',
           icon: 'bg-[#f3e8df] text-wg-orange-text',
@@ -205,7 +200,6 @@ const getStages = (type, t) => {
         title: stageText(t, 'processPage.steps.5', 'title'),
         summary: stageText(t, 'processPage.steps.5', 'description'),
         detail: stageText(t, 'processPage.steps.5', 'description'),
-        baseWeeks: 1.4,
         accent: {
           card: 'bg-[#f8f7f5] shadow-[inset_0_0_0_1px_rgba(46,46,46,0.08)]',
           icon: 'bg-black/5 text-wg-black',
@@ -222,7 +216,6 @@ const getStages = (type, t) => {
       title: stageText(t, 'processPage.steps.0', 'title'),
       summary: stageText(t, 'processPage.steps.0', 'description'),
       detail: stageText(t, 'processPage.steps.0', 'description'),
-      baseWeeks: 2.1,
       accent: {
         card: 'bg-[#f3f8f7] shadow-[inset_0_0_0_1px_rgba(94,155,148,0.14)]',
         icon: 'bg-[#e1f0ed] text-wg-green',
@@ -234,7 +227,6 @@ const getStages = (type, t) => {
       title: stageText(t, 'processPage.onboarding', 'title'),
       summary: stageText(t, 'processPage.onboarding', 'subtitle'),
       detail: stageText(t, 'processPage.onboarding', 'subtitle'),
-      baseWeeks: 5.8,
       accent: {
         card: 'bg-[#f3f8f7] shadow-[inset_0_0_0_1px_rgba(94,155,148,0.14)]',
         icon: 'bg-[#e1f0ed] text-wg-green',
@@ -246,7 +238,6 @@ const getStages = (type, t) => {
       title: stageText(t, 'processPage.steps.2', 'title'),
       summary: stageText(t, 'processPage.steps.2', 'description'),
       detail: stageText(t, 'processPage.steps.2', 'description'),
-      baseWeeks: 7.8,
       accent: {
         card: 'bg-[#f4f7fb] shadow-[inset_0_0_0_1px_rgba(123,151,187,0.16)]',
         icon: 'bg-[#e7edf6] text-wg-blue',
@@ -258,7 +249,6 @@ const getStages = (type, t) => {
       title: stageText(t, 'processPage.steps.4', 'title'),
       summary: stageText(t, 'processPage.steps.4', 'description'),
       detail: stageText(t, 'processPage.steps.4', 'description'),
-      baseWeeks: 15.8,
       accent: {
         card: 'bg-[#f3f6fb] shadow-[inset_0_0_0_1px_rgba(123,151,187,0.16)]',
         icon: 'bg-[#e2eaf5] text-wg-blue',
@@ -270,7 +260,6 @@ const getStages = (type, t) => {
       title: stageText(t, 'home.methodology.steps.4', 'title'),
       summary: stageText(t, 'home.methodology.steps.4', 'desc'),
       detail: stageText(t, 'home.methodology.steps.4', 'desc'),
-      baseWeeks: 4.2,
       accent: {
         card: 'bg-[#fbf6f2] shadow-[inset_0_0_0_1px_rgba(208,171,142,0.16)]',
         icon: 'bg-[#f3e8df] text-wg-orange-text',
@@ -282,7 +271,6 @@ const getStages = (type, t) => {
       title: stageText(t, 'processPage.steps.5', 'title'),
       summary: stageText(t, 'processPage.steps.5', 'description'),
       detail: stageText(t, 'processPage.steps.5', 'description'),
-      baseWeeks: 2.3,
       accent: {
         card: 'bg-[#f9f8f6] shadow-[inset_0_0_0_1px_rgba(46,46,46,0.08)]',
         icon: 'bg-black/5 text-wg-black',
@@ -334,11 +322,7 @@ const Process = () => {
   const minProfile = areaProfile(20, projectType, t);
   const maxProfile = areaProfile(500, projectType, t);
   
-  const adjustedStages = stages.map((stage) => ({
-    ...stage,
-    duration: Math.max(0.8, Math.round(stage.baseWeeks * profile.factor * 2) / 2),
-  }));
-  const totalDuration = adjustedStages.reduce((sum, stage) => sum + stage.duration, 0);
+  const adjustedStages = stages; // Sem projeção numérica até validação do motor de caminho crítico.
 
   const leadWhatsappHref = useMemo(() => {
     const summary = [
@@ -349,11 +333,11 @@ const Process = () => {
       `E-mail: ${leadEmail || 'não informado'}`,
       `Projeto: ${projectType === 'reform' ? copy.reform : copy.build}`,
       `Metragem estimada: ${formatArea(area)}`,
-      `Duração estimada: ${totalDuration.toFixed(1)} semanas`,
+      `Prazo: a definir após briefing e análise de dependências`,
     ].join('\n');
 
     return `https://wa.me/5511984650002?text=${encodeURIComponent(summary)}`;
-  }, [area, copy.build, copy.reform, leadEmail, leadName, leadWhatsapp, projectType, totalDuration]);
+  }, [area, copy.build, copy.reform, leadEmail, leadName, leadWhatsapp, projectType]);
 
   return (
     <>
@@ -416,13 +400,14 @@ const Process = () => {
             <p className="text-wg-gray max-w-3xl mx-auto font-light">{copy.selectorSubtitle}</p>
           </div>
 
-          <div className="grid lg:grid-cols-[1fr_2fr] gap-12">
+          <div className="grid min-w-0 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-12">
             {/* Controles */}
-            <div className="space-y-8">
-              <div className="bg-gray-50 p-8 rounded-[2rem] border border-black/5">
-                <h3 className="text-sm font-bold uppercase tracking-widest text-wg-gray mb-6">{copy.areaLabel}</h3>
+            <div className="min-w-0 space-y-8">
+              <div className="min-w-0 bg-gray-50 p-5 sm:p-8 rounded-[2rem] border border-black/5">
+                <label htmlFor="wg-process-area" className="block text-sm font-bold uppercase tracking-widest text-wg-gray mb-6">{copy.areaLabel}</label>
                 <input 
-                  type="range" 
+                  type="range"
+                  id="wg-process-area"
                   min="20" 
                   max="500" 
                   value={area} 
@@ -435,25 +420,25 @@ const Process = () => {
                 </div>
               </div>
 
-              <div className="flex gap-4">
+              <div className="flex min-w-0 gap-2 sm:gap-4">
                 <button 
                   onClick={() => setProjectType('reform')}
-                  className={`flex-1 py-4 rounded-xl font-light transition-all ${projectType === 'reform' ? 'bg-wg-black text-white' : 'bg-gray-100 text-wg-gray hover:bg-gray-200'}`}
+                  className={`min-w-0 flex-1 py-4 rounded-xl font-light transition-all ${projectType === 'reform' ? 'bg-wg-black text-white' : 'bg-gray-100 text-wg-gray hover:bg-gray-200'}`}
                 >
                   {copy.reform}
                 </button>
                 <button 
                   onClick={() => setProjectType('build')}
-                  className={`flex-1 py-4 rounded-xl font-light transition-all ${projectType === 'build' ? 'bg-wg-black text-white' : 'bg-gray-100 text-wg-gray hover:bg-gray-200'}`}
+                  className={`min-w-0 flex-1 py-4 rounded-xl font-light transition-all ${projectType === 'build' ? 'bg-wg-black text-white' : 'bg-gray-100 text-wg-gray hover:bg-gray-200'}`}
                 >
                   {copy.build}
                 </button>
               </div>
 
-              <div className="bg-wg-blue p-8 rounded-[2rem] text-white">
+              <div className="min-w-0 bg-wg-blue p-5 sm:p-8 rounded-[2rem] text-white">
                 <h3 className="text-xs uppercase tracking-[0.2em] text-white/60 mb-6">{copy.summaryDuration}</h3>
                 <div className="text-5xl font-playfair italic mb-2">
-                  {totalDuration.toFixed(0)} <span className="text-xl not-italic font-light opacity-60">{copy.durationUnit}</span>
+                  <span className="text-2xl not-italic font-light">{currentLang === 'en' ? 'To be planned' : 'A definir'}</span>
                 </div>
                 <p className="text-sm font-light text-white/70 leading-relaxed">
                   {projectType === 'reform' ? copy.focusReform : copy.focusBuild}
@@ -467,16 +452,16 @@ const Process = () => {
                 <motion.div
                   key={idx}
                   onClick={() => setActiveStage(idx)}
-                  className={`p-6 rounded-[2rem] cursor-pointer border transition-all ${activeStage === idx ? 'bg-white shadow-2xl border-wg-orange/20 scale-[1.02]' : 'bg-gray-50 border-transparent hover:border-gray-200'}`}
+                  className={`min-w-0 p-4 sm:p-6 rounded-[2rem] cursor-pointer border transition-all ${activeStage === idx ? 'bg-white shadow-2xl border-wg-orange/20 sm:scale-[1.02]' : 'bg-gray-50 border-transparent hover:border-gray-200'}`}
                 >
-                  <div className="flex items-center gap-6">
+                  <div className="flex min-w-0 items-center gap-3 sm:gap-6">
                     <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${activeStage === idx ? 'bg-wg-orange text-white' : 'bg-white text-wg-gray shadow-sm'}`}>
                       <stage.icon size={20} />
                     </div>
-                    <div className="flex-1">
-                      <div className="flex justify-between items-end mb-1">
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap justify-between items-end gap-2 mb-1">
                         <h4 className={`text-lg font-light ${activeStage === idx ? 'text-wg-black' : 'text-wg-gray'}`}>{stage.title}</h4>
-                        <span className="text-sm font-mono text-wg-orange">~{stage.duration} {copy.durationUnit}</span>
+                        <span className="text-sm font-mono text-wg-orange">{currentLang === 'en' ? 'Timing to confirm' : 'Prazo a confirmar'}</span>
                       </div>
                       <p className="text-sm text-wg-gray font-light line-clamp-1">{stage.summary}</p>
                     </div>
@@ -488,7 +473,7 @@ const Process = () => {
                       className="mt-6 pt-6 border-t border-gray-100 space-y-4"
                     >
                       <p className="text-wg-black leading-relaxed font-light">{stage.detail}</p>
-                      <Link to="/solicite-proposta" className="inline-flex items-center gap-2 text-wg-orange text-sm font-bold uppercase tracking-widest hover:gap-4 transition-all">
+                      <Link to="/solicite-proposta" className="inline-flex min-h-[44px] items-center gap-2 text-wg-orange text-sm font-bold uppercase tracking-widest hover:gap-4 transition-all">
                         {copy.ctaPrimary} <ArrowRight size={14} />
                       </Link>
                     </motion.div>
@@ -507,10 +492,10 @@ const Process = () => {
             <h2 className="text-3xl md:text-4xl font-light text-wg-black mb-6">{copy.ctaTitle}</h2>
             <p className="text-lg text-wg-gray mb-10 font-light leading-relaxed">{copy.ctaText}</p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Link to="/solicite-proposta" className="wg-btn-pill-primary px-10 py-5">
+              <Link to="/solicite-proposta" className="wg-btn-pill-primary min-h-[44px] px-10 py-5">
                 {copy.ctaPrimary}
               </Link>
-              <a href={leadWhatsappHref} target="_blank" rel="noopener noreferrer" className="wg-btn-pill-secondary px-10 py-5">
+              <a href={leadWhatsappHref} target="_blank" rel="noopener noreferrer" className="wg-btn-pill-secondary min-h-[44px] px-10 py-5">
                 {copy.ctaSecondary}
               </a>
             </div>

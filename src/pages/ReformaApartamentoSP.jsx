@@ -19,31 +19,31 @@ const ReformaApartamentoSP = () => {
       numero: '01',
       titulo: 'Briefing e Diagnóstico',
       descricao: 'Visita técnica, análise do imóvel e definição de escopo completo.',
-      duracao: '1-2 semanas',
+      marco: 'Escopo e premissas validados',
     },
     {
       numero: '02',
       titulo: 'Projeto Arquitetônico',
       descricao: 'Conceito, layout otimizado, renderizações 3D e aprovações.',
-      duracao: '4-6 semanas',
+      marco: 'Estudo e projeto aprovados',
     },
     {
       numero: '03',
       titulo: 'Planejamento da Obra',
       descricao: 'Orçamento final, cronograma detalhado e compra de materiais.',
-      duracao: '2-3 semanas',
+      marco: 'Plano executivo compatibilizado',
     },
     {
       numero: '04',
       titulo: 'Execução Turn Key',
       descricao: 'Demolição, infraestrutura, acabamentos e marcenaria sob medida.',
-      duracao: '12-20 semanas',
+      marco: 'Frentes executadas e inspecionadas',
     },
     {
       numero: '05',
       titulo: 'Entrega Final',
       descricao: 'Vistoria, ajustes finais, limpeza profunda e entrega das chaves.',
-      duracao: '1 semana',
+      marco: 'Vistoria e aceite de entrega',
     },
   ]
 
@@ -82,7 +82,7 @@ const ReformaApartamentoSP = () => {
 
   const faixasInvestimento = getCommercialPackages('reforma-apartamento-turn-key-sp').map((entry) => ({
     padrao: entry.label,
-    valor: entry.rangeLabel,
+    valor: 'A confirmar após análise técnica',
     itens: entry.includes,
   }))
 
@@ -225,7 +225,7 @@ const ReformaApartamentoSP = () => {
                   <p className="text-wg-gray mb-2 font-light">{etapa.descricao}</p>
                   <div className="flex items-center gap-2 text-sm text-wg-orange">
                     <Clock className="w-4 h-4" />
-                    <span>{etapa.duracao}</span>
+                    <span>{etapa.marco}</span>
                   </div>
                 </div>
               </motion.div>
@@ -253,7 +253,7 @@ const ReformaApartamentoSP = () => {
             </p>
             {commercialService?.sourceOfTruth && (
               <p className="mt-4 text-sm text-wg-gray max-w-3xl mx-auto">
-                Fonte pública vinculada à base central: {commercialService.sourceOfTruth}.
+                As categorias abaixo ilustram possibilidades de escopo. Investimento e prazo serão definidos após diagnóstico, composição técnica e planejamento executivo.
               </p>
             )}
           </motion.div>
@@ -285,8 +285,7 @@ const ReformaApartamentoSP = () => {
           </div>
 
           <p className="text-center text-sm text-wg-gray mt-8">
-            *Valores de referência para São Paulo em 2026. Orçamento final depende de metragem,
-            escopo e acabamentos selecionados.
+            *Não há orçamento ou prazo automático: a proposta exige escopo, insumos, condições do imóvel e planejamento homologados.
           </p>
         </div>
       </section>
