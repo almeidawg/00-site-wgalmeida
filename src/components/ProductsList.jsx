@@ -13,6 +13,7 @@ import {
 import { useCart } from '@/hooks/useCart';
 import { useToast } from '@/components/ui/use-toast';
 import { useTranslation } from 'react-i18next';
+import { getSafeProductDetailPath } from '@/utils/productDetailPath';
 
 const placeholderImage = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjRTJFMzhA⊂Lz4KICA8dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4IiBmaWxsPSIjY2FjZWNlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+Sem Imagem</textPgo8L3N2Zz4K";
 
@@ -118,7 +119,7 @@ const ProductCard = ({ product, index, categoryLabel }) => {
     }
 
     if (product.variants.length > 1) {
-      navigate(`/product/${product.id}`);
+      navigate(getSafeProductDetailPath(product.id));
       return;
     }
 
@@ -145,7 +146,7 @@ const ProductCard = ({ product, index, categoryLabel }) => {
       transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
       className="h-full"
     >
-      <Link to={`/product/${product.id}`} className="block h-full">
+      <Link to={getSafeProductDetailPath(product.id)} className="block h-full">
         <div className="group relative flex h-full min-h-[31rem] flex-col overflow-hidden rounded-[26px] border border-black/[0.06] bg-white transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_24px_55px_rgba(17,17,17,0.12)]">
           {/* Borda colorida no topo - aparece no hover */}
           <div className={`absolute top-0 left-0 right-0 h-1 ${cardStyles.line} transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 z-10`} />
