@@ -8,10 +8,12 @@ describe('MoodboardLeadModal Turnstile contract', () => {
     vi.restoreAllMocks();
     vi.resetModules();
     delete window.turnstile;
+    window.history.replaceState(null, '', '/');
   });
 
   it('requires the configured widget token and forwards it to /api/contact', async () => {
     vi.stubEnv('VITE_TURNSTILE_SITE_KEY', 'site-key-test');
+    window.history.replaceState(null, '', '/?utm_source=instagram&utm_medium=social&utm_campaign=moodboard-qa');
     vi.doMock('@/contexts/MoodboardContext', () => ({
       useMoodboard: () => ({
         projectName: 'Projeto Turnstile',
@@ -43,5 +45,6 @@ describe('MoodboardLeadModal Turnstile contract', () => {
     const body = JSON.parse(fetch.mock.calls[0][1].body);
     expect(body.turnstileToken).toBe('turnstile-token-test');
     expect(body.context).toBe('moodboard-studio-v2');
+    expect(body).toMatchObject({ utm_source: 'instagram', utm_medium: 'social', utm_campaign: 'moodboard-qa' });
   });
 });

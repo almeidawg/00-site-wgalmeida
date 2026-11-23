@@ -14,7 +14,7 @@ import {
   ShoppingCart,
   XCircle,
 } from 'lucide-react'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
 import { Link, useParams } from 'react-router-dom'
@@ -26,85 +26,33 @@ import { Link, useParams } from 'react-router-dom'
 const generateProductSchema = (product, selectedVariant) => {
   if (!product) return null
 
-  const price = selectedVariant?.sale_price_in_cents
-    ? selectedVariant.sale_price_in_cents / 100
-    : selectedVariant?.price_in_cents
-      ? selectedVariant.price_in_cents / 100
-      : 0
-
+  // Sem inventar avaliacao, vendedor, estoque, frete ou prazo de entrega.
+  const priceMinor = selectedVariant?.sale_price_in_cents ?? selectedVariant?.price_in_cents
+  const hasPrice = Number.isSafeInteger(priceMinor) && priceMinor > 0
+  const currency = ['USD', 'EUR', 'BRL'].includes(product.currency) ? product.currency : 'BRL'
+  const offer = hasPrice ? {
+    '@type': 'Offer',
+    url: product.external_link || `https://wgalmeida.com.br/product/${product.id}`,
+    priceCurrency: currency,
+    price: (priceMinor / 100).toFixed(2),
+    ...(product.purchasable && product.mode !== 'affiliate'
+      ? { availability: selectedVariant?.inventory_quantity > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock' }
+      : {}),
+    ...(product.mode === 'affiliate' && product.supplier_name
+      ? { seller: { '@type': 'Organization', name: product.supplier_name } }
+      : {}),
+  } : null
   return {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: product.title,
-    description: product.description?.replace(/<[^>]*>/g, '').substring(0, 500) || product.subtitle,
-    image: product.images?.map((img) => img.url) || [product.image],
+    description: product.description?.replace(/<[^>]*>/g, '').substring(0, 500) || product.subtitle || '',
+    image: product.images?.map((img) => img.url).filter(Boolean) || [],
     sku: selectedVariant?.sku || product.id,
-    brand: {
-      '@type': 'Brand',
-      name: 'Grupo WG Almeida',
-    },
-    offers: {
-      '@type': 'Offer',
-      url: `https://wgalmeida.com.br/product/${product.id}`,
-      priceCurrency: 'BRL',
-      price: price.toFixed(2),
-      priceValidUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-      availability:
-        selectedVariant?.inventory_quantity > 0
-          ? 'https://schema.org/InStock'
-          : 'https://schema.org/OutOfStock',
-      seller: {
-        '@type': 'Organization',
-        name: 'Grupo WG Almeida',
-        url: 'https://wgalmeida.com.br',
-      },
-      shippingDetails: {
-        '@type': 'OfferShippingDetails',
-        shippingDestination: {
-          '@type': 'DefinedRegion',
-          addressCountry: 'BR',
-          addressRegion: 'SP',
-        },
-        deliveryTime: {
-          '@type': 'ShippingDeliveryTime',
-          businessDays: {
-            '@type': 'OpeningHoursSpecification',
-            dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-          },
-          handlingTime: {
-            '@type': 'QuantitativeValue',
-            minValue: 1,
-            maxValue: 3,
-            unitCode: 'DAY',
-          },
-          transitTime: {
-            '@type': 'QuantitativeValue',
-            minValue: 3,
-            maxValue: 10,
-            unitCode: 'DAY',
-          },
-        },
-      },
-    },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '5.0',
-      reviewCount: '47',
-      bestRating: '5',
-      worstRating: '1',
-    },
-    category: 'Arquitetura e Design',
-    material: product.subtitle || 'Premium',
-    manufacturer: {
-      '@type': 'Organization',
-      name: 'Grupo WG Almeida',
-    },
+    ...(offer ? { offers: offer } : {}),
   }
 }
 
-/**
- * Gera BreadcrumbList Schema para navegacao
- */
 const generateBreadcrumbSchema = (product) => ({
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -296,15 +244,9 @@ function ProductDetailPage() {
   const hasMultipleImages = product.images.length > 1
 
   // Gerar schemas para SEO
-  const productSchema = useMemo(
-    () => generateProductSchema(product, selectedVariant),
-    [product, selectedVariant]
-  )
-  const breadcrumbSchema = useMemo(() => generateBreadcrumbSchema(product), [product])
-  const seoSchemas = useMemo(
-    () => [productSchema, breadcrumbSchema].filter(Boolean),
-    [breadcrumbSchema, productSchema]
-  )
+  const productSchema = generateProductSchema(product, selectedVariant)
+  const breadcrumbSchema = generateBreadcrumbSchema(product)
+  const seoSchemas = [productSchema, breadcrumbSchema].filter(Boolean)
   const canonicalUrl = `https://wgalmeida.com.br/product/${id}`
   const imageUrl =
     product.images?.[0]?.url || product.image || 'https://wgalmeida.com.br/og-loja-1200x630.jpg'
@@ -318,10 +260,10 @@ function ProductDetailPage() {
     productSubtitle && !productTitle.includes(productSubtitle)
       ? `${productTitle} - ${productSubtitle}`
       : productTitle
-  const seoTitle = truncateText(`${titleBase} | Comprar na Loja WG Almeida`, 62)
+  const seoTitle = truncateText(`${titleBase} | WG Store`, 62)
   const seoDescription = truncateText(
     product.description ||
-      `${productTitle} com curadoria WG Almeida. Confira especificacoes, acabamento premium e compra segura para projetos de arquitetura e interiores.`,
+      `${productTitle}. Consulte especificações e condições diretamente com o fornecedor indicado.`,
     155
   )
 
@@ -344,9 +286,9 @@ function ProductDetailPage() {
       />
       <Helmet>
         <meta property="og:type" content="product" />
-        <meta property="product:availability" content={hasStock ? 'in stock' : 'out of stock'} />
+        {product.mode !== 'affiliate' && <meta property="product:availability" content={hasStock ? 'in stock' : 'out of stock'} />}
         {selectedPrice && <meta property="product:price:amount" content={selectedPrice} />}
-        <meta property="product:price:currency" content="BRL" />
+        <meta property="product:price:currency" content={product.currency || "BRL"} />
       </Helmet>
       <div className="container-custom section-padding">
         <Link
@@ -428,10 +370,16 @@ function ProductDetailPage() {
               )}
             </div>
 
-            <div
-              className="wg-prose prose mb-6 text-wg-gray"
-              dangerouslySetInnerHTML={{ __html: product.description }}
-            />
+            {product.mode ? (
+              <p className="wg-prose prose mb-6 text-wg-gray whitespace-pre-line">
+                {stripHtml(product.description || '')}
+              </p>
+            ) : (
+              <div
+                className="wg-prose prose mb-6 text-wg-gray"
+                dangerouslySetInnerHTML={{ __html: product.description }}
+              />
+            )}
 
             {product.variants.length > 1 && (
               <div className="mb-6">
@@ -476,6 +424,11 @@ function ProductDetailPage() {
             </div>
 
             <div className="mt-auto">
+              {product.mode === "affiliate" && product.external_link ? (
+                <a href={product.external_link} target="_blank" rel="noopener noreferrer sponsored" className="w-full inline-flex justify-center rounded-lg bg-wg-orange text-white p-4">
+                  Ver oferta no site do fornecedor
+                </a>
+              ) : (
               <Button
                 onClick={handleAddToCart}
                 size="lg"
@@ -483,7 +436,10 @@ function ProductDetailPage() {
                 disabled={!canAddToCart || !product.purchasable}
               >
                 <ShoppingCart className="mr-2 h-5 w-5" /> {t('storePage.productDetail.addToCart')}
-              </Button>
+              </Button>)}
+              {product.mode === 'affiliate' && product.external_link && (
+                <p className="text-sm text-gray-600 mt-3">Link de afiliado: a WG pode receber comissão. A compra, entrega e devolução são realizadas pelo fornecedor.</p>
+              )}
 
               {isStockManaged && canAddToCart && product.purchasable && (
                 <p className="text-sm text-green-600 mt-3 flex items-center justify-center gap-2">
@@ -499,7 +455,7 @@ function ProductDetailPage() {
                 </p>
               )}
 
-              {!product.purchasable && (
+              {!product.purchasable && product.mode !== 'affiliate' && (
                 <p className="text-sm text-red-500 mt-3 flex items-center justify-center gap-2">
                   <XCircle size={16} /> {t('storePage.productDetail.unavailable')}
                 </p>

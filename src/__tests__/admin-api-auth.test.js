@@ -65,7 +65,7 @@ describe('admin service-role APIs', () => {
     expect(global.fetch).not.toHaveBeenCalled();
   });
 
-  it('permite admin autenticado por dominio corporativo em /api/leads', async () => {
+  it('permite somente perfil admin ativo em /api/leads', async () => {
     global.fetch = vi.fn(async (url) => {
       if (String(url).includes('/auth/v1/user')) {
         return {
@@ -80,7 +80,7 @@ describe('admin service-role APIs', () => {
       if (String(url).includes('/rest/v1/profiles')) {
         return {
           ok: true,
-          json: async () => ([]),
+          json: async () => ([{ id: 'user-1', role: 'admin', ativo: true }]),
         };
       }
 
