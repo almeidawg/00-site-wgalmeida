@@ -1,9 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from '@/lib/motion-lite';
-import { ArrowRight, ArrowLeft, CheckCircle2, Building2, Ruler, Loader2, ClipboardCheck, Calculator, PenTool, TrendingUp, Home } from 'lucide-react';
+import { ArrowRight, ArrowLeft, CheckCircle2, Building2, Ruler, Loader2, ClipboardCheck, Calculator } from 'lucide-react';
 import { useWGContext } from '@/providers/ContextProvider';
-import { useTranslation } from 'react-i18next';
 import TurnstileWidget, { TURNSTILE_SITE_KEY } from '@/components/TurnstileWidget';
 
 const SERVICE_OPTIONS = [
@@ -15,7 +14,7 @@ const SERVICE_OPTIONS = [
 ];
 
 const calculateEstimate = (metragem, servico) => {
-  const m2 = parseInt(metragem) || 0;
+  const m2 = Number.parseInt(metragem, 10) || 0;
   if (m2 < 10) return null;
 
   let min = 0;
@@ -56,7 +55,6 @@ const OrcadorInteligente = ({
   sourceContext = '',
   introLabel = '',
 }) => {
-  const { t } = useTranslation();
   const { context: wgContext } = useWGContext() || { context: {} };
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -100,6 +98,7 @@ const OrcadorInteligente = ({
     setSubmitError('');
 
     const finalSource = sourceContext || wgContext?.origem || 'site-wgalmeida';
+    const attribution = new URLSearchParams(window.location.search);
     const message = `Serviço: ${formData.servico} | Imóvel: ${formData.tipoImovel} | Metragem: ${formData.metragem}m² | Prazo: ${formData.prazo} | Origem: ${finalSource} | Faixa Visualizada: ${estimate || 'N/A'}`;
 
     try {
@@ -112,6 +111,9 @@ const OrcadorInteligente = ({
           phone: formData.telefone,
           subject: `Solicitação técnica: ${formData.servico}`,
           message: message,
+          utm_source: attribution.get('utm_source') || null,
+          utm_medium: attribution.get('utm_medium') || null,
+          utm_campaign: attribution.get('utm_campaign') || null,
           context: sourceContext || 'orcamento',
           turnstileToken: turnstileToken || null,
         })
@@ -171,7 +173,7 @@ const OrcadorInteligente = ({
           >
             <CheckCircle2 className="h-12 w-12 text-emerald-600" />
           </motion.div>
-          <h3 className="mb-4 text-3xl md:text-4xl font-light text-slate-900 tracking-tight">Oportunidade Destravada!</h3>
+          <h2 className="mb-4 text-3xl md:text-4xl font-light text-slate-900 tracking-tight">Oportunidade Destravada!</h2>
           <p className="mb-10 text-lg text-slate-500 max-w-lg mx-auto leading-relaxed font-light">
             Sua solicitação foi processada pelo nosso sistema. O seu diretor de projeto entrará em contato em breve para apresentar o planejamento técnico exato.
           </p>
@@ -210,7 +212,7 @@ const OrcadorInteligente = ({
           {step === 1 && (
             <motion.div key="step1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-8">
               <div className="text-center">
-                <h3 className="text-3xl font-light text-slate-900 tracking-tight mb-2">Qual o perfil do ativo?</h3>
+                <h2 className="text-3xl font-light text-slate-900 tracking-tight mb-2">Qual o perfil do ativo?</h2>
                 <p className="text-slate-500 font-light">Selecione a categoria para adequarmos as normativas técnicas.</p>
               </div>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -251,7 +253,7 @@ const OrcadorInteligente = ({
           {step === 2 && (
             <motion.div key="step2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-8">
               <div className="text-center">
-                <h3 className="text-3xl font-light text-slate-900 tracking-tight mb-2">Qual escopo técnico?</h3>
+                <h2 className="text-3xl font-light text-slate-900 tracking-tight mb-2">Qual escopo técnico?</h2>
                 <p className="text-slate-500 font-light">Defina o nível de integração que você precisa da WG Almeida.</p>
               </div>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -284,15 +286,16 @@ const OrcadorInteligente = ({
           {step === 3 && (
             <motion.div key="step3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-8">
                <div className="text-center">
-                <h3 className="text-3xl font-light text-slate-900 tracking-tight mb-2">Dimensões e Cronograma</h3>
+                <h2 className="text-3xl font-light text-slate-900 tracking-tight mb-2">Dimensões e Cronograma</h2>
                 <p className="text-slate-500 font-light">Estes dados calibram nosso motor de precificação preditiva.</p>
               </div>
               <div className="space-y-6 max-w-xl mx-auto">
                 <div>
-                  <label className="mb-2 block text-sm font-medium text-slate-700">Área de intervenção (m²)</label>
+                  <label htmlFor="orcador-metragem" className="mb-2 block text-sm font-medium text-slate-700">Área de intervenção (m²)</label>
                   <div className="relative group">
                     <Ruler className="absolute left-5 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400 group-focus-within:text-wg-orange transition-colors" />
                     <input
+                      id="orcador-metragem"
                       type="number"
                       required
                       value={formData.metragem}
@@ -303,9 +306,10 @@ const OrcadorInteligente = ({
                   </div>
                 </div>
                 <div>
-                  <label className="mb-2 block text-sm font-medium text-slate-700">Expectativa de entrega</label>
+                  <label htmlFor="orcador-prazo" className="mb-2 block text-sm font-medium text-slate-700">Expectativa de entrega</label>
                   <select
                     required
+                    id="orcador-prazo"
                     value={formData.prazo}
                     onChange={(e) => setFormData({ ...formData, prazo: e.target.value })}
                     className="w-full appearance-none rounded-[1.5rem] border border-slate-200 bg-slate-50/50 px-5 py-4 text-slate-900 focus:bg-white focus:border-wg-orange focus:outline-none focus:ring-4 focus:ring-wg-orange/10 transition-all cursor-pointer"
@@ -336,7 +340,7 @@ const OrcadorInteligente = ({
                      <div className="absolute inset-2 rounded-full border-l-2 border-slate-800 animate-spin-reverse"></div>
                      <Calculator className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 text-slate-400" />
                   </div>
-                  <h3 className="mt-8 text-xl font-light text-slate-900">Processando parâmetros...</h3>
+                  <h2 className="mt-8 text-xl font-light text-slate-900">Processando parâmetros...</h2>
                   <p className="text-slate-500 text-sm mt-2">Buscando referências na base ICCRI 2026</p>
                 </div>
               ) : (
@@ -345,9 +349,9 @@ const OrcadorInteligente = ({
                     <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-600 text-xs font-bold uppercase tracking-wider mb-4">
                       <CheckCircle2 size={14} /> Análise Preliminar Concluída
                     </span>
-                    <h3 className="text-3xl font-light text-slate-900 tracking-tight mb-4">
+                    <h2 className="text-3xl font-light text-slate-900 tracking-tight mb-4">
                       Seu projeto requer atenção especial.
-                    </h3>
+                    </h2>
                     
                     {estimate ? (
                       <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-[2rem] p-8 max-w-xl mx-auto text-white shadow-2xl relative overflow-hidden">

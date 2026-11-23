@@ -2,8 +2,22 @@ import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
 import path from "path";
 
+// Espelha o transform de Markdown bruto do vite.config.js nos imports SSR ?import.
+// Restrito ao conteudo editorial do blog, sem alterar o build de producao.
+const blogMarkdownRawPlugin = {
+  name: "blog-markdown-raw-for-vitest",
+  enforce: "pre",
+  transform(code, id) {
+    const pathname = id.replaceAll("\\", "/");
+    if (pathname.includes("/src/content/blog/") && /\.md(?:\?import)?$/.test(pathname)) {
+      return { code: `export default ${JSON.stringify(code)};`, map: null };
+    }
+    return null;
+  },
+};
+
 export default defineConfig({
-  plugins: [react()],
+  plugins: [blogMarkdownRawPlugin, react()],
   test: {
     globals: true,
     environment: "jsdom",
