@@ -17,6 +17,8 @@ const defaultRoutes = [
   '/arquitetura',
   '/engenharia',
   '/processo',
+  // Store smoke requires configured public Supabase endpoints; validate separately on authenticated preview.
+  '/solicite-proposta',
 ];
 
 const mimeTypes = {

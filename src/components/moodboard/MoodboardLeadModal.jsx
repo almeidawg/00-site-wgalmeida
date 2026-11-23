@@ -57,6 +57,7 @@ export default function MoodboardLeadModal({ isOpen, onClose }) {
     const shareUrl = buildShareUrl();
     const moodboardData = getMoodboardData();
     const stylesStr = moodboardData.styles.map(s => s.name).join(', ');
+    const attribution = new URLSearchParams(window.location.search);
     
     const payload = {
       name: formData.name,
@@ -64,6 +65,9 @@ export default function MoodboardLeadModal({ isOpen, onClose }) {
       phone: formData.whatsapp,
       subject: `Dossiê Moodboard Studio: ${formData.name}`,
       message: `Projeto: ${projectName} | Estilos: ${stylesStr} | Link: ${shareUrl}`,
+      utm_source: attribution.get('utm_source') || null,
+      utm_medium: attribution.get('utm_medium') || null,
+      utm_campaign: attribution.get('utm_campaign') || null,
       context: 'moodboard-studio-v2',
       turnstileToken: turnstileToken || undefined,
       metadata: { projectName, shareUrl, styles: stylesStr }
