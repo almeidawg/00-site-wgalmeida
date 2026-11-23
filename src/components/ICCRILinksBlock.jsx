@@ -10,8 +10,8 @@ const CONTEXT_LABEL = {
 }
 
 const RELATED_CONTENT = [
-  { to: '/blog/tabela-precos-reforma-2026-iccri', label: 'Tabela de preços de reforma atualizada (ICCRI)' },
-  { to: '/blog/custo-reforma-m2-sao-paulo', label: 'Custo de reforma por m² em 2026' },
+  { to: '/blog/tabela-precos-reforma-2026-iccri', label: 'Entenda as referências de custo do ICCRI' },
+  { to: '/blog/custo-reforma-m2-sao-paulo', label: 'O que influencia o custo por m² em 2026' },
   { to: '/blog/quanto-custa-reforma-apartamento-100m2', label: 'Quanto custa reformar um apartamento de 100 m²' },
   { to: '/blog/quanto-tempo-leva-reforma-completa-alto-padrao', label: 'Quanto tempo leva uma reforma completa' },
   { to: '/blog/como-calcular-custo-de-obra', label: 'Como calcular o custo de uma obra' },
@@ -53,25 +53,25 @@ export default function ICCRILinksBlock({ context = 'custo', className = '' }) {
   return (
     <section className={`rounded-2xl border border-gray-200 bg-[#FAFAFA] p-6 md:p-8 ${className}`.trim()}>
       <p className="mb-2 text-xs font-light uppercase tracking-[0.12em] text-wg-gray">
-        Baseado no ICCRI 2026 · índice de custo de reforma da WG Almeida
+        ICCRI · metodologia de escopo, custos e riscos em revisão
       </p>
 
       <h2 className="mb-3 font-playfair text-[clamp(1.45rem,1.9vw,1.92rem)] font-light leading-[1.06] text-wg-black">
-        Planeje sua reforma com dados reais
+        Planeje sua reforma com critérios técnicos
       </h2>
 
       <p className="mb-6 text-[15px] font-light leading-[1.65] text-[#4C4C4C]">
-        O ICCRI é o índice proprietário da WG Almeida baseado em dados reais de obras.
-        Esta página conecta conteúdo, ferramentas e simulações para apoiar decisões de {contextLabel}.
+        O ICCRI reúne referências e composições de custos em reconciliação técnica.
+        Esta página conecta conteúdo, escopo e ferramentas para apoiar decisões de {contextLabel}, sem prometer preços sem homologação.
       </p>
 
       <div className="mb-8 rounded-xl border border-[#E5E7EB] bg-white p-5">
         <h3 className="mb-2 flex items-center gap-2 font-playfair text-[clamp(1.02rem,1.15vw,1.14rem)] font-light text-wg-black">
           <Calculator className="h-4 w-4 text-wg-orange" />
-          Calcule agora o custo da sua reforma
+          Explore a avaliação inicial de viabilidade
         </h3>
         <p className="mb-4 text-sm font-light text-[#4C4C4C]">
-          Simule valores considerando metragem, padrão de acabamento e localização.
+          Conheça as premissas de projeto e identifique quando é necessária uma análise técnica individual.
         </p>
         <a
           href={`${PRODUCT_URLS.obraeasy}/evf4`}
@@ -80,14 +80,14 @@ export default function ICCRILinksBlock({ context = 'custo', className = '' }) {
           onClick={() => {
             trackCtaClick({
               ctaId: 'iccri_links_calculadora',
-              ctaLabel: 'Acessar calculadora',
+              ctaLabel: 'Explorar avaliação EVF',
               ctaContext: `iccri_links_${context}`,
               ctaDestination: `${PRODUCT_URLS.obraeasy}/evf4`,
             })
           }}
           className="wg-cta-canonical wg-cta-canonical-accent"
         >
-          Acessar calculadora
+          Explorar avaliação EVF
           <ExternalLink />
         </a>
       </div>

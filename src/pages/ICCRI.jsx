@@ -31,11 +31,11 @@ export default function ICCRI() {
     },
     {
       '@context': 'https://schema.org',
-      '@type': 'Dataset',
+      '@type': 'CreativeWork',
       '@id': `${ICCRI_PAGE_URL}#dataset-iccri`,
       name: 'ICCRI 2026 - Índice de Custo de Construção e Reforma Inteligente',
       description:
-        'Base proprietaria da WG Almeida com faixas de custo de reforma por m2, categorias operacionais, fatores de ajuste e leitura metodologica da obra.',
+        'Conteúdo metodológico institucional em revisão. Dados de preços e prazos não constituem referências publicáveis sem homologação técnica e comercial.',
       url: ICCRI_PAGE_URL,
       creator: {
         '@type': 'Organization',
@@ -43,18 +43,12 @@ export default function ICCRI() {
         name: 'Grupo WG Almeida',
       },
       inLanguage: 'pt-BR',
-      temporalCoverage: '2020/2026',
+      dateModified: '2026-11-09',
       spatialCoverage: {
         '@type': 'City',
         name: 'São Paulo',
       },
       isAccessibleForFree: true,
-      variableMeasured: [
-        { '@type': 'PropertyValue', name: 'custo_reforma_m2_essencial' },
-        { '@type': 'PropertyValue', name: 'custo_reforma_m2_equilibrado' },
-        { '@type': 'PropertyValue', name: 'custo_reforma_m2_superior' },
-        { '@type': 'PropertyValue', name: 'custo_reforma_m2_exclusivo' },
-      ],
     },
     {
       '@context': 'https://schema.org',
@@ -65,7 +59,7 @@ export default function ICCRI() {
           name: 'O que e o ICCRI?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'O ICCRI e o indice proprietario da WG Almeida para estimar custo de reforma por m2 com base em dados reais de obras.',
+            text: 'O ICCRI organiza referencias e composicoes para leitura preliminar de custo. Faixas dependem de escopo e bases homologadas.',
           },
         },
         {
@@ -73,7 +67,7 @@ export default function ICCRI() {
           name: 'Com que frequencia o ICCRI e atualizado?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'A atualizacao e periodica com base em variacao de materiais, mao de obra e historico operacional consolidado pela equipe tecnica.',
+            text: 'As referencias devem ser atualizadas por competencia e homologadas pela equipe tecnica antes de sustentar orcamentos automatizados.',
           },
         },
       ],
@@ -85,7 +79,7 @@ export default function ICCRI() {
       <SEO
         pathname="/iccri"
         title="ICCRI 2026 | Índice de Custo de Construção e Reforma Inteligente"
-        description="Motor proprietario da WG Almeida para estimar custo, organizar categorias operacionais da obra e simular faixa de investimento para cliente final, corretores e parceiros."
+        description="Conheça a metodologia ICCRI de classificação, escopos e composições. Estimativas somente com dados homologados e análise técnica."
         keywords="iccri, custo reforma m2, tabela custo reforma 2026, simulador custo obra, evf, avm, easyrealstate, obraeasy"
         url={ICCRI_PAGE_URL}
         schema={schema}
@@ -107,7 +101,7 @@ export default function ICCRI() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
           >
-            O ICCRI é um índice proprietário da WG Almeida baseado em dados reais de obras.
+            O ICCRI reúne referências e composições de custos da metodologia WG. A calibração com obras realizadas depende de histórico validado e atualizado.
             Ele organiza custo, categorias, serviços e composições em uma leitura operacional mais didática para tomada de decisão com previsibilidade.
           </motion.p>
           <motion.p
@@ -116,8 +110,8 @@ export default function ICCRI() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.18 }}
           >
-            Como referência isolada, ele abre uma faixa. Quando entra no ecossistema WG, ele ajuda a
-            sustentar a confiança da tese do ativo com base em custo real, fechamento real e captura de valor.
+            A metodologia conecta escopo, composição e execução para apoiar decisões.
+            Preços e prazos só serão divulgados após revisão das fontes e aprovação técnica.
           </motion.p>
         </div>
       </section>
@@ -128,16 +122,16 @@ export default function ICCRI() {
             <div className="rounded-2xl border border-gray-200 bg-wg-gray-light p-6">
               <h2 className="text-2xl font-inter font-light text-wg-black mb-3">Quanto custa reformar em 2026?</h2>
               <p className="text-wg-gray leading-relaxed mb-4">
-                Segundo a regua comercial homologada do ICCRI 2026, o custo estimado por m2 varia por nível de pacote. Essa é a camada de referência; a metodologia WG organiza a obra pelas etapas e gatilhos operacionais:
+                As categorias de escopo abaixo são referências editoriais. As tabelas de preços de reforma estão em reconciliação e não devem ser usadas como orçamento sem validação técnica:
               </p>
               <ul className="space-y-2 text-wg-black">
                 {commercialPackages.map((entry) => (
-                  <li key={entry.key}>{entry.label}: {entry.rangeLabel}</li>
+                  <li key={entry.key}>{entry.label}: valor a confirmar após análise técnica</li>
                 ))}
               </ul>
               {commercialService?.sourceOfTruth && (
                 <p className="mt-4 text-sm leading-relaxed text-wg-gray">
-                  Fonte de verdade: {commercialService.sourceOfTruth}.
+                  Referências comerciais em reconciliação. O orçamento requer levantamento técnico, escopo e competência de custos validada.
                 </p>
               )}
             </div>
@@ -149,16 +143,16 @@ export default function ICCRI() {
                   href={`${PRODUCT_URLS.obraeasy}/evf4`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-lg bg-wg-orange px-4 py-2 text-white"
+                  className="inline-flex min-h-[44px] items-center gap-2 rounded-lg bg-wg-orange px-4 py-2 text-white"
                 >
-                  Calcule seu custo agora
+                  Explorar análise de viabilidade
                   <ArrowRight className="w-4 h-4" />
                 </a>
                 <a
                   href={`${PRODUCT_URLS.easyrealstate}/calculo`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-lg border border-wg-blue px-4 py-2 text-wg-blue"
+                  className="inline-flex min-h-[44px] items-center gap-2 rounded-lg border border-wg-blue px-4 py-2 text-wg-blue"
                 >
                   Avaliar com AVM
                   <ArrowRight className="w-4 h-4" />
@@ -175,8 +169,8 @@ export default function ICCRI() {
             <div>
               <h2 className="text-2xl font-inter font-light text-wg-black mb-3">Como o ICCRI é calculado</h2>
               <ul className="space-y-2 text-wg-gray leading-relaxed">
-                <li>Custos reais de obras executadas</li>
-                <li>Dados históricos operacionais da WG Almeida</li>
+                <li>Composições técnicas e referências cadastradas</li>
+                <li>Histórico de obras realizadas, quando disponível e homologado</li>
                 <li>Variação de materiais e mão de obra</li>
                 <li>Complexidade técnica dos projetos</li>
                 <li>{WG_PRODUCT_MESSAGES.marketReferences}</li>
@@ -213,11 +207,11 @@ export default function ICCRI() {
             <div className="rounded-2xl border border-gray-200 bg-white p-5">
               <h3 className="text-lg font-inter font-light text-wg-black mb-3">Conteudos relacionados</h3>
               <ul className="space-y-2 text-sm">
-                <li><Link className="text-wg-blue hover:underline" to="/blog/tabela-precos-reforma-2026-iccri">Tabela ICCRI 2026</Link></li>
-                <li><Link className="text-wg-blue hover:underline" to="/blog/custo-reforma-m2-sao-paulo">Custo de reforma por m2 em São Paulo</Link></li>
-                <li><Link className="text-wg-blue hover:underline" to="/blog/quanto-custa-reforma-apartamento-100m2">Quanto custa reformar 100m2</Link></li>
-                <li><Link className="text-wg-blue hover:underline" to="/blog/como-calcular-custo-de-obra">Como calcular custo de obra</Link></li>
-                <li><Link className="text-wg-blue hover:underline" to="/blog/custo-marcenaria-planejada">Custo de marcenaria planejada</Link></li>
+                <li><Link className="inline-flex min-h-[44px] items-center text-wg-blue hover:underline" to="/blog/tabela-precos-reforma-2026-iccri">Tabela ICCRI 2026</Link></li>
+                <li><Link className="inline-flex min-h-[44px] items-center text-wg-blue hover:underline" to="/blog/custo-reforma-m2-sao-paulo">Custo de reforma por m2 em São Paulo</Link></li>
+                <li><Link className="inline-flex min-h-[44px] items-center text-wg-blue hover:underline" to="/blog/quanto-custa-reforma-apartamento-100m2">Quanto custa reformar 100m2</Link></li>
+                <li><Link className="inline-flex min-h-[44px] items-center text-wg-blue hover:underline" to="/blog/como-calcular-custo-de-obra">Como calcular custo de obra</Link></li>
+                <li><Link className="inline-flex min-h-[44px] items-center text-wg-blue hover:underline" to="/blog/custo-marcenaria-planejada">Custo de marcenaria planejada</Link></li>
               </ul>
             </div>
 
@@ -227,12 +221,12 @@ export default function ICCRI() {
                 <h3 className="text-lg font-inter font-light text-wg-black">Ferramentas</h3>
               </div>
               <ul className="space-y-2 text-sm">
-                <li><a className="text-wg-blue hover:underline" href={`${PRODUCT_URLS.obraeasy}/evf4`} target="_blank" rel="noopener noreferrer">Simulador de custo de obra (ObraEasy)</a></li>
-                <li><a className="text-wg-blue hover:underline" href={`${PRODUCT_URLS.easyrealstate}/calculo`} target="_blank" rel="noopener noreferrer">Avaliacao imobiliaria (AVM)</a></li>
-                <li><Link className="text-wg-blue hover:underline" to="/easy-real-state">Calculadora EasyRealState</Link></li>
-                <li><Link className="text-wg-blue hover:underline" to="/buildtech">Ecossistema WG/Build.tech</Link></li>
-                <li><Link className="text-wg-blue hover:underline" to="/tools/moodboard-generator">Tool: Moodboard Generator</Link></li>
-                <li><Link className="text-wg-blue hover:underline" to="/tools/room-visualizer">Tool: Room Visualizer</Link></li>
+                <li><a className="inline-flex min-h-[44px] items-center text-wg-blue hover:underline" href={`${PRODUCT_URLS.obraeasy}/evf4`} target="_blank" rel="noopener noreferrer">Simulador de custo de obra (ObraEasy)</a></li>
+                <li><a className="inline-flex min-h-[44px] items-center text-wg-blue hover:underline" href={`${PRODUCT_URLS.easyrealstate}/calculo`} target="_blank" rel="noopener noreferrer">Avaliacao imobiliaria (AVM)</a></li>
+                <li><Link className="inline-flex min-h-[44px] items-center text-wg-blue hover:underline" to="/easy-real-state">Calculadora EasyRealState</Link></li>
+                <li><Link className="inline-flex min-h-[44px] items-center text-wg-blue hover:underline" to="/buildtech">Ecossistema WG/Build.tech</Link></li>
+                <li><Link className="inline-flex min-h-[44px] items-center text-wg-blue hover:underline" to="/tools/moodboard-generator">Tool: Moodboard Generator</Link></li>
+                <li><Link className="inline-flex min-h-[44px] items-center text-wg-blue hover:underline" to="/tools/room-visualizer">Tool: Room Visualizer</Link></li>
               </ul>
             </div>
           </aside>

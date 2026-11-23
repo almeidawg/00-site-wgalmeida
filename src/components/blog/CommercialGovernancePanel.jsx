@@ -26,6 +26,8 @@ export default function CommercialGovernancePanel({ article, serviceId, packageF
 
   const theme = getEditorialTheme({ editorialThemeId: profile.service.nucleus });
   const packages = getCommercialPackages(profile.service.id);
+  // Fail-closed: réguas ICCRI concorrentes não têm escopo/competência reconciliados.
+  const iccriReformaInReconciliation = profile.service.id === 'iccri-reforma-civil-sp';
   const activePackageKey =
     profile.packageFocus && profile.service.packages?.[profile.packageFocus]
       ? profile.packageFocus
@@ -41,12 +43,14 @@ export default function CommercialGovernancePanel({ article, serviceId, packageF
             {profile.service.label}
           </h2>
           <p className="mt-2 max-w-3xl text-[15px] font-light leading-[1.75] text-wg-gray">
-            Faixas, escopos e prazos publicados nesta pagina seguem a base versionada oficial do projeto.
+            {iccriReformaInReconciliation
+              ? 'Faixas e prazos de reforma civil estão em reconciliação técnica. As categorias abaixo descrevem escopo, não constituem orçamento.'
+              : 'Referências editoriais por serviço. Valores e prazos dependem da validação técnica de cada projeto.'}
           </p>
         </div>
         <div className="rounded-2xl border border-black/6 bg-white px-4 py-3 text-right shadow-sm">
           <p className="text-[10px] font-light uppercase tracking-[0.16em] text-wg-gray">Fonte de verdade</p>
-          <p className="mt-1 text-sm font-light text-wg-black">{profile.sourceOfTruth}</p>
+          <p className="mt-1 text-sm font-light text-wg-black">{iccriReformaInReconciliation ? 'Referências ICCRI em reconciliação' : profile.sourceOfTruth}</p>
         </div>
       </div>
 
@@ -66,9 +70,9 @@ export default function CommercialGovernancePanel({ article, serviceId, packageF
                 </p>
                 {isActive && <ShieldCheck size={14} className={theme.iconClass} />}
               </div>
-              <p className="mt-3 text-lg font-light text-wg-black">{entry.rangeLabel}</p>
+              <p className="mt-3 text-lg font-light text-wg-black">{iccriReformaInReconciliation ? 'Valor a confirmar após análise técnica' : entry.rangeLabel}</p>
               <p className="mt-3 text-sm font-light leading-[1.65] text-wg-gray">{entry.summary}</p>
-              {entry.timelineTypical && (
+              {!iccriReformaInReconciliation && entry.timelineTypical && (
                 <p className="mt-4 text-[12px] font-light uppercase tracking-[0.14em] text-wg-gray">
                   Prazo tipico: <span className="text-wg-black">{entry.timelineTypical}</span>
                 </p>
@@ -81,13 +85,14 @@ export default function CommercialGovernancePanel({ article, serviceId, packageF
       {activePackage && (
         <div className="mt-6 grid gap-4 lg:grid-cols-2">
           <SectionBlock title="Faixa de investimento" icon={CircleDollarSign}>
-            <p>{activePackage.rangeLabel}</p>
+            <p>{iccriReformaInReconciliation ? 'Valor a confirmar após análise técnica' : activePackage.rangeLabel}</p>
             {activePackage.variation && <p>{activePackage.variation}</p>}
           </SectionBlock>
 
           <SectionBlock title="Prazo estimado" icon={CalendarRange}>
-            {activePackage.timelineBase && <p>Prazo base: {activePackage.timelineBase}.</p>}
-            {activePackage.timelineTypical && <p>Faixa tipica: {activePackage.timelineTypical}.</p>}
+            {iccriReformaInReconciliation && <p>Prazo a confirmar após levantamento de escopo, dependências, equipe e suprimentos.</p>}
+            {!iccriReformaInReconciliation && activePackage.timelineBase && <p>Prazo base: {activePackage.timelineBase}.</p>}
+            {!iccriReformaInReconciliation && activePackage.timelineTypical && <p>Faixa tipica: {activePackage.timelineTypical}.</p>}
             {activePackage.timelineDependencies?.length > 0 && (
               <p>Dependencias: {activePackage.timelineDependencies.join(', ')}.</p>
             )}

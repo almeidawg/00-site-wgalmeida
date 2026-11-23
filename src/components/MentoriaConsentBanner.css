@@ -18,6 +18,11 @@
     font-size: 12px;
     line-height: 1.35;
   }
+  body .mcl-consent p a {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+  }
   body .mcl-consent__actions {
     width: 100%;
     justify-content: flex-end;
@@ -25,5 +30,14 @@
   body .mcl-consent__actions .mcl-button {
     min-height: 44px;
     padding: 0 14px;
+  }
+}
+
+/* Preserve touch target size also at tablet widths; keep desktop layout unchanged. */
+@media (min-width: 681px) and (max-width: 900px) {
+  body .mcl-consent p a {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
   }
 }

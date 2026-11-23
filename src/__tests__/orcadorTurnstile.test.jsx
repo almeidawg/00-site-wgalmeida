@@ -17,11 +17,13 @@ const openFinalStep = async () => {
   fireEvent.click(screen.getByRole('button', { name: 'Apenas Projeto de Interiores' }));
   fireEvent.change(screen.getByPlaceholderText('Ex: 120'), { target: { value: '120' } });
   fireEvent.change(screen.getByRole('combobox'), { target: { value: 'Normal (3 a 6 meses)' } });
-  fireEvent.click(screen.getByRole('button', { name: /Gerar Estimativa/ }));
+  fireEvent.click(screen.getByRole('button', { name: /Continuar para o contato/ }));
   const name = await screen.findByPlaceholderText('Nome Completo', {}, { timeout: 3000 });
   fireEvent.change(name, { target: { value: 'Fixture WG' } });
   fireEvent.change(screen.getByPlaceholderText('Melhor E-mail'), { target: { value: 'fixture@example.invalid' } });
   fireEvent.change(screen.getByPlaceholderText('(11) 99999-9999'), { target: { value: '11999999999' } });
+  expect(screen.queryByText(/Investimento Estimado/i)).not.toBeInTheDocument();
+  expect(screen.getByText(/faixa de investimento será definida pela equipe técnica/i)).toBeInTheDocument();
   return view;
 };
 
@@ -76,6 +78,19 @@ describe('Orcador contact anti-spam contract', () => {
     fireEvent.submit(view.container.querySelector('form'));
     await waitFor(() => expect(fetch).toHaveBeenCalledTimes(2));
     expect(JSON.parse(fetch.mock.calls[1][1].body).turnstileToken).toBe('fresh-token');
+  });
+
+  it('mostra erro de verificação e permite nova tentativa sem liberar envio sem token', async () => {
+    const view = await openFinalStep();
+    await waitFor(() => expect(window.turnstile.render).toHaveBeenCalledTimes(1));
+    act(() => widgetOptions['error-callback']('110200'));
+    expect(screen.getByText(/Não foi possível concluir a verificação anti-spam/)).toBeInTheDocument();
+    fireEvent.submit(view.container.querySelector('form'));
+    expect(fetch).not.toHaveBeenCalled();
+    act(() => widgetOptions.callback('novo-token'));
+    expect(screen.queryByText(/Não foi possível concluir a verificação anti-spam/)).not.toBeInTheDocument();
+    fireEvent.submit(view.container.querySelector('form'));
+    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
   });
 
   it('preserves optional mode when the public site key is absent', async () => {
