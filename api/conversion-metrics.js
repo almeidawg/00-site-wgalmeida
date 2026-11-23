@@ -26,7 +26,7 @@ export default async function handler(req, res) {
   try {
     const [eventsResp, promotionsResp] = await Promise.all([
       fetch(`${SUPABASE_URL}/rest/v1/site_conversion_events?select=outcome,reason,promotion,context,status_code,created_at&created_at=gte.${encodeURIComponent(since)}&order=created_at.asc`, { headers: headers() }),
-      fetch(`${SUPABASE_URL}/rest/v1/lead_promotions?select=promotion_mode,promoted_at&promoted_at=gte.${encodeURIComponent(since)}&order=promoted_at.asc`, { headers: headers() }),
+      fetch(`${SUPABASE_URL}/rest/v1/lead_promotions?select=source,created_at&created_at=gte.${encodeURIComponent(since)}&order=created_at.asc`, { headers: headers() }),
     ]);
     const events = await safeRows(eventsResp);
     const promotions = await safeRows(promotionsResp);
