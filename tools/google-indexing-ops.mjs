@@ -4,11 +4,18 @@ import path from 'node:path'
 
 import dotenv from 'dotenv'
 import { google } from 'googleapis'
+import {
+  createInspectionError,
+  createSkippedInspection,
+  isAuthBlockingError,
+  summarizeInspectionResults,
+} from './google-indexing-policy.mjs'
 
 dotenv.config({ path: '.env.local' })
 dotenv.config()
 
-const SEARCH_CONSOLE_SCOPE = 'https://www.googleapis.com/auth/webmasters'
+const SEARCH_CONSOLE_READ_SCOPE = 'https://www.googleapis.com/auth/webmasters.readonly'
+const SEARCH_CONSOLE_WRITE_SCOPE = 'https://www.googleapis.com/auth/webmasters'
 const DEFAULT_SITE = 'sc-domain:wgalmeida.com.br'
 const DEFAULT_SITEMAP = 'https://wgalmeida.com.br/sitemap.xml'
 const DEFAULT_QUOTA_PROJECT = 'grupo-wg-284118'
@@ -53,9 +60,9 @@ async function resolveQuotaProject(explicitQuotaProject) {
   return adc?.quota_project_id || DEFAULT_QUOTA_PROJECT
 }
 
-async function getAccessToken() {
+async function getAccessToken(scope = SEARCH_CONSOLE_READ_SCOPE) {
   const auth = new google.auth.GoogleAuth({
-    scopes: [SEARCH_CONSOLE_SCOPE],
+    scopes: [scope],
   })
   const client = await auth.getClient()
   const token = await client.getAccessToken()
@@ -118,7 +125,8 @@ async function mapLimit(items, limit, mapper) {
 }
 
 function pickIndexResult(url, result) {
-  const index = result.inspectionResult?.indexStatusResult || {}
+  const index = result.inspectionResult?.indexStatusResult
+  if (!index) throw new Error('Search Console API response missing indexStatusResult')
   return {
     url,
     verdict: index.verdict || 'UNKNOWN',
@@ -130,17 +138,6 @@ function pickIndexResult(url, result) {
     userCanonical: index.userCanonical || null,
     googleCanonical: index.googleCanonical || null,
   }
-}
-
-function isNeedsAttention(item) {
-  const state = item.coverageState.toLowerCase()
-  if (state === 'submitted and indexed' || state === 'indexed, not submitted in sitemap') return false
-  if (state.includes('currently not indexed')) return true
-  if (state.includes('unknown')) return true
-  if (state.includes('duplicate')) return true
-  if (state.includes('not found') || state.includes('blocked') || state.includes('error')) return true
-  if (item.verdict === 'PASS' && item.coverageState === 'Submitted and indexed') return false
-  return item.verdict !== 'PASS'
 }
 
 function strategyFor(item) {
@@ -163,8 +160,11 @@ async function writeJson(filePath, data) {
 }
 
 async function writeMarkdown(filePath, report) {
-  const rows = report.needsAttention.map((item) => (
+  const attentionRows = report.needsAttention.map((item) => (
     `| ${item.url} | ${item.verdict} | ${item.coverageState} | ${item.pageFetchState} | ${strategyFor(item)} |`
+  ))
+  const errorRows = report.inspectionErrors.map((item) => (
+    `| ${item.url} | ${item.inspectionError.code} | Falha de coleta, NAO evidência de nao-indexacao |`
   ))
   const markdown = [
     '# Google Indexing Audit',
@@ -172,15 +172,23 @@ async function writeMarkdown(filePath, report) {
     `- Generated at: ${report.generatedAt}`,
     `- Site property: ${report.siteUrl}`,
     `- Sitemap: ${report.sitemapUrl}`,
+    `- Audit status: ${report.status}`,
     `- URLs in sitemap: ${report.totalUrls}`,
-    `- URLs inspected: ${report.inspectedUrls}`,
-    `- Needs attention: ${report.needsAttention.length}`,
+    `- Requested URLs: ${report.requestedUrls}`,
+    `- Successfully inspected URLs: ${report.inspectedUrls}`,
+    `- API failures: ${report.failedUrls}`,
+    `- Skipped due to collection block: ${report.skippedUrls}`,
+    `- SEO attention (valid inspections only): ${report.needsAttention.length}`,
     '',
-    '## Needs Attention',
+    '## SEO attention from verified Search Console responses',
     '',
-    '| URL | Verdict | Coverage | Fetch | Strategy |',
-    '|---|---|---|---|---|',
-    ...(rows.length ? rows : ['| none | PASS | Submitted and indexed | OK | Monitorar |']),
+    ...(report.inspectedUrls === 0 ? ['SEM DADO: nenhuma URL foi inspecionada com sucesso.'] : []),
+    ...(report.inspectedUrls > 0 && attentionRows.length === 0 ? ['Nenhum alerta de indexacao entre as URLs inspecionadas com sucesso.'] : []),
+    ...(attentionRows.length ? ['| URL | Verdict | Coverage | Fetch | Strategy |', '|---|---|---|---|---|', ...attentionRows] : []),
+    '',
+    '## Search Console collection failures (not SEO findings)',
+    '',
+    ...(errorRows.length ? ['| URL | Error code | Meaning |', '|---|---|---|', ...errorRows] : ['Nenhum erro de API.']),
     '',
   ].join('\n')
   await fs.mkdir(path.dirname(filePath), { recursive: true })
@@ -196,9 +204,8 @@ async function main() {
   const sitemapUrl = args.sitemap || process.env.GSC_SITEMAP_URL || DEFAULT_SITEMAP
   const sitemapPath = path.resolve(args['sitemap-file'] || 'public/sitemap.xml')
   const outputDir = path.resolve(args.output || `.codex/tmp/indexing-audit-${isoDate()}`)
-  const token = await getAccessToken()
-
   if (command === 'submit-sitemap') {
+    const token = await getAccessToken(SEARCH_CONSOLE_WRITE_SCOPE)
     const submitUrl = `https://www.googleapis.com/webmasters/v3/sites/${encodeURIComponent(siteUrl)}/sitemaps/${encodeURIComponent(sitemapUrl)}`
     await googleJson(submitUrl, { token, quotaProject, method: 'PUT' })
     console.log(`Sitemap submitted: ${sitemapUrl}`)
@@ -211,27 +218,40 @@ async function main() {
   const concurrency = Number(args.concurrency || 5)
   const selectedUrls = urls.slice(0, limit)
 
-  const inspected = await mapLimit(selectedUrls, concurrency, async (url) => {
+  // Report credential failures as collection failures instead of silently exiting.
+  // Never request real authorization when there are no URLs to inspect.
+  let token = null
+  let preflightFailure = null
+  if (selectedUrls.length) {
     try {
-      const result = await inspectUrl({ token, quotaProject, siteUrl, inspectionUrl: url })
-      console.log(`ok: ${url}`)
-      return pickIndexResult(url, result)
+      token = await getAccessToken()
     } catch (error) {
-      console.log(`error: ${url} -> ${error.message}`)
-      return {
-        url,
-        verdict: 'ERROR',
-        coverageState: error.message,
-        indexingState: 'UNKNOWN',
-        pageFetchState: 'UNKNOWN',
-        robotsTxtState: 'UNKNOWN',
-        lastCrawlTime: null,
-        userCanonical: null,
-        googleCanonical: null,
-      }
+      preflightFailure = createInspectionError(selectedUrls[0], error)
+      console.error(`Search Console credential preflight error ${preflightFailure.inspectionError.code}`)
     }
-  })
+  }
 
+  let authorizationBlock = preflightFailure?.inspectionError.code || null
+  const inspected = preflightFailure
+    ? selectedUrls.map((url, index) => index === 0
+      ? preflightFailure
+      : createSkippedInspection(url, authorizationBlock))
+    : await mapLimit(selectedUrls, concurrency, async (url) => {
+      if (authorizationBlock) return createSkippedInspection(url, authorizationBlock)
+      try {
+        const result = await inspectUrl({ token, quotaProject, siteUrl, inspectionUrl: url })
+        console.log(`ok: ${url}`)
+        return pickIndexResult(url, result)
+      } catch (error) {
+        const failed = createInspectionError(url, error)
+        if (isAuthBlockingError(failed.inspectionError.code)) authorizationBlock = failed.inspectionError.code
+        // Do not log raw provider responses, tokens or private identifiers.
+        console.error(`Search Console collection error ${failed.inspectionError.code}: ${url}`)
+        return failed
+      }
+    })
+
+  const stats = summarizeInspectionResults(inspected)
   const report = {
     generatedAt: new Date().toISOString(),
     quotaProject,
@@ -239,15 +259,16 @@ async function main() {
     sitemapUrl,
     sitemapPath: path.relative(root, sitemapPath),
     totalUrls: urls.length,
-    inspectedUrls: inspected.length,
+    requestedUrls: selectedUrls.length,
+    ...stats,
     results: inspected,
-    needsAttention: inspected.filter(isNeedsAttention),
   }
 
   await writeJson(path.join(outputDir, 'indexing-audit.json'), report)
   await writeMarkdown(path.join(outputDir, 'indexing-audit.md'), report)
   console.log(`Indexing audit written: ${outputDir}`)
-  console.log(`Needs attention: ${report.needsAttention.length}/${report.inspectedUrls}`)
+  console.log(`Valid inspections: ${report.inspectedUrls}; SEO alerts: ${report.needsAttention.length}; API failures: ${report.failedUrls}; skipped: ${report.skippedUrls}`)
+  if (report.status !== 'OK') process.exitCode = 1
 }
 
 main().catch((error) => {
