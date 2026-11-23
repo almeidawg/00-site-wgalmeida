@@ -132,10 +132,10 @@ const buildWgEasyVariant = (p, precoEmCentavos) => ({
 	currency_info: { code: "BRL", symbol: "R$", template: "R$ $1" },
 	price_formatted: `R$ ${(p.preco || 0).toFixed(2).replace('.', ',')}`,
 	sale_price_formatted: null,
-	manage_inventory: false,
+	manage_inventory: true,
 	weight: null,
 	options: [],
-	inventory_quantity: 999,
+	inventory_quantity: 0,
 });
 
 // "categoria" e' texto escalar (ex: "Iluminacao"), nao um id formal de
@@ -381,6 +381,10 @@ const getProductPrice = (product) => {
  * @returns {Promise<GetProductsResponse>} Response object with paginated products
  */
 export async function getProducts({ids, offset, limit, order, sort_by, is_hidden, to_date} = {}) {
+	if (import.meta.env.VITE_WG_STORE_OFFERS_ENABLED === "true") {
+		const { loadPublicOffers } = await import("./wgStorePublicApi");
+		return loadPublicOffers();
+	}
 	// ============================================================
 	// SUPABASE: Busca produtos do WG Easy (pricelist_itens)
 	// ============================================================
@@ -432,7 +436,8 @@ export async function getProducts({ids, offset, limit, order, sort_by, is_hidden
 					image: p.imagem_url || null,
 					price_in_cents: precoEmCentavos,
 					currency: "BRL",
-					purchasable: true,
+					// Visivel para consulta, mas nao para cobranca ate checkout e estoque canonicos.
+					purchasable: false,
 					order: index,
 					site_product_selection: null,
 					images: p.imagem_url ? [{ url: p.imagem_url, order: 0, type: 'main' }] : [],
@@ -465,7 +470,8 @@ export async function getProducts({ids, offset, limit, order, sort_by, is_hidden
 				products: produtosFormatados,
 			};
 		} catch (err) {
-			console.error("Erro na busca Supabase, tentando Hostinger:", err);
+			console.error("Erro na busca do catalogo WGEasy:", err);
+			throw new Error("Catalogo WGEasy indisponivel. Fallback de outro fornecedor bloqueado.");
 			// Fallback para Hostinger se Supabase falhar
 		}
 	}
@@ -587,6 +593,10 @@ export async function getProducts({ids, offset, limit, order, sort_by, is_hidden
  * });
  */
 export async function getProduct(id, {field} = {}) {
+	if (import.meta.env.VITE_WG_STORE_OFFERS_ENABLED === "true") {
+		const { loadPublicOffer } = await import("./wgStorePublicApi");
+		return loadPublicOffer(id);
+	}
 	// ============================================================
 	// SUPABASE: Busca produto individual do WG Easy
 	// ============================================================
@@ -631,7 +641,7 @@ export async function getProduct(id, {field} = {}) {
 				price_in_cents: precoEmCentavos,
 				currency: "BRL",
 				status: "active",
-				purchasable: true,
+				purchasable: false,
 				order: 0,
 				site_product_selection: null,
 				images: p.imagem_url ? [{ url: p.imagem_url, order: 0, type: 'main' }] : [],
@@ -653,7 +663,8 @@ export async function getProduct(id, {field} = {}) {
 				external_link: p.link_produto,
 			};
 		} catch (err) {
-			console.error("Erro na busca Supabase produto:", err);
+			console.error("Erro na busca do produto WGEasy:", err);
+			throw new Error("Produto WGEasy indisponivel. Fallback de outro fornecedor bloqueado.");
 			// Fallback para Hostinger
 		}
 	}
@@ -746,7 +757,7 @@ export async function getProductQuantities({fields, product_ids}) {
 		return {
 			variants: product_ids.map((id) => ({
 				id: `variant-${id}`,
-				inventory_quantity: 999,
+				inventory_quantity: 0,
 			})),
 		};
 	}
@@ -801,22 +812,29 @@ export async function getProductQuantities({fields, product_ids}) {
  * // Use categories to filter products by checking product.collections[].collection_id
  */
 export async function getCategories() {
+	if (import.meta.env.VITE_WG_STORE_OFFERS_ENABLED === "true") {
+		const { loadPublicCategories } = await import("./wgStorePublicApi");
+		return loadPublicCategories();
+	}
 	if (USE_SUPABASE) {
 		try {
+			// Categories in WG Easy are scalar values on pricelist_itens, not a separate table.
+			// Apply exactly the same product visibility predicates as getProducts.
 			const { data, error } = await supabase
-				.from("pricelist_categorias")
-				.select("id, nome")
-				.order("nome", { ascending: true });
+				.from("pricelist_itens")
+				.select("categoria")
+				.eq("tipo", "produto")
+				.eq("ativo", true)
+				.order("categoria", { ascending: true });
 
-			if (error) {
-				console.error("Erro ao buscar categorias do Supabase:", error);
-				throw new Error(error.message);
-			}
-
+			if (error) throw new Error(error.message);
+			const names = [...new Set((data || [])
+				.map((row) => typeof row?.categoria === 'string' ? row.categoria.trim() : '')
+				.filter(Boolean))];
 			return {
-				categories: (data || []).map((category) => ({
-					id: category.id,
-					title: category.nome,
+				categories: names.map((name) => ({
+					id: name,
+					title: name,
 					image_url: null,
 					store_id: 'wg-easy',
 					created_at: null,
@@ -824,13 +842,13 @@ export async function getCategories() {
 					deleted_at: null,
 					metadata: null,
 				})),
-				count: (data || []).length,
+				count: names.length,
 			};
 		} catch (err) {
-			console.error("Erro nas categorias Supabase, tentando Hostinger:", err);
+			console.error("Falha ao consultar categorias publicas WGEasy:", err);
+			return { categories: [], count: 0 };
 		}
 	}
-
 	// NOTA (20260829): fallback Hostinger tambem pode estar fora do ar - se
 	// as duas fontes falharem, degrada para categorias vazias em vez de
 	// lancar e derrubar o Promise.all de getProducts()+getCategories() na
@@ -925,6 +943,9 @@ async function getCheckoutLanguage() {
  * });
  */
 export async function initializeCheckout({items, successUrl, cancelUrl, locale}) {
+	if (USE_SUPABASE || import.meta.env.VITE_WG_STORE_OFFERS_ENABLED === 'true') {
+		throw new Error('Checkout bloqueado: catalogo WGEasy e pagamento Hostinger nao reconciliados.');
+	}
 	const url = `${ECOMMERCE_API_URL}/store/${ECOMMERCE_STORE_ID}/checkout`;
 	
 	const checkoutInitPromise = fetch(url, {

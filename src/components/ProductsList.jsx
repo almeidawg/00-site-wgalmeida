@@ -13,6 +13,7 @@ import {
 import { useCart } from '@/hooks/useCart';
 import { useToast } from '@/components/ui/use-toast';
 import { useTranslation } from 'react-i18next';
+import { getSafeProductDetailPath } from '@/utils/productDetailPath';
 
 const placeholderImage = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjRTJFMzhA⊂Lz4KICA8dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4IiBmaWxsPSIjY2FjZWNlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+Sem Imagem</textPgo8L3N2Zz4K";
 
@@ -65,7 +66,7 @@ const getProductInventory = (product) => {
 };
 
 const isProductAvailable = (product) =>
-  product?.purchasable !== false && getProductInventory(product) > 0;
+  (product?.mode === 'affiliate' && !!product?.external_link) || (product?.purchasable !== false && getProductInventory(product) > 0);
 
 const getProductPriceValue = (product) => {
   const variant = product?.variants?.[0];
@@ -105,6 +106,7 @@ const ProductCard = ({ product, index, categoryLabel }) => {
   const displayPrice = useMemo(() => hasSale ? displayVariant.sale_price_formatted : displayVariant.price_formatted, [displayVariant, hasSale]);
   const originalPrice = useMemo(() => hasSale ? displayVariant.price_formatted : null, [displayVariant, hasSale]);
   const available = useMemo(() => isProductAvailable(product), [product]);
+  const isAffiliate = product.mode === 'affiliate' && !!product.external_link;
   const handleAddToCart = useCallback(async (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -118,7 +120,7 @@ const ProductCard = ({ product, index, categoryLabel }) => {
     }
 
     if (product.variants.length > 1) {
-      navigate(`/product/${product.id}`);
+      navigate(getSafeProductDetailPath(product.id));
       return;
     }
 
@@ -145,7 +147,7 @@ const ProductCard = ({ product, index, categoryLabel }) => {
       transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
       className="h-full"
     >
-      <Link to={`/product/${product.id}`} className="block h-full">
+      <Link to={getSafeProductDetailPath(product.id)} className="block h-full">
         <div className="group relative flex h-full min-h-[31rem] flex-col overflow-hidden rounded-[26px] border border-black/[0.06] bg-white transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_24px_55px_rgba(17,17,17,0.12)]">
           {/* Borda colorida no topo - aparece no hover */}
           <div className={`absolute top-0 left-0 right-0 h-1 ${cardStyles.line} transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 z-10`} />
@@ -196,7 +198,7 @@ const ProductCard = ({ product, index, categoryLabel }) => {
                 available ? 'bg-[#F3F8F4] text-[#4E7D66]' : 'bg-[#FBF1F1] text-[#A06A68]'
               }`}>
                 {available ? <CheckCircle2 className="h-[11px] w-[11px]" /> : null}
-                {available ? 'Disponível' : 'Sem estoque'}
+                {isAffiliate ? 'Oferta do fornecedor' : available ? 'Disponível' : 'Compra indisponível'}
               </span>
             </div>
 
@@ -214,13 +216,18 @@ const ProductCard = ({ product, index, categoryLabel }) => {
 
             {/* Botão */}
             <Button
-              onClick={handleAddToCart}
-              disabled={!available}
+              onClick={isAffiliate ? (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                window.open(product.external_link, '_blank', 'noopener,noreferrer');
+              } : handleAddToCart}
+              disabled={!available && !isAffiliate}
               className={`w-full rounded-full ${cardStyles.button} text-white transition-all duration-300 group-hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50`}
             >
               <ShoppingCart className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
-              {available ? t('storePage.productFallback.add') : 'Indisponível'}
+              {isAffiliate ? 'Ver oferta no fornecedor' : available ? t('storePage.productFallback.add') : 'Indisponível'}
             </Button>
+            {isAffiliate && <p className="mt-2 text-xs text-gray-600">Link de afiliado. A WG pode receber comissão pela indicação.</p>}
           </div>
 
           {/* Borda inferior colorida - aparece no hover */}

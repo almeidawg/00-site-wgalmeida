@@ -87,7 +87,16 @@ export async function requireAdmin(req, res) {
     };
   }
 
-  const user = await authResp.json();
+  let user;
+  try {
+    user = await authResp.json();
+  } catch {
+    console.error('Admin auth user response invalid');
+    return {
+      ok: false,
+      response: jsonError(res, 503, 'Auth service unavailable'),
+    };
+  }
   let profile;
   try {
     profile = await fetchProfile(user?.id);
