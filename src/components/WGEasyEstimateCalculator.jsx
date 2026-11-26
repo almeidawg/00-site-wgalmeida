@@ -30,7 +30,7 @@ export default function WGEasyEstimateCalculator() {
     <form onSubmit={calculate} className="rounded-2xl border border-wg-orange/30 bg-white p-6 shadow-sm">
       <h2 className="text-2xl font-inter font-light text-wg-black">Calculadora pública de referência</h2>
       <p className="mt-2 text-wg-gray">
-        A estimativa consulta a base pública versionada do ICCRI e do WG Easy. Ela não substitui orçamento técnico.
+        A estimativa usa a função de custo do ICCRI e do WG Easy (reforma, por metragem total). Ela não substitui orçamento técnico.
       </p>
       <div className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-3">
         <label className="flex flex-col gap-2 text-sm text-wg-gray">
@@ -42,10 +42,10 @@ export default function WGEasyEstimateCalculator() {
           Padrão
           <select value={standard} onChange={(e) => setStandard(e.target.value)}
             className="rounded-lg border border-gray-300 px-3 py-2 text-base text-wg-black">
-            <option value="basico">Básico</option>
             <option value="essencial">Essencial</option>
             <option value="equilibrado">Equilibrado</option>
             <option value="superior">Superior</option>
+            <option value="exclusivo">Exclusivo</option>
           </select>
         </label>
         <label className="flex flex-col gap-2 text-sm text-wg-gray">
@@ -70,7 +70,7 @@ export default function WGEasyEstimateCalculator() {
               {money(result.total.minimum)} a {money(result.total.maximum)}
             </p>
             <p className="mt-2 text-sm text-white/70">
-              Faixa provável: {money(result.total.likely)}. Referência: {result.referenceDate}.
+              Faixa provável: {money(result.total.likely)}. Consulta em {result.consultedAt}.
             </p>
             <p className="mt-2 text-xs text-white/60">{result.disclaimer}</p>
           </>
